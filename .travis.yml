@@ -1,3 +1,4 @@
-language: java
+language: python
 script: 
-    - mvn integration-test
+    cd luomuspyha
+    python manage.py test
