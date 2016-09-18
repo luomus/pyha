@@ -13,17 +13,15 @@ def index(request):
 	#{}, RequestContext(request))
 	context = {}
 	return render(request, 'pyha/index.html', context)
-def login(request):
-    
-	if request.method == 'POST':
-		return _process_auth_response(request)
-
-
-	else:
-		return redirect(login)
+def login(request):      
+	'''if request.method == 'POST':'''
+	return _process_auth_response(request)
+	'''else:
+                return HttpResponseRedirect(login)'''
 
 	#render(request, 'pyha/index.html',
 	#{}, RequestContext(request))
+	print("moi")
 	'''context = {}
 	return render(request, 'pyha/index.html', context)'''
 
@@ -31,8 +29,8 @@ def login(request):
 
 def _process_auth_response(request):
     if not "token" in request.POST:
-        return redirect(settings.LAJIAUTH_URL+'login?target='+TARGET+'&next')
+        return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
     if authenticate(request, request.POST["token"]):
-        return redirect(index)
+        return HttpResponseRedirect(index)
     else:
-        return redirect(settings.LAJIAUTH_URL+'login?target='+TARGET+'&next')
+        return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
