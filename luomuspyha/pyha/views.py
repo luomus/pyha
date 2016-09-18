@@ -40,3 +40,8 @@ def _process_auth_response(request):
         return HttpResponseRedirect('pyha/index')
     else:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
+
+def receiver(request):
+        print(request)
+        return None:
+	
