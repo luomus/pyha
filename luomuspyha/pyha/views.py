@@ -11,22 +11,14 @@ from pyha.login import log_out
 
 @require_http_methods(["GET"])
 def index(request):
-	#render(request, 'pyha/index.html',
-	#{}, RequestContext(request))
 	context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "pyhätön salaista tekstiä juuri sinulle"}
 	if not "user_id" in request.session:
                 return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next&allowUnapproved=true')
 	return render(request, 'pyha/index.html', context)
-def login(request):      
-	'''if request.method == 'POST':'''
-	return _process_auth_response(request)
-	'''else:
-                return HttpResponseRedirect(login)'''
 
-	#render(request, 'pyha/index.html',
-	#{}, RequestContext(request))
-	'''context = {}
-	return render(request, 'pyha/index.html', context)'''
+def login(request):      
+	return _process_auth_response(request)
+
 def logout(request):
         context = {"title": "Kirjaudu ulos", "message": "Kirjauduit ulos onnistuneesti"}
         log_out(request)
@@ -42,6 +34,7 @@ def _process_auth_response(request):
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
 
 def receiver(request):
+        #tässä käsitellään putkeen tuotu json
         print(request)
-        return None:
+        return HttpResponse('')
 	
