@@ -14,11 +14,6 @@ def _get_authentication_info(request, token):
        content = json.loads(response.content.decode('utf-8'))
        return content
 
-      ''' if "MA.admin" in content["user"]["roles"] or "MA.satelliteDataManagementUser" in content["user"]["roles"]:
-           return content
-       else:
-           return None
-'''
 def log_in(request, content):
    if not "user_id" in request.session:
        request.session["user_id"] = content["user"]["qname"]
@@ -46,7 +41,6 @@ def authenticate(request, token):
    :return: true if user is authenticated succesfully
    '''
    result = _get_authentication_info(request, token)
-
    if result is None:
        return False
    else:

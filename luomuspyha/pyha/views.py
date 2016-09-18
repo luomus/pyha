@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
+from pyha.login import authenticate
 
 
 @require_http_methods(["GET"])
@@ -21,7 +22,6 @@ def login(request):
 
 	#render(request, 'pyha/index.html',
 	#{}, RequestContext(request))
-	print("moi")
 	'''context = {}
 	return render(request, 'pyha/index.html', context)'''
 
@@ -29,8 +29,8 @@ def login(request):
 
 def _process_auth_response(request):
     if not "token" in request.POST:
-        return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
+        return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next&allowUnapproved=true ')
     if authenticate(request, request.POST["token"]):
-        return HttpResponseRedirect(index)
+        return HttpResponseRedirect('pyha/site')
     else:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')

@@ -25,6 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = secrets.SECRET_KEY_1
 LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/' 
 TARGET='KE.541'
+MOCK_AUTHENTICATION="YES"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
