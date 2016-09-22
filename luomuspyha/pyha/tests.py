@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+﻿from django.test import TestCase, Client
 from django.conf import settings
 import unittest
 
@@ -17,6 +17,7 @@ class LoggedInTests(unittest.TestCase):
 		session = self.client.session
 		session['user_name'] = 'paisti'
 		session['user_id'] = 10
+		session['user_email'] = 'ex.apmle@example.com'
 		session['token'] = 'asd213'
 		session.save()
 
