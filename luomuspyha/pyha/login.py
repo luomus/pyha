@@ -28,7 +28,6 @@ def log_out(request):
    :param request:
    :return: true if user was succesfully logged out
    '''
-   print('moi')
    if "user_id" in request.session:     
        del request.session["user_id"]      
        del request.session["user_name"]
