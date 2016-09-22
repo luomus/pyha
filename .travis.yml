@@ -1,3 +1,3 @@
 language: python
 script: 
-    ./runtests.sh
+    bash ./runtests.sh
