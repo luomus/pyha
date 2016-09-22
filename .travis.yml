@@ -1,4 +1,3 @@
 language: python
 script: 
-    cd luomuspyha
-    python manage.py test
+    script.sh
