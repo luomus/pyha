@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+﻿from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context, RequestContext
 from django.core.urlresolvers import reverse
@@ -11,7 +11,7 @@ from pyha.login import log_out
 
 @require_http_methods(["GET"])
 def index(request):
-	context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "pyhaton salaista tekstia juuri sinulle", "target_header":"Valitsemasi target: ", "targets": ['linnut','nisakkaat'], "collection_header":"Valitsemasi aineisto: ", "collections": ['ain1', 'ain2', 'ain3']}
+	context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "Kaytat sahkopostiosoitetta: " + request.session["user_email"], "target_header":"Valitsemasi rajaukset: ", "targets": ['linnut','nisakkaat'], "collection_header":"Tarvitsemasi aineistot: ", "collections": ['ain1', 'ain2', 'ain3']}
 	if not "user_id" in request.session:
                 return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next&allowUnapproved=true')
 	return render(request, 'pyha/index.html', context)

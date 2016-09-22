@@ -1,4 +1,4 @@
-import requests
+﻿import requests
 from django.shortcuts import redirect
 from django.conf import settings
 import json
@@ -13,11 +13,12 @@ def _get_authentication_info(request, token):
    else:
        content = json.loads(response.content.decode('utf-8'))
        return content
-
+		
 def log_in(request, content):
    if not "user_id" in request.session:
        request.session["user_id"] = content["user"]["qname"]
        request.session["user_name"] = content["user"]["name"]
+       request.session["user_email"] = content["user"]["email"]
        return True
    return False
 
@@ -31,6 +32,7 @@ def log_out(request):
    if "user_id" in request.session:     
        del request.session["user_id"]      
        del request.session["user_name"]
+       del request.session["user_email"]
        return True
    return False
 
