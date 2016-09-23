@@ -25,5 +25,5 @@ class Request(models.Model):
 	approximateMatches = models.IntegerField()
 	filter_list = []
 	collection_list = []
-	request_status
+	request_status = []
 	
