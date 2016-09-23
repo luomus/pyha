@@ -3,7 +3,7 @@
 from django.db import models
 
 # Create your models here.
-Class Collection(models.Model):
+class Collection(models.Model):
 	collection_name = models.CharField(max_length=200)
 	collection_id = models.CharField(max_length=100)
 	collection_count = models.IntegerField()
@@ -13,12 +13,12 @@ Class Collection(models.Model):
 	def __str__(self):
 		return self.collection_name
 
-Class Filter(models.Model):
+class Filter(models.Model):
 	target_list = []
 	time_list = []
 	place_list = []
 
-Class Request(models.Model):
+class Request(models.Model):
 	request_id = models.CharField(max_length=100)
 	request_source = models.CharField(max_length=10)
 	request_email = models.CharField(max_length=100)
