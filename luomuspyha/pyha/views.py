@@ -44,10 +44,8 @@ def receiver(request):
         if settings.MOCK_JSON:
                 body = request.POST['JSON']     
         else:
-                body = request.body()                      
-        jsond = json.loads(body)
-        print jsond
-        store(jsond)
+                body = request.body          
+        store(body)
         return HttpResponse('')
 
    
