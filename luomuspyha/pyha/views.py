@@ -8,6 +8,7 @@ from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from pyha.login import authenticate
 from pyha.login import log_out
+from pyha.warehouse import store
 
 @require_http_methods(["GET"])
 def index(request):	
@@ -17,7 +18,7 @@ def index(request):
         return render(request, 'pyha/index.html', context)
 
 def login(request):      
-	return _process_auth_response(request)
+        return _process_auth_response(request)
 
 def logout(request):
         if not logged_in(request):
@@ -32,21 +33,23 @@ def logged_in(request):
         return False
 
 def _process_auth_response(request):
-    if not "token" in request.POST:
-        return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
-    if authenticate(request, request.POST["token"]):
-        return HttpResponseRedirect('pyha/index')
-    else:
-        return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
+        if not "token" in request.POST:
+            return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
+        if authenticate(request, request.POST["token"]):
+            return HttpResponseRedirect('pyha/index')
+        else:
+            return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
 
-def receiver(request):
-
-        print(request)
-        #data = json.loads(request.body)
-        #filters = data['filters']
-        #collections = data ['collections']
+def receiver(request):        
+        if settings.MOCK_JSON:
+                body = request.POST['JSON']     
+        else:
+                body = request.body()                      
+        jsond = json.loads(body)
+        print jsond
+        store(jsond)
         return HttpResponse('')
+
    
 def jsonmock(request):
          return render(request, 'pyha/mockjson.html')
-	

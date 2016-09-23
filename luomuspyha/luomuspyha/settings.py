@@ -25,6 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = secrets.SECRET_KEY_1
 LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/' 
 TARGET='KE.541'
+MOCK_JSON=True
 #SECRET_KEY = os.environ['LUOMUS_SECRET_KEY']
 #LAJIAUTH_URL = os.environ['LUOMUS_LAJIAUTH_URL']
 #TARGET = os.environ['LUOMUS_TARGET']
