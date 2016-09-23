@@ -1,4 +1,5 @@
-﻿from django.shortcuts import render, get_object_or_404
+﻿import json
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context, RequestContext
 from django.core.urlresolvers import reverse
@@ -7,7 +8,6 @@ from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from pyha.login import authenticate
 from pyha.login import log_out
-
 
 @require_http_methods(["GET"])
 def index(request):	
@@ -46,4 +46,7 @@ def receiver(request):
         #filters = data['filters']
         #collections = data ['collections']
         return HttpResponse('')
+   
+def jsonmock(request):
+         return render(request, 'pyha/mockjson.html')
 	
