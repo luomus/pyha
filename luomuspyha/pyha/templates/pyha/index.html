@@ -164,16 +164,16 @@
       </div>
       <p class="lead">{{ message }}
     <!-- tähän tulee Eskon lähettämä esimerkkilista -->
-    <p class="lead">{{target_header}}
-    {% for target in targets %}
-    {{ target }},
-    {% endfor %}
-    <p class="lead">{{collection_header}}
+    	    <p class="lead">
+    {% if requests %}
 			<ul>
-			{% for collection in collections %}
-				<li>{{ collection }}</li>
+			{% for request in requests %}
+				<li>{{ request.id  }}</li>
 			{% endfor %}
 			</ul>
+	{% else %}
+		<strong> Kannassa ei ole pyyntoja.</strong>
+	{% endif %}
     </div>
     <div class="col-sm-4 col-lg-3 side-bar">
 

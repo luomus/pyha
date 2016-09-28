@@ -9,12 +9,15 @@ from django.conf import settings
 from pyha.login import authenticate
 from pyha.login import log_out
 from pyha.warehouse import store
+from pyha.models import Collection, Request
 
 @require_http_methods(["GET"])
 def index(request):	
         if not logged_in(request):
                 return _process_auth_response(request)
-        context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "Kaytat sahkopostiosoitetta: " + request.session["user_email"], "target_header":"Valitsemasi rajaukset: ", "targets": ['linnut','nisakkaat'], "collection_header":"Tarvitsemasi aineistot: ", "collections": ['ain1', 'ain2', 'ain3']}
+        userEmail = request.session["user_email"]
+        request_list = Request.requests.filter(email=userEmail)
+        context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "Kaytat sahkopostiosoitetta: " + request.session["user_email"], "requests": request_list }
         return render(request, 'pyha/index.html', context)
 
 def login(request):      

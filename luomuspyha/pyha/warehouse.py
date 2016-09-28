@@ -10,9 +10,10 @@ from.models import Collection
 
 
 def store(jsond):
-		checkJson(jsond)
+		if not checkJson(jsond):
+			return
 		x = json.loads(jsond, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
-		if not None == Request.objects.filter(id=x.id).exists():
+		if Request.requests.filter(id=x.id).exists():
 			return
 		req = Request(x.id, datetime.now(), x.source, x.email, x.approximateMatches, x.filters)
 		print(str(x.id) + x.source + x.email + str(x.approximateMatches) + str(x.filters))
@@ -26,15 +27,13 @@ def store(jsond):
 			co.save()
 			print(co)
 			print(str(co.id))
-		print("jee")
 
 def checkJson(jsond):
 		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":', '"collections":',] 
 		if all(x in jsond for x in wantedFields):
-			print 'missing fields'
-			return false
-		
-		
+			return True
+		print 'missing fields'
+		return False
 		
 		
 		
