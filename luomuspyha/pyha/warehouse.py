@@ -15,8 +15,9 @@ def store(jsond):
 		x = json.loads(jsond, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
 		if Request.requests.filter(id=x.id).exists():
 			return
-		req = Request(x.id, datetime.now(), x.source, x.email, x.approximateMatches, x.filters)
-		print(str(x.id) + x.source + x.email + str(x.approximateMatches) + str(x.filters))
+		order = Request.requests.filter(email=x.email).count() + 1
+		req = Request(x.id, order, datetime.now(), x.source, x.email, x.approximateMatches, x.filters)
+		print(str(order))
 		req.save()
 		for i in x.collections:
 			co = Collection()

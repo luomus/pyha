@@ -21,12 +21,14 @@ class Collection(models.Model):
 
 class Request(models.Model):
 	id = models.CharField(max_length=100, primary_key=True)
+	order = models.IntegerField()
 	date = models.DateTimeField()
 	source = models.CharField(max_length=10)
 	email = models.CharField(max_length=100)
 	approximateMatches = models.IntegerField()
 	filter_list = models.CharField(max_length=1000)
 	requests = models.Manager()
+	
 
 	def __str__(self):
 		return self.id
