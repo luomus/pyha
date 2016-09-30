@@ -63,6 +63,6 @@ def show_request(request):
 		userEmail = request.session["user_email"]
 		UserRequest = Request.requests.filter(order=requestNum, email=userEmail)
 		#x = json.loads(UserRequest[0].filter_list, object_hook=lambda d: namedtuple('X', d.keys())(*d.values())) 
-		context = {"title": UserRequest[0].filter_list}
+		context = {"title": "asd"}
 		print str(os.path.basename(os.path.normpath(request.path)))
 		return render(request, 'pyha/index.html', context)
