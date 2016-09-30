@@ -9,7 +9,7 @@ class NotLoggedInTests(unittest.TestCase):
 	def test_not_logged_in_gets_redirected(self):
 		response = self.client.get('/index/')
 		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
+		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=/pyha/')
 
 class LoggedInTests(unittest.TestCase):
 	def setUp(self):
@@ -29,4 +29,4 @@ class LoggedInTests(unittest.TestCase):
 		self.client.post('/logout/')
 		response = self.client.get('/index/')
 		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next')
+		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=/pyha/')
