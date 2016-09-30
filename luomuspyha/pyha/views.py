@@ -22,11 +22,11 @@ def index(request):
 		return render(request, 'pyha/index.html', context)
 
 def login(request):      
-		return _process_auth_response(request)
+		return _process_auth_response(request, "")
 
 def logout(request):
 		if not logged_in(request):
-			return _process_auth_response(request)
+			return _process_auth_response(request, "")
 		context = {"title": "Kirjaudu ulos", "message": "Kirjauduit ulos onnistuneesti"}
 		log_out(request)
 		return render(request, 'pyha/index.html', context)
