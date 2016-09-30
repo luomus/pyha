@@ -16,11 +16,8 @@ def store(jsond):
 		if Request.requests.filter(id=x.id).exists():
 			return
 		order = Request.requests.filter(email=x.email).count() + 1
-		b = json.loads(jsond, makefiltersblob(x), object_hook=lambda d: Namespace(**d))
 		req = Request(x.id, order, datetime.now(), x.source, x.email, x.approximateMatches, makefiltersblob(x))
 		req.save()
-		b = json.loads(makefiltersblob(x), object_hook=lambda d: Namespace(**d))
-		print getattr(b, vars(b).keys()[1])[0]
 		for i in x.collections:
 			co = Collection()
 			co.name = ""

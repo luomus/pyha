@@ -57,18 +57,16 @@ def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
 		
 def show_request(request):
-	
 		if not logged_in(request):
 			return _process_auth_response(request, request.path[1:])
+
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		userEmail = request.session["user_email"]
-		#filter_list = Request.get(filter_list)
-		UserRequest = Request.requests.filter(order=requestNum, email=userEmail)
-		x = json.loads(UserRequest[0].filter_list, object_hook=lambda d: Namespace(**d))
+		userRequest = Request.requests.get(order=requestNum, email=userEmail)
+		x = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		a = range(len(vars(x).keys()))
 		for i, b in enumerate(vars(x).keys()):
 			tup = (str(b), getattr(x, b))
 			a[i] = tup
-		context = {"title": UserRequest[0].filter_list, "filters": a }
-		print str(os.path.basename(os.path.normpath(request.path)))
+		context = {"title": userRequest.filter_list, "filters": a }
 		return render(request, 'pyha/form.html', context)
