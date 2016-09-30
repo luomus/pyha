@@ -1,26 +1,43 @@
-﻿<!DOCTYPE html>
-<html lang="en"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="http://front.laji-test.luomus.fi/favicon.ico">
+{% load staticfiles %}
 
-  <title>{{ title }}</title>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<title>{% block title %} {{ title }} {% endblock title %}</title>
+	
+	{% block head_meta %}
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="http://front.laji-test.luomus.fi/favicon.ico">
+	{% endblock head_meta %}
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	{% block head_css %}
+	
+		{% block head_css_site %}
+		
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		
+		{% endblock head_css_site %}
+		
 	<style media="screen">
+		
+		
+		
   /* Sticky footer styles
   -------------------------------------------------- */
   html {
@@ -118,6 +135,8 @@
     }
   }
   </style>
+  
+  {% endblock head_css %}
 
 </head>
 
@@ -133,12 +152,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">LAJI.FI</a>form action="script.php"
+        <a class="navbar-brand" href="#">LAJI.FI</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a onclick="showWin();">Home</a></li>
-		  <li><a href="../logout">Uloskirjaudu</a> </li>
+          <li class="active"><a href="/pyha/">Home</a></li>
+		  <li><a href="/pyha/logout/">Uloskirjaudu</a> </li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
           <li class="dropdown">
@@ -157,47 +176,54 @@
       </div><!--/.nav-collapse -->
     </div>
   </nav>
+  
+  
   <!-- Begin page content -->
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div class="col-sm-8 col-lg-9">
+		
+	 {% block left_column_content %}
+	 
       <div class="page-header">
+		  
         <h1>{{ title }}</h1>
+        
       </div>
+      
       <p class="lead">{{ message }}
+      
     <!-- tähän tulee Eskon lähettämä esimerkkilista -->
     	    <p class="lead">
-    {% if filters %}
+				
+    {% if requests %}  
 			<ul>
-			{% for filter in filters %}
-				<li>{{ filter.0 }}: 
-				{% for f in filter.1%}
-					{{ f }}
-				{% endfor %}
-				</li>
+			{% for request in requests %}
+				<li><a href="pyha/request/{{request.order}}">{{request.id}}</a></li>
 			{% endfor %}
 			</ul>
 	{% else %}
+	
 		<strong> Kannassa ei ole pyyntoja.</strong>
+		
 	{% endif %}
+	
+	{% endblock left_column_content %}
+	
     </div>
-
+    
     <div class="col-sm-4 col-lg-3 side-bar">
-
+		{% block right_column_content %}{% endblock right_column_content%}
     </div>
   </div>
 
+
+
   <footer class="footer">
     <div class="container">
+	  {% block footer_content%}
       <p class="text-muted">Place sticky footer content here.</p>
+      {% endblock footer_content%}
     </div>
   </footer>
-  
-function(){if(win&&!win.closed){win.focus();}} 
-</script>  
 
-
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </body></html>
