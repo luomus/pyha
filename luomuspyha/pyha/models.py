@@ -28,7 +28,6 @@ class Request(models.Model):
 	approximateMatches = models.IntegerField()
 	filter_list = models.CharField(max_length=1000)
 	requests = models.Manager()
-	
 
 	def __str__(self):
 		return self.id

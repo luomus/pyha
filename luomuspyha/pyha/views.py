@@ -61,7 +61,8 @@ def show_request(request):
 			return _process_auth_response(request, request.path[1:])
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		userEmail = request.session["user_email"]
-		UserRequest = Request.requests.filter(order=requestNum, email=userEmail) 
-		context = {"title": "hohoo"}
+		UserRequest = Request.requests.filter(order=requestNum, email=userEmail)
+		#x = json.loads(UserRequest[0].filter_list, object_hook=lambda d: namedtuple('X', d.keys())(*d.values())) 
+		context = {"title": UserRequest[0].filter_list}
 		print str(os.path.basename(os.path.normpath(request.path)))
 		return render(request, 'pyha/index.html', context)
