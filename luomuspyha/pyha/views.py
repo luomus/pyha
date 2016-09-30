@@ -1,5 +1,6 @@
 ﻿import json
 import os
+from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context, RequestContext
@@ -61,8 +62,13 @@ def show_request(request):
 			return _process_auth_response(request, request.path[1:])
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		userEmail = request.session["user_email"]
+		#filter_list = Request.get(filter_list)
 		UserRequest = Request.requests.filter(order=requestNum, email=userEmail)
-		#x = json.loads(UserRequest[0].filter_list, object_hook=lambda d: namedtuple('X', d.keys())(*d.values())) 
-		context = {"title": UserRequest[0].filter_list}
+		x = json.loads(UserRequest[0].filter_list, object_hook=lambda d: Namespace(**d))
+		a = range(len(vars(x).keys()))
+		for i, b in enumerate(vars(x).keys()):
+			tup = (str(b), getattr(x, b))
+			a[i] = tup
+		context = {"title": UserRequest[0].filter_list, "filters": a }
 		print str(os.path.basename(os.path.normpath(request.path)))
-		return render(request, 'pyha/index.html', context)
+		return render(request, 'pyha/form.html', context)

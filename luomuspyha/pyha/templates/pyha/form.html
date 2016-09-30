@@ -165,10 +165,14 @@
       <p class="lead">{{ message }}
     <!-- tähän tulee Eskon lähettämä esimerkkilista -->
     	    <p class="lead">
-    {% if requests %}
+    {% if filters %}
 			<ul>
-			{% for request in requests %}
-				<li>{{ request.id  }}</li>
+			{% for filter in filters %}
+				<li>{{ filter.0 }}: 
+				{% for f in filter.1%}
+					{{ f }}
+				{% endfor %}
+				</li>
 			{% endfor %}
 			</ul>
 	{% else %}

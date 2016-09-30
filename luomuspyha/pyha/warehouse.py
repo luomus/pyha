@@ -16,7 +16,7 @@ def store(jsond):
 		if Request.requests.filter(id=x.id).exists():
 			return
 		order = Request.requests.filter(email=x.email).count() + 1
-		b = json.loads(makefiltersblob(x), object_hook=lambda d: Namespace(**d))
+		b = json.loads(jsond, makefiltersblob(x), object_hook=lambda d: Namespace(**d))
 		req = Request(x.id, order, datetime.now(), x.source, x.email, x.approximateMatches, makefiltersblob(x))
 		req.save()
 		for i in x.collections:
@@ -40,10 +40,13 @@ def makefiltersblob(x):
 			if not(i == 0):
 					blob += ","
 			blob += '"' + str(vars(x.filters[i]).keys()[0]) + '":['
-			for l,text in enumerate(getattr(x.filters[i], vars(x.filters[i]).keys()[0])):
-				if not(l == 0):
-					blob += ","
-				blob += '"'+str(text)+'"'
+			if isinstance(getattr(x.filters[i], vars(x.filters[i]).keys()[0]), (list)):
+				for l,text in enumerate(getattr(x.filters[i], vars(x.filters[i]).keys()[0])):
+					if not(l == 0):
+						blob += ","
+					blob += '"'+str(text)+'"'
+			else:
+				blob += '"'+str(getattr(x.filters[i], vars(x.filters[i]).keys()[0]))+'"'
 			blob += "]"
 		blob += "}"
 		return blob
