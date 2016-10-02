@@ -3,8 +3,7 @@ from django.conf import settings
 from pyha.models import Collection, Request
 import warehouse
 import unittest
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+
 
 class NotLoggedInTests(TestCase):
 	def setUp(self):
@@ -62,7 +61,6 @@ class RequestTesting(TestCase):
 	def test_request_with_missing_attributes_is_not_saved(self):
 		warehouse.store(JSON_MOCK3)
 		response = self.client.get('/pyha/')
-		print(Request.requests.get(order=1).date)
 		self.assertEqual(len(Request.requests.all()), 1)
 		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
 
