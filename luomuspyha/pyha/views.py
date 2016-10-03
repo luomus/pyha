@@ -18,7 +18,7 @@ def index(request):
 			return _process_auth_response(request,'/pyha/')
 		userEmail = request.session["user_email"]
 		request_list = Request.requests.filter(email=userEmail)
-		context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "Kaytat sahkopostiosoitetta: " + request.session["user_email"], "requests": request_list }
+		context = {"title": "Tervetuloa " + request.session["user_name"] , "message": u"Käytät sahkopostiosoitetta: " + request.session["user_email"], "requests": request_list }
 		return render(request, 'pyha/index.html', context)
 
 def login(request):      
@@ -68,5 +68,5 @@ def show_request(request):
 		for i, b in enumerate(vars(x).keys()):
 			tup = (str(b), getattr(x, b))
 			a[i] = tup
-		context = {"title": userRequest.filter_list, "filters": a }
+		context = {"title": userRequest.id, "filters": a }
 		return render(request, 'pyha/form.html', context)
