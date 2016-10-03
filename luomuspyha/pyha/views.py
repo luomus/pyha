@@ -71,5 +71,5 @@ def show_request(request):
 		for i, b in enumerate(vars(x).keys()):
 			tup = (unicode(b), getattr(x, b))
 			a[i] = tup
-		context = {"title": userRequest.filter_list, "filters": a , "collections": contents}
+		context = {"title": userRequest.filter_list, "filters": a }
 		return render(request, 'pyha/form.html', context)
