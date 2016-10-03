@@ -1,5 +1,7 @@
 ﻿import json
 import os
+import urllib2
+from luomuspyha import secrets
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -15,14 +17,14 @@ from pyha.models import Collection, Request
 
 def index(request):	
 		if not logged_in(request):
-			return _process_auth_response(request,'/pyha/')
+			return _process_auth_response(request,'pyha/')
 		userEmail = request.session["user_email"]
 		request_list = Request.requests.filter(email=userEmail)
-		context = {"title": "Tervetuloa " + request.session["user_name"] , "message": "Kaytat sahkopostiosoitetta: " + request.session["user_email"], "requests": request_list }
+		context = {"title": "Tervetuloa " + request.session["user_name"] , "message": u"Käytät sähköpostiosoitetta: " + request.session["user_email"], "requests": request_list }
 		return render(request, 'pyha/index.html', context)
 
 def login(request):      
-		return _process_auth_response(request, '/pyha/')
+		return _process_auth_response(request, 'pyha/')
 
 def logout(request):
 		if not logged_in(request):
@@ -40,7 +42,8 @@ def _process_auth_response(request, indexpath):
 		if not "token" in request.POST:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 		if authenticate(request, request.POST["token"]):
-			return HttpResponseRedirect(indexpath)
+			print indexpath
+			return HttpResponseRedirect('/'+indexpath)
 		else:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 
@@ -59,14 +62,18 @@ def jsonmock(request):
 def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, request.path[1:])
-
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		userEmail = request.session["user_email"]
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
 		x = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+		collectionlist = Collection.objects.filter(request=userRequest.id)
+		contents = ""
+		for c in collectionlist:
+			collectiontoken = os.path.basename(os.path.normpath(c.collection_id))
+			contents += urllib2.urlopen("https://api.laji.fi/v0/collections/"+collectiontoken+"?lang=fi&access_token="+secrets.TOKEN).read()
 		a = range(len(vars(x).keys()))
 		for i, b in enumerate(vars(x).keys()):
-			tup = (str(b), getattr(x, b))
+			tup = (unicode(b), getattr(x, b))
 			a[i] = tup
-		context = {"title": userRequest.filter_list, "filters": a }
+		context = {"title": userRequest.filter_list, "filters": a , "collections": contents}
 		return render(request, 'pyha/form.html', context)
