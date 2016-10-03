@@ -67,10 +67,6 @@ def show_request(request):
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
 		x = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionlist = Collection.objects.filter(request=userRequest.id)
-		contents = ""
-		for c in collectionlist:
-			collectiontoken = os.path.basename(os.path.normpath(c.collection_id))
-			contents += urllib2.urlopen("https://api.laji.fi/v0/collections/"+collectiontoken+"?lang=fi&access_token="+secrets.TOKEN).read()
 		a = range(len(vars(x).keys()))
 		for i, b in enumerate(vars(x).keys()):
 			tup = (unicode(b), getattr(x, b))
