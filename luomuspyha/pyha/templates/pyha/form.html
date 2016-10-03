@@ -161,11 +161,12 @@
     <div class="container-fluid">
     <div class="col-sm-8 col-lg-9">
       <div class="page-header">
-        <h1>{{ title }}</h1>
+        <h1>Pyyntö {{ title }}</h1>
       </div>
       <p class="lead">{{ message }}
     <!-- tähän tulee Eskon lähettämä esimerkkilista -->
     	    <p class="lead">
+				<h2>Suodattimet:</h2>
     {% if filters %}
 			<ul>
 			{% for filter in filters %}
@@ -177,7 +178,17 @@
 			{% endfor %}
 			</ul>
 	{% else %}
-		<strong> Kannassa ei ole pyyntoja.</strong>
+		<strong> Kannassa ei ole suodattimia tälle pyynnölle.</strong>
+	{% endif %}
+	{% if collections %}
+	<h2>Aineistot:</h2>
+			<ul>
+			{% for collection in collections %}
+				<li><a href={{ collection }}>{{collection}}</a></li>
+			{% endfor %}
+			</ul>
+	{% else %}
+		<strong> Kannassa ei ole aineistoja tälle pyynnölle.</strong>
 	{% endif %}
 	{{ collections }}
     </div>
