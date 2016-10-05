@@ -61,20 +61,20 @@ def jsonmock(request):
 def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, request.path[1:])
-		requestNum = os.path.basename(os.path.normpath(request.path))		
+		requestNum = os.path.basename(os.path.normpath(request.path))
 		userEmail = request.session["user_email"]
 		if not Request.requests.filter(order=requestNum, email=userEmail).exists():
                         return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
 		x = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionlist = Collection.objects.filter(request=userRequest.id)
-		resultlist = range(len(collectionlist))		
+		resultlist = list(range(len(collectionlist)))
 		for i, c in enumerate(collectionlist):
                         resultlist[i] = requests.get("https://apitest.laji.fi/v0/collections/"+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
 
-		a = range(len(vars(x).keys()))
+		a = list(range(len(vars(x).keys())))
 		for i, b in enumerate(vars(x).keys()):
-			tup = (unicode(b), getattr(x, b))
+			tup = (b, getattr(x, b))
 			a[i] = tup
 		context = {"title": os.path.basename(userRequest.id), "filters": a, "collections": resultlist }
 		return render(request, 'pyha/form.html', context)
