@@ -59,9 +59,9 @@ def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
 		
 def show_request(request):
-		if not logged_in(request):
-			return _process_auth_response(request, request.path[1:])
 		requestNum = os.path.basename(os.path.normpath(request.path))
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestNum)
 		userEmail = request.session["user_email"]
 		if not Request.requests.filter(order=requestNum, email=userEmail).exists():
                         return HttpResponseRedirect('pyha/')
