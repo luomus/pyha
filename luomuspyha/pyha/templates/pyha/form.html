@@ -20,21 +20,22 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-	<style media="screen">
+ <style media="screen">
   /* Sticky footer styles
   -------------------------------------------------- */
   html {
     position: relative;
-    height: 100%;
+	box-sizing: border-box;
+    min-height: 100%;	
   }
   body {
     font-family: 'Roboto','Helvetica Neue',Helvetica,Arial,sans-serif;
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    margin-bottom: 60px;	
   }
   .footer {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 60px;
@@ -47,7 +48,11 @@
   /* Not required for template or sticky footer method. */
 
   body > .container-fluid {
+    box-sizing: border-box;
+    min-height: 92vh;
     padding: 50px 0 0;
+	position: relative;
+	overflow:hidden;
   }
   .container .text-muted {
     color: #ffffff;
@@ -63,36 +68,36 @@
     letter-spacing: 2px;
   }
 
-  .footer, .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand, .navbar-link {
+  .footer, .navbar-custom .navbar-nav > li > a, .navbar-custom .navbar-brand, .navbar-link {
     color: #ffffff !important;
   }
 
-  .navbar-inverse .navbar-nav > li > a {
+  .navbar-custom .navbar-nav > li > a {
     font-weight: 500;
   }
 
-  .navbar-inverse .navbar-brand {
+  .navbar-custom .navbar-brand {
     font-weight: 700;
   }
 
-  .navbar-inverse {
+  .navbar-custom {
     background-color: #3498DB;
     border-color: #2980B9;
   }
 
-  .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+  .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
     background-color: #2980B9;
     border-color: #2980B9;
   }
 
-  .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus,
-  .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav > li > a:hover,
-  .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-nav>.open>a,
-  .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+  .navbar-custom .navbar-nav>.active>a, .navbar-custom .navbar-nav>.active>a:focus,
+  .navbar-custom .navbar-nav>.active>a:hover, .navbar-custom .navbar-nav > li > a:hover,
+  .navbar-custom .navbar-brand:hover, .navbar-custom .navbar-nav>.open>a,
+  .navbar-custom .navbar-nav>.open>a:focus, .navbar-custom .navbar-nav>.open>a:hover {
     background-color: #2980B9;
   }
 
-  .navbar-inverse .navbar-toggle, .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  .navbar-custom .navbar-toggle, .navbar-custom .navbar-collapse, .navbar-custom .navbar-form {
     border-color: #2980B9;
   }
 
@@ -103,20 +108,19 @@
   code {
     font-size: 80%;
   }
+  
+  th, td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+ }
 
   .side-bar {
-    background-color: #ECF0F1;
-    height: 200px;
+    position:relative;
+    background-color: #ECF0F1;	
+	height: 2000vh;
+	margin-bottom: -2000vh;
   }
 
-  @media only screen and (min-width : 768px) {
-    body > .container-fluid {
-      height: calc(100vh - 60px);
-    }
-    .side-bar {
-      height: 100%;
-    }
-  }
   </style>
 
 </head>
@@ -124,7 +128,7 @@
 <body>
 
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-fixed-top navbar-custom">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -133,12 +137,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">LAJI.FI</a>form action="script.php"
+        <a class="navbar-brand" href="https://beta.laji.fi/">LAJI.FI</a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a onclick="showWin();">Home</a></li>
-		  <li><a href="../logout">Uloskirjaudu</a> </li>
+          <li class="active"><a href="/pyha/">Home</a></li>
+		  <li><a href="/pyha/logout/">Uloskirjaudu</a> </li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
           <li class="dropdown">
@@ -166,14 +170,16 @@
       <p class="lead">{{ message }}
     <!-- tähän tulee Eskon lähettämä esimerkkilista -->
     	    <p class="lead">
-				<h2>Suodattimet:</h2>
+				<h2>Käytetyt suodattimet:</h2>
     {% if filters %}
 			<ul>
 			{% for filter in filters %}
-				<li>{{ filter.0 }}: 
-				{% for f in filter.1%}
-					{{ f }}
-				{% endfor %}
+				<li>{{ filter.0 }} 
+					<ul>
+					{% for f in filter.1%}
+						<li>{{ f }}</li>
+					{% endfor %}
+					</ul>
 				</li>
 			{% endfor %}
 			</ul>
@@ -181,19 +187,27 @@
 		<strong> Kannassa ei ole suodattimia tälle pyynnölle.</strong>
 	{% endif %}
 	{% if collections %}
-	<h2>Aineistot:</h2>
-			<ul>
-			{% for collection in collections %}
-				<li><a href={{ collection }}>{{collection}}</a></li>
-			{% endfor %}
-			</ul>
+	<h2>Pyyntöön sisältyvät aineistot:</h2>
+	<table style="width:100%">
+	<tr>
+    <th>Nimi</th>
+    <th>Kuvaus</th>	
+	</tr>	
+	{% for collection in collections %}
+	<tr>	
+			
+				<td>{{collection.collectionName}}</td>
+				<td>{{collection.description}}</td>							
+	</tr>
+	{% endfor %}
+	</table>
 	{% else %}
 		<strong> Kannassa ei ole aineistoja tälle pyynnölle.</strong>
 	{% endif %}
     </div>
 
     <div class="col-sm-4 col-lg-3 side-bar">
-
+	
     </div>
   </div>
 
@@ -203,10 +217,7 @@
     </div>
   </footer>
   
-function(){if(win&&!win.closed){win.focus();}} 
 </script>  
-
-
   <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->

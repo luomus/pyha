@@ -1,6 +1,6 @@
 ﻿import json
 import os
-import urllib2
+import requests
 from luomuspyha import secrets
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
@@ -42,7 +42,6 @@ def _process_auth_response(request, indexpath):
 		if not "token" in request.POST:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 		if authenticate(request, request.POST["token"]):
-			print indexpath
 			return HttpResponseRedirect('/'+indexpath)
 		else:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
@@ -62,14 +61,20 @@ def jsonmock(request):
 def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, request.path[1:])
-		requestNum = os.path.basename(os.path.normpath(request.path))
+		requestNum = os.path.basename(os.path.normpath(request.path))		
 		userEmail = request.session["user_email"]
+		if not Request.requests.filter(order=requestNum, email=userEmail).exists():
+                        return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
 		x = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionlist = Collection.objects.filter(request=userRequest.id)
+		resultlist = range(len(collectionlist))		
+		for i, c in enumerate(collectionlist):
+                        resultlist[i] = requests.get("https://apitest.laji.fi/v0/collections/"+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
+
 		a = range(len(vars(x).keys()))
 		for i, b in enumerate(vars(x).keys()):
 			tup = (unicode(b), getattr(x, b))
 			a[i] = tup
-		context = {"title": userRequest.id, "filters": a, "collections": collectionlist }
+		context = {"title": os.path.basename(userRequest.id), "filters": a, "collections": resultlist }
 		return render(request, 'pyha/form.html', context)

@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.db import models
 import json
+import os
 from.models import Request
 from.models import Collection
 from argparse import Namespace
@@ -16,12 +17,12 @@ def store(jsond):
 		if Request.requests.filter(id=x.id).exists():
 			return
 		order = Request.requests.filter(email=x.email).count() + 1
-		req = Request(x.id, order, datetime.now(), x.source, x.email, x.approximateMatches, makefiltersblob(x))
+		req = Request(os.path.basename(str(x.id)), order, datetime.now(), x.source, x.email, x.approximateMatches, makefiltersblob(x))
 		req.save()
 		for i in x.collections:
 			co = Collection()
 			co.name = ""
-			co.collection_id = i.id
+			co.collection_id = os.path.basename(str(i.id))
 			co.count = i.count
 			co.request = req
 			co.save()
@@ -30,7 +31,6 @@ def checkJson(jsond):
 		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":', '"collections":',] 
 		if all(x in jsond for x in wantedFields):
 			return True
-		print 'missing fields'
 		return False
 		
 def makefiltersblob(x):

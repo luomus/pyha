@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.conf import settings
 from pyha.models import Collection, Request
-import warehouse
+from pyha import warehouse
 import unittest
 
 
@@ -12,7 +12,7 @@ class NotLoggedInTests(TestCase):
 	def test_not_logged_in_gets_redirected(self):
 		response = self.client.get('/index/')
 		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=/pyha/')
+		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=pyha/')
 
 class LoggedInTests(TestCase):
 	def setUp(self):
@@ -32,7 +32,7 @@ class LoggedInTests(TestCase):
 		self.client.post('/logout/')
 		response = self.client.get('/index/')
 		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=/pyha/')
+		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=pyha/')
 		
 class RequestTesting(TestCase):
 	def setUp(self):
@@ -55,8 +55,8 @@ class RequestTesting(TestCase):
 		warehouse.store(JSON_MOCK2)
 		response = self.client.get('/pyha/')
 		self.assertEqual(len(Request.requests.all()), 2)
-		self.assertContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD")
-		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE")
+		self.assertContains(response, "HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD")
+		self.assertNotContains(response, "HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE")
 
 	def test_request_with_missing_attributes_is_not_saved(self):
 		warehouse.store(JSON_MOCK3)
