@@ -42,7 +42,7 @@ def _process_auth_response(request, indexpath):
 		if not "token" in request.POST:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 		if authenticate(request, request.POST["token"]):
-			return HttpResponseRedirect('index')
+			return HttpResponseRedirect('/pyha/'+indexpath)
 		else:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 
