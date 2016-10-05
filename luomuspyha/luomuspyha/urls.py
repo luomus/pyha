@@ -19,6 +19,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^', include('pyha.urls')),
     url(r'^pyha/', include('pyha.urls')),
+    url(r'^pyha/login/pyha/', include('pyha.urls')),
     url(r'^admin/', admin.site.urls),
     # default
     #url(r'^', include('pyyntojarjestelma.urls')),
