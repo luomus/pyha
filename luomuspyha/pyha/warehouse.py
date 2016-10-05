@@ -38,14 +38,14 @@ def makefiltersblob(x):
 		for i, text in enumerate(x.filters):
 			if not(i == 0):
 					blob += ","
-			blob += '"' + unicode(vars(x.filters[i]).keys()[0]) + '":['
+			blob += '"' + vars(x.filters[i]).keys()[0] + '":['
 			if isinstance(getattr(x.filters[i], vars(x.filters[i]).keys()[0]), (list)):
 				for l,text in enumerate(getattr(x.filters[i], vars(x.filters[i]).keys()[0])):
 					if not(l == 0):
 						blob += ","
-					blob += '"'+unicode(text)+'"'
+					blob += '"'+text+'"'
 			else:
-				blob += '"'+unicode(getattr(x.filters[i], vars(x.filters[i]).keys()[0]))+'"'
+				blob += '"'+getattr(x.filters[i], vars(x.filters[i]).keys()[0])+'"'
 			blob += "]"
 		blob += "}"
 		return blob
