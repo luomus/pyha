@@ -47,11 +47,13 @@ def _process_auth_response(request, indexpath):
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 
 def receiver(request):        
-		if settings.MOCK_JSON:
-			body = request.POST['JSON']     
+		if 'JSON' in request.POST:
+                        text = request.POST['JSON']
+                        jsond = text
+                        store(jsond)
 		else:
-			body = request.body          
-		store(body)
+			jsond = request.body.decode("utf-8")
+			store(jsond)
 		return HttpResponse('')
 
    
