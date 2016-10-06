@@ -17,7 +17,7 @@ def store(jsond):
 		if Request.requests.filter(id=x.id).exists():
 			return
 		order = Request.requests.filter(email=x.email).count() + 1
-		req = Request(os.path.basename(str(x.id)), order, datetime.now(), x.source, x.email, x.approximateMatches, x.downloadFormat, str(x.downloadIncludes),makefiltersblob(x))
+		req = Request(os.path.basename(str(x.id)), order, datetime.now(), x.source, x.email, x.approximateMatches, x.downloadFormat, x.downloadIncludes, makefiltersblob(x))
 		req.save()
 		for i in x.collections:
 			co = Collection()
@@ -28,7 +28,7 @@ def store(jsond):
 			co.save()
 
 def checkJson(jsond):
-		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"downloadFormat":', '"downloadIncludes":','"filters":', '"collections":',] 
+		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":', '"downloadFormat":', '"downloadIncludes":', '"collections":',] 
 		if all(x in jsond for x in wantedFields):
 			return True
 		return False

@@ -72,9 +72,9 @@ JSON_MOCK = '''
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
-		"DOCUMENT_FACTS",
-		"GATHERING_FACTS",
-		"UNIT_FACTS"
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
 	],
 	"filters": [
 		{
@@ -113,9 +113,9 @@ JSON_MOCK2 = '''
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
-		"DOCUMENT_FACTS",
-		"GATHERING_FACTS",
-		"UNIT_FACTS"
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
 	],
 	"filters": [
 		{
@@ -154,10 +154,10 @@ JSON_MOCK3 = '''
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
-		"DOCUMENT_FACTS",
-		"GATHERING_FACTS",
-		"UNIT_FACTS"
-	],	
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
+	],
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
