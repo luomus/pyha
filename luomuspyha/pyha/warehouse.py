@@ -24,7 +24,7 @@ def store(jsond):
                                 co = Collection()
                                 co.name = ""
                                 co.collection_id = os.path.basename(str(i.id))
-                                co.count = i.count
+                                co.count = getattr(i, 'count', 0)
                                 co.request = req
                                 co.save()
 
