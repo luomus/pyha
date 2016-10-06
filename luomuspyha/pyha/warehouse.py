@@ -19,16 +19,17 @@ def store(jsond):
 		order = Request.requests.filter(email=x.email).count() + 1
 		req = Request(os.path.basename(str(x.id)), order, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
 		req.save()
-		for i in x.collections:
-			co = Collection()
-			co.name = ""
-			co.collection_id = os.path.basename(str(i.id))
-			co.count = i.count
-			co.request = req
-			co.save()
+		if hasattr(x, 'collections'):
+                        for i in x.collections:
+                                co = Collection()
+                                co.name = ""
+                                co.collection_id = os.path.basename(str(i.id))
+                                co.count = i.count
+                                co.request = req
+                                co.save()
 
 def checkJson(jsond):
-		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":', '"collections":',] 
+		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":'] 
 		if all(x in jsond for x in wantedFields):
 			return True
 		return False
