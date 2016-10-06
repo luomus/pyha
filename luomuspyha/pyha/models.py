@@ -10,8 +10,8 @@ class Collection(models.Model):
 	status = models.CharField(max_length=100)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	# decision = models.CharField(max_length=100)
-	# decision_date = models.DateTimeField()
-	# decision_explanation = models.CharField(max_length=1000)
+	# decisionDate = models.DateTimeField()
+	# decisionExplanation = models.CharField(max_length=1000)
 	# collection_contact
 	# collection_license 
 
@@ -25,8 +25,8 @@ class Request(models.Model):
 	source = models.CharField(max_length=10)
 	email = models.CharField(max_length=100)
 	approximateMatches = models.IntegerField()
-	# downloadFormat = CharField(max_lenght=20)
-	# downloadIncludes = []	
+	downloadFormat = models.CharField(max_length=20)
+	downloadIncludes = models.CharField(max_length=1000)
 	filter_list = models.CharField(max_length=1000)
 	requests = models.Manager()
 	# reason = models.CharField(max_length=1000)	

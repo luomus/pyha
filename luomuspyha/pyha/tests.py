@@ -70,6 +70,12 @@ JSON_MOCK = '''
 	"source": "KE.398",
 	"email": "ex.apmle@example.com",
 	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+		"DOCUMENT_FACTS",
+		"GATHERING_FACTS",
+		"UNIT_FACTS"
+	],
 	"filters": [
 		{
 			"target": [
@@ -105,6 +111,12 @@ JSON_MOCK2 = '''
 	"source": "KE.398",
 	"email": "ex@example.com",
 	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+		"DOCUMENT_FACTS",
+		"GATHERING_FACTS",
+		"UNIT_FACTS"
+	],
 	"filters": [
 		{
 			"target": [
@@ -140,7 +152,12 @@ JSON_MOCK3 = '''
 	"source": "KE.398",
 	"email": "filters@example.com",
 	"approximateMatches": 1742,
-	
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+		"DOCUMENT_FACTS",
+		"GATHERING_FACTS",
+		"UNIT_FACTS"
+	],	
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
