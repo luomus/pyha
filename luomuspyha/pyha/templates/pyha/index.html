@@ -116,6 +116,15 @@
       height: 100%;
     }
   }
+  #layout-footer[_ngcontent-wtm-4] {
+    position: absolute;
+    bottom: 0;
+    height: 226px;
+    color: #fff;
+    background-color: #3498db;
+    margin-top: 10px;
+    width: 100%;
+}
   </style>
 
 </head>
@@ -136,35 +145,25 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="/pyha/">Home</a></li>
-		  <li><a href="/pyha/logout/">Uloskirjaudu</a> </li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
+          <li><a href="/pyha/">Pyynnöt</a></li>
+          <li><a href="/pyha/logout/">Kirjaudu ulos</a></li>
+
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <!-- kielivalinta tänne, ja käyttäjänimi/sähköposti -->
         </ul>
       </div><!--/.nav-collapse -->
+    </div>
+  </nav>
     </div>
   </nav>
   <!-- Begin page content -->
     <div class="container-fluid">
     <div class="col-sm-8 col-lg-9">
       <div class="page-header">
-        <h1>{{ title }}</h1>
+        <h2>Pyynnönhallinta</h2>
       </div>
-      <p class="lead">{{ message }}
-    <!-- tähän tulee Eskon lähettämä esimerkkilista -->
-    	    <p class="lead">
+
     {% if requests %}
 			<p>Lista tekemistäsi pyynnöistä:</p>
 			<ul>
@@ -181,11 +180,54 @@
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="container">
-      <p class="text-muted">Place sticky footer content here.</p>
+<footer _ngcontent-wtm-4="" id="layout-footer">
+  <div _ngcontent-wtm-4="">
+    <div _ngcontent-wtm-4="" class="container">
+      <div _ngcontent-wtm-4="" class="row">
+        <div _ngcontent-wtm-4="" class="col-sm-3">
+          <h3 _ngcontent-wtm-4="">Suomen Lajitietokeskus</h3>
+          <p _ngcontent-wtm-4="">Suomen Lajitietokeskus -hanke kokoaa Suomen eliölajistostatietoa yhteen paikkaan –avoimeen käyttöön. Lue
+            lisää hankkeesta ja sen tavoitteista ja aikatauluista.</p>
+        </div>
+        <div _ngcontent-wtm-4="" class="col-sm-3">
+          <h3 _ngcontent-wtm-4="">Tiedonhallinta</h3>
+          <ul _ngcontent-wtm-4="">
+            <li _ngcontent-wtm-4="">Aineistopolitiikka</li>
+            <li _ngcontent-wtm-4="">Tietovarasto</li>
+            <li _ngcontent-wtm-4="">Pitkäaikaissäilytys</li>
+            <li _ngcontent-wtm-4="">Taksonominen tietokanta</li>
+            <li _ngcontent-wtm-4="">Laadunvarmistus</li>
+            <li _ngcontent-wtm-4="">Annotointi -keskustelu</li>
+            <li _ngcontent-wtm-4="">Sensitiivinen aineisto</li>
+            <li _ngcontent-wtm-4="">Käyttölisenssit</li>
+          </ul>
+        </div>
+        <div _ngcontent-wtm-4="" class="col-sm-3">
+          <h3 _ngcontent-wtm-4="">Tietotekniset palvelut</h3>
+          <ul _ngcontent-wtm-4="">
+            <li _ngcontent-wtm-4="">Kokoelmahallinta</li>
+            <li _ngcontent-wtm-4="">Havaintopalvelu</li>
+            <li _ngcontent-wtm-4="">Analyysipalvelut</li>
+            <li _ngcontent-wtm-4="">Aineistojen metatiedot</li>
+            <li _ngcontent-wtm-4="">Viranomaispalvelut</li>
+            <li _ngcontent-wtm-4="">Digitointi</li>
+            <li _ngcontent-wtm-4="">Rajapinnat / API</li>
+          </ul>
+        </div>
+        <div _ngcontent-wtm-4="" class="col-sm-3">
+          <h3 _ngcontent-wtm-4="">Muut palvelut</h3>
+          <ul _ngcontent-wtm-4="">
+            <li _ngcontent-wtm-4="">Vieraslaji.fi</li>
+            <li _ngcontent-wtm-4="">BirdLife -Tiira</li>
+            <li _ngcontent-wtm-4="">Hyönteistietokanta</li>
+            <li _ngcontent-wtm-4="">Perhos…</li>
+            <li _ngcontent-wtm-4="">Jne…</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
 
   <!-- Bootstrap core JavaScript
