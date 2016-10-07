@@ -23,7 +23,6 @@ def store(jsond):
 		if hasattr(x, 'collections'):
                         for i in x.collections:
                                 co = Collection()
-                                co.name = ""
                                 co.collection_id = os.path.basename(str(i.id))
                                 co.count = getattr(i, 'count', 0)
                                 co.status = 1
