@@ -20,7 +20,7 @@ def index(request):
 			return _process_auth_response(request,'')
 		userEmail = request.session["user_email"]
 		request_list = Request.requests.filter(email=userEmail)
-		context = {"title": "Tervetuloa " + request.session["user_name"] , "message": u"Käytät sähköpostiosoitetta: " + request.session["user_email"], "requests": request_list }
+		context = {"title": "Tervetuloa " + request.session["user_name"] , "requests": request_list }
 		return render(request, 'pyha/index.html', context)
 
 def login(request):      
