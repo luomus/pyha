@@ -26,6 +26,7 @@ def store(jsond):
                                 co.name = ""
                                 co.collection_id = os.path.basename(str(i.id))
                                 co.count = getattr(i, 'count', 0)
+                                co.status = 1
                                 co.request = req
                                 co.save()
 
