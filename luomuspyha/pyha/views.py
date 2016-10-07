@@ -19,7 +19,7 @@ def index(request):
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userEmail = request.session["user_email"]
-		request_list = Request.requests.filter(email=userEmail)
+		request_list = Request.requests.filter(email=userEmail).order_by('order').reverse
 		context = {"title": "Tervetuloa " + request.session["user_name"] , "message": u"Käytät sähköpostiosoitetta: " + request.session["user_email"], "requests": request_list }
 		return render(request, 'pyha/index.html', context)
 
