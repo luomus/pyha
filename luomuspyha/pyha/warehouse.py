@@ -19,6 +19,7 @@ def store(jsond):
 		order = Request.requests.filter(email=x.email).count() + 1
 		req = Request(os.path.basename(str(x.id)), order, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
 		req.save()
+		print(Request.requests.filter(id=x.id).exists())
 		if hasattr(x, 'collections'):
                         for i in x.collections:
                                 co = Collection()
