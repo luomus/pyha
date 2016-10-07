@@ -55,8 +55,8 @@ class RequestTesting(TestCase):
 		warehouse.store(JSON_MOCK2)
 		response = self.client.get('/pyha/')
 		self.assertEqual(len(Request.requests.all()), 2)
-		self.assertContains(response, "HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD")
-		self.assertNotContains(response, "HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE")
+		self.assertContains(response, "Osumia:1742")
+		self.assertNotContains(response, "Osumia:1741")
 
 	def test_request_with_missing_attributes_is_not_saved(self):
 		warehouse.store(JSON_MOCK3)
