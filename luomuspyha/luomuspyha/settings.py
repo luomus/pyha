@@ -30,6 +30,7 @@ APPEND_SLASH=False
 #SECRET_KEY = os.environ['LUOMUS_SECRET_KEY']
 #LAJIAUTH_URL = os.environ['LUOMUS_LAJIAUTH_URL']
 #TARGET = os.environ['LUOMUS_TARGET']
+SESSION_SAVE_EVERY_REQUEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

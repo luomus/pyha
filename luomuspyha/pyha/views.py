@@ -23,7 +23,7 @@ def index(request):
 		context = {"title": "Tervetuloa " + request.session["user_name"] , "requests": request_list }
 		return render(request, 'pyha/index.html', context)
 
-def login(request):      
+def login(request):
 		return _process_auth_response(request, '')
 
 def logout(request):
