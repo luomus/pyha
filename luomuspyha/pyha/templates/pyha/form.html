@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <link rel="icon" href="http://front.laji-test.luomus.fi/favicon.ico">
 
-  <title>{{ title }}</title>
+  <title>{{ userRequest.date }}</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -164,7 +164,10 @@
     <div class="container-fluid">
     <div class="col-sm-8 col-lg-9">
       <div class="page-header">
-        <h1>Pyyntö {{ title }}</h1>
+        <h1>Pyyntö: {% if userRequest.description and userRequest.name.strip %} {{ userRequest.name }}
+        {% else %} {{userRequest.date}}
+        {% endif %}
+        </h1>
       </div>
       <p class="lead">{{ message }}
     <!-- tähän tulee Eskon lähettämä esimerkkilista -->

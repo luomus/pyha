@@ -20,6 +20,7 @@ def store(jsond):
 		order = Request.requests.filter(email=x.email).count() + 1
 		status = randint(0,4)
 		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
+
 		req.save()
 		if hasattr(x, 'collections'):
                         for i in x.collections:
