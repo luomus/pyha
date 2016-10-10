@@ -168,7 +168,9 @@
 			<p>Lista tekemistäsi pyynnöistä:</p>
 			<ul>
 			{% for request in requests %}
+
 				<li><a href="request/{{request.order}}">{{request.description}}|{{request.date}} | Osumia:{{request.approximateMatches}} | {{request.status}}</a></li>
+
 			{% endfor %}
 			</ul>
 	{% else %}
