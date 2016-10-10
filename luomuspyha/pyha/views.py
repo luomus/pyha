@@ -20,10 +20,10 @@ def index(request):
 			return _process_auth_response(request,'')
 		userEmail = request.session["user_email"]
 		request_list = Request.requests.filter(email=userEmail)
-		context = {"email": request.session["user_name"], "title": "Tervetuloa", "requests": request_list }
+		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa", "requests": request_list }
 		return render(request, 'pyha/index.html', context)
 
-def login(request):
+def login(request):      
 		return _process_auth_response(request, '')
 
 def logout(request):
@@ -78,5 +78,5 @@ def show_request(request):
 		for i, b in enumerate(vars(x).keys()):
 			tup = (b, getattr(x, b))
 			a[i] = tup
-		context = {"email": request.session["user_email"], "title": userRequest.date, "filters": a, "collections": resultlist }
+		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": a, "collections": resultlist }
 		return render(request, 'pyha/form.html', context)

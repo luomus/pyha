@@ -19,6 +19,7 @@ class Collection(models.Model):
 
 class Request(models.Model):
 	id = models.CharField(max_length=100, primary_key=True)
+	description = models.CharField(max_length=200)
 	order = models.IntegerField()
 	status = models.IntegerField()	
 	date = models.DateTimeField()
