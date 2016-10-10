@@ -27,7 +27,6 @@ class Migration(migrations.Migration):
             name='Request',
             fields=[
                 ('id', models.CharField(max_length=100, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=200)),
                 ('description', models.CharField(max_length=100)),
                 ('order', models.IntegerField()),
                 ('status', models.IntegerField()),

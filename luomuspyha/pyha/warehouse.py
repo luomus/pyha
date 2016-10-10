@@ -16,11 +16,10 @@ def store(jsond):
 		x = json.loads(jsond, object_hook=lambda d: Namespace(**d))
 		if Request.requests.filter(id=os.path.basename(str(x.id))).exists():
 			return
-		name = ""
 		description = 'kuvaus'
 		order = Request.requests.filter(email=x.email).count() + 1
 		status = 1
-		req = Request(os.path.basename(str(x.id)), description , name, order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
+		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
 
 		req.save()
 		if hasattr(x, 'collections'):
