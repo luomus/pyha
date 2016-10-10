@@ -161,7 +161,7 @@
     <div class="container-fluid">
     <div class="col-sm-8 col-lg-9">
       <div class="page-header">
-        <h1>Pyyntö: {% if userRequest.description and userRequest.name.strip %} {{ userRequest.name }}
+        <h1>Pyyntö: {% if userRequest.description and userRequest.description.strip %} {{ userRequest.description }}
         {% else %} {{userRequest.date}}
         {% endif %}
         </h1>
