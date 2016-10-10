@@ -24,23 +24,21 @@
   -------------------------------------------------- */
   html {
     position: relative;
-    height: 100%;
+    box-sizing: border-box;
+    min-height: 100%;
   }
   body {
     font-family: 'Roboto','Helvetica Neue',Helvetica,Arial,sans-serif;
     /* Margin bottom by footer height */
-    margin-bottom: 60px;
   }
   th, td {
     padding: 5px;
     border-bottom: 1px solid #ddd;
  }
   .footer {
-    position: absolute;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 60px;
     background-color: #3498DB;
   }
 
@@ -161,8 +159,6 @@
       {% endif %}
     </div>
   </nav>
-    </div>
-  </nav>
   <!-- Begin page content -->
     <div class="container-fluid">
     <div class="col-sm-9 col-lg-10">
@@ -202,7 +198,7 @@
             data-href="request/{{request.order}}"
                >
             <td>{{request.description}}</td>
-            <td>{{request.date}}</a></td>
+            <td>{{request.date}}</td>
             <td>{{request.approximateMatches}}</td>
             
             {% if request.status == 1 %}
@@ -233,8 +229,8 @@
 	{% endif %}
     </tbody>
   </table>
-  <!--
     </div>
+  <!--
     <div class="col-sm-3 col-lg-2 side-bar">
   
     </div>
