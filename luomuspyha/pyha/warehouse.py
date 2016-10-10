@@ -8,7 +8,7 @@ import os
 from.models import Request
 from.models import Collection
 from argparse import Namespace
-
+from random import randint
 
 def store(jsond):
 		if not checkJson(jsond):
@@ -18,7 +18,7 @@ def store(jsond):
 			return
 		description = 'kuvaus'
 		order = Request.requests.filter(email=x.email).count() + 1
-		status = 1
+		status = randint(0,4)
 		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
 		req.save()
 		if hasattr(x, 'collections'):
@@ -27,7 +27,7 @@ def store(jsond):
                                 co.collection_id = os.path.basename(str(i.id))
                                 co.description = 'kuvaus'
                                 co.count = getattr(i, 'count', 0)
-                                co.status = 1
+                                co.status = randint(0,4)
                                 co.request = req
                                 co.save()
 

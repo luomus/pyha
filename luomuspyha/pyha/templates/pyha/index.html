@@ -31,6 +31,10 @@
     /* Margin bottom by footer height */
     margin-bottom: 60px;
   }
+  th, td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+ }
   .footer {
     position: absolute;
     bottom: 0;
@@ -159,27 +163,80 @@
   </nav>
   <!-- Begin page content -->
     <div class="container-fluid">
-    <div class="col-sm-8 col-lg-9">
+    <div class="col-sm-9 col-lg-10">
       <div class="page-header">
         <h2>Pyynnönhallinta</h2>
       </div>
-
-    {% if requests %}
-			<p>Lista tekemistäsi pyynnöistä:</p>
-			<ul>
-			{% for request in requests %}
-
-				<li><a href="request/{{request.order}}">{{request.description}}|{{request.date}} | Osumia:{{request.approximateMatches}} | {{request.status}}</a></li>
-
-			{% endfor %}
-			</ul>
+      {% if requests %}
+      <h2>Lista tekemistäsi pyynnöistä:</h2>
+  <p>description</p>            
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Kuvaus</th>
+        <th>Päiväys</th>	
+        <th>Osumia</th>
+        <th>Pyynnön tila</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+    {% for request in requests %}
+        
+        
+        {% if request.status == 1 %}
+            <tr class="info clickable-row"
+        {% elif request.status == 3 %}
+            <tr class="danger clickable-row"
+        {% elif request.status == 2 %}
+            <tr class="warning clickable-row"
+        {% elif request.status == 0 %}
+            <tr class="active clickable-row"
+        {% elif request.status == 4 %}
+            <tr class="success clickable-row"
+        {% else %}  
+            <tr	
+        {% endif %}
+            data-href="request/{{request.order}}"
+               >
+            <td>{{request.description}}</td>
+            <td>{{request.date}}</a></td>
+            <td>{{request.approximateMatches}}</td>
+            
+            {% if request.status == 1 %}
+                <td>Käsittelyssä</td>
+                
+            {% elif request.status == 3 %}
+                <td>Hylätty</td>
+                
+            {% elif request.status == 2 %}
+                <td>Osittain Hyväksytty</td>
+                
+            {% elif request.status == 0 %}
+                <td>Lähettämättä</td>
+                
+            {% elif request.status == 4 %}
+                <td>Hyväksytty</td>  
+            {% else %}  
+                <td>Tuntematon</td>	
+            {% endif %}
+        
+            
+        </tr>
+        
+	{% endfor %}
+    
 	{% else %}
 		<strong> Kannassa ei ole pyyntöjä.</strong>
 	{% endif %}
+    </tbody>
+  </table>
+  <!--
     </div>
-    <div class="col-sm-4 col-lg-3 side-bar">
-
+    <div class="col-sm-3 col-lg-2 side-bar">
+  
     </div>
+  -->
   </div>
 
 <footer _ngcontent-wtm-4="" id="layout-footer">
@@ -236,5 +293,12 @@
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+</script>
 
 </body></html>
