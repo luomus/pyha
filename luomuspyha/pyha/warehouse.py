@@ -17,14 +17,17 @@ def store(jsond):
 		if Request.requests.filter(id=os.path.basename(str(x.id))).exists():
 			return
 		name = ""
+		description = 'kuvaus'
 		order = Request.requests.filter(email=x.email).count() + 1
 		status = 1
-		req = Request(os.path.basename(str(x.id)), name, order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
+		req = Request(os.path.basename(str(x.id)), description , name, order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
+
 		req.save()
 		if hasattr(x, 'collections'):
                         for i in x.collections:
                                 co = Collection()
                                 co.collection_id = os.path.basename(str(i.id))
+                                co.description = 'kuvaus'
                                 co.count = getattr(i, 'count', 0)
                                 co.status = 1
                                 co.request = req
