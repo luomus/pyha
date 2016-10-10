@@ -78,5 +78,5 @@ def show_request(request):
 		for i, b in enumerate(vars(x).keys()):
 			tup = (b, getattr(x, b))
 			a[i] = tup
-		context = {"title": os.path.basename(userRequest.id), "filters": a, "collections": resultlist }
+		context = {"userRequest": userRequest, "filters": a, "collections": resultlist }
 		return render(request, 'pyha/form.html', context)
