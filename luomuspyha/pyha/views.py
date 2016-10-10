@@ -72,7 +72,7 @@ def show_request(request):
 		collectionlist = Collection.objects.filter(request=userRequest.id)
 		resultlist = list(range(len(collectionlist)))
 		for i, c in enumerate(collectionlist):
-                        resultlist[i] = requests.get("https://apitest.laji.fi/v0/collections/"+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
+                        resultlist[i] = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
 
 		a = list(range(len(vars(x).keys())))
 		for i, b in enumerate(vars(x).keys()):
