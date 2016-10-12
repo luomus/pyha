@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-class Mockrequest_TestCase(unittest.TestCase):
+class Requestlist_TestCase(unittest.TestCase):
 	
 	def setUp(self):
 		chromedriver = "/home/ad/fshome5/u5/r/rivorivo/Linux/Python/envi3/chromedriver"
