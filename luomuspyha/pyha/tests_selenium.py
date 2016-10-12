@@ -8,7 +8,15 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 class Requestlist_TestCase(unittest.TestCase):
 	
 	def setUp(self):
-		#chromedriver = "/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/chromedriver/bin"
+		options = webdriver.ChromeOptions()
+		options.binary_location = '/usr/bin/chromium-browser'
+		#All the arguments added for chromium to work on selenium
+		options.add_argument("--no-sandbox") #This make Chromium reachable
+		options.add_argument("--no-default-browser-check") #Overrides default choices
+		options.add_argument("--no-first-run")
+		options.add_argument("--disable-default-apps") 
+		driver = webdriver.Chrome('/home/travis/virtualenv/python2.7.9   /chromedriver',chrome_options=options)
+		#chromedriver = "/home/rivorivo/Python/envi3"
 		#os.environ["webdriver.chrome.driver"] = chromedriver
 		#self.driver = webdriver.Chrome(chromedriver)
 		self.driver=webdriver.Firefox()
