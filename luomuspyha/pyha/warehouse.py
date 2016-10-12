@@ -35,10 +35,10 @@ def store(jsond):
 		make_mail(x)
 
 def make_mail(x):
-		subject = x.description
+		subject = getattr(x, 'description', str (datetime.now()))
 		req_order = Request.requests.filter(email=x.email).count()
 		req_link = settings.LOCAL_REQ_URL+str(req_order)
-		message_content = "Linkki aineistopyyntöösi "+x.description+": "+req_link
+		message_content = "Linkki aineistopyyntöösi "+subject+": "+req_link
 		message = message_content
 		from_email = 'messanger@localhost.com'
 		recipients = ['x.email']
