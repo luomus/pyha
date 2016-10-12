@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 class Requestlist_TestCase(unittest.TestCase):
 	
 	def setUp(self):
-		chromedriver = "~/chromedriver"
+		chromedriver = "/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/chromedriver/bin"
 		os.environ["webdriver.chrome.driver"] = chromedriver
 		self.driver = webdriver.Chrome(chromedriver)
 		driver = self.driver
