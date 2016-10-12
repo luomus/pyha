@@ -11,7 +11,7 @@ class Requestlist_TestCase(unittest.TestCase):
 		#chromedriver = "/home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages/chromedriver/bin"
 		#os.environ["webdriver.chrome.driver"] = chromedriver
 		#self.driver = webdriver.Chrome(chromedriver)
-		self.driver = webdriver.Chrome()
+		self.driver=webdriver.Firefox()
 		driver = self.driver
 		driver.get("http://127.0.0.1:8000/mock/jsonmock")
 		driver.find_element_by_xpath("/html/body/form[1]").submit()
