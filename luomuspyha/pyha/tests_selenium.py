@@ -8,10 +8,9 @@ from selenium.webdriver.common.keys import Keys
 class Requestlist_TestCase(unittest.TestCase):
 	
 	def setUp(self):
-		#chromedriver = "/home/ad/fshome5/u5/r/rivorivo/Linux/Python/envi3/chromedriver"
-		#os.environ["webdriver.chrome.driver"] = chromedriver
-		#self.driver = webdriver.Chrome(chromedriver)
-		self.driver = webdriver.Firefox()
+		chromedriver = "~/chromedriver"
+		os.environ["webdriver.chrome.driver"] = chromedriver
+		self.driver = webdriver.Chrome(chromedriver)
 		driver = self.driver
 		driver.get("http://127.0.0.1:8000/mock/jsonmock")
 		driver.find_element_by_xpath("/html/body/form[1]").submit()
