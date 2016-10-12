@@ -68,15 +68,15 @@ def show_request(request):
 		if not Request.requests.filter(order=requestNum, email=userEmail).exists():
                         return HttpResponseRedirect('pyha/')
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
-		x = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-		collectionlist = Collection.objects.filter(request=userRequest.id)
-		resultlist = list(range(len(collectionlist)))
-		for i, c in enumerate(collectionlist):
-                        resultlist[i] = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
+		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+		collectionList = Collection.objects.filter(request=userRequest.id)
+		collectionResultList = list(range(len(collectionList)))
+		for i, c in enumerate(collectionList):
+                        collectionResultList[i] = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
 
-		a = list(range(len(vars(x).keys())))
-		for i, b in enumerate(vars(x).keys()):
-			tup = (b, getattr(x, b))
-			a[i] = tup
-		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": a, "collections": resultlist }
+		filterResultList = list(range(len(vars(filterList).keys())))
+		for i, b in enumerate(vars(filterList).keys()):
+			tup = (b, getattr(filterList, b))
+			filterResultList[i] = tup
+		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionResultList }
 		return render(request, 'pyha/form.html', context)
