@@ -2,6 +2,7 @@ import unittest
 import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+# coding=utf-8
 
 class Mockrequest_TestCase(unittest.TestCase):
 	
