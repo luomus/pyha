@@ -1,8 +1,10 @@
+#coding=utf-8
 import requests
 from datetime import datetime
 from django.shortcuts import redirect
 from django.conf import settings
 from django.db import models
+from django.core.mail import send_mail
 import json
 import os
 from.models import Request
@@ -31,6 +33,18 @@ def store(jsond):
                                 co.status = randint(0,4)
                                 co.request = req
                                 co.save()
+		make_mail(x)
+
+def make_mail(x):
+		subject = getattr(x, 'description', str (datetime.now()))
+		req_order = Request.requests.filter(email=x.email).count()
+		req_link = settings.LOCAL_REQ_URL+str(req_order)
+		message_content = "Linkki aineistopyyntöösi "+subject+": "+req_link
+		message = message_content
+		from_email = 'messanger@localhost.com'
+		recipients = ['x.email']
+		mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+		return mail
 
 def checkJson(jsond):
 		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":'] 
