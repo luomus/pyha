@@ -40,8 +40,8 @@
 
 					<h2>Pyyntöön sisältyvät aineistot:</h2>
 					
-						<form action="#" id="requestform">
-
+						<form action="" id="requestform" method="post">
+						<div class="form-group">
 						{% if collections %}	
 							<table class="table" style="width:100%">
 								<tr>
@@ -54,29 +54,52 @@
 									<td>{{collection.description}}</td>							
 								</tr>
 								<tr>
-									<td class="text-center">ehdot
+									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">Ehdot</button>
+									<span id ="statustext{{ forloop.counter0 }}">Et ole hyväksynyt ehtoja</span>
 									</td>
+									<!-- Modal -->
+									<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									  <div class="modal-dialog modal-lg" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									        <h4 class="modal-title" id="myModalLabel">Aineistojen käyttöehdot</h4>
+									      </div>
+									      <div class="modal-body">
+											{% load static %}
+									      <embed src= {% static "pyha/ehdot.pdf" %} width="800" height="700" type='application/pdf'>
+									      </div>
+									      <div class="modal-footer">
+											<input type="checkbox" 
+											onchange="document.getElementById('statustext{{ forloop.counter0 }}').textContent='Hyväksyit ehdot';"> 
+											Olen lukenut ja ymmärtänyt ehdot.<br>
+									        <button type="button" class="btn btn-default" data-dismiss="modal" id=>Poistu</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
 								</tr>
 								{% endfor %}
 							</table>
-
-							<div class="form-group">
+							
 								<label for="reason">Perustelut pyynnölle:</label>
 								<textarea class="form-control" rows="2" id="reason" required placeholder="pakolliset perustelut"></textarea>
 							</div>
 
-							<button type="submit" class="btn btn-default">Lähetä hyväksyttäväksi</button>
+							<button type="submit" class="btn btn-default btn-lg">Lähetä hyväksyttäväksi</button>
 						</form>		
 
 						{% else %}
 							<strong> Kannassa ei ole aineistoja tälle pyynnölle.</strong>
 						{% endif %}
-    </div>
-
+	</div>
 <!-- turha sidebar?
     <div class="col-sm-4 col-lg-3 side-bar">
 	
     </div>
 -->
   </div>
+{% endblock %}
+
+{% block modal %}
 {% endblock %}
