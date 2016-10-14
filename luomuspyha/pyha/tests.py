@@ -70,7 +70,6 @@ class RequestTesting(TestCase):
 		self.assertEqual(len(Request.requests.all()), 1)
 		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
 
-<<<<<<< HEAD
 	def test_requests_collections_are_shown_in_its_page(self):
 		response = self.client.get('/pyha/request/1')
 		self.assertContains(response, "Pyyntöön sisältyvät aineistot:")
@@ -78,7 +77,6 @@ class RequestTesting(TestCase):
 		self.assertContains(response, "Hatikka.fi")
 		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")
 		
-=======
 class EmailTesting (TestCase):
 	def setUp(self):
 		warehouse.store(JSON_MOCK4)
@@ -89,7 +87,6 @@ class EmailTesting (TestCase):
 		self.assertEqual(msg.subject, 'Testausta')
 		#self.assertItemsEqual(msg.recipients, ['te.staaja@example.com'])
 
->>>>>>> 406f96e8c517495422119d3d2841e9b90b5290aa
 JSON_MOCK = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
