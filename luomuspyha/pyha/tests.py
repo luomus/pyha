@@ -2,6 +2,7 @@ from django.test import TestCase, Client
 from django.conf import settings
 from pyha.models import Collection, Request
 from pyha import warehouse
+from django.core import mail
 import unittest
 
 
@@ -62,6 +63,16 @@ class RequestTesting(TestCase):
 		response = self.client.get('/pyha/')
 		self.assertEqual(len(Request.requests.all()), 1)
 		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
+
+class EmailTesting (TestCase):
+	def setUp(self):
+		warehouse.store(JSON_MOCK4)
+
+	def test_mail_(self):
+		self.assertEqual(len(mail.outbox), 1)
+		msg = mail.outbox[0]
+		self.assertEqual(msg.subject, 'Testausta')
+		#self.assertItemsEqual(msg.recipients, ['te.staaja@example.com'])
 
 JSON_MOCK = '''
 {
@@ -173,3 +184,87 @@ JSON_MOCK3 = '''
 	]
 }'''
 
+#mock4 on email-testausta varten
+JSON_MOCK4 = '''
+{
+	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LL",
+	"description": "Testausta",
+	"source": "KE.398",
+	"email": "te.staaja@example.com",
+	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
+	],
+	"filters": [
+		{
+			"target": [
+				"testilinnut",
+				"testinisäkkäät"
+			]
+		},
+		{
+			"time": [
+				"2000/"
+			]
+		}
+	],
+	"collections": [
+		{
+			"id": "http://tun.fi/HR.39",
+			"count": 1031
+		},
+		{
+			"id": "http://tun.fi/HR.447",
+			"count": 904
+		},
+		{
+			"id": "http://tun.fi/HR.60",
+			"count": 14
+		}
+	]
+}'''
+
+JSON_MOCK5 = '''
+{
+	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LÖ",
+	"description": "Testausta2",
+	"source": "KE.398",
+	"email": "te.staaja@example.com",
+	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
+	],
+	"filters": [
+		{
+			"target": [
+				"testilinnut",
+				"testinisäkkäät"
+			]
+		},
+		{
+			"time": [
+				"2000/"
+			]
+		}
+	],
+	"collections": [
+		{
+			"id": "http://tun.fi/HR.39",
+			"count": 1031
+		},
+		{
+			"id": "http://tun.fi/HR.447",
+			"count": 904
+		},
+		{
+			"id": "http://tun.fi/HR.60",
+			"count": 14
+		}
+	]
+}'''
