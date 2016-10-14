@@ -13,11 +13,14 @@
       <p class="lead">{{ message }}
 -->
 					<!-- suodatinlista -->
+					
+					<button data-toggle="collapse" data-target="#filterlist">Pyynnön rajaukset</button>
+					<div id="filterlist" class="collapse">					
 
 					<h2>Käytetyt suodattimet:</h2>
 						{% if filters %}
 							<table class = "table" style="width:100%">
-								<tr>
+								<tr style=color:black>
 									<th>Rajaus</th>
 									<th>Arvot</th>	
 								</tr>	
@@ -35,7 +38,8 @@
 						{% else %}
 							<strong> Kannassa ei ole suodattimia tälle pyynnölle.</strong>
 						{% endif %}
-
+						</div>
+						
 					<!-- aineistolista -->
 
 					<h2>Pyyntöön sisältyvät aineistot:</h2>
@@ -44,7 +48,7 @@
 						<div class="form-group">
 						{% if collections %}	
 							<table class="table" style="width:100%">
-								<tr>
+								<tr style=color:black>
 									<th>Nimi</th>
 									<th>Kuvaus</th>	
 								</tr>	
@@ -53,7 +57,7 @@
 									<td>{{collection.collectionName}}</td>
 									<td>{{collection.description}}</td>							
 								</tr>
-								<tr>
+								<tr style="border-bottom:2px solid #456789">
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">Ehdot</button>
 									<span id ="statustext{{ forloop.counter0 }}">Et ole hyväksynyt ehtoja</span>
 									</td>

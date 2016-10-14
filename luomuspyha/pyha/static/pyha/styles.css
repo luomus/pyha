@@ -11,6 +11,10 @@ html {
     padding: 5px;
     border-bottom: 1px solid #ddd;
  }
+ .clickable-row{
+	padding: 1px;
+	border-bottom: 2px solid #456789
+  }
   .footer {
     bottom: 0px;
     width: 100%;

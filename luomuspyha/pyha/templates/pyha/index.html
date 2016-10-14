@@ -8,10 +8,10 @@
       </div>
       {% if requests %}
       <h2>Lista tekemistäsi pyynnöistä:</h2>
-  <p>description</p>            
-  <table class="table table-striped table-hover">
+  <p class ="text-muted"> Napsauta pyyntöä nähdäksesi lisätietoja.</p>            
+  <table class="table table-hover">
     <thead>
-      <tr>
+      <tr bgcolor="#3498DB" style=color:white;">
         <th>Kuvaus</th>
         <th>Päiväys</th>	
         <th>Osumia</th>
@@ -37,7 +37,7 @@
             <tr	
         {% endif %}
             data-href="request/{{request.order}}"
-               >
+            >
             <td>{{request.description}}</td>
             <td>{{request.date}}</td>
             <td>{{request.approximateMatches}}</td>
