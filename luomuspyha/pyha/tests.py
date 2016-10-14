@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.test import TestCase, Client
 from django.conf import settings
 from pyha.models import Collection, Request
@@ -27,6 +28,11 @@ class LoggedInTests(TestCase):
 	def test_user_sees_the_index_page(self):
 		response = self.client.get('/index/')
 		self.assertEqual(response.status_code, 200)
+
+	def test_user_correct_message_when_theres_no_request(self):
+		response = self.client.get('/index/')
+		self.assertContains(response, "ei ole pyyntöjä")
+
 
 	def test_logging_out_clears_session_information(self):
 		self.client.post('/logout/')
@@ -63,6 +69,13 @@ class RequestTesting(TestCase):
 		self.assertEqual(len(Request.requests.all()), 1)
 		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
 
+	def test_requests_collections_are_shown_in_its_page(self):
+		response = self.client.get('/pyha/request/1')
+		self.assertContains(response, "Pyyntöön sisältyvät aineistot:")
+		self.assertContains(response, "Talvilintulaskenta")
+		self.assertContains(response, "Hatikka.fi")
+		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")
+		
 JSON_MOCK = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
@@ -79,7 +92,7 @@ JSON_MOCK = '''
 		{
 			"target": [
 				"linnut",
-				"nisaat"
+				"nisäkkäät"
 			]
 		},
 		{
