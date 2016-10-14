@@ -39,7 +39,7 @@ def make_mail(x):
 		subject = getattr(x, 'description', str (datetime.now()))
 		req_order = Request.requests.filter(email=x.email).count()
 		req_link = settings.LOCAL_REQ_URL+str(req_order)
-		message_content = "Aineistopyynto odottaa kasittelyanne. Linkki aineistopyyntoonne "+subject+": "+req_link
+		message_content = u"Aineistopyynto odottaa kasittelyanne. Linkki aineistopyyntoonne "+subject+": "+req_link
 		message = message_content
 		from_email = 'messanger@localhost.com'
 		recipients = ['x.email']
