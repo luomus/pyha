@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secrets.SECRET_KEY_1
 LOCAL_REQ_URL = 'http://127.0.0.1:8000/pyha/request/'
-LAJI_REQ_URL = ''
+LAJI_REQ_URL = 'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
 LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/' 
 LAJIAPI_URL = 'https://apitest.laji.fi/v0/collections/'
 TARGET='KE.541'
