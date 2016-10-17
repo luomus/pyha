@@ -68,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'luomuspyha.urls'
@@ -83,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -125,11 +127,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
+from django.utils.translation import ugettext_lazy as _
 
-LANGUAGE_CODE = 'fi-FI'
 
+LANGUAGE_CODE = 'en'
 TIME_ZONE = 'Europe/Helsinki'
 
+LANGUAGES = [
+    ('fi', _('Suomi')),
+    ('en', _('Englanti')),
+    ('sw', _('Ruotsi')),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'pyha', 'locale'),
+]
 
 USE_I18N = True
 
@@ -146,6 +158,8 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STA_URL = STATIC_URL
+#STA_URL = '/pyha' + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")

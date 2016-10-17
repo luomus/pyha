@@ -3,7 +3,7 @@
 from django.db import models
 
 class Collection(models.Model):
-	collection_id = models.CharField(max_length=100)
+	collection_id = models.CharField(max_length=500)
 	count = models.IntegerField()
 	status = models.IntegerField()
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -18,17 +18,17 @@ class Collection(models.Model):
 		return self.collection_id
 
 class Request(models.Model):
-	id = models.CharField(max_length=100, primary_key=True)
-	description = models.CharField(max_length=200)
+	id = models.CharField(max_length=200, primary_key=True)
+	description = models.CharField(max_length=400)
 	order = models.IntegerField()
 	status = models.IntegerField()	
 	date = models.DateTimeField()
-	source = models.CharField(max_length=30)
+	source = models.CharField(max_length=60)
 	email = models.CharField(max_length=100)
 	approximateMatches = models.IntegerField()
-	downloadFormat = models.CharField(max_length=20)
+	downloadFormat = models.CharField(max_length=40)
 	downloadIncludes = models.CharField(max_length=1000)
-	filter_list = models.CharField(max_length=1000)
+	filter_list = models.CharField(max_length=2000)
 	requests = models.Manager()
 	# reason = models.CharField(max_length=1000)	
 

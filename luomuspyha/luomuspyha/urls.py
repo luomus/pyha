@@ -15,12 +15,25 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import ugettext_lazy as _
+from django.views.i18n import javascript_catalog
 
 urlpatterns = [
     url(r'^', include('pyha.urls')),
     url(r'^pyha/', include('pyha.urls')),
     url(r'^login/', include('pyha.urls')),
     url(r'^admin/', admin.site.urls),
-    # default
     #url(r'^', include('pyyntojarjestelma.urls')),
+]
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': ('pyha',),
+}
+
+urlpatterns += [
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^jsi18n/$', javascript_catalog, js_info_dict,
+      name='javascript-catalog'),
 ]

@@ -19,8 +19,8 @@ def index(request):
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userEmail = request.session["user_email"]
-		request_list = Request.requests.filter(email=userEmail)
-		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa", "requests": request_list }
+		request_list = Request.requests.filter(email=userEmail).order_by('-date')
+		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa", "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
 def login(request):      
@@ -29,7 +29,7 @@ def login(request):
 def logout(request):
 		if not logged_in(request):
 			return _process_auth_response(request, '')
-		context = {"title": "Kirjaudu ulos", "message": "Kirjauduit ulos onnistuneesti"}
+		context = {"title": "Kirjaudu ulos", "message": "Kirjauduit ulos onnistuneesti", "static": settings.STA_URL}
 		log_out(request)
 		return render(request, 'pyha/index.html', context)
 
@@ -78,5 +78,5 @@ def show_request(request):
 		for i, b in enumerate(vars(filterList).keys()):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
-		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionResultList }
+		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionResultList, "static": settings.STA_URL }
 		return render(request, 'pyha/form.html', context)
