@@ -21,6 +21,10 @@ html {
     /* Set the fixed height of the footer here */
     background-color: #3498DB;
   }
+  
+  .container-fluid {
+    overflow-y:auto;
+}
 
 
   /* Custom page CSS
@@ -98,12 +102,3 @@ html {
       height: 100%;
     }
   }
-  #layout-footer[_ngcontent-wtm-4] {
-    position: absolute;
-    bottom: 0;
-    height: 226px;
-    color: #fff;
-    background-color: #3498db;
-    margin-top: 10px;
-    width: 100%;
-}

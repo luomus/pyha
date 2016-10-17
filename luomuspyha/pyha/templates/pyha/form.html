@@ -71,7 +71,7 @@
 									      </div>
 									      <div class="modal-body">
 											{% load static %}
-									      <embed src= {% static "pyha/ehdot.pdf" %} width="800" height="700" type='application/pdf'>
+									      <embed src= "{{ static }}pyha/ehdot.pdf" width="800" height="700" type='application/pdf'>
 									      </div>
 									      <div class="modal-footer">
 											<input type="checkbox" 
@@ -88,9 +88,8 @@
 							
 								<label for="reason">Perustelut pyynnölle:</label>
 								<textarea class="form-control" rows="2" id="reason" required placeholder="pakolliset perustelut"></textarea>
+								<button type="submit" class="btn btn-default btn-lg">Lähetä hyväksyttäväksi</button>
 							</div>
-
-							<button type="submit" class="btn btn-default btn-lg">Lähetä hyväksyttäväksi</button>
 						</form>		
 
 						{% else %}
