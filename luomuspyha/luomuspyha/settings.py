@@ -30,6 +30,7 @@ LAJIAPI_URL = 'https://apitest.laji.fi/v0/collections/'
 TARGET='KE.541'
 MOCK_JSON=True
 APPEND_SLASH=False
+#FORCE_SCRIPT_NAME = '/pyha'
 #SECRET_KEY = os.environ['LUOMUS_SECRET_KEY']
 #LAJIAUTH_URL = os.environ['LUOMUS_LAJIAUTH_URL']
 #TARGET = os.environ['LUOMUS_TARGET']
