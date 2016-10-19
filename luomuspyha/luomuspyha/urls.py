@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import ugettext_lazy as _
 from django.views.i18n import javascript_catalog
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     url(r'^', include('pyha.urls')),
@@ -25,7 +28,8 @@ urlpatterns = [
     url(r'^login/', include('pyha.urls')),
     url(r'^admin/', admin.site.urls),
     #url(r'^', include('pyyntojarjestelma.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 
 js_info_dict = {
     'domain': 'djangojs',
