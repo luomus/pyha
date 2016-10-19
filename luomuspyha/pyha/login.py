@@ -19,7 +19,7 @@ def log_in(request, content):
        request.session["user_id"] = content["user"]["qname"]
        request.session["user_name"] = content["user"]["name"]
        request.session["user_email"] = content["user"]["email"]
-       request.session.set_expiry(600)
+       request.session.set_expiry(3600)
        return True
    return False
 
