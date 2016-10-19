@@ -15,7 +15,7 @@ from pyha.login import log_out
 from pyha.warehouse import store
 from pyha.models import Collection, Request
 
-def index(request):	
+def index(request):
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userEmail = request.session["user_email"]
@@ -23,7 +23,7 @@ def index(request):
 		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa", "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
-def login(request):      
+def login(request):
 		return _process_auth_response(request, '')
 
 def logout(request):
@@ -46,7 +46,7 @@ def _process_auth_response(request, indexpath):
 		else:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 
-def receiver(request):        
+def receiver(request):
 		if 'JSON' in request.POST:
                         text = request.POST['JSON']
                         jsond = text
@@ -56,10 +56,10 @@ def receiver(request):
 			store(jsond)
 		return HttpResponse('')
 
-   
+
 def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
-		
+
 def show_request(request):
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
@@ -79,9 +79,12 @@ def show_request(request):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
 		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionResultList, "static": settings.STA_URL }
-		return render(request, 'pyha/form.html', context)
+		if(userRequest.status == 0):
+                    return render(request, 'pyha/requestform.html', context)
+		else:
+                    return render(request, 'pyha/requestview.html', context)
 
-def change_description(request):	
+def change_description(request):
 	if request.method == 'POST':
 		next = request.POST.get('next', '/')
 		requestId = request.POST.get('requestid')
@@ -89,3 +92,12 @@ def change_description(request):
 		userRequest.description = request.POST.get('description')
 		userRequest.save(update_fields=['description'])
 		return HttpResponseRedirect(next)
+
+def approve(request):
+	if request.method == 'POST':
+		requestId = request.POST.get('requestid')
+		print(request.POST.get('checkb0').checked)
+		userRequest = Request.requests.get(id = requestId)
+		userRequest.status = 1
+		userRequest.save(update_fields=['status'])
+		return HttpResponseRedirect('/pyha/')

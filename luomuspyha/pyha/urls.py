@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^api/request/?$', views.receiver, name='receiver'),
     url(r'^mock/jsonmock/?$', views.jsonmock, name='jsonmock'),
     url(r'^request/[1-9][0-9]*/?$', views.show_request, name='show_request'),
-	url(r'^description/?$', views.change_description, name='change_description')
+    url(r'^description/?$', views.change_description, name='change_description'),
+    url(r'^approve/?$', views.approve, name='approve')
 ]

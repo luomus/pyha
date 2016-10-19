@@ -1,0 +1,102 @@
+﻿{% extends "pyha/base.html" %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="col-sm-9 col-lg-10">
+		  <div class="page-header">
+			<h1>Pyyntö: 
+				{% if userRequest.description and userRequest.description.strip %} {{userRequest.description}}
+				{% else %} {{userRequest.date}}
+				{% endif %}
+			</h1>
+		  </div>
+				<h2>Pyynnön rajaukset:</h2>
+
+				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">Näytä</button>
+				<div id="filterlist" class="collapse">	
+
+					{% if filters %}
+						<table class = "table" style="width:100%">
+							<tr style=color:black>
+								<th>Rajaus</th>
+								<th>Arvot</th>	
+							</tr>	
+							{% for filter in filters %}
+							<tr>	
+								<td rowspan={{filter.1|length}}>{{ filter.0 }}</td>
+								{% for f in filter.1 %}
+								<td>{{ f }}</td>
+							</tr>
+								<tr>
+								{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					{% else %}
+						<strong> Kannassa ei ole suodattimia tälle pyynnölle.</strong>
+					{% endif %}
+				</div>
+					
+				<!-- aineistolista -->
+
+				<h2>Pyyntöön sisältyvät aineistot:</h2>
+				
+					{% if collections %}	
+						<table class="table" style="width:100%">
+							<tr style=color:black>
+								<th>Nimi</th>
+								<th>Kuvaus</th>	
+							</tr>	
+							{% for collection in collections %}
+							<tr>										
+								<td>{{collection.collectionName}}</td>
+								<td>{{collection.description}}</td>							
+							</tr>
+							<tr>
+							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">Ehdot</button></td>
+								<!-- Modal -->
+								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog modal-lg" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Aineistojen käyttöehdot</h4>
+									  </div>
+									  <div class="modal-body">
+										{% load static %}
+									  <embed src= "{{ static }}pyha/ehdot.pdf" width="800" height="700" type='application/pdf'>
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>Poistu</button>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</tr>
+							{% endfor %}
+						</table>
+						</div>
+					</form>		
+
+					{% else %}
+						<strong> Kannassa ei ole aineistoja tälle pyynnölle.</strong>
+					{% endif %}
+		</div>
+
+	  </div>
+{% endblock %}
+
+{% block script %}
+	<script>
+	$(document).ready(function(){
+	  $("#filterlist").on("hide.bs.collapse", function(){
+		$("#filterbutton").html('Näytä');
+	  });
+	  $("#filterlist").on("show.bs.collapse", function(){
+		$("#filterbutton").html('Piilota');
+	  });
+	});
+	</script>
+{% endblock %}
+
+{% block modal %}
+{% endblock %}
