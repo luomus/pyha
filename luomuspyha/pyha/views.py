@@ -80,3 +80,12 @@ def show_request(request):
 			filterResultList[i] = tup
 		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionResultList, "static": settings.STA_URL }
 		return render(request, 'pyha/form.html', context)
+
+def change_description(request):	
+	if request.method == 'POST':
+		next = request.POST.get('next', '/')
+		requestId = request.POST.get('requestid')
+		userRequest = Request.requests.get(id = requestId)
+		userRequest.description = request.POST.get('description')
+		userRequest.save(update_fields=['description'])
+		return HttpResponseRedirect(next)
