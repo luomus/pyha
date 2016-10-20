@@ -30,13 +30,12 @@ class Requestlist_TestCase(unittest.TestCase):
 	def test_status_sana_ei_numero(self):
 		driver = self.driver
 		teksti = driver.find_element_by_xpath('//table[1]/tbody[1]/tr[1]/td[4]')
-		self.assertEqual('Käsittelyssä',teksti.text)
+		self.assertEqual('Hyväksytty',teksti.text)
 	
-	#on amerikkalaisittain
-	#def test_paivaus_fiksusti(self):
-	#	driver = self.driver
-	#	teksti = driver.find_element_by_xpath('//table[1]/tbody[1]/tr[1]/td[2]')
-	#	self.assertEqual('10. lokakuuta 2016 kello 16.22',teksti.text)
+	def test_paivaus_fiksusti(self):
+		driver = self.driver
+		teksti = driver.find_element_by_xpath('//table[1]/tbody[1]/tr[1]/td[2]')
+		self.assertEqual('10. lokakuuta 2016 kello 16.22',teksti.text)
 		
 	def tearDown(self):
 		self.driver.close()
@@ -58,15 +57,14 @@ class Requestpage_TestCase(unittest.TestCase):
 		email.send_keys("pyhatestaaja@gmail.com")
 		password.send_keys("L4ausesuomeksi")
 		elem.submit()
-		driver.get("http://127.0.0.1:8000/request/1")
+		driver.get("http://127.0.0.1:8000/pyha/request/1")
 
 	def test_rajauksetNapista(self):
 		driver = self.driver
 		nappi = driver.find_element_by_xpath('/html/body/div[1]/div[1]/button[1]')
 		nappi.click()
-		kohde = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/table[1]')
-	
-		self.assertEqual('Rajaus Arvot\ntarget linnut',kohde.text)
+		kohde = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/table[1]')	
+		self.assertEqual('Rajaus Arvot\ntime 2000/',kohde.text)
 
 	def tearDown(self):
 		self.driver.close()
