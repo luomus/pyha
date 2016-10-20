@@ -78,7 +78,7 @@ def show_request(request):
 		for i, b in enumerate(vars(filterList).keys()):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
-		context = {"email": request.session["user_email"], "request": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
+		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
 		if(userRequest.status == 0):
                     return render(request, 'pyha/requestform.html', context)
 		else:
