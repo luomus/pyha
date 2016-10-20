@@ -70,15 +70,15 @@ def show_request(request):
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionList = Collection.objects.filter(request=userRequest.id)
-		collectionResultList = list(range(len(collectionList)))
 		for i, c in enumerate(collectionList):
-                        collectionResultList[i] = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
+                        c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
+                        
 
 		filterResultList = list(range(len(vars(filterList).keys())))
 		for i, b in enumerate(vars(filterList).keys()):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
-		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionResultList, "static": settings.STA_URL }
+		context = {"email": request.session["user_email"], "request": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
 		if(userRequest.status == 0):
                     return render(request, 'pyha/requestform.html', context)
 		else:
@@ -96,8 +96,15 @@ def change_description(request):
 def approve(request):
 	if request.method == 'POST':
 		requestId = request.POST.get('requestid')
-		print(request.POST.get('checkb0').checked)
-		userRequest = Request.requests.get(id = requestId)
-		userRequest.status = 1
-		userRequest.save(update_fields=['status'])
-		return HttpResponseRedirect('/pyha/')
+		requestedCollections = request.POST.getlist('checkb');
+		if(len(requestedCollections) > 0):
+			for i in requestedCollections:
+				userCollection = Collection.objects.get(collection_id = i, request = requestId)
+				userCollection.status = 1
+				userCollection.save(update_fields=['status'])
+			collectionList = Collection.objects.filter(request=requestId, status = 0)
+			collectionList.delete()
+			userRequest = Request.requests.get(id = requestId)
+			userRequest.status = 1
+			userRequest.save(update_fields=['status'])
+	return HttpResponseRedirect('/pyha/')

@@ -11,7 +11,7 @@
   <p class ="text-muted"> Napsauta pyyntöä nähdäksesi lisätietoja.</p>            
   <table class="table table-hover">
     <thead>
-      <tr bgcolor="#3498DB" style=color:white;">
+      <tr bgcolor="#3498DB" style="color:white;">
         <th>Kuvaus</th>
         <th>Päiväys</th>	
         <th>Osumia</th>
@@ -41,19 +41,18 @@
             <td>{{request.description}}</td>
             <td>{{request.date}}</td>
             <td>{{request.approximateMatches}}</td>
+            {% if request.status == 0 %}
+                <td>Lähettämättä</td>
             
-            {% if request.status == 1 %}
+            {% elif request.status == 1 %}
                 <td>Käsittelyssä</td>
-                
-            {% elif request.status == 3 %}
-                <td>Hylätty</td>
                 
             {% elif request.status == 2 %}
                 <td>Osittain Hyväksytty</td>
                 
-            {% elif request.status == 0 %}
-                <td>Lähettämättä</td>
-                
+            {% elif request.status == 3 %}
+                <td>Hylätty</td>
+
             {% elif request.status == 4 %}
                 <td>Hyväksytty</td>  
             {% else %}  
