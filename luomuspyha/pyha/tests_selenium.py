@@ -43,16 +43,9 @@ class Requestlist_TestCase(unittest.TestCase):
 class Requestpage_TestCase(unittest.TestCase):
 	
 	def setUp(self):			
-		#chromedriver = "/home/ad/fshome5/u5/r/rivorivo/Linux/Python/envi3/lib/python3.4/site-packages/chromedriver/bin/chromedriver"
-		#os.environ["webdriver.chrome.driver"] = chromedriver
-		#self.driver = webdriver.Chrome(chromedriver)
-		options = webdriver.ChromeOptions()
-    	options.binary_location = '/usr/bin/chromium-browser'
-    	options.add_argument("--no-sandbox")
-    	options.add_argument("--no-default-browser-check")
-    	options.add_argument("--no-first-run")
-    	options.add_argument("--disable-default-apps") 
-    	driver = webdriver.Chrome('/home/travis/virtualenv/python2.7.9/chromedriver',chrome_options=options)
+		chromedriver = "/home/ad/fshome5/u5/r/rivorivo/Linux/Python/envi3/lib/python3.4/site-packages/chromedriver/bin/chromedriver"
+		os.environ["webdriver.chrome.driver"] = chromedriver
+		self.driver = webdriver.Chrome(chromedriver)
 		driver = self.driver
 		driver.get("http://127.0.0.1:8000/mock/jsonmock")
 		driver.find_element_by_xpath("/html/body/form[1]").submit()
