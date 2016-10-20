@@ -1,3 +1,9 @@
 language: python
 script: 
     bash ./runtests.sh
+
+before_script:
+  - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo mv chromedriver /usr/local/bin
+  - sudo chmod a+x /usr/local/bin/chromedriver

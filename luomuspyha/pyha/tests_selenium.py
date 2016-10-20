@@ -43,7 +43,7 @@ class Requestlist_TestCase(unittest.TestCase):
 class Requestpage_TestCase(unittest.TestCase):
 	
 	def setUp(self):			
-		chromedriver = "/home/ad/fshome5/u5/r/rivorivo/Linux/Python/envi3/lib/python3.4/site-packages/chromedriver/bin/chromedriver"
+		chromedriver = "/usr/local/bin/chromedriver"
 		os.environ["webdriver.chrome.driver"] = chromedriver
 		self.driver = webdriver.Chrome(chromedriver)
 		driver = self.driver
