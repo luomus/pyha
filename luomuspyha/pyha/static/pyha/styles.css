@@ -109,11 +109,14 @@ html {
     border-color: #2980B9;
   }
 
-  .navbar-custom .navbar-nav>.active>a, .navbar-custom .navbar-nav>.active>a:focus,
-  .navbar-custom .navbar-nav>.active>a:hover, .navbar-custom .navbar-nav > li > a:hover,
-  .navbar-custom .navbar-brand:hover, .navbar-custom .navbar-nav>.open>a,
-  .navbar-custom .navbar-nav>.open>a:focus, .navbar-custom .navbar-nav>.open>a:hover {
+  .navbar-custom .navbar-nav>.active>a:not(.nohover), .navbar-custom .navbar-nav>.active>a:focus:not(.nohover),
+  .navbar-custom .navbar-nav>.active>a:hover:not(.nohover), .navbar-custom .navbar-nav > li > a:hover:not(.nohover),
+  .navbar-custom .navbar-brand:hover:not(.nohover), .navbar-custom .navbar-nav>.open>a:not(.nohover),
+  .navbar-custom .navbar-nav>.open>a:focus:not(.nohover), .navbar-custom .navbar-nav>.open>a:hover:not(.nohover) {
     background-color: #2980B9;
+  }
+  .nohover{
+	background-color: #3498DB !important;
   }
 
   .navbar-custom .navbar-toggle, .navbar-custom .navbar-collapse, .navbar-custom .navbar-form {
