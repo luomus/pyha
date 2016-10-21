@@ -52,7 +52,7 @@
             data-currenturl='{{ request.path }}'
             data-currentfullurl='{{ request.get_full_path }}'>
           {% csrf_token %}
-          <input id='language_form_next' name="next" type="hidden" value="/request/12"/>
+          <input id='language_form_next' name="next" type="hidden" value="{{ request.path }}"/>
           <select name="language" id='language_form_select'>
               {% get_available_languages as LANGUAGES %}
               {% get_language_info_list for LANGUAGES as languages %}

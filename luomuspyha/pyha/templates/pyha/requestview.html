@@ -2,13 +2,61 @@
 {% block content %}
 	<div class="container-fluid">
 		<div class="col-sm-9 col-lg-10">
-		  <div class="page-header">
-			<h1>Pyyntö: 
+		  <div class="page-header"> 
+			<h1>Pyyntö:
 				{% if userRequest.description and userRequest.description.strip %} {{userRequest.description}}
 				{% else %} {{userRequest.date}}
 				{% endif %}
+				(
+					{% if userRequest.status == 1 %}
+						<span style="color:#AABBDD;"
+					{% elif userRequest.status == 3 %}
+						<span style="color:#DDBBAA;"
+					{% elif userRequest.status == 4 %}
+						<span style="color:#99DD99;"
+					{% elif userRequest.status == 2 %}
+						<span style="color:#BBBB77;"
+					{% else %}
+						<span
+					{% endif %}
+					> 
+					{% if userRequest.status == 1 %}
+					Käsittelyssä
+					
+					{% elif userRequest.status == 2 %}
+					Osittain Hyväksytty 
+					
+					{% elif userRequest.status == 3 %}
+					Hylätty
+					
+					{% elif userRequest.status == 4 %}
+					Hyväksytty
+					
+					{% else %}  
+					Tuntematon
+					
+					{% endif %}
+					
+					</span>
+					)
 			</h1>
 		  </div>
+		  <!-- lomake kuvauksen muuttamiseen -->
+				
+				<form class="form-inline" action="/pyha/description" method="post">
+				  <div class="form-group">
+					<label for="description">Kuvaus:</label>
+					<input type="text" class="form-control" id="description" name="description" 
+							value={{userRequest.description}} >
+					<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+					<input type="hidden" id="next" name="next" value={{request.path}}>
+					</div>
+					<button type="submit" class="btn btn-default">Muuta</button>
+					<p id="description" class="form-text text-muted">
+					  Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty.
+					</p>
+				</form>
+				
 				<h2>Pyynnön rajaukset:</h2>
 
 				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">Näytä</button>
@@ -44,14 +92,33 @@
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>Nimi</th>
-								<th>Kuvaus</th>	
+								<th>Kuvaus</th>
+								<th>Status</th>
+								<th>Ehdot</th>
 							</tr>	
 							{% for collection in collections %}
-							<tr>										
-								<td>{{collection.collectionName}}</td>
-								<td>{{collection.description}}</td>							
-							</tr>
-							<tr>
+								{% if collection.status == 1 %}
+								<tr class="info clickable-row"
+								{% elif collection.status == 3 %}
+								<tr class="danger clickable-row"
+								{% elif collection.status == 2 %}
+								<tr class="success clickable-row"
+								{% else %}  
+								<tr	
+								{% endif %}
+								>
+								<td>{{collection.result.collectionName}}</td>
+								<td>{{collection.result.description}}</td>
+								
+								{% if collection.status == 1 %}
+								<td>Käsittelyssä</td>
+								{% elif collection.status == 3 %}
+								<td>Hylätty</td>
+								{% elif collection.status == 2 %}
+								<td>Hyväksytty</td>
+								{% else %}  
+								<td>Tuntematon</td>	
+								{% endif %}
 							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">Ehdot</button></td>
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

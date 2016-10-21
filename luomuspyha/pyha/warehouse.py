@@ -20,7 +20,7 @@ def store(jsond):
 			return
 		description = 'kuvaus'
 		order = Request.requests.filter(email=x.email).count() + 1
-		status = getattr(x,'status',randint(0,4))
+		status = getattr(x,'status', 0)
 		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
 
 		req.save()
@@ -30,7 +30,7 @@ def store(jsond):
                                 co.collection_id = os.path.basename(str(i.id))
                                 co.description = 'kuvaus'
                                 co.count = getattr(i, 'count', 0)
-                                co.status = randint(0,4)
+                                co.status = 0
                                 co.request = req
                                 co.save()
 		make_mail(x)
