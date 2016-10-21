@@ -44,26 +44,25 @@
 
 
         {% get_current_language as LANGUAGE %}
-
-        <li><a href="#">{{LANGUAGE}} <span class="glyphicon glyphicon-globe"></span></a></li>
-
-
-        <form id='language_form' action="{% url 'set_language' %}" method="post"
+		<div class="dropdown">
+		<form id='language_form' action="{% url 'set_language' %}" method="post"
             data-currenturl='{{ request.path }}'
             data-currentfullurl='{{ request.get_full_path }}'>
-          {% csrf_token %}
-          <input id='language_form_next' name="next" type="hidden" value="{{ request.path }}"/>
-          <select name="language" id='language_form_select'>
+		<button type="button" onclick="myFunction()" class="dropbtn">{{LANGUAGE}}{% csrf_token %}<span class="glyphicon glyphicon-globe"></span></button>
+			<div id="myDropdown" class="dropdown-content">
               {% get_available_languages as LANGUAGES %}
               {% get_language_info_list for LANGUAGES as languages %}
+              
               {% for language in languages %}
-                  <option value="{{ language.code }}">
-                      {{ language.code }}
-                  </option>
+              <a onclick='submit("{{ language.code }}")' name="code" id="code">{{ language.code }}</a>
               {% endfor %}
-          </select>
-          <input type="Submit" id='language_form_submit'/>
-      </form>
+			  
+			</div>
+		<input id='language_form_select' name="language" type="hidden" value="">
+		</form>
+          
+      
+
 
     </ul>
       </div>
@@ -127,6 +126,30 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script>
+		function myFunction() {
+		    document.getElementById("myDropdown").classList.toggle("show");
+		}
+		
+		window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+		
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		}
+		
+		function submit(lang) {
+			document.getElementById("language_form_select").value = lang
+			document.getElementById("language_form").submit()
+		}
+  </script>
 
 {% block script %}
 {% endblock %}
