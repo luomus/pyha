@@ -102,3 +102,8 @@ html {
       height: 100%;
     }
   }
+  .modal-body {
+  position: relative;
+  padding: 15px;
+  height: 700;
+}
