@@ -19,9 +19,9 @@ def store(jsond):
 		if Request.requests.filter(id=os.path.basename(str(x.id))).exists():
 			return
 		description = 'kuvaus'
-		order = Request.requests.filter(email=x.email).count() + 1
+		order = Request.requests.filter(user=x.personId).count() + 1
 		status = getattr(x,'status', 0)
-		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.email, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
+		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.personId, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
 
 		req.save()
 		if hasattr(x, 'collections'):
@@ -37,7 +37,7 @@ def store(jsond):
 
 def make_mail(x):
 		subject = getattr(x, 'description', str (datetime.now()))
-		req_order = Request.requests.filter(email=x.email).count()
+		req_order = Request.requests.filter(user=x.personId).count()
 		req_link = settings.REQ_URL+str(req_order)
 		message_content = u"Aineistopyyntö odottaa kasittelyänne. Linkki aineistopyyntöönne "+subject+": "+req_link
 		message = message_content
@@ -47,7 +47,7 @@ def make_mail(x):
 		return mail
 
 def checkJson(jsond):
-		wantedFields = ['"id":','"source":','"email":','"approximateMatches":','"filters":'] 
+		wantedFields = ['"id":','"source":','"email":','"personId":','"approximateMatches":','"filters":'] 
 		if all(x in jsond for x in wantedFields):
 			return True
 		return False

@@ -18,8 +18,8 @@ from pyha.models import Collection, Request
 def index(request):
 		if not logged_in(request):
 			return _process_auth_response(request,'')
-		userEmail = request.session["user_email"]
-		request_list = Request.requests.filter(email=userEmail).order_by('-date')
+		userId = request.session["user_id"]
+		request_list = Request.requests.filter(user=userId).order_by('-date')
 		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa!", "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
@@ -64,10 +64,10 @@ def show_request(request):
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestNum)
-		userEmail = request.session["user_email"]
-		if not Request.requests.filter(order=requestNum, email=userEmail).exists():
+		userId = request.session["user_id"]
+		if not Request.requests.filter(order=requestNum, user=userId).exists():
                         return HttpResponseRedirect('/pyha/')
-		userRequest = Request.requests.get(order=requestNum, email=userEmail)
+		userRequest = Request.requests.get(order=requestNum, user=userId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionList = Collection.objects.filter(request=userRequest.id)
 		for i, c in enumerate(collectionList):

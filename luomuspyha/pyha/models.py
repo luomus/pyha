@@ -24,7 +24,7 @@ class Request(models.Model):
 	status = models.IntegerField()	
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
-	email = models.CharField(max_length=100)
+	user = models.CharField(max_length=100)
 	approximateMatches = models.IntegerField()
 	downloadFormat = models.CharField(max_length=40)
 	downloadIncludes = models.CharField(max_length=1000)
