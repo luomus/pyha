@@ -41,11 +41,11 @@
       {% if email %}
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="/pyha/">{% trans "Pyynnöt" %}</a></li>  
+          <li><a href="{% url 'pyha:index' %}">{% trans "Pyynnöt" %}</a></li>  
         </ul>
         <ul class="nav navbar-nav navbar-right">
         <li><a class="nohover" >{{email}} <span class="glyphicon glyphicon-user"></span></a></li>
-        <li><a href="/pyha/logout/">{% trans "Kirjaudu ulos" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
+        <li><a href="{% url 'pyha:logout' %}">{% trans "Kirjaudu ulos" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
 
 
         {% get_current_language as LANGUAGE %}

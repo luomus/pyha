@@ -80,9 +80,9 @@ def show_request(request):
 			filterResultList[i] = tup
 		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
 		if(userRequest.status == 0):
-                    return render(request, 'pyha/requestform.html', context)
+			return render(request, 'pyha/requestform.html', context)
 		else:
-                    return render(request, 'pyha/requestview.html', context)
+			return render(request, 'pyha/requestview.html', context)
 
 def change_description(request):
 	if request.method == 'POST':

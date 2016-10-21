@@ -88,7 +88,15 @@ $(document).ready(function($) {
 </script>
 <script>
 $(document).ready(function() {
-    $('#requests-table').DataTable();
-} );
+    $('#requests-table').dataTable( {
+            "language": {
+             {% if LANGUAGE == "fi" %}
+            "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Finnish.json"
+            {% elif LANGUAGE == "sw" %}
+            "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Swedish.json"
+            {% endif %}
+            }
+        } );
+    } );
 </script>
 {% endblock %}
