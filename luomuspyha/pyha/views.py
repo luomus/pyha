@@ -20,7 +20,7 @@ def index(request):
 			return _process_auth_response(request,'')
 		userEmail = request.session["user_email"]
 		request_list = Request.requests.filter(email=userEmail).order_by('-date')
-		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa", "requests": request_list, "static": settings.STA_URL }
+		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa!", "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
 def login(request):

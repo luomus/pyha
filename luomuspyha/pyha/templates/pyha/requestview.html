@@ -7,21 +7,22 @@
 				{% if userRequest.description and userRequest.description.strip %} {{userRequest.description}}
 				{% else %} {{userRequest.date}}
 				{% endif %}
-				(
+				<span style="white-space: nowrap;">(
+					<span
 					{% if userRequest.status == 1 %}
-						<span style="color:#AABBDD;"
+						 style="color:#AABBDD;"
 					{% elif userRequest.status == 3 %}
-						<span style="color:#DDBBAA;"
+						 style="color:#DDBBAA;"
 					{% elif userRequest.status == 4 %}
-						<span style="color:#99DD99;"
+						 style="color:#99DD99;"
 					{% elif userRequest.status == 2 %}
-						<span style="color:#BBBB77;"
+						 style="color:#BBBB77;"
 					{% else %}
-						<span
+						
 					{% endif %}
 					> 
 					{% if userRequest.status == 1 %}
-					Käsittelyssä
+					Odottaa aineiston toimittajan käsittelyä
 					
 					{% elif userRequest.status == 2 %}
 					Osittain Hyväksytty 
@@ -39,6 +40,7 @@
 					
 					</span>
 					)
+				</span>
 			</h1>
 		  </div>
 		  <!-- lomake kuvauksen muuttamiseen -->
