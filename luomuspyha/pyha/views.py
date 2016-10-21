@@ -66,7 +66,7 @@ def show_request(request):
 			return _process_auth_response(request, "request/"+requestNum)
 		userEmail = request.session["user_email"]
 		if not Request.requests.filter(order=requestNum, email=userEmail).exists():
-                        return HttpResponseRedirect('pyha/')
+                        return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, email=userEmail)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionList = Collection.objects.filter(request=userRequest.id)

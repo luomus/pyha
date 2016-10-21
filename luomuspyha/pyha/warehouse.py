@@ -38,7 +38,7 @@ def store(jsond):
 def make_mail(x):
 		subject = getattr(x, 'description', str (datetime.now()))
 		req_order = Request.requests.filter(email=x.email).count()
-		req_link = settings.LOCAL_REQ_URL+str(req_order)
+		req_link = settings.REQ_URL+str(req_order)
 		message_content = u"Aineistopyyntö odottaa kasittelyänne. Linkki aineistopyyntöönne "+subject+": "+req_link
 		message = message_content
 		from_email = 'messanger@localhost.com'
