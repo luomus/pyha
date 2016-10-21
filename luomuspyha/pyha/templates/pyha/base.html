@@ -14,12 +14,17 @@
 
   <title>{{ title }}</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap-theme.min.css">
 
-<link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css" />
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"> -->
+<link rel="stylesheet" href="{{ static }}pyha/bootstrap-dataTables/dataTables.bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css" >
 </head>
 <body>
 <nav class="navbar navbar-custom navbar-fixed-top">
@@ -123,10 +128,23 @@
   <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+  <script src="{{ static }}pyha/jquery-3.1.1/jquery.min.js"></script>
+  
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script>
+  
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+  <script src="{{ static }}pyha/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+  
+  <!-- <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
+  <script src="{{ static }}pyha/jquery-dataTables/jquery.dataTables.min.js"></script>
+      
+  <!-- non-cdn ei toimi jostain syystä. Luultavasti puuttuu jotain -->
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+  <!-- <script src="{{ static }}pyha/boostrap-dataTables/dataTables.bootstrap.min.js"></script> -->
+  
+    <script>
 		function myFunction() {
 		    document.getElementById("myDropdown").classList.toggle("show");
 		}

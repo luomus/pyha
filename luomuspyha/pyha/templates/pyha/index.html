@@ -9,7 +9,7 @@
       {% if requests %}
       <h2>Lista tekemistäsi pyynnöistä:</h2>
   <p class ="text-muted"> Napsauta pyyntöä nähdäksesi lisätietoja.</p>            
-  <table class="table table-hover">
+  <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#3498DB" style="color:white;">
         <th>Kuvaus</th>
@@ -85,5 +85,10 @@ $(document).ready(function($) {
         window.document.location = $(this).data("href");
     });
 });
+</script>
+<script>
+$(document).ready(function() {
+    $('#requests-table').DataTable();
+} );
 </script>
 {% endblock %}
