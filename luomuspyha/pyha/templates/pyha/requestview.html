@@ -1,9 +1,11 @@
 ﻿{% extends "pyha/base.html" %}
 {% block content %}
+{% load i18n %}
+
 	<div class="container-fluid">
 		<div class="col-sm-9 col-lg-10">
 		  <div class="page-header"> 
-			<h1>Pyyntö:
+			<h1>{% trans "Pyyntö" %}:
 				{% if userRequest.description and userRequest.description.strip %} {{userRequest.description}}
 				{% else %} {{userRequest.date}}
 				{% endif %}
@@ -22,19 +24,19 @@
 					{% endif %}
 					> 
 					{% if userRequest.status == 1 %}
-					Odottaa aineiston toimittajan käsittelyä
+					{% trans "Odottaa aineiston toimittajan käsittelyä" %}
 					
 					{% elif userRequest.status == 2 %}
-					Osittain Hyväksytty 
+					{% trans "Osittain Hyväksytty" %}
 					
 					{% elif userRequest.status == 3 %}
-					Hylätty
+					{% trans "Hylätty" %}
 					
 					{% elif userRequest.status == 4 %}
-					Hyväksytty
+					{% trans "Hyväksytty" %}
 					
 					{% else %}  
-					Tuntematon
+					{% trans "Tuntematon" %}
 					
 					{% endif %}
 					
@@ -47,28 +49,28 @@
 				
 				<form class="form-inline" action="/pyha/description" method="post">
 				  <div class="form-group">
-					<label for="description">Kuvaus:</label>
+					<label for="description">{% trans "Kuvaus" %}:</label>
 					<input type="text" class="form-control" id="description" name="description" 
 							value={{userRequest.description}} >
 					<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 					<input type="hidden" id="next" name="next" value={{request.path}}>
 					</div>
-					<button type="submit" class="btn btn-default">Muuta</button>
+					<button type="submit" class="btn btn-default">{% trans "Muuta" %}</button>
 					<p id="description" class="form-text text-muted">
-					  Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty.
+					  {% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty" %}.
 					</p>
 				</form>
 				
-				<h2>Pyynnön rajaukset:</h2>
+				<h2>{% trans "Pyynnön rajaukset" %}:</h2>
 
-				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">Näytä</button>
+				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "Näytä" %}</button>
 				<div id="filterlist" class="collapse">	
 
 					{% if filters %}
 						<table class = "table" style="width:100%">
 							<tr style=color:black>
-								<th>Rajaus</th>
-								<th>Arvot</th>	
+								<th>{% trans "Rajaus" %}</th>
+								<th>{% trans "Arvot" %}</th>	
 							</tr>	
 							{% for filter in filters %}
 							<tr>	
@@ -82,21 +84,21 @@
 							{% endfor %}
 						</table>
 					{% else %}
-						<strong> Kannassa ei ole suodattimia tälle pyynnölle.</strong>
+						<strong>{% trans "Kannassa ei ole suodattimia tälle pyynnölle" %}.</strong>
 					{% endif %}
 				</div>
 					
 				<!-- aineistolista -->
 
-				<h2>Pyyntöön sisältyvät aineistot:</h2>
+				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
 				
 					{% if collections %}	
 						<table class="table" style="width:100%">
 							<tr style=color:black>
-								<th>Nimi</th>
-								<th>Kuvaus</th>
-								<th>Status</th>
-								<th>Ehdot</th>
+								<th>{% trans "Nimi" %}</th>
+								<th>{% trans "Kuvaus" %}</th>
+								<th>{% trans "Status" %}</th>
+								<th>{% trans "Ehdot" %}</th>
 							</tr>	
 							{% for collection in collections %}
 								{% if collection.status == 1 %}
@@ -113,29 +115,31 @@
 								<td>{{collection.result.description}}</td>
 								
 								{% if collection.status == 1 %}
-								<td>Käsittelyssä</td>
+								<td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
 								{% elif collection.status == 3 %}
-								<td>Hylätty</td>
+								<td>{% trans "Hylätty" %}</td>
 								{% elif collection.status == 2 %}
-								<td>Hyväksytty</td>
+								<td>{% trans "Osittain hyväksytty" %}</td>
+								{% elif collection.status == 4 %}
+								<td>{% trans "Hyväksytty" %}</td>
 								{% else %}  
-								<td>Tuntematon</td>	
+								<td>{% trans "Tuntematon" %}</td>	
 								{% endif %}
-							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">Ehdot</button></td>
+							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog modal-lg" role="document">
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">Aineistojen käyttöehdot</h4>
+										<h4 class="modal-title" id="myModalLabel">{% trans "Aineistojen käyttöehdot" %}</h4>
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
 									  <embed src= "{{ static }}pyha/ehdot.pdf" width="800" height="700" type='application/pdf'>
 									  </div>
 									  <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>Poistu</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
 									  </div>
 									</div>
 								  </div>
@@ -147,7 +151,7 @@
 					</form>		
 
 					{% else %}
-						<strong> Kannassa ei ole aineistoja tälle pyynnölle.</strong>
+						<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
 					{% endif %}
 		</div>
 

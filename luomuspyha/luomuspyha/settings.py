@@ -133,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 from django.utils.translation import ugettext_lazy as _
 
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fi'
 TIME_ZONE = 'Europe/Helsinki'
 
 LANGUAGES = [
@@ -145,6 +145,8 @@ LANGUAGES = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'pyha', 'locale'),
 ]
+
+LANGUAGE_SESSION_KEY = "lang"
 
 #USE_I18N = True
 
