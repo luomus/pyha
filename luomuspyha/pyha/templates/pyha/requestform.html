@@ -5,8 +5,8 @@
 	<script>
 	  var accepted = [];
 	  function check(counter) { 
-		  approvetext = '{% trans "Hyväksyit ehdot" %}';
-		  nonapprovetext = '{% trans "Et ole hyväksynyt ehtoja" %}';
+		  approvetext = "{% trans 'Hyväksyit ehdot' %}";
+		  nonapprovetext = "{% trans 'Et ole hyväksynyt ehtoja' %}";
 
 		  if(document.getElementById('checkb'+ counter).checked){
 			  document.getElementById('statustext'+ counter).textContent=approvetext;
