@@ -46,7 +46,7 @@ class RequestTesting(TestCase):
 		self.client = Client() 
 		session = self.client.session
 		session['user_name'] = 'paisti'
-		session['user_id'] = 10
+		session['user_id'] = 'MA.309'
 		session['user_email'] = 'ex.apmle@example.com'
 		session['token'] = 'asd213'
 		session.save()
@@ -62,7 +62,7 @@ class RequestTesting(TestCase):
 		warehouse.store(JSON_MOCK2)
 		response = self.client.get('/pyha/')
 		self.assertEqual(len(Request.requests.all()), 2)
-		self.assertContains(response, "1742")
+		self.assertContains(response, "1 742")
 
 	def test_request_with_missing_attributes_is_not_saved(self):
 		warehouse.store(JSON_MOCK3)
@@ -92,6 +92,7 @@ JSON_MOCK = '''
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
 	"source": "KE.398",
 	"email": "ex.apmle@example.com",
+	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
@@ -133,6 +134,7 @@ JSON_MOCK2 = '''
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE",
 	"source": "KE.398",
 	"email": "ex@example.com",
+	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
@@ -174,6 +176,7 @@ JSON_MOCK3 = '''
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555",
 	"source": "KE.398",
 	"email": "filters@example.com",
+	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
@@ -204,6 +207,7 @@ JSON_MOCK4 = '''
 	"description": "Testausta",
 	"source": "KE.398",
 	"email": "te.staaja@example.com",
+	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
@@ -246,6 +250,7 @@ JSON_MOCK5 = '''
 	"description": "Testausta2",
 	"source": "KE.398",
 	"email": "te.staaja@example.com",
+	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
 	"downloadIncludes": [
