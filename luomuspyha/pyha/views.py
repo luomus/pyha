@@ -93,6 +93,15 @@ def change_description(request):
 		userRequest.save(update_fields=['description'])
 		return HttpResponseRedirect(next)
 
+def removeCollection(request):
+	if request.method == 'POST':
+		requestId = request.POST.get('requestid')
+		collectionId = request.POST.get('collectionid')
+		redirect_path = request.POST.get('next')
+		print("request_id: " + requestId)
+		print("collection_id: " + collectionId)
+	return HttpResponseRedirect(redirect_path)
+
 def approve(request):
 	if request.method == 'POST':
 		requestId = request.POST.get('requestid')
