@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-14 15:02+0300\n"
+"POT-Creation-Date: 2016-10-26 10:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,197 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: luomuspyha/settings.py:137
+#: luomuspyha/settings.py:140
 msgid "Suomi"
 msgstr ""
 
-#: luomuspyha/settings.py:138
+#: luomuspyha/settings.py:141
 msgid "Englanti"
 msgstr ""
 
-#: luomuspyha/settings.py:139
+#: luomuspyha/settings.py:142
 msgid "Ruotsi"
 msgstr ""
 
-#: pyha/templates/pyha/base.html:40
+#: pyha/templates/pyha/base.html:50
 msgid "Pyynnöt"
 msgstr "pyynnöt på svenska"
 
-#: pyha/templates/pyha/base.html:44
+#: pyha/templates/pyha/base.html:54
 msgid "Kirjaudu ulos"
 msgstr "kirjaudu ulos på svenska"
+
+#: pyha/templates/pyha/index.html:12
+#, fuzzy
+#| msgid "Pyynnöt"
+msgid "Pyyntösi"
+msgstr "pyynnöt på svenska"
+
+#: pyha/templates/pyha/index.html:13
+msgid "Napsauta pyyntöä nähdäksesi lisätietoja"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:17 pyha/templates/pyha/requestform.html:50
+#: pyha/templates/pyha/requestform.html:118
+#: pyha/templates/pyha/requestview.html:118
+msgid "Kuvaus"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:18
+msgid "Päiväys"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:19
+msgid "Osumia"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:20
+#, fuzzy
+#| msgid "Pyynnöt"
+msgid "Pyynnön tila"
+msgstr "pyynnöt på svenska"
+
+#: pyha/templates/pyha/index.html:48 pyha/templates/pyha/requestform.html:9
+#: pyha/templates/pyha/requestform.html:127
+msgid "Et ole hyväksynyt ehtoja"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:51 pyha/templates/pyha/requestview.html:61
+#: pyha/templates/pyha/requestview.html:137
+msgid "Odottaa aineiston toimittajan käsittelyä"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:54 pyha/templates/pyha/requestview.html:64
+msgid "Osittain Hyväksytty"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:57 pyha/templates/pyha/requestview.html:67
+#: pyha/templates/pyha/requestview.html:139
+msgid "Hylätty"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:60 pyha/templates/pyha/requestview.html:70
+#: pyha/templates/pyha/requestview.html:143
+msgid "Hyväksytty"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:62 pyha/templates/pyha/requestview.html:73
+#: pyha/templates/pyha/requestview.html:145
+msgid "Tuntematon"
+msgstr ""
+
+#: pyha/templates/pyha/index.html:71
+msgid "Kannassa ei ole pyyntöjä"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:8
+msgid "Hyväksyit ehdot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:36
+#: pyha/templates/pyha/requestview.html:9
+#, fuzzy
+#| msgid "Pyynnöt"
+msgid "Pyyntö"
+msgstr "pyynnöt på svenska"
+
+#: pyha/templates/pyha/requestform.html:62
+msgid "Muuta"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:66
+msgid ""
+"Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, "
+"käytetään pyynnön päiväystä "
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:81
+#: pyha/templates/pyha/requestview.html:83
+#, fuzzy
+#| msgid "Pyynnöt"
+msgid "Pyynnön rajaukset"
+msgstr "pyynnöt på svenska"
+
+#: pyha/templates/pyha/requestform.html:83
+#: pyha/templates/pyha/requestview.html:85
+msgid "Näytä"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:89
+#: pyha/templates/pyha/requestview.html:91
+msgid "Rajaus"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:90
+#: pyha/templates/pyha/requestview.html:92
+msgid "Arvot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:104
+#: pyha/templates/pyha/requestview.html:106
+msgid "Kannassa ei ole suodattimia tälle pyynnölle"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:110
+#: pyha/templates/pyha/requestview.html:112
+msgid "Pyyntöön sisältyvät aineistot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:117
+#: pyha/templates/pyha/requestview.html:117
+msgid "Nimi"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:119
+#: pyha/templates/pyha/requestform.html:126
+#: pyha/templates/pyha/requestview.html:120
+#: pyha/templates/pyha/requestview.html:147
+msgid "Ehdot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:120
+msgid "Tila"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:135
+#: pyha/templates/pyha/requestview.html:154
+msgid "Aineistojen käyttöehdot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:144
+msgid "Olen lukenut ja ymmärtänyt ehdot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:147
+#: pyha/templates/pyha/requestview.html:161
+msgid "Poistu"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:157
+msgid "Perustelut pyynnölle"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:158
+msgid "Pakolliset perustelut"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:159
+msgid "Lähetä hyväksyttäväksi"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:160
+msgid "Sinun pitää hyväksyä vähintään yhdet ehdot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:166
+#: pyha/templates/pyha/requestview.html:173
+msgid "Kannassa ei ole aineistoja tälle pyynnölle"
+msgstr ""
+
+#: pyha/templates/pyha/requestview.html:119
+msgid "Status"
+msgstr ""
+
+#: pyha/templates/pyha/requestview.html:141
+msgid "Osittain hyväksytty"
+msgstr ""

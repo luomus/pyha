@@ -20,7 +20,15 @@ def index(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
 		request_list = Request.requests.filter(user=userId).order_by('-date')
-		context = {"email": request.session["user_email"], "title": "Tervetuloa", "maintext": "Tervetuloa!", "requests": request_list, "static": settings.STA_URL }
+		lang = request.LANGUAGE_CODE
+
+		if(lang == 'fi'):
+			title = 'Tervetuloa'
+		elif(lang == 'en'):
+			title = "Welcome"
+		else:
+			title = "Välkommen"
+		context = {"email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
 def login(request):
@@ -71,7 +79,7 @@ def show_request(request):
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		collectionList = Collection.objects.filter(request=userRequest.id)
 		for i, c in enumerate(collectionList):
-                        c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=fi&access_token="+secrets.TOKEN).json()
+                        c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
                         
 
 		filterResultList = list(range(len(vars(filterList).keys())))

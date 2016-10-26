@@ -1,5 +1,7 @@
 ﻿{% extends "pyha/base.html" %}
 {% block content %}
+{% load i18n %}
+
 
     <div class="container-fluid">
     <div class="col-sm-9 col-lg-10">
@@ -7,15 +9,15 @@
         <h2>{{maintext}}</h2>
       </div>
       {% if requests %}
-      <h2>Pyyntösi:</h2>
-  <p class ="text-muted"> Napsauta pyyntöä nähdäksesi lisätietoja.</p>            
+      <h2>{% trans "Pyyntösi" %}:</h2>
+  <p class ="text-muted">{% trans "Napsauta pyyntöä nähdäksesi lisätietoja" %}.</p>            
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#3498DB" style="color:white;">
-        <th>Kuvaus</th>
-        <th>Päiväys</th>	
-        <th>Osumia</th>
-        <th>Pyynnön tila</th>
+        <th>{% trans "Kuvaus" %}</th>
+        <th>{% trans "Päiväys" %}</th>	
+        <th>{% trans "Osumia" %}</th>
+        <th>{% trans "Pyynnön tila" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -43,21 +45,21 @@
             <td>{{request.date|date:"d.m.Y    h:m"}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
-                <td>Et ole hyväksynyt ehtoja</td>
+                <td>{% trans "Et ole hyväksynyt ehtoja" %}</td>
             
             {% elif request.status == 1 %}
-                <td>Odottaa aineiston toimittajan käsittelyä</td>
+                <td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
                 
             {% elif request.status == 2 %}
-                <td>Osittain Hyväksytty</td>
+                <td>{% trans "Osittain Hyväksytty" %}</td>
                 
             {% elif request.status == 3 %}
-                <td>Hylätty</td>
+                <td>{% trans "Hylätty" %}</td>
 
             {% elif request.status == 4 %}
-                <td>Hyväksytty</td>  
+                <td>{% trans "Hyväksytty" %}</td>  
             {% else %}  
-                <td>Tuntematon</td>	
+                <td>{% trans "Tuntematon" %}</td>	
             {% endif %}
         
             
@@ -66,7 +68,7 @@
 	{% endfor %}
     
 	{% else %}
-		<strong> Kannassa ei ole pyyntöjä.</strong>
+		<strong>{% trans "Kannassa ei ole pyyntöjä" %}.</strong>
 	{% endif %}
     </tbody>
   </table>
