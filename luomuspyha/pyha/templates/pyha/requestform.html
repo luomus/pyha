@@ -32,30 +32,46 @@
 	</script>
 	  <div class="container-fluid">
 		<div class="col-sm-9 col-lg-10">
-		  <div class="page-header">
-			<h1>{% trans "Pyyntö" %}: 
-				{% if userRequest.description and userRequest.description.strip %} {{userRequest.description}}
-				{% else %} {{userRequest.date}}
-				{% endif %}
-			</h1>
-		  </div>
-
-				<!-- lomake kuvauksen muuttamiseen -->
+			<div class="page-header">
+				<h1>{% trans "Pyyntö" %}: 
+					{% if userRequest.description and userRequest.description.strip %} 
+						{{userRequest.description}}
+						<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
+					{% else %} 
+					{% endif %}
+				</h1>
 				
-				<form class="form-inline" action="/pyha/description" method="post">
-				  <div class="form-group">
-					<label for="description">{% trans "Kuvaus" %}:</label>
-					<input type="text" class="form-control" id="description" name="description" 
-							value={{userRequest.description}} >
-					<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-					<input type="hidden" id="next" name="next" value={{request.path}}>
-					</div>
-					<button type="submit" class="btn btn-default">{% trans "Muuta" %}</button>
-					<p id="description" class="form-text text-muted">
-					  {% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty" %}.
-					</p>
-				</form>
-
+				<!-- lomake kuvauksen muuttamiseen -->
+				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
+					<form class="form-inline" action="/pyha/description" method="post">
+						<div class="form-group">
+							
+							<div class="col-12" style="clear: left;">
+								<label for="description">{% trans "Kuvaus" %}:</label>
+							</div>
+							
+							<div class="col-12" style="clear: left;">
+								<textarea class="form-control" name = "description" id="description" rows="2" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
+								<!--<input type="text" class="form-control" id="description" name="description" 
+										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
+								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+								<input type="hidden" id="next" name="next" value={{request.path}}>
+							</div>
+						
+							<div class="col-12" style="clear: left;">
+								<button type="submit" class="btn btn-default">{% trans "Muuta" %}</button>
+							</div>
+							
+							<p id="description" class="form-text text-muted">
+							{% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä"%}.
+							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
+							</p>
+						</div>
+					</form>
+				</div>
+					
+				<h2>{{userRequest.date|date:"d.m.Y    h:m"}}</h2>
+		  </div>
 				<!-- suodatinlista -->
 
 				<!-- vanha piiolotusversio
@@ -112,7 +128,7 @@
 								</td>
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog modal-lg" role="document">
+								  <div class="modal-lg modal-dialog" role="document">
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -125,7 +141,8 @@
 									  <div class="modal-footer">
 										<input type="checkbox" id ="checkb{{forloop.counter0}}" name="checkb" value="{{collection.result.id}}"
 										onchange="check({{ forloop.counter0 }}); checkForApproval();">
-										{% trans "Olen lukenut ja ymmärtänyt ehdot" %}.<br>
+										{% trans "Olen lukenut ja ymmärtänyt ehdot" %}<br>
+										<p></p>
 										<script>check({{forloop.counter0}});</script>
 										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
 									  </div>
@@ -136,8 +153,9 @@
 							{% endfor %}
 						</table>
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+
 							<label for="reason">{% trans "Perustelut pyynnölle" %}:</label>
-							<textarea class="form-control" rows="2" id="reason" required placeholder="{% trans "pakolliset perustelut" %}"></textarea>
+							<textarea class="form-control" rows="2" id="reason" required placeholder='{% trans "Pakolliset perustelut"%}'></textarea>
 							<button type="submit" id="submit" class="btn btn-default btn-lg">{% trans "Lähetä hyväksyttäväksi" %}</button>
 							<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span>
 							<script>checkForApproval();</script>
@@ -162,6 +180,29 @@
 		$("#filterbutton").html('Piilota');
 	  });
 	});
+	</script>
+	
+	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
+	<script>
+	$(document).ready(function(){
+		var descExists = {{ userRequest.description.strip|length }};
+		if (descExists == 0) {
+			$("#descriptionEdit").show();
+		}
+	});
+	</script>
+	
+	<!-- oma scripti kuvauksen muokkausnapille show/hide -->
+	<script>
+	$(document).ready(function(){
+	  $("#descriptionEdit").on("hide.bs.collapse", function(){
+		$("#descriptionButton").html('<span class="glyphicon glyphicon-pencil"></span>');
+	  });
+	  $("#descriptionEdit").on("show.bs.collapse", function(){
+		$("#descriptionButton").html('Piilota');
+	  });
+	});
+	
 	</script>
 {% endblock %}
 

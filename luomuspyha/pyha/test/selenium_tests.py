@@ -3,6 +3,8 @@ import unittest
 import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from datetime import datetime
+from django.utils import timezone
 
 class Requestlist_TestCase(unittest.TestCase):
 	
@@ -30,12 +32,12 @@ class Requestlist_TestCase(unittest.TestCase):
 	def test_status_sana_ei_numero(self):
 		driver = self.driver
 		teksti = driver.find_element_by_xpath('//table[1]/tbody[1]/tr[1]/td[4]')
-		self.assertEqual('Hyväksytty',teksti.text)
+		self.assertEqual('Et ole hyväksynyt ehtoja',teksti.text)
 	
 	def test_paivaus_fiksusti(self):
 		driver = self.driver
 		teksti = driver.find_element_by_xpath('//table[1]/tbody[1]/tr[1]/td[2]')
-		self.assertEqual('Oct. 20, 2016, 3:48 p.m.',teksti.text)
+		datetime.strptime(teksti.text, "%d.%m.%Y %H:%M")
 		
 	def tearDown(self):
 		self.driver.close()
@@ -64,7 +66,7 @@ class Requestpage_TestCase(unittest.TestCase):
 		nappi = driver.find_element_by_xpath('/html/body/div[1]/div[1]/button[1]')
 		nappi.click()
 		kohde = driver.find_element_by_xpath('/html/body/div[1]/div[1]/div[2]/table[1]')	
-		self.assertEqual('Rajaus Arvot',kohde.text)
+		self.assertIn('Rajaus Arvot',kohde.text)
 
 	def tearDown(self):
 		self.driver.close()
