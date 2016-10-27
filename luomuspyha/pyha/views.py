@@ -14,6 +14,8 @@ from pyha.login import authenticate
 from pyha.login import log_out
 from pyha.warehouse import store
 from pyha.models import Collection, Request
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+
 
 def index(request):
 		if not logged_in(request):
@@ -28,8 +30,14 @@ def index(request):
 			title = "Welcome"
 		else:
 			title = "Välkommen"
-		context = {"email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
-		return render(request, 'pyha/index.html', context)
+			
+		hasRole = secrets.ROLE_1 in request.session["user_roles"]
+		if secrets.ROLE_1 in request.session["user_role"]:
+                    context = {"role": hasRole, "email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
+                    return render(request, 'pyha/role1/index.html', context)
+		else:
+                    context = {"role": hasRole, "email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
+                    return render(request, 'pyha/index.html', context)
 
 def login(request):
 		return _process_auth_response(request, '')
@@ -46,6 +54,15 @@ def logged_in(request):
 			return True
 		return False
 
+def change_role(request):
+		print(request.POST['role'])
+		if not logged_in(request) and not 'role' in request.POST:
+			return HttpResponse('/')
+		next = request.POST.get('next', '/')
+		request.session['user_role'] = request.POST['role']
+		return HttpResponseRedirect(next)
+
+@csrf_exempt
 def _process_auth_response(request, indexpath):
 		if not "token" in request.POST:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
@@ -80,7 +97,7 @@ def show_request(request):
 		collectionList = Collection.objects.filter(request=userRequest.id)
 		for i, c in enumerate(collectionList):
                         c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-                        
+
 
 		filterResultList = list(range(len(vars(filterList).keys())))
 		for i, b in enumerate(vars(filterList).keys()):

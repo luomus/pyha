@@ -1,0 +1,217 @@
+﻿{% extends "pyha/role1/base.html" %}
+{% block content %}
+{% load i18n %}
+
+	<div class="container-fluid">
+		<div class="col-sm-9 col-lg-10">
+		  <div class="page-header"> 
+
+			<h1>{% trans "Pyyntö" %}:
+				{% if userRequest.description and userRequest.description.strip %}
+					{{userRequest.description}}
+					<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
+				{% else %}
+				{% endif %}
+			</h1>
+			<!-- lomake kuvauksen muuttamiseen -->
+				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
+					<form class="form-inline" action="/pyha/description" method="post">
+						<div class="form-group">
+							
+							<div class="col-12" style="clear: left;">
+								<label for="description">Kuvaus:</label>
+							</div>
+							
+							<div class="col-12" style="clear: left;">
+								<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
+								<!--<input type="text" class="form-control" id="description" name="description" 
+										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
+								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+								<input type="hidden" id="next" name="next" value={{request.path}}>
+							</div>
+						
+							<div class="col-12" style="clear: left;">
+								<button type="submit" class="btn btn-default">Muuta</button>
+							</div>
+							
+							<p id="description" class="form-text text-muted">
+							Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä.
+							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
+							</p>
+						</div>
+					</form>
+				</div>
+					
+				<h2>{{userRequest.date|date:"d.m.Y    h:m"}}</h2>
+			<h3><span style="white-space: nowrap;">(
+					<span
+					{% if userRequest.status == 1 %}
+						 style="color:#AABBDD;"
+					{% elif userRequest.status == 3 %}
+						 style="color:#DDBBAA;"
+					{% elif userRequest.status == 4 %}
+						 style="color:#99DD99;"
+					{% elif userRequest.status == 2 %}
+						 style="color:#BBBB77;"
+					{% else %}
+						
+					{% endif %}
+					> 
+					{% if userRequest.status == 1 %}
+					{% trans "Odottaa aineiston toimittajan käsittelyä" %}
+					
+					{% elif userRequest.status == 2 %}
+					{% trans "Osittain Hyväksytty" %}
+					
+					{% elif userRequest.status == 3 %}
+					{% trans "Hylätty" %}
+					
+					{% elif userRequest.status == 4 %}
+					{% trans "Hyväksytty" %}
+					
+					{% else %}  
+					{% trans "Tuntematon" %}
+					
+					{% endif %}
+					
+					</span>
+					)
+				</span></h3>
+		  </div>
+
+		  
+				<h2>{% trans "Pyynnön rajaukset" %}</h2>
+
+				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "Näytä" %}</button>
+				<div id="filterlist" class="collapse">	
+
+					{% if filters %}
+						<table class = "table" style="width:100%">
+							<tr style=color:black>
+								<th>{% trans "Rajaus" %}</th>
+								<th>{% trans "Arvot" %}</th>	
+							</tr>	
+							{% for filter in filters %}
+							<tr>	
+								<td rowspan={{filter.1|length}}>{{ filter.0 }}</td>
+								{% for f in filter.1 %}
+								<td>{{ f }}</td>
+							</tr>
+								<tr>
+								{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					{% else %}
+						<strong>{% trans "Kannassa ei ole suodattimia tälle pyynnölle" %}.</strong>
+					{% endif %}
+				</div>
+					
+				<!-- aineistolista -->
+
+				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
+				
+					{% if collections %}	
+						<table class="table" style="width:100%">
+							<tr style=color:black>
+								<th>{% trans "Nimi" %}</th>
+								<th>{% trans "Kuvaus" %}</th>
+								<th>{% trans "Status" %}</th>
+								<th>{% trans "Ehdot" %}</th>
+							</tr>	
+							{% for collection in collections %}
+								{% if collection.status == 1 %}
+								<tr class="info clickable-row"
+								{% elif collection.status == 3 %}
+								<tr class="danger clickable-row"
+								{% elif collection.status == 2 %}
+								<tr class="success clickable-row"
+								{% else %}  
+								<tr	
+								{% endif %}
+								>
+								<td>{{collection.result.collectionName}}</td>
+								<td>{{collection.result.description}}</td>
+								
+								{% if collection.status == 1 %}
+								<td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
+								{% elif collection.status == 3 %}
+								<td>{% trans "Hylätty" %}</td>
+								{% elif collection.status == 2 %}
+								<td>{% trans "Osittain hyväksytty" %}</td>
+								{% elif collection.status == 4 %}
+								<td>{% trans "Hyväksytty" %}</td>
+								{% else %}  
+								<td>{% trans "Tuntematon" %}</td>	
+								{% endif %}
+							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
+								<!-- Modal -->
+								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog modal-lg" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">{% trans "Aineistojen käyttöehdot" %}</h4>
+									  </div>
+									  <div class="modal-body">
+										{% load static %}
+									  <embed src= "{{ static }}pyha/ehdot.pdf" width="800" height="700" type='application/pdf'>
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</tr>
+							{% endfor %}
+						</table>
+						</div>
+					</form>		
+
+					{% else %}
+						<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
+					{% endif %}
+		</div>
+
+	  </div>
+{% endblock %}
+
+{% block script %}
+	<script>
+	$(document).ready(function(){
+	  $("#filterlist").on("hide.bs.collapse", function(){
+		$("#filterbutton").html('Näytä');
+	  });
+	  $("#filterlist").on("show.bs.collapse", function(){
+		$("#filterbutton").html('Piilota');
+	  });
+	});
+	</script>
+	
+	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
+	<script>
+	$(document).ready(function(){
+		var descExists = {{ userRequest.description.strip|length }};
+		if (descExists == 0) {
+			$("#descriptionEdit").show();
+		}
+	});
+	</script>
+	
+	<!-- oma scripti kuvauksen muokkausnapille show/hide -->
+	<script>
+	$(document).ready(function(){
+	  $("#descriptionEdit").on("hide.bs.collapse", function(){
+		$("#descriptionButton").html('<span class="glyphicon glyphicon-pencil"></span>');
+	  });
+	  $("#descriptionEdit").on("show.bs.collapse", function(){
+		$("#descriptionButton").html('Piilota');
+	  });
+	});
+	
+	</script>
+{% endblock %}
+
+{% block modal %}
+{% endblock %}
