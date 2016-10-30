@@ -21,7 +21,7 @@ def store(jsond):
 		description = 'kuvaus'
 		order = Request.requests.filter(user=x.personId).count() + 1
 		status = getattr(x,'status', 0)
-		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.personId, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makefiltersblob(x))
+		req = Request(os.path.basename(str(x.id)), description , order, status, datetime.now(), x.source, x.personId, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makeblob(x.filters))
 
 		req.save()
 		if hasattr(x, 'collections'):
@@ -30,6 +30,7 @@ def store(jsond):
                                 co.collection_id = os.path.basename(str(i.id))
                                 co.description = 'kuvaus'
                                 co.count = getattr(i, 'count', 0)
+                                co.secureReasons = getattr(i, 'secureReasons', "none")
                                 co.status = 0
                                 co.request = req
                                 co.save()
@@ -52,19 +53,19 @@ def checkJson(jsond):
 			return True
 		return False
 		
-def makefiltersblob(x):
+def makeblob(x):
 		blob = "{"
-		for i, text in enumerate(x.filters):
+		for i, text in enumerate(x):
 			if not(i == 0):
 					blob += ","
-			blob += '"' + list(vars(x.filters[i]).keys())[0] + '":['
-			if isinstance(getattr(x.filters[i], list(vars(x.filters[i]).keys())[0]), (list)):
-				for l,text in enumerate(getattr(x.filters[i], list(vars(x.filters[i]).keys())[0])):
+			blob += '"' + list(vars(x[i]).keys())[0] + '":['
+			if isinstance(getattr(x[i], list(vars(x[i]).keys())[0]), (list)):
+				for l,text in enumerate(getattr(x[i], list(vars(x[i]).keys())[0])):
 					if not(l == 0):
 						blob += ","
 					blob += '"'+text+'"'
 			else:
-				blob += '"'+getattr(x.filters[i], list(vars(x.filters[i]).keys())[0])+'"'
+				blob += '"'+getattr(x[i], list(vars(x[i]).keys())[0])+'"'
 			blob += "]"
 		blob += "}"
 		return blob

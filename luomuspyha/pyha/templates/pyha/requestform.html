@@ -43,7 +43,7 @@
 				
 				<!-- lomake kuvauksen muuttamiseen -->
 				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
-					<form class="form-inline" action="/pyha/description" method="post">
+					<form class="form-inline" action="{% url 'pyha:description' %}" method="post">
 						<div class="form-group">
 							
 							<div class="col-12" style="clear: left;">
@@ -67,6 +67,7 @@
 							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
 							</p>
 						</div>
+						{% csrf_token %}
 					</form>
 				</div>
 					
@@ -109,7 +110,7 @@
 
 				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
 				
-					<form action="/pyha/approve" id="requestform" method="post">
+					<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
 					<div class="form-group">
 					{% if collections %}	
 						<table class="table" style="width:100%">
@@ -160,6 +161,7 @@
 							<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span>
 							<script>checkForApproval();</script>
 						</div>
+						{% csrf_token %}
 					</form>		
 
 					{% else %}

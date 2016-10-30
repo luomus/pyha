@@ -15,7 +15,7 @@
 			</h1>
 			<!-- lomake kuvauksen muuttamiseen -->
 				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
-					<form class="form-inline" action="/pyha/description" method="post">
+					<form class="form-inline" action="{% url 'pyha:description' %}" method="post">
 						<div class="form-group">
 							
 							<div class="col-12" style="clear: left;">
@@ -39,6 +39,7 @@
 							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
 							</p>
 						</div>
+						{% csrf_token %}
 					</form>
 				</div>
 					
@@ -118,13 +119,16 @@
 								<th>{% trans "Kuvaus" %}</th>
 								<th>{% trans "Status" %}</th>
 								<th>{% trans "Ehdot" %}</th>
+								{% if userRequest.status != 1 %}
+								<th>{% trans "Syy" %}</th>
+								{% endif %}
 							</tr>	
 							{% for collection in collections %}
 								{% if collection.status == 1 %}
 								<tr class="info clickable-row"
 								{% elif collection.status == 3 %}
 								<tr class="danger clickable-row"
-								{% elif collection.status == 2 %}
+								{% elif collection.status == 4 %}
 								<tr class="success clickable-row"
 								{% else %}  
 								<tr	
@@ -163,6 +167,9 @@
 									</div>
 								  </div>
 								</div>
+							{% if collection.decisionExplanation %}
+							<td>{{collection.decisionExplanation}}</td>
+							{% endif %}
 							</tr>
 							{% endfor %}
 						</table>

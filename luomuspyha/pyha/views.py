@@ -16,12 +16,11 @@ from pyha.warehouse import store
 from pyha.models import Collection, Request
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-
+@csrf_exempt
 def index(request):
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
-		request_list = Request.requests.filter(user=userId).order_by('-date')
 		lang = request.LANGUAGE_CODE
 
 		if(lang == 'fi'):
@@ -30,12 +29,16 @@ def index(request):
 			title = "Welcome"
 		else:
 			title = "Välkommen"
-			
-		hasRole = secrets.ROLE_1 in request.session["user_roles"]
-		if secrets.ROLE_1 in request.session["user_role"]:
+		hasRole = False
+		if secrets.ROLE_1 in request.session.get("user_roles", [None]):
+                    hasRole = True
+                    
+		if secrets.ROLE_1 in request.session.get("user_role", [None]):
+                    request_list = Request.requests.exclude(status=0).filter(id__in=Collection.objects.filter(secureReasons__icontains="taxon").values("request")).order_by('-date')
                     context = {"role": hasRole, "email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
                     return render(request, 'pyha/role1/index.html', context)
 		else:
+                    request_list = Request.requests.filter(user=userId).order_by('-date')
                     context = {"role": hasRole, "email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
                     return render(request, 'pyha/index.html', context)
 
@@ -55,14 +58,13 @@ def logged_in(request):
 		return False
 
 def change_role(request):
-		print(request.POST['role'])
 		if not logged_in(request) and not 'role' in request.POST:
 			return HttpResponse('/')
 		next = request.POST.get('next', '/')
 		request.session['user_role'] = request.POST['role']
 		return HttpResponseRedirect(next)
 
-@csrf_exempt
+
 def _process_auth_response(request, indexpath):
 		if not "token" in request.POST:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
@@ -70,7 +72,7 @@ def _process_auth_response(request, indexpath):
 			return HttpResponseRedirect('/pyha/'+indexpath)
 		else:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
-
+@csrf_exempt
 def receiver(request):
 		if 'JSON' in request.POST:
                         text = request.POST['JSON']
@@ -84,7 +86,7 @@ def receiver(request):
 
 def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
-
+@csrf_exempt
 def show_request(request):
 		requestNum = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
@@ -94,7 +96,10 @@ def show_request(request):
                         return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, user=userId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-		collectionList = Collection.objects.filter(request=userRequest.id)
+		if secrets.ROLE_1 in request.session.get("user_role", [None]):
+			collectionList = Collection.objects.filter(request=userRequest.id, secureReasons__icontains="taxon")
+		else:
+			collectionList = Collection.objects.filter(request=userRequest.id)
 		for i, c in enumerate(collectionList):
                         c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 
@@ -103,11 +108,19 @@ def show_request(request):
 		for i, b in enumerate(vars(filterList).keys()):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
-		context = {"email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
-		if(userRequest.status == 0):
-			return render(request, 'pyha/requestform.html', context)
+		hasRole = False
+		if secrets.ROLE_1 in request.session.get("user_roles", [None]):
+                        hasRole = True
+		context = {"role": hasRole, "email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
+                    
+		if secrets.ROLE_1 in request.session.get("user_role", [None]):
+                    return render(request, 'pyha/role1/requestview.html', context)
 		else:
-			return render(request, 'pyha/requestview.html', context)
+                    if(userRequest.status == 0):
+                        return render(request, 'pyha/requestform.html', context)
+                    else:
+                        return render(request, 'pyha/requestview.html', context)
+		
 
 def change_description(request):
 	if request.method == 'POST':
@@ -133,3 +146,47 @@ def approve(request):
 			userRequest.status = 1
 			userRequest.save(update_fields=['status'])
 	return HttpResponseRedirect('/pyha/')
+
+def answer(request):
+        if request.method == 'POST':
+            collectionId = request.POST.get('collectionid')
+            requestId = request.POST.get('requestid')
+            collection = Collection.objects.get(request=requestId, collection_id=collectionId)
+            if (int(request.POST.get('answer')) == 1):  
+                collection.status = 4
+            else:
+                collection.status = 3
+            collection.decisionExplanation = request.POST.get('reason')
+            collection.save()
+            update(requestId)
+        return HttpResponseRedirect('/pyha/')
+
+def update(requestId):
+        wantedRequest = Request.requests.get(id=requestId)
+        requestCollections = Collection.objects.filter(request=requestId)
+        accepted = 0
+        declined = 0
+        pending = 0
+        for c in requestCollections:
+            if c.status == 1:
+                pending += 1
+            elif c.status == 2:
+                accepted += 1
+                declined += 1
+            elif c.status == 3:
+                declined += 1
+            elif c.status == 4:
+                accepted += 1
+
+        if accepted == 0 and declined == 0:
+            wantedRequest.status = 1
+        elif accepted > 0 and (declined > 0 or pending > 0):
+            wantedRequest.status = 2
+        elif accepted == 0 and declined > 0:
+            wantedRequest.status = 3
+        elif accepted > 0 and declined == 0:
+            wantedRequest.status = 4
+        else:
+            wantedRequest.status = 5
+
+        wantedRequest.save()
