@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-26 10:51+0300\n"
+"POT-Creation-Date: 2016-11-01 11:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,12 +69,12 @@ msgid "Pyynnön tila"
 msgstr "Pyynnöt"
 
 #: pyha/templates/pyha/index.html:48 pyha/templates/pyha/requestform.html:9
-#: pyha/templates/pyha/requestform.html:127
+#: pyha/templates/pyha/requestform.html:131
 msgid "Et ole hyväksynyt ehtoja"
 msgstr "Et ole hyväksynyt ehtoja"
 
 #: pyha/templates/pyha/index.html:51 pyha/templates/pyha/requestview.html:61
-#: pyha/templates/pyha/requestview.html:137
+#: pyha/templates/pyha/requestview.html:142
 msgid "Odottaa aineiston toimittajan käsittelyä"
 msgstr ""
 
@@ -83,17 +83,17 @@ msgid "Osittain Hyväksytty"
 msgstr ""
 
 #: pyha/templates/pyha/index.html:57 pyha/templates/pyha/requestview.html:67
-#: pyha/templates/pyha/requestview.html:139
+#: pyha/templates/pyha/requestview.html:144
 msgid "Hylätty"
 msgstr ""
 
 #: pyha/templates/pyha/index.html:60 pyha/templates/pyha/requestview.html:70
-#: pyha/templates/pyha/requestview.html:143
+#: pyha/templates/pyha/requestview.html:148
 msgid "Hyväksytty"
 msgstr ""
 
 #: pyha/templates/pyha/index.html:62 pyha/templates/pyha/requestview.html:73
-#: pyha/templates/pyha/requestview.html:145
+#: pyha/templates/pyha/requestview.html:150
 msgid "Tuntematon"
 msgstr ""
 
@@ -113,13 +113,15 @@ msgid "Pyyntö"
 msgstr "Pyynnöt"
 
 #: pyha/templates/pyha/requestform.html:62
+#: pyha/templates/pyha/requestview.html:34
 msgid "Muuta"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:66
+#: pyha/templates/pyha/requestview.html:38
 msgid ""
 "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, "
-"käytetään pyynnön päiväystä "
+"käytetään pyynnön päiväystä"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:81
@@ -160,55 +162,65 @@ msgid "Nimi"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:119
-#: pyha/templates/pyha/requestform.html:126
-#: pyha/templates/pyha/requestview.html:120
-#: pyha/templates/pyha/requestview.html:147
-msgid "Ehdot"
+#: pyha/templates/pyha/requestview.html:119
+msgid "Aineistonhaltijan salaamat"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:120
+#: pyha/templates/pyha/requestview.html:120
+msgid "Yleisesti salatut"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:121
+#: pyha/templates/pyha/requestform.html:130
+#: pyha/templates/pyha/requestview.html:122
+#: pyha/templates/pyha/requestview.html:152
+msgid "Ehdot"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:122
 msgid "Tila"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:135
-#: pyha/templates/pyha/requestview.html:154
+#: pyha/templates/pyha/requestform.html:139
+#: pyha/templates/pyha/requestview.html:159
 msgid "Aineistojen käyttöehdot"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:144
+#: pyha/templates/pyha/requestform.html:148
 msgid "Olen lukenut ja ymmärtänyt ehdot"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:147
-#: pyha/templates/pyha/requestview.html:161
+#: pyha/templates/pyha/requestform.html:151
+#: pyha/templates/pyha/requestview.html:166
 msgid "Poistu"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:157
+#: pyha/templates/pyha/requestform.html:161
 msgid "Perustelut pyynnölle"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:158
+#: pyha/templates/pyha/requestform.html:162
 msgid "Pakolliset perustelut"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:159
+#: pyha/templates/pyha/requestform.html:163
 msgid "Lähetä hyväksyttäväksi"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:160
+#: pyha/templates/pyha/requestform.html:164
 msgid "Sinun pitää hyväksyä vähintään yhdet ehdot"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:166
-#: pyha/templates/pyha/requestview.html:173
+#: pyha/templates/pyha/requestform.html:170
+#: pyha/templates/pyha/requestview.html:178
 msgid "Kannassa ei ole aineistoja tälle pyynnölle"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:119
+#: pyha/templates/pyha/requestview.html:121
 msgid "Status"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:141
+#: pyha/templates/pyha/requestview.html:146
 msgid "Osittain hyväksytty"
 msgstr ""

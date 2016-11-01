@@ -31,11 +31,11 @@
 							</div>
 						
 							<div class="col-12" style="clear: left;">
-								<button type="submit" class="btn btn-default">Muuta</button>
+								<button type="submit" class="btn btn-default">{% trans "Muuta" %}</button>
 							</div>
 							
 							<p id="description" class="form-text text-muted">
-							Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä.
+							{% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä" %}.
 							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
 							</p>
 						</div>
@@ -116,6 +116,8 @@
 							<tr style=color:black>
 								<th>{% trans "Nimi" %}</th>
 								<th>{% trans "Kuvaus" %}</th>
+								<th>{% trans "Aineistonhaltijan salaamat" %}</th>
+								<th>{% trans "Yleisesti salatut" %}</th>
 								<th>{% trans "Status" %}</th>
 								<th>{% trans "Ehdot" %}</th>
 							</tr>	
@@ -132,6 +134,9 @@
 								>
 								<td>{{collection.result.collectionName}}</td>
 								<td>{{collection.result.description}}</td>
+								<td>{{collection.customSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+
 								
 								{% if collection.status == 1 %}
 								<td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
