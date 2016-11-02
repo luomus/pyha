@@ -4,10 +4,21 @@
 
 	<script>
 	  var accepted = [];
+	  var acceptedsens;
+	  function checksens() { 
+		  approvetext = "{% trans 'Hyväksyit ehdot' %}";
+		  nonapprovetext = "{% trans 'Et ole hyväksynyt ehtoja' %}";
+		  if(document.getElementById('checkbsens').checked){
+			  document.getElementById('statustextsens').textContent=approvetext;
+			  acceptedsens = 1;
+		  }else{
+			  document.getElementById('statustextsens').textContent=nonapprovetext;
+			  acceptedsens = 0;
+		}
+	  }
 	  function check(counter) { 
 		  approvetext = "{% trans 'Hyväksyit ehdot' %}";
 		  nonapprovetext = "{% trans 'Et ole hyväksynyt ehtoja' %}";
-
 		  if(document.getElementById('checkb'+ counter).checked){
 			  document.getElementById('statustext'+ counter).textContent=approvetext;
 			  accepted[counter] = 1;
@@ -16,11 +27,15 @@
 			  accepted[counter] = 0;
 		}
 	  }
+	  function checkv(counter, value) { 
+		  accepted[counter] = value;
+	  }
 	  function checkForApproval(){
 		var approved = 0;
 		for (i = 0; i < accepted.length; i++){
 		approved += accepted[i];
 		}
+		approved += acceptedsens;
 		if(approved > 0){
 			document.getElementById('submit').disabled = false;
 			document.getElementById('submitstatustext').hidden = true;
@@ -71,7 +86,7 @@
 					</form>
 				</div>
 					
-				<h2>{{userRequest.date|date:"d.m.Y    h:m"}}</h2>
+				<h2>{{userRequest.date|date:"d.m.Y    h:i"}}</h2>
 		  </div>
 				<!-- suodatinlista -->
 
@@ -107,12 +122,37 @@
 				</div>
 					
 				<!-- aineistolista -->
-
-				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
-				
-					<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
+				<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
 					<div class="form-group">
-					{% if collections %}	
+				{% if collections %}
+					{% if taxon %}
+						<h3>{% trans "Pyyntöön sisältyy aineistoja, jotka tarvitsevat sensitiivisyysehtojen hyväksymisen" %}:</h3>
+						<p>{% trans "Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"%}. <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
+						<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "Ehdot" %}</button>
+						<span id ="statustextsens">{% trans "Et ole hyväksynyt ehtoja" %}</span>
+								<div class="modal fade" id="myModalsens"" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+								  <div class="modal-lg modal-dialog" role="document">
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">{% trans "Sensitiivityyseen liityvät käyttöehdot" %}</h4>
+									  </div>
+									  <div class="modal-body">
+										{% load static %}
+									  <embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+									  </div>
+									  <div class="modal-footer">
+										<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
+										{% trans "Olen lukenut ja ymmärtänyt ehdot" %}<br>
+										<p></p>
+										<script>checksens();</script>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
+									  </div>
+									</div>
+								  </div>
+								</div>
+				{% endif %}
+				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "Nimi" %}</th>
@@ -122,11 +162,11 @@
 							</tr>	
 							{% for collection in collections %}
 							<tr style="border-bottom:2px solid #456789">
-								<td>{{collection.result.collectionName}}</td>
+								<td>{{collection.result.collectionName}}{% if 'DEFAULT_TAXON_CONSERVATION' in collection.reasons %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
 								<td>{{collection.result.description}}</td>
-								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button>
+								{% if 'CUSTOM' in collection.reasons %}
+								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
 								<td><span id ="statustext{{ forloop.counter0 }}">{% trans "Et ole hyväksynyt ehtoja" %}</span></td>
-								</td>
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-lg modal-dialog" role="document">
@@ -150,6 +190,11 @@
 									</div>
 								  </div>
 								</div>
+								{% else %}
+								<td></td>
+								<script>checkv({{forloop.counter0}}, 0);</script>
+								<td>Pyyntösi ei sisältänyt aineiston ehtoja.</td>
+								{% endif %}
 							</tr>
 							{% endfor %}
 						</table>

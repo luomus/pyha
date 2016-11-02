@@ -1,6 +1,7 @@
 ﻿import json
 import os
 import requests
+import ast
 from luomuspyha import secrets
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
@@ -102,16 +103,20 @@ def show_request(request):
 			collectionList = Collection.objects.filter(request=userRequest.id)
 		for i, c in enumerate(collectionList):
                         c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-
+                        c.reasons = ast.literal_eval(c.secureReasons)
 
 		filterResultList = list(range(len(vars(filterList).keys())))
+		taxon = False
+		for collection in collectionList:
+			if('DEFAULT_TAXON_CONSERVATION' in collection.reasons):
+				taxon = True
 		for i, b in enumerate(vars(filterList).keys()):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
 		hasRole = False
 		if secrets.ROLE_1 in request.session.get("user_roles", [None]):
                         hasRole = True
-		context = {"role": hasRole, "email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
+		context = {"taxon": taxon, "role": hasRole, "email": request.session["user_email"], "userRequest": userRequest, "filters": filterResultList, "collections": collectionList, "static": settings.STA_URL }
                     
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
                     return render(request, 'pyha/role1/requestview.html', context)
