@@ -32,6 +32,40 @@
 
 <link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css" >
 
+<style>
+  .footer { background-color: #349934 !important; }
+  .navbar-custom {
+    background-color: #349934 !important;
+    border-color: #298829 !important;
+  }
+
+  .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
+    background-color: #298829 !important;
+    border-color: #298829!important;
+  }
+
+  .navbar-custom .navbar-nav>.active>a:not(.nohover), .navbar-custom .navbar-nav>.active>a:focus:not(.nohover),
+  .navbar-custom .navbar-nav>.active>a:hover:not(.nohover), .navbar-custom .navbar-nav > li > a:hover:not(.nohover),
+  .navbar-custom .navbar-brand:hover:not(.nohover), .navbar-custom .navbar-nav>.open>a:not(.nohover),
+  .navbar-custom .navbar-nav>.open>a:focus:not(.nohover), .navbar-custom .navbar-nav>.open>a:hover:not(.nohover) {
+    background-color: #298829 !important;
+  }
+  .nohover{
+	background-color: #349934 !important;
+  }
+
+  .navbar-custom .navbar-toggle, .navbar-custom .navbar-collapse, .navbar-custom .navbar-form {
+    border-color: #298829 !important;
+  }
+    .dropbtn {
+    background-color: #349934 ;
+  }
+
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #298829;
+  }
+</style>
+
 </head>
 <body>
 <nav class="navbar navbar-custom navbar-fixed-top">
@@ -53,7 +87,7 @@
         <ul class="nav navbar-nav navbar-right">
         <li><a class="nohover" >{{email}} <span class="glyphicon glyphicon-user"></span></a></li>
         <li><a href="{% url 'pyha:logout' %}">{% trans "Kirjaudu ulos" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
-		
+
 		{% if role %}
 		<div class="dropdown">
 		<form id='role_form' action="{% url 'pyha:change_role' %}" method="post"
@@ -70,7 +104,7 @@
 		<input id='role_form_select' name="role" type="hidden" value="">
 		</form>
 		{% endif %}
-		
+
         {% get_current_language as LANGUAGE %}
 		<div class="dropdown">
 		<form id='language_form' action="{% url 'set_language' %}" method="post"

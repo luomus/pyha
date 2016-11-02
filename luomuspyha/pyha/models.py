@@ -7,10 +7,11 @@ class Collection(models.Model):
 	count = models.IntegerField()
 	status = models.IntegerField()
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
-	# termsOfUse = models.CharField(max_length=1000
+	secureReasons = models.CharField(max_length=500)
+	# termsOfUse = models.CharField(max_length=1000)
 	# decision = models.CharField(max_length=100)
 	# decisionDate = models.DateTimeField()
-	# decisionExplanation = models.CharField(max_length=1000)
+	decisionExplanation = models.CharField(max_length=1000,null=True)
 	# collectionContact
 	# collectionLicense 
 
