@@ -23,23 +23,23 @@
     <tbody>
     {% load humanize %}
     <!-- {% load pyha_tags %} -->
-    {% for myrequest in requests %}
+    {% for request in requests %}
         
         
-        {% if myrequest.status == 1 %}
+        {% if request.status == 1 %}
             <tr class="info clickable-row"
-        {% elif myrequest.status == 3 %}
+        {% elif request.status == 3 %}
             <tr class="danger clickable-row"
-        {% elif myrequest.status == 2 %}
+        {% elif request.status == 2 %}
             <tr class="warning clickable-row"
-        {% elif myrequest.status == 0 %}
+        {% elif request.status == 0 %}
             <tr class="active clickable-row"
-        {% elif myrequest.status == 4 %}
+        {% elif request.status == 4 %}
             <tr class="success clickable-row"
         {% else %}  
             <tr	
         {% endif %}
-            data-href="request/{{myrequest.order}}"
+            data-href="request/{{request.order}}"
             >
             <td>{{request.description}}</td>
             <td>{{request.date|date:"d.m.Y    h:i"}}</td>
