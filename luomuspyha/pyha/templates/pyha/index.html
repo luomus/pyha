@@ -21,40 +21,40 @@
     <tbody>
     {% load humanize %}
     <!-- {% load pyha_tags %} -->
-    {% for request in requests %}
+    {% for myrequest in requests %}
         
         
-        {% if request.status == 1 %}
+        {% if myrequest.status == 1 %}
             <tr class="info clickable-row"
-        {% elif request.status == 3 %}
+        {% elif myrequest.status == 3 %}
             <tr class="danger clickable-row"
-        {% elif request.status == 2 %}
+        {% elif myrequest.status == 2 %}
             <tr class="warning clickable-row"
-        {% elif request.status == 0 %}
+        {% elif myrequest.status == 0 %}
             <tr class="active clickable-row"
-        {% elif request.status == 4 %}
+        {% elif myrequest.status == 4 %}
             <tr class="success clickable-row"
         {% else %}  
             <tr	
         {% endif %}
-            data-href="request/{{request.order}}"
+            data-href="request/{{myrequest.order}}"
             >
-            <td>{{request.description}}</td>
-            <td>{{request.date|date:"d.m.Y    h:m"}}</td>
-            <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
-            {% if request.status == 0 %}
+            <td>{{myrequest.description}}</td>
+            <td>{{myrequest.date|date:"d.m.Y    h:i"}}</td><!--  -->
+            <td>{{ myrequest.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
+            {% if myrequest.status == 0 %}
                 <td>Et ole hyväksynyt ehtoja</td>
             
-            {% elif request.status == 1 %}
+            {% elif myrequest.status == 1 %}
                 <td>Odottaa aineiston toimittajan käsittelyä</td>
                 
-            {% elif request.status == 2 %}
+            {% elif myrequest.status == 2 %}
                 <td>Osittain Hyväksytty</td>
                 
-            {% elif request.status == 3 %}
+            {% elif myrequest.status == 3 %}
                 <td>Hylätty</td>
 
-            {% elif request.status == 4 %}
+            {% elif myrequest.status == 4 %}
                 <td>Hyväksytty</td>  
             {% else %}  
                 <td>Tuntematon</td>	

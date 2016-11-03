@@ -65,7 +65,7 @@
 					</form>
 				</div>
 					
-				<h2>{{userRequest.date|date:"d.m.Y    h:m"}}</h2>
+				<h2>{{userRequest.date|date:"d.m.Y    h:i"}}</h2>
 		  </div>
 
 				<!-- suodatinlista -->
@@ -123,21 +123,13 @@
 								<td><span id ="statustext{{ forloop.counter0 }}">Et ole hyväksynyt ehtoja</span></td>
 								
 								<td>
-								<!-- hidden delete collection form -->
-								<form class="form-inline" action="/pyha/removeCollection" method="post">
-									<div class="form-group">
-										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<input type="hidden" id="collectionid" name="collectionid" value={{collection.collection_id}}>
-										<input type="hidden" id="next" name="next" value={{request.path}}>
-										<button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-										<p id="removeCollection" class="form-text text-muted">
-											Poista aineistot, joita et halua hyväksyä
-										</p>
-									</div>
-								</form>
+								<!-- submit button for hidden delete collection form -->
+								<div class="deleteContainer">
+									<button class="removeCollectionButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
+									Poista aineistot, joiden ehtoja et halua hyväksyä
+								</div>
 								</td>
 								
-
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-lg modal-dialog" role="document">
@@ -182,9 +174,30 @@
 		</div>
 
 	  </div>
+	  
+	{% if collections %} 
+	<!-- hidden delete collection forms -->
+	{% for collection in collections %}
+	<form class="form-hidden" action="/pyha/removeCollection" id="deleteform{{ forloop.counter0 }}" method="post">
+		<div class="form-group">
+			<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+			<input type="hidden" id="collectionid" name="collectionid" value={{collection.collection_id}}>
+			<input type="hidden" id="next" name="next" value={{request.path}}>
+			<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+		</div>
+	</form>
+	{% endfor %}
+	{% endif %}
 {% endblock %}
 
 {% block script %}
+	<script>
+		$('.deleteContainer').click(function(e){
+			var name ="#delete" + $(this).find('.removeCollectionButton').attr('id');
+			$(name).submit();
+		})
+	</script>
+	
 	<script>
 	$(document).ready(function(){
 	  $("#filterlist").on("hide.bs.collapse", function(){
