@@ -2,6 +2,7 @@
 import os
 import requests
 import ast
+import time
 from luomuspyha import secrets
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
@@ -35,11 +36,11 @@ def index(request):
                     hasRole = True
                     
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
-                    request_list = Request.requests.exclude(status=0).filter(id__in=Collection.objects.filter(secureReasons__icontains="taxon").values("request")).order_by('-date')
+                    request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(secureReasons__icontains="taxon").values("request")).order_by('-date')
                     context = {"role": hasRole, "email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
                     return render(request, 'pyha/role1/index.html', context)
 		else:
-                    request_list = Request.requests.filter(user=userId).order_by('-date')
+                    request_list = Request.requests.filter(user=userId, status__gte=0).order_by('-date')
                     context = {"role": hasRole, "email": request.session["user_email"], "title": title, "maintext": title  + "!", "requests": request_list, "static": settings.STA_URL }
                     return render(request, 'pyha/index.html', context)
 
@@ -93,23 +94,21 @@ def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestNum)
 		userId = request.session["user_id"]
-		if not Request.requests.filter(order=requestNum, user=userId).exists():
+		if not Request.requests.filter(order=requestNum, user=userId, status__gte=0).exists():
 			return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, user=userId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
-			collectionList = Collection.objects.filter(request=userRequest.id, secureReasons__icontains="taxon")
+			collectionList = Collection.objects.filter(request=userRequest.id, secureReasons__icontains="taxon", status__gte=0)
 		else:
-			collectionList = Collection.objects.filter(request=userRequest.id)
+			collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
 		for i, c in enumerate(collectionList):
 			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 			c.reasons = ast.literal_eval(c.secureReasons)
-
 		taxon = False
 		for collection in collectionList:
 			if('DEFAULT_TAXON_CONSERVATION' in collection.reasons):
 				taxon = True
-
 		filters = requests.get(settings.LAJIFILTERS_URL)
 		lang = request.LANGUAGE_CODE
 		filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
@@ -140,7 +139,6 @@ def show_request(request):
 						filternamelist[k]= filtername
 			tup = (b, filternamelist, languagelabel)
 			filterResultList[i] = tup
-
 		hasRole = False
 		if secrets.ROLE_1 in request.session.get("user_roles", [None]):
                         hasRole = True
@@ -164,6 +162,28 @@ def change_description(request):
 		userRequest.save(update_fields=['description'])
 		return HttpResponseRedirect(next)
 
+def removeCollection(request):
+	if request.method == 'POST':
+		requestId = request.POST.get('requestid')
+		collectionId = request.POST.get('collectionid')
+		redirect_path = request.POST.get('next')
+		print("Deleting collection:")
+		print("request_id: " + requestId)
+		print("collection_id: " + collectionId)
+		collection = Collection.objects.get(collection_id = collectionId, request = requestId)
+		collection.status = -1
+		collection.save(update_fields=['status'])
+		#check if all collections have status -1. If so set status of request to -1.
+		userRequest = Request.requests.get(id = requestId)
+		collectionList = userRequest.collection_set.filter(status__gte=0 )
+		if not collectionList:
+			userRequest.status = -1
+			userRequest.save(update_fields=['status'])
+			print("set request status to -1")
+			return HttpResponseRedirect('/pyha/')
+		else:
+			return HttpResponseRedirect(redirect_path)
+
 def approve(request):
 	if request.method == 'POST':
 		requestId = request.POST.get('requestid')
@@ -178,8 +198,6 @@ def approve(request):
 					userRequest = Request.requests.get(id = requestId)
 					userRequest.sensstatus = 1
 					userRequest.save(update_fields=['sensstatus'])
-			collectionList = Collection.objects.filter(request=requestId, status = 0)
-			collectionList.delete()
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.status = 1
 			userRequest.save(update_fields=['status'])
