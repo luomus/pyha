@@ -73,7 +73,7 @@ class Requestpage_TestCase(unittest.TestCase):
 
 	def test_ehtojenHyvaksynta(self):
 		driver= self.driver
-		nappi = driver.find_element_by_xpath("//form[@id='requestform']/div[1]/table[1]/tbody/tr[2]/td[3]/button[1]")	
+		nappi = driver.find_element_by_xpath("//form[@id='requestform']/div[1]/table[1]/tbody/tr[2]/td[5]/button[1]")	
 		nappi.click()	
 		time.sleep(3)	
 		checkbox = driver.find_element_by_id("checkb0")
@@ -84,12 +84,12 @@ class Requestpage_TestCase(unittest.TestCase):
 	def test_perustelutPakko(self):
 		driver= self.driver
 		driver.get("http://127.0.0.1:8000/pyha/request/1")	
-		nappi = driver.find_element_by_xpath("//form[@id='requestform']/div[1]/table[1]/tbody/tr[2]/td[3]/button[1]")	
+		nappi = driver.find_element_by_xpath("//form[@id='requestform']/div[1]/table[1]/tbody/tr[2]/td[5]/button[1]")	
 		nappi.click()	
-		time.sleep(3)	
+		time.sleep(2)	
 		checkbox = driver.find_element_by_id("checkb0")
 		checkbox.click()
-		driver.find_element_by_xpath(".//button[text()='Exit']").click()
+		time.sleep(2)
 		try:
 			driver.find_element_by_id("submit").click()
 			message = "ok"
@@ -97,19 +97,6 @@ class Requestpage_TestCase(unittest.TestCase):
 			message = "error"
 		self.assertNotEqual(message,"ok")
 		self.assertEqual(message,"error")
-
-	#def test_lahteeKunHyvaksyttyJaPerustelut(self):
-	#	driver= self.driver
-	#	driver.get("http://127.0.0.1:8000/pyha/request/1")	
-	#	nappi = driver.find_element_by_xpath("//form[@id='requestform']/div[1]/table[1]/tbody/tr[2]/td[3]/button[1]")	
-	#	nappi.click()	
-	#	time.sleep(3)	
-	#	checkbox = driver.find_element_by_id("checkb0")
-	#	checkbox.click()
-	#	driver.find_element_by_xpath(".//button[text()='Exit']").click()
-	#	driver.find_element_by_xpath("//textarea[@id='reason']").send_keys("texti")
-	#	time.sleep(2)
-	#	driver.find_element_by_id("submit").click()
 
 	def tearDown(self):
 		self.driver.close()
@@ -169,47 +156,3 @@ class Languages_TestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
-JSON_MOCK2 = '''
-{
-	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE",
-	"source": "KE.398",
-	"email": "pyhatestaaja@gmail.com",
-	"personId":"MA.309",
-	"approximateMatches": 1742,
-	"downloadFormat": "CSV_FLAT",
-	"downloadIncludes": [
-	  "DOCUMENT_FACTS",
-	  "GATHERING_FACTS",
-	  "UNIT_FACTS"
-	],
-	"filters": [
-		{
-			"target": [
-				"linnut",
-				"salaporsaat"
-			]
-		},
-		{
-			"time": [
-				"2000/"
-			]
-		}
-	],
-	"collections": [
-		{
-			"id": "http://tun.fi/HR.39",
-			"count": 1031
-		},
-		{
-			"id": "http://tun.fi/HR.447",
-			"count": 904
-		},
-		{
-			"id": "http://tun.fi/HR.60",
-			"count": 14
-		}
-	]
-}'''
-
-
