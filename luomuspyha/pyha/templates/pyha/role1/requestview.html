@@ -1,4 +1,4 @@
-﻿{% extends "pyha/base.html" %}
+﻿{% extends "pyha/role1/base.html" %}
 {% block content %}
 {% load i18n %}
 
@@ -13,47 +13,18 @@
 				{% else %}
 				{% endif %}
 			</h1>
-			<!-- lomake kuvauksen muuttamiseen -->
-				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
-					<form class="form-inline" action="{% url 'pyha:description' %}" method="post" id ="description-form">
-						<div class="form-group">
-							
-							<div class="col-12" style="clear: left;">
-								<label for="description">Kuvaus:</label>
-							</div>
-							
-							<div class="col-12" style="clear: left;">
-								<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
-								<!--<input type="text" class="form-control" id="description" name="description" 
-										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
-								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-								<input type="hidden" id="next" name="next" value={{request.path}}>
-							</div>
-						
-							<div class="col-12" style="clear: left;">
-								<button type="submit" class="btn btn-default">{% trans "Muuta" %}</button>
-							</div>
-							
-							<p id="description" class="form-text text-muted">
-							{% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä" %}.
-							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
-							</p>
-						</div>
-						{% csrf_token %}
-					</form>
-				</div>
 					
 				<h2>{{userRequest.date|date:"d.m.Y    h:m"}}</h2>
 			<h3><span style="white-space: nowrap;">(
 					<span
 					{% if userRequest.status == 1 %}
 						 style="color:#AABBDD;"
+					{% elif userRequest.status == 2 %}
+						 style="color:#BBBB77;"
 					{% elif userRequest.status == 3 %}
 						 style="color:#DDBBAA;"
 					{% elif userRequest.status == 4 %}
 						 style="color:#99DD99;"
-					{% elif userRequest.status == 2 %}
-						 style="color:#BBBB77;"
 					{% else %}
 						
 					{% endif %}
@@ -84,8 +55,7 @@
 				<h2>{% trans "Pyynnön rajaukset" %}</h2>
 
 				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "Näytä" %}</button>
-				<div id="filterlist" class="collapse">	
-
+				<div id="filterlist" class="collapse">
 					{% if filters %}
 						<table class = "table" style="width:100%">
 							<tr style=color:black>
@@ -107,12 +77,11 @@
 						<strong>{% trans "Kannassa ei ole suodattimia tälle pyynnölle" %}.</strong>
 					{% endif %}
 				</div>
-					
+				<br></br>
 				<!-- aineistolista -->
-				
 				{% if collections %}
 					{% if taxon %}
-						<h3>{% trans "Pyyntö sisältää sensitiivistä tietoa" %}:</h3>
+						<h3>{% trans "Pyyntöön on sisältynyt sensitiivistä tietoa" %}:</h3>
 						<p>{% trans "Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"%}. <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
 						<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "Ehdot" %}</button>
 								<div class="modal fade" id="myModalsens"" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
@@ -137,9 +106,9 @@
 								  </div>
 								</div>
 							{% if userRequest.sensstatus == 0 %}
-							<h3>{% trans "Et halua sensitiivistä tietoa"%}</h3>
+							<h3>{% trans "Pyytäjä ei halua sensitiivistä tietoa"%}</h3>
 							{% else %}
-							<h3>{% trans "Päätös sensitiivisen tiedon antamisesta"%}</h3>
+							<h3>{% trans "Pyytäjä haluaa sensitiivistä tietoa"%}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 								<th>{% trans "Status" %}</th>
@@ -167,28 +136,32 @@
 								<td>{% trans "Tuntematon" %}</td>	
 								{% endif %}
 								<td>
-								<p>{{userRequest.sensDecisionExplanation}}</p>
+									<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+									<div class="form-group">
+										<input type="hidden" id="collectionid" name="collectionid" value="sens">
+										<input type="hidden" id="next" name="next" value={{request.path}}>
+										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{{userRequest.sensDecisionExplanation}}</textarea>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "Hyväksy" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "Hylkää" %}</button>
+									</div>
+									{% csrf_token %}
+									</form>
 								</td>
 								</tr>
 							</table>
 							{% endif %}
 					{% endif %}
 				<br></br>
-
 				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
-				
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "Nimi" %}</th>
 								<th>{% trans "Kuvaus" %}</th>
-								<th>{% trans "Aineistonhaltijan salaamat" %}</th>
-								<th>{% trans "Yleisesti salatut" %}</th>
 								<th>{% trans "Status" %}</th>
 								<th>{% trans "Ehdot" %}</th>
-								{% if userRequest.status != 1 %}
-								<th>{% trans "Syy" %}</th>
-								{% endif %}
-							</tr>	
+								<th>{% trans "Perustelut päätökselle" %}</th>
+							</tr>
 							{% for collection in collections %}
 								{% if collection.status == 1 %}
 								<tr class="info clickable-row"
@@ -202,9 +175,6 @@
 								>
 								<td>{{collection.result.collectionName}}{% if 'DEFAULT_TAXON_CONSERVATION' in collection.reasons %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
 								<td>{{collection.result.description}}</td>
-								<td>{{collection.customSecured}}</td>
-								<td>{{collection.taxonSecured}}</td>
-
 								
 								{% if collection.status == 1 %}
 								<td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
@@ -217,7 +187,19 @@
 								{% else %}  
 								<td>{% trans "Tuntematon" %}</td>	
 								{% endif %}
-								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
+							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
+							<td><form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+								<div class="form-group">
+										<input type="hidden" id="collectionid" name="collectionid" value={{collection.collection_id}}>
+										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<input type="hidden" id="next" name="next" value={{request.path}}>
+										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{{collection.decisionExplanation}}</textarea>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "Hyväksy" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "Hylkää" %}</button>
+									</div>
+									{% csrf_token %}
+								</form>
+							</td>
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog modal-lg" role="document">
@@ -236,14 +218,10 @@
 									</div>
 								  </div>
 								</div>
-							{% if collection.decisionExplanation %}
-							<td>{{collection.decisionExplanation}}</td>
-							{% endif %}
 							</tr>
 							{% endfor %}
 						</table>
 						</div>
-					</form>		
 
 					{% else %}
 						<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
