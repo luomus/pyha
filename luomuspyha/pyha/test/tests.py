@@ -116,15 +116,42 @@ JSON_MOCK = '''
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
-			"count": 1031
+			"count": 1031,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.447",
-			"count": 904
+			"count": 904,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.60",
-			"count": 14
+			"count": 14,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		}
 	]
 }'''
@@ -158,15 +185,42 @@ JSON_MOCK2 = '''
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
-			"count": 1031
+			"count": 1031,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.447",
-			"count": 904
+			"count": 904,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.60",
-			"count": 14
+			"count": 14,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		}
 	]
 }'''
@@ -187,15 +241,42 @@ JSON_MOCK3 = '''
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
-			"count": 1031
+			"count": 1031,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.447",
-			"count": 904
+			"count": 904,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.60",
-			"count": 14
+			"count": 14,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		}
 	]
 }'''
@@ -231,15 +312,42 @@ JSON_MOCK4 = '''
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
-			"count": 1031
+			"count": 1031,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.447",
-			"count": 904
+			"count": 904,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.60",
-			"count": 14
+			"count": 14,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		}
 	]
 }'''
@@ -274,15 +382,42 @@ JSON_MOCK5 = '''
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",
-			"count": 1031
+			"count": 1031,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.447",
-			"count": 904
+			"count": 904,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		},
 		{
 			"id": "http://tun.fi/HR.60",
-			"count": 14
+			"count": 14,
+			"secureReasons": [
+
+			"DEFAULT_TAXON_CONSERVATION",
+
+			"CUSTOM",
+
+			"DATA_QUARANTINE_PERIOD"
+
+			]
 		}
 	]
 }'''

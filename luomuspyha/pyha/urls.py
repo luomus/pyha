@@ -14,6 +14,8 @@ urlpatterns = [
     
     url(r'^request/[1-9][0-9]*/?$', views.show_request),
     url(r'^description/?$', views.change_description, name='change_description'),
+    url(r'^role/?', views.change_role, name='change_role'),
     url(r'^approve/?$', views.approve, name='approve'),
+    url(r'^answer/?$', views.answer, name='answer'),
     url(r'^removeCollection/?$', views.removeCollection, name='removeCollection')
 ]

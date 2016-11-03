@@ -27,7 +27,8 @@ LOCAL_REQ_URL = 'http://127.0.0.1:8000/pyha/request/'
 LAJI_REQ_URL = 'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
 REQ_URL = LOCAL_REQ_URL
 LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/' 
-LAJIAPI_URL = 'https://apitest.laji.fi/v0/collections/'
+LAJIAPI_URL = 'https://apitest.laji.fi/v0/'
+LAJIFILTERS_URL= 'https://apitest.laji.fi/v0/warehouse/filters'
 TARGET='KE.541'
 MOCK_JSON=True
 APPEND_SLASH=False
@@ -67,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
