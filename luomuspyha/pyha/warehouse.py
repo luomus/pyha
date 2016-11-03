@@ -42,9 +42,8 @@ def store(jsond):
 
 		if hasattr(x, 'collections'):
                         for i in x.collections:
-<<<<<<< HEAD
                         		makeCollection(req, i)
-		make_mail(x)
+		make_mail(x, time)
 
 def makeCollection(req, i):
 		co = Collection()
@@ -53,6 +52,7 @@ def makeCollection(req, i):
 		co.count = getattr(i, 'count', 0)
 		co.status = 0
 		co.request = req
+		co.secureReasons = getattr(i, 'secureReasons', "none")
 		secureReasons = getattr(i, 'mainSecureReasons', 0)
 		if(secureReasons != 0):
 			taxon = getattr(secureReasons, 'DEFAULT_TAXON_CONSERVATION', 0)
@@ -63,23 +63,8 @@ def makeCollection(req, i):
 				co.customSecured = getattr(custom, 'count', 0)
 		co.save()
 
-
-def make_mail(x):
-		subject = getattr(x, 'description', str (datetime.now()))
-=======
-                                co = Collection()
-                                co.collection_id = os.path.basename(str(i.id))
-                                co.description = 'kuvaus'
-                                co.count = getattr(i, 'count', 0)
-                                co.secureReasons = getattr(i, 'secureReasons', "none")
-                                co.status = 0
-                                co.request = req
-                                co.save()
-		make_mail(x, time)
-
 def make_mail(x, time):
 		subject = getattr(x, 'description', time.strftime('%d.%m.%Y %H:%I'))
->>>>>>> master
 		req_order = Request.requests.filter(user=x.personId).count()
 		req_link = settings.REQ_URL+str(req_order)
 		message_content = u"Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa "+time.strftime('%d.%m.%Y %H:%I')+u".\nPyyntö tarvitsee teiltä vielä ehtojen hyväksynnän.\nOsoite aineistopyyntöön "+subject+": "+req_link+ "\n\nYou have made a request to download secure FinBIF data on "+time.strftime('%d.%m.%Y %H:%I')+".\nYou are required to agree to the terms of use.\nAddress to your request "+subject+": "+req_link 
