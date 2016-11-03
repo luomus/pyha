@@ -94,7 +94,7 @@ def show_request(request):
 			return _process_auth_response(request, "request/"+requestNum)
 		userId = request.session["user_id"]
 		if not Request.requests.filter(order=requestNum, user=userId).exists():
-                        return HttpResponseRedirect('/pyha/')
+			return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, user=userId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
@@ -102,17 +102,19 @@ def show_request(request):
 		else:
 			collectionList = Collection.objects.filter(request=userRequest.id)
 		for i, c in enumerate(collectionList):
-                        c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-                        c.reasons = ast.literal_eval(c.secureReasons)
+			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
+			c.reasons = ast.literal_eval(c.secureReasons)
 
-		filterResultList = list(range(len(vars(filterList).keys())))
 		taxon = False
 		for collection in collectionList:
 			if('DEFAULT_TAXON_CONSERVATION' in collection.reasons):
 				taxon = True
+
+		filterResultList = list(range(len(vars(filterList).keys())))
 		for i, b in enumerate(vars(filterList).keys()):
 			tup = (b, getattr(filterList, b))
 			filterResultList[i] = tup
+			
 		hasRole = False
 		if secrets.ROLE_1 in request.session.get("user_roles", [None]):
                         hasRole = True
