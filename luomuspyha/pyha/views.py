@@ -110,11 +110,26 @@ def show_request(request):
 			if('DEFAULT_TAXON_CONSERVATION' in collection.reasons):
 				taxon = True
 
+		filters = requests.get(settings.LAJIFILTERS_URL)
+		filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
 		filterResultList = list(range(len(vars(filterList).keys())))
 		for i, b in enumerate(vars(filterList).keys()):
-			tup = (b, getattr(filterList, b))
+			languagelabel = b
+			filternamelist = getattr(filterList, b)
+			if b in filters.json():
+				filterfield = getattr(filtersobject, b)
+				label = getattr(filterfield, "label")
+				languagelabel = getattr(label, request.LANGUAGE_CODE)
+				if "RESOURCE" in getattr(filterfield, "type"):
+					resource = getattr(filterfield, "resource")
+					for k, a in enumerate(getattr(filterList, b)):
+						filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang="+request.LANGUAGE_CODE+"&access_token="+secrets.TOKEN)
+						filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
+						filtername = getattr(filternameobject, "name")
+						filternamelist[k]= filtername
+			tup = (b, filternamelist, languagelabel)
 			filterResultList[i] = tup
-			
+
 		hasRole = False
 		if secrets.ROLE_1 in request.session.get("user_roles", [None]):
                         hasRole = True
