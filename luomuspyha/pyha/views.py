@@ -111,6 +111,7 @@ def show_request(request):
 				taxon = True
 
 		filters = requests.get(settings.LAJIFILTERS_URL)
+		lang = request.LANGUAGE_CODE
 		filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
 		filterResultList = list(range(len(vars(filterList).keys())))
 		for i, b in enumerate(vars(filterList).keys()):
@@ -119,11 +120,21 @@ def show_request(request):
 			if b in filters.json():
 				filterfield = getattr(filtersobject, b)
 				label = getattr(filterfield, "label")
-				languagelabel = getattr(label, request.LANGUAGE_CODE)
+				if(lang == 'fi'):
+					languagelabel = getattr(label, "fi")
+				elif(lang == 'en'):
+					languagelabel = getattr(label, "en")
+				else:
+					languagelabel = getattr(label, "sv")
 				if "RESOURCE" in getattr(filterfield, "type"):
 					resource = getattr(filterfield, "resource")
 					for k, a in enumerate(getattr(filterList, b)):
-						filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang="+request.LANGUAGE_CODE+"&access_token="+secrets.TOKEN)
+						if(lang == 'fi'):
+							filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=fi&access_token="+secrets.TOKEN)
+						elif(lang == 'en'):
+							filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=en&access_token="+secrets.TOKEN)
+						else:
+							filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+secrets.TOKEN)
 						filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
 						filtername = getattr(filternameobject, "name")
 						filternamelist[k]= filtername

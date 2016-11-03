@@ -42,7 +42,7 @@
             data-href="request/{{request.order}}"
             >
             <td>{{request.description}}</td>
-            <td>{{request.date|date:"d.m.Y    h:m"}}</td>
+            <td>{{request.date|date:"d.m.Y    h:i"}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "Et ole hyväksynyt ehtoja" %}</td>
