@@ -51,7 +51,7 @@ def logout(request):
 			return _process_auth_response(request, '')
 		context = {"title": "Kirjaudu ulos", "message": "Kirjauduit ulos onnistuneesti", "static": settings.STA_URL}
 		log_out(request)
-		return render(request, 'pyha/index.html', context)
+		return HttpResponseRedirect("https://beta.laji.fi/")
 
 def logged_in(request):
 		if "user_id" in request.session:
