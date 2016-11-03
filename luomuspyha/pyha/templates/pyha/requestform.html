@@ -78,7 +78,7 @@
 							</div>
 							
 							<p id="description" class="form-text text-muted">
-							{% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä"%}.
+							{% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä" %}.
 							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
 							</p>
 						</div>
@@ -157,6 +157,8 @@
 							<tr style=color:black>
 								<th>{% trans "Nimi" %}</th>
 								<th>{% trans "Kuvaus" %}</th>
+								<th>{% trans "Aineistonhaltijan salaamat" %}</th>
+								<th>{% trans "Yleisesti salatut" %}</th>
 								<th>{% trans "Ehdot" %}</th>
 								<th>{% trans "Tila" %}</th>
 							</tr>	
@@ -164,6 +166,9 @@
 							<tr style="border-bottom:2px solid #456789">
 								<td>{{collection.result.collectionName}}{% if 'DEFAULT_TAXON_CONSERVATION' in collection.reasons %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
 								<td>{{collection.result.description}}</td>
+								<td>{{collection.customSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+
 								{% if 'CUSTOM' in collection.reasons %}
 								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
 								<td><span id ="statustext{{ forloop.counter0 }}">{% trans "Et ole hyväksynyt ehtoja" %}</span></td>
@@ -201,7 +206,8 @@
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 
 							<label for="reason">{% trans "Perustelut pyynnölle" %}:</label>
-							<textarea class="form-control" rows="2" id="reason" required placeholder='{% trans "Pakolliset perustelut"%}'></textarea>
+							
+							<textarea class="form-control" rows="2" id="reason" required placeholder="{% trans 'Pakolliset perustelut' %}"></textarea>
 							<button type="submit" id="submit" class="btn btn-default btn-lg">{% trans "Lähetä hyväksyttäväksi" %}</button>
 							<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span>
 							<script>checkForApproval();</script>

@@ -37,17 +37,31 @@ def store(jsond):
 		req.filter_list = makeblob(x.filters)
 
 		req.save()
+
+
+
 		if hasattr(x, 'collections'):
                         for i in x.collections:
-                                co = Collection()
-                                co.collection_id = os.path.basename(str(i.id))
-                                co.description = 'kuvaus'
-                                co.count = getattr(i, 'count', 0)
-                                co.secureReasons = getattr(i, 'secureReasons', "none")
-                                co.status = 0
-                                co.request = req
-                                co.save()
+                        		makeCollection(req, i)
 		make_mail(x, time)
+
+def makeCollection(req, i):
+		co = Collection()
+		co.collection_id = os.path.basename(str(i.id))
+		co.description = 'kuvaus'
+		co.count = getattr(i, 'count', 0)
+		co.status = 0
+		co.request = req
+		co.secureReasons = getattr(i, 'secureReasons', "none")
+		secureReasons = getattr(i, 'mainSecureReasons', 0)
+		if(secureReasons != 0):
+			taxon = getattr(secureReasons, 'DEFAULT_TAXON_CONSERVATION', 0)
+			custom = getattr(secureReasons, 'CUSTOM', 0)
+			if(taxon != 0):
+				co.taxonSecured = getattr(taxon, 'count', 0)
+			if(custom != 0):
+				co.customSecured = getattr(custom, 'count', 0)
+		co.save()
 
 def make_mail(x, time):
 		subject = getattr(x, 'description', time.strftime('%d.%m.%Y %H:%I'))

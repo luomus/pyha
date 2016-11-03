@@ -52,6 +52,14 @@ class RequestTesting(TestCase):
 		session.save()
 		warehouse.store(JSON_MOCK)
 		
+	def test_requests_collections_secure_reason_amounts_are_saved(self):
+		warehouse.store(JSON_MOCK6)
+		col1 = Collection.objects.get(collection_id="colcustomsec1")
+		col2 = Collection.objects.get(collection_id="colsecured")
+		self.assertEqual(col1.customSecured, 1)
+		self.assertEqual(col2.customSecured, 2)
+		self.assertEqual(col2.taxonSecured, 3)
+		
 
 	def test_request_has_its_own_page(self):
 		response = self.client.get('/pyha/request/1')
@@ -421,3 +429,61 @@ JSON_MOCK5 = '''
 		}
 	]
 }'''
+
+JSON_MOCK6 = '''	
+{
+	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775sdB16BD",
+	"source": "KE.398",
+	"email": "pyhatestaaja@gmail.com",
+	"personId":"MA.309",
+	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
+	],
+	"filters": [
+		{
+			"target": [
+				"linnut",
+				"nisäkkäät"
+			]
+		},
+		{
+			"time": [
+				"2000/"
+			]
+		}
+	],
+	"collections": [
+		{
+			"id": "colcustomsec1",
+			      "secureReasons": [
+        "DATA_QUARANTINE_PERIOD"
+      ],
+      "mainSecureReasons": {
+        "CUSTOM": {
+          "count": 1
+        }
+      }
+		},
+		{
+			"id": "colsecured",
+			"secureReasons": [
+        "DEFAULT_TAXON_CONSERVATION",
+        "CUSTOM",
+        "DATA_QUARANTINE_PERIOD"
+      ],
+      "mainSecureReasons": {
+        "DEFAULT_TAXON_CONSERVATION": {
+          "count": 3
+        },
+        "CUSTOM": {
+          "count": 2
+        }
+      }
+		}
+	]
+	}
+  '''
