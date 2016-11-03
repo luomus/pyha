@@ -23,26 +23,26 @@
     <tbody>
     {% load humanize %}
     <!-- {% load pyha_tags %} -->
-    {% for request in requests %}
+    {% for myrequest in requests %}
         
         
-        {% if request.status == 1 %}
+        {% if myrequest.status == 1 %}
             <tr class="info clickable-row"
-        {% elif request.status == 3 %}
+        {% elif myrequest.status == 3 %}
             <tr class="danger clickable-row"
-        {% elif request.status == 2 %}
+        {% elif myrequest.status == 2 %}
             <tr class="warning clickable-row"
-        {% elif request.status == 0 %}
+        {% elif myrequest.status == 0 %}
             <tr class="active clickable-row"
-        {% elif request.status == 4 %}
+        {% elif myrequest.status == 4 %}
             <tr class="success clickable-row"
         {% else %}  
             <tr	
         {% endif %}
-            data-href="request/{{request.order}}"
+            data-href="request/{{myrequest.order}}"
             >
             <td>{{request.description}}</td>
-            <td>{{request.date|date:"d.m.Y    h:m"}}</td>
+            <td>{{request.date|date:"d.m.Y    h:i"}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "Et ole hyväksynyt ehtoja" %}</td>
@@ -58,8 +58,10 @@
 
             {% elif request.status == 4 %}
                 <td>{% trans "Hyväksytty" %}</td>  
+                
             {% else %}  
                 <td>{% trans "Tuntematon" %}</td>	
+                
             {% endif %}
         
             

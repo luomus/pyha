@@ -70,7 +70,7 @@
 					</form>
 				</div>
 					
-				<h2>{{userRequest.date|date:"d.m.Y    h:m"}}</h2>
+				<h2>{{userRequest.date|date:"d.m.Y    h:i"}}</h2>
 		  </div>
 				<!-- suodatinlista -->
 
@@ -118,6 +118,7 @@
 								<th>{% trans "Kuvaus" %}</th>
 								<th>{% trans "Ehdot" %}</th>
 								<th>{% trans "Tila" %}</th>
+								<th></th>
 							</tr>	
 							{% for collection in collections %}
 							<tr style="border-bottom:2px solid #456789">
@@ -125,7 +126,14 @@
 								<td>{{collection.result.description}}</td>
 								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button>
 								<td><span id ="statustext{{ forloop.counter0 }}">{% trans "Et ole hyväksynyt ehtoja" %}</span></td>
+								<td>
+								<!-- submit button for hidden delete collection form -->
+								<div class="deleteContainer">
+									<button class="removeCollectionButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
+									Poista aineistot, joiden ehtoja et halua hyväksyä
+								</div>
 								</td>
+								
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-lg modal-dialog" role="document">
@@ -149,9 +157,12 @@
 									</div>
 								  </div>
 								</div>
+								
+								<!-- Perustelut ja pyynnön lähetys -->
 							</tr>
 							{% endfor %}
 						</table>
+						
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 
 							<label for="reason">{% trans "Perustelut pyynnölle" %}:</label>
@@ -168,9 +179,30 @@
 		</div>
 
 	  </div>
+	  
+	{% if collections %} 
+	<!-- hidden delete collection forms -->
+	{% for collection in collections %}
+	<form class="form-hidden" action="/pyha/removeCollection" id="deleteform{{ forloop.counter0 }}" method="post">
+		<div class="form-group">
+			<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+			<input type="hidden" id="collectionid" name="collectionid" value={{collection.collection_id}}>
+			<input type="hidden" id="next" name="next" value={{request.path}}>
+			<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+		</div>
+	</form>
+	{% endfor %}
+	{% endif %}
 {% endblock %}
 
 {% block script %}
+	<script>
+		$('.deleteContainer').click(function(e){
+			var name ="#delete" + $(this).find('.removeCollectionButton').attr('id');
+			$(name).submit();
+		})
+	</script>
+	
 	<script>
 	$(document).ready(function(){
 	  $("#filterlist").on("hide.bs.collapse", function(){
@@ -202,6 +234,12 @@
 		$("#descriptionButton").html('Piilota');
 	  });
 	});
+	
+	</script>
+	
+	<script>
+	
+	
 	
 	</script>
 {% endblock %}

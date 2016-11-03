@@ -19,7 +19,7 @@ def index(request):
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
-		request_list = Request.requests.filter(user=userId).order_by('-date')
+		request_list = Request.requests.filter(user=userId, status__gte=0).order_by('-date')
 		lang = request.LANGUAGE_CODE
 
 		if(lang == 'fi'):
@@ -73,11 +73,11 @@ def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestNum)
 		userId = request.session["user_id"]
-		if not Request.requests.filter(order=requestNum, user=userId).exists():
+		if not Request.requests.filter(order=requestNum, user=userId, status__gte=0).exists():
                         return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(order=requestNum, user=userId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-		collectionList = Collection.objects.filter(request=userRequest.id)
+		collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
 		for i, c in enumerate(collectionList):
                         c.result = requests.get(settings.LAJIAPI_URL+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
                         
@@ -101,6 +101,28 @@ def change_description(request):
 		userRequest.save(update_fields=['description'])
 		return HttpResponseRedirect(next)
 
+def removeCollection(request):
+	if request.method == 'POST':
+		requestId = request.POST.get('requestid')
+		collectionId = request.POST.get('collectionid')
+		redirect_path = request.POST.get('next')
+		print("Deleting collection:")
+		print("request_id: " + requestId)
+		print("collection_id: " + collectionId)
+		collection = Collection.objects.get(collection_id = collectionId, request = requestId)
+		collection.status = -1
+		collection.save()
+		#check if all collections have status -1. If so set status of request to -1.
+		userRequest = Request.requests.get(id = requestId)
+		collectionList = userRequest.collection_set.filter(status__gte=0 )
+		if not collectionList:
+			userRequest.status = -1
+			userRequest.save()
+			print("set request status to -1")
+			return HttpResponseRedirect('/pyha/')
+		else:
+			return HttpResponseRedirect(redirect_path)
+
 def approve(request):
 	if request.method == 'POST':
 		requestId = request.POST.get('requestid')
@@ -110,8 +132,6 @@ def approve(request):
 				userCollection = Collection.objects.get(collection_id = i, request = requestId)
 				userCollection.status = 1
 				userCollection.save(update_fields=['status'])
-			collectionList = Collection.objects.filter(request=requestId, status = 0)
-			collectionList.delete()
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.status = 1
 			userRequest.save(update_fields=['status'])
