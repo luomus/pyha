@@ -144,9 +144,14 @@ def approve(request):
 		requestedCollections = request.POST.getlist('checkb');
 		if(len(requestedCollections) > 0):
 			for i in requestedCollections:
-				userCollection = Collection.objects.get(collection_id = i, request = requestId)
-				userCollection.status = 1
-				userCollection.save(update_fields=['status'])
+				if i not in "sens":
+					userCollection = Collection.objects.get(collection_id = i, request = requestId)
+					userCollection.status = 1
+					userCollection.save(update_fields=['status'])
+				else:
+					userRequest = Request.requests.get(id = requestId)
+					userRequest.sensstatus = 1
+					userRequest.save(update_fields=['sensstatus'])
 			collectionList = Collection.objects.filter(request=requestId, status = 0)
 			collectionList.delete()
 			userRequest = Request.requests.get(id = requestId)
@@ -155,45 +160,65 @@ def approve(request):
 	return HttpResponseRedirect('/pyha/')
 
 def answer(request):
-        if request.method == 'POST':
-            collectionId = request.POST.get('collectionid')
-            requestId = request.POST.get('requestid')
-            collection = Collection.objects.get(request=requestId, collection_id=collectionId)
-            if (int(request.POST.get('answer')) == 1):  
-                collection.status = 4
-            else:
-                collection.status = 3
-            collection.decisionExplanation = request.POST.get('reason')
-            collection.save()
-            update(requestId)
-        return HttpResponseRedirect('/pyha/')
+		if request.method == 'POST':
+			next = request.POST.get('next', '/')
+			collectionId = request.POST.get('collectionid')
+			requestId = request.POST.get('requestid')
+			if "sens" not in collectionId:
+				collection = Collection.objects.get(request=requestId, collection_id=collectionId)
+				if (int(request.POST.get('answer')) == 1):  
+					collection.status = 4
+				else:
+					collection.status = 3
+				collection.decisionExplanation = request.POST.get('reason')
+				collection.save()
+				update(requestId)
+			else:
+				userRequest = Request.requests.get(id = requestId)
+				if (int(request.POST.get('answer')) == 1):  
+					userRequest.sensstatus = 4
+				else:
+					userRequest.sensstatus = 3
+				userRequest.sensDecisionExplanation = request.POST.get('reason')
+				userRequest.save()
+				update(requestId)
+		return HttpResponseRedirect(next)
 
 def update(requestId):
-        wantedRequest = Request.requests.get(id=requestId)
-        requestCollections = Collection.objects.filter(request=requestId)
-        accepted = 0
-        declined = 0
-        pending = 0
-        for c in requestCollections:
-            if c.status == 1:
-                pending += 1
-            elif c.status == 2:
-                accepted += 1
-                declined += 1
-            elif c.status == 3:
-                declined += 1
-            elif c.status == 4:
-                accepted += 1
+		wantedRequest = Request.requests.get(id=requestId)
+		requestCollections = Collection.objects.filter(request=requestId)
+		accepted = 0
+		declined = 0
+		pending = 0
+		if wantedRequest.sensstatus == 1:
+			pending += 1
+		elif wantedRequest.sensstatus == 2:
+			accepted += 1
+			declined += 1
+		elif wantedRequest.sensstatus == 3:
+			declined += 1
+		elif wantedRequest.sensstatus == 4:
+			accepted += 1
+		for c in requestCollections:
+			if c.status == 1:
+				pending += 1
+			elif c.status == 2:
+				accepted += 1
+				declined += 1
+			elif c.status == 3:
+				declined += 1
+			elif c.status == 4:
+				accepted += 1
 
-        if accepted == 0 and declined == 0:
-            wantedRequest.status = 1
-        elif accepted > 0 and (declined > 0 or pending > 0):
-            wantedRequest.status = 2
-        elif accepted == 0 and declined > 0:
-            wantedRequest.status = 3
-        elif accepted > 0 and declined == 0:
-            wantedRequest.status = 4
-        else:
-            wantedRequest.status = 5
+		if accepted == 0 and declined == 0:
+			wantedRequest.status = 1
+		elif accepted > 0 and (declined > 0 or pending > 0):
+			wantedRequest.status = 2
+		elif accepted == 0 and declined > 0:
+			wantedRequest.status = 3
+		elif accepted > 0 and declined == 0:
+			wantedRequest.status = 4
+		else:
+			wantedRequest.status = 5
 
-        wantedRequest.save()
+		wantedRequest.save()

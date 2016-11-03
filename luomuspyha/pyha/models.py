@@ -22,7 +22,9 @@ class Request(models.Model):
 	id = models.CharField(max_length=200, primary_key=True)
 	description = models.CharField(max_length=400)
 	order = models.IntegerField()
-	status = models.IntegerField()	
+	status = models.IntegerField()
+	sensstatus = models.IntegerField()
+	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
 	user = models.CharField(max_length=100)
@@ -31,7 +33,6 @@ class Request(models.Model):
 	downloadIncludes = models.CharField(max_length=1000)
 	filter_list = models.CharField(max_length=2000)
 	requests = models.Manager()
-	# reason = models.CharField(max_length=1000)	
-
+	reason = models.CharField(max_length=1000,null=True)
 	def __str__(self):
 		return self.id

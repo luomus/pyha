@@ -22,7 +22,7 @@ def store(jsond):
 		order = Request.requests.filter(user=x.personId).count() + 1
 		status = getattr(x,'status', 0)
 		time = datetime.now()
-		req = Request(os.path.basename(str(x.id)), description , order, status, time, x.source, x.personId, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makeblob(x.filters))
+		req = Request(os.path.basename(str(x.id)), description , order, 0, status, time, x.source, x.personId, x.approximateMatches, getattr(x,'downloadFormat','UNKNOWN'), getattr(x,'downloadIncludes','UNKNOWN'), makeblob(x.filters))
 
 		req.save()
 		if hasattr(x, 'collections'):
