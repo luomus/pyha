@@ -42,7 +42,6 @@ def makeCollection(req, i):
 		secureReasons = getattr(i, 'mainSecureReasons', 0)
 		if(secureReasons != 0):
 			taxon = getattr(secureReasons, 'DEFAULT_TAXON_CONSERVATION', 0)
-			print(taxon)
 			custom = getattr(secureReasons, 'CUSTOM', 0)
 			if(taxon != 0):
 				co.taxonSecured = getattr(taxon, 'count', 0)
