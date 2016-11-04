@@ -11,7 +11,8 @@ import time
 
 class Requestlist_TestCase(unittest.TestCase):
 	
-	def setUp(self):			
+	def setUp(self):	
+		# vaihda oma chromedriverin osoite ennen ajamista		
 		chromedriver = "/home/ad/fshome5/u5/r/rivorivo/Linux/Python/envi3/lib/python3.4/site-packages/chromedriver/bin/chromedriver"
 		os.environ["webdriver.chrome.driver"] = chromedriver
 		self.driver = webdriver.Chrome(chromedriver)
