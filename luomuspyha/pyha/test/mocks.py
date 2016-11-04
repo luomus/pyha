@@ -1,3 +1,4 @@
+#coding=utf-8
 #json-muotoinen pyyntö
 JSON_MOCK = '''
 {
