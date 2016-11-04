@@ -16,9 +16,10 @@ class Collection(models.Model):
 		return self.address
 
 class Request(models.Model):
-	id = models.CharField(max_length=200, primary_key=True)
+	#id given in warehouse.py/store method
+	id = models.AutoField(primary_key=True)
+	lajiId = models.CharField(max_length=200) #old id
 	description = models.CharField(max_length=400)
-	order = models.IntegerField()
 	status = models.IntegerField()
 	sensstatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,null=True)

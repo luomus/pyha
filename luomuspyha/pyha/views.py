@@ -95,12 +95,12 @@ def show_request(request):
 			return _process_auth_response(request, "request/"+requestNum)
 		userId = request.session["user_id"]
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
-			if not Request.requests.filter(order=requestNum, status__gte=0).exists():
+			if not Request.requests.filter(id=requestNum, status__gte=0).exists():
 				return HttpResponseRedirect('/pyha/')
 		else:
-			if not Request.requests.filter(order=requestNum, user=userId, status__gte=0).exists():
+			if not Request.requests.filter(id=requestNum, user=userId, status__gte=0).exists():
 				return HttpResponseRedirect('/pyha/')
-		userRequest = Request.requests.get(order=requestNum)
+		userRequest = Request.requests.get(id=requestNum)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
 			collectionList = Collection.objects.filter(request=userRequest.id, secureReasons__icontains="taxon", status__gte=0)
@@ -177,6 +177,7 @@ def removeCollection(request):
 		collection = Collection.objects.get(address = collectionId, request = requestId)
 		collection.status = -1
 		collection.save(update_fields=['status'])
+		
 		#check if all collections have status -1. If so set status of request to -1.
 		userRequest = Request.requests.get(id = requestId)
 		collectionList = userRequest.collection_set.filter(status__gte=0 )

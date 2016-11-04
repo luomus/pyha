@@ -16,16 +16,17 @@ def store(jsond):
 		if not checkJson(jsond):
 			return
 		x = json.loads(jsond, object_hook=lambda d: Namespace(**d))
-		if Request.requests.filter(id=os.path.basename(str(x.id))).exists():
+		if Request.requests.filter(lajiId=os.path.basename(str(x.id))).exists():
 			return
 		description = 'kuvaus'
-		order = Request.requests.count() + 1
+		identifier = Request.requests.count() + 1
 		status = getattr(x,'status', 0)
 		time = datetime.now()
+		
 		req = Request()
-		req.id = os.path.basename(str(x.id))
+		#req.id=identifier
+		req.lajiId = os.path.basename(str(x.id))
 		req.description = description
-		req.order = order
 		req.status = status
 		req.sensstatus = 0
 		req.date = time
@@ -43,7 +44,7 @@ def store(jsond):
 		if hasattr(x, 'collections'):
                         for i in x.collections:
                         		makeCollection(req, i)
-		make_mail(x, time)
+		make_mail(x, time, req)
 
 def makeCollection(req, i):
 		co = Collection()
@@ -68,10 +69,9 @@ def makeCollection(req, i):
 			co.secureReasons = "{'none': 1}"
 		co.save()
 
-def make_mail(x, time):
+def make_mail(x, time, req):
 		subject = getattr(x, 'description', time.strftime('%d.%m.%Y %H:%I'))
-		req_order = Request.requests.filter(user=x.personId).count()
-		req_link = settings.REQ_URL+str(req_order)
+		req_link = settings.REQ_URL+str(req.id)
 		message_content = u"Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa "+time.strftime('%d.%m.%Y %H:%I')+u".\nPyyntö tarvitsee teiltä vielä ehtojen hyväksynnän.\nOsoite aineistopyyntöön "+subject+": "+req_link+ "\n\nYou have made a request to download secure FinBIF data on "+time.strftime('%d.%m.%Y %H:%I')+".\nYou are required to agree to the terms of use.\nAddress to your request "+subject+": "+req_link 
 		message = message_content
 		from_email = 'helpdesk@laji.fi'

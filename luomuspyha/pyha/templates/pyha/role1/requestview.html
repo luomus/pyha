@@ -193,7 +193,7 @@
 							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
 							<td><form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 								<div class="form-group">
-										<input type="hidden" id="collectionid" name="collectionid" value={{collection.collection_id}}>
+										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<input type="hidden" id="next" name="next" value={{request.path}}>
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{{collection.decisionExplanation}}</textarea>
