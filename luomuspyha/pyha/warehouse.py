@@ -19,12 +19,10 @@ def store(jsond):
 		if Request.requests.filter(lajiId=os.path.basename(str(x.id))).exists():
 			return
 		description = 'kuvaus'
-		identifier = Request.requests.count() + 1
 		status = getattr(x,'status', 0)
 		time = datetime.now()
 		
 		req = Request()
-		#req.id=identifier
 		req.lajiId = os.path.basename(str(x.id))
 		req.description = description
 		req.status = status
