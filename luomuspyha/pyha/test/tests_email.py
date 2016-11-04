@@ -10,7 +10,6 @@ import unittest
 		
 class EmailTesting (TestCase):
 	def setUp(self):
-		print (JSON_MOCK4)
 		warehouse.store(JSON_MOCK4)
 
 	def test_mail_(self):
