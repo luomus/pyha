@@ -19,7 +19,7 @@ def store(jsond):
 		if Request.requests.filter(id=os.path.basename(str(x.id))).exists():
 			return
 		description = 'kuvaus'
-		order = Request.requests.filter(user=x.personId).count() + 1
+		order = Request.requests.count() + 1
 		status = getattr(x,'status', 0)
 		time = datetime.now()
 		req = Request()
@@ -52,7 +52,6 @@ def makeCollection(req, i):
 		co.count = getattr(i, 'count', 0)
 		co.status = 0
 		co.request = req
-		co.secureReasons = getattr(i, 'secureReasons', "none")
 		secureReasons = getattr(i, 'mainSecureReasons', 0)
 		if(secureReasons != 0):
 			taxon = getattr(secureReasons, 'DEFAULT_TAXON_CONSERVATION', 0)
@@ -61,6 +60,12 @@ def makeCollection(req, i):
 				co.taxonSecured = getattr(taxon, 'count', 0)
 			if(custom != 0):
 				co.customSecured = getattr(custom, 'count', 0)
+		if hasattr(i, 'mainSecureReasons'):
+			co.secureReasons = getattr(i, 'mainSecureReasons').__dict__
+			for key in co.secureReasons:
+				co.secureReasons[key]=0
+		else:
+			co.secureReasons = "{'none': 1}"
 		co.save()
 
 def make_mail(x, time):

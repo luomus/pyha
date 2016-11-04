@@ -122,9 +122,9 @@
 				</div>
 					
 				<!-- aineistolista -->
+				{% if collections %}
 				<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
 					<div class="form-group">
-				{% if collections %}
 					{% if taxon %}
 						<h3>{% trans "Pyyntöön sisältyy aineistoja, jotka tarvitsevat sensitiivisyysehtojen hyväksymisen" %}:</h3>
 						<p>{% trans "Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"%}. <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
@@ -219,7 +219,7 @@
 
 							<label for="reason">{% trans "Perustelut pyynnölle" %}:</label>
 							
-							<textarea class="form-control" rows="2" id="reason" required placeholder="{% trans 'Pakolliset perustelut' %}"></textarea>
+							<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'Pakolliset perustelut' %}"></textarea>
 							<button type="submit" id="submit" class="btn btn-default btn-lg">{% trans "Lähetä hyväksyttäväksi" %}</button>
 							<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span>
 							<script>checkForApproval();</script>

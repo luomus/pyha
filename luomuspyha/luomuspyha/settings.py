@@ -104,11 +104,12 @@ WSGI_APPLICATION = 'luomuspyha.wsgi.application'
 # also need the JDBC Driver if this runs on JVM
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'oracle.luomus.fi:1521/oracle.luomus.fi',
+        'USER': 'pyyntohallinta_staging',
+        'PASSWORD': 'OMqoaMjU3Jmo0R4w',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

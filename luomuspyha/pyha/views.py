@@ -62,7 +62,7 @@ def logged_in(request):
 def change_role(request):
 		if not logged_in(request) and not 'role' in request.POST:
 			return HttpResponse('/')
-		next = request.POST.get('next', '/')
+		next = request.POST.get('next', '/pyha/')
 		request.session['user_role'] = request.POST['role']
 		return HttpResponseRedirect(next)
 
@@ -94,9 +94,13 @@ def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestNum)
 		userId = request.session["user_id"]
-		if not Request.requests.filter(order=requestNum, user=userId, status__gte=0).exists():
-			return HttpResponseRedirect('/pyha/')
-		userRequest = Request.requests.get(order=requestNum, user=userId)
+		if secrets.ROLE_1 in request.session.get("user_role", [None]):
+			if not Request.requests.filter(order=requestNum, status__gte=0).exists():
+				return HttpResponseRedirect('/pyha/')
+		else:
+			if not Request.requests.filter(order=requestNum, user=userId, status__gte=0).exists():
+				return HttpResponseRedirect('/pyha/')
+		userRequest = Request.requests.get(order=requestNum)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		if secrets.ROLE_1 in request.session.get("user_role", [None]):
 			collectionList = Collection.objects.filter(request=userRequest.id, secureReasons__icontains="taxon", status__gte=0)
@@ -104,7 +108,7 @@ def show_request(request):
 			collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
 		for i, c in enumerate(collectionList):
 			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-			c.reasons = ast.literal_eval(c.secureReasons)
+			c.reasons = ast.literal_eval(str(c.secureReasons))
 		taxon = False
 		for collection in collectionList:
 			if('DEFAULT_TAXON_CONSERVATION' in collection.reasons):
@@ -135,7 +139,7 @@ def show_request(request):
 						else:
 							filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+secrets.TOKEN)
 						filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
-						filtername = getattr(filternameobject, "name")
+						filtername = getattr(filternameobject, "name", str(a))
 						filternamelist[k]= filtername
 			tup = (b, filternamelist, languagelabel)
 			filterResultList[i] = tup
@@ -199,8 +203,9 @@ def approve(request):
 					userRequest.sensstatus = 1
 					userRequest.save(update_fields=['sensstatus'])
 			userRequest = Request.requests.get(id = requestId)
+			userRequest.reason = request.POST.get('reason')
 			userRequest.status = 1
-			userRequest.save(update_fields=['status'])
+			userRequest.save(update_fields=['status','reason'])
 	return HttpResponseRedirect('/pyha/')
 
 def answer(request):
