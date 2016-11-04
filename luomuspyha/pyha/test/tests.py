@@ -54,8 +54,8 @@ class RequestTesting(TestCase):
 		
 	def test_requests_collections_secure_reason_amounts_are_saved(self):
 		warehouse.store(JSON_MOCK6)
-		col1 = Collection.objects.get(collection_id="colcustomsec1")
-		col2 = Collection.objects.get(collection_id="colsecured")
+		col1 = Collection.objects.get(address="colcustomsec1")
+		col2 = Collection.objects.get(address="colsecured")
 		self.assertEqual(col1.customSecured, 1)
 		self.assertEqual(col2.customSecured, 2)
 		self.assertEqual(col2.taxonSecured, 3)
