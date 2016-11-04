@@ -1,100 +1,5 @@
 #coding=utf-8
-from django.test import TestCase, Client
-from django.conf import settings
-from pyha.models import Collection, Request
-from pyha import warehouse
-from django.core import mail
-import unittest
-
-
-class NotLoggedInTests(TestCase):
-	def setUp(self):
-		self.client = Client() 
-
-	def test_not_logged_in_gets_redirected(self):
-		response = self.client.get('/index/')
-		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=')
-
-class LoggedInTests(TestCase):
-	def setUp(self):
-		self.client = Client() 
-		session = self.client.session
-		session['user_name'] = 'paisti'
-		session['user_id'] = 10
-		session['user_email'] = 'ex.apmle@example.com'
-		session['token'] = 'asd213'
-		session.save()
-
-	def test_user_sees_the_index_page(self):
-		response = self.client.get('/index/')
-		self.assertEqual(response.status_code, 200)
-
-	def test_user_correct_message_when_theres_no_request(self):
-		response = self.client.get('/index/')
-		self.assertContains(response, "ei ole pyyntöjä")
-
-
-	def test_logging_out_clears_session_information(self):
-		self.client.post('/logout/')
-		response = self.client.get('/index/')
-		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=')
-		
-class RequestTesting(TestCase):
-	def setUp(self):
-		self.client = Client() 
-		session = self.client.session
-		session['user_name'] = 'paisti'
-		session['user_id'] = 'MA.309'
-		session['user_email'] = 'ex.apmle@example.com'
-		session['token'] = 'asd213'
-		session.save()
-		warehouse.store(JSON_MOCK)
-		
-	def test_requests_collections_secure_reason_amounts_are_saved(self):
-		warehouse.store(JSON_MOCK6)
-		col1 = Collection.objects.get(address="colcustomsec1")
-		col2 = Collection.objects.get(address="colsecured")
-		self.assertEqual(col1.customSecured, 1)
-		self.assertEqual(col2.customSecured, 2)
-		self.assertEqual(col2.taxonSecured, 3)
-		
-
-	def test_request_has_its_own_page(self):
-		response = self.client.get('/pyha/request/1')
-		self.assertEqual(len(Request.requests.all()), 1)
-		self.assertEqual(response.status_code, 200)
-
-	def test_user_can_only_see_their_own_requests(self):
-		warehouse.store(JSON_MOCK2)
-		response = self.client.get('/pyha/')
-		self.assertEqual(len(Request.requests.all()), 2)
-		self.assertContains(response, "1 742")
-
-	def test_request_with_missing_attributes_is_not_saved(self):
-		warehouse.store(JSON_MOCK3)
-		response = self.client.get('/pyha/')
-		self.assertEqual(len(Request.requests.all()), 1)
-		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
-
-	def test_requests_collections_are_shown_in_its_page(self):
-		response = self.client.get('/pyha/request/1')
-		self.assertContains(response, "Pyyntöön sisältyvät aineistot:")
-		self.assertContains(response, "Talvilintulaskenta")
-		self.assertContains(response, "Hatikka.fi")
-		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")
-		
-class EmailTesting (TestCase):
-	def setUp(self):
-		warehouse.store(JSON_MOCK4)
-
-	def test_mail_(self):
-		self.assertEqual(len(mail.outbox), 1)
-		msg = mail.outbox[0]
-		self.assertEqual(msg.subject, 'Testausta')
-		#self.assertItemsEqual(msg.recipients, ['te.staaja@example.com'])
-
+#json-muotoinen pyyntö
 JSON_MOCK = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
@@ -164,6 +69,7 @@ JSON_MOCK = '''
 	]
 }'''
 
+#eroaa ensimmäisestä id:n osalta
 JSON_MOCK2 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE",
@@ -233,6 +139,7 @@ JSON_MOCK2 = '''
 	]
 }'''
 
+#jsonista puuttuu filtterit
 JSON_MOCK3 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555",
@@ -359,7 +266,7 @@ JSON_MOCK4 = '''
 		}
 	]
 }'''
-
+#sama pyyntö kuin mock4, mutta eri id ja kuvaus
 JSON_MOCK5 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LÖ",
@@ -429,7 +336,7 @@ JSON_MOCK5 = '''
 		}
 	]
 }'''
-
+#mock6:sta löytyy secure reasonien määriä
 JSON_MOCK6 = '''	
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775sdB16BD",
