@@ -104,10 +104,8 @@ WSGI_APPLICATION = 'luomuspyha.wsgi.application'
 # also need the JDBC Driver if this runs on JVM
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'oracle.luomus.fi:1521/oracle.luomus.fi',
-        'USER': 'pyyntohallinta_staging',
-        'PASSWORD': 'OMqoaMjU3Jmo0R4w',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
