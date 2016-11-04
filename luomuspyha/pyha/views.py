@@ -173,8 +173,8 @@ def removeCollection(request):
 		redirect_path = request.POST.get('next')
 		print("Deleting collection:")
 		print("request_id: " + requestId)
-		print("collection_id: " + collectionId)
-		collection = Collection.objects.get(collection_id = collectionId, request = requestId)
+		print("address: " + collectionId)
+		collection = Collection.objects.get(address = collectionId, request = requestId)
 		collection.status = -1
 		collection.save(update_fields=['status'])
 		#check if all collections have status -1. If so set status of request to -1.
@@ -195,7 +195,7 @@ def approve(request):
 		if(len(requestedCollections) > 0):
 			for i in requestedCollections:
 				if i not in "sens":
-					userCollection = Collection.objects.get(collection_id = i, request = requestId)
+					userCollection = Collection.objects.get(address = i, request = requestId)
 					userCollection.status = 1
 					userCollection.save(update_fields=['status'])
 				else:
@@ -214,7 +214,7 @@ def answer(request):
 			collectionId = request.POST.get('collectionid')
 			requestId = request.POST.get('requestid')
 			if "sens" not in collectionId:
-				collection = Collection.objects.get(request=requestId, collection_id=collectionId)
+				collection = Collection.objects.get(request=requestId, address=collectionId)
 				if (int(request.POST.get('answer')) == 1):  
 					collection.status = 4
 				else:
