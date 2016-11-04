@@ -1,3 +1,4 @@
+#json-muotoinen pyyntö
 JSON_MOCK = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
@@ -67,6 +68,7 @@ JSON_MOCK = '''
 	]
 }'''
 
+#eroaa ensimmäisestä id:n osalta
 JSON_MOCK2 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE",
@@ -136,6 +138,7 @@ JSON_MOCK2 = '''
 	]
 }'''
 
+#jsonista puuttuu filtterit
 JSON_MOCK3 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555",
@@ -262,7 +265,7 @@ JSON_MOCK4 = '''
 		}
 	]
 }'''
-
+#sama pyyntö kuin mock4, mutta eri id ja kuvaus
 JSON_MOCK5 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LÖ",
@@ -332,7 +335,7 @@ JSON_MOCK5 = '''
 		}
 	]
 }'''
-
+#mock6:sta löytyy secure reasonien määriä
 JSON_MOCK6 = '''	
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775sdB16BD",
