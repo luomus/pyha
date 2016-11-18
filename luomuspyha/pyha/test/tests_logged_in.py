@@ -27,9 +27,9 @@ class LoggedInTests(TestCase):
 		self.assertContains(response, "ei ole pyyntöjä")
 
 
-	def test_logging_out_clears_session_information(self):
+'''	def test_logging_out_clears_session_information(self):
 		self.client.post('/logout/')
 		response = self.client.get('/index/')
 		self.assertEqual(response.status_code, 302)
 		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=')
-		
+	'''	
