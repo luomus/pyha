@@ -8,11 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2016-11-18 02:54+0200\n"
-=======
-"POT-Creation-Date: 2016-11-16 15:25+0200\n"
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-<<<<<<< HEAD
 #: luomuspyha/dev_settings.py:144 luomuspyha/settings.py:145
 msgid "Suomi"
 msgstr ""
@@ -31,17 +26,6 @@ msgid "Englanti"
 msgstr ""
 
 #: luomuspyha/dev_settings.py:146 luomuspyha/settings.py:147
-=======
-#: luomuspyha/settings.py:145
-msgid "Suomi"
-msgstr ""
-
-#: luomuspyha/settings.py:146
-msgid "Englanti"
-msgstr ""
-
-#: luomuspyha/settings.py:147
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Ruotsi"
 msgstr ""
 
@@ -58,7 +42,6 @@ msgstr "Requests"
 msgid "Kirjaudu ulos"
 msgstr "Log out"
 
-<<<<<<< HEAD
 #: pyha/templates/pyha/base.html:65 pyha/templates/pyha/base.html:68
 #: pyha/templates/pyha/role1/base.html:96
 #: pyha/templates/pyha/role1/base.html:99
@@ -74,15 +57,6 @@ msgstr "User"
 #: pyha/templates/pyha/index.html:9 pyha/templates/pyha/role1/index.html:9
 msgid "Tervetuloa!"
 msgstr "Welcome!"
-=======
-#: pyha/templates/pyha/base.html:67 pyha/templates/pyha/role1/base.html:98
-msgid "Käyttäjä"
-msgstr "User"
-
-#: pyha/templates/pyha/base.html:68 pyha/templates/pyha/role1/base.html:99
-msgid "Pyynnönkäsittelijä"
-msgstr "Requesthandler"
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 
 #: pyha/templates/pyha/index.html:12
 msgid "Pyyntösi"
@@ -92,19 +66,7 @@ msgstr "Your requests"
 msgid "Napsauta pyyntöä nähdäksesi lisätietoja"
 msgstr "Click on a request to get more information"
 
-<<<<<<< HEAD
 #: pyha/templates/pyha/index.html:17 pyha/templates/pyha/role1/index.html:17
-=======
-#: pyha/templates/pyha/index.html:17 pyha/templates/pyha/requestform.html:21
-#: pyha/templates/pyha/requestform.html:131
-#: pyha/templates/pyha/requestview.html:183
-#: pyha/templates/pyha/role1/index.html:17
-#: pyha/templates/pyha/role1/requestview.html:160
-msgid "Kuvaus"
-msgstr "Description"
-
-#: pyha/templates/pyha/index.html:18 pyha/templates/pyha/role1/index.html:18
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Päiväys"
 msgstr "Date"
 
@@ -116,7 +78,6 @@ msgstr "Matches"
 msgid "Pyynnön tila"
 msgstr "Status"
 
-<<<<<<< HEAD
 #: pyha/templates/pyha/index.html:20 pyha/templates/pyha/requestform.html:21
 #: pyha/templates/pyha/requestform.html:131
 #: pyha/templates/pyha/requestview.html:182
@@ -125,9 +86,6 @@ msgid "Kuvaus"
 msgstr "Description"
 
 #: pyha/templates/pyha/index.html:49 pyha/templates/pyha/requestform.html:100
-=======
-#: pyha/templates/pyha/index.html:50 pyha/templates/pyha/requestform.html:100
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/requestform.html:171
 #: pyha/templates/pyha/requestform.html:282
 #: pyha/templates/pyha/requestform.html:293
@@ -135,97 +93,53 @@ msgstr "Description"
 msgid "Et ole hyväksynyt ehtoja"
 msgstr "You haven't accepted the conditions"
 
-<<<<<<< HEAD
 #: pyha/templates/pyha/index.html:52 pyha/templates/pyha/requestview.html:62
-=======
-#: pyha/templates/pyha/index.html:53 pyha/templates/pyha/requestview.html:62
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/requestview.html:159
 #: pyha/templates/pyha/requestview.html:209
 #: pyha/templates/pyha/role1/index.html:51
 #: pyha/templates/pyha/role1/requestview.html:30
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:129
 #: pyha/templates/pyha/role1/requestview.html:182
 msgid "Odottaa aineiston toimittajan käsittelyä"
 msgstr "Pending the processing of the data provider"
 
 #: pyha/templates/pyha/index.html:55 pyha/templates/pyha/requestview.html:65
-=======
-#: pyha/templates/pyha/role1/requestview.html:128
-#: pyha/templates/pyha/role1/requestview.html:180
-msgid "Odottaa aineiston toimittajan käsittelyä"
-msgstr "Pending the processing of the data provider"
-
-#: pyha/templates/pyha/index.html:56 pyha/templates/pyha/requestview.html:65
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/role1/index.html:54
 #: pyha/templates/pyha/role1/requestview.html:33
 msgid "Osittain Hyväksytty"
 msgstr "Partially accepted"
 
-<<<<<<< HEAD
 #: pyha/templates/pyha/index.html:58 pyha/templates/pyha/requestview.html:68
-=======
-#: pyha/templates/pyha/index.html:59 pyha/templates/pyha/requestview.html:68
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/requestview.html:161
 #: pyha/templates/pyha/requestview.html:211
 #: pyha/templates/pyha/role1/index.html:57
 #: pyha/templates/pyha/role1/requestview.html:36
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:131
 #: pyha/templates/pyha/role1/requestview.html:184
 msgid "Hylätty"
 msgstr "Denied"
 
 #: pyha/templates/pyha/index.html:61 pyha/templates/pyha/requestview.html:71
-=======
-#: pyha/templates/pyha/role1/requestview.html:130
-#: pyha/templates/pyha/role1/requestview.html:182
-msgid "Hylätty"
-msgstr "Denied"
-
-#: pyha/templates/pyha/index.html:62 pyha/templates/pyha/requestview.html:71
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/requestview.html:165
 #: pyha/templates/pyha/requestview.html:215
 #: pyha/templates/pyha/role1/index.html:60
 #: pyha/templates/pyha/role1/requestview.html:39
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:135
 #: pyha/templates/pyha/role1/requestview.html:188
 msgid "Hyväksytty"
 msgstr "Accepted"
 
 #: pyha/templates/pyha/index.html:64 pyha/templates/pyha/requestview.html:74
-=======
-#: pyha/templates/pyha/role1/requestview.html:134
-#: pyha/templates/pyha/role1/requestview.html:186
-msgid "Hyväksytty"
-msgstr "Accepted"
-
-#: pyha/templates/pyha/index.html:65 pyha/templates/pyha/requestview.html:74
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/requestview.html:167
 #: pyha/templates/pyha/requestview.html:219
 #: pyha/templates/pyha/role1/index.html:62
 #: pyha/templates/pyha/role1/requestview.html:42
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:137
 #: pyha/templates/pyha/role1/requestview.html:190
 msgid "Tuntematon"
 msgstr "Unknown"
 
 #: pyha/templates/pyha/index.html:74 pyha/templates/pyha/role1/index.html:71
-=======
-#: pyha/templates/pyha/role1/requestview.html:136
-#: pyha/templates/pyha/role1/requestview.html:188
-msgid "Tuntematon"
-msgstr "Unknown"
-
-#: pyha/templates/pyha/index.html:75 pyha/templates/pyha/role1/index.html:71
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Kannassa ei ole pyyntöjä"
 msgstr "There are no requests to be shown"
 
@@ -289,28 +203,16 @@ msgstr "Request involves collections requiring approval for sensitive terms "
 #: pyha/templates/pyha/requestform.html:97
 #: pyha/templates/pyha/requestform.html:170
 #: pyha/templates/pyha/requestview.html:117
-<<<<<<< HEAD
 #: pyha/templates/pyha/requestview.html:186
 #: pyha/templates/pyha/requestview.html:221
 #: pyha/templates/pyha/role1/requestview.html:164
 #: pyha/templates/pyha/role1/requestview.html:192
-=======
-#: pyha/templates/pyha/requestview.html:187
-#: pyha/templates/pyha/requestview.html:220
-#: pyha/templates/pyha/role1/requestview.html:86
-#: pyha/templates/pyha/role1/requestview.html:162
-#: pyha/templates/pyha/role1/requestview.html:190
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Ehdot"
 msgstr "Terms"
 
 #: pyha/templates/pyha/requestform.html:106
 #: pyha/templates/pyha/requestview.html:123
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:89
-=======
-#: pyha/templates/pyha/role1/requestview.html:92
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Sensitiivisyyteen liityvät käyttöehdot"
 msgstr "Terms for sensitive data"
 
@@ -321,22 +223,15 @@ msgstr "I accept the terms of use"
 #: pyha/templates/pyha/requestform.html:117
 #: pyha/templates/pyha/requestform.html:198
 #: pyha/templates/pyha/requestview.html:134
-<<<<<<< HEAD
 #: pyha/templates/pyha/requestview.html:235
 #: pyha/templates/pyha/role1/requestview.html:100
 #: pyha/templates/pyha/role1/requestview.html:218
-=======
-#: pyha/templates/pyha/requestview.html:234
-#: pyha/templates/pyha/role1/requestview.html:103
-#: pyha/templates/pyha/role1/requestview.html:216
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Poistu"
 msgstr "Exit"
 
 #: pyha/templates/pyha/requestform.html:123
 msgid "Pyyntöön ei sisälly sensitiivisiä havaintoja, siirry kohtaan 2"
 msgstr "Request doesn't include sensitive sightings, go to step 2"
-<<<<<<< HEAD
 
 #: pyha/templates/pyha/requestform.html:126
 msgid "Pyyntöösi sisältyvät havainnot"
@@ -364,35 +259,6 @@ msgstr "Sensitive sightings"
 msgid "Käyttöehdot"
 msgstr "Terms of use of the collections"
 
-=======
-
-#: pyha/templates/pyha/requestform.html:126
-msgid "Pyyntöösi sisältyvät havainnot"
-msgstr "Collections in this request"
-
-#: pyha/templates/pyha/requestform.html:127
-msgid "Sensitiivisiä havaintoja sisältävät aineistot on merkitty kuvakkeella"
-msgstr "Collections including sensitive sightings are marked with symbol"
-
-#: pyha/templates/pyha/requestform.html:130
-#: pyha/templates/pyha/requestview.html:182
-#: pyha/templates/pyha/role1/requestview.html:159
-msgid "Aineisto"
-msgstr "Collection"
-
-#: pyha/templates/pyha/requestform.html:132
-msgid "Aineistonhaltijan salaamia havaintoja"
-msgstr "Sightings secured by data provider"
-
-#: pyha/templates/pyha/requestform.html:134
-msgid "Sensitiivisiä havaintoja"
-msgstr "Sensitive sightings"
-
-#: pyha/templates/pyha/requestform.html:136
-msgid "Käyttöehdot"
-msgstr "Terms of use of the collections"
-
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #: pyha/templates/pyha/requestform.html:137
 msgid "Tila"
 msgstr "Status"
@@ -410,23 +276,14 @@ msgid "Poista aineistot, joiden ehtoja et halua hyväksyä"
 msgstr "Delete collections of which terms you don't want to approve"
 
 #: pyha/templates/pyha/requestform.html:186
-<<<<<<< HEAD
 #: pyha/templates/pyha/requestview.html:228
 #: pyha/templates/pyha/role1/requestview.html:211
-=======
-#: pyha/templates/pyha/requestview.html:227
-#: pyha/templates/pyha/role1/requestview.html:209
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Aineistojen käyttöehdot"
 msgstr "Terms of use of the collections"
 
 #: pyha/templates/pyha/requestform.html:195
 #: pyha/templates/pyha/requestview.html:131
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:97
-=======
-#: pyha/templates/pyha/role1/requestview.html:100
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Olen lukenut ja ymmärtänyt ehdot"
 msgstr "I have read and understood the terms "
 
@@ -452,13 +309,8 @@ msgid "Sinun pitää hyväksyä vähintään yhdet ehdot"
 msgstr "You have to accept at least one terms of use"
 
 #: pyha/templates/pyha/requestform.html:228
-<<<<<<< HEAD
 #: pyha/templates/pyha/requestview.html:250
 #: pyha/templates/pyha/role1/requestview.html:229
-=======
-#: pyha/templates/pyha/requestview.html:249
-#: pyha/templates/pyha/role1/requestview.html:227
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Kannassa ei ole aineistoja tälle pyynnölle"
 msgstr "There are no collections for this request"
 
@@ -477,10 +329,6 @@ msgid "Pyyntö sisältää sensitiivistä tietoa"
 msgstr "Request included sensitive data"
 
 #: pyha/templates/pyha/requestview.html:116
-<<<<<<< HEAD
-=======
-#: pyha/templates/pyha/role1/requestview.html:85
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid ""
 "Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"
 msgstr "Collections including sensitive sightings are marked with symbol"
@@ -494,44 +342,26 @@ msgid "Päätös sensitiivisen tiedon antamisesta"
 msgstr "Decision for admitting sensitive data"
 
 #: pyha/templates/pyha/requestview.html:145
-<<<<<<< HEAD
 #: pyha/templates/pyha/requestview.html:185
 #: pyha/templates/pyha/role1/requestview.html:115
 #: pyha/templates/pyha/role1/requestview.html:163
-=======
-#: pyha/templates/pyha/requestview.html:186
-#: pyha/templates/pyha/role1/requestview.html:114
-#: pyha/templates/pyha/role1/requestview.html:161
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Käsittelyn tila"
 msgstr "State of processing"
 
 #: pyha/templates/pyha/requestview.html:146
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:116
 #: pyha/templates/pyha/role1/requestview.html:165
-=======
-#: pyha/templates/pyha/role1/requestview.html:115
-#: pyha/templates/pyha/role1/requestview.html:163
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Perustelut päätökselle"
 msgstr "Arguments for decision"
 
 #: pyha/templates/pyha/requestview.html:163
-<<<<<<< HEAD
 #: pyha/templates/pyha/requestview.html:213
 #: pyha/templates/pyha/role1/requestview.html:133
 #: pyha/templates/pyha/role1/requestview.html:186
-=======
-#: pyha/templates/pyha/requestview.html:214
-#: pyha/templates/pyha/role1/requestview.html:132
-#: pyha/templates/pyha/role1/requestview.html:184
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 msgid "Osittain hyväksytty"
 msgstr "Partially accepted"
 
 #: pyha/templates/pyha/requestview.html:178
-<<<<<<< HEAD
 #: pyha/templates/pyha/role1/requestview.html:158
 msgid "Pyyntöön sisältyvät aineistot"
 msgstr "Collections that belong to this request"
@@ -594,53 +424,6 @@ msgstr "Refuse"
 #~ msgid "Pyyntöön on sisältynyt sensitiivistä tietoa"
 #~ msgstr "Request included sensitive data"
 
-=======
-#: pyha/templates/pyha/role1/requestview.html:156
-msgid "Pyyntöön sisältyvät aineistot"
-msgstr "Collections that belong to this request"
 
-#: pyha/templates/pyha/requestview.html:184
-msgid "Aineistonhaltijan salaamat"
-msgstr "Secured by data provider"
-
-#: pyha/templates/pyha/requestview.html:185
-msgid "Yleisesti salatut"
-msgstr "Generally secured"
-
-#: pyha/templates/pyha/requestview.html:189
-msgid "Syy"
-msgstr "Cause"
-
-#: pyha/templates/pyha/role1/requestview.html:9
-msgid "Pyyntö käyttäjältä"
-msgstr "Request from user"
-
-#: pyha/templates/pyha/role1/requestview.html:78
-msgid "Pyynnön perustelut"
-msgstr "Requests arguments"
-
-#: pyha/templates/pyha/role1/requestview.html:84
-msgid "Pyyntöön on sisältynyt sensitiivistä tietoa"
-msgstr "Request included sensitive data"
-
-#: pyha/templates/pyha/role1/requestview.html:109
-msgid "Pyytäjä ei halua sensitiivistä tietoa"
-msgstr "User doesn't want sensitive data"
-
-#: pyha/templates/pyha/role1/requestview.html:111
-msgid "Pyytäjä haluaa sensitiivistä tietoa"
-msgstr "User wants sensitive data"
-
-#: pyha/templates/pyha/role1/requestview.html:145
-#: pyha/templates/pyha/role1/requestview.html:197
-msgid "Hyväksy"
-msgstr "Accept"
-
-#: pyha/templates/pyha/role1/requestview.html:146
-#: pyha/templates/pyha/role1/requestview.html:198
-msgid "Hylkää"
-msgstr "Refuse"
-
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 #~ msgid "Nimi"
 #~ msgstr "Name"
