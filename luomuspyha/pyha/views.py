@@ -262,7 +262,7 @@ def fetch_user_name(personId):
 		name = data['rdf:RDF']['MA.person']['MA.fullName']
 		return name
 	else:
-		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + response.status_code)
+		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + str(response.status_code))
 
 
 
@@ -400,20 +400,20 @@ def update(requestId, lang):
 		emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 			
 
+"""
+	Send "request has been handled" email 
+	IF request.sensstatus is 0(no sensitive information) OR 3(declined) OR 4(accepted)  
+	AND 
+	all it's collections have status != 1(waiting for approval)
+"""
 def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
-	
+	#count collections that are still waiting for approval
 	collectionsNotHandled = len(requestCollections)
 	for c in requestCollections:
-		if c.status > 1:
+		if c.status != 1:
 			collectionsNotHandled -=1
-			
-	#Send "request has been handled" email 
-	#
-	# if request.sensstatus is 0 OR 3 OR 4  
-	# AND 
-	# all it's collections have status > 1
-	
-	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or UserRequest.sensstatus ==0):
+	#check if request is handled
+	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or userRequest.sensstatus ==0):
 		send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
 	elif(statusBeforeUpdate!=userRequest.status):
 		#Send email if status changed

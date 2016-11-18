@@ -37,8 +37,8 @@ def store(jsond):
 		req.save()
 
 		if hasattr(data, 'collections'):
-                        for i in data.collections:
-                        		makeCollection(req, i)
+			for i in data.collections:
+				makeCollection(req, i)
 		return req
 
 def makeCollection(req, i):

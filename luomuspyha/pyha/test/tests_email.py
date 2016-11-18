@@ -66,18 +66,68 @@ class EmailTesting (TestCase):
 	#does not test fetch_email_address
 	@mock.patch("pyha.email.fetch_email_address", fake_fetch_email_address)
 	def test_mail_is_actually_sent_when_request_status_is_changed(self):
-		req = warehouse.store(JSON_MOCK4)
+		req = warehouse.store(JSON_MOCK6)
 		req.save()
 		wantedRequest = Request.requests.get(id=req.id)
 		requestCollections = Collection.objects.filter(request=req.id)
-		wantedRequest.sensstatus = 4
+		requestCollections[0].status = 4
+		wantedRequest.sensstatus = 2
+		wantedRequest.save()
 		update(req.id, "fi")
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
 		self.assertEqual(msg.subject, 'Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut')
 		self.assertEqual(msg.to, ['test123@321.asdfgh'])
 	
+	#does not test fetch_email_address
+	@mock.patch("pyha.email.fetch_email_address", fake_fetch_email_address)
+	def test_correct_mail_is_sent_when_request_is_handled(self):
+		req = warehouse.store(JSON_MOCK6)
+		req.save()
+		wantedRequest = Request.requests.get(id=req.id)
+		wantedRequest.sensstatus = 4
+		wantedRequest.save()
+		
+		requestCollections = Collection.objects.filter(request=req.id)
+		for i in requestCollections:
+			i.status=4
+			i.save()
+		
+		update(req.id, "fi")
+		self.assertEqual(len(mail.outbox), 1)
+		msg = mail.outbox[0]
+		self.assertEqual(msg.subject, 'Pyyntösi käsittely on valmistunut')
+		self.assertEqual(msg.to, ['test123@321.asdfgh'])
 	
+	#does not test fetch_email_address
+	@mock.patch("pyha.email.fetch_email_address", fake_fetch_email_address)
+	def test_correct_mail_is_sent_when_request_is_handled_perms(self):
+		req = warehouse.store(JSON_MOCK6)
+		req.save()
+		mailsTotal = 1
+		
+		for j in range(0,2):
+			wantedRequest = Request.requests.get(id=req.id)
+			if j == 0:
+				wantedRequest.sensstatus = 0
+			elif j == 1:
+				wantedRequest.sensstatus = 3
+			elif j == 2:
+				wantedRequest.sensstatus = 4
+			wantedRequest.save()
+			for k in range(-1,4):
+				if k != 1:
+					requestCollections = Collection.objects.filter(request=req.id)
+					for i in requestCollections:
+						i.status=k
+						i.save()
+					
+					update(req.id, "fi")
+					self.assertEqual(len(mail.outbox), mailsTotal)
+					mailsTotal+=1
+					msg = mail.outbox[0]
+					self.assertEqual(msg.subject, 'Pyyntösi käsittely on valmistunut')
+					self.assertEqual(msg.to, ['test123@321.asdfgh'])
 
 
 
