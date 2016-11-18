@@ -107,11 +107,7 @@
 							{% else %}
 							<h3>{% trans "Pyytäjä haluaa sensitiivistä tietoa"%}</h3>
 							<h4>{% trans "Aineistot:"%}</h3>
-<<<<<<< HEAD
 							{% for collection in taxonlist %}
-=======
-							{% for collection in collections %}
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
 							<table class="table" style="width:100%">
@@ -158,11 +154,7 @@
 							{% endif %}
 					{% endif %}
 				<br></br>
-<<<<<<< HEAD
 					{% if role2 and customcount > 0%}
-=======
-					{% if role2 and collectioncount > 0%}
->>>>>>> 46853f18708b41b48f248cc480c42f4e652e868d
 					<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
