@@ -27,11 +27,15 @@ LOCAL_REQ_URL = 'http://127.0.0.1:8000/pyha/request/'
 LAJI_REQ_URL = 'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
 REQ_URL = LOCAL_REQ_URL
 LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/' 
+LAJIPERSONAPI_URL = 'https://fmnh-ws-test.it.helsinki.fi/triplestore/'
+LAJIPERSONAPI_PW = secrets.PW_1
 LAJIAPI_URL = 'https://apitest.laji.fi/v0/'
 LAJIFILTERS_URL= 'https://apitest.laji.fi/v0/warehouse/filters'
 TARGET='KE.541'
 MOCK_JSON=True
 APPEND_SLASH=False
+
+DEFAULT_CHARSET = 'utf-8'
 #FORCE_SCRIPT_NAME = '/pyha'
 #SECRET_KEY = os.environ['LUOMUS_SECRET_KEY']
 #LAJIAUTH_URL = os.environ['LUOMUS_LAJIAUTH_URL']
@@ -67,6 +71,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'pyha.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

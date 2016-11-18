@@ -6,7 +6,7 @@
     <div class="container-fluid">
     <div class="col-sm-9 col-lg-10">
       <div class="page-header">
-        <h2>{{maintext}}</h2>
+        <h2>{% trans "Tervetuloa!" %}</h2>
       </div>
       {% if requests %}
       <h2>{% trans "Pyynnöt" %}:</h2>
@@ -14,8 +14,8 @@
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#349934" style="color:white;">
-        <th>{% trans "Kuvaus" %}</th>
-        <th>{% trans "Päiväys" %}</th>	
+        <th>{% trans "Päiväys" %}</th>
+        <th>{% trans "Tekijä" %}</th>	
         <th>{% trans "Osumia" %}</th>
         <th>{% trans "Pyynnön tila" %}</th>
       </tr>
@@ -41,8 +41,8 @@
         {% endif %}
             data-href="request/{{request.id}}"
             >
-            <td>{{request.description}}</td>
-            <td>{{request.date|date:"d.m.Y    h:i"}}</td>
+            <td>{{request.date|date:"d.m.Y    H:i"}}</td>
+            <td>{{request.email}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "Et ole hyväksynyt ehtoja" %}</td>
@@ -94,6 +94,7 @@ $(document).ready(function($) {
 <script>
 $(document).ready(function() {
     $('#requests-table').dataTable( {
+            "order": [[ 0, "desc" ]],
             "language": {
              {% if LANGUAGE == "fi" %}
             "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Finnish.json"

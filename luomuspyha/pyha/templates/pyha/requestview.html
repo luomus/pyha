@@ -6,7 +6,7 @@
 		<div class="col-sm-9 col-lg-10">
 		  <div class="page-header"> 
 
-			<h1>{% trans "Pyyntö" %}:
+			<h1>{% trans "Pyyntö" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
 				{% if userRequest.description and userRequest.description.strip %}
 					{{userRequest.description}}
 					<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -43,7 +43,7 @@
 					</form>
 				</div>
 					
-				<h2>{{userRequest.date|date:"d.m.Y    h:i"}}</h2>
+				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 			<h3><span style="white-space: nowrap;">(
 					<span
 					{% if userRequest.status == 1 %}
@@ -94,7 +94,7 @@
 							</tr>	
 							{% for filter in filters %}
 							<tr>	
-								<td rowspan={{filter.1|length}}>{{ filter.0 }}</td>
+								<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 								{% for f in filter.1 %}
 								<td>{{ f }}</td>
 							</tr>
@@ -115,7 +115,7 @@
 						<h3>{% trans "Pyyntö sisältää sensitiivistä tietoa" %}:</h3>
 						<p>{% trans "Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"%}. <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
 						<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "Ehdot" %}</button>
-								<div class="modal fade" id="myModalsens"" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+								<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 								  <div class="modal-lg modal-dialog" role="document">
 									<div class="modal-content">
 									  <div class="modal-header">
@@ -142,7 +142,7 @@
 							<h3>{% trans "Päätös sensitiivisen tiedon antamisesta"%}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
-								<th>{% trans "Status" %}</th>
+								<th>{% trans "Käsittelyn tila" %}</th>
 								<th>{% trans "Perustelut päätökselle" %}</th>
 								</tr>
 								{% if userRequest.sensstatus == 1 %}
@@ -174,16 +174,15 @@
 							{% endif %}
 					{% endif %}
 				<br></br>
-
+				{% if collectioncount > 0%}
 				<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
-				
 						<table class="table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "Nimi" %}</th>
+								<th>{% trans "Aineisto" %}</th>
 								<th>{% trans "Kuvaus" %}</th>
 								<th>{% trans "Aineistonhaltijan salaamat" %}</th>
 								<th>{% trans "Yleisesti salatut" %}</th>
-								<th>{% trans "Status" %}</th>
+								<th>{% trans "Käsittelyn tila" %}</th>
 								<th>{% trans "Ehdot" %}</th>
 								{% if userRequest.status != 1 %}
 								<th>{% trans "Syy" %}</th>
@@ -200,7 +199,7 @@
 								<tr	
 								{% endif %}
 								>
-								<td>{{collection.result.collectionName}}{% if 'DEFAULT_TAXON_CONSERVATION' in collection.reasons %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
+								<td>{{collection.result.collectionName}}{% if collection.taxonSecured > 0 %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.customSecured}}</td>
 								<td>{{collection.taxonSecured}}</td>
@@ -214,6 +213,8 @@
 								<td>{% trans "Osittain hyväksytty" %}</td>
 								{% elif collection.status == 4 %}
 								<td>{% trans "Hyväksytty" %}</td>
+								{% elif collection.taxonSecured > 0 %}
+								<td>{% trans "Sensitiivisyyden päätös" %}</td>
 								{% else %}  
 								<td>{% trans "Tuntematon" %}</td>	
 								{% endif %}
@@ -242,9 +243,9 @@
 							</tr>
 							{% endfor %}
 						</table>
+					{% endif %}
 						</div>
-					</form>		
-
+					</form>
 					{% else %}
 						<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
 					{% endif %}
