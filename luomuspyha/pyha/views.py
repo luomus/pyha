@@ -397,12 +397,27 @@ def update(requestId, lang):
 			wantedRequest.status = 5
 		wantedRequest.save()
 		
-		#Send email if status changed
-		if(statusBeforeUpdate!=wantedRequest.status):
-			send_mail_after_request_status_change_to_requester(wantedRequest.id, lang)
+		emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 			
 
-
+def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
+	
+	collectionsNotHandled = len(requestCollections)
+	for c in requestCollections:
+		if c.status > 1:
+			collectionsNotHandled -=1
+			
+	#Send "request has been handled" email 
+	#
+	# if request.sensstatus is 0 OR 3 OR 4  
+	# AND 
+	# all it's collections have status > 1
+	
+	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or UserRequest.sensstatus ==0):
+		send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
+	elif(statusBeforeUpdate!=userRequest.status):
+		#Send email if status changed
+		send_mail_after_request_status_change_to_requester(userRequest.id, lang)
 
 
 
