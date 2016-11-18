@@ -14,7 +14,8 @@ urlpatterns = [
     url(r'^description/?$', views.change_description, name='description'),
     url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),
     url(r'^removeCustom/?$', views.remove_custom_data, name='removeCustom'),
-
+    url(r'^mock/jsonmock/?$', views.jsonmock, name='jsonmock'),
+    
     url(r'^role/?', views.change_role, name='change_role'),
     url(r'^approve/?$', views.approve, name='approve'),
     url(r'^answer/?$', views.answer, name='answer'),

@@ -227,7 +227,7 @@ def remove_sensitive_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0;
 		collection.save(update_fields=['taxonSecured'])
-		if(collection.customSecured == 0):
+		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
@@ -241,7 +241,7 @@ def remove_custom_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0;
 		collection.save(update_fields=['customSecured'])
-		if(collection.taxonSecured == 0):
+		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
@@ -275,9 +275,11 @@ def removeCollection(request):
 		print("request_id: " + requestId)
 		print("address: " + collectionId)
 		collection = Collection.objects.get(address = collectionId, request = requestId)
-		collection.status = -1
-		collection.save(update_fields=['status'])
-		check_all_collections_removed(requestId)
+		#avoid work when submitted multiple times
+		if(collection.status != -1):
+			collection.status = -1
+			collection.save(update_fields=['status'])
+			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(redirect_path)
 
 

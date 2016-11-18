@@ -79,7 +79,6 @@
 						<strong>{% trans "Kannassa ei ole suodattimia tälle pyynnölle" %}.</strong>
 					{% endif %}
 				</div>
-					
 				<!-- aineistolista -->
 				{% if collections %}
 				<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
@@ -228,9 +227,23 @@
 						<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
 					{% endif %}
 		</div>
-
-	  </div>
-	  
+	</div>
+</div>
+	<!--- hidden confirm modal --->
+<div id="confirm-modal" class="modal fade modal-sm modal-confirm" >
+	<div class="modal-content" >
+		<div class="modal-header">
+			
+		</div>
+		<div class="modal-body">
+			Oletko varma, että haluat poistaa tämän aineisto-osuuden?
+		</div>
+		<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">{% trans "Poista" %}</button>
+			<button type="button" data-dismiss="modal" class="btn btn-outline-secondary">{% trans "Takaisin" %}</button>
+		</div>
+	</div>
+</div>
 	{% if collections %} 
 	<!-- hidden delete collection forms -->
 	{% for collection in collections %}
@@ -331,7 +344,7 @@
 	});
 	</script>
 	
-	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
+	
 	
 	<script>
 	
@@ -341,22 +354,39 @@
 {% endblock %}
 {% block end_script %}
 	<script>
-		$('.deleteContainer').click(function(e){
+		$('.deleteContainer').on('click',function(e){
 			var name ="#delete" + $(this).find('.removeCollectionButton').attr('id');
-			$(name).submit();
+			e.preventDefault();
+			$('#confirm-modal').off()
+			$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
+				.one('click', '#delete', function(){
+					$(name).submit();
+			});
+			
 		});
-		$('.sensDeleteContainer').click(function(e){
+		$('.sensDeleteContainer').on('click',function(e){
 			var name = "#deletesens" + $(this).find('.removeSensitiveButton').attr('id');
-			$(name).submit();
+			e.preventDefault();
+			$('#confirm-modal').off()
+			$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
+				.one('click', '#delete', function(){
+					$(name).submit();
+			});
 
 		});
-		$('.customDeleteContainer').click(function(e){
+		$('.customDeleteContainer').on('click',function(e){
 			var name = "#deletecustom" + $(this).find('.removeCustomButton').attr('id');
-			$(name).submit();
+			e.preventDefault();
+			$('#confirm-modal').off()
+			$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
+				.one('click', '#delete', function(){
+					$(name).submit();
+			});
 		});
 	</script>
 
 	<script>
+	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
 	$(document).ready(function(){
 		var descExists = {{ userRequest.description.strip|length }};
 		if (descExists == 0) {
