@@ -37,7 +37,7 @@ def send_mail_after_receiving_request(requestId, lang):
 			subject_content = u"På svenska: Aineistopyyntö: " + req.description
 		else:
 			subject_content = u"På svenska: Aineistopyyntö: " + time
-		content = u"På svenska: Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa "+time+".\nPyyntö tarvitsee teiltä vielä käyttöehtojen hyväksynnän.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"
+		message = u"På svenska: Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa "+time+".\nPyyntö tarvitsee teiltä vielä käyttöehtojen hyväksynnän.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"
 	subject = subject_content	
 	from_email = 'helpdesk@laji.fi'	
 	to = fetch_email_address(req.user)
@@ -58,18 +58,20 @@ def fetch_email_address(personId):
 		email = data['rdf:RDF']['MA.person']['MA.emailAddress']
 		return email
 	else:
-		print('Sähköpostiosoitteen haku ei onnistunut. HTTP statuskoodi: ' + response.status_code)
+		print('Sähköpostiosoitteen haku ei onnistunut. HTTP statuskoodi: ' + str(response.status_code))
 		
 def send_mail_for_approval(requestId, collection, lang):
 	'''
-	Sends mail to collection owner(s) for request approval
+	Sends mail to collection download request handler(s) for request approval.
+	Also saves their ids to database.
 	:param requestId: request identifier 
 	:param collection: collection address
 	:param lang: language code
 	'''	
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)	
+	req_link = settings.REQ_URL+str(req.id)
+	reqCollection = Collection.objects.get(address = collection, request = requestId)
 	if(lang == 'fi'):
 		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 		message = "Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
@@ -86,6 +88,7 @@ def send_mail_for_approval(requestId, collection, lang):
 		data = response.json()
 		if 'downloadRequestHandler' in data:
 			handlers = data['downloadRequestHandler']
+			reqCollection.downloadRequestHandler = handlers
 			for personId in handlers:
 				email = fetch_email_address(personId)
 				recipients.append(email)
