@@ -21,7 +21,6 @@ from pyha.models import Collection, Request
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from itertools import chain
 from itertools import groupby
-#from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
 from pyha.roles import *
 from pyha.email import *
 
@@ -324,8 +323,6 @@ def approve(request):
 						i.status = -1
 						i.save(update_fields=['status'])
 				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
-				print(i)
-				print(i.address)
 				if(i.customSecured > 0):
 					send_mail_for_approval(requestId, i, lang)
 			userRequest = Request.requests.get(id = requestId)
