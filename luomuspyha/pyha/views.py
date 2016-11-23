@@ -144,6 +144,10 @@ def show_request(request):
 				customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count()
 				hasCollection = True
 		if not hasCollection:
+			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
+			taxoncount += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0).count()
+			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
+			customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0).count()
 			collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
 			collectioncount = Collection.objects.filter(request=userRequest.id, status__gte=0).count()
 		for i, c in enumerate(collectionList):

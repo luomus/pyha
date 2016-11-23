@@ -130,18 +130,35 @@
 														<div class="form-group">
 										{% if taxon %}
 											<h3>{% trans "Pyyntöön sisältyy aineistoja, jotka tarvitsevat sensitiivisyysehtojen hyväksymisen" %}:</h3>
-										
-											<button type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
+											<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
 
 											<div id="sensitiveInfo" class="collapse">
 												<p>lisäinfoa sensitiivisyydestä</p>
 											</div>
 
-											<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="
-											#myModalsens">{% trans "Ehdot" %}</button>
+											<p></p>
+											<table class="table" style="width:100%">
+												<tr style=color:black>
+													<th>{% trans "Aineisto" %}</th>
+													<th>{% trans "Kuvaus" %}</th>
+													<th>{% trans "Sensitiivisiä havaintoja" %}</th>
+													<th></th>
+												</tr>	
+											{% for collection in taxonlist %}
+												<tr style="border-	bottom:2px solid #456789">
+													<td>{{collection.result.collectionName}}</td>
+													<td>{{collection.result.description}}</td>
+													<td>{{collection.taxonSecured}}</td>
+													<td>
+													<div class="sensDeleteContainer">
+														<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
+															{% trans "Poista sensitiiviset havainnot" %}
+													</div>
+													</td>
+												</tr>
+											{% endfor %}
+												</table>
 
-
-											<span id ="statustextsens">{% trans "Et ole hyväksynyt ehtoja" %}</span>
 													<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 													  <div class="modal-lg modal-dialog" role="document">
 														<div class="modal-content">
@@ -163,10 +180,14 @@
 														</div>
 													  </div>
 													</div>
+												<ul class="list-inline pull-right">
+													<button type="button" class="btn btn-default" required data-toggle="modal" data-target="
+											#myModalsens">{% trans "Ehdot" %}</button>
     									{% else %}
     									<h3>{% trans "Pyyntöön ei sisälly sensitiivisiä havaintoja, siirry kohtaan 2" %}.</h3>
+                                                <ul class="list-inline pull-right">
     									{% endif %}                   
-                                                    <ul class="list-inline pull-right">
+                                                        <li><span id ="statustextsens">{% trans "Et ole hyväksynyt ehtoja" %}</span></li>
                                                         <li><button type="button" class="btn btn-primary next-step">{% trans 'continue_to_step_2' %}</button></li>
                                                     </ul>
                                                     </div>
@@ -174,25 +195,20 @@
 									<div class="tab-pane" role="tabpanel" id="step2">
 
 									<h3>{% trans "Pyyntöösi sisältyvät havainnot" %}:</h3>
-									<p style="color:grey">{% trans "Sensitiivisiä havaintoja sisältävät aineistot on merkitty kuvakkeella"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 											<table class="table" style="width:100%">
 												<tr style=color:black>
 													<th>{% trans "Aineisto" %}</th>
 													<th>{% trans "Kuvaus" %}</th>
 													<th>{% trans "Aineistonhaltijan salaamia havaintoja" %}</th>
 													<th></th>
-													<th>{% trans "Sensitiivisiä havaintoja" %}</th>
-													<th></th>
 													<th>{% trans "Käyttöehdot" %}</th>
 													<th>{% trans "Tila" %}</th>
-													<th></th>
 												</tr>	
-												{% for collection in collections %}
-												<tr style="border-bottom:2px solid #456789">
-													<td>{{collection.result.collectionName}}{% if collection.taxonSecured > 0 %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
+												{% for collection in customlist %}
+												<tr>
+													<td>{{collection.result.collectionName}}
 													<td>{{collection.result.description}}</td>
 													<td>{{collection.customSecured}}</td>
-												 	{% if collection.customSecured > 0 %}
 												 	<td>
 													
 													<div class="customDeleteContainer">
@@ -200,32 +216,9 @@
 														{% trans "Poista aineistonhaltijan salaamat havainnot" %}
 													</div>	
 												</td>
-													{% else %}
-													<td></td>
-													{% endif %}
-													<td>{{collection.taxonSecured}}</td>
-
-													{% if collection.taxonSecured > 0 %}
-												 	<td>
-													<div class="sensDeleteContainer">
-														<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-															{% trans "Poista sensitiiviset havainnot" %}
-													</div>
-													</td>
-													{% else %}
-													<td></td>
-													{% endif %}
-
-													{% if collection.customSecured > 0 %}
 													<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
 													<td><span id ="statustext{{ forloop.counter0 }}">{% trans "Et ole hyväksynyt ehtoja" %}</span></td> 
-													<td>
-													<!-- submit button for hidden delete collection form -->
-													<div class="deleteContainer">
-														<button class="removeCollectionButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-														{% trans "Poista aineistot, joiden ehtoja et halua hyväksyä" %}
-													</div>
-													</td>
+
 													
 													<!-- Modal -->
 													<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -251,12 +244,7 @@
 													  </div>
 													</div>
 													
-													{% else %}
-													<td></td>
-													<script>checkv({{forloop.counter0}}, 0);</script>
-													<td>{% trans "Pyyntösi ei sisältänyt aineiston ehtoja" %}.</td>
-													<td></td>
-													{% endif %}
+													
 												</tr>
 												{% endfor %}
 											     </table>
@@ -274,18 +262,22 @@
     												-->
     												<h3>{% trans "Perustelut pyynnölle" %}:</h3>
     												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'Pakolliset perustelut' %}"></textarea>
-    												<button type="submit" id="submit" class="btn btn-default btn-lg">{% trans "Lähetä hyväksyttäväksi" %}</button>
-    												<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span>
-    												<script>checkForApproval();</script>
                                                     <ul class="list-inline pull-right">
                                                         <li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-                                                        <li><button type="button" class="btn btn-primary btn-info-full next-step">{% trans 'continue'%}</button></li>
+                                                        <li><button id="continue-to-summary" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue'%}</button></li>
                                                     </ul>
                                                 </div>
                                                     <div class="tab-pane" role="tabpanel" id="complete">
-                                                        <h3>Complete</h3>
-                                                        <p>You have successfully completed all steps.</p>
+                                                    
+                                                    <ul class="list-inline pull-right">
+							                            <li><button type="submit" id="submit" class="btn btn-success">{% trans "Lähetä hyväksyttäväksi" %}</button></li>
+							                            <li>
+    												<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span></li>
+													<script>checkForApproval();</script>
+
+							                        </ul>
                                                     </div>
+
                                                     <div class="clearfix"></div>
 											</div>
 											{% csrf_token %}
@@ -406,6 +398,21 @@
 			document.getElementById('submitstatustext').hidden = false;
 		}
 	  }
+	  window.onload = function () {
+	  	var reason = document.getElementById("reason");
+		  	var func = function() { 
+			    if (reason.value !== '') {
+			      document.getElementById("continue-to-summary").disabled = false;         
+			    } else {
+			      document.getElementById("continue-to-summary").disabled = true;         
+			    }
+		  	}
+		  reason.onkeyup = func;
+		  reason.onchange = func;
+	}
+
+	  
+
 	</script>
 	
 
