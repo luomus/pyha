@@ -262,7 +262,7 @@ def fetch_user_name(personId):
 		name = data['rdf:RDF']['MA.person']['MA.fullName']
 		return name
 	else:
-		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + response.status_code)
+		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + str(response.status_code))
 
 
 
