@@ -17,15 +17,6 @@ class RequestTesting(TestCase):
 		session['token'] = 'asd213'
 		session.save()
 		warehouse.store(JSON_MOCK)
-		
-	def test_requests_collections_secure_reason_amounts_are_saved(self):
-		warehouse.store(JSON_MOCK6)
-		col1 = Collection.objects.get(address="colcustomsec1")
-		col2 = Collection.objects.get(address="colsecured")
-		self.assertEqual(col1.customSecured, 1)
-		self.assertEqual(col2.customSecured, 2)
-		self.assertEqual(col2.taxonSecured, 3)
-		
 
 	def test_request_has_its_own_page(self):
 		response = self.client.get('/pyha/request/1')
@@ -43,51 +34,10 @@ class RequestTesting(TestCase):
 		response = self.client.get('/pyha/')
 		self.assertEqual(len(Request.requests.all()), 1)
 		self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
-
-	def test_requests_collections_are_shown_in_its_page(self):
-		response = self.client.get('/pyha/request/1')
-		self.assertContains(response, "Pyyntöösi sisältyvät havainnot:")
-		self.assertContains(response, "Talvilintulaskenta")
-		self.assertContains(response, "Hatikka.fi")
-		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")
 		
-	def test_collection_has_correct_secure_reason_amounts(self):
-		warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colcustomsec1")
-		self.assertEqual(col.customSecured, 1)
-		self.assertEqual(col.taxonSecured, 0)
-		
-	def test_collection_has_correct_secure_reason_amounts2(self):
-		warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colsecured")
-		self.assertEqual(col.customSecured, 2)
-		self.assertEqual(col.taxonSecured, 3)
-		
-	def test_collections_sensitive_secure_reasons_can_be_deleted(self):
-		warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colsecured")
-		self.assertEqual(col.customSecured, 2)
-
-		response = self.client.post('/pyha/removeCustom', {'collectionId': col.id})
-		col = Collection.objects.all().get(address="colsecured")
-
-		self.assertEqual(col.customSecured, 0)
-		
-
-	def test_collections_sensitive_secure_reasons_can_be_deleted(self):
-		warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colsecured")
-		self.assertEqual(col.taxonSecured, 3)
-
-		response = self.client.post('/pyha/removeSens', {'collectionId': col.id})
-		col = Collection.objects.all().get(address="colsecured")
-
-		self.assertEqual(col.taxonSecured, 0)
-
 	def test_requests_filters_labels_and_values_comes_from_apitest(self):
 		warehouse.store(JSON_MOCK7)
 		response = self.client.get('/pyha/request/2')
-		print(response)
 		self.assertContains(response, "Pyyntösi rajaukset:")
 		self.assertContains(response, "Vain salatut")
 		self.assertContains(response, "true")
@@ -99,3 +49,16 @@ class RequestTesting(TestCase):
 		self.assertContains(response, "Aika")
 		self.assertContains(response, "2000/")
 
+
+
+'''	def test_removing_both_secure_reasons_removes_collection(self):
+		warehouse.store(JSON_MOCK7)
+		response = self.client.get('/pyha/request/2')
+		self.assertContains(response, 'Talvilintulaskenta')
+		col = Collection.objects.all().get(address="HR.39", request=2)
+		response = self.client.post('/pyha/removeCustom', {'collectionId': col.id})
+		self.client.post('/pyha/removeSens', {'collectionId': col.id})
+		col = Collection.objects.all().get(address="HR.39", request=2)
+		
+		
+		self.assertNotContains(response, 'Talvilintulaskenta')'''
