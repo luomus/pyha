@@ -34,3 +34,28 @@ class Request(models.Model):
 	reason = models.CharField(max_length=1000,null=True)
 	def __str__(self):
 		return self.id
+
+class RequestLogEntry(models.Model):
+	WATCH = 'W'
+	DELETE = 'DEL'
+	ACCEPT = 'ACC'
+	DECISION_POSITIVE = 'POS'
+	DECISION_NEGATIVE = 'NEG'
+	ACTION = (
+		(WATCH, 'watch'),
+		(DELETE, 'delete'),
+		(ACCEPT, 'accept terms of use'),
+		(DECISION_POSITIVE, 'accept use of data'),
+		(DECISION_NEGATIVE, 'refuse use of data'),
+	)
+
+	request = models.ForeignKey(Request, on_delete=models.CASCADE)
+	collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, blank=True, null=True)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=100)
+	role = models.CharField(max_length=100)
+	action = models.CharField(max_length=3, choices=ACTION)
+	requestLog = models.Manager()
+	
+	def __str__(self):
+		return self.id

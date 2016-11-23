@@ -21,7 +21,7 @@ from pyha.models import Collection, Request
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from itertools import chain
 from itertools import groupby
-
+from pyha.roles import *
 from pyha.email import *
 
 @csrf_exempt
@@ -33,12 +33,14 @@ def index(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
 		lang = request.LANGUAGE_CODE
-		hasRole = secrets.ROLE_1 in request.session.get("user_roles", [None]) or secrets.ROLE_2 in request.session.get("user_roles", [None])
-		if 'handler' in request.session.get("user_role", [None]):
+		hasRole = HANDLER_SENS in request.session.get("user_roles", [None]) or HANDLER_COLL in request.session.get("user_roles", [None])
+		if hasRole:
+			request.session["user_role"] = HANDLER_ANY
+		if HANDLER_ANY in request.session.get("user_role", [None]):
 			request_list = []
-			if secrets.ROLE_1 in request.session.get("user_roles", [None]):
+			if HANDLER_SENS in request.session.get("user_roles", [None]):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(taxonSecured__gt = 0).exclude(downloadRequestHandler__contains = str(userId)).values("request")).order_by('-date')
-			if secrets.ROLE_2 in request.session.get("user_roles", [None]):
+			if HANDLER_COLL in request.session.get("user_roles", [None]):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 			request_list = list(set(request_list))
 			for r in request_list:
@@ -113,8 +115,12 @@ def show_request(request):
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestId)
 		userId = request.session["user_id"]
-		role1 = secrets.ROLE_1 in request.session.get("user_roles", [None])
-		role2 = secrets.ROLE_2 in request.session.get("user_roles", [None])
+		#Laitetaan ainakin toistaiseksi rooliksi 'handler'=HANDLER_ANY yhteensopivuuden takia
+		hasHandlerRole = HANDLER_SENS in request.session.get("user_roles", [None]) or HANDLER_COLL in request.session.get("user_roles", [None])
+		if hasHandlerRole:
+			request.session["user_role"] = HANDLER_ANY
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		if 'handler' in request.session.get("user_role", [None]):
 			if not Request.requests.filter(id=userRequest.id, status__gte=0).exists():
 				return HttpResponseRedirect('/pyha/')
@@ -262,7 +268,7 @@ def fetch_user_name(personId):
 		name = data['rdf:RDF']['MA.person']['MA.fullName']
 		return name
 	else:
-		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + response.status_code)
+		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + str(response.status_code))
 
 
 
@@ -299,7 +305,6 @@ def approve(request):
 		requestedCollections = request.POST.getlist('checkb');
 		if(len(requestedCollections) > 0):
 			for i in requestedCollections:
-				send_mail_for_approval(requestId, i, lang)
 				if i not in "sens":
 					userCollection = Collection.objects.get(address = i, request = requestId)
 					userCollection.status = 1
@@ -317,12 +322,16 @@ def approve(request):
 					if i.taxonSecured == 0:
 						i.status = -1
 						i.save(update_fields=['status'])
-				userRequest = Request.requests.get(id = requestId)
-				userRequest.reason = request.POST.get('reason')
-				userRequest.status = 1
-				userRequest.save(update_fields=['status','reason'])
+				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
+				if(i.customSecured > 0):
+					send_mail_for_approval(requestId, i, lang)
+			userRequest = Request.requests.get(id = requestId)
+			userRequest.reason = request.POST.get('reason')
+			userRequest.status = 1
+			userRequest.save(update_fields=['status','reason'])
 			if userRequest.sensstatus == 1:
 				send_mail_for_approval_sens(requestId, lang)
+
 	return HttpResponseRedirect('/pyha/')
 
 def answer(request):
