@@ -50,7 +50,7 @@ def fetch_email_address(personId):
 	:param personId: person identifier 
 	:returns: person's email-address
 	'''
-	username = 'pyha'
+	username = settings.LAJIPERSONAPI_USER
 	password = settings.LAJIPERSONAPI_PW 
 	response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
 	if(response.status_code == 200):
@@ -98,6 +98,8 @@ def send_mail_for_approval_sens(requestId, lang):
 	:param requestId: request identifier 
 	:param lang: language code
 	'''	
+	username = settings.LAJIPERSONAPI_USER
+	password = settings.LAJIPERSONAPI_PW 
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.REQ_URL+str(req.id)	
@@ -111,8 +113,13 @@ def send_mail_for_approval_sens(requestId, lang):
 		subject = u"På svenska: Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 		message = u"På svenska: Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö koskien sensitiivistä aineistoa odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"	
 	from_email = 'helpdesk@laji.fi'
-	to = fetch_email_address('MA.319')  #odottaa parannuksia
-	recipients = [to]
+	response = requests.get(settings.LAJIPERSONAPI_URL+'/search?type=MA.person&predicatename=MA.role&objectresource=MA.sensitiveInformationApprovalRequestHandler&format=json', auth=HTTPBasicAuth(username, password ))
+	recipients = []
+	if(response.status_code == 200):
+		data = response.json()
+		print(data)
+		for p in data['rdf:RDF']['MA.person']:
+			recipients.append(p['MA.emailAddress'])
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)	
 	
 

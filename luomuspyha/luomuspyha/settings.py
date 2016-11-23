@@ -28,10 +28,12 @@ LAJI_REQ_URL = 'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
 REQ_URL = LOCAL_REQ_URL
 LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/' 
 LAJIPERSONAPI_URL = 'https://fmnh-ws-test.it.helsinki.fi/triplestore/'
+LAJIPERSONAPI_USER = 'pyha'
 LAJIPERSONAPI_PW = os.environ["PW_1"]
 LAJIAPI_URL = 'https://apitest.laji.fi/v0/'
 LAJIFILTERS_URL= 'https://apitest.laji.fi/v0/warehouse/filters'
 TARGET='KE.541'
+HANDLER='handler'
 MOCK_JSON=True
 APPEND_SLASH=False
 

@@ -26,9 +26,9 @@ def log_in(request, content):
           request.session["_language"] = "fi"
        if not request.session["user_roles"]:
           request.session["user_roles"] = ['user']
-          request.session["user_role"] = 'user'
+          request.session["current_user_role"] = 'user'
        else:
-          request.session["user_role"] = 'handler'
+          request.session["current_user_role"] = 'handler'
           request.session["user_roles"].append('user')
        add_collection_owner(request, content)
        request.session.set_expiry(3600)
@@ -79,4 +79,4 @@ def get_user_name(request):
 def add_collection_owner(request, content):
     if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:
       request.session["user_roles"].append(secrets.ROLE_2)
-      request.session["user_role"] = 'handler'
+      request.session["current_user_role"] = 'handler'
