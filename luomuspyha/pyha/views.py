@@ -26,17 +26,13 @@ from pyha.email import *
 
 @csrf_exempt
 def index(request):
-		if request.GET.get('lang'):
-			request.session["_language"] = request.GET.get('lang')
-			return HttpResponseRedirect(request.path)
+		check_language(request)
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
 		lang = request.LANGUAGE_CODE
 		hasRole = HANDLER_SENS in request.session.get("user_roles", [None]) or HANDLER_COLL in request.session.get("user_roles", [None])
-		if hasRole:
-			request.session["user_role"] = HANDLER_ANY
-		if HANDLER_ANY in request.session.get("user_role", [None]):
+		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			request_list = []
 			if HANDLER_SENS in request.session.get("user_roles", [None]):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(taxonSecured__gt = 0).exclude(downloadRequestHandler__contains = str(userId)).values("request")).order_by('-date')
@@ -46,23 +42,17 @@ def index(request):
 			for r in request_list:
 				r.email = request_owners_email = fetch_email_address(r.user)
 			context = {"role": hasRole, "email": request.session["user_email"], "requests": request_list, "static": settings.STA_URL }
-			return render(request, 'pyha/role1/index.html', context)
+			return render(request, 'pyha/handler/index.html', context)
 		else:
 			request_list = Request.requests.filter(user=userId, status__gte=0).order_by('-date')
 			context = {"role": hasRole, "email": request.session["user_email"], "requests": request_list, "static": settings.STA_URL }
 			return render(request, 'pyha/index.html', context)
 
-@csrf_exempt
-
-def login(request):
-		return _process_auth_response(request, '')
-
 def logout(request):
 		if not logged_in(request):
 			return _process_auth_response(request, '')
-		context = {"title": "Kirjaudu ulos", "message": "Kirjauduit ulos onnistuneesti", "static": settings.STA_URL}
 		log_out(request)
-		return HttpResponseRedirect("https://beta.laji.fi/")
+		return HttpResponseRedirect("https://dev.laji.fi/")
 
 def logged_in(request):
 		if "user_id" in request.session:
@@ -73,7 +63,7 @@ def change_role(request):
 		if not logged_in(request) and not 'role' in request.POST:
 			return HttpResponse('/')
 		next = request.POST.get('next', '/pyha/')
-		request.session['user_role'] = request.POST['role']
+		request.session['current_user_role'] = request.POST['role']
 		return HttpResponseRedirect(next)
 
 
@@ -95,7 +85,7 @@ def receiver(request):
 			req = store(jsond)
 		data = json.loads(jsond, object_hook=lambda d: Namespace(**d)) #kielen takia
 		if 'locale' in data:
-			lang = data.locale	
+			lang = data.locale
 		else:
 			lang = 'fi'
 		send_mail_after_receiving_request(req.id, lang)	
@@ -104,77 +94,47 @@ def receiver(request):
 
 def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
-@csrf_exempt
-def show_request(request):
-		if request.GET.get('lang'):
+		
+def check_language(request):
+	if request.GET.get('lang'):
 			request.session["_language"] = request.GET.get('lang')
 			return HttpResponseRedirect(request.path)
-		requestId = os.path.basename(os.path.normpath(request.path))
-		userRequest = Request.requests.get(id=requestId)
-		#Has Access
-		if not logged_in(request):
-			return _process_auth_response(request, "request/"+requestId)
-		userId = request.session["user_id"]
-		#Laitetaan ainakin toistaiseksi rooliksi 'handler'=HANDLER_ANY yhteensopivuuden takia
-		hasHandlerRole = HANDLER_SENS in request.session.get("user_roles", [None]) or HANDLER_COLL in request.session.get("user_roles", [None])
-		if hasHandlerRole:
-			request.session["user_role"] = HANDLER_ANY
-		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
-		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		if 'handler' in request.session.get("user_role", [None]):
+
+
+def check_allowed_to_view(request, userRequest, userId, role1, role2):
+	if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if not Request.requests.filter(id=userRequest.id, status__gte=0).exists():
 				return HttpResponseRedirect('/pyha/')
 			if role2 and not role1:
 				if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
 					return HttpResponseRedirect('/pyha/')
-		else:
-			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists():
+	else:
+			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists() or userRequest.status == -1:
 				return HttpResponseRedirect('/pyha/')
-		if(userRequest.status == -1):
+	if(userRequest.status == -1):
 			return HttpResponseRedirect('/pyha/')
-		#Create list
-		hasCollection = False
-		taxoncount = 0
-		customcount = 0
-		collectioncount = 0
-		taxonList = []
-		customList = []
-		collectionList = []
-		if 'handler' in request.session.get("user_role", [None]):				
-			if role1:	
-				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
-				taxoncount += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0).count()
-				hasCollection = True
-			if role2:
-				customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gte=0)
-				customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count()
-				hasCollection = True
-		if not hasCollection:
-			collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
-			collectioncount = Collection.objects.filter(request=userRequest.id, status__gte=0).count()
-		for i, c in enumerate(collectionList):
-			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-		for i, c in enumerate(customList):
-			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-		for i, c in enumerate(taxonList):
-			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()		
-		taxon = False
-		for collection in collectionList:
-			if(collection.taxonSecured > 0):
-				taxon = True
-		hasRole = role1 or role2
-		request_owner = fetch_user_name(userRequest.user)
-		request_owners_email = fetch_email_address(userRequest.user)
-		context = {"taxonlist": taxonList, "customlist": customList, "taxoncount": taxoncount, "customcount": customcount, "collectioncount": collectioncount, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
-                    
-		if 'handler' in request.session.get("user_role", [None]):
-                    return render(request, 'pyha/role1/requestview.html', context)
+
+
+@csrf_exempt
+def show_request(request):
+		check_language(request)
+		#Has Access
+		requestId = os.path.basename(os.path.normpath(request.path))
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestId)
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		check_allowed_to_view(request, userRequest, userId, role1, role2)
+		context = create_request_view_context(request, userRequest, role1, role2)
+		if HANDLER_ANY in request.session.get("current_user_role", [None]):
+			return render(request, 'pyha/handler/requestview.html', context)
 		else:
-                    if(userRequest.status == 0):
-                        return render(request, 'pyha/requestform.html', context)
-                    else:
-                        return render(request, 'pyha/requestview.html', context)
-                        
+			if(userRequest.status == 0):
+				return render(request, 'pyha/requestform.html', context)
+			else:
+				return render(request, 'pyha/requestview.html', context)
 def show_filters(request):
 		requestId = os.path.basename(os.path.normpath(request.path))
 		userRequest = Request.requests.get(id=requestId)
@@ -215,6 +175,47 @@ def show_filters(request):
 			tup = (b, filternamelist, languagelabel)
 			filterResultList[i] = tup
 		return filterResultList
+		
+def create_request_view_context(request, userRequest, role1, role2):
+		taxonList = []
+		customList = []
+		collectionList = []
+		taxoncount = 0
+		customcount = 0
+		collectioncount = 0
+		create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest)
+		taxon = False
+		for collection in collectionList:
+			if(collection.taxonSecured > 0):
+				taxon = True
+		hasRole = role1 or role2
+		request_owner = fetch_user_name(userRequest.user)
+		request_owners_email = fetch_email_address(userRequest.user)
+		print(collectionList)
+		context = {"taxonlist": taxonList, "customlist": customList, "taxoncount": taxoncount, "customcount": customcount, "collectioncount": collectioncount, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		return context
+
+def get_values_for_collections(request, List):
+	for i, c in enumerate(List):
+		c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
+
+def create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest):
+		hasCollection = False
+		if HANDLER_ANY in request.session.get("current_user_role", [None]):
+			if role1:	
+				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
+				taxoncount += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0).count()
+				hasCollection = True
+			if role2:
+				customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gte=0)
+				customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count()
+				hasCollection = True
+		if not hasCollection:
+			collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
+			collectioncount += Collection.objects.filter(request=userRequest.id, status__gte=0).count()
+		get_values_for_collections(request, collectionList)
+		get_values_for_collections(request, customList)
+		get_values_for_collections(request, taxonList)
 
 def change_description(request):
 	if request.method == 'POST':
@@ -304,27 +305,27 @@ def approve(request):
 		requestId = request.POST.get('requestid')
 		requestedCollections = request.POST.getlist('checkb');
 		if(len(requestedCollections) > 0):
-			for i in requestedCollections:
-				if i not in "sens":
-					userCollection = Collection.objects.get(address = i, request = requestId)
+			for rc in requestedCollections:
+				if rc not in "sens":
+					userCollection = Collection.objects.get(address = rc, request = requestId)
 					userCollection.status = 1
 					userCollection.save(update_fields=['status'])
 				else:
 					userRequest = Request.requests.get(id = requestId)
 					userRequest.sensstatus = 1
 					userRequest.save(update_fields=['sensstatus'])
-			for i in Collection.objects.filter(request = requestId):
-				if i.status == 0:
-					i.customSecured = 0
+			for c in Collection.objects.filter(request = requestId):
+				if c.status == 0:
+					c.customSecured = 0
 					if userRequest.sensstatus == 0:
-						i.taxonsecured = 0
-					i.save(update_fields=['customSecured'])
-					if i.taxonSecured == 0:
-						i.status = -1
-						i.save(update_fields=['status'])
+						c.taxonsecured = 0
+					c.save(update_fields=['customSecured'])
+					if c.taxonSecured == 0:
+						c.status = -1
+						c.save(update_fields=['status'])
 				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
-				if(i.customSecured > 0):
-					send_mail_for_approval(requestId, i, lang)
+				if(c.customSecured > 0):
+					send_mail_for_approval(requestId, c, lang)
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.reason = request.POST.get('reason')
 			userRequest.status = 1

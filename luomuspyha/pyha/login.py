@@ -16,25 +16,25 @@ def _get_authentication_info(request, token):
    else:
        content = json.loads(response.content.decode('utf-8'))
        return content
-		
+
 def log_in(request, content):
-	if not "user_id" in request.session:
-		request.session["user_id"] = content["user"]["qname"]
-		request.session["user_name"] = content["user"]["name"]
-		request.session["user_email"] = content["user"]["email"]
-		request.session["user_roles"] = content["user"]["roles"]
-		if not "_language" in request.session:
-			request.session["_language"] = "fi"
-		if not request.session["user_roles"]:
-			request.session["user_roles"] = [USER]
-			request.session["user_role"] = USER
-		else:
-			request.session["user_role"] = HANDLER_SENS
-			request.session["user_roles"].append(USER)
-		add_collection_owner(request, content)
-		request.session.set_expiry(3600)
-		return True
-	return False
+   if not "user_id" in request.session:
+       request.session["user_id"] = content["user"]["qname"]
+       request.session["user_name"] = content["user"]["name"]
+       request.session["user_email"] = content["user"]["email"]
+       request.session["user_roles"] = content["user"]["roles"]
+       if not "_language" in request.session:
+          request.session["_language"] = "fi"
+       if not request.session["user_roles"]:
+          request.session["user_roles"] = [USER]
+          request.session["current_user_role"] = USER
+       else:
+          request.session["current_user_role"] = HANDLER_ANY
+          request.session["user_roles"].append(USER)
+       add_collection_owner(request, content)
+       request.session.set_expiry(3600)
+       return True
+   return False
 
 def log_out(request):
    '''
@@ -80,4 +80,4 @@ def get_user_name(request):
 def add_collection_owner(request, content):
     if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:
       request.session["user_roles"].append(HANDLER_COLL)
-      request.session["user_role"] = HANDLER_ANY
+      request.session["current_user_role"] = HANDLER_ANY
