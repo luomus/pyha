@@ -26,13 +26,6 @@ class CollectionTesting(TestCase):
 		self.assertEqual(col2.customSecured, 2)
 		self.assertEqual(col2.taxonSecured, 3)
 
-	def test_requests_collections_are_shown_in_its_page(self):
-		response = self.client.get('/pyha/request/1')
-		self.assertContains(response, "Pyyntöösi sisältyvät havainnot:")
-		self.assertContains(response, "Talvilintulaskenta")
-		self.assertContains(response, "Hatikka.fi")
-		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")
-
 	def test_collection_has_correct_secure_reason_amounts(self):
 		warehouse.store(JSON_MOCK6)
 		col = Collection.objects.all().get(address="colcustomsec1")
@@ -74,3 +67,13 @@ class CollectionTesting(TestCase):
 		response = self.client.get('/pyha/request/2')
 		
 		self.assertContains(response, 'Talvilintulaskenta')
+
+
+#Nyt pyynnön sivulla näkyy lähtökohtaisesti pelkästään yleisesti salattu data
+'''	def test_requests_collections_are_shown_in_its_page(self):
+		warehouse.store(JSON_MOCK6)
+		response = self.client.get('/pyha/request/2')
+		self.assertContains(response, "Pyyntöösi sisältyvät havainnot:")
+		self.assertContains(response, "Talvilintulaskenta")
+		self.assertContains(response, "Hatikka.fi")
+		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")'''

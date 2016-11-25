@@ -135,6 +135,8 @@ def show_request(request):
 				return render(request, 'pyha/requestform.html', context)
 			else:
 				return render(request, 'pyha/requestview.html', context)
+
+
 def show_filters(request):
 		requestId = os.path.basename(os.path.normpath(request.path))
 		userRequest = Request.requests.get(id=requestId)
@@ -183,7 +185,7 @@ def create_request_view_context(request, userRequest, role1, role2):
 		taxoncount = 0
 		customcount = 0
 		collectioncount = 0
-		create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest)
+		create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest, role1, role2)
 		taxon = False
 		for collection in collectionList:
 			if(collection.taxonSecured > 0):
@@ -199,7 +201,7 @@ def get_values_for_collections(request, List):
 	for i, c in enumerate(List):
 		c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 
-def create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest):
+def create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest, role1, role2):
 		hasCollection = False
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if role1:	
@@ -211,8 +213,12 @@ def create_collections_for_lists(request, taxonList, customList, collectionList,
 				customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count()
 				hasCollection = True
 		if not hasCollection:
-			collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
-			collectioncount += Collection.objects.filter(request=userRequest.id, status__gte=0).count()
+			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
+			taxoncount += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0).count()
+			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
+			customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0).count()
+			collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
+			collectioncount = Collection.objects.filter(request=userRequest.id, status__gte=0).count()
 		get_values_for_collections(request, collectionList)
 		get_values_for_collections(request, customList)
 		get_values_for_collections(request, taxonList)
