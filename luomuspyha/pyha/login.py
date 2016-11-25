@@ -2,6 +2,7 @@
 from django.shortcuts import redirect
 from django.conf import settings
 from pyha.models import Collection
+from pyha.roles import *
 from luomuspyha import secrets
 import json
 
@@ -15,7 +16,7 @@ def _get_authentication_info(request, token):
    else:
        content = json.loads(response.content.decode('utf-8'))
        return content
-		
+
 def log_in(request, content):
    if not "user_id" in request.session:
        request.session["user_id"] = content["user"]["qname"]
@@ -25,11 +26,11 @@ def log_in(request, content):
        if not "_language" in request.session:
           request.session["_language"] = "fi"
        if not request.session["user_roles"]:
-          request.session["user_roles"] = ['user']
-          request.session["user_role"] = 'user'
+          request.session["user_roles"] = [USER]
+          request.session["current_user_role"] = USER
        else:
-          request.session["user_role"] = 'handler'
-          request.session["user_roles"].append('user')
+          request.session["current_user_role"] = HANDLER_ANY
+          request.session["user_roles"].append(USER)
        add_collection_owner(request, content)
        request.session.set_expiry(3600)
        return True
@@ -78,5 +79,5 @@ def get_user_name(request):
 
 def add_collection_owner(request, content):
     if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:
-      request.session["user_roles"].append(secrets.ROLE_2)
-      request.session["user_role"] = 'handler'
+      request.session["user_roles"].append(HANDLER_COLL)
+      request.session["current_user_role"] = HANDLER_ANY
