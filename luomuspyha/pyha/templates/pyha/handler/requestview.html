@@ -1,4 +1,4 @@
-﻿{% extends "pyha/role1/base.html" %}
+﻿{% extends "pyha/handler/base.html" %}
 {% block content %}
 {% load i18n %}
 
@@ -154,7 +154,7 @@
 							{% endif %}
 					{% endif %}
 				<br></br>
-					{% if role2 and customlist}
+					{% if role2 and customlist %}
 					<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
