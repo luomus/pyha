@@ -182,10 +182,7 @@ def create_request_view_context(request, userRequest, role1, role2):
 		taxonList = []
 		customList = []
 		collectionList = []
-		taxoncount = 0
-		customcount = 0
-		collectioncount = 0
-		create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest, role1, role2)
+		create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, role1, role2)
 		taxon = False
 		for collection in collectionList:
 			if(collection.taxonSecured > 0):
@@ -193,32 +190,26 @@ def create_request_view_context(request, userRequest, role1, role2):
 		hasRole = role1 or role2
 		request_owner = fetch_user_name(userRequest.user)
 		request_owners_email = fetch_email_address(userRequest.user)
-		print(collectionList)
-		context = {"taxonlist": taxonList, "customlist": customList, "taxoncount": taxoncount, "customcount": customcount, "collectioncount": collectioncount, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		return context
 
 def get_values_for_collections(request, List):
 	for i, c in enumerate(List):
 		c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 
-def create_collections_for_lists(request, taxonList, customList, collectionList, taxoncount, customcount, collectioncount, userRequest, role1, role2):
+def create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, role1, role2):
 		hasCollection = False
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if role1:	
 				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
-				taxoncount += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0).count()
 				hasCollection = True
 			if role2:
 				customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gte=0)
-				customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count()
 				hasCollection = True
 		if not hasCollection:
 			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
-			taxoncount += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0).count()
 			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
-			customcount += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0).count()
-			collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
-			collectioncount = Collection.objects.filter(request=userRequest.id, status__gte=0).count()
+			collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
 		get_values_for_collections(request, collectionList)
 		get_values_for_collections(request, customList)
 		get_values_for_collections(request, taxonList)

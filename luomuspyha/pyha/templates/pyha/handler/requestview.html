@@ -79,7 +79,7 @@
 				<p>{{userRequest.reason}}</p>
 				<br></br>
 				<!-- aineistolista -->
-				{% if taxoncount > 0 or customcount > 0 %}
+				{% if taxonlist or customlist %}
 					{% if role1 %}
 								<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 								  <div class="modal-lg modal-dialog" role="document">
@@ -154,7 +154,7 @@
 							{% endif %}
 					{% endif %}
 				<br></br>
-					{% if role2 and customcount > 0%}
+					{% if role2 and customlist}
 					<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
