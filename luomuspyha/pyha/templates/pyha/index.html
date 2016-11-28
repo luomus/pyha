@@ -6,18 +6,18 @@
     <div class="container-fluid">
     <div class="col-sm-9 col-lg-10">
       <div class="page-header">
-        <h2>{% trans "Tervetuloa!" %}</h2>
+        <h2>{% trans "welcome" %}</h2>
       </div>
       {% if requests %}
-      <h2>{% trans "Pyyntösi" %}:</h2>
-  <p class ="text-muted">{% trans "Napsauta pyyntöä nähdäksesi lisätietoja" %}.</p>            
+      <h2>{% trans "requests_for_user" %}:</h2>
+  <p class ="text-muted">{% trans "click_for_info" %}.</p>            
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#3498DB" style="color:white;">
-        <th>{% trans "Päiväys" %}</th>	
-        <th>{% trans "Osumia" %}</th>
-        <th>{% trans "Pyynnön tila" %}</th>
-	<th>{% trans "Kuvaus" %}</th>
+        <th>{% trans "request_date" %}</th>	
+        <th>{% trans "request_hits" %}</th>
+        <th>{% trans "request_status_for_user" %}</th>
+	    <th>{% trans "request_description" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -46,22 +46,22 @@
 
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
-                <td>{% trans "Et ole hyväksynyt ehtoja" %}</td>
+                <td>{% trans "you_have_not_accepted_terms" %}</td>
             
             {% elif request.status == 1 %}
-                <td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
+                <td>{% trans "waiting_for_data_provider" %}</td>
                 
             {% elif request.status == 2 %}
-                <td>{% trans "Osittain Hyväksytty" %}</td>
+                <td>{% trans "partially_accepted" %}</td>
                 
             {% elif request.status == 3 %}
-                <td>{% trans "Hylätty" %}</td>
+                <td>{% trans "denied" %}</td>
 
             {% elif request.status == 4 %}
-                <td>{% trans "Hyväksytty" %}</td>  
+                <td>{% trans "accepted" %}</td>  
                 
             {% else %}  
-                <td>{% trans "Tuntematon" %}</td>	
+                <td>{% trans "unknown" %}</td>	
                 
             {% endif %}
         
@@ -71,7 +71,7 @@
 	{% endfor %}
     
 	{% else %}
-		<strong>{% trans "Kannassa ei ole pyyntöjä" %}.</strong>
+		<strong>{% trans "no_requests_for_user" %}.</strong>
 	{% endif %}
     </tbody>
   </table>

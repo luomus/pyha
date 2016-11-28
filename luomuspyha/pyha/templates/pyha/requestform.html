@@ -4,7 +4,7 @@
 	  <div class="container-fluid">
 		<div class="col-sm-9 col-lg-10">
 			<div class="page-header">
-				<h1>{% trans "Pyyntö" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
+				<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
 					{% if userRequest.description and userRequest.description.strip %} 
 						{{userRequest.description}}
 						<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -18,14 +18,14 @@
 						<div class="form-group">
 							
 							<div class="col-12" style="clear: left;">
-								<label for="description">{% trans "Kuvaus" %}:</label>
+								<label for="description">{% trans "request_description" %}:</label>
 							</div>
 							
 							<div class="col-12" style="clear: left;">
 								{% if userRequest.description and userRequest.description.strip %}
 									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
 								{% else %} 
-									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{% trans "Ei kuvausta" %}</textarea>
+									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{% trans "no_description" %}</textarea>
 								{% endif %}
 								<!--<input type="text" class="form-control" id="description" name="description" 
 										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
@@ -34,11 +34,11 @@
 							</div>
 						
 							<div class="col-12" style="clear: left;">
-								<button type="submit" class="btn btn-default">{% trans "Muuta" %}</button>
+								<button type="submit" class="btn btn-default">{% trans "change" %}</button>
 							</div>
 							
 							<p id="description" class="form-text text-muted">
-							{% trans "Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, käytetään pyynnön päiväystä" %}.
+							{% trans "A description is a voluntary way to name your request. Without it the requests title will be the requests date" %}.
 							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
 							</p>
 						</div>
@@ -53,16 +53,16 @@
 				<button data-toggle="collapse" data-target="#filterlist">Pyynnön rajaukset</button>
 				<div id="filterlist" class="collapse">					
 				-->
-				<h3>{% trans "Pyyntösi rajaukset" %}:</h3>
+				<h3>{% trans "request_filters" %}:</h3>
 
-				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "Näytä" %}</button>
+				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 				<div id="filterlist" class="collapse">	
 
 					{% if filters %}
 						<table class = "table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "Rajaus" %}</th>
-								<th>{% trans "Arvot" %}</th>	
+								<th>{% trans "filter" %}</th>
+								<th>{% trans "values" %}</th>	
 							</tr>	
 							{% for filter in filters %}
 							<tr>	
@@ -76,7 +76,7 @@
 							{% endfor %}
 						</table>
 					{% else %}
-						<strong>{% trans "Kannassa ei ole suodattimia tälle pyynnölle" %}.</strong>
+						<strong>{% trans "no_filters" %}.</strong>
 					{% endif %}
 				</div>
 				<!-- aineistolista -->
@@ -129,7 +129,7 @@
 							                    <div class="tab-pane active" role="tabpanel" id="step1">
 														<div class="form-group">
 										{% if taxon %}
-											<h3>{% trans "Pyyntöön sisältyy aineistoja, jotka tarvitsevat sensitiivisyysehtojen hyväksymisen" %}:</h3>
+											<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}:</h3>
 											<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
 
 											<div id="sensitiveInfo" class="collapse">
@@ -139,9 +139,9 @@
 											<p></p>
 											<table class="table" style="width:100%">
 												<tr style=color:black>
-													<th>{% trans "Aineisto" %}</th>
-													<th>{% trans "Kuvaus" %}</th>
-													<th>{% trans "Sensitiivisiä havaintoja" %}</th>
+													<th>{% trans "collection_for_user" %}</th>
+													<th>{% trans "request_description" %}</th>
+													<th>{% trans "sensitive_sightings" %}</th>
 													<th></th>
 												</tr>	
 											{% for collection in taxonlist %}
@@ -152,7 +152,7 @@
 													<td>
 													<div class="sensDeleteContainer">
 														<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-															{% trans "Poista sensitiiviset havainnot" %}
+															{% trans "Delete sensitive sightings" %}
 													</div>
 													</td>
 												</tr>
@@ -164,7 +164,7 @@
 														<div class="modal-content">
 														  <div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "Sensitiivisyyteen liityvät käyttöehdot" %}</h4>
+															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
 														  </div>
 														  <div class="modal-body">
 															{% load static %}
@@ -172,37 +172,37 @@
 														  </div>
 														  <div class="modal-footer">
 															<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
-															{% trans "Hyväksyn ehdot" %}<br>
+															{% trans "i_accept_terms" %}<br>
 															<p></p>
 															<script>checksens();</script>
-															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
+															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
 														  </div>
 														</div>
 													  </div>
 													</div>
 												<ul class="list-inline pull-right">
 													<button type="button" class="btn btn-default" required data-toggle="modal" data-target="
-											#myModalsens">{% trans "Ehdot" %}</button>
+											#myModalsens">{% trans "terms" %}</button>
     									{% else %}
-    									<h3>{% trans "Pyyntöön ei sisälly sensitiivisiä havaintoja, siirry kohtaan 2" %}.</h3>
+    									<h3>{% trans "no_sensitive_sightings_go_to_step_2" %}.</h3>
                                                 <ul class="list-inline pull-right">
     									{% endif %}                   
-                                                        <li><span id ="statustextsens">{% trans "Et ole hyväksynyt ehtoja" %}</span></li>
+                                                        <li><span id ="statustextsens">{% trans "you_have_not_accepted_terms" %}</span></li>
                                                         <li><button type="button" class="btn btn-primary next-step">{% trans 'continue_to_step_2' %}</button></li>
                                                     </ul>
                                                     </div>
                                                 </div> 
 									<div class="tab-pane" role="tabpanel" id="step2">
 
-									<h3>{% trans "Pyyntöösi sisältyvät havainnot" %}:</h3>
+									<h3>{% trans "collections_in_request_for_user" %}:</h3>
 											<table class="table" style="width:100%">
 												<tr style=color:black>
-													<th>{% trans "Aineisto" %}</th>
-													<th>{% trans "Kuvaus" %}</th>
-													<th>{% trans "Aineistonhaltijan salaamia havaintoja" %}</th>
+													<th>{% trans "collection_for_user" %}</th>
+													<th>{% trans "request_description" %}</th>
+													<th>{% trans "sightings_secured_by_data_provider" %}</th>
 													<th></th>
-													<th>{% trans "Käyttöehdot" %}</th>
-													<th>{% trans "Tila" %}</th>
+													<th>{% trans "terms_of_collection_use" %}</th>
+													<th>{% trans "request_status_for_user" %}</th>
 												</tr>	
 												{% for collection in customlist %}
 												<tr>
@@ -213,11 +213,11 @@
 													
 													<div class="customDeleteContainer">
 														<button class="removeCustomButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-														{% trans "Poista aineistonhaltijan salaamat havainnot" %}
+														{% trans "Delete sightings secured by data provider" %}
 													</div>	
 												</td>
-													<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
-													<td><span id ="statustext{{ forloop.counter0 }}">{% trans "Et ole hyväksynyt ehtoja" %}</span></td> 
+													<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
+													<td><span id ="statustext{{ forloop.counter0 }}">{% trans "you_have_not_accepted_terms" %}</span></td> 
 
 													
 													<!-- Modal -->
@@ -226,7 +226,7 @@
 														<div class="modal-content">
 														  <div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "Aineistojen käyttöehdot" %}</h4>
+															<h4 class="modal-title" id="myModalLabel">{% trans "Terms of use of the collections" %}</h4>
 														  </div>
 														  <div class="modal-body">
 															{% load static %}
@@ -235,10 +235,10 @@
 													    <div class="modal-footer">
 															<input type="checkbox" id ="checkb{{forloop.counter0}}" name="checkb" value="{{collection.result.id}}"
 															onchange="check({{ forloop.counter0 }}); checkForApproval();">
-															{% trans "Olen lukenut ja ymmärtänyt ehdot" %}<br>
+															{% trans "I have read and understood the terms" %}<br>
 															<p></p>
 															<script>check({{forloop.counter0}});</script>
-															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
+															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
 														  </div>
 														</div>
 													  </div>
@@ -258,10 +258,10 @@
 							                    </div>
                                                 
                                                 <div class="tab-pane" role="tabpanel" id="step3">
-    												<!--<label for="reason">3/3 {% trans "Perustelut pyynnölle" %}:</label>
+    												<!--<label for="reason">3/3 {% trans "request_arguments_for_user" %}:</label>
     												-->
-    												<h3>{% trans "Perustelut pyynnölle" %}:</h3>
-    												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'Pakolliset perustelut' %}"></textarea>
+    												<h3>{% trans "request_arguments_for_user" %}:</h3>
+    												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'required_arguments' %}"></textarea>
                                                     <ul class="list-inline pull-right">
                                                         <li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
                                                         <li><button id="continue-to-summary" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue'%}</button></li>
@@ -270,9 +270,9 @@
                                                     <div class="tab-pane" role="tabpanel" id="complete">
                                                     
                                                     <ul class="list-inline pull-right">
-							                            <li><button type="submit" id="submit" class="btn btn-success">{% trans "Lähetä hyväksyttäväksi" %}</button></li>
+							                            <li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
 							                            <li>
-    												<span id ="submitstatustext">{% trans "Sinun pitää hyväksyä vähintään yhdet ehdot" %}</span></li>
+    												<span id ="submitstatustext">{% trans "you_have_to_accept_at_least_one_terms" %}</span></li>
 													<script>checkForApproval();</script>
 
 							                        </ul>
@@ -293,7 +293,7 @@
                             </div>
 
 										{% else %}
-											<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
+											<strong> {% trans "no_collections_for_requests" %}.</strong>
 										{% endif %}
 							</div>
 						</div>
@@ -360,8 +360,8 @@
 	  var accepted = [];
 	  var acceptedsens = 0;
 	  function checksens() { 
-		  approvetext = "{% trans 'Hyväksyit ehdot' %}";
-		  nonapprovetext = "{% trans 'Et ole hyväksynyt ehtoja' %}";
+		  approvetext = "{% trans 'you_accepted_terms' %}";
+		  nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
 		  if(document.getElementById('checkbsens').checked){
 			  document.getElementById('statustextsens').textContent=approvetext;
 			  acceptedsens = 1;
@@ -371,8 +371,8 @@
 		}
 	  }
 	  function check(counter) { 
-		  approvetext = "{% trans 'Hyväksyit ehdot' %}";
-		  nonapprovetext = "{% trans 'Et ole hyväksynyt ehtoja' %}";
+		  approvetext = "{% trans 'you_accepted_terms' %}";
+		  nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
 		  if(document.getElementById('checkb'+ counter).checked){
 			  document.getElementById('statustext'+ counter).textContent=approvetext;
 			  accepted[counter] = 1;
