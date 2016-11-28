@@ -127,7 +127,6 @@ def show_request(request):
 		userId = request.session["user_id"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		print(request.session.get("user_roles", [None]))
 		check_allowed_to_view(request, userRequest, userId, role1, role2)
 		context = create_request_view_context(request, userRequest, userId, role1, role2)
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
