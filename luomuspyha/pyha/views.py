@@ -88,7 +88,8 @@ def receiver(request):
 			lang = data.locale
 		else:
 			lang = 'fi'
-		send_mail_after_receiving_request(req.id, lang)	
+		if(req):
+			send_mail_after_receiving_request(req.id, lang)	
 		return HttpResponse('')
 
 
