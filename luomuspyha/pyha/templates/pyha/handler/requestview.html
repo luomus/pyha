@@ -1,4 +1,4 @@
-﻿{% extends "pyha/handler/base.html" %}
+﻿{% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
 
@@ -106,7 +106,7 @@
 							<h3>{% trans "Pyytäjä ei halua sensitiivistä tietoa"%}</h3>
 							{% else %}
 							<h3>{% trans "Pyytäjä haluaa sensitiivistä tietoa"%}</h3>
-							<h4>{% trans "Aineistot:"%}</h3>
+							<h3>{% trans "Aineistot:"%}</h3>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
