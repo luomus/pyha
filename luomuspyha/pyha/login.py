@@ -37,18 +37,22 @@ def log_in(request, content):
    return False
 
 def log_out(request):
-   '''
-   Clear session for the request.
-   :param request:
-   :return: true if user was succesfully logged out                      
-   '''
-   if "user_id" in request.session:     
-       del request.session["user_id"]      
-       del request.session["user_name"]
-       del request.session["user_email"]
-       del request.session["_language"]
-       return True
-   return False
+	'''
+	Clear session for the request.
+	:param request:
+	:return: true if user was succesfully logged out                      
+	'''
+	if "user_id" in request.session:     
+		del request.session["user_id"]      
+		del request.session["user_name"]
+		del request.session["user_email"]
+		del request.session["_language"]
+		del request.session["user_roles"]
+		del request.session["current_user_role"]
+		if "has_viewed" in request.session:
+			del request.session["has_viewed"]
+		return True
+	return False
 
 def authenticate(request, token):
    '''

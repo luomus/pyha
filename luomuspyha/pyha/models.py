@@ -42,11 +42,11 @@ class RequestLogEntry(models.Model):
 	DECISION_POSITIVE = 'POS'
 	DECISION_NEGATIVE = 'NEG'
 	ACTION = (
-		(WATCH, 'watch'),
-		(DELETE, 'delete'),
-		(ACCEPT, 'accept terms of use'),
-		(DECISION_POSITIVE, 'accept use of data'),
-		(DECISION_NEGATIVE, 'refuse use of data'),
+		(WATCH, 'views request'),
+		(DELETE, 'deletes'),
+		(ACCEPT, 'accepts terms of use'),
+		(DECISION_POSITIVE, 'accepts use of data'),
+		(DECISION_NEGATIVE, 'declines use of data'),
 	)
 
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
@@ -58,4 +58,4 @@ class RequestLogEntry(models.Model):
 	requestLog = models.Manager()
 	
 	def __str__(self):
-		return self.id
+		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
