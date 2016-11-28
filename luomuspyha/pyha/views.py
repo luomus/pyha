@@ -52,7 +52,7 @@ def logout(request):
 		if not logged_in(request):
 			return _process_auth_response(request, '')
 		log_out(request)
-		return HttpResponseRedirect("https://dev.laji.fi/")
+		return HttpResponseRedirect("https://beta.laji.fi/")
 
 def logged_in(request):
 		if "user_id" in request.session:
@@ -126,8 +126,9 @@ def show_request(request):
 		userId = request.session["user_id"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		print(request.session.get("user_roles", [None]))
 		check_allowed_to_view(request, userRequest, userId, role1, role2)
-		context = create_request_view_context(request, userRequest, role1, role2)
+		context = create_request_view_context(request, userRequest, userId, role1, role2)
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			return render(request, 'pyha/handler/requestview.html', context)
 		else:
@@ -178,11 +179,11 @@ def show_filters(request):
 			filterResultList[i] = tup
 		return filterResultList
 		
-def create_request_view_context(request, userRequest, role1, role2):
+def create_request_view_context(request, userRequest, userId, role1, role2):
 		taxonList = []
 		customList = []
 		collectionList = []
-		create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, role1, role2)
+		create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 		taxon = False
 		for collection in collectionList:
 			if(collection.taxonSecured > 0):
@@ -197,10 +198,10 @@ def get_values_for_collections(request, List):
 	for i, c in enumerate(List):
 		c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 
-def create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, role1, role2):
+def create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
-			if role1:	
+			if role1:
 				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 				hasCollection = True
 			if role2:
