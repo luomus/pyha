@@ -36,14 +36,16 @@ class Request(models.Model):
 		return self.id
 
 class RequestLogEntry(models.Model):
-	WATCH = 'W'
-	DELETE = 'DEL'
+	VIEW = 'VIEW'
+	DELETE_SENS = 'DEL_S'
+	DELETE_COLL = 'DEL_C'
 	ACCEPT = 'ACC'
 	DECISION_POSITIVE = 'POS'
 	DECISION_NEGATIVE = 'NEG'
 	ACTION = (
-		(WATCH, 'views request'),
-		(DELETE, 'deletes'),
+		(VIEW, 'views request'),
+		(DELETE_SENS, 'deletes sensitive sightings'),
+		(DELETE_COLL, 'deletes sightings secured by data provider'),
 		(ACCEPT, 'accepts terms of use'),
 		(DECISION_POSITIVE, 'accepts use of data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
@@ -54,7 +56,7 @@ class RequestLogEntry(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	role = models.CharField(max_length=100)
-	action = models.CharField(max_length=3, choices=ACTION)
+	action = models.CharField(max_length=5, choices=ACTION)
 	requestLog = models.Manager()
 	
 	def __str__(self):

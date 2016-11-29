@@ -83,12 +83,8 @@ def receiver(request):
 		else:
 			jsond = request.body.decode("utf-8")
 			req = store(jsond)
-		data = json.loads(jsond, object_hook=lambda d: Namespace(**d)) #kielen takia
-		if 'locale' in data:
-			lang = data.locale
-		else:
-			lang = 'fi'
-		send_mail_after_receiving_request(req.id, lang)	
+
+		send_mail_after_receiving_request(req.id, req.lang)	
 		return HttpResponse('')
 
 
@@ -135,7 +131,7 @@ def show_request(request):
 		if requestId not in request.session.get("has_viewed", [None]):			
 			request.session["has_viewed"].append(requestId)				
 			loki = RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
-						role=userRole, action=RequestLogEntry.WATCH)
+						role=userRole, action=RequestLogEntry.VIEW)
 			print(str(loki))
 		print('sessio katsottu:' + str(request.session["has_viewed"]) )
 
@@ -242,6 +238,10 @@ def remove_sensitive_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0;
 		collection.save(update_fields=['taxonSecured'])
+		#make a log entry
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = Collection.objects.get(id = collectionId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DELETE_SENS)
+		print(str(loki))
+
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -256,6 +256,11 @@ def remove_custom_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0;
 		collection.save(update_fields=['customSecured'])
+		#make a log entry
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
+				role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
+		print(str(loki))
+
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -311,6 +316,7 @@ def approve(request):
 	if request.method == 'POST':
 		lang = 'fi' #ainakin toistaiseksi
 		requestId = request.POST.get('requestid')
+		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb');
 		if(len(requestedCollections) > 0):
 			for rc in requestedCollections:
@@ -319,7 +325,7 @@ def approve(request):
 					userCollection.status = 1
 					userCollection.save(update_fields=['status'])
 				else:
-					userRequest = Request.requests.get(id = requestId)
+					#userRequest = Request.requests.get(id = requestId)
 					userRequest.sensstatus = 1
 					userRequest.save(update_fields=['sensstatus'])
 			for c in Collection.objects.filter(request = requestId):

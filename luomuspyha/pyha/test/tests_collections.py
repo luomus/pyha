@@ -51,21 +51,21 @@ class CollectionTesting(TestCase):
 		self.assertEqual(col.customSecured, 0)
 		
 	def test_collections_sensitive_secure_reasons_can_be_deleted(self):
-		warehouse.store(JSON_MOCK6)
+		req = warehouse.store(JSON_MOCK6)
 		col = Collection.objects.all().get(address="colsecured")
 		self.assertEqual(col.taxonSecured, 3)
 
-		response = self.client.post('/pyha/removeSens', {'collectionId': col.id})
+		response = self.client.post('/pyha/removeSens', {'collectionId': col.id, 'requestid':req.id })
 		col = Collection.objects.all().get(address="colsecured")
 
 		self.assertEqual(col.taxonSecured, 0)
 
 	def test_removing_sens_secure_reasons_doesnt_remove_collection(self):
-		warehouse.store(JSON_MOCK7)
+		req = warehouse.store(JSON_MOCK7)
 		response = self.client.get('/pyha/request/2')
 		self.assertContains(response, 'Talvilintulaskenta')
 		col = Collection.objects.all().get(address="HR.39", request=2)
-		self.client.post('/pyha/removeSens', {'collectionId': col.id})
+		self.client.post('/pyha/removeSens', {'collectionId': col.id, 'requestid':req.id })
 		response = self.client.get('/pyha/request/2')
 		
 		self.assertContains(response, 'Talvilintulaskenta')
