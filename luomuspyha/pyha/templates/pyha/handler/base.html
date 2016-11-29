@@ -82,21 +82,21 @@
       {% if email %}
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="{% url 'pyha:index' %}">{% trans "Pyynnöt" %}</a></li>  
+          <li><a href="{% url 'pyha:index' %}">{% trans "all_requests" %}</a></li>  
         </ul>
         <ul class="nav navbar-nav navbar-right">
         <li><a class="nohover" >{{email}} <span class="glyphicon glyphicon-user"></span></a></li>
-        <li><a href="{% url 'pyha:logout' %}">{% trans "Kirjaudu ulos" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
+        <li><a href="{% url 'pyha:logout' %}">{% trans "logout" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
 
 		{% if role %}
 		<div class="dropdown">
 		<form id='role_form' action="{% url 'pyha:change_role' %}" method="post"
             data-currenturl='{{ request.path }}'
             data-currentfullurl='{{ request.get_full_path }}'>
-		<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.user_role == 'handler' %}{% trans "Pyynnönkäsittelijä" %}{% else %}{% trans "Käyttäjä" %}{% endif %}{% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
+		<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.user_role == 'handler' %}{% trans "admin" %}{% else %}{% trans "user" %}{% endif %}{% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
 			<div id="roleDropdown" class="dropdown-content">			
-              <a onclick='roleSubmit("user")' name="role" id="role">{% trans "Käyttäjä" %}</a>
-              <a onclick='roleSubmit("handler")' name="role" id="role">{% trans "Pyynnönkäsittelijä" %}</a>
+              <a onclick='roleSubmit("user")' name="role" id="role">{% trans "user" %}</a>
+              <a onclick='roleSubmit("handler")' name="role" id="role">{% trans "admin" %}</a>
 			  
 			</div>
 		</div>

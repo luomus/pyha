@@ -6,7 +6,7 @@
 		<div class="col-sm-9 col-lg-10">
 		  <div class="page-header"> 
 
-			<h1>{% trans "Pyyntö käyttäjältä" %}
+			<h1>{% trans "request_from_user" %}
 				{{request_owner}},
 				{{request_owners_email}}
 			</h1>
@@ -27,19 +27,19 @@
 					{% endif %}
 					> 
 					{% if userRequest.status == 1 %}
-					{% trans "Odottaa aineiston toimittajan käsittelyä" %}
+					{% trans "waiting_for_data_provider" %}
 					
 					{% elif userRequest.status == 2 %}
-					{% trans "Osittain Hyväksytty" %}
+					{% trans "partially_accepted" %}
 					
 					{% elif userRequest.status == 3 %}
-					{% trans "Hylätty" %}
+					{% trans "denied" %}
 					
 					{% elif userRequest.status == 4 %}
-					{% trans "Hyväksytty" %}
+					{% trans "accepted" %}
 					
 					{% else %}  
-					{% trans "Tuntematon" %}
+					{% trans "unknown" %}
 					
 					{% endif %}
 					
@@ -49,15 +49,15 @@
 		  </div>
 
 		  
-				<h3>{% trans "Pyynnön rajaukset" %}</h3>
+				<h3>{% trans "request_filters" %}</h3>
 
-				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "Näytä" %}</button>
+				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 				<div id="filterlist" class="collapse">
 					{% if filters %}
 						<table class = "table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "Rajaus" %}</th>
-								<th>{% trans "Arvot" %}</th>	
+								<th>{% trans "filter" %}</th>
+								<th>{% trans "values" %}</th>	
 							</tr>	
 							{% for filter in filters %}
 							<tr>	
@@ -71,11 +71,11 @@
 							{% endfor %}
 						</table>
 					{% else %}
-						<strong>{% trans "Kannassa ei ole suodattimia tälle pyynnölle" %}.</strong>
+						<strong>{% trans "no_filters" %}.</strong>
 					{% endif %}
 				</div>
 				<br></br>
-				<h3>{% trans "Pyynnön perustelut" %}:</h3>
+				<h3>{% trans "request_arguments_for_admin" %}:</h3>
 				<p>{{userRequest.reason}}</p>
 				<br></br>
 				<!-- aineistolista -->
@@ -86,7 +86,7 @@
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "Sensitiivisyyteen liityvät käyttöehdot" %}</h4>
+										<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
@@ -94,26 +94,26 @@
 									  </div>
 									  <div class="modal-footer">
 										<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
-										{% trans "Olen lukenut ja ymmärtänyt ehdot" %}<br>
+										{% trans "I have read and understood the terms" %}<br>
 										<p></p>
 										<script>checksens();</script>
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
 									  </div>
 									</div>
 								  </div>
 								</div>
 							{% if userRequest.sensstatus == 0 %}
-							<h3>{% trans "Pyytäjä ei halua sensitiivistä tietoa"%}</h3>
+							<h3>{% trans "User doesn't want sensitive data"%}</h3>
 							{% else %}
-							<h3>{% trans "Pyytäjä haluaa sensitiivistä tietoa"%}</h3>
-							<h4>{% trans "Aineistot:"%}</h3>
+							<h3>{% trans "User wants sensitive data"%}</h3>
+							<h4>{% trans "list_of_collections"%}</h3>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
 							<table class="table" style="width:100%">
 								<tr style=color:black>
-								<th>{% trans "Käsittelyn tila" %}</th>
-								<th>{% trans "Perustelut päätökselle" %}</th>
+								<th>{% trans "state_of_processing" %}</th>
+								<th>{% trans "decision_arguments" %}</th>
 								</tr>
 								{% if userRequest.sensstatus == 1 %}
 								<tr class="info clickable-row"
@@ -126,15 +126,15 @@
 								{% endif %}
 								>
 								{% if userRequest.sensstatus == 1 %}
-								<td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
+								<td>{% trans "waiting_for_data_provider" %}</td>
 								{% elif userRequest.sensstatus == 3 %}
-								<td>{% trans "Hylätty" %}</td>
+								<td>{% trans "denied" %}</td>
 								{% elif userRequest.sensstatus == 2 %}
-								<td>{% trans "Osittain hyväksytty" %}</td>
+								<td>{% trans "partially_accepted" %}</td>
 								{% elif userRequest.sensstatus == 4 %}
-								<td>{% trans "Hyväksytty" %}</td>
+								<td>{% trans "accepted" %}</td>
 								{% else %}  
-								<td>{% trans "Tuntematon" %}</td>	
+								<td>{% trans "unknown" %}</td>	
 								{% endif %}
 								<td>
 									<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
@@ -143,8 +143,8 @@
 										<input type="hidden" id="next" name="next" value={{request.path}}>
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "Hyväksy" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "Hylkää" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "refuse" %}</button>
 									</div>
 									{% csrf_token %}
 									</form>
@@ -155,14 +155,14 @@
 					{% endif %}
 				<br></br>
 					{% if role2 and customlist %}
-					<h2>{% trans "Pyyntöön sisältyvät aineistot" %}:</h2>
+					<h2>{% trans "collections_in_request" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "Aineisto" %}</th>
-								<th>{% trans "Kuvaus" %}</th>
-								<th>{% trans "Käsittelyn tila" %}</th>
-								<th>{% trans "Ehdot" %}</th>
-								<th>{% trans "Perustelut päätökselle" %}</th>
+								<th>{% trans "collection_for_admin" %}</th>
+								<th>{% trans "request_description" %}</th>
+								<th>{% trans "state_of_processing" %}</th>
+								<th>{% trans "terms" %}</th>
+								<th>{% trans "decision_arguments" %}</th>
 							</tr>
 							{% for collection in customlist %}
 								{% if collection.status == 1 %}
@@ -179,25 +179,25 @@
 								<td>{{collection.result.description}}</td>
 								
 								{% if collection.status == 1 %}
-								<td>{% trans "Odottaa aineiston toimittajan käsittelyä" %}</td>
+								<td>{% trans "waiting_for_data_provider" %}</td>
 								{% elif collection.status == 3 %}
-								<td>{% trans "Hylätty" %}</td>
+								<td>{% trans "denied" %}</td>
 								{% elif collection.status == 2 %}
-								<td>{% trans "Osittain hyväksytty" %}</td>
+								<td>{% trans "partially_accepted" %}</td>
 								{% elif collection.status == 4 %}
-								<td>{% trans "Hyväksytty" %}</td>
+								<td>{% trans "accepted" %}</td>
 								{% else %}  
-								<td>{% trans "Tuntematon" %}</td>	
+								<td>{% trans "unknown" %}</td>	
 								{% endif %}
-							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "Ehdot" %}</button></td>
+							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
 							<td><form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 								<div class="form-group">
 										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<input type="hidden" id="next" name="next" value={{request.path}}>
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "Hyväksy" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "Hylkää" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "refuse" %}</button>
 									</div>
 									{% csrf_token %}
 								</form>
@@ -208,14 +208,14 @@
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "Aineistojen käyttöehdot" %}</h4>
+										<h4 class="modal-title" id="myModalLabel">{% trans "Terms of use of the collections" %}</h4>
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
 									  <embed src= "{{ static }}pyha/ehdot.pdf" width="800" height="700" type='application/pdf'>
 									  </div>
 									  <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "Poistu" %}</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
 									  </div>
 									</div>
 								  </div>
@@ -226,7 +226,7 @@
 						{% endif %}
 						</div>
 					{% else %}
-						<strong> {% trans "Kannassa ei ole aineistoja tälle pyynnölle" %}.</strong>
+						<strong> {% trans "no_collections_for_requests" %}.</strong>
 					{% endif %}
 		</div>
 
