@@ -17,7 +17,7 @@ from pyha.login import log_out
 from requests.auth import HTTPBasicAuth
 from pyha.email import fetch_email_address
 from pyha.warehouse import store
-from pyha.models import Collection, Request
+from pyha.models import Collection, Request, RequestLogEntry
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from itertools import chain
 from itertools import groupby
@@ -83,12 +83,8 @@ def receiver(request):
 		else:
 			jsond = request.body.decode("utf-8")
 			req = store(jsond)
-		data = json.loads(jsond, object_hook=lambda d: Namespace(**d)) #kielen takia
-		if 'locale' in data:
-			lang = data.locale
-		else:
-			lang = 'fi'
-		send_mail_after_receiving_request(req.id, lang)	
+
+		send_mail_after_receiving_request(req.id, req.lang)	
 		return HttpResponse('')
 
 
@@ -124,10 +120,21 @@ def show_request(request):
 			return _process_auth_response(request, "request/"+requestId)
 		userRequest = Request.requests.get(id=requestId)
 		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		check_allowed_to_view(request, userRequest, userId, role1, role2)
 		context = create_request_view_context(request, userRequest, role1, role2)
+		#make a log entry
+		if not "has_viewed" in request.session:
+			request.session["has_viewed"] = []
+		if requestId not in request.session.get("has_viewed", [None]):			
+			request.session["has_viewed"].append(requestId)				
+			loki = RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
+						role=userRole, action=RequestLogEntry.VIEW)
+			print(str(loki))
+		print('sessio katsottu:' + str(request.session["has_viewed"]) )
+
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			return render(request, 'pyha/handler/requestview.html', context)
 		else:
@@ -204,7 +211,7 @@ def create_collections_for_lists(request, taxonList, customList, collectionList,
 				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 				hasCollection = True
 			if role2:
-				customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gte=0)
+				customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(request.session["user_id"]), status__gte=0)
 				hasCollection = True
 		if not hasCollection:
 			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
@@ -231,6 +238,10 @@ def remove_sensitive_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0;
 		collection.save(update_fields=['taxonSecured'])
+		#make a log entry
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = Collection.objects.get(id = collectionId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DELETE_SENS)
+		print(str(loki))
+
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -245,6 +256,11 @@ def remove_custom_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0;
 		collection.save(update_fields=['customSecured'])
+		#make a log entry
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
+				role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
+		print(str(loki))
+
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -300,6 +316,7 @@ def approve(request):
 	if request.method == 'POST':
 		lang = 'fi' #ainakin toistaiseksi
 		requestId = request.POST.get('requestid')
+		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb');
 		if(len(requestedCollections) > 0):
 			for rc in requestedCollections:
@@ -308,7 +325,7 @@ def approve(request):
 					userCollection.status = 1
 					userCollection.save(update_fields=['status'])
 				else:
-					userRequest = Request.requests.get(id = requestId)
+					#userRequest = Request.requests.get(id = requestId)
 					userRequest.sensstatus = 1
 					userRequest.save(update_fields=['sensstatus'])
 			for c in Collection.objects.filter(request = requestId):
@@ -323,12 +340,20 @@ def approve(request):
 				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
 				if(c.customSecured > 0):
 					send_mail_for_approval(requestId, c, lang)
+					#make a log entry
+					loki = RequestLogEntry.requestLog.create(request=userRequest, collection = c, 
+							user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.ACCEPT)
+					print(str(loki))
+
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.reason = request.POST.get('reason')
 			userRequest.status = 1
 			userRequest.save(update_fields=['status','reason'])
 			if userRequest.sensstatus == 1:
 				send_mail_for_approval_sens(requestId, lang)
+				#make a log entry
+				loki = RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.ACCEPT)
+				print(str(loki))
 
 	return HttpResponseRedirect('/pyha/')
 
@@ -341,8 +366,14 @@ def answer(request):
 				collection = Collection.objects.get(request=requestId, address=collectionId)
 				if (int(request.POST.get('answer')) == 1):
 					collection.status = 4
+					#make a log entry
+					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),		collection = collection,user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
+					print(str(loki))
 				else:
 					collection.status = 3
+					#make a log entry
+					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), collection = collection, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
+					print(str(loki))
 				collection.decisionExplanation = request.POST.get('reason')
 				collection.save()
 				update(requestId, request.LANGUAGE_CODE)
@@ -350,8 +381,14 @@ def answer(request):
 				userRequest = Request.requests.get(id = requestId)
 				if (int(request.POST.get('answer')) == 1):	
 					userRequest.sensstatus = 4
+					#make a log entry
+					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
+					print(str(loki))
 				else:
 					userRequest.sensstatus = 3
+					#make a log entry
+					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
+					print(str(loki))
 				userRequest.sensDecisionExplanation = request.POST.get('reason')
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)

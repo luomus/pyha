@@ -120,7 +120,6 @@ def send_mail_for_approval_sens(requestId, lang):
 	recipients = []
 	if(response.status_code == 200):
 		data = response.json()
-		print(data)
 		for p in data['rdf:RDF']['MA.person']:
 			recipients.append(p['MA.emailAddress'])
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)	
