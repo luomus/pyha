@@ -11,6 +11,7 @@
 					{{userRequest.description}}
 					<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
 				{% else %}
+					{% trans "no_description" %}
 				{% endif %}
 			</h1>
 			<!-- lomake kuvauksen muuttamiseen -->
@@ -167,7 +168,11 @@
 								<td>{% trans "unknown" %}</td>	
 								{% endif %}
 								<td>
+								{% if userRequest.sensDecisionExplanation == None %}
+								<p>-</p>
+								{% else %}
 								<p>{{userRequest.sensDecisionExplanation}}</p>
+								{% endif %}
 								</td>
 								</tr>
 							</table>
