@@ -143,7 +143,7 @@ msgstr "Kannassa ei ole pyyntöjä"
 
 #: pyha/templates/pyha/handler/requestview.html:9
 msgid "request_from_user"
-msgstr "Pyyntö"
+msgstr "Pyyntö käyttäjältä"
 
 #: pyha/templates/pyha/handler/requestview.html:52
 #: pyha/templates/pyha/requestform.html:57
