@@ -109,7 +109,7 @@
 							<h2>{% trans "User doesn't want sensitive data"%}</h2>
 							{% else %}
 							<h2>{% trans "User wants sensitive data"%}</h2>
-							<h3>{% trans "list_of_collections"%}</h3>
+							<h2>{% trans "list_of_collections"%}</h2>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
@@ -158,7 +158,7 @@
 					{% endif %}
 				<br></br>
 					{% if role2 and customlist %}
-					<h2>{% trans "collections_in_request" %}:</h2>
+					<h2>{% trans "secured_collections" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "collection_for_admin" %}</th>

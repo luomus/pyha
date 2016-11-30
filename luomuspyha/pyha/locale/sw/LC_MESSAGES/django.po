@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 14:00+0200\n"
+"POT-Creation-Date: 2016-11-30 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -250,8 +250,7 @@ msgid "refuse"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:161
-#: pyha/templates/pyha/requestview.html:187
-msgid "collections_in_request"
+msgid "secured_collections"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:164
@@ -443,6 +442,10 @@ msgstr ""
 
 #: pyha/templates/pyha/requestview.html:147
 msgid "Decision for admitting sensitive data"
+msgstr ""
+
+#: pyha/templates/pyha/requestview.html:187
+msgid "collections_in_request"
 msgstr ""
 
 #: pyha/templates/pyha/requestview.html:192
