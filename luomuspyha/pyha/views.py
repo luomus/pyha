@@ -26,7 +26,8 @@ from pyha.email import *
 
 @csrf_exempt
 def index(request):
-		check_language(request)
+		if check_language(request):
+			return HttpResponseRedirect(request.path)
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
@@ -52,7 +53,7 @@ def logout(request):
 		if not logged_in(request):
 			return _process_auth_response(request, '')
 		log_out(request)
-		return HttpResponseRedirect("https://dev.laji.fi/")
+		return HttpResponseRedirect("https://beta.laji.fi/")
 
 def logged_in(request):
 		if "user_id" in request.session:
@@ -84,7 +85,13 @@ def receiver(request):
 			jsond = request.body.decode("utf-8")
 			req = store(jsond)
 
-		send_mail_after_receiving_request(req.id, req.lang)	
+		data = json.loads(jsond, object_hook=lambda d: Namespace(**d)) #kielen takia
+		if 'locale' in data:
+			lang = data.locale
+		else:
+			lang = 'fi'
+		if(req):
+			send_mail_after_receiving_request(req.id, lang)	
 		return HttpResponse('')
 
 
@@ -94,26 +101,29 @@ def jsonmock(request):
 def check_language(request):
 	if request.GET.get('lang'):
 			request.session["_language"] = request.GET.get('lang')
-			return HttpResponseRedirect(request.path)
+			return True
+	return False
 
 
-def check_allowed_to_view(request, userRequest, userId, role1, role2):
+def allowed_to_view(request, userRequest, userId, role1, role2):
 	if HANDLER_ANY in request.session.get("current_user_role", [None]):
-			if not Request.requests.filter(id=userRequest.id, status__gte=0).exists():
-				return HttpResponseRedirect('/pyha/')
+			if not Request.requests.filter(id=userRequest.id, status__gt=0).exists():
+				return False
 			if role2 and not role1:
 				if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
-					return HttpResponseRedirect('/pyha/')
+					return False
 	else:
 			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists() or userRequest.status == -1:
-				return HttpResponseRedirect('/pyha/')
+				return False
 	if(userRequest.status == -1):
-			return HttpResponseRedirect('/pyha/')
+			return False
+	return True
 
 
 @csrf_exempt
 def show_request(request):
-		check_language(request)
+		if check_language(request):
+			return HttpResponseRedirect(request.path)
 		#Has Access
 		requestId = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
@@ -123,8 +133,10 @@ def show_request(request):
 		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		check_allowed_to_view(request, userRequest, userId, role1, role2)
-		context = create_request_view_context(request, userRequest, role1, role2)
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
+
+		context = create_request_view_context(request, userRequest, userId, role1, role2)
 		#make a log entry
 		if not "has_viewed" in request.session:
 			request.session["has_viewed"] = []
@@ -132,8 +144,6 @@ def show_request(request):
 			request.session["has_viewed"].append(requestId)				
 			loki = RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
 						role=userRole, action=RequestLogEntry.VIEW)
-			print(str(loki))
-		print('sessio katsottu:' + str(request.session["has_viewed"]) )
 
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			return render(request, 'pyha/handler/requestview.html', context)
@@ -185,11 +195,11 @@ def show_filters(request):
 			filterResultList[i] = tup
 		return filterResultList
 		
-def create_request_view_context(request, userRequest, role1, role2):
+def create_request_view_context(request, userRequest, userId, role1, role2):
 		taxonList = []
 		customList = []
 		collectionList = []
-		create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, role1, role2)
+		create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 		taxon = False
 		for collection in collectionList:
 			if(collection.taxonSecured > 0):
@@ -204,10 +214,10 @@ def get_values_for_collections(request, List):
 	for i, c in enumerate(List):
 		c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 
-def create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, role1, role2):
+def create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
-			if role1:	
+			if role1:
 				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 				hasCollection = True
 			if role2:

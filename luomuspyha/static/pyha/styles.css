@@ -21,6 +21,9 @@ html {
     /* Set the fixed height of the footer here */
     background-color: #3498DB;
   }
+  table{
+    border-collapse: separate; !important;
+  }
   
   .container-fluid {
     overflow-y: scroll;
@@ -138,7 +141,7 @@ html {
 
   @media only screen and (min-width : 768px) {
     body > .container-fluid {
-      height: calc(100vh - 60px);
+      height: calc(100vh);
     }
     .side-bar {
       height: 100%;
@@ -148,6 +151,33 @@ html {
   position: relative;
   padding: 15px;
   height: 700;
+}
+
+ .modal-confirm {
+  position: absolute;
+  top: 20%;
+  left: 20%; 
+  right: 10%;
+  z-index: 10040;
+  vertical-align: middle;
+  overflow: auto;
+  overflow-y: auto;
+  min-width:200px;
+  max-width:300px;
+  }
+
+@media screen and (min-width: 768px) {
+  .modal-confirm {
+  position: absolute;
+  top: 30%;
+  left: 40%; 
+  right: 100px;
+  z-index: 10040;
+  vertical-align: middle;
+  overflow: auto;
+  overflow-y: auto;
+  min-width:300px;
+  }
 }
 
 @media (min-width: 768px) {

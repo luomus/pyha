@@ -1,8 +1,8 @@
 ﻿{% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
-	  <div class="container-fluid">
-		<div class="col-sm-9 col-lg-10">
+	<div class="container-fluid">
+		<div class="col-xs-12">
 			<div class="page-header">
 				<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
 					{% if userRequest.description and userRequest.description.strip %} 
@@ -47,311 +47,303 @@
 				</div>
 			</div>
 
-				<!-- suodatinlista -->
+			<!-- suodatinlista -->
+			<h2>{% trans "request_filters" %}:</h2>
 
-				<!-- vanha piiolotusversio
-				<button data-toggle="collapse" data-target="#filterlist">Pyynnön rajaukset</button>
-				<div id="filterlist" class="collapse">					
-				-->
-				<h3>{% trans "request_filters" %}:</h3>
+			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
+			<div id="filterlist" class="collapse">	
 
-				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
-				<div id="filterlist" class="collapse">	
-
-					{% if filters %}
-						<table class = "table" style="width:100%">
-							<tr style=color:black>
-								<th>{% trans "filter" %}</th>
-								<th>{% trans "values" %}</th>	
-							</tr>	
-							{% for filter in filters %}
-							<tr>	
-								<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
-								{% for f in filter.1 %}
-								<td>{{ f }}</td>
-							</tr>
-								<tr>
-								{% endfor %}
-								</tr>
+				{% if filters %}
+					<table class = "table" style="width:100%">
+						<tr style=color:black>
+							<th>{% trans "filter" %}</th>
+							<th>{% trans "values" %}</th>	
+						</tr>	
+						{% for filter in filters %}
+						<tr>	
+							<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
+							{% for f in filter.1 %}
+							<td>{{ f }}</td>
+						</tr>
+							<tr>
 							{% endfor %}
-						</table>
-					{% else %}
-						<strong>{% trans "no_filters" %}.</strong>
-					{% endif %}
-				</div>
-				<!-- aineistolista -->
-				{% if collections %}
-				<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
-					<div class="container">
-						<div class="row">
-							<section>
-					        <div class="wizard">
-					            <div class="wizard-inner">
-					                <div class="connecting-line"></div>
-					                   <ul class="nav nav-tabs" role="tablist">
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<strong>{% trans "no_filters" %}.</strong>
+				{% endif %}
+			</div>
+			
+			<!-- aineistolista -->
+			{% if collections %}
+			<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
+				<div class="col-xs-12">
+					<div class="row">
+						<section>
+							<div class="wizard">
+								<div class="wizard-inner">
+									<div class="connecting-line"></div>
+									<ul class="nav nav-tabs" role="tablist">
 
-		                                    <li role="presentation" class="active">
-						                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="{% trans 'sensitivity_tab' %}">
-						                            <span class="round-tab">
-						                                <i>1</i>
-						                            </span>
-						                        </a>
-						                    </li>
+										<li role="presentation" class="active">
+											<a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="{% trans 'sensitivity_tab' %}">
+												<span class="round-tab">
+													<i>1</i>
+												</span>
+											</a>
+										</li>
 
-	                                        <li role="presentation" class="disabled">
-						                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="{% trans 'collections_tab'%}">
-						                            <span class="round-tab">
-						                                <i>2</i>
-						                            </span>
-						                        </a>
-						                    </li>
+										<li role="presentation" class="disabled">
+											<a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="{% trans 'collections_tab'%}">
+												<span class="round-tab">
+													<i>2</i>
+												</span>
+											</a>
+										</li>
 
-                                            <li role="presentation" class="disabled">
-                                                <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'arguments_tab'%}">
-                                                    <span class="round-tab">
-                                                        <i>3</i>
-                                                    </span>
-                                                </a>
-                                            </li>
+										<li role="presentation" class="disabled">
+											<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'arguments_tab'%}">
+												<span class="round-tab">
+													<i>3</i>
+												</span>
+											</a>
+										</li>
 
-                                            <li role="presentation" class="disabled">
-                                                <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="{% trans 'summary_tab'%}">
-                                                    <span class="round-tab">
-                                                        <i class="glyphicon glyphicon-ok"></i>
-                                                    </span>
-                                                </a>
-                                            </li>                
-                                        </ul>
-                                        </div>
+										<li role="presentation" class="disabled">
+											<a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="{% trans 'summary_tab'%}">
+												<span class="round-tab">
+													<i class="glyphicon glyphicon-ok"></i>
+												</span>
+											</a>
+										</li>                
+									</ul>
+								</div>
 
-		                                <form role="form">
-							                <div class="tab-content">
-							                    <div class="tab-pane active" role="tabpanel" id="step1">
-														<div class="form-group">
+								<form role="form">
+									<div class="tab-content">
+										<div class="tab-pane active" role="tabpanel" id="step1">
+											<div class="form-group">
 										{% if taxon %}
 											<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}:</h3>
 											<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
 
-											<div id="sensitiveInfo" class="collapse">
-												<p>lisäinfoa sensitiivisyydestä</p>
-											</div>
 
-											<p></p>
-											<table class="table" style="width:100%">
+												<div id="sensitiveInfo" class="collapse">
+													<p>{more_sensitivity_info}</p>
+												</div>
+
+												<p></p>
+												<table class="table" style="width:100%">
 												<tr style=color:black>
-													<th>{% trans "collection_for_user" %}</th>
-													<th>{% trans "request_description" %}</th>
-													<th>{% trans "sensitive_sightings" %}</th>
-													<th></th>
+
+												<th>{% trans "collection_for_user" %}</th>
+												<th>{% trans "request_description" %}</th>
+												<th>{% trans "sensitive_sightings" %}</th>
+												<th></th>
+
 												</tr>	
-											{% for collection in taxonlist %}
+												{% for collection in taxonlist %}
 												<tr style="border-	bottom:2px solid #456789">
 													<td>{{collection.result.collectionName}}</td>
 													<td>{{collection.result.description}}</td>
 													<td>{{collection.taxonSecured}}</td>
 													<td>
-													<div class="sensDeleteContainer">
-														<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-															{% trans "Delete sensitive sightings" %}
-													</div>
+
+														<div class="sensDeleteContainer">
+															<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
+																{% trans "Delete sensitive sightings" %}
+														</div>
+
 													</td>
 												</tr>
-											{% endfor %}
+												{% endfor %}
 												</table>
 
-													<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
-													  <div class="modal-lg modal-dialog" role="document">
+												<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+													<div class="modal-lg modal-dialog" role="document">
 														<div class="modal-content">
-														  <div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
-														  </div>
-														  <div class="modal-body">
-															{% load static %}
-														  <embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-														  </div>
-														  <div class="modal-footer">
-															<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
-															{% trans "i_accept_terms" %}<br>
-															<p></p>
-															<script>checksens();</script>
-															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
-														  </div>
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+															</div>
+															<div class="modal-body">
+																{% load static %}
+																	<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+																		<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+																		<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+																	</object>
+												
+															  </div>
+															<div class="modal-footer">
+																<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
+																{% trans "i_accept_terms" %}<br>
+																<p></p>
+																<script>checksens();</script>
+																<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+															</div>
 														</div>
-													  </div>
 													</div>
+												</div>
 												<ul class="list-inline pull-right">
-													<button type="button" class="btn btn-default" required data-toggle="modal" data-target="
-											#myModalsens">{% trans "terms" %}</button>
-    									{% else %}
-    									<h3>{% trans "no_sensitive_sightings_go_to_step_2" %}.</h3>
-                                                <ul class="list-inline pull-right">
-    									{% endif %}                   
-                                                        <li><span id ="statustextsens">{% trans "you_have_not_accepted_terms" %}</span></li>
-                                                        <li><button type="button" class="btn btn-primary next-step">{% trans 'continue_to_step_2' %}</button></li>
-                                                    </ul>
-                                                    </div>
-                                                </div> 
-									<div class="tab-pane" role="tabpanel" id="step2">
 
-									<h3>{% trans "collections_in_request_for_user" %}:</h3>
-											<table class="table" style="width:100%">
-												<tr style=color:black>
-													<th>{% trans "collection_for_user" %}</th>
-													<th>{% trans "request_description" %}</th>
-													<th>{% trans "sightings_secured_by_data_provider" %}</th>
-													<th></th>
-													<th>{% trans "terms_of_collection_use" %}</th>
-													<th>{% trans "request_status_for_user" %}</th>
-												</tr>	
-												{% for collection in customlist %}
-												<tr>
-													<td>{{collection.result.collectionName}}
-													<td>{{collection.result.description}}</td>
-													<td>{{collection.customSecured}}</td>
-												 	<td>
-													
-													<div class="customDeleteContainer">
-														<button class="removeCustomButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-														{% trans "Delete sightings secured by data provider" %}
-													</div>	
-												</td>
-													<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
-													<td><span id ="statustext{{ forloop.counter0 }}">{% trans "you_have_not_accepted_terms" %}</span></td> 
-
-													
-													<!-- Modal -->
-													<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-													  <div class="modal-lg modal-dialog" role="document">
-														<div class="modal-content">
-														  <div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "Terms of use of the collections" %}</h4>
-														  </div>
-														  <div class="modal-body">
-															{% load static %}
-														<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-														</div>
-													    <div class="modal-footer">
-															<input type="checkbox" id ="checkb{{forloop.counter0}}" name="checkb" value="{{collection.result.id}}"
-															onchange="check({{ forloop.counter0 }}); checkForApproval();">
-															{% trans "I have read and understood the terms" %}<br>
-															<p></p>
-															<script>check({{forloop.counter0}});</script>
-															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
-														  </div>
-														</div>
-													  </div>
-													</div>
-													
-													
-												</tr>
-												{% endfor %}
-											     </table>
-											
-												<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-
-							                        <ul class="list-inline pull-right">
-							                            <li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-							                            <li><button type="button" class="btn btn-primary next-step">{%trans 'continue_to_step_3'%}</button></li>
-							                        </ul>
-							                    </div>
-                                                
-                                                <div class="tab-pane" role="tabpanel" id="step3">
-    												<!--<label for="reason">3/3 {% trans "request_arguments_for_user" %}:</label>
-    												-->
-    												<h3>{% trans "request_arguments_for_user" %}:</h3>
-    												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'required_arguments' %}"></textarea>
-                                                    <ul class="list-inline pull-right">
-                                                        <li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-                                                        <li><button id="continue-to-summary" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue'%}</button></li>
-                                                    </ul>
-                                                </div>
-                                                    <div class="tab-pane" role="tabpanel" id="complete">
-                                                    
-                                                    <ul class="list-inline pull-right">
-							                            <li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
-							                            <li>
-    												<span id ="submitstatustext">{% trans "you_have_to_accept_at_least_one_terms" %}</span></li>
-													<script>checkForApproval();</script>
-
-							                        </ul>
-                                                    </div>
-
-                                                    <div class="clearfix"></div>
+												<button type="button" class="btn btn-default" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
+												{% else %}
+												<h3>{% trans "no_sensitive_sightings_go_to_step_2" %}.</h3>
+												{% endif %}
+												<ul class="list-inline pull-right">               
+													<li><span id ="statustextsens">{% trans "you_have_not_accepted_terms" %}</span></li>
+													<li><button type="button" class="btn btn-primary next-step">{% trans 'continue_to_step_2' %}</button></li>
+												</ul>
 											</div>
-											{% csrf_token %}
-										</form>		
+										</div> 
 
-                                                </div>
+										<div class="tab-pane" role="tabpanel" id="step2">
+											<h3>{% trans "collections_in_request_for_user" %}:</h3>
+												<table class="table" style="width:100%">
+													<tr style=color:black>				
+														<th>{% trans "collection_for_user" %}</th>
+														<th>{% trans "request_description" %}</th>
+														<th>{% trans "sightings_secured_by_data_provider" %}</th>
+														<th></th>
+														<th>{% trans "terms_of_collection_use" %}</th>
+														<th>{% trans "request_status_for_user" %}</th>
+													</tr>
+													{% for collection in customlist %}
+													<tr>
+														<td>{{collection.result.collectionName}}
+														<td>{{collection.result.description}}</td>
+														<td>{{collection.customSecured}}</td>
+														<td>
 
-                                            </div>
-                                        </form>
-                                    </div>
-                                </section>
-                               </div>
-                            </div>
+															<div class="customDeleteContainer">
+																<button class="removeCustomButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
+																{% trans "Delete sightings secured by data provider" %}
+															</div>
+														</td>
+														<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
+														<td><span id ="statustext{{ forloop.counter0 }}">{% trans "you_have_not_accepted_terms" %}</span></td> 
+											
+														<!-- Modal -->
+														<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+															<div class="modal-lg modal-dialog" role="document">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																		<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+																	</div>
+																<div class="modal-body">
+																{% load static %}
+																	<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+																		<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+																		<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+																	</object>
+																</div>
+																	<div class="modal-footer">
+																		<input type="checkbox" id ="checkb{{forloop.counter0}}" name="checkb" value="{{collection.result.id}}"
+																		onchange="check({{ forloop.counter0 }}); checkForApproval();">
+																		{% trans "I have read and understood the terms" %}<br>
+																		<p></p>
+																		<script>check({{forloop.counter0}});</script>
+																		<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+														
+													</tr>
+													{% endfor %}
+												</table>
+											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+											<ul class="list-inline pull-right">
+												<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
+												<li><button type="button" class="btn btn-primary next-step">{%trans 'continue_to_step_3'%}</button></li>
+											</ul>
+										</div>
 
-										{% else %}
-											<strong> {% trans "no_collections_for_requests" %}.</strong>
-										{% endif %}
+											<div class="tab-pane" role="tabpanel" id="step3">
+												<h3>{% trans "request_arguments_for_user" %}:</h3>
+												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'required_arguments' %}"></textarea>
+												<ul class="list-inline pull-right">
+													<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
+													<li><button id="continue-to-summary" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue'%}</button></li>
+												</ul>
+											</div>
+											<div class="tab-pane" role="tabpanel" id="complete">
+											
+												<ul class="list-inline pull-right">
+													<li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
+													<li>
+												<span id ="submitstatustext">{% trans "you_have_to_accept_at_least_one_terms" %}</span></li>
+												<script>checkForApproval();</script>
+
+												</ul>
+											</div>
+										<div class="clearfix"></div>
+									</div>
+										{% csrf_token %}
+								</form>
 							</div>
-						</div>
+						</section>
 					</div>
+				</div>
+			</form>
+        </div>
+		{% else %}
+			<strong> {% trans "no_collections_for_requests" %}.</strong>
+		{% endif %}
+	</div>
 						<!--- hidden confirm modal --->
 					<div id="confirm-modal" class="modal fade modal-sm modal-confirm" >
 						<div class="modal-content" >
 							<div class="modal-header">
-								
 							</div>
 							<div class="modal-body">
-								Oletko varma, että haluat poistaa tämän aineisto-osuuden?
+								{% trans "are_you_sure_you_want_to_remove_collection" %}
 							</div>
 							<div class="modal-footer">
-								<button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">{% trans "exit" %}</button>
+								<button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">{% trans "delete" %}</button>
 								<button type="button" data-dismiss="modal" class="btn btn-outline-secondary">{% trans "back" %}</button>
 							</div>
 						</div>
 					</div>
-						{% if collections %} 
-						<!-- hidden delete collection forms -->
+					{% if collections %} 
+					<!-- hidden delete collection forms -->
 						{% for collection in collections %}
-						<form class="form-hidden" action="/pyha/removeCollection" id="deleteform{{ forloop.counter0 }}" method="post">
-							<div class="form-group">
-								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-								<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-								<input type="hidden" id="next" name="next" value={{request.path}}>
-								<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
-							{% csrf_token %}
-							</div>
-						</form>
-						<!-- delete sensitive data -->
-						<form class="form-hidden" action="/pyha/removeSens" id="deletesensform{{ forloop.counter0 }}" method="post">
-							<div class="form-group">
-								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-								<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
-								<input type="hidden" id="next" name="next" value={{request.path}}>
-								<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
-							</div>
-							{% csrf_token %}
+					<form class="form-hidden" action="/pyha/removeCollection" id="deleteform{{ forloop.counter0 }}" method="post">
+						<div class="form-group">
+							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+							<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
+							<input type="hidden" id="next" name="next" value={{request.path}}>
+							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+						{% csrf_token %}
+						</div>
+					</form>
+					<!-- delete sensitive data -->
+					<form class="form-hidden" action="/pyha/removeSens" id="deletesensform{{ forloop.counter0 }}" method="post">
+						<div class="form-group">
+							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+							<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
+							<input type="hidden" id="next" name="next" value={{request.path}}>
+							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+						</div>
+						{% csrf_token %}
 
-						<!--  delete custom data -->
-						</form>
-							<form class="form-hidden" action="/pyha/removeCustom" id="deletecustomform{{ forloop.counter0 }}" method="post">
-							<div class="form-group">
-								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-								<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
-								<input type="hidden" id="next" name="next" value={{request.path}}>
-								<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+					<!--  delete custom data -->
+					</form>
+					<form class="form-hidden" action="/pyha/removeCustom" id="deletecustomform{{ forloop.counter0 }}" method="post">
+						<div class="form-group">
+							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+							<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
+							<input type="hidden" id="next" name="next" value={{request.path}}>
+							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+						</div>
+					{% csrf_token %}
 
-							</div>
-							{% csrf_token %}
-
-	</form>
-	{% endfor %}
-	{% endif %}
-
-
+					</form>
+						{% endfor %}
+					{% endif %}
 {% endblock %}
 
 {% block start_script %}

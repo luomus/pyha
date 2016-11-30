@@ -1,9 +1,9 @@
-﻿{% extends "pyha/handler/base.html" %}
+﻿{% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
 
 	<div class="container-fluid">
-		<div class="col-sm-9 col-lg-10">
+		<div class="col-xs-12">
 		  <div class="page-header"> 
 
 			<h1>{% trans "request_from_user" %}
@@ -12,7 +12,7 @@
 			</h1>
 					
 				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
-			<h3><span style="white-space: nowrap;">(
+			<h2><span style="white-space: nowrap;">(
 					<span
 					{% if userRequest.status == 1 %}
 						 style="color:#AABBDD;"
@@ -45,11 +45,11 @@
 					
 					</span>
 					)
-				</span></h3>
+				</span></h2>
 		  </div>
 
 		  
-				<h3>{% trans "request_filters" %}</h3>
+				<h2>{% trans "request_filters" %}</h2>
 
 				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 				<div id="filterlist" class="collapse">
@@ -75,7 +75,7 @@
 					{% endif %}
 				</div>
 				<br></br>
-				<h3>{% trans "request_arguments_for_admin" %}:</h3>
+				<h2>{% trans "request_arguments_for_admin" %}:</h2>
 				<p>{{userRequest.reason}}</p>
 				<br></br>
 				<!-- aineistolista -->
@@ -90,7 +90,10 @@
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
-									  <embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										</object>
 									  </div>
 									  <div class="modal-footer">
 										<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
@@ -103,10 +106,10 @@
 								  </div>
 								</div>
 							{% if userRequest.sensstatus == 0 %}
-							<h3>{% trans "User doesn't want sensitive data"%}</h3>
+							<h2>{% trans "User doesn't want sensitive data"%}</h2>
 							{% else %}
-							<h3>{% trans "User wants sensitive data"%}</h3>
-							<h4>{% trans "list_of_collections"%}</h3>
+							<h2>{% trans "User wants sensitive data"%}</h2>
+							<h3>{% trans "list_of_collections"%}</h3>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
@@ -212,7 +215,10 @@
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
-									  <embed src= "{{ static }}pyha/ehdot.pdf" width="800" height="700" type='application/pdf'>
+										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										</object>
 									  </div>
 									  <div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
