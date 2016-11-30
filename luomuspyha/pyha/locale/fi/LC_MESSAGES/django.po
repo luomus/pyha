@@ -226,6 +226,11 @@ msgstr "Käsittelyn tila"
 msgid "decision_arguments"
 msgstr "Perustelut päätökselle"
 
+#: pyha/templates/pyha/handler/requestview.html:117
+#: pyha/templates/pyha/handler/requestview.html:166
+msgid "comments_for_authorities"
+msgstr "Vain viranomaisille näkyvät kommentit"
+
 #: pyha/templates/pyha/handler/requestview.html:146
 #: pyha/templates/pyha/handler/requestview.html:199
 msgid "accept"

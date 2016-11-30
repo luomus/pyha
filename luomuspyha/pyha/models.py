@@ -23,6 +23,7 @@ class Request(models.Model):
 	status = models.IntegerField()
 	sensstatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
+	sensComment = models.CharField(max_length=1000,null=True)
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
 	user = models.CharField(max_length=100)

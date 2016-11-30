@@ -390,6 +390,7 @@ def answer(request):
 					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
 					print(str(loki))
 				userRequest.sensDecisionExplanation = request.POST.get('reason')
+				userRequest.sensComment = request.POST.get('commentsForAuthorities')
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
 		return HttpResponseRedirect(next)
