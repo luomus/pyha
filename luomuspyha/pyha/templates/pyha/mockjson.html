@@ -9,108 +9,44 @@
 
 <form action="../../api/request/" method="post" accept-charset="UTF-8">
   <textarea name = "JSON" rows="60" cols="100">
-	{
-	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
-	"source": "KE.398",
-	"email": "pyhatestaaja@gmail.com",
-	"personId":"MA.309",
-	"approximateMatches": 1742,
-	"locale":"fi",
-	"downloadFormat": "CSV_FLAT",
-	"downloadIncludes": [
-	  "DOCUMENT_FACTS",
-	  "GATHERING_FACTS",
-	  "UNIT_FACTS"
-	],
-	"filters": [
-		{
-			"informalTaxonGroupId": [
-				"MVL.140",
-				"MVL.185"
-			]
-		},
-		{
-			"time": [
-				"2000/"
-			]
-		},
-		{
-			"secured": [
-				"true"
-			]
-		}
-	],
-	"collections": [
-		{
-			"id": "http://tun.fi/HR.39",
-			"count": 1031,
-			"secureReasons": [
-
-			"DEFAULT_TAXON_CONSERVATION",
-
-			"CUSTOM",
-
-			"DATA_QUARANTINE_PERIOD"
-
-			],
-			"downloadRequestHandler": [
-   			"MA.313",
-   			"MA.320"
- 			],
-			"mainSecureReasons": {
-        "DEFAULT_TAXON_CONSERVATION": {
-          "count": 3
-        },
-        "CUSTOM": {
-          "count": 2
-        }
-      }
-		},
-		{
-			"id": "http://tun.fi/HR.48",
-			"count": 904,
-			"secureReasons": [
-
-			"DEFAULT_TAXON_CONSERVATION",
-
-			"CUSTOM",
-
-			"DATA_QUARANTINE_PERIOD"
-
-			],
-			"downloadRequestHandler": [
-			"MA.320"
- 			],
-			"mainSecureReasons": {
-        "CUSTOM": {
-          "count": 1
-        }
-      }
-		},
-		{
-			"id": "http://tun.fi/HR.60",
-			"count": 14,
-			"secureReasons": [
-
-			"CUSTOM",
-
-			"DATA_QUARANTINE_PERIOD"
-
-			],
-			"downloadRequestHandler": [
-   			"MA.313"
- 			],
-		"mainSecureReasons": {
-        "DEFAULT_TAXON_CONSERVATION": {
-          "count": 3
-        },
-        "CUSTOM": {
-          "count": 2
-        }
-      }
-		}
-	]
-	}
+	
+{
+ "id": "HBF.6F58A973-73F0-4403-A26B-B79FD7C1031A",
+ "source": "KE.398",
+ "personId": "MA.309",
+ "approximateMatches": 17,
+ "requested": "2016-11-30",
+ "downloadFormat": "CSV_FLAT",
+ "downloadIncludes": [
+   
+ ],
+ "filters": [
+   {
+     "target": [
+       "aves"
+     ]
+   },
+   {
+     "secured": "true"
+   }
+ ],
+ "collections": [
+   {
+     "id": "HR.447",
+     "conservationReasonCount": 17,
+     "customReasonCount": 122
+   },
+   {
+     "id": "HR.39",
+     "conservationReasonCount": 82,
+     "customReasonCount": 11
+   },
+   {
+     "id": "HR.48",
+     "customReasonCount": 25
+   }
+ ]
+}
   </textarea>
   <input type="submit">
 </form>

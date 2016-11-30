@@ -384,31 +384,35 @@ def answer(request):
 					if (int(request.POST.get('answer')) == 1):
 						collection.status = 4
 						#make a log entry
-						create_handler_log_entry(RequestLogEntry.DECISION_POSITIVE)
+						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),collection = collection,\
+						user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
 					else:
 						collection.status = 3
 						#make a log entry
-						create_handler_log_entry(RequestLogEntry.DECISION_NEGATIVE)
-						collection.decisionExplanation = request.POST.get('reason')
-						collection.save()
-						update(requestId, request.LANGUAGE_CODE)
+						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),collection = collection,\
+						user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
+					collection.decisionExplanation = request.POST.get('reason')
+					collection.save()
+					update(requestId, request.LANGUAGE_CODE)
 			elif HANDLER_SENS in request.session["user_roles"]:
 				userRequest = Request.requests.get(id = requestId)
 				if (int(request.POST.get('answer')) == 1):	
 					userRequest.sensstatus = 4
 					#make a log entry
-					create_handler_log_entry(RequestLogEntry.DECISION_POSITIVE)
+					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"],\
+					 role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
 				else:
 					userRequest.sensstatus = 3
 					#make a log entry
-					create_handler_log_entry(RequestLogEntry.DECISION_NEGATIVE)
+					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"],\
+					 role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
 				userRequest.sensDecisionExplanation = request.POST.get('reason')
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
 		return HttpResponseRedirect(next)
 
-def create_handler_log_entry(action):
-		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),collection = collection,user=request.session["user_id"], role=request.session["current_user_role"], action=action)
+def create_handler_log_entry(action, requestId):
+		
 		print(str(loki))
 
 def update(requestId, lang):
