@@ -28,6 +28,18 @@ html {
   .container-fluid {
     overflow-y: scroll;
 }
+  .floatcontainer {
+    float: right;
+}
+  .inner {
+    position:fixed;
+}
+  .floatcontainer, .inner{
+    position: relative; 
+    width: auto;
+    height: 200px;
+    background-color: #EFF8FB;
+}
 
   .dropbtn {
     background-color: #3498DB;

@@ -81,7 +81,48 @@
 				</span></h2>
 		  </div>
 
-		  
+			<div class="outer">
+				<div class="floatcontainer">
+					<div class="inner" id="requestLog_list" style="overflow-y: scroll;">
+						{% if requestLog_list %}
+						<h4>{% trans "Muutoshistoria" %}</h4>
+							<table class="inner, table-bordered">
+								<tr>
+									<th>{% trans "Päiväys" %}</th>	
+									<th>{% trans "Tekijä" %}</th>
+									<th>{% trans "Kuvaus" %}</th>
+								</tr>
+							{% for requestLog in requestLog_list %}
+							<tr>
+								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+								{% if requestLog.role == 'handler' %}
+								<td>{% trans "Pyynnön käsittelijä" %}</td>
+								{% elif requestLog.role == 'user' %}
+								<td>{% trans "Käyttäjä" %}</td>
+								{% endif %}
+								{% if requestLog.action == 'VIEW' %}
+								<td>{% trans "Katsottu" %}</td>
+								{% elif requestLog.action == 'DEL_S' %}
+								<td>{% trans "Poistettu sensitiiviset havainnot" %}</td>
+								{% elif requestLog.action == 'DEL_C' %}
+								<td>{% trans "Poistettu aineistonhaltijan rajaamat havainnot" %}</td>
+									{% elif requestLog.action == 'ACC' %}
+									<td>{% trans "Ehdot hyväksytty" %}</td>
+									{% elif requestLog.action == 'POS' %}
+									<td>{% trans "Aineistopyyntö hyväksytty" %}</td>
+									{% elif requestLog.action == 'NEG' %}
+									<td>{% trans "Aineistopyyntö hylätty" %}</td>
+								{% endif %}
+								</tr>
+							{% endfor %}
+							</table>
+						{% else %}
+							<strong>{% trans "Muutoshistoria on tyhjä" %}.</strong>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
 				<h2>{% trans "request_filters" %}</h2>
 
 				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
