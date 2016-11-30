@@ -26,7 +26,8 @@ from pyha.email import *
 
 @csrf_exempt
 def index(request):
-		check_language(request)
+		if check_language(request):
+			return HttpResponseRedirect(request.path)
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
@@ -100,26 +101,29 @@ def jsonmock(request):
 def check_language(request):
 	if request.GET.get('lang'):
 			request.session["_language"] = request.GET.get('lang')
-			return HttpResponseRedirect(request.path)
+			return True
+	return False
 
 
-def check_allowed_to_view(request, userRequest, userId, role1, role2):
+def allowed_to_view(request, userRequest, userId, role1, role2):
 	if HANDLER_ANY in request.session.get("current_user_role", [None]):
-			if not Request.requests.filter(id=userRequest.id, status__gte=0).exists():
-				return HttpResponseRedirect('/pyha/')
+			if not Request.requests.filter(id=userRequest.id, status__gt=0).exists():
+				return False
 			if role2 and not role1:
 				if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
-					return HttpResponseRedirect('/pyha/')
+					return False
 	else:
 			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists() or userRequest.status == -1:
-				return HttpResponseRedirect('/pyha/')
+				return False
 	if(userRequest.status == -1):
-			return HttpResponseRedirect('/pyha/')
+			return False
+	return True
 
 
 @csrf_exempt
 def show_request(request):
-		check_language(request)
+		if check_language(request):
+			return HttpResponseRedirect(request.path)
 		#Has Access
 		requestId = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
@@ -129,7 +133,8 @@ def show_request(request):
 		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		check_allowed_to_view(request, userRequest, userId, role1, role2)
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
 
 		context = create_request_view_context(request, userRequest, userId, role1, role2)
 		#make a log entry

@@ -21,6 +21,9 @@ html {
     /* Set the fixed height of the footer here */
     background-color: #3498DB;
   }
+  table{
+    border-collapse: separate; !important;
+  }
   
   .container-fluid {
     overflow-y: scroll;
