@@ -82,6 +82,6 @@ def get_user_name(request):
        return request.session["user_name"]
 
 def add_collection_owner(request, content):
-    if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:
-      request.session["user_roles"].append(HANDLER_COLL)
-      request.session["current_user_role"] = HANDLER_ANY
+	if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:	
+		request.session["user_roles"].append(HANDLER_COLL)
+		request.session["current_user_role"] = HANDLER_ANY

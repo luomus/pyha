@@ -157,7 +157,7 @@
 							{% endif %}
 					{% endif %}
 				<br></br>
-					{% if role2 and customlist %}
+					{% if customlist %}
 					<h2>{% trans "collections_in_request" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
@@ -193,7 +193,9 @@
 								<td>{% trans "unknown" %}</td>	
 								{% endif %}
 							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
-							<td><form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+							<td>
+								{% if request.session.user_id in collection.downloadRequestHandler %}
+								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 								<div class="form-group">
 										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -203,7 +205,11 @@
 										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "refuse" %}</button>
 									</div>
 									{% csrf_token %}
-								</form>
+								</form>		
+								{% else %}
+								{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
+								{% endif %}
+								
 							</td>
 								<!-- Modal -->
 								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

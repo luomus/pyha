@@ -119,7 +119,6 @@ def allowed_to_view(request, userRequest, userId, role1, role2):
 			return False
 	return True
 
-
 @csrf_exempt
 def show_request(request):
 		if check_language(request):
@@ -220,9 +219,8 @@ def create_collections_for_lists(request, taxonList, customList, collectionList,
 			if role1:
 				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 				hasCollection = True
-			if role2:
-				customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(request.session["user_id"]), status__gte=0)
-				hasCollection = True
+			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
+			hasCollection = True
 		if not hasCollection:
 			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
@@ -374,20 +372,21 @@ def answer(request):
 			requestId = request.POST.get('requestid')
 			if "sens" not in collectionId:
 				collection = Collection.objects.get(request=requestId, address=collectionId)
-				if (int(request.POST.get('answer')) == 1):
-					collection.status = 4
-					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),		collection = collection,user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
-					print(str(loki))
-				else:
-					collection.status = 3
-					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), collection = collection, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
-					print(str(loki))
-				collection.decisionExplanation = request.POST.get('reason')
-				collection.save()
-				update(requestId, request.LANGUAGE_CODE)
-			else:
+				if request.session["user_id"] in collection.downloadRequestHandler:
+					if (int(request.POST.get('answer')) == 1):
+						collection.status = 4
+						#make a log entry
+						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),		collection = collection,user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
+						print(str(loki))
+					else:
+						collection.status = 3
+						#make a log entry
+						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), collection = collection, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
+						print(str(loki))
+					collection.decisionExplanation = request.POST.get('reason')
+					collection.save()
+					update(requestId, request.LANGUAGE_CODE)
+			elif HANDLER_SENS in request.session["user_roles"]:
 				userRequest = Request.requests.get(id = requestId)
 				if (int(request.POST.get('answer')) == 1):	
 					userRequest.sensstatus = 4

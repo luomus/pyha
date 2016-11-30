@@ -49,29 +49,17 @@ def store(jsond):
 
 def makeCollection(req, i):
 		co = Collection()
-		co.address = os.path.basename(str(i.id))
+		co.address = i.id
 		co.count = getattr(i, 'count', 0)
 		co.status = 0
 		co.request = req
-		co.downloadRequestHandler = requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+secrets.TOKEN).json().get('downloadRequestHandler',['none'])
-		secureReasons = getattr(i, 'mainSecureReasons', 0)
-		if(secureReasons != 0):
-			taxon = getattr(secureReasons, 'DEFAULT_TAXON_CONSERVATION', 0)
-			custom = getattr(secureReasons, 'CUSTOM', 0)
-			if(taxon != 0):
-				co.taxonSecured = getattr(taxon, 'count', 0)
-			if(custom != 0):
-				co.customSecured = getattr(custom, 'count', 0)
-		if hasattr(i, 'mainSecureReasons'):
-			co.secureReasons = getattr(i, 'mainSecureReasons').__dict__
-			for key in co.secureReasons:
-				co.secureReasons[key]=0
-		else:
-			co.secureReasons = "{'none': 1}"
+		co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+secrets.TOKEN).json().get('downloadRequestHandler',['none']))
+		co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
+		co.customSecured = getattr(i, 'customReasonCount', 0)
 		co.save()
 
 def checkJson(jsond):
-		wantedFields = ['"id":','"source":','"email":','"personId":','"approximateMatches":','"filters":'] 
+		wantedFields = ['"id":','"source":','"personId":','"approximateMatches":','"filters":'] 
 		if all(x in jsond for x in wantedFields):
 			return True
 		return False
