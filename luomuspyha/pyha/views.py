@@ -41,7 +41,7 @@ def index(request):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 			request_list = list(set(request_list))
 			for r in request_list:
-				r.email = request_owners_email = fetch_email_address(r.user)
+				r.email =fetch_email_address(r.user)
 			context = {"role": hasRole, "email": request.session["user_email"], "requests": request_list, "static": settings.STA_URL }
 			return render(request, 'pyha/handler/index.html', context)
 		else:
@@ -193,7 +193,15 @@ def show_filters(request):
 			tup = (b, filternamelist, languagelabel)
 			filterResultList[i] = tup
 		return filterResultList
-		
+
+def requestLog(request):
+		requestId = os.path.basename(os.path.normpath(request.path))
+		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId))
+		email = []
+		for l in requestLog_list:
+			l.email = fetch_email_address(l.user)
+		return requestLog_list
+
 def create_request_view_context(request, userRequest, userId, role1, role2):
 		taxonList = []
 		customList = []
@@ -206,7 +214,7 @@ def create_request_view_context(request, userRequest, userId, role1, role2):
 		hasRole = role1 or role2
 		request_owner = fetch_user_name(userRequest.user)
 		request_owners_email = fetch_email_address(userRequest.user)
-		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request), "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		return context
 
 def get_values_for_collections(request, List):
@@ -376,32 +384,32 @@ def answer(request):
 					if (int(request.POST.get('answer')) == 1):
 						collection.status = 4
 						#make a log entry
-						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),		collection = collection,user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
-						print(str(loki))
+						create_handler_log_entry(RequestLogEntry.DECISION_POSITIVE)
 					else:
 						collection.status = 3
 						#make a log entry
-						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), collection = collection, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
-						print(str(loki))
-					collection.decisionExplanation = request.POST.get('reason')
-					collection.save()
-					update(requestId, request.LANGUAGE_CODE)
+						create_handler_log_entry(RequestLogEntry.DECISION_NEGATIVE)
+						collection.decisionExplanation = request.POST.get('reason')
+						collection.save()
+						update(requestId, request.LANGUAGE_CODE)
 			elif HANDLER_SENS in request.session["user_roles"]:
 				userRequest = Request.requests.get(id = requestId)
 				if (int(request.POST.get('answer')) == 1):	
 					userRequest.sensstatus = 4
 					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
-					print(str(loki))
+					create_handler_log_entry(RequestLogEntry.DECISION_POSITIVE)
 				else:
 					userRequest.sensstatus = 3
 					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
-					print(str(loki))
+					create_handler_log_entry(RequestLogEntry.DECISION_NEGATIVE)
 				userRequest.sensDecisionExplanation = request.POST.get('reason')
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
 		return HttpResponseRedirect(next)
+
+def create_handler_log_entry(action):
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),collection = collection,user=request.session["user_id"], role=request.session["current_user_role"], action=action)
+		print(str(loki))
 
 def update(requestId, lang):
 		#for both sensstatus and collection status

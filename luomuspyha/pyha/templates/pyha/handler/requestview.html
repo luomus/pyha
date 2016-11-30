@@ -48,6 +48,44 @@
 				</span></h2>
 		  </div>
 
+			<div class="outer">
+				<div class="floatcontainer">
+					<div class="inner" id="requestLog_list" style="overflow-y: scroll;">
+						{% if requestLog_list %}
+						<h4>{% trans "Muutoshistoria" %}</h4>
+							<table class="inner, table-bordered">
+								<tr>
+									<th>{% trans "Päiväys" %}</th>
+									<th>{% trans "Tekijä" %}</th>
+									<th>{% trans "Kuvaus" %}</th>
+								</tr>
+							{% for requestLog in requestLog_list %}
+							<tr>
+								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+								<td>{{requestLog.email}}</td>
+								{% if requestLog.action == 'VIEW' %}
+								<td>{% trans "Katsottu" %}</td>
+								{% elif requestLog.action == 'DEL_S' %}
+								<td>{% trans "Poistettu sensitiiviset havainnot" %}</td>
+								{% elif requestLog.action == 'DEL_C' %}
+								<td>{% trans "Poistettu aineistonhaltijan rajaamat havainnot" %}</td>
+									{% elif requestLog.action == 'ACC' %}
+									<td>{% trans "Ehdot hyväksytty" %}</td>
+									{% elif requestLog.action == 'POS' %}
+									<td>{% trans "Aineistopyyntö hyväksytty" %}</td>
+									{% elif requestLog.action == 'NEG' %}
+									<td>{% trans "Aineistopyyntö hylätty" %}</td>
+								{% endif %}
+								</tr>
+							{% endfor %}
+							</table>
+						{% else %}
+							<strong>{% trans "Muutoshistoria on tyhjä" %}.</strong>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
 		  
 				<h2>{% trans "request_filters" %}</h2>
 
@@ -109,7 +147,7 @@
 							<h2>{% trans "User doesn't want sensitive data"%}</h2>
 							{% else %}
 							<h2>{% trans "User wants sensitive data"%}</h2>
-							<h3>{% trans "list_of_collections"%}</h3>
+							<h2>{% trans "list_of_collections"%}</h2>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
@@ -158,7 +196,7 @@
 					{% endif %}
 				<br></br>
 					{% if customlist %}
-					<h2>{% trans "collections_in_request" %}:</h2>
+					<h2>{% trans "secured_collections" %}:</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "collection_for_admin" %}</th>

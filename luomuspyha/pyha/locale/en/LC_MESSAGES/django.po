@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 14:00+0200\n"
+"POT-Creation-Date: 2016-11-30 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -223,7 +223,7 @@ msgstr "User wants sensitive data"
 
 #: pyha/templates/pyha/handler/requestview.html:112
 msgid "list_of_collections"
-msgstr "Collections:"
+msgstr "Collections including sensitive data:"
 
 #: pyha/templates/pyha/handler/requestview.html:118
 #: pyha/templates/pyha/handler/requestview.html:166
@@ -249,9 +249,8 @@ msgid "refuse"
 msgstr "Refuse"
 
 #: pyha/templates/pyha/handler/requestview.html:161
-#: pyha/templates/pyha/requestview.html:187
-msgid "collections_in_request"
-msgstr "Collections that belong to this request"
+msgid "secured_collections"
+msgstr "Collections secured by data provider"
 
 #: pyha/templates/pyha/handler/requestview.html:164
 msgid "collection_for_admin"
@@ -445,6 +444,10 @@ msgstr "You don't want sensitive data"
 #: pyha/templates/pyha/requestview.html:147
 msgid "Decision for admitting sensitive data"
 msgstr "Decision for admitting sensitive data"
+
+#: pyha/templates/pyha/requestview.html:187
+msgid "collections_in_request"
+msgstr "Collections in this request"
 
 #: pyha/templates/pyha/requestview.html:192
 msgid "secured_by_data_provider"

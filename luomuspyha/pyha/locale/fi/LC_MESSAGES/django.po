@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 14:00+0200\n"
+"POT-Creation-Date: 2016-11-30 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,7 +224,7 @@ msgstr "Pyytäjä haluaa sensitiivistä tietoa"
 
 #: pyha/templates/pyha/handler/requestview.html:112
 msgid "list_of_collections"
-msgstr "Aineistot:"
+msgstr "Sensitiivisiä tietoja sisältävät aineistot:"
 
 #: pyha/templates/pyha/handler/requestview.html:118
 #: pyha/templates/pyha/handler/requestview.html:166
@@ -250,9 +250,8 @@ msgid "refuse"
 msgstr "Hylkää"
 
 #: pyha/templates/pyha/handler/requestview.html:161
-#: pyha/templates/pyha/requestview.html:187
-msgid "collections_in_request"
-msgstr "Pyyntöön sisältyvät aineistot"
+msgid "secured_collections"
+msgstr "Aineistonhaltijan salaamat aineistot"
 
 #: pyha/templates/pyha/handler/requestview.html:164
 msgid "collection_for_admin"
@@ -449,6 +448,10 @@ msgstr "Et halua sensitiivistä tietoa"
 #: pyha/templates/pyha/requestview.html:147
 msgid "Decision for admitting sensitive data"
 msgstr "Päätös sensitiivisen tiedon antamisesta"
+
+#: pyha/templates/pyha/requestview.html:187
+msgid "collections_in_request"
+msgstr "Pyyntöösi sisältyvät aineistot"
 
 #: pyha/templates/pyha/requestview.html:192
 msgid "secured_by_data_provider"
