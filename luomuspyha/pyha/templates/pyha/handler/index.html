@@ -1,4 +1,4 @@
-﻿{% extends "pyha/handler/base.html" %}
+﻿{% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
 
@@ -81,8 +81,7 @@
   </div>
 {% endblock %}
 
-{% block script %}
-
+{% block end_script %}
 <script>
 $(document).ready(function($) {
     $(".clickable-row").click(function() {
@@ -90,7 +89,6 @@ $(document).ready(function($) {
     });
 });
 </script>
-
 <script>
 $(document).ready(function() {
     $('#requests-table').dataTable( {
@@ -105,5 +103,4 @@ $(document).ready(function() {
         } );
     } );
 </script>
-
 {% endblock %}

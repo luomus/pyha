@@ -45,7 +45,7 @@
 				</div>
 					
 				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
-			<h3><span style="white-space: nowrap;">(
+			<h2><span style="white-space: nowrap;">(
 					<span
 					{% if userRequest.status == 1 %}
 						 style="color:#AABBDD;"
@@ -78,7 +78,7 @@
 					
 					</span>
 					)
-				</span></h3>
+				</span></h2>
 		  </div>
 
 		  
@@ -113,9 +113,10 @@
 				
 				{% if collections %}
 					{% if taxon %}
-						<h3>{% trans "request_included_sensitive_data" %}:</h3>
+						<h2>{% trans "request_included_sensitive_data" %}:</h2>
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%}. <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
 						<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
+
 								<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 								  <div class="modal-lg modal-dialog" role="document">
 									<div class="modal-content">
@@ -125,7 +126,10 @@
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
-									  <embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										</object>
 									  </div>
 									  <div class="modal-footer">
 										<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
@@ -138,9 +142,9 @@
 								  </div>
 								</div>
 							{% if userRequest.sensstatus == 0 %}
-							<h3>{% trans "You don't want sensitive data"%}</h3>
+							<h2>{% trans "You don't want sensitive data"%}</h2>
 							{% else %}
-							<h3>{% trans "Decision for admitting sensitive data"%}</h3>
+							<h2>{% trans "Decision for admitting sensitive data"%}</h2>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 								<th>{% trans "state_of_processing" %}</th>
@@ -200,6 +204,14 @@
 								<tr class="danger clickable-row"
 								{% elif collection.status == 4 %}
 								<tr class="success clickable-row"
+								{% elif collection.taxonSecured > 0 %}
+									{% if userRequest.sensstatus == 1 %}
+									<tr class="info clickable-row"
+									{% elif userRequest.sensstatus == 3 %}
+									<tr class="danger clickable-row"
+									{% elif userRequest.sensstatus == 4 %}
+									<tr class="success clickable-row"
+									{% endif %}  
 								{% else %}  
 								<tr	
 								{% endif %}
@@ -234,7 +246,10 @@
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
-									  <embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+										</object>
 									  </div>
 									  <div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
@@ -242,10 +257,8 @@
 									</div>
 								  </div>
 								</div>
-							{% if collection.decisionExplanation %}
-							<td>{{collection.decisionExplanation}}</td>
-							{% endif %}
-							</tr>
+							
+							<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
 							{% endfor %}
 						</table>
 					{% endif %}
