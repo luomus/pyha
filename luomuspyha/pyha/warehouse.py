@@ -37,14 +37,13 @@ def store(jsond):
 		req.save()
 
 		if hasattr(data, 'collections'):
-                        for i in data.collections:
-                        		makeCollection(req, i)
-
+			for i in data.collections:
+					makeCollection(req, i)
 		if hasattr(data, 'locale'):
 			req.lang = data.locale
 		else:
 			req.lang = 'fi'
-
+			
 		return req
 
 def makeCollection(req, i):

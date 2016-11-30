@@ -450,7 +450,7 @@ def update(requestId, lang):
 			wantedRequest.status = 1
 		elif accepted > 0 and (declined > 0 or pending > 0):
 			wantedRequest.status = 2
-		elif accepted == 0 and declined > 0:
+		elif (pending == 0 and accepted == 0) and declined > 0:
 			wantedRequest.status = 3
 		elif accepted > 0 and declined == 0:
 			wantedRequest.status = 4
@@ -458,12 +458,27 @@ def update(requestId, lang):
 			wantedRequest.status = 5
 		wantedRequest.save()
 		
-		#Send email if status changed
-		if(statusBeforeUpdate!=wantedRequest.status):
-			send_mail_after_request_status_change_to_requester(wantedRequest.id, lang)
+		emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 			
 
-
+"""
+	Send "request has been handled" email 
+	IF request.sensstatus is 0(no sensitive information) OR 3(declined) OR 4(accepted)  
+	AND 
+	all it's collections have status != 1(waiting for approval)
+"""
+def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
+	#count collections that are still waiting for approval
+	collectionsNotHandled = len(requestCollections)
+	for c in requestCollections:
+		if c.status != 1:
+			collectionsNotHandled -=1
+	#check if request is handled
+	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or userRequest.sensstatus ==0):
+		send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
+	elif(statusBeforeUpdate!=userRequest.status):
+		#Send email if status changed
+		send_mail_after_request_status_change_to_requester(userRequest.id, lang)
 
 
 
