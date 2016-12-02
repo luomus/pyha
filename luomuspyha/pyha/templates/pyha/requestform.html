@@ -48,7 +48,7 @@
 			</div>
 
 			<!-- suodatinlista -->
-			<h2>{% trans "request_filters" %}:</h2>
+			<h3>{% trans "request_filters" %}:</h3>
 
 			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 			<div id="filterlist" class="collapse">	
@@ -80,6 +80,7 @@
 			<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
 				<div class="col-xs-12">
 					<div class="row">
+						<h2>{% trans 'approval_of_terms' %} </h2>
 						<section>
 							<div class="wizard">
 								<div class="wizard-inner">
@@ -152,7 +153,7 @@
 
 														<div class="sensDeleteContainer">
 															<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-																{% trans "Delete sensitive sightings" %}
+																{% trans "Delete_these_sightings" %}
 														</div>
 
 													</td>
@@ -199,7 +200,7 @@
 										</div> 
 
 										<div class="tab-pane" role="tabpanel" id="step2">
-											<h3>{% trans "collections_in_request_for_user" %}:</h3>
+											<h3>{% trans "secured_collections_in_request" %}:</h3>
 												<table class="table" style="width:100%">
 													<tr style=color:black>				
 														<th>{% trans "collection_for_user" %}</th>
@@ -218,7 +219,7 @@
 
 															<div class="customDeleteContainer">
 																<button class="removeCustomButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-																{% trans "Delete sightings secured by data provider" %}
+																{% trans "Delete_these_sightings" %}
 															</div>
 														</td>
 														<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
