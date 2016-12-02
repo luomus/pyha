@@ -84,14 +84,8 @@ def receiver(request):
 		else:
 			jsond = request.body.decode("utf-8")
 			req = store(jsond)
-
-		data = json.loads(jsond, object_hook=lambda d: Namespace(**d)) #kielen takia
-		if 'locale' in data:
-			lang = data.locale
-		else:
-			lang = 'fi'
 		if(req):
-			send_mail_after_receiving_request(req.id, lang)	
+			send_mail_after_receiving_request(req.id, req.lang)
 		return HttpResponse('')
 
 
@@ -176,7 +170,6 @@ def show_filters(request):
 					for k, a in enumerate(getattr(filterList, b)):
 						if resource.startswith("metadata"):
 							filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN)
-							kaannoslista = []
 							filtername = str(a)
 							for ii in filterfield2.json():
 								if (str(a) == ii['id']):
@@ -256,8 +249,6 @@ def remove_sensitive_data(request):
 		collection.save(update_fields=['taxonSecured'])
 		#make a log entry
 		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = Collection.objects.get(id = collectionId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DELETE_SENS)
-		print(str(loki))
-
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -275,7 +266,6 @@ def remove_custom_data(request):
 		#make a log entry
 		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
 				role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
-		print(str(loki))
 
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = -1
@@ -298,7 +288,7 @@ def fetch_user_name(personId):
 		name = data['rdf:RDF']['MA.person']['MA.fullName']
 		return name
 	else:
-		print('Nimen haku ei onnistunut. HTTP statuskoodi: ' + str(response.status_code))
+		return personId
 
 
 
@@ -307,9 +297,6 @@ def removeCollection(request):
 		requestId = request.POST.get('requestid')
 		collectionId = request.POST.get('collectionid')
 		redirect_path = request.POST.get('next')
-		print("Deleting collection:")
-		print("request_id: " + requestId)
-		print("address: " + collectionId)
 		collection = Collection.objects.get(address = collectionId, request = requestId)
 		#avoid work when submitted multiple times
 		if(collection.status != -1):
@@ -359,7 +346,6 @@ def approve(request):
 					#make a log entry
 					loki = RequestLogEntry.requestLog.create(request=userRequest, collection = c, 
 							user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.ACCEPT)
-					print(str(loki))
 
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.reason = request.POST.get('reason')
@@ -369,7 +355,6 @@ def approve(request):
 				send_mail_for_approval_sens(requestId, lang)
 				#make a log entry
 				loki = RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.ACCEPT)
-				print(str(loki))
 
 	return HttpResponseRedirect('/pyha/')
 
@@ -410,10 +395,6 @@ def answer(request):
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
 		return HttpResponseRedirect(next)
-
-def create_handler_log_entry(action, requestId):
-		
-		print(str(loki))
 
 def update(requestId, lang):
 		#for both sensstatus and collection status

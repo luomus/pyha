@@ -44,7 +44,7 @@ class RequestTesting(TestCase):
 		self.assertContains(response, "Vain salatut")
 		self.assertContains(response, "true")
 		self.assertContains(response, "Lajin hallinnollinen rajaus")
-		self.assertContains(response, "Uhanalainen laji (LSA Liite 4)")
+		self.assertContains(response, "Uhanalaiset lajit (Luonnonsuojeluasetus 14.2.1997/160, liite 4)")
 		self.assertContains(response, "Lajiryhmä")
 		self.assertContains(response, "Käet")
 		self.assertContains(response, "Jyrsijät")
