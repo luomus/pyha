@@ -69,7 +69,7 @@ span.round-tab:hover {
 }
 
 .wizard li:after {
-    content: " j";
+    content: " ";
     position: absolute;
     left: 46%;
     opacity: 0;
