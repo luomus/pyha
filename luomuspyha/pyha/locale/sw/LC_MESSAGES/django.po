@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-02 13:20+0200\n"
+"POT-Creation-Date: 2016-12-05 16:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,10 +43,12 @@ msgid "logout"
 msgstr ""
 
 #: pyha/templates/pyha/base.html:70 pyha/templates/pyha/base.html:74
+#: pyha/templates/pyha/requestview.html:99
 msgid "admin"
 msgstr ""
 
 #: pyha/templates/pyha/base.html:70 pyha/templates/pyha/base.html:73
+#: pyha/templates/pyha/requestview.html:101
 msgid "user"
 msgstr ""
 
@@ -142,57 +144,57 @@ msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:55
 #: pyha/templates/pyha/requestview.html:88
-msgid "Muutoshistoria"
+msgid "changes_history"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:58
 #: pyha/templates/pyha/requestview.html:91
-msgid "Päiväys"
+msgid "log_date"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:59
 #: pyha/templates/pyha/requestview.html:92
-msgid "Tekijä"
+msgid "log_maker"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:60
 #: pyha/templates/pyha/requestview.html:93
-msgid "Kuvaus"
+msgid "log_description"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:67
 #: pyha/templates/pyha/requestview.html:104
-msgid "Katsottu"
+msgid "log_viewed"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:69
 #: pyha/templates/pyha/requestview.html:106
-msgid "Poistettu sensitiiviset havainnot"
+msgid "log_sensitives_deleted"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:71
 #: pyha/templates/pyha/requestview.html:108
-msgid "Poistettu aineistonhaltijan rajaamat havainnot"
+msgid "log_secured_deleted"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:73
 #: pyha/templates/pyha/requestview.html:110
-msgid "Ehdot hyväksytty"
+msgid "log_terms_accepted"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:75
 #: pyha/templates/pyha/requestview.html:112
-msgid "Aineistopyyntö hyväksytty"
+msgid "log_request_accepted"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:77
 #: pyha/templates/pyha/requestview.html:114
-msgid "Aineistopyyntö hylätty"
+msgid "log_request_denied"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:83
 #: pyha/templates/pyha/requestview.html:120
-msgid "Muutoshistoria on tyhjä"
+msgid "log_no_history"
 msgstr ""
 
 #: pyha/templates/pyha/handler/requestview.html:90
@@ -479,14 +481,6 @@ msgstr ""
 #: pyha/templates/pyha/requestform.html:356
 #: pyha/templates/pyha/requestform.html:367
 msgid "you_accepted_terms"
-msgstr ""
-
-#: pyha/templates/pyha/requestview.html:99
-msgid "Pyynnön käsittelijä"
-msgstr ""
-
-#: pyha/templates/pyha/requestview.html:101
-msgid "Käyttäjä"
 msgstr ""
 
 #: pyha/templates/pyha/requestview.html:157
