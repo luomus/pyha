@@ -239,6 +239,7 @@ def change_description(request):
 		userRequest.save(update_fields=['description'])
 		return HttpResponseRedirect(next)
 
+#removes sensitive sightings
 def remove_sensitive_data(request):
 	if request.method == 'POST':
 		next = request.POST.get('next', '/')
@@ -255,6 +256,7 @@ def remove_sensitive_data(request):
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(next)
 
+#removes custom sightings
 def remove_custom_data(request):
 	if request.method == 'POST':
 		next = request.POST.get('next', '/')
