@@ -7,7 +7,7 @@
         position: relative;
         margin: 40px auto;
         margin-bottom: 0;
-        border-bottom-color: #e0e0e0;
+        border-bottom-color: #fff;
     }
 
     .wizard > div.wizard-inner {
@@ -69,7 +69,7 @@ span.round-tab:hover {
 }
 
 .wizard li:after {
-    content: " ";
+    content: " j";
     position: absolute;
     left: 46%;
     opacity: 0;
