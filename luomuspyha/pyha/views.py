@@ -7,6 +7,7 @@ from luomuspyha import secrets
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.template import loader, Context, RequestContext
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -23,6 +24,7 @@ from itertools import chain
 from itertools import groupby
 from pyha.roles import *
 from pyha.email import *
+from django.core.cache import cache
 
 @csrf_exempt
 def index(request):
@@ -129,7 +131,7 @@ def show_request(request):
 		if not allowed_to_view(request, userRequest, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
 
-		context = create_request_view_context(request, userRequest, userId, role1, role2)
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		#make a log entry
 		if not "has_viewed" in request.session:
 			request.session["has_viewed"] = []
@@ -152,39 +154,43 @@ def show_filters(request):
 		userRequest = Request.requests.get(id=requestId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		filters = requests.get(settings.LAJIFILTERS_URL)
-		filterResultList = list(range(len(vars(filterList).keys())))
-		lang = request.LANGUAGE_CODE
-		filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
-		for i, b in enumerate(vars(filterList).keys()):
-			languagelabel = b
-			filternamelist = getattr(filterList, b)
-			if b in filters.json():
-				filterfield = getattr(filtersobject, b)
-				label = getattr(filterfield, "label")
-				if(lang == 'sw'):
-					languagelabel = getattr(label, "sv")
-				else:
-					languagelabel = getattr(label, request.LANGUAGE_CODE)
-				if "RESOURCE" in getattr(filterfield, "type"):
-					resource = getattr(filterfield, "resource")
-					for k, a in enumerate(getattr(filterList, b)):
-						if resource.startswith("metadata"):
-							filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN)
-							filtername = str(a)
-							for ii in filterfield2.json():
-								if (str(a) == ii['id']):
-									filtername = ii['value']
-									break
-						else:
-							if(lang == 'sw'):
-								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+secrets.TOKEN)
+		if 'has expired' in cache.get('filters'+requestId, 'has expired'):
+			filterResultList = list(range(len(vars(filterList).keys())))
+			lang = request.LANGUAGE_CODE
+			filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
+			for i, b in enumerate(vars(filterList).keys()):
+				languagelabel = b
+				filternamelist = getattr(filterList, b)
+				if b in filters.json():
+					filterfield = getattr(filtersobject, b)
+					label = getattr(filterfield, "label")
+					if(lang == 'sw'):
+						languagelabel = getattr(label, "sv")
+					else:
+						languagelabel = getattr(label, request.LANGUAGE_CODE)
+					if "RESOURCE" in getattr(filterfield, "type"):
+						resource = getattr(filterfield, "resource")
+						for k, a in enumerate(getattr(filterList, b)):
+							if resource.startswith("metadata"):
+								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN)
+								filtername = str(a)
+								for ii in filterfield2.json():
+									if (str(a) == ii['id']):
+										filtername = ii['value']
+										break
 							else:
-								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN)
-							filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
-							filtername = getattr(filternameobject, "name", str(a))
-						filternamelist[k]= filtername
-			tup = (b, filternamelist, languagelabel)
-			filterResultList[i] = tup
+								if(lang == 'sw'):
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+secrets.TOKEN)
+								else:
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN)
+								filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
+								filtername = getattr(filternameobject, "name", str(a))
+							filternamelist[k]= filtername
+				tup = (b, filternamelist, languagelabel)
+				filterResultList[i] = tup
+			cache.set('filters'+requestId,filterResultList)
+		else:
+			return cache.get('filters'+requestId)
 		return filterResultList
 
 def requestLog(request):
@@ -195,11 +201,11 @@ def requestLog(request):
 			l.email = fetch_email_address(l.user)
 		return requestLog_list
 
-def create_request_view_context(request, userRequest, userId, role1, role2):
+def create_request_view_context(requestId, request, userRequest, userId, role1, role2):
 		taxonList = []
 		customList = []
 		collectionList = []
-		create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
+		create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 		taxon = False
 		for collection in collectionList:
 			if(collection.taxonSecured > 0):
@@ -210,11 +216,19 @@ def create_request_view_context(request, userRequest, userId, role1, role2):
 		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request), "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		return context
 
-def get_values_for_collections(request, List):
-	for i, c in enumerate(List):
-		c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
+def get_values_for_collections(requestId, request, List, cacheIdentifier):
+		if 'has expired' in cache.get(str(requestId)+'collection_values'+str(cacheIdentifier), 'has expired'):
+			cachedDict = {}
+			for i, c in enumerate(List):
+				c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
+				cachedDict[c.address] = c.result
+			cache.set(str(requestId)+'collection_values'+str(cacheIdentifier), cachedDict)
+		else:
+			cachedDict = cache.get(str(requestId)+'collection_values'+str(cacheIdentifier))
+			for i, c in enumerate(List):
+				c.result = cachedDict[c.address]
 
-def create_collections_for_lists(request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
+def create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if role1:
@@ -226,9 +240,9 @@ def create_collections_for_lists(request, taxonList, customList, collectionList,
 			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
 			collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
-		get_values_for_collections(request, collectionList)
-		get_values_for_collections(request, customList)
-		get_values_for_collections(request, taxonList)
+		get_values_for_collections(requestId, request, collectionList, 0)
+		get_values_for_collections(requestId, request, customList, 1)
+		get_values_for_collections(requestId, request, taxonList, 2)
 
 def change_description(request):
 	if request.method == 'POST':
@@ -272,6 +286,33 @@ def remove_custom_data(request):
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(next)
+		
+
+def remove_ajax(request):
+	'''if request.method == 'POST':
+		next = request.POST.get('next', '/')
+		collectionId = request.POST.get('collectionId')
+		requestId = request.POST.get('requestid')
+		collection = Collection.objects.get(id = collectionId)
+		collection.customSecured = 0;
+		collection.save(update_fields=['customSecured'])
+		#make a log entry
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
+				role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
+
+		if(collection.taxonSecured == 0) and (collection.status != -1):
+			collection.status = -1
+			collection.save(update_fields=['status'])
+			check_all_collections_removed(requestId)
+	'''
+	customList = []
+	customList += Collection.objects.filter(request=1, customSecured__gt = 0, status__gte=0)
+	get_values_for_collections(1, request, customList, 1)
+	json = {}
+	for i, c in enumerate(customList):
+		c.__dict__.pop('_state', None)
+		json[str(c)] = c.__dict__
+	return JsonResponse(json, safe = False)
 
 
 def fetch_user_name(personId):

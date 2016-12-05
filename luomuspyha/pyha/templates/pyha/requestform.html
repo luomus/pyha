@@ -1,6 +1,7 @@
 ﻿{% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
+
 	<div class="container-fluid">
 		<div class="col-xs-12">
 			<div class="page-header">
@@ -143,7 +144,7 @@
 												<th>{% trans "sensitive_sightings" %}</th>
 												<th></th>
 
-												</tr>	
+												</tr>
 												{% for collection in taxonlist %}
 												<tr style="border-	bottom:2px solid #456789">
 													<td>{{collection.result.collectionName}}</td>
@@ -202,7 +203,7 @@
 										<div class="tab-pane" role="tabpanel" id="step2">
 											<h3>{% trans "secured_collections_in_request" %}:</h3>
 												<table class="table" style="width:100%">
-													<tr style=color:black>				
+													<tr style=color:black>
 														<th>{% trans "collection_for_user" %}</th>
 														<th>{% trans "request_description" %}</th>
 														<th>{% trans "sightings_secured_by_data_provider" %}</th>
@@ -322,7 +323,7 @@
 						</div>
 					</form>
 					<!-- delete sensitive data -->
-					<form class="form-hidden" action="/pyha/removeSens" id="deletesensform{{ forloop.counter0 }}" method="post">
+					<form class="form-hidden" action="javascript:removeAjax()" id="deletesensform{{ forloop.counter0 }}" method="post">
 						<div class="form-group">
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 							<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
@@ -377,7 +378,16 @@
 	  function checkv(counter, value) { 
 		  accepted[counter] = value;
 	  }
-	  function checkForApproval(){
+	  function checkForApproval(){function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "ajax_info.txt", true);
+  xhttp.send();
+} 
 		var approved = 0;
 		for (i = 0; i < accepted.length; i++){
 		approved += accepted[i];
@@ -469,6 +479,19 @@
 		$("#descriptionButton").html('Piilota');
 	  });
 	});
+	</script>
+	
+	<script>
+	function removeAjax() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("step1").innerHTML = this.responseText;
+			}
+		};
+	xhttp.open("POST", "/pyha/removeAjax/", true);
+	xhttp.send();
+	} 
 	</script>
 {% endblock %}
 {% block modal %}
