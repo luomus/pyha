@@ -149,14 +149,7 @@
 													<td>{{collection.result.collectionName}}</td>
 													<td>{{collection.result.description}}</td>
 													<td>{{collection.taxonSecured}}</td>
-													<td>
 
-														<div class="sensDeleteContainer">
-															<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-																{% trans "Delete_these_sightings" %}
-														</div>
-
-													</td>
 												</tr>
 												{% endfor %}
 												</table>
@@ -216,12 +209,13 @@
 														<td>{{collection.result.description}}</td>
 														<td>{{collection.customSecured}}</td>
 														<td>
-
-															<div class="customDeleteContainer">
-																<button class="removeCustomButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-																{% trans "Delete_these_sightings" %}
+															<!-- Remove collection which sightings not willing to accept-->
+															<div class="deleteContainer">
+																<button class="removeCollectionButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
+																{% trans "Delete_this_collection" %}
 															</div>
 														</td>
+
 														<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
 														<td><span id ="statustext{{ forloop.counter0 }}">{% trans "you_have_not_accepted_terms" %}</span></td> 
 											
