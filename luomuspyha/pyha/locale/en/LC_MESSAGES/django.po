@@ -144,67 +144,59 @@ msgstr "Request from user"
 #: pyha/templates/pyha/handler/requestview.html:55
 #: pyha/templates/pyha/requestview.html:88
 msgid "changes_history"
-msgstr ""
+msgstr "Changes log"
 
 #: pyha/templates/pyha/handler/requestview.html:58
 #: pyha/templates/pyha/requestview.html:91
 msgid "log_date"
-msgstr ""
+msgstr "Date"
 
 #: pyha/templates/pyha/handler/requestview.html:59
 #: pyha/templates/pyha/requestview.html:92
 msgid "log_maker"
-msgstr ""
+msgstr "Maker"
 
 #: pyha/templates/pyha/handler/requestview.html:60
 #: pyha/templates/pyha/requestview.html:93
-#, fuzzy
-#| msgid "no_description"
 msgid "log_description"
-msgstr "No description"
+msgstr "Description"
 
 #: pyha/templates/pyha/handler/requestview.html:67
 #: pyha/templates/pyha/requestview.html:104
 msgid "log_viewed"
-msgstr ""
+msgstr "Viewed"
 
 #: pyha/templates/pyha/handler/requestview.html:69
 #: pyha/templates/pyha/requestview.html:106
-#, fuzzy
-#| msgid "sensitive_terms"
 msgid "log_sensitives_deleted"
-msgstr "Terms for sensitive data"
+msgstr "Sensitive data removed"
 
 #: pyha/templates/pyha/handler/requestview.html:71
 #: pyha/templates/pyha/requestview.html:108
 msgid "log_secured_deleted"
-msgstr ""
+msgstr "Secured data removed"
 
 #: pyha/templates/pyha/handler/requestview.html:73
 #: pyha/templates/pyha/requestview.html:110
-#, fuzzy
-#| msgid "send_to_be_accepted"
 msgid "log_terms_accepted"
-msgstr "Send to be accepted"
+msgstr "Terms accepted"
 
 #: pyha/templates/pyha/handler/requestview.html:75
 #: pyha/templates/pyha/requestview.html:112
-#, fuzzy
-#| msgid "request_date"
 msgid "log_request_accepted"
-msgstr "Date"
+msgstr "Request accepted"
 
 #: pyha/templates/pyha/handler/requestview.html:77
 #: pyha/templates/pyha/requestview.html:114
 #, fuzzy
 #| msgid "request_date"
 msgid "log_request_denied"
-msgstr "Date"
+msgstr "Request denied"
 
 #: pyha/templates/pyha/handler/requestview.html:83
 #: pyha/templates/pyha/requestview.html:120
 msgid "log_no_history"
-msgstr ""
+msgstr "No history"
 
 #: pyha/templates/pyha/handler/requestview.html:90
 #: pyha/templates/pyha/requestform.html:51
