@@ -62,19 +62,23 @@
 							{% for requestLog in requestLog_list %}
 							<tr>
 								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-								<td>{{requestLog.email}}</td>
+								<td>{{requestLog.name}} ({{requestLog.email}})</td>
 								{% if requestLog.action == 'VIEW' %}
 								<td>{% trans "Katsottu" %}</td>
-								{% elif requestLog.action == 'DEL_S' %}
-								<td>{% trans "Poistettu sensitiiviset havainnot" %}</td>
-								{% elif requestLog.action == 'DEL_C' %}
-								<td>{% trans "Poistettu aineistonhaltijan rajaamat havainnot" %}</td>
-									{% elif requestLog.action == 'ACC' %}
-									<td>{% trans "Ehdot hyväksytty" %}</td>
-									{% elif requestLog.action == 'POS' %}
-									<td>{% trans "Aineistopyyntö hyväksytty" %}</td>
-									{% elif requestLog.action == 'NEG' %}
-									<td>{% trans "Aineistopyyntö hylätty" %}</td>
+								{% elif requestLog.action == 'ACC' %}
+								<td>{% trans "Ehdot hyväksytty" %}</td>
+								{% elif requestLog.action == 'POS' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "Sensitiiviset hyväksytty" %}</td>
+									{% else %}						
+									<td>{% trans "Aineisto hyväksytty" %} ({{ requestLog.collection}}) </td>
+									{% endif %}
+								{% elif requestLog.action == 'NEG' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "Sensitiiviset hylätty" %}</td>
+									{% else %}
+									<td>{% trans "Aineisto hylätty" %} ({{ requestLog.collection}})</td>
+									{% endif %}
 								{% endif %}
 								</tr>
 							{% endfor %}

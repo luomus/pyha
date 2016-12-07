@@ -128,16 +128,10 @@ def show_request(request):
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		if not allowed_to_view(request, userRequest, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
-
 		context = create_request_view_context(request, userRequest, userId, role1, role2)
 		#make a log entry
-		if not "has_viewed" in request.session:
-			request.session["has_viewed"] = []
-		if requestId not in request.session.get("has_viewed", [None]):			
-			request.session["has_viewed"].append(requestId)				
-			loki = RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
-						role=userRole, action=RequestLogEntry.VIEW)
-
+		if userRequest.user != userId:
+			make_logEntry_view(request, userRequest, userId, role1, role2)
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			return render(request, 'pyha/handler/requestview.html', context)
 		else:
@@ -146,6 +140,20 @@ def show_request(request):
 			else:
 				return render(request, 'pyha/requestview.html', context)
 
+def make_logEntry_view(request, userRequest, userId, role1, role2):
+	if not "has_viewed" in request.session:
+		request.session["has_viewed"] = []
+	if userRequest.id not in request.session.get("has_viewed", [None]):
+		logRole = USER
+		if role1:
+			logRole = HANDLER_SENS
+			if role2:
+				logRole = HANDLER_BOTH 
+		elif role2:
+			logRole = HANDLER_COLL
+		request.session["has_viewed"].append(userRequest.id)				
+		RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
+					role=logRole, action=RequestLogEntry.VIEW)
 
 def show_filters(request):
 		requestId = os.path.basename(os.path.normpath(request.path))
@@ -193,6 +201,7 @@ def requestLog(request):
 		email = []
 		for l in requestLog_list:
 			l.email = fetch_email_address(l.user)
+			l.name = fetch_user_name(l.user)
 		return requestLog_list
 
 def create_request_view_context(request, userRequest, userId, role1, role2):
@@ -248,8 +257,6 @@ def remove_sensitive_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0;
 		collection.save(update_fields=['taxonSecured'])
-		#make a log entry
-		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = Collection.objects.get(id = collectionId), user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DELETE_SENS)
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -265,10 +272,6 @@ def remove_custom_data(request):
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0;
 		collection.save(update_fields=['customSecured'])
-		#make a log entry
-		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
-				role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
-
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
@@ -345,9 +348,6 @@ def approve(request):
 				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
 				if(c.customSecured > 0):
 					send_mail_for_approval(requestId, c, lang)
-					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=userRequest, collection = c, 
-							user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.ACCEPT)
 
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.reason = request.POST.get('reason')
@@ -355,8 +355,8 @@ def approve(request):
 			userRequest.save(update_fields=['status','reason'])
 			if userRequest.sensstatus == 1:
 				send_mail_for_approval_sens(requestId, lang)
-				#make a log entry
-				loki = RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.ACCEPT)
+			#make a log entry
+			RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
 
 	return HttpResponseRedirect('/pyha/')
 
@@ -371,13 +371,11 @@ def answer(request):
 					if (int(request.POST.get('answer')) == 1):
 						collection.status = 4
 						#make a log entry
-						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),collection = collection,\
-						user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
+						RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action =RequestLogEntry.DECISION_POSITIVE)
 					else:
 						collection.status = 3
 						#make a log entry
-						loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId),collection = collection,\
-						user=request.session["user_id"], role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
+						RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId),collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action =RequestLogEntry.DECISION_NEGATIVE)
 					collection.decisionExplanation = request.POST.get('reason')
 					collection.save()
 					update(requestId, request.LANGUAGE_CODE)
@@ -386,13 +384,11 @@ def answer(request):
 				if (int(request.POST.get('answer')) == 1):	
 					userRequest.sensstatus = 4
 					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"],\
-					 role=request.session["current_user_role"], action=RequestLogEntry.DECISION_POSITIVE)
+					RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
 				else:
 					userRequest.sensstatus = 3
 					#make a log entry
-					loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id = requestId), user=request.session["user_id"],\
-					 role=request.session["current_user_role"], action=RequestLogEntry.DECISION_NEGATIVE)
+					RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
 				userRequest.sensDecisionExplanation = request.POST.get('reason')
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)

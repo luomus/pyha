@@ -97,21 +97,33 @@
 								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
 								{% if requestLog.role == 'handler' %}
 								<td>{% trans "Pyynnön käsittelijä" %}</td>
-								{% elif requestLog.role == 'user' %}
+								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
+								<td>{% trans "Sensitiivisen tiedon käsittelijä" %}</td>
+								{% elif requestLog.role == 'MA.downloadRequestHandler' %}
+								<td>{% trans "Aineiston toimittaja" %}</td>
+								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
+								<td>{% trans "Sensitiivisen ja aineistokohtaisen tiedon käsittelijä" %}</td>
+								{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
+								<td>{{requestLog.name}}</td>
+								{% else %}
 								<td>{% trans "Käyttäjä" %}</td>
 								{% endif %}
 								{% if requestLog.action == 'VIEW' %}
 								<td>{% trans "Katsottu" %}</td>
-								{% elif requestLog.action == 'DEL_S' %}
-								<td>{% trans "Poistettu sensitiiviset havainnot" %}</td>
-								{% elif requestLog.action == 'DEL_C' %}
-								<td>{% trans "Poistettu aineistonhaltijan rajaamat havainnot" %}</td>
-									{% elif requestLog.action == 'ACC' %}
-									<td>{% trans "Ehdot hyväksytty" %}</td>
-									{% elif requestLog.action == 'POS' %}
-									<td>{% trans "Aineistopyyntö hyväksytty" %}</td>
-									{% elif requestLog.action == 'NEG' %}
-									<td>{% trans "Aineistopyyntö hylätty" %}</td>
+								{% elif requestLog.action == 'ACC' %}
+								<td>{% trans "Ehdot hyväksytty" %}</td>
+								{% elif requestLog.action == 'POS' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "Sensitiiviset hyväksytty" %}</td>
+									{% else %}
+									<td>{% trans "Aineisto hyväksytty" %} ({{ requestLog.collection}})</td>
+									{% endif %}
+								{% elif requestLog.action == 'NEG' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "Sensitiiviset hylätty" %}</td>
+									{% else %}
+									<td>{% trans "Aineisto hylätty" %} ({{ requestLog.collection}})</td>
+									{% endif %}
 								{% endif %}
 								</tr>
 							{% endfor %}
