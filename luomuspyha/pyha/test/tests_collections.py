@@ -60,7 +60,8 @@ class CollectionTesting(TestCase):
 
 		self.assertEqual(col.taxonSecured, 0)
 
-	def test_removing_sens_secure_reasons_doesnt_remove_collection(self):
+#Haluttiin että poistaa collectionin
+	'''def test_removing_sens_secure_reasons_doesnt_remove_collection(self):
 		req = warehouse.store(JSON_MOCK7)
 		response = self.client.get('/pyha/request/2')
 		self.assertContains(response, 'Talvilintulaskenta')
@@ -68,7 +69,7 @@ class CollectionTesting(TestCase):
 		self.client.post('/pyha/removeSens', {'collectionId': col.id, 'requestid':req.id })
 		response = self.client.get('/pyha/request/2')
 		
-		self.assertContains(response, 'Talvilintulaskenta')
+		self.assertContains(response, 'Talvilintulaskenta')'''
 
 
 #Nyt pyynnön sivulla näkyy lähtökohtaisesti pelkästään yleisesti salattu data
