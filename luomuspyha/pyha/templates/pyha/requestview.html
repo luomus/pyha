@@ -83,51 +83,51 @@
 				<div class="floatcontainer">
 					<div class="inner" id="requestLog_list" style="overflow-y: scroll;">
 						{% if requestLog_list %}
-						<h4>{% trans "Muutoshistoria" %}</h4>
+						<h4>{% trans "changes_history" %}</h4>
 							<table class="inner, table-bordered">
 								<tr>
-									<th>{% trans "Päiväys" %}</th>	
-									<th>{% trans "Tekijä" %}</th>
-									<th>{% trans "Kuvaus" %}</th>
+									<th>{% trans "log_date" %}</th>	
+									<th>{% trans "log_maker" %}</th>
+									<th>{% trans "log_description" %}</th>
 								</tr>
 							{% for requestLog in requestLog_list %}
 							<tr>
 								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
 								{% if requestLog.role == 'handler' %}
-								<td>{% trans "Pyynnön käsittelijä" %}</td>
+								<td>{% trans "admin" %}</td>
 								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
-								<td>{% trans "Sensitiivisen tiedon käsittelijä" %}</td>
+								<td>{% trans "log_sensitive_data_handler" %}</td>
 								{% elif requestLog.role == 'MA.downloadRequestHandler' %}
-								<td>{% trans "Aineiston toimittaja" %}</td>
+								<td>{% trans "log_collection_provider" %}</td>
 								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
-								<td>{% trans "Sensitiivisen ja aineistokohtaisen tiedon käsittelijä" %}</td>
+								<td>{% trans "log_sensitive_and_collections_handler" %}</td>
 								{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
 								<td>{{requestLog.name}}</td>
 								{% else %}
-								<td>{% trans "Käyttäjä" %}</td>
+								<td>{% trans "user" %}</td>
 								{% endif %}
 								{% if requestLog.action == 'VIEW' %}
-								<td>{% trans "Katsottu" %}</td>
+								<td>{% trans "log_viewed" %}</td>
 								{% elif requestLog.action == 'ACC' %}
-								<td>{% trans "Ehdot hyväksytty" %}</td>
+								<td>{% trans "log_terms_accepted" %}</td>
 								{% elif requestLog.action == 'POS' %}
 									{% if requestLog.collection == None %}
-									<td>{% trans "Sensitiiviset hyväksytty" %}</td>
+									<td>{% trans "log_sensitives_accepted" %}</td>
 									{% else %}
-									<td>{% trans "Aineisto hyväksytty" %} ({{ requestLog.collection}})</td>
+									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection}})</td>
 									{% endif %}
 								{% elif requestLog.action == 'NEG' %}
 									{% if requestLog.collection == None %}
-									<td>{% trans "Sensitiiviset hylätty" %}</td>
+									<td>{% trans "log_sensitives_denied" %}</td>
 									{% else %}
-									<td>{% trans "Aineisto hylätty" %} ({{ requestLog.collection}})</td>
+									<td>{% trans "log_collection_denied" %} ({{ requestLog.collection}})</td>
 									{% endif %}
 								{% endif %}
 								</tr>
 							{% endfor %}
 							</table>
 						{% else %}
-							<strong>{% trans "Muutoshistoria on tyhjä" %}.</strong>
+							<strong>{% trans "log_no_history" %}.</strong>
 						{% endif %}
 					</div>
 				</div>
