@@ -111,8 +111,7 @@
 														</div>
 													</div>
 												</div>  
-										</div> 
-										
+											</div>  
 										<div class="tab-pane" role="tabpanel" id="step2">
 											<div id="customtable" class="form-group">
 											<!--  requestformcustom.html snippet appears here -->
@@ -134,7 +133,7 @@
 															</object>
 														</div>
 															<div class="modal-footer">
-																<input class="customlistcb" type="checkbox" id ="checkb{{ collection.id }}" name="{{ collection.id }}" value="{{collection.result.id}}"
+																<input type="checkbox" id ="checkb{{ collection.id }}" name="{{ collection.id }}" value="{{collection.result.id}}"
 																onchange="check({{ collection.id }}); checkForApproval();">
 																{% trans "I have read and understood the terms" %}<br>
 																<p></p>
@@ -145,7 +144,6 @@
 												</div>
 											{% endfor %}
 										</div>
-
 											<div class="tab-pane" role="tabpanel" id="step3">
 												<h3>{% trans "request_arguments_for_user" %}:</h3>
 												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'required_arguments' %}"></textarea>
@@ -155,15 +153,14 @@
 												</ul>
 											</div>
 											<div class="tab-pane" role="tabpanel" id="complete">
-											
+											<div id="summarytable">
+											<!--  requestformsummary.html snippet appears here -->
+											</div>
 												<ul class="list-inline pull-right">
 													<li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
 													<li>
-												<span id ="submitstatustext">{% trans "you_have_to_accept_at_least_one_terms" %}</span></li>
-												<script>checkForApproval();</script>
-
+												<span id ="submitstatustext">{% trans "you_have_to_accept_or_delete_all_terms" %}</span></li>
 												</ul>
-											</div>
 										<div class="clearfix"></div>
 									</div>
 										{% csrf_token %}
@@ -252,16 +249,17 @@
 		  nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
 		  if(document.getElementById('checkb'+ counter).checked){
 			  document.getElementById('statustext'+ counter).textContent=approvetext;
+			  document.getElementById('acc' + counter).hidden = true
 			  accepted[counter] = 1;
 		  }else{
 			  document.getElementById('statustext'+ counter).textContent=nonapprovetext;
+			  document.getElementById('acc' + counter).hidden = false
 			  accepted[counter] = 0;
 		}
 	  }
-	  function refreshCheck() { 
+	  function refreshCheck() {
 		var elements = document.getElementsByClassName("customlistcb");
 		for(var i=0; i<elements.length; i++) {
-			
 	      check(elements[i].name);
 	    }
 	  }
@@ -270,17 +268,20 @@
 	  }
 	  function checkForApproval(){
 		var approved = 0;
+		var size = 0;
 		for (i in accepted){
-		check(i);
 		approved += accepted[i];
+		size += 1;
 		}
 		approved += acceptedsens;
-		if(approved > 0){
+		if(approved == size+1){
 			document.getElementById('submit').disabled = false;
 			document.getElementById('submitstatustext').hidden = true;
+			document.getElementById('collections_not_approved').hidden = true;
 		}else{
 			document.getElementById('submit').disabled = true;
 			document.getElementById('submitstatustext').hidden = false;
+			document.getElementById('collections_not_approved').hidden = false;
 		}
 	}
 	</script>
@@ -357,6 +358,8 @@
 	  get_taxon_tab();
 	  get_custom_tab();
 	  get_request_header();
+	  get_summary_tab();
+	  setTimeout(refreshCheck,2000);
 	  });
 	</script>
 {% endblock %}

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^getTaxon/?$', views.get_taxon, name='get_taxon'),
     url(r'^getCustom/?$', views.get_custom, name='get_custom'),
     url(r'^getDescription/?$', views.get_request_header, name='get_request_header'),
+    url(r'^getSummary/?$', views.get_summary, name='get_summary'),
     url(r'^index/?$', views.index, name='index'),
     url(r'^api/request/?$', views.receiver, name='receiver'),
     url(r'^request/[1-9][0-9]*/?$', views.show_request),

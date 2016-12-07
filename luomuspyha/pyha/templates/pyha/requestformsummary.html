@@ -1,0 +1,19 @@
+﻿												{% load i18n %}
+												<div id="collections_not_approved">
+												{% for collection in customlist%}
+												<input class="customlistcb" type="hidden" name="{{collection.id}}">
+												{% endfor %}
+												<h3>{% trans "you_havent_accepted_the_following_collections" %}:</h3>
+												<ul>
+												{% for collection in collections%}
+													<li id="acc{{collection.id}}"> {{collection.result.collectionName}} </li>
+												{% endfor %}
+												</ul>
+												<p>{% trans "accept_the_terms_or_delete_the_collections_to_proceed" %}.</p>
+												</div>
+												<h3>{% trans "you_are_requestion_data_from_the_following_collections" %}</h3>
+												<ul>
+												{% for collection in collections %}
+													<li> {{collection.result.collectionName}} </li>
+												{% endfor %}
+												</ul>

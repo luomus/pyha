@@ -37,15 +37,11 @@ class Request(models.Model):
 
 class RequestLogEntry(models.Model):
 	VIEW = 'VIEW'
-	DELETE_SENS = 'DEL_S'
-	DELETE_COLL = 'DEL_C'
 	ACCEPT = 'ACC'
 	DECISION_POSITIVE = 'POS'
 	DECISION_NEGATIVE = 'NEG'
 	ACTION = (
 		(VIEW, 'views request'),
-		(DELETE_SENS, 'deletes sensitive sightings'),
-		(DELETE_COLL, 'deletes sightings secured by data provider'),
 		(ACCEPT, 'accepts terms of use'),
 		(DECISION_POSITIVE, 'accepts use of data'),
 		(DECISION_NEGATIVE, 'declines use of data'),

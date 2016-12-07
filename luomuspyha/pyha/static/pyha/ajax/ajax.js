@@ -24,6 +24,7 @@
 				if(this.status == 200){
 					get_taxon_tab();
 					get_custom_tab();
+					get_summary_tab();
 				} else if(this.status == 310){
 					window.location = this.responseText;
 				}
@@ -58,8 +59,6 @@
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById("customtable").innerHTML = this.responseText;
-			refreshCheck();
-			checkForApproval();
 			}
 		};
 	xhttp.open("POST", "/pyha/getCustom/", true);
@@ -79,6 +78,23 @@
 			}
 		};
 	xhttp.open("POST", "/pyha/getDescription/", true);
+	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhttp.send(data);
+	}
+	
+	function get_summary_tab() {
+	var xhttp = new XMLHttpRequest();
+	var requestid = document.getElementById('requestid').value;
+	var data = 'requestid='+requestid;
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("summarytable").innerHTML = this.responseText;
+			refreshCheck();
+			checkForApproval();
+			}
+		};
+	xhttp.open("POST", "/pyha/getSummary/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
