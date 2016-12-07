@@ -150,7 +150,6 @@
 							{% if userRequest.sensstatus == 0 %}
 							<h2>{% trans "User doesn't want sensitive data"%}</h2>
 							{% else %}
-							<h2>{% trans "User wants sensitive data"%}</h2>
 							<h2>{% trans "list_of_collections"%}</h2>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
