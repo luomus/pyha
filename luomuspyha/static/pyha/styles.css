@@ -13,10 +13,13 @@ html {
     padding: 5px;
     border-bottom: 1px solid #ddd;
  }
+ .tooltip {
+  z-index: 0;
+ }
  .page-header {
   padding-bottom: 0px;
   border-bottom: 0px solid #fff;
-}
+  }
  .clickable-row{
 	padding: 1px;
 	border-bottom: 2px solid #456789
