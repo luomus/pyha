@@ -43,8 +43,6 @@
 						{% csrf_token %}
 					</form>
 				</div>
-					
-				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 			<h2><span style="white-space: nowrap;">(
 					<span
 					{% if userRequest.status == 1 %}
@@ -129,7 +127,7 @@
 				<div id="filterlist" class="collapse">	
 
 					{% if filters %}
-						<table class = "table" style="width:100%">
+						<table class = "table" style="width:50%">
 							<tr style=color:black>
 								<th>{% trans "filter" %}</th>
 								<th>{% trans "values" %}</th>	

@@ -4,61 +4,21 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-			<div class="page-header">
-				<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
-					{% if userRequest.description and userRequest.description.strip %} 
-						{{userRequest.description}}
-						<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
-					{% else %}
-					{% endif %}
-				</h1>
-				
-				<!-- lomake kuvauksen muuttamiseen -->
-				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
-					<form class="form-inline" action="{% url 'pyha:description' %}" method="post" id ="description-form">
-						<div class="form-group">
-							
-							<div class="col-12" style="clear: left;">
-								<label for="description">{% trans "request_description" %}:</label>
-							</div>
-							
-							<div class="col-12" style="clear: left;">
-								{% if userRequest.description and userRequest.description.strip %}
-									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
-								{% else %} 
-									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{% trans "no_description" %}</textarea>
-								{% endif %}
-								<!--<input type="text" class="form-control" id="description" name="description" 
-										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
-								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-								<input type="hidden" id="next" name="next" value={{request.path}}>
-							</div>
-						
-							<div class="col-12" style="clear: left;">
-								<button type="submit" class="btn btn-default">{% trans "change" %}</button>
-							</div>
-							
-							<p id="description" class="form-text text-muted">
-							{% trans "A description is a voluntary way to name your request. Without it the requests title will be the requests date" %}.
-							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
-							</p>
-						</div>
-						{% csrf_token %}
-					</form>
-				</div>
+			<div class="page-header" id="request_header">
+				<!--  requestheader.html snippet appears here -->
 			</div>
-
+			
 			<!-- suodatinlista -->
 			<h3>{% trans "request_filters" %}:</h3>
 
 			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
-			<div id="filterlist" class="collapse">	
+			<div id="filterlist" class="collapse">
 
 				{% if filters %}
 					<table class = "table" style="width:100%">
 						<tr style=color:black>
 							<th>{% trans "filter" %}</th>
-							<th>{% trans "values" %}</th>	
+							<th>{% trans "values" %}</th>
 						</tr>	
 						{% for filter in filters %}
 						<tr>	
@@ -125,44 +85,10 @@
 								<form role="form">
 									<div class="tab-content">
 										<div class="tab-pane active" role="tabpanel" id="step1">
-											<div class="form-group">
-										{% if taxon %}
-											<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}:</h3>
-											<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
-
-
-												<div id="sensitiveInfo" class="collapse">
-													<p>{more_sensitivity_info}</p>
-												</div>
-
-												<p></p>
-												<table class="table" style="width:100%">
-												<tr style=color:black>
-
-												<th>{% trans "collection_for_user" %}</th>
-												<th>{% trans "request_description" %}</th>
-												<th>{% trans "sensitive_sightings" %}</th>
-												<th></th>
-
-												</tr>
-												{% for collection in taxonlist %}
-												<tr id="taxon{{ collection.address }}" style="border-	bottom:2px solid #456789">
-													<td>{{collection.result.collectionName}}</td>
-													<td>{{collection.result.description}}</td>
-													<td>{{collection.taxonSecured}}</td>
-													<td>
-
-														<div class="sensDeleteContainer">
-															<button class="removeSensitiveButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-																{% trans "Delete_these_sightings" %}
-														</div>
-
-													</td>
-												</tr>
-												{% endfor %}
-												</table>
-
-												<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+											<div id="senstable" class="form-group">
+											<!--  requestformtaxon.html snippet appears here -->
+											</div>
+											<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 													<div class="modal-lg modal-dialog" role="document">
 														<div class="modal-content">
 															<div class="modal-header">
@@ -175,93 +101,22 @@
 																		<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
 																		<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
 																	</object>
-												
-															  </div>
+															</div>
 															<div class="modal-footer">
 																<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
 																{% trans "i_accept_terms" %}<br>
 																<p></p>
-																<script>checksens();</script>
 																<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
 															</div>
 														</div>
 													</div>
-												</div>
-												<ul class="list-inline pull-right">
-
-												<button type="button" class="btn btn-default" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
-												{% else %}
-												<h3>{% trans "no_sensitive_sightings_go_to_step_2" %}.</h3>
-												{% endif %}
-												<ul class="list-inline pull-right">               
-													<li><span id ="statustextsens">{% trans "you_have_not_accepted_terms" %}</span></li>
-													<li><button type="button" class="btn btn-primary next-step">{% trans 'continue_to_step_2' %}</button></li>
-												</ul>
-											</div>
+												</div>  
 										</div> 
-
+										
 										<div class="tab-pane" role="tabpanel" id="step2">
-											<h3>{% trans "secured_collections_in_request" %}:</h3>
-												<table class="table" style="width:100%">
-													<tr style=color:black>
-														<th>{% trans "collection_for_user" %}</th>
-														<th>{% trans "request_description" %}</th>
-														<th>{% trans "sightings_secured_by_data_provider" %}</th>
-														<th></th>
-														<th>{% trans "terms_of_collection_use" %}</th>
-														<th>{% trans "request_status_for_user" %}</th>
-													</tr>
-													{% for collection in customlist %}
-													<tr>
-														<td>{{collection.result.collectionName}}
-														<td>{{collection.result.description}}</td>
-														<td>{{collection.customSecured}}</td>
-														<td>
-
-															<div class="customDeleteContainer">
-																<button class="removeCustomButton" id="form{{ forloop.counter0 }}" type="button" ><span class="glyphicon glyphicon-trash"></span></button>
-																{% trans "Delete_these_sightings" %}
-															</div>
-														</td>
-														<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
-														<td><span id ="statustext{{ forloop.counter0 }}">{% trans "you_have_not_accepted_terms" %}</span></td> 
-											
-														<!-- Modal -->
-														<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-															<div class="modal-lg modal-dialog" role="document">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-																		<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
-																	</div>
-																<div class="modal-body">
-																{% load static %}
-																	<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-																		<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
-																		<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-																	</object>
-																</div>
-																	<div class="modal-footer">
-																		<input type="checkbox" id ="checkb{{forloop.counter0}}" name="checkb" value="{{collection.result.id}}"
-																		onchange="check({{ forloop.counter0 }}); checkForApproval();">
-																		{% trans "I have read and understood the terms" %}<br>
-																		<p></p>
-																		<script>check({{forloop.counter0}});</script>
-																		<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-														
-														
-													</tr>
-													{% endfor %}
-												</table>
-											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-											<ul class="list-inline pull-right">
-												<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-												<li><button type="button" class="btn btn-primary next-step">{%trans 'continue_to_step_3'%}</button></li>
-											</ul>
+											<div id="customtable" class="form-group">
+											<!--  requestformcustom.html snippet appears here -->
+											</div>
 										</div>
 
 											<div class="tab-pane" role="tabpanel" id="step3">
@@ -323,18 +178,17 @@
 						</div>
 					</form>
 					<!-- delete sensitive data -->
-					<form class="form-hidden" action="javascript:removeAjax({{ forloop.counter0 }})" id="deletesensform{{ forloop.counter0 }}" method="post">
+					<form class="form-hidden" action="javascript:removeAjax({{ collection.id }})" id="deletesensform{{ collection.id }}" method="post">
 						<div class="form-group">
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-							<input type="hidden" id="taxoncollectionId{{ forloop.counter0 }}" name="collectionId" value={{collection.id}}>
+							<input type="hidden" id="taxoncollectionId{{ collection.id }}" name="collectionId" value={{collection.id}}>
 							<input type="hidden" id="next" name="next" value={{request.path}}>
 							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
 						</div>
 						{% csrf_token %}
-
-					<!--  delete custom data -->
 					</form>
-					<form class="form-hidden" action="/pyha/removeCustom" id="deletecustomform{{ forloop.counter0 }}" method="post">
+					<!--  delete custom data -->
+					<form class="form-hidden" action="javascript:removeAjax({{ collection.id }})" id="deletecustomform{{ collection.id }}" method="post">
 						<div class="form-group">
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 							<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
@@ -358,9 +212,11 @@
 		  nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
 		  if(document.getElementById('checkbsens').checked){
 			  document.getElementById('statustextsens').textContent=approvetext;
+			  document.getElementById('to_step_2').disabled = false;
 			  acceptedsens = 1;
 		  }else{
 			  document.getElementById('statustextsens').textContent=nonapprovetext;
+			  document.getElementById('to_step_2').disabled = true;
 			  acceptedsens = 0;
 		}
 	  }
@@ -391,11 +247,8 @@
 			document.getElementById('submit').disabled = true;
 			document.getElementById('submitstatustext').hidden = false;
 		}
-	  }
-	  
-
+	}
 	</script>
-	
 
 	
 	<script>
@@ -419,7 +272,7 @@
 {% endblock %}
 {% block end_script %}
 	<script>
-		$('.deleteContainer').on('click',function(e){
+		$(document).on('click','.deleteContainer',function(e){
 			var name ="#delete" + $(this).find('.removeCollectionButton').attr('id');
 			e.preventDefault();
 			$('#confirm-modal').off()
@@ -429,7 +282,7 @@
 			});
 			
 		});
-		$('.sensDeleteContainer').on('click',function(e){
+		$(document).on('click','.sensDeleteContainer',function(e){
 			var name = "#deletesens" + $(this).find('.removeSensitiveButton').attr('id');
 			e.preventDefault();
 			$('#confirm-modal').off()
@@ -439,7 +292,7 @@
 			});
 
 		});
-		$('.customDeleteContainer').on('click',function(e){
+		$(document).on('click','.customDeleteContainer',function(e){
 			var name = "#deletecustom" + $(this).find('.removeCustomButton').attr('id');
 			e.preventDefault();
 			$('#confirm-modal').off()
@@ -452,44 +305,23 @@
 
 	<script>
 	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
-	$(document).ready(function(){
+	var done = false;
+	function checkHasDescription(){
 		var descExists = {{ userRequest.description.strip|length }};
-		if (descExists == 0) {
-			$("#descriptionEdit").show();
+		if (descExists == 0 && !done) {
+			$("#descriptionEdit").collapse('show');
+			done = true;
 		}
-	});
+	}
 	</script>
 	
-	<!-- oma scripti kuvauksen muokkausnapille show/hide -->
+	<!-- create html snippets in tabs -->
 	<script>
 	$(document).ready(function(){
-	  $("#descriptionEdit").on("hide.bs.collapse", function(){
-		$("#descriptionButton").html('<span class="glyphicon glyphicon-pencil"></span>');
-	  });
-	  $("#descriptionEdit").on("show.bs.collapse", function(){
-		$("#descriptionButton").html('Piilota');
-	  });
+	  get_taxon_tab();
+	  get_custom_tab();
+	  get_request_header();
 	});
-	</script>
-	
-	<script>
-	function removeAjax(index) {
-	var xhttp = new XMLHttpRequest();
-	var collectionid = document.getElementById('taxoncollectionId'+index).value;
-	var requestid = document.getElementById('requestid').value;
-	var data = 'requestid='+requestid+'&collectionId='+collectionid;
-	alert('{% trans "no_sensitive_sightings_go_to_step_2" %}');
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var response = JSON.parse(this.responseText);
-			document.getElementById("taxon"+response).innerHTML = "";
-			}
-		};
-	xhttp.open("POST", "/pyha/removeAjax/", true);
-	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
-	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhttp.send(data);
-	} 
 	</script>
 {% endblock %}
 {% block modal %}

@@ -6,7 +6,7 @@ import time
 from luomuspyha import secrets
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.http import JsonResponse
 from django.template import loader, Context, RequestContext
 from django.core.urlresolvers import reverse
@@ -148,15 +148,14 @@ def show_request(request):
 				return render(request, 'pyha/requestview.html', context)
 
 
-def show_filters(request):
-		requestId = os.path.basename(os.path.normpath(request.path))
+def show_filters(request, requestId):
 		userRequest = Request.requests.get(id=requestId)
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		filterResultList = list(range(len(vars(filterList).keys())))
-		if 'has expired' in cache.get('filters'+requestId, 'has expired'):
+		lang = request.LANGUAGE_CODE
+		if 'has expired' in cache.get('filters'+requestId+lang, 'has expired'):
 			filters = requests.get(settings.LAJIFILTERS_URL)
 			if(filters.status_code == 200):
-				lang = request.LANGUAGE_CODE
 				filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
 				for i, b in enumerate(vars(filterList).keys()):
 					languagelabel = b
@@ -188,21 +187,20 @@ def show_filters(request):
 								filternamelist[k]= filtername
 					tup = (b, filternamelist, languagelabel)
 					filterResultList[i] = tup
-				cache.set('filters'+requestId,filterResultList)
+				cache.set('filters'+requestId+lang,filterResultList)
 			else:
 				for i, b in enumerate(vars(filterList).keys()):
 					languagelabel = b
 					filternamelist = getattr(filterList, b)
 					tup = (b, filternamelist, b)
 					filterResultList[i] = tup
-				cache.set('filters'+requestId,filterResultList)
+				cache.set('filters'+requestId+lang,filterResultList)
 				return filterResultList
 		else:
-				return cache.get('filters'+requestId)
+			return cache.get('filters'+requestId+lang)
 		return filterResultList
 
-def requestLog(request):
-		requestId = os.path.basename(os.path.normpath(request.path))
+def requestLog(request, requestId):
 		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId))
 		email = []
 		for l in requestLog_list:
@@ -214,7 +212,6 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		customList = []
 		collectionList = []
 		create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
-		
 		taxon = False
 		for collection in collectionList:
 			if(collection.taxonSecured > 0):
@@ -222,18 +219,18 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		hasRole = role1 or role2
 		request_owner = fetch_user_name(userRequest.user)
 		request_owners_email = fetch_email_address(userRequest.user)
-		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request), "filters": show_filters(request), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		return context
 
 def get_values_for_collections(requestId, request, List, cacheIdentifier):
-		if 'has expired' in cache.get(str(requestId)+'collection_values'+str(cacheIdentifier), 'has expired'):
+		if 'has expired' in cache.get(str(requestId)+'collection_values'+str(cacheIdentifier)+request.LANGUAGE_CODE, 'has expired'):
 			cachedDict = {}
 			for i, c in enumerate(List):
 				c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
 				cachedDict[c.address] = c.result
-			cache.set(str(requestId)+'collection_values'+str(cacheIdentifier), cachedDict)
+			cache.set(str(requestId)+'collection_values'+str(cacheIdentifier)+request.LANGUAGE_CODE, cachedDict)
 		else:
-			cachedDict = cache.get(str(requestId)+'collection_values'+str(cacheIdentifier))
+			cachedDict = cache.get(str(requestId)+'collection_values'+str(cacheIdentifier)+request.LANGUAGE_CODE)
 			for i, c in enumerate(List):
 				c.result = cachedDict[c.address]
 
@@ -298,23 +295,112 @@ def remove_custom_data(request):
 	return HttpResponseRedirect(next)
 
 def remove_ajax(request):
-	next = request.POST.get('next', '/')
-	if request.method == 'POST':
+	if request.method == 'POST' and request.POST.get('requestid'):
+		if check_language(request):
+				return HttpResponseRedirect(request.path)
+		#Has Access
+		requestId = request.POST.get('requestid')
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestId)
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponsePermanentRedirect('/pyha/', status=310)
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
+		userRequest = Request.requests.get(id = requestId)
 		collection = Collection.objects.get(id = collectionId)
+		collection.taxonSecured = 0;
 		collection.customSecured = 0;
-		#collection.save(update_fields=['customSecured'])
+		collection.save(update_fields=['taxonSecured', 'customSecured'])
 		#make a log entry
-		#loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
-		#		role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
-
-		#if(collection.taxonSecured == 0) and (collection.status != -1):
-		#	collection.status = -1
-		#	collection.save(update_fields=['status'])
-		#	check_all_collections_removed(requestId)
-		return JsonResponse(collection.address, safe = False)
-	return HttpResponseRedirect(next)
+		loki = RequestLogEntry.requestLog.create(request=Request.requests.get(id=requestId), collection = collection, user=request.session["user_id"], 
+				role=request.session["current_user_role"], action=RequestLogEntry.DELETE_COLL)
+		if(collection.customSecured == 0) and (collection.status != -1):
+			collection.status = -1
+			collection.save(update_fields=['status'])
+			if(check_all_collections_removed(requestId)):
+				return HttpResponse("/pyha/", status=310)
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
+		return render(request, 'pyha/requestformtaxon.html', context)
+	return HttpResponse("")
+	
+def get_taxon(request):
+	if request.method == 'POST' and request.POST.get('requestid'):
+		if check_language(request):
+				return HttpResponseRedirect(request.path)
+		#Has Access
+		requestId = request.POST.get('requestid')
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestId)
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
+		return render(request, 'pyha/requestformtaxon.html', context)
+	return HttpResponse("")
+	
+def get_custom(request):
+	if request.method == 'POST' and request.POST.get('requestid'):
+		if check_language(request):
+				return HttpResponseRedirect(request.path)
+		#Has Access
+		requestId = request.POST.get('requestid')
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestId)
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
+		return render(request, 'pyha/requestformcustom.html', context)
+	return HttpResponse("")
+	
+def description_ajax(request):
+	if request.method == 'POST' and request.POST.get('requestid'):
+		if request.method == 'POST':
+			next = request.POST.get('next', '/')
+			requestId = request.POST.get('requestid')
+			userRequest = Request.requests.get(id = requestId)
+			userRequest.description = request.POST.get('description')
+			userRequest.save(update_fields=['description'])
+			return HttpResponseRedirect(next)
+		return render(request, 'pyha/requestformcustom.html', context)
+	return HttpResponse("")
+	
+def get_request_header(request):
+	if request.method == 'POST' and request.POST.get('requestid'):
+		if check_language(request):
+				return HttpResponseRedirect(request.path)
+		#Has Access
+		requestId = request.POST.get('requestid')
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestId)
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
+		return render(request, 'pyha/requestheader.html', context)
+	return HttpResponse("")
+	
 def fetch_user_name(personId):
 	'''
 	fetches user name for a person registered in Laji.fi
@@ -359,6 +445,8 @@ def check_all_collections_removed(requestId):
 		if not collectionList:
 			userRequest.status = -1
 			userRequest.save(update_fields=['status'])
+			return True
+		return False
 
 def approve(request):
 	if request.method == 'POST':
@@ -372,7 +460,7 @@ def approve(request):
 					userCollection = Collection.objects.get(address = rc, request = requestId)
 					userCollection.status = 1
 					userCollection.save(update_fields=['status'])
-				else:
+				elif Collection.objects.filter(request = requestId, taxonSecured__gt = 0, status__gte = 0).count() > 0:
 					#userRequest = Request.requests.get(id = requestId)
 					userRequest.sensstatus = 1
 					userRequest.save(update_fields=['sensstatus'])

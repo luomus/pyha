@@ -24,7 +24,6 @@
     if(bodyColor != 'rgb(51, 51, 51)') {
     $("head").prepend('<link rel="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap.min.css">');}});
   </script>
-
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- <link rel="stylesheet" href="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap-theme.min.css"> -->
@@ -132,6 +131,7 @@
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
   <!-- <script src="{{ static }}pyha/boostrap-dataTables/dataTables.bootstrap.min.js"></script> -->
   <script src="{{ static }}pyha/tabs/tabs.js"></script>
+  <script src="{{ static }}pyha/ajax/ajax.js"></script>
     <script>
 		function myFunction() {
 		    document.getElementById("myDropdown").classList.toggle("show");
@@ -172,23 +172,3 @@
 </html>
 {% block end_script %}
 {% endblock %}
-
-<!-- Ajax csrf -->
-<script>
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-
-</script>

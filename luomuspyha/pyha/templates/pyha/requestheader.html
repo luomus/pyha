@@ -1,0 +1,41 @@
+﻿				{% load i18n %}
+				<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
+					{% if userRequest.description and userRequest.description.strip %} 
+						{{userRequest.description}}
+					{% else %}
+					{% endif %}
+					<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
+				</h1>
+				<!-- lomake kuvauksen muuttamiseen -->
+				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
+					<form class="form-inline" action="javascript:descriptionAjax()" method="post" id ="description-form">
+						<div class="form-group">
+							
+							<div class="col-12" style="clear: left;">
+								<label for="description">{% trans "request_description" %}:</label>
+							</div>
+							
+							<div class="col-12" style="clear: left;">
+								{% if userRequest.description and userRequest.description.strip %}
+									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
+								{% else %} 
+									<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{% trans "no_description" %}</textarea>
+								{% endif %}
+								<!--<input type="text" class="form-control" id="description" name="description" 
+										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
+								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+								<input type="hidden" id="next" name="next" value={{request.path}}>
+							</div>
+						
+							<div class="col-12" style="clear: left;">
+								<button type="submit" class="btn btn-default">{% trans "change" %}</button>
+							</div>
+							
+							<p id="description" class="form-text text-muted">
+							{% trans "A description is a voluntary way to name your request. Without it the requests title will be the requests date" %}.
+							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
+							</p>
+						</div>
+						{% csrf_token %}
+					</form>
+				</div>
