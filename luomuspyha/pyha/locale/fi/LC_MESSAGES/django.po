@@ -31,8 +31,8 @@ msgid "Ruotsi"
 msgstr ""
 
 #: pyha/templates/pyha/base.html:48
-msgid "Toggle navigation"
-msgstr ""
+msgid "Toggle_navigation"
+msgstr "Selaa"
 
 #: pyha/templates/pyha/base.html:58 pyha/templates/pyha/handler/index.html:12
 msgid "all_requests"

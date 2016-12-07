@@ -30,7 +30,7 @@ msgid "Ruotsi"
 msgstr ""
 
 #: pyha/templates/pyha/base.html:48
-msgid "Toggle navigation"
+msgid "Toggle_navigation"
 msgstr "Toggle navigation"
 
 #: pyha/templates/pyha/base.html:58 pyha/templates/pyha/handler/index.html:12
