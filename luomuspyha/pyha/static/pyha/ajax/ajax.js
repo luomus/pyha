@@ -58,6 +58,8 @@
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById("customtable").innerHTML = this.responseText;
+			refreshCheck();
+			checkForApproval();
 			}
 		};
 	xhttp.open("POST", "/pyha/getCustom/", true);
