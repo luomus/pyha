@@ -444,10 +444,8 @@ msgid "Delete_these_sightings"
 msgstr "Poista tämä aineisto"
 
 #: pyha/templates/pyha/requestformcustom.html:33
-#, fuzzy
-#| msgid "no_sensitive_sightings_go_to_step_2"
 msgid "no_custom_sightings_go_to_step_3"
-msgstr "Pyyntöön ei sisälly sensitiivisiä havaintoja, siirry kohtaan 2"
+msgstr "Pyyntöön ei sisälly aineistokohtaisia havaintoja, siirry kohtaan 3"
 
 #: pyha/templates/pyha/requestformcustom.html:38
 msgid "continue_to_step_3"
