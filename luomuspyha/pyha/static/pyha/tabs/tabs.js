@@ -13,14 +13,13 @@ $(document).ready(function () {
         }
     });
 
-    $(".next-step").click(function (e) {
-
+    $(document).on('click',".next-step",function (e) {
         var $active = $('.wizard .nav-tabs li.active');
         $active.next().removeClass('disabled');
         nextTab($active);
 
     });
-    $(".prev-step").click(function (e) {
+    $(document).on('click',".prev-step",function (e) {
 
         var $active = $('.wizard .nav-tabs li.active');
         prevTab($active);
