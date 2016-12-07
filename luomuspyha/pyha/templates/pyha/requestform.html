@@ -1,4 +1,4 @@
-﻿{% extends "pyha/base.html" %}
+{% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
 	<div class="container-fluid">
@@ -78,6 +78,7 @@
 			<!-- aineistolista -->
 			{% if collections %}
 			<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
+
 				<div class="col-xs-12">
 					<div class="row">
 						<h2>{% trans 'approval_of_terms' %} </h2>

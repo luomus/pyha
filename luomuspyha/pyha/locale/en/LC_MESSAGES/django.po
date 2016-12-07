@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-05 16:13+0200\n"
+"POT-Creation-Date: 2016-12-07 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgid "admin"
 msgstr "Requesthandler"
 
 #: pyha/templates/pyha/base.html:70 pyha/templates/pyha/base.html:73
-#: pyha/templates/pyha/requestview.html:101
+#: pyha/templates/pyha/requestview.html:109
 msgid "user"
 msgstr "User"
 
@@ -76,60 +76,60 @@ msgid "request_status_for_admin"
 msgstr "Status"
 
 #: pyha/templates/pyha/handler/index.html:48 pyha/templates/pyha/index.html:49
-#: pyha/templates/pyha/requestform.html:196
-#: pyha/templates/pyha/requestform.html:226
-#: pyha/templates/pyha/requestform.html:357
-#: pyha/templates/pyha/requestform.html:368
+#: pyha/templates/pyha/requestform.html:189
+#: pyha/templates/pyha/requestform.html:221
+#: pyha/templates/pyha/requestform.html:371
+#: pyha/templates/pyha/requestform.html:382
 msgid "you_have_not_accepted_terms"
 msgstr "You haven't accepted the conditions"
 
 #: pyha/templates/pyha/handler/index.html:51
 #: pyha/templates/pyha/handler/requestview.html:30
-#: pyha/templates/pyha/handler/requestview.html:170
-#: pyha/templates/pyha/handler/requestview.html:223
+#: pyha/templates/pyha/handler/requestview.html:174
+#: pyha/templates/pyha/handler/requestview.html:227
 #: pyha/templates/pyha/index.html:52 pyha/templates/pyha/requestview.html:63
-#: pyha/templates/pyha/requestview.html:205
-#: pyha/templates/pyha/requestview.html:267
+#: pyha/templates/pyha/requestview.html:217
+#: pyha/templates/pyha/requestview.html:279
 msgid "waiting_for_data_provider"
 msgstr "Pending the processing of the data provider"
 
 #: pyha/templates/pyha/handler/index.html:54
 #: pyha/templates/pyha/handler/requestview.html:33
-#: pyha/templates/pyha/handler/requestview.html:174
-#: pyha/templates/pyha/handler/requestview.html:227
+#: pyha/templates/pyha/handler/requestview.html:178
+#: pyha/templates/pyha/handler/requestview.html:231
 #: pyha/templates/pyha/index.html:55 pyha/templates/pyha/requestview.html:66
-#: pyha/templates/pyha/requestview.html:209
-#: pyha/templates/pyha/requestview.html:271
+#: pyha/templates/pyha/requestview.html:221
+#: pyha/templates/pyha/requestview.html:283
 msgid "partially_accepted"
 msgstr "Partially accepted"
 
 #: pyha/templates/pyha/handler/index.html:57
 #: pyha/templates/pyha/handler/requestview.html:36
-#: pyha/templates/pyha/handler/requestview.html:172
-#: pyha/templates/pyha/handler/requestview.html:225
+#: pyha/templates/pyha/handler/requestview.html:176
+#: pyha/templates/pyha/handler/requestview.html:229
 #: pyha/templates/pyha/index.html:58 pyha/templates/pyha/requestview.html:69
-#: pyha/templates/pyha/requestview.html:207
-#: pyha/templates/pyha/requestview.html:269
+#: pyha/templates/pyha/requestview.html:219
+#: pyha/templates/pyha/requestview.html:281
 msgid "denied"
 msgstr "Denied"
 
 #: pyha/templates/pyha/handler/index.html:60
 #: pyha/templates/pyha/handler/requestview.html:39
-#: pyha/templates/pyha/handler/requestview.html:176
-#: pyha/templates/pyha/handler/requestview.html:229
+#: pyha/templates/pyha/handler/requestview.html:180
+#: pyha/templates/pyha/handler/requestview.html:233
 #: pyha/templates/pyha/index.html:61 pyha/templates/pyha/requestview.html:72
-#: pyha/templates/pyha/requestview.html:211
-#: pyha/templates/pyha/requestview.html:273
+#: pyha/templates/pyha/requestview.html:223
+#: pyha/templates/pyha/requestview.html:285
 msgid "accepted"
 msgstr "Accepted"
 
 #: pyha/templates/pyha/handler/index.html:62
 #: pyha/templates/pyha/handler/requestview.html:42
-#: pyha/templates/pyha/handler/requestview.html:178
-#: pyha/templates/pyha/handler/requestview.html:231
+#: pyha/templates/pyha/handler/requestview.html:182
+#: pyha/templates/pyha/handler/requestview.html:235
 #: pyha/templates/pyha/index.html:64 pyha/templates/pyha/requestview.html:75
-#: pyha/templates/pyha/requestview.html:213
-#: pyha/templates/pyha/requestview.html:277
+#: pyha/templates/pyha/requestview.html:225
+#: pyha/templates/pyha/requestview.html:289
 msgid "unknown"
 msgstr "Unknown"
 
@@ -162,188 +162,194 @@ msgid "log_description"
 msgstr "Description"
 
 #: pyha/templates/pyha/handler/requestview.html:67
-#: pyha/templates/pyha/requestview.html:104
+#: pyha/templates/pyha/requestview.html:112
 msgid "log_viewed"
 msgstr "Viewed"
 
 #: pyha/templates/pyha/handler/requestview.html:69
-#: pyha/templates/pyha/requestview.html:106
-msgid "log_sensitives_deleted"
-msgstr "Sensitive data removed"
-
-#: pyha/templates/pyha/handler/requestview.html:71
-#: pyha/templates/pyha/requestview.html:108
-msgid "log_secured_deleted"
-msgstr "Secured data removed"
-
-#: pyha/templates/pyha/handler/requestview.html:73
-#: pyha/templates/pyha/requestview.html:110
+#: pyha/templates/pyha/requestview.html:114
 msgid "log_terms_accepted"
 msgstr "Terms accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:75
-#: pyha/templates/pyha/requestview.html:112
-msgid "log_request_accepted"
+#: pyha/templates/pyha/handler/requestview.html:72
+#: pyha/templates/pyha/requestview.html:117
+#, fuzzy
+#| msgid "log_sensitives_deleted"
+msgid "log_sensitives_accepted"
+msgstr "Sensitive data removed"
+
+#: pyha/templates/pyha/handler/requestview.html:74
+#: pyha/templates/pyha/requestview.html:119
+#, fuzzy
+#| msgid "log_request_accepted"
+msgid "log_collection_accepted"
 msgstr "Request accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:77
-#: pyha/templates/pyha/requestview.html:114
+#: pyha/templates/pyha/handler/requestview.html:78
+#: pyha/templates/pyha/requestview.html:123
+#, fuzzy
+#| msgid "log_sensitives_deleted"
+msgid "log_sensitives_denied"
+msgstr "Sensitive data removed"
+
+#: pyha/templates/pyha/handler/requestview.html:80
+#: pyha/templates/pyha/requestview.html:125
 #, fuzzy
 #| msgid "request_date"
-msgid "log_request_denied"
+msgid "log_collection_denied"
 msgstr "Request denied"
 
-#: pyha/templates/pyha/handler/requestview.html:83
-#: pyha/templates/pyha/requestview.html:120
+#: pyha/templates/pyha/handler/requestview.html:87
+#: pyha/templates/pyha/requestview.html:132
 msgid "log_no_history"
 msgstr "No history"
 
-#: pyha/templates/pyha/handler/requestview.html:90
+#: pyha/templates/pyha/handler/requestview.html:94
 #: pyha/templates/pyha/requestform.html:51
-#: pyha/templates/pyha/requestview.html:126
+#: pyha/templates/pyha/requestview.html:138
 msgid "request_filters"
 msgstr "Requests filters"
 
-#: pyha/templates/pyha/handler/requestview.html:92
+#: pyha/templates/pyha/handler/requestview.html:96
 #: pyha/templates/pyha/requestform.html:53
-#: pyha/templates/pyha/requestview.html:128
+#: pyha/templates/pyha/requestview.html:140
 msgid "show"
 msgstr "Show"
 
-#: pyha/templates/pyha/handler/requestview.html:97
+#: pyha/templates/pyha/handler/requestview.html:101
 #: pyha/templates/pyha/requestform.html:59
-#: pyha/templates/pyha/requestview.html:134
+#: pyha/templates/pyha/requestview.html:146
 msgid "filter"
 msgstr "Filter"
 
-#: pyha/templates/pyha/handler/requestview.html:98
+#: pyha/templates/pyha/handler/requestview.html:102
 #: pyha/templates/pyha/requestform.html:60
-#: pyha/templates/pyha/requestview.html:135
+#: pyha/templates/pyha/requestview.html:147
 msgid "values"
 msgstr "Values"
 
-#: pyha/templates/pyha/handler/requestview.html:112
+#: pyha/templates/pyha/handler/requestview.html:116
 #: pyha/templates/pyha/requestform.html:74
-#: pyha/templates/pyha/requestview.html:149
+#: pyha/templates/pyha/requestview.html:161
 msgid "no_filters"
 msgstr "There are no filters for this request"
 
-#: pyha/templates/pyha/handler/requestview.html:116
+#: pyha/templates/pyha/handler/requestview.html:120
 msgid "request_arguments_for_admin"
 msgstr "Requests arguments"
 
-#: pyha/templates/pyha/handler/requestview.html:127
-#: pyha/templates/pyha/requestform.html:169
-#: pyha/templates/pyha/requestform.html:234
-#: pyha/templates/pyha/requestview.html:166
+#: pyha/templates/pyha/handler/requestview.html:131
+#: pyha/templates/pyha/requestform.html:163
+#: pyha/templates/pyha/requestform.html:229
+#: pyha/templates/pyha/requestview.html:178
 msgid "sensitive_terms"
 msgstr "Terms for sensitive data"
 
-#: pyha/templates/pyha/handler/requestview.html:132
-#: pyha/templates/pyha/handler/requestview.html:263
-#: pyha/templates/pyha/requestform.html:174
-#: pyha/templates/pyha/requestform.html:239
-#: pyha/templates/pyha/requestview.html:171
-#: pyha/templates/pyha/requestview.html:291
+#: pyha/templates/pyha/handler/requestview.html:136
+#: pyha/templates/pyha/handler/requestview.html:267
+#: pyha/templates/pyha/requestform.html:168
+#: pyha/templates/pyha/requestform.html:234
+#: pyha/templates/pyha/requestview.html:183
+#: pyha/templates/pyha/requestview.html:303
 msgid "If_you_cannot_see_terms_you_can_load_them"
 msgstr "If you can't see the terms you can download them "
 
-#: pyha/templates/pyha/handler/requestview.html:132
-#: pyha/templates/pyha/handler/requestview.html:263
-#: pyha/templates/pyha/requestform.html:174
-#: pyha/templates/pyha/requestform.html:239
-#: pyha/templates/pyha/requestview.html:171
-#: pyha/templates/pyha/requestview.html:291
+#: pyha/templates/pyha/handler/requestview.html:136
+#: pyha/templates/pyha/handler/requestview.html:267
+#: pyha/templates/pyha/requestform.html:168
+#: pyha/templates/pyha/requestform.html:234
+#: pyha/templates/pyha/requestview.html:183
+#: pyha/templates/pyha/requestview.html:303
 msgid "here"
 msgstr "here"
 
-#: pyha/templates/pyha/handler/requestview.html:138
-#: pyha/templates/pyha/requestform.html:246
-#: pyha/templates/pyha/requestview.html:177
+#: pyha/templates/pyha/handler/requestview.html:142
+#: pyha/templates/pyha/requestform.html:241
+#: pyha/templates/pyha/requestview.html:189
 msgid "I have read and understood the terms"
 msgstr "I have read and understood the terms "
 
-#: pyha/templates/pyha/handler/requestview.html:141
-#: pyha/templates/pyha/handler/requestview.html:268
-#: pyha/templates/pyha/requestform.html:184
-#: pyha/templates/pyha/requestform.html:249
-#: pyha/templates/pyha/requestview.html:180
-#: pyha/templates/pyha/requestview.html:296
+#: pyha/templates/pyha/handler/requestview.html:145
+#: pyha/templates/pyha/handler/requestview.html:272
+#: pyha/templates/pyha/requestform.html:177
+#: pyha/templates/pyha/requestform.html:244
+#: pyha/templates/pyha/requestview.html:192
+#: pyha/templates/pyha/requestview.html:308
 msgid "exit"
 msgstr "Exit"
 
-#: pyha/templates/pyha/handler/requestview.html:147
+#: pyha/templates/pyha/handler/requestview.html:151
 msgid "User doesn't want sensitive data"
 msgstr "User doesn't want sensitive data"
 
-#: pyha/templates/pyha/handler/requestview.html:149
+#: pyha/templates/pyha/handler/requestview.html:153
 msgid "User wants sensitive data"
 msgstr "User wants sensitive data"
 
-#: pyha/templates/pyha/handler/requestview.html:150
+#: pyha/templates/pyha/handler/requestview.html:154
 msgid "list_of_collections"
 msgstr "Collections including sensitive data:"
 
-#: pyha/templates/pyha/handler/requestview.html:156
-#: pyha/templates/pyha/handler/requestview.html:204
-#: pyha/templates/pyha/requestview.html:191
-#: pyha/templates/pyha/requestview.html:235
+#: pyha/templates/pyha/handler/requestview.html:160
+#: pyha/templates/pyha/handler/requestview.html:208
+#: pyha/templates/pyha/requestview.html:203
+#: pyha/templates/pyha/requestview.html:247
 msgid "state_of_processing"
 msgstr "State of processing"
 
-#: pyha/templates/pyha/handler/requestview.html:157
-#: pyha/templates/pyha/handler/requestview.html:206
-#: pyha/templates/pyha/requestview.html:192
+#: pyha/templates/pyha/handler/requestview.html:161
+#: pyha/templates/pyha/handler/requestview.html:210
+#: pyha/templates/pyha/requestview.html:204
 msgid "decision_arguments"
 msgstr "Arguments for decision"
 
-#: pyha/templates/pyha/handler/requestview.html:187
-#: pyha/templates/pyha/handler/requestview.html:242
+#: pyha/templates/pyha/handler/requestview.html:191
+#: pyha/templates/pyha/handler/requestview.html:246
 msgid "accept"
 msgstr "Accept"
 
-#: pyha/templates/pyha/handler/requestview.html:188
-#: pyha/templates/pyha/handler/requestview.html:243
+#: pyha/templates/pyha/handler/requestview.html:192
+#: pyha/templates/pyha/handler/requestview.html:247
 msgid "refuse"
 msgstr "Refuse"
 
-#: pyha/templates/pyha/handler/requestview.html:199
-#: pyha/templates/pyha/requestform.html:203
+#: pyha/templates/pyha/handler/requestview.html:203
+#: pyha/templates/pyha/requestform.html:197
 #, fuzzy
 #| msgid "collections_in_request"
 msgid "secured_collections_in_request"
 msgstr "Collections in this request"
 
-#: pyha/templates/pyha/handler/requestview.html:202
+#: pyha/templates/pyha/handler/requestview.html:206
 msgid "collection_for_admin"
 msgstr "Collection"
 
-#: pyha/templates/pyha/handler/requestview.html:203
+#: pyha/templates/pyha/handler/requestview.html:207
 #: pyha/templates/pyha/index.html:20 pyha/templates/pyha/requestform.html:21
-#: pyha/templates/pyha/requestform.html:142
-#: pyha/templates/pyha/requestform.html:207
-#: pyha/templates/pyha/requestview.html:232
+#: pyha/templates/pyha/requestform.html:143
+#: pyha/templates/pyha/requestform.html:201
+#: pyha/templates/pyha/requestview.html:244
 msgid "request_description"
 msgstr "Description"
 
-#: pyha/templates/pyha/handler/requestview.html:205
-#: pyha/templates/pyha/handler/requestview.html:233
-#: pyha/templates/pyha/requestform.html:191
-#: pyha/templates/pyha/requestform.html:225
-#: pyha/templates/pyha/requestview.html:159
-#: pyha/templates/pyha/requestview.html:236
-#: pyha/templates/pyha/requestview.html:279
+#: pyha/templates/pyha/handler/requestview.html:209
+#: pyha/templates/pyha/handler/requestview.html:237
+#: pyha/templates/pyha/requestform.html:184
+#: pyha/templates/pyha/requestform.html:220
+#: pyha/templates/pyha/requestview.html:171
+#: pyha/templates/pyha/requestview.html:248
+#: pyha/templates/pyha/requestview.html:291
 msgid "terms"
 msgstr "Terms"
 
-#: pyha/templates/pyha/handler/requestview.html:258
-#: pyha/templates/pyha/requestview.html:286
+#: pyha/templates/pyha/handler/requestview.html:262
+#: pyha/templates/pyha/requestview.html:298
 msgid "Terms of use of the collections"
 msgstr "Terms of use of the collections"
 
-#: pyha/templates/pyha/handler/requestview.html:279
-#: pyha/templates/pyha/requestform.html:295
-#: pyha/templates/pyha/requestview.html:309
+#: pyha/templates/pyha/handler/requestview.html:283
+#: pyha/templates/pyha/requestform.html:309
+#: pyha/templates/pyha/requestview.html:321
 msgid "no_collections_for_requests"
 msgstr "There are no collections for this request"
 
@@ -351,7 +357,7 @@ msgstr "There are no collections for this request"
 msgid "requests_for_user"
 msgstr "Request"
 
-#: pyha/templates/pyha/index.html:19 pyha/templates/pyha/requestform.html:211
+#: pyha/templates/pyha/index.html:19 pyha/templates/pyha/requestform.html:205
 msgid "request_status_for_user"
 msgstr "Status"
 
@@ -383,146 +389,187 @@ msgstr ""
 "A description is a voluntary way to name your request. Without it the "
 "requests title will be the requests date"
 
-#: pyha/templates/pyha/requestform.html:83
+#: pyha/templates/pyha/requestform.html:84
 msgid "approval_of_terms"
 msgstr "Terms of use approval:"
 
-#: pyha/templates/pyha/requestform.html:91
+#: pyha/templates/pyha/requestform.html:92
 msgid "sensitivity_tab"
 msgstr "Sensitivity"
 
-#: pyha/templates/pyha/requestform.html:99
+#: pyha/templates/pyha/requestform.html:100
 msgid "collections_tab"
 msgstr "Collections"
 
-#: pyha/templates/pyha/requestform.html:107
+#: pyha/templates/pyha/requestform.html:108
 msgid "arguments_tab"
 msgstr "Arguments"
 
-#: pyha/templates/pyha/requestform.html:115
+#: pyha/templates/pyha/requestform.html:116
 msgid "summary_tab"
 msgstr "Summary"
 
-#: pyha/templates/pyha/requestform.html:129
+#: pyha/templates/pyha/requestform.html:130
 msgid "Request involves collections requiring approval for sensitive terms"
 msgstr "Request involves collections requiring approval for sensitive terms"
 
-#: pyha/templates/pyha/requestform.html:141
-#: pyha/templates/pyha/requestform.html:206
-#: pyha/templates/pyha/requestview.html:231
+#: pyha/templates/pyha/requestform.html:142
+#: pyha/templates/pyha/requestform.html:200
+#: pyha/templates/pyha/requestview.html:243
 msgid "collection_for_user"
 msgstr "Collection"
 
-#: pyha/templates/pyha/requestform.html:143
+#: pyha/templates/pyha/requestform.html:144
 msgid "sensitive_sightings"
 msgstr "Sensitive sightings"
 
-#: pyha/templates/pyha/requestform.html:156
-#: pyha/templates/pyha/requestform.html:222
-msgid "Delete_these_sightings"
-msgstr "Delete sightings"
-
-#: pyha/templates/pyha/requestform.html:181
+#: pyha/templates/pyha/requestform.html:175
 msgid "i_accept_terms"
 msgstr "I have read and understood the terms "
 
-#: pyha/templates/pyha/requestform.html:193
+#: pyha/templates/pyha/requestform.html:186
 msgid "no_sensitive_sightings_go_to_step_2"
 msgstr "Request doesn't include sensitive sightings, go to step 2"
 
-#: pyha/templates/pyha/requestform.html:197
+#: pyha/templates/pyha/requestform.html:190
 msgid "continue_to_step_2"
 msgstr "Continue to step 2"
 
-#: pyha/templates/pyha/requestform.html:208
+#: pyha/templates/pyha/requestform.html:202
 msgid "sightings_secured_by_data_provider"
 msgstr "Sightings secured by data provider"
 
-#: pyha/templates/pyha/requestform.html:210
+#: pyha/templates/pyha/requestform.html:204
 msgid "terms_of_collection_use"
 msgstr "Terms of use of the collections"
 
-#: pyha/templates/pyha/requestform.html:261
-#: pyha/templates/pyha/requestform.html:270
+#: pyha/templates/pyha/requestform.html:216
+#, fuzzy
+#| msgid "list_of_collections"
+msgid "Delete_this_collection"
+msgstr "Collections including sensitive data:"
+
+#: pyha/templates/pyha/requestform.html:256
+#: pyha/templates/pyha/requestform.html:265
 msgid "previous"
 msgstr "Previous"
 
-#: pyha/templates/pyha/requestform.html:262
+#: pyha/templates/pyha/requestform.html:257
 msgid "continue_to_step_3"
 msgstr "Continue to step 3"
 
-#: pyha/templates/pyha/requestform.html:267
+#: pyha/templates/pyha/requestform.html:262
 msgid "request_arguments_for_user"
 msgstr "Argument for request"
 
-#: pyha/templates/pyha/requestform.html:268
+#: pyha/templates/pyha/requestform.html:263
 msgid "required_arguments"
 msgstr "Required arguments"
 
-#: pyha/templates/pyha/requestform.html:271
+#: pyha/templates/pyha/requestform.html:266
 msgid "continue"
 msgstr "Continue"
 
-#: pyha/templates/pyha/requestform.html:277
+#: pyha/templates/pyha/requestform.html:273
+#, fuzzy
+#| msgid "you_have_not_accepted_terms"
+msgid "you_havent_accepted_the_following_collections"
+msgstr "You haven't accepted the conditions"
+
+#: pyha/templates/pyha/requestform.html:281
+msgid "accept_the_terms_or_delete_the_collections_to_proceed"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:283
+msgid "you_are_requestion_data_from_the_following_collections"
+msgstr ""
+
+#: pyha/templates/pyha/requestform.html:291
 msgid "send_to_be_accepted"
 msgstr "Send to be accepted"
 
-#: pyha/templates/pyha/requestform.html:279
-msgid "you_have_to_accept_at_least_one_terms"
+#: pyha/templates/pyha/requestform.html:293
+#, fuzzy
+#| msgid "you_have_to_accept_at_least_one_terms"
+msgid "you_have_to_accept_or_delete_all_terms"
 msgstr "You have to accept at least one terms of use"
 
-#: pyha/templates/pyha/requestform.html:304
+#: pyha/templates/pyha/requestform.html:318
 msgid "are_you_sure_you_want_to_remove_collection"
 msgstr "Are you sure you want to remove this collection?"
 
-#: pyha/templates/pyha/requestform.html:307
+#: pyha/templates/pyha/requestform.html:321
 msgid "delete"
 msgstr "Delete"
 
-#: pyha/templates/pyha/requestform.html:308
+#: pyha/templates/pyha/requestform.html:322
 msgid "back"
 msgstr "Back"
 
-#: pyha/templates/pyha/requestform.html:356
-#: pyha/templates/pyha/requestform.html:367
+#: pyha/templates/pyha/requestform.html:370
+#: pyha/templates/pyha/requestform.html:381
 msgid "you_accepted_terms"
 msgstr "You accepted the terms of use"
 
-#: pyha/templates/pyha/requestview.html:157
+#: pyha/templates/pyha/requestview.html:101
+#, fuzzy
+#| msgid "log_sensitives_deleted"
+msgid "log_sensitive_data_handler"
+msgstr "Sensitive data removed"
+
+#: pyha/templates/pyha/requestview.html:103
+#, fuzzy
+#| msgid "request_date"
+msgid "log_collection_provider"
+msgstr "Request denied"
+
+#: pyha/templates/pyha/requestview.html:105
+#, fuzzy
+#| msgid "log_sensitives_deleted"
+msgid "log_sensitive_and_collections_handler"
+msgstr "Sensitive data removed"
+
+#: pyha/templates/pyha/requestview.html:169
 msgid "request_included_sensitive_data"
 msgstr "Request included sensitive data"
 
-#: pyha/templates/pyha/requestview.html:158
+#: pyha/templates/pyha/requestview.html:170
 msgid "Collections including sensitive sightings are marked with symbol"
 msgstr "Collections including sensitive sightings are marked with symbol"
 
-#: pyha/templates/pyha/requestview.html:186
+#: pyha/templates/pyha/requestview.html:198
 msgid "You don't want sensitive data"
 msgstr "You don't want sensitive data"
 
-#: pyha/templates/pyha/requestview.html:188
+#: pyha/templates/pyha/requestview.html:200
 msgid "Decision for admitting sensitive data"
 msgstr "Decision for admitting sensitive data"
 
-#: pyha/templates/pyha/requestview.html:228
+#: pyha/templates/pyha/requestview.html:240
 msgid "collections_in_request"
 msgstr "Collections in this request"
 
-#: pyha/templates/pyha/requestview.html:233
+#: pyha/templates/pyha/requestview.html:245
 msgid "secured_by_data_provider"
 msgstr "Secured by data provider"
 
-#: pyha/templates/pyha/requestview.html:234
+#: pyha/templates/pyha/requestview.html:246
 msgid "generally_secured"
 msgstr "Generally secured"
 
-#: pyha/templates/pyha/requestview.html:238
+#: pyha/templates/pyha/requestview.html:250
 msgid "cause"
 msgstr "Cause"
 
-#: pyha/templates/pyha/requestview.html:275
+#: pyha/templates/pyha/requestview.html:287
 msgid "Admission_for_sensitive_data"
 msgstr "Admission for sensitive data"
+
+#~ msgid "log_secured_deleted"
+#~ msgstr "Secured data removed"
+
+#~ msgid "Delete_these_sightings"
+#~ msgstr "Delete sightings"
 
 #~ msgid "secured_collections"
 #~ msgstr "Collections secured by data provider"
