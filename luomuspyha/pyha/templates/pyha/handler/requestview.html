@@ -71,13 +71,13 @@
 									{% if requestLog.collection == None %}
 									<td>{% trans "log_sensitives_accepted" %}</td>
 									{% else %}						
-									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection}}) </td>
+									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
 									{% endif %}
 								{% elif requestLog.action == 'NEG' %}
 									{% if requestLog.collection == None %}
 									<td>{% trans "log_sensitives_denied" %}</td>
 									{% else %}
-									<td>{% trans "log_collection_denied" %} ({{ requestLog.collection}})</td>
+									<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
 									{% endif %}
 								{% endif %}
 								</tr>

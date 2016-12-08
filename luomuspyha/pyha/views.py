@@ -128,13 +128,12 @@ def show_request(request):
 		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		
 		if not allowed_to_view(request, userRequest, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
-		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		#make a log entry
 		if userRequest.user != userId:
 			make_logEntry_view(request, userRequest, userId, role1, role2)
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			return render(request, 'pyha/handler/requestview.html', context)
 		else:
@@ -212,10 +211,17 @@ def show_filters(request, requestId):
 
 def requestLog(request, requestId):
 		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId))
+		collectionList = []
 		email = []
 		for l in requestLog_list:
+			if(l.collection):
+				collectionList.append(l.collection)
 			l.email = fetch_email_address(l.user)
 			l.name = fetch_user_name(l.user)
+		get_values_for_collections(requestId, request, collectionList)
+		for l in requestLog_list:
+			if(l.collection):
+				collectionList.append(l)
 		return requestLog_list
 
 def create_request_view_context(requestId, request, userRequest, userId, role1, role2):
@@ -233,17 +239,13 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		return context
 
-def get_values_for_collections(requestId, request, List, cacheIdentifier):
-		if 'has expired' in cache.get(str(requestId)+'collection_values'+str(cacheIdentifier)+request.LANGUAGE_CODE, 'has expired'):
-			cachedDict = {}
-			for i, c in enumerate(List):
+def get_values_for_collections(requestId, request, List):
+		for i, c in enumerate(List):
+			if 'has expired' in cache.get(str(c)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
 				c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
-				cachedDict[c.address] = c.result
-			cache.set(str(requestId)+'collection_values'+str(cacheIdentifier)+request.LANGUAGE_CODE, cachedDict)
-		else:
-			cachedDict = cache.get(str(requestId)+'collection_values'+str(cacheIdentifier)+request.LANGUAGE_CODE)
-			for i, c in enumerate(List):
-				c.result = cachedDict[c.address]
+				cache.set(str(c)+'collection_values'+request.LANGUAGE_CODE, c.result)
+			else:
+				c.result = cache.get(str(c)+'collection_values'+request.LANGUAGE_CODE)
 
 def create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
@@ -257,9 +259,9 @@ def create_collections_for_lists(requestId, request, taxonList, customList, coll
 			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
 			collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
-		get_values_for_collections(requestId, request, collectionList, 0)
-		get_values_for_collections(requestId, request, customList, 1)
-		get_values_for_collections(requestId, request, taxonList, 2)
+		get_values_for_collections(requestId, request, collectionList)
+		get_values_for_collections(requestId, request, customList)
+		get_values_for_collections(requestId, request, taxonList)
 
 def change_description(request):
 	if request.method == 'POST':
