@@ -173,29 +173,21 @@ msgstr "Terms accepted"
 
 #: pyha/templates/pyha/handler/requestview.html:72
 #: pyha/templates/pyha/requestview.html:115
-#, fuzzy
-#| msgid "log_sensitives_deleted"
 msgid "log_sensitives_accepted"
-msgstr "Sensitive data removed"
+msgstr "Sensitive data accepted"
 
 #: pyha/templates/pyha/handler/requestview.html:74
 #: pyha/templates/pyha/requestview.html:117
-#, fuzzy
-#| msgid "log_request_accepted"
 msgid "log_collection_accepted"
 msgstr "Request accepted"
 
 #: pyha/templates/pyha/handler/requestview.html:78
 #: pyha/templates/pyha/requestview.html:121
-#, fuzzy
-#| msgid "log_sensitives_deleted"
 msgid "log_sensitives_denied"
-msgstr "Sensitive data removed"
+msgstr "Sensitive data denied"
 
 #: pyha/templates/pyha/handler/requestview.html:80
 #: pyha/templates/pyha/requestview.html:123
-#, fuzzy
-#| msgid "request_date"
 msgid "log_collection_denied"
 msgstr "Request denied"
 
@@ -531,10 +523,8 @@ msgid "log_collection_provider"
 msgstr "Request denied"
 
 #: pyha/templates/pyha/requestview.html:103
-#, fuzzy
-#| msgid "log_sensitives_deleted"
 msgid "log_sensitive_and_collections_handler"
-msgstr "Sensitive data removed"
+msgstr "Sensitive and collections handler"
 
 #: pyha/templates/pyha/requestview.html:167
 msgid "request_included_sensitive_data"

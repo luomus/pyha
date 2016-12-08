@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^role/?$', views.change_role, name='change_role'),
     url(r'^approve/?$', views.approve, name='approve'),
     url(r'^answer/?$', views.answer, name='answer'),
+	url(r'^commentSensitive/?$', views.comment_sensitive, name='comment_sensitive'),
     url(r'^removeCollection/?$', views.removeCollection, name='removeCollection')
 ]

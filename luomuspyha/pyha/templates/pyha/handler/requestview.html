@@ -4,7 +4,26 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-		  <div class="page-header"> 
+		{% if role1%}
+		<div class="outer">
+				<div class="floatcontainer" style="width:500px">
+					<div class="inner" id="requestLog_list">
+						<form action="{% url 'pyha:comment_sensitive' %}" id="requestform" method="post">
+						<h4>{% trans "official_comment_area" %}</h4>
+						<div class="form-group">
+							<input type="hidden" id="collectionid" name="collectionid" value="sens">
+							<input type="hidden" id="next" name="next" value={{request.path}}>
+							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+							<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required >{% if userRequest.sensComment %}{{userRequest.sensComment}}{% else %}{% endif %}</textarea>
+							<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "save" %}</button>
+						</div>
+						{% csrf_token %}
+						</form>
+					</div>
+				</div>
+		</div>
+		{% endif %}
+		<div class="page-header"> 
 
 			<h1>{% trans "request_from_user" %}
 				{{request_owner}},
@@ -70,7 +89,7 @@
 								{% elif requestLog.action == 'POS' %}
 									{% if requestLog.collection == None %}
 									<td>{% trans "log_sensitives_accepted" %}</td>
-									{% else %}						
+									{% else %}
 									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
 									{% endif %}
 								{% elif requestLog.action == 'NEG' %}

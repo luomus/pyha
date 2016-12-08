@@ -515,8 +515,8 @@ def approve(request):
 	return HttpResponseRedirect('/pyha/')
 
 def answer(request):
+		next = request.POST.get('next', '/')
 		if request.method == 'POST':
-			next = request.POST.get('next', '/')
 			collectionId = request.POST.get('collectionid')
 			requestId = request.POST.get('requestid')
 			if "sens" not in collectionId:
@@ -546,6 +546,18 @@ def answer(request):
 				userRequest.sensDecisionExplanation = request.POST.get('reason')
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
+		return HttpResponseRedirect(next)
+
+def comment_sensitive(request):
+		next = request.POST.get('next', '/')
+		if request.method == 'POST':
+			sensComment = request.POST.get('commentsForAuthorities')
+			requestId = request.POST.get('requestid')
+			if HANDLER_SENS in request.session["user_roles"]:
+				userRequest = Request.requests.get(id = requestId)
+				userRequest.sensComment = sensComment
+				userRequest.save()
+				print(userRequest.sensComment)
 		return HttpResponseRedirect(next)
 
 def update(requestId, lang):
