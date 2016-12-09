@@ -5,7 +5,7 @@
 												{% endfor %}
 												<h3>{% trans "you_havent_accepted_the_following_collections" %}:</h3>
 												<ul>
-												{% for collection in collections%}
+												{% for collection in customlist%}
 													<li id="acc{{collection.id}}"> {{collection.result.collectionName}} </li>
 												{% endfor %}
 												</ul>

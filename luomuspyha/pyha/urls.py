@@ -5,6 +5,7 @@ from . import views
 app_name = 'pyha'
 urlpatterns = [
     url(r'^/?$', views.index, name='index'),
+    url(r'^login/?$', views.index, name='login'),
     url(r'^logout/?$', views.logout, name='logout'),
     url(r'^index/?$', views.index, name='index'),
     url(r'^getTaxon/?$', views.get_taxon, name='get_taxon'),
@@ -18,7 +19,6 @@ urlpatterns = [
     url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),
     url(r'^removeCustom/?$', views.remove_custom_data, name='removeCustom'),
     url(r'^removeAjax/?$', views.remove_ajax, name='removeAjax'),
-    url(r'^mock/jsonmock/?$', views.jsonmock, name='jsonmock'),
     url(r'^role/?$', views.change_role, name='change_role'),
     url(r'^approve/?$', views.approve, name='approve'),
     url(r'^answer/?$', views.answer, name='answer'),

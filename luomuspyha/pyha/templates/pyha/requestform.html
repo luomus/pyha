@@ -134,7 +134,7 @@
 															</object>
 														</div>
 															<div class="modal-footer">
-																<input type="checkbox" id ="checkb{{ collection.id }}" name="{{ collection.id }}" value="{{collection.result.id}}"
+																<input type="checkbox" id ="checkb{{ collection.id }}" name="checkb" value="{{collection.result.id}}"
 																onchange="check({{ collection.id }}); checkForApproval();">
 																{% trans "I have read and understood the terms" %}<br>
 																<p></p>
@@ -259,6 +259,7 @@
 		}
 	  }
 	  function refreshCheck() {
+		accepted = {};
 		var elements = document.getElementsByClassName("customlistcb");
 		for(var i=0; i<elements.length; i++) {
 	      check(elements[i].name);

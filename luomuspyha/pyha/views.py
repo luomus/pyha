@@ -210,7 +210,7 @@ def show_filters(request, requestId):
 		return filterResultList
 
 def requestLog(request, requestId):
-		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId))
+		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId).order_by('-date'))
 		collectionList = []
 		email = []
 		for l in requestLog_list:
@@ -270,7 +270,7 @@ def change_description(request):
 		userRequest = Request.requests.get(id = requestId)
 		userRequest.description = request.POST.get('description')
 		userRequest.save(update_fields=['description'])
-		return HttpResponseRedirect(next)
+	return HttpResponse("")
 
 #removes sensitive sightings
 def remove_sensitive_data(request):
@@ -318,7 +318,7 @@ def remove_ajax(request):
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
 		if not allowed_to_view(request, userRequest, userId, role1, role2):
-			return HttpResponsePermanentRedirect('/pyha/', status=310)
+			return HttpResponse('/pyha/', status=310)
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
 		userRequest = Request.requests.get(id = requestId)
@@ -332,7 +332,7 @@ def remove_ajax(request):
 			if(check_all_collections_removed(requestId)):
 				return HttpResponse("/pyha/", status=310)
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
-		return render(request, 'pyha/requestformtaxon.html', context)
+		return HttpResponse("")
 	return HttpResponse("")
 	
 def get_taxon(request):
@@ -342,7 +342,7 @@ def get_taxon(request):
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
-			return _process_auth_response(request, "request/"+requestId)
+			return HttpResponse("/pyha/", status=310)
 		userRequest = Request.requests.get(id=requestId)
 		userId = request.session["user_id"]
 		userRole = request.session["current_user_role"]
@@ -350,10 +350,10 @@ def get_taxon(request):
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
 		if not allowed_to_view(request, userRequest, userId, role1, role2):
-			return HttpResponseRedirect('/pyha/')
+			return HttpResponse("/pyha/", status=310)
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		return render(request, 'pyha/requestformtaxon.html', context)
-	return HttpResponse("")
+	return HttpResponse("/pyha/", status=310)
 	
 def get_custom(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
@@ -557,7 +557,6 @@ def comment_sensitive(request):
 				userRequest = Request.requests.get(id = requestId)
 				userRequest.sensComment = sensComment
 				userRequest.save()
-				print(userRequest.sensComment)
 		return HttpResponseRedirect(next)
 
 def update(requestId, lang):
@@ -603,6 +602,8 @@ def update(requestId, lang):
 			wantedRequest.status = 3
 		elif accepted > 0 and declined == 0:
 			wantedRequest.status = 4
+		elif declined > 0:
+			wantedRequest.status = 1
 		else:
 			wantedRequest.status = 5
 		wantedRequest.save()
