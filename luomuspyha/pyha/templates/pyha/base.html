@@ -18,12 +18,6 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Bootstrap CSS local fallback -->
-  <script>
-    $(document).ready(function() {
-    var bodyColor = $('body').css('color');
-    if(bodyColor != 'rgb(51, 51, 51)') {
-    $("head").prepend('<link rel="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap.min.css">');}});
-  </script>
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- <link rel="stylesheet" href="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap-theme.min.css"> -->
@@ -84,7 +78,7 @@
 		<form id='language_form' action="{% url 'set_language' %}" method="post"
             data-currenturl='{{ request.path }}'
             data-currentfullurl='{{ request.get_full_path }}'>
-		<button type="button" onclick="myFunction()" class="dropbtn">{{LANGUAGE}}{% csrf_token %}<span class="glyphicon glyphicon-globe"></span></button>
+		<button type="button" onclick="myFunction()" class="dropbtn">{{LANGUAGE}}{% csrf_token %} <span class="glyphicon glyphicon-globe"></span></button>
 			<div id="myDropdown" class="dropdown-content">
               {% get_available_languages as LANGUAGES %}
               {% get_language_info_list for LANGUAGES as languages %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-12 15:20+0200\n"
+"POT-Creation-Date: 2016-12-08 17:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: luomuspyha/dev_settings.py:159 luomuspyha/settings.py:155
+#: luomuspyha/dev_settings.py:158 luomuspyha/settings.py:155
 msgid "Suomi"
 msgstr ""
 
-#: luomuspyha/dev_settings.py:160 luomuspyha/settings.py:156
+#: luomuspyha/dev_settings.py:159 luomuspyha/settings.py:156
 msgid "Englanti"
 msgstr ""
 
-#: luomuspyha/dev_settings.py:161 luomuspyha/settings.py:157
+#: luomuspyha/dev_settings.py:160 luomuspyha/settings.py:157
 msgid "Ruotsi"
 msgstr ""
 
-#: pyha/templates/pyha/base.html:41
+#: pyha/templates/pyha/base.html:47
 msgid "Toggle_navigation"
 msgstr "Selaa"
 
-#: pyha/templates/pyha/base.html:51 pyha/templates/pyha/handler/index.html:12
+#: pyha/templates/pyha/base.html:57 pyha/templates/pyha/handler/index.html:12
 msgid "all_requests"
-msgstr "Aineistopyynnöt"
+msgstr "Pyynnöt"
 
-#: pyha/templates/pyha/base.html:55
+#: pyha/templates/pyha/base.html:61
 msgid "logout"
 msgstr "Kirjaudu ulos"
 
-#: pyha/templates/pyha/base.html:63 pyha/templates/pyha/base.html:67
+#: pyha/templates/pyha/base.html:69 pyha/templates/pyha/base.html:73
 #: pyha/templates/pyha/requestview.html:97
 msgid "admin"
-msgstr "Rooli: käsittelijä"
+msgstr "Pyynnönkäsittelijä"
 
-#: pyha/templates/pyha/base.html:63 pyha/templates/pyha/base.html:66
+#: pyha/templates/pyha/base.html:69 pyha/templates/pyha/base.html:72
 #: pyha/templates/pyha/requestview.html:107
 msgid "user"
-msgstr "Rooli: käyttäjä"
+msgstr "Käyttäjä"
 
 #: pyha/templates/pyha/handler/index.html:9 pyha/templates/pyha/index.html:9
 msgid "welcome"
-msgstr " "
+msgstr "Tervetuloa!"
 
 #: pyha/templates/pyha/handler/index.html:13 pyha/templates/pyha/index.html:13
 msgid "click_for_info"
-msgstr "Tarkastele aineistopyynnön tilaa valitsemalla se luettelosta"
+msgstr "Napsauta pyyntöä nähdäksesi lisätietoja"
 
 #: pyha/templates/pyha/handler/index.html:17 pyha/templates/pyha/index.html:17
 msgid "request_date"
@@ -66,15 +66,15 @@ msgstr "Päiväys"
 
 #: pyha/templates/pyha/handler/index.html:18
 msgid "requester"
-msgstr "Ainestopyynnön tekijä"
+msgstr "Tekijä"
 
 #: pyha/templates/pyha/handler/index.html:19 pyha/templates/pyha/index.html:18
 msgid "request_hits"
-msgstr "Havaintojen lukumäärä"
+msgstr "Osumia"
 
 #: pyha/templates/pyha/handler/index.html:20
 msgid "request_status_for_admin"
-msgstr "Aineistopyynnön tila"
+msgstr "Pyynnön tila"
 
 #: pyha/templates/pyha/handler/index.html:48 pyha/templates/pyha/index.html:49
 #: pyha/templates/pyha/requestform.html:237
@@ -82,35 +82,35 @@ msgstr "Aineistopyynnön tila"
 #: pyha/templates/pyha/requestformcustom.html:26
 #: pyha/templates/pyha/requestformtaxon.html:39
 msgid "you_have_not_accepted_terms"
-msgstr "Lue ja hyväksy ehdot"
+msgstr "Et ole hyväksynyt ehtoja"
 
 #: pyha/templates/pyha/handler/index.html:51
 #: pyha/templates/pyha/handler/requestview.html:49
 #: pyha/templates/pyha/handler/requestview.html:192
 #: pyha/templates/pyha/handler/requestview.html:245
 #: pyha/templates/pyha/index.html:52 pyha/templates/pyha/requestview.html:61
-#: pyha/templates/pyha/requestview.html:211
-#: pyha/templates/pyha/requestview.html:273
+#: pyha/templates/pyha/requestview.html:215
+#: pyha/templates/pyha/requestview.html:277
 msgid "waiting_for_data_provider"
-msgstr "Odottaa päätöstä"
+msgstr "Odottaa aineiston toimittajan käsittelyä"
 
 #: pyha/templates/pyha/handler/index.html:54
 #: pyha/templates/pyha/handler/requestview.html:52
 #: pyha/templates/pyha/handler/requestview.html:196
 #: pyha/templates/pyha/handler/requestview.html:249
 #: pyha/templates/pyha/index.html:55 pyha/templates/pyha/requestview.html:64
-#: pyha/templates/pyha/requestview.html:215
-#: pyha/templates/pyha/requestview.html:277
+#: pyha/templates/pyha/requestview.html:219
+#: pyha/templates/pyha/requestview.html:281
 msgid "partially_accepted"
-msgstr "Hyväksytty (osittain hylätty)"
+msgstr "Osittain Hyväksytty"
 
 #: pyha/templates/pyha/handler/index.html:57
 #: pyha/templates/pyha/handler/requestview.html:55
 #: pyha/templates/pyha/handler/requestview.html:194
 #: pyha/templates/pyha/handler/requestview.html:247
 #: pyha/templates/pyha/index.html:58 pyha/templates/pyha/requestview.html:67
-#: pyha/templates/pyha/requestview.html:213
-#: pyha/templates/pyha/requestview.html:275
+#: pyha/templates/pyha/requestview.html:217
+#: pyha/templates/pyha/requestview.html:279
 msgid "denied"
 msgstr "Hylätty"
 
@@ -119,8 +119,8 @@ msgstr "Hylätty"
 #: pyha/templates/pyha/handler/requestview.html:198
 #: pyha/templates/pyha/handler/requestview.html:251
 #: pyha/templates/pyha/index.html:61 pyha/templates/pyha/requestview.html:70
-#: pyha/templates/pyha/requestview.html:217
-#: pyha/templates/pyha/requestview.html:279
+#: pyha/templates/pyha/requestview.html:221
+#: pyha/templates/pyha/requestview.html:283
 msgid "accepted"
 msgstr "Hyväksytty"
 
@@ -129,8 +129,8 @@ msgstr "Hyväksytty"
 #: pyha/templates/pyha/handler/requestview.html:200
 #: pyha/templates/pyha/handler/requestview.html:253
 #: pyha/templates/pyha/index.html:64 pyha/templates/pyha/requestview.html:73
-#: pyha/templates/pyha/requestview.html:219
-#: pyha/templates/pyha/requestview.html:283
+#: pyha/templates/pyha/requestview.html:223
+#: pyha/templates/pyha/requestview.html:287
 msgid "unknown"
 msgstr "Tuntematon"
 
@@ -209,11 +209,10 @@ msgstr "Muutoshistoria on tyhjä"
 #: pyha/templates/pyha/requestform.html:12
 #: pyha/templates/pyha/requestview.html:136
 msgid "request_filters"
-msgstr "Aineistopyynnön rajaukset"
+msgstr "Pyyntösi rajaukset"
 
 #: pyha/templates/pyha/handler/requestview.html:115
 #: pyha/templates/pyha/requestform.html:14
-#: pyha/templates/pyha/requestform.html:303
 #: pyha/templates/pyha/requestview.html:138
 msgid "show"
 msgstr "Näytä"
@@ -245,14 +244,14 @@ msgstr "Pyynnön perustelut"
 #: pyha/templates/pyha/requestform.html:127
 #: pyha/templates/pyha/requestview.html:176
 msgid "sensitive_terms"
-msgstr "Sensitiivisten ainestojen käyttöehdot"
+msgstr "Sensitiivisyyteen liityvät käyttöehdot"
 
 #: pyha/templates/pyha/handler/requestview.html:155
 #: pyha/templates/pyha/handler/requestview.html:285
 #: pyha/templates/pyha/requestform.html:102
 #: pyha/templates/pyha/requestform.html:132
 #: pyha/templates/pyha/requestview.html:181
-#: pyha/templates/pyha/requestview.html:297
+#: pyha/templates/pyha/requestview.html:301
 msgid "If_you_cannot_see_terms_you_can_load_them"
 msgstr "Mikäli ehdot eivät näy, voit ladata ne "
 
@@ -261,12 +260,13 @@ msgstr "Mikäli ehdot eivät näy, voit ladata ne "
 #: pyha/templates/pyha/requestform.html:102
 #: pyha/templates/pyha/requestform.html:132
 #: pyha/templates/pyha/requestview.html:181
-#: pyha/templates/pyha/requestview.html:297
+#: pyha/templates/pyha/requestview.html:301
 msgid "here"
 msgstr "tästä"
 
 #: pyha/templates/pyha/handler/requestview.html:161
 #: pyha/templates/pyha/requestform.html:139
+#: pyha/templates/pyha/requestview.html:187
 msgid "I have read and understood the terms"
 msgstr "Olen lukenut ja ymmärtänyt ehdot"
 
@@ -274,10 +274,10 @@ msgstr "Olen lukenut ja ymmärtänyt ehdot"
 #: pyha/templates/pyha/handler/requestview.html:290
 #: pyha/templates/pyha/requestform.html:110
 #: pyha/templates/pyha/requestform.html:141
-#: pyha/templates/pyha/requestview.html:186
-#: pyha/templates/pyha/requestview.html:302
+#: pyha/templates/pyha/requestview.html:190
+#: pyha/templates/pyha/requestview.html:306
 msgid "exit"
-msgstr "Sulje"
+msgstr "Poistu"
 
 #: pyha/templates/pyha/handler/requestview.html:170
 msgid "User doesn't want sensitive data"
@@ -289,14 +289,14 @@ msgstr "Sensitiivisiä tietoja sisältävät aineistot:"
 
 #: pyha/templates/pyha/handler/requestview.html:178
 #: pyha/templates/pyha/handler/requestview.html:226
-#: pyha/templates/pyha/requestview.html:197
-#: pyha/templates/pyha/requestview.html:241
+#: pyha/templates/pyha/requestview.html:201
+#: pyha/templates/pyha/requestview.html:245
 msgid "state_of_processing"
 msgstr "Käsittelyn tila"
 
 #: pyha/templates/pyha/handler/requestview.html:179
 #: pyha/templates/pyha/handler/requestview.html:228
-#: pyha/templates/pyha/requestview.html:198
+#: pyha/templates/pyha/requestview.html:202
 msgid "decision_arguments"
 msgstr "Perustelut päätökselle"
 
@@ -313,9 +313,7 @@ msgstr "Hylkää"
 #: pyha/templates/pyha/handler/requestview.html:221
 #: pyha/templates/pyha/requestformcustom.html:3
 msgid "secured_collections_in_request"
-msgstr ""
-"Aineistopyyntöösi liittyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
-"käyttöehdot"
+msgstr "Aineistonhaltijan salaamat aineistot"
 
 #: pyha/templates/pyha/handler/requestview.html:224
 msgid "collection_for_admin"
@@ -326,7 +324,7 @@ msgstr "Aineisto"
 #: pyha/templates/pyha/requestformcustom.html:7
 #: pyha/templates/pyha/requestformtaxon.html:16
 #: pyha/templates/pyha/requestheader.html:15
-#: pyha/templates/pyha/requestview.html:238
+#: pyha/templates/pyha/requestview.html:242
 msgid "request_description"
 msgstr "Kuvaus"
 
@@ -335,25 +333,25 @@ msgstr "Kuvaus"
 #: pyha/templates/pyha/requestformcustom.html:25
 #: pyha/templates/pyha/requestformtaxon.html:40
 #: pyha/templates/pyha/requestview.html:169
-#: pyha/templates/pyha/requestview.html:242
-#: pyha/templates/pyha/requestview.html:285
+#: pyha/templates/pyha/requestview.html:246
+#: pyha/templates/pyha/requestview.html:289
 msgid "terms"
 msgstr "Ehdot"
 
 #: pyha/templates/pyha/handler/requestview.html:280
-#: pyha/templates/pyha/requestview.html:292
+#: pyha/templates/pyha/requestview.html:296
 msgid "Terms of use of the collections"
 msgstr "Käyttöehdot"
 
 #: pyha/templates/pyha/handler/requestview.html:301
 #: pyha/templates/pyha/requestform.html:176
-#: pyha/templates/pyha/requestview.html:315
+#: pyha/templates/pyha/requestview.html:319
 msgid "no_collections_for_requests"
 msgstr "Kannassa ei ole aineistoja tälle pyynnölle"
 
 #: pyha/templates/pyha/index.html:12
 msgid "requests_for_user"
-msgstr "Aineistopyyntösi"
+msgstr "Pyynnöt"
 
 #: pyha/templates/pyha/index.html:19
 #: pyha/templates/pyha/requestformcustom.html:11
@@ -366,15 +364,15 @@ msgstr "Kannassa ei ole pyyntöjä"
 
 #: pyha/templates/pyha/requestform.html:45
 msgid "approval_of_terms"
-msgstr " "
+msgstr "Aineiston käyttöehtojen hyväksyminen:"
 
 #: pyha/templates/pyha/requestform.html:53
 msgid "sensitivity_tab"
-msgstr "Sensitiiviset aineistot"
+msgstr "Sensitiivisyys"
 
 #: pyha/templates/pyha/requestform.html:61
 msgid "collections_tab"
-msgstr "Muut käyttörajoitetut aineistot"
+msgstr "Aineistot"
 
 #: pyha/templates/pyha/requestform.html:69
 msgid "arguments_tab"
@@ -390,7 +388,7 @@ msgstr "Hyväksyn ehdot"
 
 #: pyha/templates/pyha/requestform.html:149
 msgid "request_arguments_for_user"
-msgstr "Perustele aineistopyyntösi käyttötarkoitus"
+msgstr "Perustelut pyynnölle"
 
 #: pyha/templates/pyha/requestform.html:150
 msgid "required_arguments"
@@ -403,7 +401,7 @@ msgstr "Edellinen"
 
 #: pyha/templates/pyha/requestform.html:153
 msgid "continue"
-msgstr "Jatka yhteenvetoon"
+msgstr "Jatka"
 
 #: pyha/templates/pyha/requestform.html:161
 msgid "send_to_be_accepted"
@@ -411,13 +409,11 @@ msgstr "Lähetä hyväksyttäväksi"
 
 #: pyha/templates/pyha/requestform.html:163
 msgid "you_have_to_accept_or_delete_all_terms"
-msgstr ""
-"Sinun pitää hyväksyä kaikki ehdot tai poistaa pyynnöstö aineistot, joita et "
-"tarvitse"
+msgstr "Sinun pitää hyväksyä tai hylätä ehdot"
 
 #: pyha/templates/pyha/requestform.html:185
 msgid "are_you_sure_you_want_to_remove_collection"
-msgstr "Oletko varma, että haluat poistaa tämän aineiston pyynnöstäsi?"
+msgstr "Oletko varma, että haluat poistaa tämän aineisto-osuuden?"
 
 #: pyha/templates/pyha/requestform.html:188
 msgid "delete"
@@ -425,26 +421,22 @@ msgstr "Poista"
 
 #: pyha/templates/pyha/requestform.html:189
 msgid "back"
-msgstr "Peruuta"
+msgstr "Takaisin"
 
 #: pyha/templates/pyha/requestform.html:236
 #: pyha/templates/pyha/requestform.html:249
 msgid "you_accepted_terms"
 msgstr "Hyväksyit ehdot"
 
-#: pyha/templates/pyha/requestform.html:306
-msgid "hide"
-msgstr "Piilota"
-
 #: pyha/templates/pyha/requestformcustom.html:6
 #: pyha/templates/pyha/requestformtaxon.html:15
-#: pyha/templates/pyha/requestview.html:237
+#: pyha/templates/pyha/requestview.html:241
 msgid "collection_for_user"
 msgstr "Aineisto"
 
 #: pyha/templates/pyha/requestformcustom.html:8
 msgid "sightings_secured_by_data_provider"
-msgstr "Käyttörajoittettuja havaintoja"
+msgstr "Aineistonhaltijan salaamia havaintoja"
 
 #: pyha/templates/pyha/requestformcustom.html:10
 msgid "terms_of_collection_use"
@@ -453,13 +445,11 @@ msgstr "Aineistojen käyttöehdot"
 #: pyha/templates/pyha/requestformcustom.html:22
 #: pyha/templates/pyha/requestformtaxon.html:30
 msgid "Delete_these_sightings"
-msgstr "En tarvitse tätä aineistoa"
+msgstr "Poista tämä aineisto"
 
 #: pyha/templates/pyha/requestformcustom.html:33
 msgid "no_custom_sightings_go_to_step_3"
-msgstr ""
-"Aineistopyyntöön ei sisälly muilla tavoilla käyttörajoitettuja havaintoja, "
-"siirry kohtaan 3"
+msgstr "Pyyntöön ei sisälly aineistokohtaisia havaintoja, siirry kohtaan 3"
 
 #: pyha/templates/pyha/requestformcustom.html:38
 msgid "continue_to_step_3"
@@ -467,8 +457,7 @@ msgstr "Jatka kohtaan 3"
 
 #: pyha/templates/pyha/requestformsummary.html:6
 msgid "you_havent_accepted_the_following_collections"
-msgstr ""
-"Et ole vielä hyväksynyt seuraavien käyttörajoitettujen aineistojen ehtoja"
+msgstr "Seuraavat aineistot ovat vielä hyväksymättä"
 
 #: pyha/templates/pyha/requestformsummary.html:12
 msgid "accept_the_terms_or_delete_the_collections_to_proceed"
@@ -476,12 +465,13 @@ msgstr "Hyväksy ehdot tai poista aineistot jatkaaksesi"
 
 #: pyha/templates/pyha/requestformsummary.html:14
 msgid "you_are_requestion_data_from_the_following_collections"
-msgstr "Olet pyytänyt tietoa seuraavista aineistoista:"
+msgstr "Olet pyytänyt tietoa seuraavista aineistoista"
 
 #: pyha/templates/pyha/requestformtaxon.html:3
 msgid "Request involves collections requiring approval for sensitive terms"
 msgstr ""
-"Aineistopyyntöösi liittyy sensitiivistä tietoa. Lue ja hyväksy käyttöehdot"
+"Pyyntöön sisältyy aineistoja, jotka tarvitsevat sensitiivisyysehtojen "
+"hyväksymisen"
 
 #: pyha/templates/pyha/requestformtaxon.html:17
 msgid "sensitive_sightings"
@@ -498,28 +488,30 @@ msgstr "Jatka kohtaan 2"
 #: pyha/templates/pyha/requestheader.html:2
 #: pyha/templates/pyha/requestview.html:9
 msgid "request_for_user"
-msgstr "Aineistopyyntösi"
+msgstr "Pyyntö"
 
 #: pyha/templates/pyha/requestheader.html:22
 #: pyha/templates/pyha/requestview.html:14
 msgid "no_description"
-msgstr " "
+msgstr "Ei kuvausta"
 
 #: pyha/templates/pyha/requestheader.html:31
 #: pyha/templates/pyha/requestview.html:35
 msgid "change"
-msgstr "Tallenna pyynnön nimi"
+msgstr "Muuta"
 
 #: pyha/templates/pyha/requestheader.html:35
 #: pyha/templates/pyha/requestview.html:39
 msgid ""
 "A description is a voluntary way to name your request. Without it the "
 "requests title will be the requests date"
-msgstr " "
+msgstr ""
+"Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Mikäli otsikkoa ei ole, "
+"käytetään pyynnön päiväystä"
 
 #: pyha/templates/pyha/requestview.html:99
 msgid "log_sensitive_data_handler"
-msgstr "Viranomainen"
+msgstr "Sensitiivisen tiedon käsittelijä"
 
 #: pyha/templates/pyha/requestview.html:101
 msgid "log_collection_provider"
@@ -538,36 +530,33 @@ msgid "Collections including sensitive sightings are marked with symbol"
 msgstr ""
 "Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"
 
-#: pyha/templates/pyha/requestview.html:192
+#: pyha/templates/pyha/requestview.html:196
 msgid "You don't want sensitive data"
 msgstr "Et halua sensitiivistä tietoa"
 
-#: pyha/templates/pyha/requestview.html:194
+#: pyha/templates/pyha/requestview.html:198
 msgid "Decision for admitting sensitive data"
 msgstr "Päätös sensitiivisen tiedon antamisesta"
 
-#: pyha/templates/pyha/requestview.html:234
+#: pyha/templates/pyha/requestview.html:238
 msgid "collections_in_request"
 msgstr "Pyyntöösi sisältyvät aineistot"
 
-#: pyha/templates/pyha/requestview.html:239
+#: pyha/templates/pyha/requestview.html:243
 msgid "secured_by_data_provider"
-msgstr "Käyttörajoitetut havainnot"
-
-#: pyha/templates/pyha/requestview.html:240
-msgid "generally_secured"
-msgstr "Sensitiiviset havainnot"
+msgstr "Aineistonhaltijan salaamat"
 
 #: pyha/templates/pyha/requestview.html:244
+msgid "generally_secured"
+msgstr "Yleisesti salatut"
+
+#: pyha/templates/pyha/requestview.html:248
 msgid "cause"
 msgstr "Syy"
 
-#: pyha/templates/pyha/requestview.html:281
+#: pyha/templates/pyha/requestview.html:285
 msgid "Admission_for_sensitive_data"
-msgstr "Odottaa päätöstä"
-
-#~ msgid "more_sensitivity_info"
-#~ msgstr "teksti"
+msgstr "Sensitiivisyyden päätös"
 
 #~ msgid "User wants sensitive data"
 #~ msgstr "Pyytäjä haluaa sensitiivistä tietoa"

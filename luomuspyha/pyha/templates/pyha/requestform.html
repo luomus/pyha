@@ -287,18 +287,6 @@
 		}
 	}
 	</script>
-
-	
-	<script>
-	$(document).ready(function(){
-	  $("#filterlist").on("hide.bs.collapse", function(){
-		$("#filterbutton").html('Näytä');
-	  });
-	  $("#filterlist").on("show.bs.collapse", function(){
-		$("#filterbutton").html('Piilota');
-	  });
-	});
-	</script>
 	
 	
 	
@@ -309,6 +297,17 @@
 	</script>
 {% endblock %}
 {% block end_script %}
+	<script>
+	$(document).ready(function(){
+	  $("#filterlist").on("hide.bs.collapse", function(){
+		$("#filterbutton").html('{% trans "show" %}');
+	  });
+	  $("#filterlist").on("show.bs.collapse", function(){
+		$("#filterbutton").html('{% trans "hide" %}');
+	  });
+	});
+	</script>
+
 	<script>
 		$(document).on('click','.deleteContainer',function(e){
 			var name ="#delete" + $(this).find('.removeCollectionButton').attr('id');

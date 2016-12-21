@@ -36,6 +36,7 @@ function prevTab(elem) {
 
 window.onload = function () {
     var reason = document.getElementById("reason");
+    if(reason != null){
         var func = function() { 
             if (reason.value !== '') {
               document.getElementById("continue-to-summary").disabled = false;      
@@ -49,4 +50,5 @@ window.onload = function () {
         }
       reason.onkeyup = func;
       reason.onchange = func;
+      }
 }
