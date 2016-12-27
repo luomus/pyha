@@ -1,6 +1,6 @@
 ﻿											{% load i18n %}
 												{% if taxon %}
-												<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}:</h3>
+												<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}</h3>
 												<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
 
 
@@ -35,13 +35,12 @@
 												{% endfor %}
 												</table>
 												
+												{% else %}
+												<h3>{% trans "no_sensitive_sightings_go_to_step_2" %}.</h3>             
+												{% endif %}
 												<ul class="list-inline pull-right">
 												<li><span id ="statustextsens">{% if taxon %}{% trans "you_have_not_accepted_terms" %}{% endif %}</span></li>
 												<li id="sensterms"><button type="button" class="btn btn-default" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button><li>
-												{% else %}
-												<h3>{% trans "no_sensitive_sightings_go_to_step_2" %}.</h3>             
-												<ul class="list-inline pull-right">
-												{% endif %}
-												<li><button type="button" id="to_step_2" class="btn btn-primary next-step">{% trans 'continue_to_step_2' %}</button></li>
+												<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
+												<li><button type="button" id="to_step_4" class="btn btn-primary next-step">{% trans 'continue_to_step_4' %}</button></li>
 												</ul>
-												<script>checksens();</script>

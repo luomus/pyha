@@ -22,9 +22,7 @@
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
 				if(this.status == 200){
-					get_taxon_tab();
-					get_custom_tab();
-					get_summary_tab();
+					refresh();
 				} else if(this.status == 310){
 					window.location = this.responseText;
 				}
@@ -59,6 +57,7 @@
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById("customtable").innerHTML = this.responseText;
+			refreshCheck();
 			}
 		};
 	xhttp.open("POST", "/pyha/getCustom/", true);
@@ -90,14 +89,35 @@
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById("summarytable").innerHTML = this.responseText;
-			refreshCheck();
-			checkForApproval();
 			}
 		};
 	xhttp.open("POST", "/pyha/getSummary/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
+	}
+
+	var complete = [0,0,0];
+	
+	function refresh(){
+	complete = [0,0,0];
+	get_taxon_tab();
+	get_custom_tab();
+	get_summary_tab();
+	}
+	
+	function ready(id){
+	complete[id] = 1;
+	for (var i = 0; i < complete.length; i++){
+			if(complete[i] == 0){
+				return;
+			}
+	allReady();
+	}
+	}
+	
+	function allReady() {
+		checkForApproval();
 	}
 	
 	function getCookie(name) {

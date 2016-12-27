@@ -26,7 +26,7 @@
     z-index: 1;
 }
 
-.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+.wizard .nav-tabs > li.selected > a, .wizard .nav-tabs > li.selected > a:hover, .wizard .nav-tabs > li.selected > a:focus {
     color: #555555;
     cursor: default;
     border: 0;
@@ -50,12 +50,12 @@ span.round-tab {
 span.round-tab i{
     color:#555555;
 }
-.wizard li.active span.round-tab {
+.wizard li.selected span.round-tab {
     background: #fff;
     border: 2px solid #5bc0de;
     
 }
-.wizard li.active span.round-tab i{
+.wizard li.selected span.round-tab i{
     color: #5bc0de;
 }
 
@@ -80,7 +80,7 @@ span.round-tab:hover {
     transition: 0.1s ease-in-out;
 }
 
-.wizard li.active:after {
+.wizard li.selected:after {
     content: " ";
     position: absolute;
     left: 46%;
@@ -132,7 +132,7 @@ span.round-tab:hover {
         line-height: 50px;
     }
 
-    .wizard li.active:after {
+    .wizard li.selected:after {
         content: " ";
         position: absolute;
         left: 35%;

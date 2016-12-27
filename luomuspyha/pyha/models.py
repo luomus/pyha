@@ -32,9 +32,31 @@ class Request(models.Model):
 	downloadIncludes = models.CharField(max_length=1000)
 	filter_list = models.CharField(max_length=2000)
 	requests = models.Manager()
+	requestPersonName = models.CharField(max_length=100,null=True)
+	requestPersonStreetAddress = models.CharField(max_length=100,null=True)
+	requestPersonPostOfficeName = models.CharField(max_length=100,null=True)
+	requestPersonPostalCode = models.CharField(max_length=100,null=True)
+	requestPersonEmail = models.CharField(max_length=100,null=True)
+	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
+	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
+	requestPersonCorporationId = models.CharField(max_length=100,null=True)
+	filter_list = models.CharField(max_length=2000)
 	reason = models.CharField(max_length=1000,null=True)
+
 	def __str__(self):
 		return self.id
+
+class RequestContact(models.Model):
+	id = models.AutoField(primary_key=True)
+	request = models.ForeignKey('Request', on_delete=models.CASCADE)
+	PersonName = models.CharField(max_length=100,null=True)
+	PersonStreetAddress = models.CharField(max_length=100,null=True)
+	PersonPostOfficeName = models.CharField(max_length=100,null=True)
+	PersonPostalCode = models.CharField(max_length=100,null=True)
+	PersonEmail = models.CharField(max_length=100,null=True)
+	PersonPhoneNumber = models.CharField(max_length=100,null=True)
+	PersonOrganizationName = models.CharField(max_length=100,null=True)
+	PersonCorporationId = models.CharField(max_length=100,null=True)
 
 class RequestLogEntry(models.Model):
 	VIEW = 'VIEW'
@@ -47,7 +69,7 @@ class RequestLogEntry(models.Model):
 		(DECISION_POSITIVE, 'accepts use of data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
 	)
-
+	
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, blank=True, null=True)
 	date = models.DateTimeField(auto_now_add=True)
@@ -58,3 +80,27 @@ class RequestLogEntry(models.Model):
 	
 	def __str__(self):
 		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
+		
+class RequestChatEntry(models.Model):
+	request = models.ForeignKey(Request, on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=100)
+	message = models.CharField(max_length=2000)
+	requestChat = models.Manager()
+	
+	def __str__(self):
+		return self.message
+
+class ContactPreset(models.Model):
+	user = models.CharField(primary_key=True, max_length=100)
+	requestPersonName = models.CharField(max_length=100,null=True)
+	requestPersonStreetAddress = models.CharField(max_length=100,null=True)
+	requestPersonPostOfficeName = models.CharField(max_length=100,null=True)
+	requestPersonPostalCode = models.CharField(max_length=100,null=True)
+	requestPersonEmail = models.CharField(max_length=100,null=True)
+	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
+	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
+	requestPersonCorporationId = models.CharField(max_length=100,null=True)
+
+	def __str__(self):
+		return self.user

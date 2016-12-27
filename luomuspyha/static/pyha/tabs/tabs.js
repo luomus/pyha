@@ -14,14 +14,14 @@ $(document).ready(function () {
     });
 
     $(document).on('click',".next-step",function (e) {
-        var $active = $('.wizard .nav-tabs li.active');
+        var $active = $('.wizard .nav-tabs li.selected');
         $active.next().removeClass('disabled');
         nextTab($active);
 
     });
     $(document).on('click',".prev-step",function (e) {
 
-        var $active = $('.wizard .nav-tabs li.active');
+        var $active = $('.wizard .nav-tabs li.selected');
         prevTab($active);
 
     });

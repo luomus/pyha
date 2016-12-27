@@ -1,5 +1,4 @@
 ﻿# projekti2016
-[![Build Status](https://travis-ci.org/LUOMUSPYHA/projekti2016.svg?branch=master)](https://travis-ci.org/LUOMUSPYHA/projekti2016)
 ##Suomen Lajitietokeskuksen viranomaisaineistojen luovutuspyyntöjen hallinta
 ####Ohjelmistotuotantoprojekti (Helsingin yliopisto, tietojenkäsittelytieteen laitos)
 

@@ -7,15 +7,18 @@
 		{% if role1%}
 		<div class="outer">
 				<div class="floatcontainer" style="width:500px">
-					<div class="inner" id="requestLog_list">
+					<div class="inner" id="requestChat_list" style="overflow-y: scroll;">
+						<h4>{% trans "handler_official_comment_area" %}</h4>
+						{% for requestChat in requestChat_list %}
+						<textarea class="form-control" rows="5" cols="700" style="overflow:auto;resize:none" disabled>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "handler_said" %}&#10;&#13;{{ requestChat }}</textarea>
+						{% endfor %}
 						<form action="{% url 'pyha:comment_sensitive' %}" id="requestform" method="post">
-						<h4>{% trans "official_comment_area" %}</h4>
 						<div class="form-group">
 							<input type="hidden" id="collectionid" name="collectionid" value="sens">
 							<input type="hidden" id="next" name="next" value={{request.path}}>
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-							<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required >{% if userRequest.sensComment %}{{userRequest.sensComment}}{% else %}{% endif %}</textarea>
-							<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "save" %}</button>
+							<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required ></textarea>
+							<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_save" %}</button>
 						</div>
 						{% csrf_token %}
 						</form>
@@ -25,7 +28,7 @@
 		{% endif %}
 		<div class="page-header"> 
 
-			<h1>{% trans "request_from_user" %}
+			<h1>{% trans "handler_request_from_user" %}
 				{{request_owner}},
 				{{request_owners_email}}
 			</h1>
@@ -46,19 +49,19 @@
 					{% endif %}
 					> 
 					{% if userRequest.status == 1 %}
-					{% trans "waiting_for_data_provider" %}
+					{% trans "handler_waiting_for_data_provider" %}
 					
 					{% elif userRequest.status == 2 %}
-					{% trans "partially_accepted" %}
+					{% trans "handler_partially_accepted" %}
 					
 					{% elif userRequest.status == 3 %}
-					{% trans "denied" %}
+					{% trans "handler_denied" %}
 					
 					{% elif userRequest.status == 4 %}
-					{% trans "accepted" %}
+					{% trans "handler_accepted" %}
 					
 					{% else %}  
-					{% trans "unknown" %}
+					{% trans "handler_unknown" %}
 					
 					{% endif %}
 					
@@ -71,54 +74,54 @@
 				<div class="floatcontainer">
 					<div class="inner" id="requestLog_list" style="overflow-y: scroll;">
 						{% if requestLog_list %}
-						<h4>{% trans "changes_history" %}</h4>
+						<h4>{% trans "handler_changes_history" %}</h4>
 							<table class="inner, table-bordered">
 								<tr>
-									<th>{% trans "log_date" %}</th>
-									<th>{% trans "log_maker" %}</th>
-									<th>{% trans "log_description" %}</th>
+									<th>{% trans "handler_log_date" %}</th>
+									<th>{% trans "handler_log_maker" %}</th>
+									<th>{% trans "handler_log_description" %}</th>
 								</tr>
 							{% for requestLog in requestLog_list %}
 							<tr>
 								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
 								<td>{{requestLog.name}} ({{requestLog.email}})</td>
 								{% if requestLog.action == 'VIEW' %}
-								<td>{% trans "log_viewed" %}</td>
+								<td>{% trans "handler_log_viewed" %}</td>
 								{% elif requestLog.action == 'ACC' %}
-								<td>{% trans "log_terms_accepted" %}</td>
+								<td>{% trans "handler_log_terms_accepted" %}</td>
 								{% elif requestLog.action == 'POS' %}
 									{% if requestLog.collection == None %}
-									<td>{% trans "log_sensitives_accepted" %}</td>
+									<td>{% trans "handler_log_sensitives_accepted" %}</td>
 									{% else %}
-									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
+									<td>{% trans "handler_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
 									{% endif %}
 								{% elif requestLog.action == 'NEG' %}
 									{% if requestLog.collection == None %}
-									<td>{% trans "log_sensitives_denied" %}</td>
+									<td>{% trans "handler_log_sensitives_denied" %}</td>
 									{% else %}
-									<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+									<td>{% trans "handler_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
 									{% endif %}
 								{% endif %}
 								</tr>
 							{% endfor %}
 							</table>
 						{% else %}
-							<strong>{% trans "log_no_history" %}.</strong>
+							<strong>{% trans "handler_log_no_history" %}.</strong>
 						{% endif %}
 					</div>
 				</div>
 			</div>
 
 		  
-				<h2>{% trans "request_filters" %}</h2>
+				<h2>{% trans "handler_request_filters" %}</h2>
 
-				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
+				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "handler_show" %}</button>
 				<div id="filterlist" class="collapse">
 					{% if filters %}
 						<table class = "table" style="width:50%">
 							<tr style=color:black>
-								<th>{% trans "filter" %}</th>
-								<th>{% trans "values" %}</th>	
+								<th>{% trans "handler_filter" %}</th>
+								<th>{% trans "handler_values" %}</th>	
 							</tr>	
 							{% for filter in filters %}
 							<tr>	
@@ -132,11 +135,11 @@
 							{% endfor %}
 						</table>
 					{% else %}
-						<strong>{% trans "no_filters" %}.</strong>
+						<strong>{% trans "handler_no_filters" %}.</strong>
 					{% endif %}
 				</div>
 				<br></br>
-				<h2>{% trans "request_arguments_for_admin" %}:</h2>
+				<h2>{% trans "handler_request_arguments_for_admin" %}</h2>
 				<p>{{userRequest.reason}}</p>
 				<br></br>
 				<!-- aineistolista -->
@@ -147,36 +150,32 @@
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+										<h4 class="modal-title" id="myModalLabel">{% trans "handler_sensitive_terms" %}</h4>
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
 										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<alt>{% trans "handler_If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
 											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
 										</object>
 									  </div>
 									  <div class="modal-footer">
-										<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
-										{% trans "I have read and understood the terms" %}<br>
-										<p></p>
-										<script>checksens();</script>
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
 									  </div>
 									</div>
 								  </div>
 								</div>
 							{% if userRequest.sensstatus == 0 %}
-							<h2>{% trans "User doesn't want sensitive data"%}</h2>
+							<h2>{% trans "handler_user_no_sensitive_data"%}</h2>
 							{% else %}
-							<h2>{% trans "list_of_collections"%}</h2>
+							<h2>{% trans "handler_list_of_collections"%}</h2>
 							{% for collection in taxonlist %}
 								<p>{{collection.result.collectionName}}<p>
 							{% endfor %}
 							<table class="table" style="width:100%">
 								<tr style=color:black>
-								<th>{% trans "state_of_processing" %}</th>
-								<th>{% trans "decision_arguments" %}</th>
+								<th>{% trans "handler_state_of_processing" %}</th>
+								<th>{% trans "handler_decision_arguments" %}</th>
 								</tr>
 								{% if userRequest.sensstatus == 1 %}
 								<tr class="info clickable-row"
@@ -189,15 +188,15 @@
 								{% endif %}
 								>
 								{% if userRequest.sensstatus == 1 %}
-								<td>{% trans "waiting_for_data_provider" %}</td>
+								<td>{% trans "handler_waiting_for_data_provider" %}</td>
 								{% elif userRequest.sensstatus == 3 %}
-								<td>{% trans "denied" %}</td>
+								<td>{% trans "handler_denied" %}</td>
 								{% elif userRequest.sensstatus == 2 %}
-								<td>{% trans "partially_accepted" %}</td>
+								<td>{% trans "handler_partially_accepted" %}</td>
 								{% elif userRequest.sensstatus == 4 %}
-								<td>{% trans "accepted" %}</td>
+								<td>{% trans "handler_accepted" %}</td>
 								{% else %}  
-								<td>{% trans "unknown" %}</td>	
+								<td>{% trans "handler_unknown" %}</td>	
 								{% endif %}
 								<td>
 									<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
@@ -206,8 +205,8 @@
 										<input type="hidden" id="next" name="next" value={{request.path}}>
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "refuse" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
 									</div>
 									{% csrf_token %}
 									</form>
@@ -218,14 +217,14 @@
 					{% endif %}
 				<br></br>
 					{% if customlist %}
-					<h2>{% trans "secured_collections_in_request" %}:</h2>
+					<h2>{% trans "handler_secured_collections_in_request" %}</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "collection_for_admin" %}</th>
-								<th>{% trans "request_description" %}</th>
-								<th>{% trans "state_of_processing" %}</th>
-								<th>{% trans "terms" %}</th>
-								<th>{% trans "decision_arguments" %}</th>
+								<th>{% trans "handler_collection_for_admin" %}</th>
+								<th>{% trans "handler_request_description" %}</th>
+								<th>{% trans "handler_state_of_processing" %}</th>
+								<th>{% trans "handler_terms" %}</th>
+								<th>{% trans "handler_decision_arguments" %}</th>
 							</tr>
 							{% for collection in customlist %}
 								{% if collection.status == 1 %}
@@ -242,17 +241,17 @@
 								<td>{{collection.result.description}}</td>
 								
 								{% if collection.status == 1 %}
-								<td>{% trans "waiting_for_data_provider" %}</td>
+								<td>{% trans "handler_waiting_for_data_provider" %}</td>
 								{% elif collection.status == 3 %}
-								<td>{% trans "denied" %}</td>
+								<td>{% trans "handler_denied" %}</td>
 								{% elif collection.status == 2 %}
-								<td>{% trans "partially_accepted" %}</td>
+								<td>{% trans "handler_partially_accepted" %}</td>
 								{% elif collection.status == 4 %}
-								<td>{% trans "accepted" %}</td>
+								<td>{% trans "handler_accepted" %}</td>
 								{% else %}  
-								<td>{% trans "unknown" %}</td>	
+								<td>{% trans "handler_unknown" %}</td>	
 								{% endif %}
-							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
+							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
 							<td>
 								{% if request.session.user_id in collection.downloadRequestHandler %}
 								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
@@ -261,8 +260,8 @@
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<input type="hidden" id="next" name="next" value={{request.path}}>
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "refuse" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
 									</div>
 									{% csrf_token %}
 								</form>		
@@ -277,17 +276,17 @@
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "Terms of use of the collections" %}</h4>
+										<h4 class="modal-title" id="myModalLabel">{% trans "handler_terms_of_use_of_the_collections" %}</h4>
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
 										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<alt>{% trans "handler_if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
 											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
 										</object>
 									  </div>
 									  <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
 									  </div>
 									</div>
 								  </div>
@@ -298,7 +297,7 @@
 						{% endif %}
 						</div>
 					{% else %}
-						<strong> {% trans "no_collections_for_requests" %}.</strong>
+						<strong> {% trans "handler_no_collections_for_requests" %}.</strong>
 					{% endif %}
 		</div>
 

@@ -38,10 +38,10 @@ window.onload = function () {
     var reason = document.getElementById("reason");
         var func = function() { 
             if (reason.value !== '') {
-              document.getElementById("continue-to-summary").disabled = false;      
+              document.getElementById("to_step_3").disabled = false;      
               
             } else {
-              document.getElementById("continue-to-summary").disabled = true;         
+              document.getElementById("to_step_3").disabled = true;         
               var $tabs = $('.wizard .nav-tabs li')
               var $summary_tab = $tabs[$tabs.length - 1]
               $summary_tab.className = 'disabled'
@@ -50,3 +50,7 @@ window.onload = function () {
       reason.onkeyup = func;
       reason.onchange = func;
 }
+
+$(window).on('resize', function () {
+  $('.nav-tabs > li a[title]').tooltip('show')
+})

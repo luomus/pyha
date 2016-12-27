@@ -1,5 +1,5 @@
 ﻿				{% load i18n %}
-				<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
+				<h1>{% trans "request_for_user" %} {{userRequest.date|date:"d.m.Y    H:i"}}
 					{% if userRequest.description and userRequest.description.strip %} 
 						{{userRequest.description}}
 					{% else %}
@@ -12,7 +12,7 @@
 						<div class="form-group">
 							
 							<div class="col-12" style="clear: left;">
-								<label for="description">{% trans "request_description" %}:</label>
+								<label for="description">{% trans "request_description" %}</label>
 							</div>
 							
 							<div class="col-12" style="clear: left;">

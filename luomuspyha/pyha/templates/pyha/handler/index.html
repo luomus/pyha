@@ -6,18 +6,18 @@
     <div class="container-fluid">
     <div class="col-xs-12">
       <div class="page-header">
-        <h2>{% trans "welcome" %}</h2>
+        <h2>{% trans "handler_welcome" %}</h2>
       </div>
       {% if requests %}
-      <h2>{% trans "all_requests" %}:</h2>
+      <h2>{% trans "handler_all_requests" %}</h2>
   <p class ="text-muted">{% trans "click_for_info" %}.</p>            
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#349934" style="color:white;">
-        <th>{% trans "request_date" %}</th>
-        <th>{% trans "requester" %}</th>	
-        <th>{% trans "request_hits" %}</th>
-        <th>{% trans "request_status_for_admin" %}</th>
+        <th>{% trans "handler_request_date" %}</th>
+        <th>{% trans "handler_requester" %}</th>	
+        <th>{% trans "handler_request_hits" %}</th>
+        <th>{% trans "handler_request_status_for_admin" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -45,21 +45,21 @@
             <td>{{request.email}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
-                <td>{% trans "you_have_not_accepted_terms" %}</td>
+                <td>{% trans "handler_you_have_not_accepted_terms" %}</td>
             
             {% elif request.status == 1 %}
-                <td>{% trans "waiting_for_data_provider" %}</td>
+                <td>{% trans "handler_waiting_for_data_provider" %}</td>
                 
             {% elif request.status == 2 %}
-                <td>{% trans "partially_accepted" %}</td>
+                <td>{% trans "handler_partially_accepted" %}</td>
                 
             {% elif request.status == 3 %}
-                <td>{% trans "denied" %}</td>
+                <td>{% trans "handler_denied" %}</td>
 
             {% elif request.status == 4 %}
-                <td>{% trans "accepted" %}</td>  
+                <td>{% trans "handler_accepted" %}</td>  
             {% else %}  
-                <td>{% trans "unknown" %}</td>	
+                <td>{% trans "handler_unknown" %}</td>	
             {% endif %}
         
             
@@ -68,7 +68,7 @@
 	{% endfor %}
     
 	{% else %}
-		<strong>{% trans "no_requests_for_admin" %}.</strong>
+		<strong>{% trans "handler_no_requests_for_admin" %}.</strong>
 	{% endif %}
     </tbody>
   </table>

@@ -9,7 +9,7 @@
 			</div>
 			
 			<!-- suodatinlista -->
-			<h3>{% trans "request_filters" %}:</h3>
+			<h3>{% trans "request_filters" %}</h3>
 
 			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 			<div id="filterlist" class="collapse">
@@ -39,7 +39,6 @@
 			<!-- aineistolista -->
 			{% if collections %}
 			<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
-
 				<div class="col-xs-12">
 					<div class="row">
 						<h2>{% trans 'approval_of_terms' %} </h2>
@@ -50,7 +49,7 @@
 									<ul class="nav nav-tabs" role="tablist">
 
 										<li role="presentation" class="active">
-											<a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="{% trans 'sensitivity_tab' %}">
+											<a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="{% trans 'contact_info_tab' %}">
 												<span class="round-tab">
 													<i>1</i>
 												</span>
@@ -58,7 +57,7 @@
 										</li>
 
 										<li role="presentation" class="disabled">
-											<a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="{% trans 'collections_tab'%}">
+											<a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="{% trans 'arguments_tab'%}">
 												<span class="round-tab">
 													<i>2</i>
 												</span>
@@ -66,12 +65,21 @@
 										</li>
 
 										<li role="presentation" class="disabled">
-											<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'arguments_tab'%}">
+											<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'sensitivity_tab' %}">
 												<span class="round-tab">
 													<i>3</i>
 												</span>
 											</a>
 										</li>
+										
+										<li role="presentation" class="disabled">
+											<a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="{% trans 'collections_tab'%}">
+												<span class="round-tab">
+													<i>4</i>
+												</span>
+											</a>
+										</li>
+										
 
 										<li role="presentation" class="disabled">
 											<a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="{% trans 'summary_tab'%}">
@@ -82,10 +90,110 @@
 										</li>                
 									</ul>
 								</div>
-
-								<form role="form">
 									<div class="tab-content">
 										<div class="tab-pane active" role="tabpanel" id="step1">
+											<h3>{% trans "contact_info_for_user" %}</h3>
+												<div class="form-style-10">
+													<div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
+													{% if old_request %}
+													<div class="inner-wrap">
+														<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name" name="request_person_name" value="{{old_request.requestPersonName}}"/></label>
+														<label>{% trans "enter_street_address" %} <input type="text" id="request_person_street_address" name="request_person_street_address" value="{{old_request.requestPersonStreetAddress}}"/></label>
+														<label>{% trans "enter_post_office_name" %}<input type="text" id="request_person_post_office_name" name="request_person_post_office_name" value="{{old_request.requestPersonPostOfficeName}}"/></label>
+														<label>{% trans "enter_postal_code" %}<input type="text" name="request_person_postal_code" id="request_person_postal_code" value="{{old_request.requestPersonPostalCode}}"/></label>
+													</div>
+
+													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
+													<div class="inner-wrap">
+														<label>{% trans 'enter_email' %} <input type="email" id="request_person_email" name="request_person_email" value="{{old_request.requestPersonEmail}}"/></label>
+														<label>{% trans "enter_phone_number" %}<input type="text" id="request_person_phone_number" name="request_person_phone_number" value="{{old_request.requestPersonPhoneNumber}}"/></label>
+													</div>
+
+													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
+														<div class="inner-wrap">
+														<label>{% trans "enter_corporation/organization_name" %}<input type="text" id="request_person_organization_name" name="request_person_organization_name" value="{{old_request.requestPersonOrganizationName}}"/></label>
+														<label>{% trans "enter_corporation_id" %}<input type="text" id="request_person_corporation_id" name="request_person_corporation_id" value="{{old_request.requestPersonCorporationId}}"/></label>
+													</div>
+													<div class="section"><span>4</span>{% trans 'other_clients' %}</div>
+														<div class="inner-wrap">
+														<label>{% trans "enter_client_information" %}<textarea type="text" id="request_person_client_information" name="request_person_client_information"></textarea></label>
+													</div>
+													{% else %}
+													<div class="inner-wrap">
+														<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name" name="request_person_name" value="{{request_owner}}"></input></label>
+														<label>{% trans "enter_street_address" %} <input type="text" id="request_person_street_address" name="request_person_street_address"/></label>
+														<label>{% trans "enter_post_office_name" %}<input type="text" id="request_person_post_office_name" name="request_person_post_office_name"/></label>
+														<label>{% trans "enter_postal_code" %}<input type="text" name="request_person_postal_code" id="request_person_postal_code"/></label>
+													</div>
+
+													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
+													<div class="inner-wrap">
+														<label>{% trans 'enter_email' %} <input type="email" id="request_person_email" name="request_person_email" value="{{request_owners_email}}"/></label>
+														<label>{% trans "enter_phone_number" %}<input type="text" id="request_person_phone_number" name="request_person_phone_number"/></label>
+													</div>
+
+													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
+														<div class="inner-wrap">
+														<label>{% trans "enter_corporation/organization_name" %}<input type="text" id="request_person_organization_name" name="request_person_organization_name" /></label>
+														<label>{% trans "enter_corporation_id" %}<input type="text" id="request_person_corporation_id" name="request_person_corporation_id" /></label>
+													</div>
+													<div class="section"><span>4</span>{% trans 'other_clients' %}</div>
+														<div class="inner-wrap">
+														<label>{% trans "enter_client_information" %}<textarea type="text" id="request_person_client_information" name="request_person_client_information"></textarea></label>
+													</div>
+													{% endif %}
+												</div>
+											<ul class="list-inline pull-right">
+												<li><button id="to_step_2" type="button" class="btn btn-primary btn-info-full next-step">{% trans 'continue_to_step_2' %}</button></li>
+											</ul>
+										</div>
+										<div class="tab-pane" role="tabpanel" id="step2">
+											<div class="form-style-10">
+													<div class="section"><span>1</span>{% trans "request_arguments_for_user" %}</div>
+													<div class="inner-wrap">
+														<select multiple="multiple" id="reason_selector" onchange="updateReason();" style="width:400px;">
+															<option value="reason_zoning">Kaavoitus</option>
+															<option value="reason_permission">Lupahakemus (ympäristönsuojelulaki / vesilaki / kaivoslaki)</option>
+															<option value="reason_enviromental">Ympäristövaikutusten arviointimenettely</option>
+															<option value="reason_natura">Natura-arviointimenettely (luonnonsuojelulaki)</option>
+															<option value="reason_scientific">Tieteellinen tutkimus</option>
+															<option value="reason_forest">Metsäsuunnittelu</option>
+															<option value="reason_other">Muu</option>
+														</select>
+													</div>
+													<div id="additional_information" hidden=true>
+														<div class="section"><span>2</span>{% trans 'additional_information' %}</div>
+														<div class="inner-wrap">
+															<div hidden=true id="argument_project">
+															<label id="argument_details_label">{% trans 'required_project_name' %} <textarea id="project" name="project" disabled hidden required placeholder=""></textarea></label>
+															</div>
+															<div hidden=true id="argument_research">
+															<label id="argument_details_label">{% trans 'required_research_name' %} <textarea id="research" name="research" disabled hidden required placeholder=""></textarea></label>
+															</div>
+															<div hidden=true id="argument_reason">
+															<label id="argument_details_label">{% trans 'required_arguments' %} <textarea id="reason" name="reason" hidden required placeholder=""></textarea></label>
+															</div>
+															<div hidden=true id="argument_goals">
+															<label id="argument_details_label">{% trans 'required_goals' %} <textarea id="goals" name="goals" disabled hidden required placeholder=""></textarea></label>
+															</div>
+															<div hidden=true id="argument_planning">
+															<label id="argument_details_label">{% trans 'required_planning_description' %} <textarea id="planning" name="planning" disabled hidden required placeholder=""></textarea></label>
+															</div>
+															<div hidden=true id="argument_municipality">
+															<label id="argument_details_label">{% trans 'required_municipality' %} <textarea id="municipality" name="municipality" disabled hidden required placeholder=""></textarea></label>
+															</div>
+															<div hidden=true id="argument_natura_areas">
+															<label id="argument_details_label">{% trans 'required_natura_areas' %} <textarea id="natura_areas" name="natura_areas" disabled hidden required placeholder=""></textarea></label>
+															</div>
+														</div>
+													</div>
+											</div>
+											<ul class="list-inline pull-right">
+												<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
+												<li><button id="to_step_3" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue_to_step_3' %}</button></li>
+											</ul>
+										</div>
+										<div class="tab-pane" role="tabpanel" id="step3">
 											<div id="senstable" class="form-group">
 											<!--  requestformtaxon.html snippet appears here -->
 											</div>
@@ -104,16 +212,16 @@
 																	</object>
 															</div>
 															<div class="modal-footer">
-																<input type="checkbox" id ="checkbsens" name="checkb" value="sens" onchange="checksens(); checkForApproval();">
+																<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
 																{% trans "i_accept_terms" %}<br>
 																<p></p>
 																<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
 															</div>
 														</div>
 													</div>
-												</div>  
 											</div>  
-										<div class="tab-pane" role="tabpanel" id="step2">
+										</div>  
+										<div class="tab-pane" role="tabpanel" id="step4">
 											<div id="customtable" class="form-group">
 											<!--  requestformcustom.html snippet appears here -->
 											</div>
@@ -134,7 +242,7 @@
 															</object>
 														</div>
 															<div class="modal-footer">
-																<input type="checkbox" id ="checkb{{ collection.id }}" name="checkb" value="{{collection.result.id}}"
+																<input type="checkbox" id ="{{ collection.id }}" name="checkb" value="{{collection.result.id}}"
 																onchange="check({{ collection.id }}); checkForApproval();">
 																{% trans "I have read and understood the terms" %}<br>
 																<p></p>
@@ -145,27 +253,17 @@
 												</div>
 											{% endfor %}
 										</div>
-											<div class="tab-pane" role="tabpanel" id="step3">
-												<h3>{% trans "request_arguments_for_user" %}:</h3>
-												<textarea class="form-control" rows="2" id="reason" name="reason" required placeholder="{% trans 'required_arguments' %}"></textarea>
-												<ul class="list-inline pull-right">
-													<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-													<li><button id="continue-to-summary" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue'%}</button></li>
-												</ul>
-											</div>
 											<div class="tab-pane" role="tabpanel" id="complete">
 											<div id="summarytable">
 											<!--  requestformsummary.html snippet appears here -->
 											</div>
 												<ul class="list-inline pull-right">
+													<li><span id ="submitstatustext">{% trans "you_have_to_accept_or_delete_all_terms" %}</span></li>
 													<li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
-													<li>
-												<span id ="submitstatustext">{% trans "you_have_to_accept_or_delete_all_terms" %}</span></li>
 												</ul>
 										<div class="clearfix"></div>
 									</div>
 										{% csrf_token %}
-								</form>
 							</div>
 						</section>
 					</div>
@@ -203,7 +301,7 @@
 						</div>
 					</form>
 					<!-- delete sensitive data -->
-					<form class="form-hidden" action="javascript:removeAjax({{ collection.id }})" id="deletesensform{{ collection.id }}" method="post">
+					<form class="form-hidden" action="javascript:remove({{ collection.id }})" id="deletesensform{{ collection.id }}" method="post">
 						<div class="form-group">
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 							<input type="hidden" id="taxoncollectionId{{ collection.id }}" name="collectionId" value={{collection.id}}>
@@ -213,7 +311,7 @@
 						{% csrf_token %}
 					</form>
 					<!--  delete custom data -->
-					<form class="form-hidden" action="javascript:removeAjax({{ collection.id }})" id="deletecustomform{{ collection.id }}" method="post">
+					<form class="form-hidden" action="javascript:remove({{ collection.id }})" id="deletecustomform{{ collection.id }}" method="post">
 						<div class="form-group">
 							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 							<input type="hidden" id="collectionId" name="collectionId" value={{collection.id}}>
@@ -228,7 +326,6 @@
 {% endblock %}
 
 {% block start_script %}
-
 	<script>
 	  var accepted = {};
 	  var acceptedsens = 0;
@@ -237,32 +334,35 @@
 		  nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
 		  if(document.getElementById('checkbsens').checked){
 			  document.getElementById('statustextsens').textContent=approvetext;
-			  document.getElementById('to_step_2').disabled = false;
+			  document.getElementById('checkbsens').disabled = true;
+			  document.getElementById('to_step_4').disabled = false;
 			  acceptedsens = 1;
 		  }else{
 			  document.getElementById('statustextsens').textContent=nonapprovetext;
-			  document.getElementById('to_step_2').disabled = true;
+			  document.getElementById('to_step_4').disabled = true;
 			  acceptedsens = 0;
 		}
 	  }
 	  function check(counter) { 
 		  approvetext = "{% trans 'you_accepted_terms' %}";
 		  nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
-		  if(document.getElementById('checkb'+ counter).checked){
+		  if(document.getElementById(counter).checked){
 			  document.getElementById('statustext'+ counter).textContent=approvetext;
-			  document.getElementById('acc' + counter).hidden = true
+			  document.getElementById(counter).disabled = true;
 			  accepted[counter] = 1;
 		  }else{
 			  document.getElementById('statustext'+ counter).textContent=nonapprovetext;
-			  document.getElementById('acc' + counter).hidden = false
 			  accepted[counter] = 0;
 		}
 	  }
+	  function remove(counter) { 
+		delete accepted[counter];
+		removeAjax(counter);
+	  }
 	  function refreshCheck() {
-		accepted = {};
-		var elements = document.getElementsByClassName("customlistcb");
+		var elements = document.getElementsByName("checkb");
 		for(var i=0; i<elements.length; i++) {
-	      check(elements[i].name);
+	      check(elements[i].id);
 	    }
 	  }
 	  function checkv(counter, value) { 
@@ -277,23 +377,101 @@
 		}
 		approved += acceptedsens;
 		if(approved == size+1){
+			document.getElementById('to_step_summary').disabled = false;
 			document.getElementById('submit').disabled = false;
 			document.getElementById('submitstatustext').hidden = true;
 			document.getElementById('collections_not_approved').hidden = true;
 		}else{
+			document.getElementById('to_step_summary').disabled = true;
 			document.getElementById('submit').disabled = true;
 			document.getElementById('submitstatustext').hidden = false;
 			document.getElementById('collections_not_approved').hidden = false;
 		}
 	}
 	</script>
-	
-	
-	
+
 	<script>
+	function updateReason() { 
+	var select = document.getElementById('reason_selector');
+	var result = getSelectValues(select)
+	document.getElementById('argument_reason').hidden = true;
+	document.getElementById('argument_municipality').hidden = true;
+	document.getElementById('argument_natura_areas').hidden = true;
+	document.getElementById('argument_project').hidden = true;
+	document.getElementById('argument_research').hidden = true;
+	document.getElementById('argument_goals').hidden = true;
+	document.getElementById('argument_planning').hidden = true;
+	document.getElementById('reason').disabled = true;
+	document.getElementById('municipality').disabled = true;
+	document.getElementById('natura_areas').disabled = true;
+	document.getElementById('project').disabled = true;
+	document.getElementById('research').disabled = true;
+	document.getElementById('goals').disabled = true;
+	document.getElementById('planning').disabled = true;
+	document.getElementById('additional_information').hidden = result.length == 0;
+	for (var i=0; i<result.length; i++) {
+		switch (result[i]) {
+			case "reason_zoning":
+				document.getElementById('argument_project').hidden = false;
+				document.getElementById('argument_municipality').hidden = false;
+				document.getElementById('project').disabled = false;
+				document.getElementById('municipality').disabled = false;
+				break;
+			case "reason_permission":
+				document.getElementById('argument_project').hidden = false;
+				document.getElementById('argument_municipality').hidden = false;
+				document.getElementById('project').disabled = false;
+				document.getElementById('municipality').disabled = false;
+				break;
+			case "reason_enviromental":
+				document.getElementById('argument_project').hidden = false;
+				document.getElementById('argument_municipality').hidden = false;
+				document.getElementById('project').disabled = false;
+				document.getElementById('municipality').disabled = false;
+				break;
+			case "reason_natura":
+				document.getElementById('argument_project').hidden = false;
+				document.getElementById('argument_municipality').hidden = false;
+				document.getElementById('argument_natura_areas').hidden = false;
+				document.getElementById('project').disabled = false;
+				document.getElementById('municipality').disabled = false;
+				document.getElementById('natura_areas').disabled = false;
+				break;
+			case "reason_scientific":
+				document.getElementById('argument_research').hidden = false;
+				document.getElementById('argument_goals').hidden = false;
+				document.getElementById('research').disabled = false;
+				document.getElementById('goals').disabled = false;
+				break;
+			case "reason_forest":
+				document.getElementById('argument_planning').hidden = false;
+				document.getElementById('argument_municipality').hidden = false;
+				document.getElementById('planning').disabled = false;
+				document.getElementById('municipality').disabled = false;
+				break;
+			case "reason_other":
+				document.getElementById('argument_reason').hidden = false;
+				document.getElementById('argument_municipality').hidden = false;
+				document.getElementById('reason').disabled = false;
+				document.getElementById('municipality').disabled = false;
+		} 
+	}
+	}
 	
-	
-	
+	function getSelectValues(select) {
+	var result = [];
+	var options = select && select.options;
+	var opt;
+
+	for (var i=0; i<options.length; i++) {
+	opt = options[i];
+
+	if (opt.selected) {
+	  result.push(opt.value || opt.text);
+	}
+	}
+	return result;
+	}
 	</script>
 {% endblock %}
 {% block end_script %}
@@ -338,6 +516,9 @@
 					$(name).submit();
 			});
 		});
+		$("form").submit(function() {
+			$("input").removeAttr("disabled");
+		});
 	</script>
 
 	<script>
@@ -351,16 +532,20 @@
 		}
 	}
 	</script>
-	
+	<script>
+	$(document).ready(function() {
+		$('#reason_selector').multiselect({
+		nonSelectedText: '{% trans "request_choose_reason" %}',
+		nSelectedText: '{% trans "request_chosen_multiple_reasons" %}'
+		});
+	});
+	</script>
 	<!-- create html snippets in tabs -->
 	<script>
-	
 	$(document).ready(function(){
-	  get_taxon_tab();
-	  get_custom_tab();
+	  refresh();
 	  get_request_header();
-	  get_summary_tab();
-	  setTimeout(refreshCheck,2000);
+	  updateReason();
 	  });
 	</script>
 {% endblock %}

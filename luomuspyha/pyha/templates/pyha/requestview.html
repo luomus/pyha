@@ -20,7 +20,7 @@
 						<div class="form-group">
 							
 							<div class="col-12" style="clear: left;">
-								<label for="description">Kuvaus:</label>
+								<label for="description">{% trans "description" %}</label>
 							</div>
 							
 							<div class="col-12" style="clear: left;">
@@ -36,7 +36,7 @@
 							</div>
 							
 							<p id="description" class="form-text text-muted">
-							{% trans "A description is a voluntary way to name your request. Without it the requests title will be the requests date" %}.
+							{% trans "description_description" %}.
 							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
 							</p>
 						</div>
@@ -164,8 +164,8 @@
 				
 				{% if collections %}
 					{% if taxon %}
-						<h2>{% trans "request_included_sensitive_data" %}:</h2>
-						<p>{% trans "Collections including sensitive sightings are marked with symbol"%}. <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
+						<h2>{% trans "request_included_sensitive_data" %}</h2>
+						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
 						<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
 
 								<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
@@ -178,7 +178,7 @@
 									  <div class="modal-body">
 										{% load static %}
 										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
 											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
 										</object>
 									  </div>
@@ -189,9 +189,9 @@
 								  </div>
 								</div>
 							{% if userRequest.sensstatus == 0 %}
-							<h2>{% trans "You don't want sensitive data"%}</h2>
+							<h2>{% trans "you_don't_want_sensitive_data"%}</h2>
 							{% else %}
-							<h2>{% trans "Decision for admitting sensitive data"%}</h2>
+							<h2>{% trans "decision_for_admitting_sensitive_data"%}</h2>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 								<th>{% trans "state_of_processing" %}</th>
@@ -231,7 +231,7 @@
 					{% endif %}
 				<br></br>
 				{% if collections %}
-				<h2>{% trans "collections_in_request" %}:</h2>
+				<h2>{% trans "collections_in_request" %}</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "collection_for_user" %}</th>
@@ -289,12 +289,12 @@
 									<div class="modal-content">
 									  <div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "Terms of use of the collections" %}</h4>
+										<h4 class="modal-title" id="myModalLabel">{% trans "terms_of_use_of_the_collections" %}</h4>
 									  </div>
 									  <div class="modal-body">
 										{% load static %}
 										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+											<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
 											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
 										</object>
 									  </div>
@@ -309,7 +309,7 @@
 							{% endfor %}
 						</table>
 					{% endif %}
-						</div>
+		</div>
 					</form>
 					{% else %}
 						<strong> {% trans "no_collections_for_requests" %}.</strong>

@@ -18,7 +18,7 @@ from pyha.login import log_out
 from requests.auth import HTTPBasicAuth
 from pyha.email import fetch_email_address
 from pyha.warehouse import store
-from pyha.models import Collection, Request, RequestLogEntry
+from pyha.models import Collection, Request, RequestLogEntry, RequestChatEntry, ContactPreset
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from itertools import chain
 from itertools import groupby
@@ -108,8 +108,10 @@ def allowed_to_view(request, userRequest, userId, role1, role2):
 			if role2 and not role1:
 				if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
 					return False
+			if(userRequest.status == 0):
+				return False
 	else:
-			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists() or userRequest.status == -1:
+			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists():
 				return False
 	if(userRequest.status == -1):
 			return False
@@ -153,7 +155,7 @@ def make_logEntry_view(request, userRequest, userId, role1, role2):
 				logRole = HANDLER_BOTH 
 		elif role2:
 			logRole = HANDLER_COLL
-		request.session["has_viewed"].append(userRequest.id)				
+		request.session["has_viewed"].append(userRequest.id)
 		RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
 					role=logRole, action=RequestLogEntry.VIEW)
 
@@ -223,6 +225,13 @@ def requestLog(request, requestId):
 			if(l.collection):
 				collectionList.append(l)
 		return requestLog_list
+		
+def requestChat(request, requestId):
+		requestChat_list = list(RequestChatEntry.requestChat.filter(request=requestId).order_by('-date'))
+		email = []
+		for l in requestChat_list:
+			l.name = fetch_user_name(l.user)
+		return requestChat_list
 
 def create_request_view_context(requestId, request, userRequest, userId, role1, role2):
 		taxonList = []
@@ -236,7 +245,11 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		hasRole = role1 or role2
 		request_owner = fetch_user_name(userRequest.user)
 		request_owners_email = fetch_email_address(userRequest.user)
-		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
+			contactPreset = ContactPreset.objects.get(user=userId)
+			context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email, "old_request": contactPreset}
+		else:
+			context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email, "requestChat_list": requestChat(request, requestId)}
 		return context
 
 def get_values_for_collections(requestId, request, List):
@@ -480,6 +493,7 @@ def approve(request):
 		requestId = request.POST.get('requestid')
 		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb');
+		print(request.POST)
 		if(len(requestedCollections) > 0):
 			for rc in requestedCollections:
 				if rc not in "sens":
@@ -502,17 +516,41 @@ def approve(request):
 				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
 				if(c.customSecured > 0):
 					send_mail_for_approval(requestId, c, lang)
-
 			userRequest = Request.requests.get(id = requestId)
 			userRequest.reason = request.POST.get('reason')
 			userRequest.status = 1
-			userRequest.save(update_fields=['status','reason'])
+			userRequest.requestPersonName = request.POST.get('request_person_name')
+			userRequest.requestPersonStreetAddress = request.POST.get('request_person_street_address')
+			userRequest.requestPersonPostOfficeName = request.POST.get('request_person_post_office_name')
+			userRequest.requestPersonPostalCode = request.POST.get('request_person_postal_code')
+			userRequest.requestPersonEmail = request.POST.get('request_person_email')
+			userRequest.requestPersonPhoneNumber = request.POST.get('request_person_phone_number')
+			userRequest.requestPersonOrganizationName = request.POST.get('request_person_organization_name')
+			userRequest.requestPersonCorporationId = request.POST.get('request_person_corporation_id')
+			userRequest.save()
+			update_contact_preset(request, userRequest)
 			if userRequest.sensstatus == 1:
 				send_mail_for_approval_sens(requestId, lang)
 			#make a log entry
 			RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
 
 	return HttpResponseRedirect('/pyha/')
+
+def update_contact_preset(request, userRequest):
+		print(userRequest.user)
+		contactPreset = ContactPreset.objects.filter(user=userRequest.user).first()
+		if contactPreset is None:
+			contactPreset = ContactPreset()
+		contactPreset.user = userRequest.user
+		contactPreset.requestPersonName = request.POST.get('request_person_name')
+		contactPreset.requestPersonStreetAddress = request.POST.get('request_person_street_address')
+		contactPreset.requestPersonPostOfficeName = request.POST.get('request_person_post_office_name')
+		contactPreset.requestPersonPostalCode = request.POST.get('request_person_postal_code')
+		contactPreset.requestPersonEmail = request.POST.get('request_person_email')
+		contactPreset.requestPersonPhoneNumber = request.POST.get('request_person_phone_number')
+		contactPreset.requestPersonOrganizationName = request.POST.get('request_person_organization_name')
+		contactPreset.requestPersonCorporationId = request.POST.get('request_person_corporation_id')
+		contactPreset.save()
 
 def answer(request):
 		next = request.POST.get('next', '/')
@@ -535,7 +573,7 @@ def answer(request):
 					update(requestId, request.LANGUAGE_CODE)
 			elif HANDLER_SENS in request.session["user_roles"]:
 				userRequest = Request.requests.get(id = requestId)
-				if (int(request.POST.get('answer')) == 1):	
+				if (int(request.POST.get('answer')) == 1):
 					userRequest.sensstatus = 4
 					#make a log entry
 					RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
@@ -551,12 +589,15 @@ def answer(request):
 def comment_sensitive(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
-			sensComment = request.POST.get('commentsForAuthorities')
+			message = request.POST.get('commentsForAuthorities')
 			requestId = request.POST.get('requestid')
 			if HANDLER_SENS in request.session["user_roles"]:
-				userRequest = Request.requests.get(id = requestId)
-				userRequest.sensComment = sensComment
-				userRequest.save()
+				newChatEntry = RequestChatEntry()
+				newChatEntry.request = Request.requests.get(id=requestId)
+				newChatEntry.date = datetime.now()
+				newChatEntry.user = request.session["user_id"]
+				newChatEntry.message = message
+				newChatEntry.save()
 		return HttpResponseRedirect(next)
 
 def update(requestId, lang):
