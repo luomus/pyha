@@ -69,6 +69,4 @@ def makeblob(x):
 			for j in i.__dict__:
 				data[j] = getattr(i, j)
 		blob = json.dumps(data)
-		print(x)
-		print(blob)
 		return blob

@@ -371,16 +371,20 @@
 							{% endif %}
 						{% endfor %}
 						{% if role1 %}
+						{% if reasonlist.question %}
 						<h3>{% trans "handler_additional_questions" %}</h3>
 						{% for question in reasonlist.question %}
 						<textarea rows="5" cols="70" disabled>{{question}}</textarea>
 						<br></br>
 						{% endfor %}
+						{% endif %}
+						{% if reasonlist.information %}
 						<h3>{% trans "handler_answers" %}</h3>
 						{% for information in reasonlist.information %}
 						<textarea rows="5" cols="70" disabled>{{information}}</textarea>
 						<br></br>
 						{% endfor %}
+						{% endif %}
 						<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
 						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 							<div class="form-group">

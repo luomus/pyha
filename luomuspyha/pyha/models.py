@@ -40,7 +40,7 @@ class Request(models.Model):
 	PersonPhoneNumber = models.CharField(max_length=100,null=True)
 	PersonOrganizationName = models.CharField(max_length=100,null=True)
 	PersonCorporationId = models.CharField(max_length=100,null=True)
-	reason = models.CharField(max_length=2000,null=True)
+	reason = models.CharField(max_length=16000,null=True)
 
 	def __str__(self):
 		return self.id
