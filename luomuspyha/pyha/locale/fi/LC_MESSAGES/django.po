@@ -134,7 +134,7 @@ msgstr "Viranomaisten kommentit"
 
 #: pyha/templates/pyha/handler/requestview.html:13
 msgid "handler_said"
-msgstr ""
+msgstr " kirjoitti:"
 
 #: pyha/templates/pyha/handler/requestview.html:21
 msgid "handler_save"
