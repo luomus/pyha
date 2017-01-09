@@ -18,7 +18,7 @@ from pyha.login import log_out
 from requests.auth import HTTPBasicAuth
 from pyha.email import fetch_email_address
 from pyha.warehouse import store
-from pyha.models import Collection, Request, RequestLogEntry, RequestChatEntry, ContactPreset
+from pyha.models import Collection, Request, RequestLogEntry, RequestChatEntry, ContactPreset, RequestContact
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from itertools import chain
 from itertools import groupby
@@ -77,6 +77,7 @@ def _process_auth_response(request, indexpath):
 			return HttpResponseRedirect('/pyha/'+indexpath)
 		else:
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
+
 @csrf_exempt
 def receiver(request):
 		if 'JSON' in request.POST:
@@ -90,6 +91,16 @@ def receiver(request):
 			send_mail_after_receiving_request(req.id, req.lang)
 		return HttpResponse('')
 
+@csrf_exempt
+def download(request):
+		jsond = request.body.decode("utf-8")
+		req = store(jsond)
+		if(req):
+			data = json.loads(req, object_hook=lambda d: Namespace(**d))
+			userRequest = Request.requests.get(lajiId = data.id)
+			userRequest.status = 6;
+			userRequest.save()
+		return HttpResponse('')
 
 def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
@@ -140,7 +151,11 @@ def show_request(request):
 			return render(request, 'pyha/handler/requestview.html', context)
 		else:
 			if(userRequest.status == 0):
-				return render(request, 'pyha/requestform.html', context)
+				result = render(request, 'pyha/requestform.html', context)
+				'''result['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+				result['Pragma'] = 'no-cache'
+				result['Expires'] = '0'''
+				return result
 			else:
 				return render(request, 'pyha/requestview.html', context)
 
@@ -159,18 +174,21 @@ def make_logEntry_view(request, userRequest, userId, role1, role2):
 		RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
 					role=logRole, action=RequestLogEntry.VIEW)
 
-def show_filters(request, requestId):
-		userRequest = Request.requests.get(id=requestId)
+def show_filters(request, userRequest):
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		filterResultList = list(range(len(vars(filterList).keys())))
 		lang = request.LANGUAGE_CODE
-		if 'has expired' in cache.get('filters'+requestId+lang, 'has expired'):
+		if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):
 			filters = requests.get(settings.LAJIFILTERS_URL)
 			if(filters.status_code == 200):
 				filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
 				for i, b in enumerate(vars(filterList).keys()):
 					languagelabel = b
 					filternamelist = getattr(filterList, b)
+					if isinstance(filternamelist, str):
+						stringlist = []
+						stringlist.append(getattr(filterList, b))
+						filternamelist = stringlist
 					if b in filters.json():
 						filterfield = getattr(filtersobject, b)
 						label = getattr(filterfield, "label")
@@ -198,18 +216,49 @@ def show_filters(request, requestId):
 								filternamelist[k]= filtername
 					tup = (b, filternamelist, languagelabel)
 					filterResultList[i] = tup
-				cache.set('filters'+requestId+lang,filterResultList)
+				cache.set('filters'+str(userRequest.id)+lang,filterResultList)
 			else:
 				for i, b in enumerate(vars(filterList).keys()):
 					languagelabel = b
 					filternamelist = getattr(filterList, b)
+					if isinstance(filternamelist, str):
+						stringlist = []
+						stringlist.append(getattr(filterList, b))
+						filternamelist = stringlist
 					tup = (b, filternamelist, b)
 					filterResultList[i] = tup
-				cache.set('filters'+requestId+lang,filterResultList)
+				cache.set('filters'+str(userRequest.id)+lang,filterResultList)
 				return filterResultList
 		else:
-			return cache.get('filters'+requestId+lang)
+			return cache.get('filters'+str(userRequest.id)+lang)
 		return filterResultList
+
+def show_reasons(userRequest):
+		reasonlist = json.loads(userRequest.reason, object_hook=lambda d: Namespace(**d))
+		fields = reasonlist.fields
+		tuplist = []
+		for f in fields.__dict__:
+			t = (f,getattr(fields, f))
+			tuplist.append(t)
+		reasonlist.fields = tuplist
+		return reasonlist
+
+def show_request_contacts(userRequest):
+		contacts = []
+		contact = {}
+		contact["PersonName"] = userRequest.PersonName
+		contact["PersonStreetAddress"] = userRequest.PersonStreetAddress
+		contact["PersonPostOfficeName"] = userRequest.PersonPostOfficeName
+		contact["PersonPostalCode"] = userRequest.PersonPostalCode
+		contact["PersonEmail"] = userRequest.PersonEmail
+		contact["PersonPhoneNumber"] = userRequest.PersonPhoneNumber
+		contact["PersonOrganizationName"] = userRequest.PersonOrganizationName
+		contact["PersonCorporationId"] = userRequest.PersonCorporationId
+		contacts.append(contact)
+		contactlist = RequestContact.objects.filter(request=userRequest)
+		for c in contactlist:
+			contacts.append(c)
+		return contacts
 
 def requestLog(request, requestId):
 		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId).order_by('-date'))
@@ -245,11 +294,14 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		hasRole = role1 or role2
 		request_owner = fetch_user_name(userRequest.user)
 		request_owners_email = fetch_email_address(userRequest.user)
+		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		if userRequest.status > 0:
+			context["contactlist"] = show_request_contacts(userRequest)
+			context["reasonlist"] = show_reasons(userRequest)
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
-			contactPreset = ContactPreset.objects.get(user=userId)
-			context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email, "old_request": contactPreset}
+			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
-			context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, requestId), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email, "requestChat_list": requestChat(request, requestId)}
+			context["requestChat_list"] = requestChat(request, requestId)
 		return context
 
 def get_values_for_collections(requestId, request, List):
@@ -407,6 +459,27 @@ def get_summary(request):
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		return render(request, 'pyha/requestformsummary.html', context)
 	return HttpResponse("")
+	
+def create_contact(request):
+	if request.method == 'POST' and request.POST.get('requestid') and request.POST.get('id'):
+		if check_language(request):
+				return HttpResponseRedirect(request.path)
+		#Has Access
+		requestId = request.POST.get('requestid')
+		if not logged_in(request):
+			return _process_auth_response(request, "request/"+requestId)
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		
+		if not allowed_to_view(request, userRequest, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
+		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
+		context["contact_id"] = request.POST.get('id');
+		return render(request, 'pyha/requestformcontact.html', context)
+	return HttpResponse("")
 
 def description_ajax(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
@@ -493,17 +566,12 @@ def approve(request):
 		requestId = request.POST.get('requestid')
 		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb');
-		print(request.POST)
-		if(len(requestedCollections) > 0):
+		senschecked = request.POST.get('checkbsens');
+		if(len(requestedCollections) > 0 and userRequest.status == 0 and senschecked):
 			for rc in requestedCollections:
-				if rc not in "sens":
-					userCollection = Collection.objects.get(address = rc, request = requestId)
-					userCollection.status = 1
-					userCollection.save(update_fields=['status'])
-				elif Collection.objects.filter(request = requestId, taxonSecured__gt = 0, status__gte = 0).count() > 0:
-					#userRequest = Request.requests.get(id = requestId)
-					userRequest.sensstatus = 1
-					userRequest.save(update_fields=['sensstatus'])
+				userCollection = Collection.objects.get(address = rc, request = requestId)
+				userCollection.status = 1
+				userCollection.save(update_fields=['status'])
 			for c in Collection.objects.filter(request = requestId):
 				if c.status == 0:
 					c.customSecured = 0
@@ -516,40 +584,74 @@ def approve(request):
 				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
 				if(c.customSecured > 0):
 					send_mail_for_approval(requestId, c, lang)
-			userRequest = Request.requests.get(id = requestId)
-			userRequest.reason = request.POST.get('reason')
+
+			for count in range(2, count_contacts(request.POST)+1):
+				create_new_contact(request, userRequest, count)
+
+			userRequest.reason = create_argument_blob(request)
 			userRequest.status = 1
-			userRequest.requestPersonName = request.POST.get('request_person_name')
-			userRequest.requestPersonStreetAddress = request.POST.get('request_person_street_address')
-			userRequest.requestPersonPostOfficeName = request.POST.get('request_person_post_office_name')
-			userRequest.requestPersonPostalCode = request.POST.get('request_person_postal_code')
-			userRequest.requestPersonEmail = request.POST.get('request_person_email')
-			userRequest.requestPersonPhoneNumber = request.POST.get('request_person_phone_number')
-			userRequest.requestPersonOrganizationName = request.POST.get('request_person_organization_name')
-			userRequest.requestPersonCorporationId = request.POST.get('request_person_corporation_id')
+			if senschecked:
+				userRequest.sensstatus = 1
+			userRequest.PersonName = request.POST.get('request_person_name_1')
+			userRequest.PersonStreetAddress = request.POST.get('request_person_street_address_1')
+			userRequest.PersonPostOfficeName = request.POST.get('request_person_post_office_name_1')
+			userRequest.PersonPostalCode = request.POST.get('request_person_postal_code_1')
+			userRequest.PersonEmail = request.POST.get('request_person_email_1')
+			userRequest.PersonPhoneNumber = request.POST.get('request_person_phone_number_1')
+			userRequest.PersonOrganizationName = request.POST.get('request_person_organization_name_1')
+			userRequest.PersonCorporationId = request.POST.get('request_person_corporation_id_1')
 			userRequest.save()
 			update_contact_preset(request, userRequest)
 			if userRequest.sensstatus == 1:
 				send_mail_for_approval_sens(requestId, lang)
 			#make a log entry
 			RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-
 	return HttpResponseRedirect('/pyha/')
 
+def count_contacts(post):
+	i = 0
+	for string in post:
+		if "request_person_name" in string:
+			i += 1
+	return i
+
+def create_new_contact(request, userRequest, count):
+	contact = RequestContact()
+	contact.request = userRequest
+	contact.PersonName = request.POST.get('request_person_name_'+str(count))
+	contact.PersonStreetAddress = request.POST.get('request_person_street_address_'+str(count))
+	contact.PersonPostOfficeName = request.POST.get('request_person_post_office_name_'+str(count))
+	contact.PersonPostalCode = request.POST.get('request_person_postal_code_'+str(count))
+	contact.PersonEmail = request.POST.get('request_person_email_'+str(count))
+	contact.PersonPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
+	contact.PersonOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
+	contact.PersonCorporationId = request.POST.get('request_person_corporation_id_'+str(count))
+	contact.save()
+
+def create_argument_blob(request):
+	post = request.POST
+	data = {}
+	data['argument_choices'] = post.getlist('argument_choices')
+	fields = {}
+	for string in post:
+		if "argument_" in string and not "argument_choices" in string:
+			fields[string] = post.get(string)
+	data['fields'] = fields
+	return json.dumps(data)
+
 def update_contact_preset(request, userRequest):
-		print(userRequest.user)
 		contactPreset = ContactPreset.objects.filter(user=userRequest.user).first()
 		if contactPreset is None:
 			contactPreset = ContactPreset()
 		contactPreset.user = userRequest.user
-		contactPreset.requestPersonName = request.POST.get('request_person_name')
-		contactPreset.requestPersonStreetAddress = request.POST.get('request_person_street_address')
-		contactPreset.requestPersonPostOfficeName = request.POST.get('request_person_post_office_name')
-		contactPreset.requestPersonPostalCode = request.POST.get('request_person_postal_code')
-		contactPreset.requestPersonEmail = request.POST.get('request_person_email')
-		contactPreset.requestPersonPhoneNumber = request.POST.get('request_person_phone_number')
-		contactPreset.requestPersonOrganizationName = request.POST.get('request_person_organization_name')
-		contactPreset.requestPersonCorporationId = request.POST.get('request_person_corporation_id')
+		contactPreset.requestPersonName = request.POST.get('request_person_name_1')
+		contactPreset.requestPersonStreetAddress = request.POST.get('request_person_street_address_1')
+		contactPreset.requestPersonPostOfficeName = request.POST.get('request_person_post_office_name_1')
+		contactPreset.requestPersonPostalCode = request.POST.get('request_person_postal_code_1')
+		contactPreset.requestPersonEmail = request.POST.get('request_person_email_1')
+		contactPreset.requestPersonPhoneNumber = request.POST.get('request_person_phone_number_1')
+		contactPreset.requestPersonOrganizationName = request.POST.get('request_person_organization_name_1')
+		contactPreset.requestPersonCorporationId = request.POST.get('request_person_corporation_id_1')
 		contactPreset.save()
 
 def answer(request):
@@ -557,7 +659,19 @@ def answer(request):
 		if request.method == 'POST':
 			collectionId = request.POST.get('collectionid')
 			requestId = request.POST.get('requestid')
-			if "sens" not in collectionId:
+			if(int(request.POST.get('answer')) == 2):
+				userRequest = Request.requests.get(id = requestId)
+				data = json.loads(userRequest.reason)
+				if "question" in data:
+					list = data["question"]
+				else:
+					list = []
+				list.append(request.POST.get('reason'))
+				data["question"] = list
+				userRequest.reason = json.dumps(data)
+				userRequest.status = 6
+				userRequest.save()
+			elif "sens" not in collectionId:
 				collection = Collection.objects.get(request=requestId, address=collectionId)
 				if request.session["user_id"] in collection.downloadRequestHandler:
 					if (int(request.POST.get('answer')) == 1):
@@ -586,6 +700,25 @@ def answer(request):
 				update(requestId, request.LANGUAGE_CODE)
 		return HttpResponseRedirect(next)
 
+def information(request):
+		next = request.POST.get('next', '/')
+		if request.method == 'POST':
+			requestId = request.POST.get('requestid')
+			if(int(request.POST.get('information')) == 2):
+				userRequest = Request.requests.get(id = requestId)
+				data = json.loads(userRequest.reason)
+				if "information" in data:
+					list = data["information"]
+				else:
+					list = []
+				list.append(request.POST.get('reason'))
+				data["information"] = list
+				userRequest.reason = json.dumps(data)
+				userRequest.status = 1
+				userRequest.save()
+				update(requestId, request.LANGUAGE_CODE)
+		return HttpResponseRedirect(next)
+
 def comment_sensitive(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
@@ -607,50 +740,76 @@ def update(requestId, lang):
 		#status 2: Osittain hyväksytty
 		#status 3: Hylätty
 		#status 4: Hyväksytty
-		
+		#status 6: Odottaa vastausta lisäkysymyksiin
 		wantedRequest = Request.requests.get(id=requestId)
 		#tmp variable for checking if status changed
 		statusBeforeUpdate = wantedRequest.status
 		requestCollections = Collection.objects.filter(request=requestId)
 		accepted = 0
+		colaccepted = 0
 		declined = 0
 		pending = 0
-		if wantedRequest.sensstatus == 1:
-			pending += 1
-		elif wantedRequest.sensstatus == 2:
-			accepted += 1
-			declined += 1
-		elif wantedRequest.sensstatus == 3:
-			declined += 1
-		elif wantedRequest.sensstatus == 4:
-			accepted += 1
-		for c in requestCollections:
-			if c.status == 1:
+		if wantedRequest.status != 6:
+			if wantedRequest.sensstatus == 1:
 				pending += 1
-			elif c.status == 2:
+			elif wantedRequest.sensstatus == 2:
 				accepted += 1
 				declined += 1
-			elif c.status == 3:
+			elif wantedRequest.sensstatus == 3:
 				declined += 1
-			elif c.status == 4:
+			elif wantedRequest.sensstatus == 4:
 				accepted += 1
-
-		if accepted == 0 and declined == 0:
-			wantedRequest.status = 1
-		elif accepted > 0 and (declined > 0 or pending > 0):
-			wantedRequest.status = 2
-		elif (pending == 0 and accepted == 0) and declined > 0:
-			wantedRequest.status = 3
-		elif accepted > 0 and declined == 0:
-			wantedRequest.status = 4
-		elif declined > 0:
-			wantedRequest.status = 1
-		else:
-			wantedRequest.status = 5
-		wantedRequest.save()
+			for c in requestCollections:
+				if c.status == 1:
+					pending += 1
+				elif c.status == 2:
+					accepted += 1
+					declined += 1
+				elif c.status == 3:
+					declined += 1
+				elif c.status == 4:
+					colaccepted += 1
+					accepted += 1
+			if wantedRequest.sensstatus == 3:
+				wantedRequest.status = 3
+			elif accepted == 0 and declined == 0:
+				wantedRequest.status = 1
+			elif accepted > 0 and (declined > 0 or pending > 0):
+				wantedRequest.status = 2
+				if colaccepted > 0:
+					send_download_request(requestId)
+			elif (pending == 0 and accepted == 0) and declined > 0:
+				wantedRequest.status = 3
+			elif accepted > 0 and declined == 0:
+				wantedRequest.status = 4
+				if colaccepted > 0:
+					send_download_request(requestId)
+			elif declined > 0:
+				wantedRequest.status = 1
+			else:
+				wantedRequest.status = 5
+			wantedRequest.save()
 		
 		emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 			
+
+def send_download_request(requestId):
+		payload = {}
+		userRequest = Request.requests.get(id=requestId)
+		payload["id"] = userRequest.lajiId
+		payload["personId"] = userRequest.user
+		collectionlist = Collection.objects.filter(request=userRequest, status=4)
+		cname = []
+		for c in collectionlist:
+			cname.append(c.address)
+		payload["approvedCollections"] = cname
+		payload["sensitiveApproved"] = "true"
+		payload["downloadFormat"] = "CSV_FLAT"
+		payload["access_token"] = secrets.TOKEN
+		filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+		for f in filters.__dict__:
+			payload[f] = getattr(filters, f)
+		response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
 
 """
 	Send "request has been handled" email 

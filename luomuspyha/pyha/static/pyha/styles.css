@@ -13,11 +13,106 @@ html {
     padding: 5px;
     border-bottom: 1px solid #ddd;
  }
+
+ul.horizontal {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+    background-color: #ffffff;
+    display:inline-block;
+}
+
+ul.horizontal li{
+    float:left;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+    width: 200px;
+    background-color: #ffffff;
+    display:inline-block;
+}
+
+ul.horizontal li.active, ul.horizontal li:hover{
+    background-color: #2980B9;
+}
+
+ul.horizontal li.active a span, ul.horizontal li:hover a span{
+    color: #ffffff;
+}
+
+.horizontal-tab {
+    display:block;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    transition: 0.4s;
+}
+
+a.horizontal-tab span {
+    width:100%;
+    display:inline-block;
+}
+
+a.horizontal-tab:hover span {
+    background:transparent;
+}
+
+ul.vertical {
+    float:left;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0px 0px 0px;
+    width: 200px;
+    background-color: #ffffff;
+    display:inline-block;
+}
+
+ul.vertical li{
+    height: 40px;
+    transition: 0.4s;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #e0e0e0;
+    color: #fff;
+}
+
+ul.vertical li.active, ul.vertical li:hover{
+    background-color: #2980B9;
+}
+
+ul.vertical li.active a span, ul.vertical li:hover a span{
+    color: #ffffff;
+}
+
+.vertical-tab {
+    display:block;
+    padding-top: 5%;
+    padding-bottom: 6%;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    transition: 0.4s;
+}
+
+a.vertical-tab span {
+    width:100%;
+    display:inline-block;
+}
+
+a.vertical-tab:hover span {
+    background:transparent;
+}
+
+div.contact-form{
+    margin-left:210px;
+    padding-top:0px;
+}
  
- .form-style-10{
+.form-style-10{
     width:97%;
     padding:30px;
     margin:40px 40px;
+    margin-top:0px;
     background: #FFF;
     border-radius: 10px;
     -webkit-border-radius:10px;

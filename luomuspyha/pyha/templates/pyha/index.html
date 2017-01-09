@@ -32,7 +32,7 @@
             <tr class="danger clickable-row"
         {% elif request.status == 2 %}
             <tr class="warning clickable-row"
-        {% elif request.status == 0 %}
+        {% elif request.status == 0 or request.status == 6 %}
             <tr class="active clickable-row"
         {% elif request.status == 4 %}
             <tr class="success clickable-row"
@@ -59,9 +59,12 @@
 
             {% elif request.status == 4 %}
                 <td>{% trans "accepted" %}</td>  
-                
+            
+            {% elif request.status == 6 %}
+                <td>{% trans "waiting_for_additional_information" %}</td>  
+
             {% else %}  
-                <td>{% trans "unknown" %}</td>	
+                <td>{% trans "unknown" %}</td>
                 
             {% endif %}
         

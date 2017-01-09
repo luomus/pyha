@@ -81,7 +81,7 @@
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
 	}
-	
+
 	function get_summary_tab() {
 	var xhttp = new XMLHttpRequest();
 	var requestid = document.getElementById('requestid').value;
@@ -92,6 +92,50 @@
 			}
 		};
 	xhttp.open("POST", "/pyha/getSummary/", true);
+	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhttp.send(data);
+	}
+
+	function get_contact_tab() {
+	var xhttp = new XMLHttpRequest();
+	var requestid = document.getElementById('requestid').value;
+	var data = 'requestid='+requestid;
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("summarytable").innerHTML = this.responseText;
+			}
+		};
+	xhttp.open("POST", "/pyha/getSummary/", true);
+	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhttp.send(data);
+	}
+
+	function create_contact(id) {
+	var xhttp = new XMLHttpRequest();
+	var requestid = document.getElementById('requestid').value;
+	var data = 'requestid='+requestid+'&id='+id;
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var end = document.getElementById("contacts_content_end");
+			var contacthtml = sessionStorage.getItem("contacts"+requestid)
+			if(contacthtml != null){
+				contacthtml += this.responseText;
+			}else{
+				contacthtml = this.responseText;
+			}
+			//sessionStorage.setItem("contacts"+requestid, contacthtml);
+			end.insertAdjacentHTML('beforebegin', this.responseText);
+			var namefield = document.getElementById("request_person_name_"+id)
+			var func = function() { 
+					document.getElementById("contact_tab_text_"+id).textContent = namefield.value;      
+				}
+			namefield.onkeyup = func;
+			namefield.onchange = func;
+			}
+		};
+	xhttp.open("POST", "/pyha/createContact/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);

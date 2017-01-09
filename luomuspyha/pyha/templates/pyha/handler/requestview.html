@@ -27,7 +27,6 @@
 		</div>
 		{% endif %}
 		<div class="page-header"> 
-
 			<h1>{% trans "handler_request_from_user" %}
 				{{request_owner}},
 				{{request_owners_email}}
@@ -59,6 +58,9 @@
 					
 					{% elif userRequest.status == 4 %}
 					{% trans "handler_accepted" %}
+					
+					{% elif userRequest.status == 6 %}
+					{% trans "handler_waiting_for_additional_information" %}
 					
 					{% else %}  
 					{% trans "handler_unknown" %}
@@ -139,169 +141,287 @@
 					{% endif %}
 				</div>
 				<br></br>
-				<h2>{% trans "handler_request_arguments_for_admin" %}</h2>
-				<p>{{userRequest.reason}}</p>
 				<br></br>
-				<!-- aineistolista -->
-				{% if taxonlist or customlist %}
-					{% if role1 %}
-								<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
-								  <div class="modal-lg modal-dialog" role="document">
-									<div class="modal-content">
-									  <div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "handler_sensitive_terms" %}</h4>
-									  </div>
-									  <div class="modal-body">
-										{% load static %}
-										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											<alt>{% trans "handler_If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
-											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-										</object>
-									  </div>
-									  <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
-									  </div>
-									</div>
-								  </div>
-								</div>
-							{% if userRequest.sensstatus == 0 %}
-							<h2>{% trans "handler_user_no_sensitive_data"%}</h2>
-							{% else %}
-							<h2>{% trans "handler_list_of_collections"%}</h2>
-							{% for collection in taxonlist %}
-								<p>{{collection.result.collectionName}}<p>
-							{% endfor %}
-							<table class="table" style="width:100%">
-								<tr style=color:black>
-								<th>{% trans "handler_state_of_processing" %}</th>
-								<th>{% trans "handler_decision_arguments" %}</th>
-								</tr>
-								{% if userRequest.sensstatus == 1 %}
-								<tr class="info clickable-row"
-								{% elif userRequest.sensstatus == 3 %}
-								<tr class="danger clickable-row"
-								{% elif userRequest.sensstatus == 4 %}
-								<tr class="success clickable-row"
-								{% else %}  
-								<tr	
-								{% endif %}
-								>
-								{% if userRequest.sensstatus == 1 %}
-								<td>{% trans "handler_waiting_for_data_provider" %}</td>
-								{% elif userRequest.sensstatus == 3 %}
-								<td>{% trans "handler_denied" %}</td>
-								{% elif userRequest.sensstatus == 2 %}
-								<td>{% trans "handler_partially_accepted" %}</td>
-								{% elif userRequest.sensstatus == 4 %}
-								<td>{% trans "handler_accepted" %}</td>
-								{% else %}  
-								<td>{% trans "handler_unknown" %}</td>	
-								{% endif %}
-								<td>
-									<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-									<div class="form-group">
-										<input type="hidden" id="collectionid" name="collectionid" value="sens">
-										<input type="hidden" id="next" name="next" value={{request.path}}>
-										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
-									</div>
-									{% csrf_token %}
-									</form>
-								</td>
-								</tr>
-							</table>
-							{% endif %}
-					{% endif %}
 				<br></br>
-					{% if customlist %}
-					<h2>{% trans "handler_secured_collections_in_request" %}</h2>
-						<table class="table" style="width:100%">
-							<tr style=color:black>
-								<th>{% trans "handler_collection_for_admin" %}</th>
-								<th>{% trans "handler_request_description" %}</th>
-								<th>{% trans "handler_state_of_processing" %}</th>
-								<th>{% trans "handler_terms" %}</th>
-								<th>{% trans "handler_decision_arguments" %}</th>
-							</tr>
-							{% for collection in customlist %}
-								{% if collection.status == 1 %}
-								<tr class="info clickable-row"
-								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row"
-								{% elif collection.status == 4 %}
-								<tr class="success clickable-row"
-								{% else %}  
-								<tr	
+				<ul class="nav nav-tabs" role="tablist">
+					<li id="request-tab" role="presentation" class="active" style="background-color:#EFF8FB">
+						<a href="#request" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+							<span>
+								{% trans 'handler_contact_window' %}
+							</span>
+						</a>
+					</li>  
+					<li id="arguments-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#arguments" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
+							<span>
+								{% trans 'handler_argument_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="contacts-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#contacts" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+							<span>
+								{% trans 'handler_contact_window' %}
+							</span>
+						</a>
+					</li>    
+				</ul>
+				<div class="tab-content">
+						<div class="tab-pane active" role="tabpanel" id="request">
+							<!-- aineistolista -->
+							{% if taxonlist or customlist %}
+								{% if role1 %}
+											<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+											  <div class="modal-lg modal-dialog" role="document">
+												<div class="modal-content">
+												  <div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<h4 class="modal-title" id="myModalLabel">{% trans "handler_sensitive_terms" %}</h4>
+												  </div>
+												  <div class="modal-body">
+													{% load static %}
+													<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+														<alt>{% trans "handler_If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
+														<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+													</object>
+												  </div>
+												  <div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
+												  </div>
+												</div>
+											  </div>
+											</div>
+										{% if userRequest.sensstatus == 0 %}
+										<h2>{% trans "handler_user_no_sensitive_data"%}</h2>
+										{% else %}
+										<h2>{% trans "handler_list_of_collections"%}</h2>
+										{% for collection in taxonlist %}
+											<p>{{collection.result.collectionName}}<p>
+										{% endfor %}
+										<table class="table" style="width:100%">
+											<tr style=color:black>
+											<th>{% trans "handler_state_of_processing" %}</th>
+											<th>{% trans "handler_decision_arguments" %}</th>
+											</tr>
+											{% if userRequest.sensstatus == 1 %}
+											<tr class="info clickable-row"
+											{% elif userRequest.sensstatus == 3 %}
+											<tr class="danger clickable-row"
+											{% elif userRequest.sensstatus == 4 %}
+											<tr class="success clickable-row"
+											{% else %}  
+											<tr	
+											{% endif %}
+											>
+											{% if userRequest.sensstatus == 1 %}
+											<td>{% trans "handler_waiting_for_data_provider" %}</td>
+											{% elif userRequest.sensstatus == 3 %}
+											<td>{% trans "handler_denied" %}</td>
+											{% elif userRequest.sensstatus == 2 %}
+											<td>{% trans "handler_partially_accepted" %}</td>
+											{% elif userRequest.sensstatus == 4 %}
+											<td>{% trans "handler_accepted" %}</td>
+											{% else %}  
+											<td>{% trans "handler_unknown" %}</td>	
+											{% endif %}
+											<td>
+												<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+												<div class="form-group">
+													<input type="hidden" id="collectionid" name="collectionid" value="sens">
+													<input type="hidden" id="next" name="next" value={{request.path}}>
+													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
+													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
+													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
+												</div>
+												{% csrf_token %}
+												</form>
+											</td>
+											</tr>
+										</table>
+										{% endif %}
 								{% endif %}
-								>
-								<td>{{collection.result.collectionName}}</td>
-								<td>{{collection.result.description}}</td>
-								
-								{% if collection.status == 1 %}
-								<td>{% trans "handler_waiting_for_data_provider" %}</td>
-								{% elif collection.status == 3 %}
-								<td>{% trans "handler_denied" %}</td>
-								{% elif collection.status == 2 %}
-								<td>{% trans "handler_partially_accepted" %}</td>
-								{% elif collection.status == 4 %}
-								<td>{% trans "handler_accepted" %}</td>
-								{% else %}  
-								<td>{% trans "handler_unknown" %}</td>	
-								{% endif %}
-							<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
-							<td>
-								{% if request.session.user_id in collection.downloadRequestHandler %}
-								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-								<div class="form-group">
-										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<input type="hidden" id="next" name="next" value={{request.path}}>
-										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
-									</div>
-									{% csrf_token %}
-								</form>		
+							<br></br>
+								{% if customlist %}
+								<h2>{% trans "handler_secured_collections_in_request" %}</h2>
+									<table class="table" style="width:100%">
+										<tr style=color:black>
+											<th>{% trans "handler_collection_name" %}</th>
+											<th>{% trans "handler_collection_description" %}</th>
+											<th>{% trans "handler_state_of_processing" %}</th>
+											<th>{% trans "handler_terms" %}</th>
+											<th>{% trans "handler_decision_arguments" %}</th>
+										</tr>
+										{% for collection in customlist %}
+											{% if collection.status == 1 %}
+											<tr class="info clickable-row"
+											{% elif collection.status == 3 %}
+											<tr class="danger clickable-row"
+											{% elif collection.status == 4 %}
+											<tr class="success clickable-row"
+											{% else %}  
+											<tr	
+											{% endif %}
+											>
+											<td>{{collection.result.collectionName}}</td>
+											<td>{{collection.result.description}}</td>
+											
+											{% if collection.status == 1 %}
+											<td>{% trans "handler_waiting_for_data_provider" %}</td>
+											{% elif collection.status == 3 %}
+											<td>{% trans "handler_denied" %}</td>
+											{% elif collection.status == 2 %}
+											<td>{% trans "handler_partially_accepted" %}</td>
+											{% elif collection.status == 4 %}
+											<td>{% trans "handler_accepted" %}</td>
+											{% else %}  
+											<td>{% trans "handler_unknown" %}</td>	
+											{% endif %}
+										<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
+										<td>
+											{% if request.session.user_id in collection.downloadRequestHandler %}
+											<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+											<div class="form-group">
+													<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
+													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+													<input type="hidden" id="next" name="next" value={{request.path}}>
+													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
+													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
+												</div>
+												{% csrf_token %}
+											</form>
+											{% else %}
+											{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
+											{% endif %}
+										</td>
+											<!-- Modal -->
+											<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+											  <div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+												  <div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<h4 class="modal-title" id="myModalLabel">{% trans "handler_terms_of_use_of_the_collections" %}</h4>
+												  </div>
+												  <div class="modal-body">
+													{% load static %}
+													<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+														<alt>{% trans "handler_if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
+														<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+													</object>
+												  </div>
+												  <div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
+												  </div>
+												</div>
+											  </div>
+											</div>
+										</tr>
+										{% endfor %}
+									</table>
+									{% endif %}
+									
 								{% else %}
-								{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
+									<strong> {% trans "handler_no_collections_for_requests" %}.</strong>
 								{% endif %}
-								
-							</td>
-								<!-- Modal -->
-								<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog modal-lg" role="document">
-									<div class="modal-content">
-									  <div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel">{% trans "handler_terms_of_use_of_the_collections" %}</h4>
-									  </div>
-									  <div class="modal-body">
-										{% load static %}
-										<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											<alt>{% trans "handler_if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
-											<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-										</object>
-									  </div>
-									  <div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
-									  </div>
-									</div>
-								  </div>
-								</div>
-							</tr>
-							{% endfor %}
-						</table>
+						</div>
+						<div class="tab-pane" role="tabpanel" id="arguments">
+							<h2>{% trans "request_arguments" %}</h2>
+						<p>
+						{% for choice in reasonlist.argument_choices%}
+							{% if choice == 'reason_zoning' %}
+								{% trans "handler_reason_zoning" %}
+							{% elif choice == 'reason_permission' %}
+								{% trans "handler_reason_permission" %}
+							{% elif choice == 'reason_enviromental' %}
+								{% trans "handler_reason_enviromental" %}
+							{% elif choice == 'reason_natura' %}
+								{% trans "handler_reason_natura" %}
+							{% elif choice == 'reason_scientific' %}
+								{% trans "handler_reason_scientific" %}
+							{% elif choice == 'reason_forest' %}
+								{% trans "handler_reason_forest" %}
+							{% elif choice == 'reason_other' %}
+								{% trans "handler_reason_other" %}
+							{% endif %}
+						{% endfor %}
+						</p>
+						{% for field in reasonlist.fields %}
+							{% if field.0 == 'argument_project' %}
+								<p>{% trans "handler_argument_project" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% elif field.0 == 'argument_research' %}
+								<p>{% trans "handler_argument_research" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% elif field.0 == 'argument_reason' %}
+								<p>{% trans "handler_argument_reason" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% elif field.0 == 'argument_goals' %}
+								<p>{% trans "handler_argument_goals" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% elif field.0 == 'argument_planning' %}
+								<p>{% trans "handler_argument_planning" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% elif field.0 == 'argument_municipality' %}
+								<p>{% trans "handler_argument_municipality" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% elif field.0 == 'argument_natura_areas' %}
+								<p>{% trans "handler_argument_natura_areas" %}</p>
+								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+							{% endif %}
+						{% endfor %}
+						{% if role1 %}
+						<h3>{% trans "handler_additional_questions" %}</h3>
+						{% for question in reasonlist.question %}
+						<textarea rows="5" cols="70" disabled>{{question}}</textarea>
+						<br></br>
+						{% endfor %}
+						<h3>{% trans "handler_answers" %}</h3>
+						{% for information in reasonlist.information %}
+						<textarea rows="5" cols="70" disabled>{{information}}</textarea>
+						<br></br>
+						{% endfor %}
+						<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
+						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+							<div class="form-group">
+								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+								<input type="hidden" id="next" name="next" value={{request.path}}>
+								<textarea rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm">{% trans "handler_request_additional_information" %}</button>
+							</div>
+							{% csrf_token %}
+						</form>
 						{% endif %}
 						</div>
-					{% else %}
-						<strong> {% trans "handler_no_collections_for_requests" %}.</strong>
-					{% endif %}
+						<div class="tab-pane" role="tabpanel" id="contacts">
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+									<th>{% trans "handler_full_name" %}</th>
+									<th>{% trans "handler_street_address" %}</th>
+									<th>{% trans "handler_post_office_name" %}</th>
+									<th>{% trans "handler_postal_code" %}</th>
+									<th>{% trans "handler_email" %}</th>
+									<th>{% trans "handler_phone_number" %}</th>
+									<th>{% trans "handler_corporation/organization_name" %}</th>
+									<th>{% trans "handler_corporation_id" %}</th>
+								</tr>
+									{% for contact in contactlist %}
+								<tr class="info clickable-row">
+									<td>{{contact.PersonName}}</td>
+									<td>{{contact.PersonStreetAddress}}</td>
+									<td>{{contact.PersonPostOfficeName}}</td>
+									<td>{{contact.PersonPostalCode}}</td>
+									<td>{{contact.PersonEmail}}</td>
+									<td>{{contact.PersonPhoneNumber}}</td>
+									<td>{{contact.PersonOrganizationName}}</td>
+									<td>{{contact.PersonCorporationId}}</td>
+								</tr>
+									{% endfor %}
+							</table>
+						</div>
+				</div>
 		</div>
-
-	  </div>
+	</div>
 {% endblock %}
 
 {% block script %}
@@ -336,7 +456,6 @@
 		$("#descriptionButton").html('Piilota');
 	  });
 	});
-	
 	</script>
 {% endblock %}
 

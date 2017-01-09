@@ -12,8 +12,10 @@ urlpatterns = [
     url(r'^getCustom/?$', views.get_custom, name='get_custom'),
     url(r'^getDescription/?$', views.get_request_header, name='get_request_header'),
     url(r'^getSummary/?$', views.get_summary, name='get_summary'),
+    url(r'^createContact/?$', views.create_contact, name='create_contact'),
     url(r'^index/?$', views.index, name='index'),
     url(r'^api/request/?$', views.receiver, name='receiver'),
+	url(r'^api/download/?$', views.download, name='download'),
     url(r'^request/[1-9][0-9]*/?$', views.show_request),
     url(r'^description/?$', views.change_description, name='description'),
     url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),
@@ -22,6 +24,7 @@ urlpatterns = [
     url(r'^role/?$', views.change_role, name='change_role'),
     url(r'^approve/?$', views.approve, name='approve'),
     url(r'^answer/?$', views.answer, name='answer'),
+	url(r'^information/?$', views.information, name='information'),
 	url(r'^commentSensitive/?$', views.comment_sensitive, name='comment_sensitive'),
     url(r'^removeCollection/?$', views.removeCollection, name='removeCollection')
 ]

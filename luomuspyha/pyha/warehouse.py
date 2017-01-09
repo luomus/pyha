@@ -64,18 +64,11 @@ def checkJson(jsond):
 		return False
 		
 def makeblob(x):
-		blob = "{"
-		for i, text in enumerate(x):
-			if not(i == 0):
-					blob += ","
-			blob += '"' + list(vars(x[i]).keys())[0] + '":['
-			if isinstance(getattr(x[i], list(vars(x[i]).keys())[0]), (list)):
-				for l,text in enumerate(getattr(x[i], list(vars(x[i]).keys())[0])):
-					if not(l == 0):
-						blob += ","
-					blob += '"'+text+'"'
-			else:
-				blob += '"'+getattr(x[i], list(vars(x[i]).keys())[0])+'"'
-			blob += "]"
-		blob += "}"
+		data = {}
+		for i in x:
+			for j in i.__dict__:
+				data[j] = getattr(i, j)
+		blob = json.dumps(data)
+		print(x)
+		print(blob)
 		return blob
