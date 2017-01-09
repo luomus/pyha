@@ -468,10 +468,8 @@ msgid "accepted"
 msgstr "Hyväksytty"
 
 #: pyha/templates/pyha/index.html:64 pyha/templates/pyha/requestview.html:73
-#, fuzzy
-#| msgid "waiting_for_data_provider"
 msgid "waiting_for_additional_information"
-msgstr "Odottaa päätöstä"
+msgstr "Odottaa lisätietoja"
 
 #: pyha/templates/pyha/index.html:67 pyha/templates/pyha/requestview.html:76
 #: pyha/templates/pyha/requestview.html:250
