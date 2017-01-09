@@ -1015,26 +1015,18 @@ msgid "argument_project"
 msgstr "Hankkeen nimi"
 
 #: pyha/templates/pyha/requestview.html:374
-#, fuzzy
-#| msgid "arguments_tab"
 msgid "argument_research"
 msgstr "Tutkimuksen nimi"
 
 #: pyha/templates/pyha/requestview.html:377
-#, fuzzy
-#| msgid "arguments_tab"
 msgid "argument_reason"
 msgstr "Vapaatekstikenttä"
 
 #: pyha/templates/pyha/requestview.html:380
-#, fuzzy
-#| msgid "arguments_tab"
 msgid "argument_goals"
 msgstr "Tutkimuksen tavoitteet"
 
 #: pyha/templates/pyha/requestview.html:383
-#, fuzzy
-#| msgid "arguments_tab"
 msgid "argument_planning"
 msgstr "Suunnitteluhankkeen kuvaus"
 
