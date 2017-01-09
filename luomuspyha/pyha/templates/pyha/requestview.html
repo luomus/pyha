@@ -196,7 +196,6 @@
 					{% if collections %}
 						{% if taxon %}
 							<h2>{% trans "request_included_sensitive_data" %}</h2>
-							<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p> 
 							<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
 
 									<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
@@ -263,6 +262,9 @@
 						<br></br>
 						{% if collections %}
 						<h2>{% trans "collections_in_request" %}</h2>
+						{% if taxon %}
+						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
+						{% endif %}
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 									<th>{% trans "collection_name" %}</th>
