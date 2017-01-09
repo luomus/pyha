@@ -567,7 +567,7 @@ def approve(request):
 		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb');
 		senschecked = request.POST.get('checkbsens');
-		if(len(requestedCollections) > 0 and userRequest.status == 0 and senschecked):
+		if(userRequest.status == 0 and senschecked):
 			for rc in requestedCollections:
 				userCollection = Collection.objects.get(address = rc, request = requestId)
 				userCollection.status = 1

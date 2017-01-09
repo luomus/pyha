@@ -826,7 +826,7 @@ msgstr "Ehdot"
 msgid "no_custom_sightings_go_to_step_3"
 msgstr ""
 "Aineistopyyntöön ei sisälly muilla tavoilla käyttörajoitettuja havaintoja, "
-"siirry kohtaan 3"
+"siirry seuraavaan kohtaan"
 
 #: pyha/templates/pyha/requestformcustom.html:38
 msgid "continue"
