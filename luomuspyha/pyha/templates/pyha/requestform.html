@@ -122,15 +122,16 @@
 													{% if old_request %}
 													<div class="inner-wrap">
 														<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name_1" name="request_person_name_1" value="{{old_request.requestPersonName}}"/></label>
-														<label>{% trans "enter_street_address" %} <input type="text" id="request_person_street_address_1" name="request_person_street_address_1" value="{{old_request.requestPersonStreetAddress}}"/></label>
-														<label>{% trans "enter_post_office_name" %}<input type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
-														<label>{% trans "enter_postal_code" %}<input type="text" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{old_request.requestPersonPostalCode}}"/></label>
+														<label>{% trans "enter_street_address" %} <input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1" value="{{old_request.requestPersonStreetAddress}}"/></label>
+														<label>{% trans "enter_post_office_name" %}<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
+														<label>{% trans "enter_postal_code" %}<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{old_request.requestPersonPostalCode}}"/></label>
+														<label>{% trans "enter_country" %}<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="{{old_request.requestPersonCountry}}"/></label>
 													</div>
 
 													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
 													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} <input type="email" id="request_person_email_1" name="request_person_email_1" value="{{old_request.requestPersonEmail}}"/></label>
-														<label>{% trans "enter_phone_number" %}<input type="text" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{old_request.requestPersonPhoneNumber}}"/></label>
+														<label>{% trans 'enter_email' %} <input onkeyup="contactsFilled();" type="email" id="request_person_email_1" name="request_person_email_1" value="{{old_request.requestPersonEmail}}"/></label>
+														<label>{% trans "enter_phone_number" %}<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{old_request.requestPersonPhoneNumber}}"/></label>
 													</div>
 
 													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
@@ -141,15 +142,16 @@
 													{% else %}
 													<div class="inner-wrap">
 														<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name_1" name="request_person_name_1" value="{{request_owner}}"></input></label>
-														<label>{% trans "enter_street_address" %} <input type="text" id="request_person_street_address_1" name="request_person_street_address_1"/></label>
-														<label>{% trans "enter_post_office_name" %}<input type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
-														<label>{% trans "enter_postal_code" %}<input type="text" name="request_person_postal_code_1" id="request_person_postal_code_1"/></label>
+														<label>{% trans "enter_street_address" %} <input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1"/></label>
+														<label>{% trans "enter_post_office_name" %}<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
+														<label>{% trans "enter_postal_code" %}<input onkeyup="contactsFilled();" type="text" name="request_person_postal_code_1" id="request_person_postal_code_1"/></label>
+														<label>{% trans "enter_country" %}<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="Suomi"/></label>
 													</div>
 
 													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
 													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} <input type="email" id="request_person_email_1" name="request_person_email_1" value="{{request_owners_email}}"/></label>
-														<label>{% trans "enter_phone_number" %}<input type="text" id="request_person_phone_number_1" name="request_person_phone_number_1"/></label>
+														<label>{% trans 'enter_email' %} <input onkeyup="contactsFilled();" type="email" id="request_person_email_1" name="request_person_email_1" value="{{request_owners_email}}"/></label>
+														<label>{% trans "enter_phone_number" %}<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_1" name="request_person_phone_number_1"/></label>
 													</div>
 
 													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
@@ -261,7 +263,7 @@
 														</object>
 													</div>
 														<div class="modal-footer">
-															<input type="checkbox" id ="{{ collection.id }}" name="checkb" value="{{collection.result.id}}"
+															<input type="checkbox" id ="{{ collection.id }}" name="checkb" value="{{collection.address}}"
 															onchange="check({{ collection.id }}); checkForApproval();">
 															{% trans "I have read and understood the terms" %}<br>
 															<p></p>
@@ -421,7 +423,7 @@
 	newa.setAttribute("href", "#contact"+current);
 	newa.setAttribute("data-toggle", "tab");
 	newa.setAttribute("role", "tab");
-	newspan.textContent = "{% trans 'new_contact' %}" + current;
+	newspan.textContent = "{% trans 'new_contact' %}";
 	newspan.id = "contact_tab_text_" + current;
 	newli.id = "contact_tab" + current;
 	newa.appendChild(newspan);
@@ -540,18 +542,42 @@
 		}
 	}
 	
+	function contactsFilled() {
+	var count = 0;
+	var fills = ["request_person_name_","request_person_street_address_","request_person_post_office_name_","request_person_postal_code_","request_person_country_","request_person_email_","request_person_phone_number_"]; 
+	while(true){
+	count ++;
+		if (document.getElementById("request_person_name_"+count) != null){
+		}else{
+			count --;
+			break;
+		}
+	}
+	var state = false;
+	for (var i=1; i<=count; i++) {
+		for (var j=0; j<fills.length; j++){
+			if (document.getElementById(fills[j]+""+i).value == ''){
+				state = true;
+				break;
+			}
+		}
+		if(state){
+		break;
+		}
+	}
+	document.getElementById('to_step_2').disabled = state;
+	}
+	
 	function getSelectValues(select) {
 	var result = [];
 	var options = select && select.options;
 	var opt;
-
 	for (var i=0; i<options.length; i++) {
 	opt = options[i];
-
-	if (opt.selected) {
-	  result.push(opt.value || opt.text);
-	}
-	}
+		if (opt.selected) {
+			result.push(opt.value || opt.text);
+			}
+		}
 	return result;
 	}
 </script>
@@ -580,7 +606,8 @@
 	$(document).ready(function() {
 		var namefield = document.getElementById("request_person_name_1")
 			var func = function() { 
-				document.getElementById("contact_tab_text_1").textContent = namefield.value;      
+				document.getElementById("contact_tab_text_1").textContent = namefield.value; 
+				contactsFilled();
 			}
 		namefield.onkeyup = func;
 		namefield.onchange = func;
@@ -650,6 +677,7 @@
 	refresh();
 	get_request_header();
 	updateReason();
+	contactsFilled();
 	});
 	</script>
 {% endblock %}

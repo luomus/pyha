@@ -36,6 +36,7 @@ class Request(models.Model):
 	PersonStreetAddress = models.CharField(max_length=100,null=True)
 	PersonPostOfficeName = models.CharField(max_length=100,null=True)
 	PersonPostalCode = models.CharField(max_length=100,null=True)
+	PersonCountry = models.CharField(max_length=100,null=True)
 	PersonEmail = models.CharField(max_length=100,null=True)
 	PersonPhoneNumber = models.CharField(max_length=100,null=True)
 	PersonOrganizationName = models.CharField(max_length=100,null=True)
@@ -52,6 +53,7 @@ class RequestContact(models.Model):
 	PersonStreetAddress = models.CharField(max_length=100,null=True)
 	PersonPostOfficeName = models.CharField(max_length=100,null=True)
 	PersonPostalCode = models.CharField(max_length=100,null=True)
+	PersonCountry = models.CharField(max_length=100,null=True)
 	PersonEmail = models.CharField(max_length=100,null=True)
 	PersonPhoneNumber = models.CharField(max_length=100,null=True)
 	PersonOrganizationName = models.CharField(max_length=100,null=True)
@@ -90,12 +92,24 @@ class RequestChatEntry(models.Model):
 	def __str__(self):
 		return self.message
 
+class RequestInformationChatEntry(models.Model):
+	request = models.ForeignKey(Request, on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=100)
+	question = models.BooleanField()
+	message = models.CharField(max_length=2000)
+	requestInformationChat = models.Manager()
+	
+	def __str__(self):
+		return self.message
+
 class ContactPreset(models.Model):
 	user = models.CharField(primary_key=True, max_length=100)
 	requestPersonName = models.CharField(max_length=100,null=True)
 	requestPersonStreetAddress = models.CharField(max_length=100,null=True)
 	requestPersonPostOfficeName = models.CharField(max_length=100,null=True)
 	requestPersonPostalCode = models.CharField(max_length=100,null=True)
+	requestPersonCountry = models.CharField(max_length=100,null=True)
 	requestPersonEmail = models.CharField(max_length=100,null=True)
 	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
 	requestPersonOrganizationName = models.CharField(max_length=100,null=True)

@@ -18,7 +18,7 @@ from pyha.login import log_out
 from requests.auth import HTTPBasicAuth
 from pyha.email import fetch_email_address
 from pyha.warehouse import store
-from pyha.models import Collection, Request, RequestLogEntry, RequestChatEntry, ContactPreset, RequestContact
+from pyha.models import Collection, Request, RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from itertools import chain
 from itertools import groupby
@@ -172,7 +172,7 @@ def make_logEntry_view(request, userRequest, userId, role1, role2):
 			logRole = HANDLER_COLL
 		request.session["has_viewed"].append(userRequest.id)
 		RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
-					role=logRole, action=RequestLogEntry.VIEW)
+		role=logRole, action=RequestLogEntry.VIEW)
 
 def show_filters(request, userRequest):
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
@@ -187,7 +187,9 @@ def show_filters(request, userRequest):
 					filternamelist = getattr(filterList, b)
 					if isinstance(filternamelist, str):
 						stringlist = []
-						stringlist.append(getattr(filterList, b))
+						value = getattr(filterList, b)
+						value = translate_truth(value, lang)
+						stringlist.append(value)
 						filternamelist = stringlist
 					if b in filters.json():
 						filterfield = getattr(filtersobject, b)
@@ -214,6 +216,18 @@ def show_filters(request, userRequest):
 									filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
 									filtername = getattr(filternameobject, "name", str(a))
 								filternamelist[k]= filtername
+						if "ENUMERATION" in getattr(filterfield, "type"):
+							enumerations = getattr(filterfield, "enumerations")
+							for k, e in enumerate(getattr(filterList, b)):
+								filtername = e
+								for n in enumerations:
+									if e == getattr(n, "name"):
+										if(lang == 'sw'):
+											filtername = getattr(n.label, "sv")
+										else:
+											filtername = getattr(n.label, lang)
+										break
+								filternamelist[k]= filtername
 					tup = (b, filternamelist, languagelabel)
 					filterResultList[i] = tup
 				cache.set('filters'+str(userRequest.id)+lang,filterResultList)
@@ -223,15 +237,33 @@ def show_filters(request, userRequest):
 					filternamelist = getattr(filterList, b)
 					if isinstance(filternamelist, str):
 						stringlist = []
-						stringlist.append(getattr(filterList, b))
+						value = getattr(filterList, b)
+						value = translate_truth(value, lang)
+						stringlist.append(value)
 						filternamelist = stringlist
 					tup = (b, filternamelist, b)
 					filterResultList[i] = tup
-				cache.set('filters'+str(userRequest.id)+lang,filterResultList)
 				return filterResultList
 		else:
 			return cache.get('filters'+str(userRequest.id)+lang)
 		return filterResultList
+
+def translate_truth(value, lang):
+		if value == "true":
+			if(lang == 'fi'):
+				value = "Kyllä"
+			if(lang == 'en'):
+				value = "Yes"
+			if(lang == 'sw'):
+				value = "Ja"
+		elif value == "false":
+			if(lang == 'fi'):
+				value = "Ei"
+			if(lang == 'en'):
+				value = "No"
+			if(lang == 'sw'):
+				value = "Nej"
+		return value
 
 def show_reasons(userRequest):
 		reasonlist = json.loads(userRequest.reason, object_hook=lambda d: Namespace(**d))
@@ -250,6 +282,7 @@ def show_request_contacts(userRequest):
 		contact["PersonStreetAddress"] = userRequest.PersonStreetAddress
 		contact["PersonPostOfficeName"] = userRequest.PersonPostOfficeName
 		contact["PersonPostalCode"] = userRequest.PersonPostalCode
+		contact["PersonCountry"] = userRequest.PersonCountry
 		contact["PersonEmail"] = userRequest.PersonEmail
 		contact["PersonPhoneNumber"] = userRequest.PersonPhoneNumber
 		contact["PersonOrganizationName"] = userRequest.PersonOrganizationName
@@ -276,7 +309,14 @@ def requestLog(request, requestId):
 		return requestLog_list
 		
 def requestChat(request, requestId):
-		requestChat_list = list(RequestChatEntry.requestChat.filter(request=requestId).order_by('-date'))
+		requestChat_list = list(RequestChatEntry.requestChat.filter(request=requestId).order_by('date'))
+		email = []
+		for l in requestChat_list:
+			l.name = fetch_user_name(l.user)
+		return requestChat_list
+
+def requestInformationChat(request, requestId):
+		requestChat_list = list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId).order_by('date'))
 		email = []
 		for l in requestChat_list:
 			l.name = fetch_user_name(l.user)
@@ -289,6 +329,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 		taxon = False
 		for collection in collectionList:
+			collection.allSecured = collection.customSecured + collection.taxonSecured
 			if(collection.taxonSecured > 0):
 				taxon = True
 		hasRole = role1 or role2
@@ -302,6 +343,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
 			context["requestChat_list"] = requestChat(request, requestId)
+			context["requestInformationChat_list"] = requestInformationChat(request, requestId)
 		return context
 
 def get_values_for_collections(requestId, request, List):
@@ -311,6 +353,9 @@ def get_values_for_collections(requestId, request, List):
 				cache.set(str(c)+'collection_values'+request.LANGUAGE_CODE, c.result)
 			else:
 				c.result = cache.get(str(c)+'collection_values'+request.LANGUAGE_CODE)
+				r = c.result
+				c.result["collectionName"] = c.result.get("collectionName",c.address)
+				c.result["description"] = c.result.get("description","-")
 
 def create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
@@ -570,8 +615,9 @@ def approve(request):
 		if(userRequest.status == 0 and senschecked):
 			for rc in requestedCollections:
 				userCollection = Collection.objects.get(address = rc, request = requestId)
-				userCollection.status = 1
-				userCollection.save(update_fields=['status'])
+				if userCollection.status == 0:
+					userCollection.status = 1
+					userCollection.save(update_fields=['status'])
 			for c in Collection.objects.filter(request = requestId):
 				if c.status == 0:
 					c.customSecured = 0
@@ -596,6 +642,7 @@ def approve(request):
 			userRequest.PersonStreetAddress = request.POST.get('request_person_street_address_1')
 			userRequest.PersonPostOfficeName = request.POST.get('request_person_post_office_name_1')
 			userRequest.PersonPostalCode = request.POST.get('request_person_postal_code_1')
+			userRequest.PersonCountry = request.POST.get('request_person_country_1')
 			userRequest.PersonEmail = request.POST.get('request_person_email_1')
 			userRequest.PersonPhoneNumber = request.POST.get('request_person_phone_number_1')
 			userRequest.PersonOrganizationName = request.POST.get('request_person_organization_name_1')
@@ -622,6 +669,7 @@ def create_new_contact(request, userRequest, count):
 	contact.PersonStreetAddress = request.POST.get('request_person_street_address_'+str(count))
 	contact.PersonPostOfficeName = request.POST.get('request_person_post_office_name_'+str(count))
 	contact.PersonPostalCode = request.POST.get('request_person_postal_code_'+str(count))
+	contact.PersonCountry = request.POST.get('request_person_country_'+str(count))
 	contact.PersonEmail = request.POST.get('request_person_email_'+str(count))
 	contact.PersonPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
 	contact.PersonOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
@@ -660,15 +708,14 @@ def answer(request):
 			collectionId = request.POST.get('collectionid')
 			requestId = request.POST.get('requestid')
 			if(int(request.POST.get('answer')) == 2):
+				newChatEntry = RequestInformationChatEntry()
+				newChatEntry.request = Request.requests.get(id=requestId)
+				newChatEntry.date = datetime.now()
+				newChatEntry.user = request.session["user_id"]
+				newChatEntry.question = True
+				newChatEntry.message = request.POST.get('reason')
+				newChatEntry.save()
 				userRequest = Request.requests.get(id = requestId)
-				data = json.loads(userRequest.reason)
-				if "question" in data:
-					list = data["question"]
-				else:
-					list = []
-				list.append(request.POST.get('reason'))
-				data["question"] = list
-				userRequest.reason = json.dumps(data)
 				userRequest.status = 6
 				userRequest.save()
 			elif "sens" not in collectionId:
@@ -705,15 +752,14 @@ def information(request):
 		if request.method == 'POST':
 			requestId = request.POST.get('requestid')
 			if(int(request.POST.get('information')) == 2):
+				newChatEntry = RequestInformationChatEntry()
+				newChatEntry.request = Request.requests.get(id=requestId)
+				newChatEntry.date = datetime.now()
+				newChatEntry.user = request.session["user_id"]
+				newChatEntry.question = False
+				newChatEntry.message = request.POST.get('reason')
+				newChatEntry.save()
 				userRequest = Request.requests.get(id = requestId)
-				data = json.loads(userRequest.reason)
-				if "information" in data:
-					list = data["information"]
-				else:
-					list = []
-				list.append(request.POST.get('reason'))
-				data["information"] = list
-				userRequest.reason = json.dumps(data)
 				userRequest.status = 1
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
@@ -772,15 +818,15 @@ def update(requestId, lang):
 					accepted += 1
 			if wantedRequest.sensstatus == 3:
 				wantedRequest.status = 3
-			elif accepted == 0 and declined == 0:
+			elif (accepted >= 0 and pending > 0) and declined == 0:
 				wantedRequest.status = 1
-			elif accepted > 0 and (declined > 0 or pending > 0):
+			elif accepted > 0 and declined > 0:
 				wantedRequest.status = 2
 				if colaccepted > 0:
 					send_download_request(requestId)
 			elif (pending == 0 and accepted == 0) and declined > 0:
 				wantedRequest.status = 3
-			elif accepted > 0 and declined == 0:
+			elif accepted > 0 and (declined == 0 and pending == 0):
 				wantedRequest.status = 4
 				if colaccepted > 0:
 					send_download_request(requestId)
@@ -809,7 +855,7 @@ def send_download_request(requestId):
 		filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		for f in filters.__dict__:
 			payload[f] = getattr(filters, f)
-		response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
+		'''requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)'''
 
 """
 	Send "request has been handled" email 

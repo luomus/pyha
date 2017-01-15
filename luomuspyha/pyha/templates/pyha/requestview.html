@@ -4,15 +4,16 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
+		
 		  <div class="page-header"> 
 
 			<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
 				{% if userRequest.description and userRequest.description.strip %}
 					{{userRequest.description}}
-					<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
 				{% else %}
 					{% trans "no_description" %}
 				{% endif %}
+				<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
 			</h1>
 			<!-- lomake kuvauksen muuttamiseen -->
 				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
@@ -32,13 +33,8 @@
 							</div>
 						
 							<div class="col-12" style="clear: left;">
-								<button type="submit" class="btn btn-default">{% trans "change" %}</button>
+								<button type="submit" class="btn btn-default">{% trans "change_description" %}</button>
 							</div>
-							
-							<p id="description" class="form-text text-muted">
-							{% trans "description_description" %}.
-							<!-- Kuvaus on vapaaehtoinen tapa nimetä pyyntö. Ilman sitä pyynnön otsikkona käytetään päiväystä, jolloin pyyntö on tehty. -->
-							</p>
 						</div>
 						{% csrf_token %}
 					</form>
@@ -80,147 +76,244 @@
 					</span>
 					)
 				</span></h2>
-		  </div>
-
-			<div class="outer">
-				<div class="floatcontainer">
-					<div class="inner" id="requestLog_list" style="overflow-y: scroll;">
-						{% if requestLog_list %}
-						<h4>{% trans "changes_history" %}</h4>
-							<table class="inner, table-bordered">
-								<tr>
-									<th>{% trans "log_date" %}</th>	
-									<th>{% trans "log_maker" %}</th>
-									<th>{% trans "log_description" %}</th>
-								</tr>
-							{% for requestLog in requestLog_list %}
-							<tr>
-								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-								{% if requestLog.role == 'handler' %}
-								<td>{% trans "admin" %}</td>
-								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
-								<td>{% trans "log_sensitive_data_handler" %}</td>
-								{% elif requestLog.role == 'MA.downloadRequestHandler' %}
-								<td>{% trans "log_collection_provider" %}</td>
-								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
-								<td>{% trans "log_sensitive_and_collections_handler" %}</td>
-								{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
-								<td>{{requestLog.name}}</td>
-								{% else %}
-								<td>{% trans "user" %}</td>
-								{% endif %}
-								{% if requestLog.action == 'VIEW' %}
-								<td>{% trans "log_viewed" %}</td>
-								{% elif requestLog.action == 'ACC' %}
-								<td>{% trans "log_terms_accepted" %}</td>
-								{% elif requestLog.action == 'POS' %}
-									{% if requestLog.collection == None %}
-									<td>{% trans "log_sensitives_accepted" %}</td>
-									{% else %}
-									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
-									{% endif %}
-								{% elif requestLog.action == 'NEG' %}
-									{% if requestLog.collection == None %}
-									<td>{% trans "log_sensitives_denied" %}</td>
-									{% else %}
-									<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
-									{% endif %}
-								{% endif %}
-								</tr>
-							{% endfor %}
-							</table>
-						{% else %}
-							<strong>{% trans "log_no_history" %}.</strong>
-						{% endif %}
+			</div>
+			<div class="col-xs-12" style="float:left;padding-left:0px;">
+				{% if userRequest.status == 1 %}
+				<div class="alert alert-info
+				{% elif userRequest.status == 2 %}
+				<div class="alert alert-warning
+				{% elif userRequest.status == 3 %}
+				<div class="alert alert-danger
+				{% elif userRequest.status == 4 %}
+				<div class="alert alert-success
+				{% else %}  
+				<div class="alert
+				{% endif %}
+				col-xs-7" style="height:300px;overflow-y:hidden;margin-right:20px;display:flex;">
+					<div class="panel-body col-xs-5" style="display:flex;">
+							{% if userRequest.sensstatus == 1 %}
+							<div class="alert alert-info"
+							{% elif userRequest.sensstatus == 3 %}
+							<div class="alert alert-danger"
+							{% elif userRequest.sensstatus == 4 %}
+							<div class="alert alert-success"
+							{% else %}  
+							<div class="alert"
+							{% endif %}
+							style="width:100%;text-align:center;margin:0px;">
+							<h1 style="position:relative;top:25%;">{% trans "sensitive" %}</h1>
+							{% if userRequest.sensstatus == 1 %}
+							<h2 style="position:relative;top:25%;">{% trans "waiting_for_data_provider" %}</h2>
+							{% elif userRequest.sensstatus == 3 %}
+							<h2 style="position:relative;top:25%;">{% trans "denied" %}</h2>
+							{% elif userRequest.sensstatus == 4 %}
+							<h2 style="position:relative;top:25%;">{% trans "accepted" %}</h2>
+							{% endif %}
+							</div>
+					</div>
+					<div class="panel-body col-xs-7" style= "max-height:300px;overflow-y:scroll;color:black;background-color:WhiteSmoke;border-radius:10px;{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+					<table class="table">
+						{% for collection in customlist %}
+							{% if collection.status == 1 %}
+							<tr class="info clickable-row"
+							{% elif collection.status == 3 %}
+							<tr class="danger clickable-row"
+							{% elif collection.status == 4 %}
+							<tr class="success clickable-row"
+							{% else %}  
+							<tr	
+							{% endif %}
+							>
+							<td>{{collection.result.collectionName}}</td>
+						</tr>
+						{% endfor %}
+					</table>
 					</div>
 				</div>
-			</div>
-
-				<h2>{% trans "request_filters" %}</h2>
-
-				<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
-				<div id="filterlist" class="collapse">	
-
-					{% if filters %}
-						<table class = "table" style="width:50%">
-							<tr style=color:black>
-								<th>{% trans "filter" %}</th>
-								<th>{% trans "values" %}</th>	
-							</tr>	
-							{% for filter in filters %}
-							<tr>	
-								<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
-								{% for f in filter.1 %}
-								<td>{{ f }}</td>
+				<div class="inner requestlog" id="requestLog_list" style="overflow-y:scroll;">
+					{% if requestLog_list %}
+					<h4>{% trans "changes_history" %}</h4>
+						<table class="inner, table-bordered">
+							<tr>
+								<th>{% trans "log_date" %}</th>	
+								<th>{% trans "log_maker" %}</th>
+								<th>{% trans "log_description" %}</th>
 							</tr>
-								<tr>
-								{% endfor %}
-								</tr>
-							{% endfor %}
+						{% for requestLog in requestLog_list %}
+						<tr>
+							<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+							{% if requestLog.role == 'handler' %}
+							<td>{% trans "admin" %}</td>
+							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
+							<td>{% trans "log_sensitive_data_handler" %}</td>
+							{% elif requestLog.role == 'MA.downloadRequestHandler' %}
+							<td>{% trans "log_collection_provider" %}</td>
+							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
+							<td>{% trans "log_sensitive_and_collections_handler" %}</td>
+							{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
+							<td>{{requestLog.name}}</td>
+							{% else %}
+							<td>{% trans "user" %}</td>
+							{% endif %}
+							{% if requestLog.action == 'VIEW' %}
+							<td>{% trans "log_viewed" %}</td>
+							{% elif requestLog.action == 'ACC' %}
+							<td>{% trans "log_terms_accepted" %}</td>
+							{% elif requestLog.action == 'POS' %}
+								{% if requestLog.collection == None %}
+								<td>{% trans "log_sensitives_accepted" %}</td>
+								{% else %}
+								<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
+								{% endif %}
+							{% elif requestLog.action == 'NEG' %}
+								{% if requestLog.collection == None %}
+								<td>{% trans "log_sensitives_denied" %}</td>
+								{% else %}
+								<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+								{% endif %}
+							{% endif %}
+							</tr>
+						{% endfor %}
 						</table>
 					{% else %}
-						<strong>{% trans "no_filters" %}.</strong>
+						<strong>{% trans "log_no_history" %}.</strong>
 					{% endif %}
 				</div>
-				
-				<br></br>
-				<br></br>
-				<br></br>
+				<button type="button" class="btn btn-default btn-lg">Lopeta odotus ja lataa</button>
+			</div>
 				<ul class="nav nav-tabs" role="tablist">
 					<li id="request-tab" role="presentation" class="active" style="background-color:#EFF8FB">
 						<a href="#request" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
-								{% trans 'handler_contact_window' %}
+								{% trans 'request_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="sensitive-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#sensitive" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+							<span>
+								{% trans 'sensitive_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="collection-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#collection" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+							<span>
+								{% trans 'collection_window' %}
 							</span>
 						</a>
 					</li>  
 					<li id="arguments-tab" role="presentation" style="background-color:#EFF8FB">
 						<a href="#arguments" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
 							<span>
-								{% trans 'handler_argument_window' %}
+								{% trans 'argument_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="filters-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#filters" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
+							<span>
+								{% trans 'filter_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="terms-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#terms" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
+							<span>
+								{% trans 'terms_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="contacts-tab" role="presentation" style="background-color:#EFF8FB">
 						<a href="#contacts" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
-								{% trans 'handler_contact_window' %}
+								{% trans 'contact_window' %}
 							</span>
 						</a>
-					</li>    
+					</li>
+					{% if requestInformationChat_list %}
+					<li id="additional_information-tab" role="presentation" style="background-color:#EFF8FB">
+						<a href="#additional_information" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+							<span>
+								{% trans 'additional_information_window' %}
+							</span>
+						</a>
+					</li>
+					{% endif %}
 				</ul>
 				<!-- aineistolista -->
 				
 				<div class="tab-content">
 					<div class="tab-pane active" role="tabpanel" id="request">
 					{% if collections %}
+						{% if collections %}
+						<h2>{% trans "collections_in_request" %}</h2>
 						{% if taxon %}
-							<h2>{% trans "request_included_sensitive_data" %}</h2>
-							<button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
-
-									<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
-									  <div class="modal-lg modal-dialog" role="document">
-										<div class="modal-content">
-										  <div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
-										  </div>
-										  <div class="modal-body">
-											{% load static %}
-											<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-												<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
-												<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											</object>
-										  </div>
-										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
-										  </div>
-										</div>
-									  </div>
-									</div>
-								{% if userRequest.sensstatus == 0 %}
-								<h2>{% trans "you_don't_want_sensitive_data"%}</h2>
-								{% else %}
+						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
+						{% endif %}
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+									<th>{% trans "collection_name" %}</th>
+									<th></th>
+									<th>{% trans "collection_description" %}</th>
+									<th>{% trans "secured_by_data_provider" %}</th>
+									<th>{% trans "generally_secured" %}</th>
+									<th>{% trans "all_secured" %}</th>
+									<th>{% trans "state_of_processing" %}</th>
+									{% if userRequest.status != 1 %}
+									<th>{% trans "cause" %}</th>
+									{% endif %}
+								</tr>	
+								{% for collection in collections %}
+									{% if collection.status == 1 %}
+									<tr class="info clickable-row"
+									{% elif collection.status == 3 %}
+									<tr class="danger clickable-row"
+									{% elif collection.status == 4 %}
+									<tr class="success clickable-row"
+									{% elif collection.taxonSecured > 0 %}
+										{% if userRequest.sensstatus == 1 %}
+										<tr class="info clickable-row"
+										{% elif userRequest.sensstatus == 3 %}
+										<tr class="danger clickable-row"
+										{% elif userRequest.sensstatus == 4 %}
+										<tr class="success clickable-row"
+										{% endif %}  
+									{% else %}  
+									<tr	
+									{% endif %}
+									>
+									<td>{{collection.result.collectionName}}</td>
+									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
+									<td>{{collection.result.description}}</td>
+									<td>{{collection.customSecured}}</td>
+									<td>{{collection.taxonSecured}}</td>
+									<td>{{collection.allSecured}}</td>
+									
+									{% if collection.status == 1 %}
+									<td>{% trans "waiting_for_data_provider" %}</td>
+									{% elif collection.status == 3 %}
+									<td>{% trans "denied" %}</td>
+									{% elif collection.status == 2 %}
+									<td>{% trans "partially_accepted" %}</td>
+									{% elif collection.status == 4 %}
+									<td>{% trans "accepted" %}</td>
+									{% elif collection.taxonSecured > 0 %}
+									<td>{% trans "Admission_for_sensitive_data" %}</td>
+									{% else %}  
+									<td>{% trans "unknown" %}</td>	
+									{% endif %}
+									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
+								{% endfor %}
+							</table>
+						{% endif %}
+						
+						{% else %}
+							<strong> {% trans "no_collections_for_requests" %}.</strong>
+						{% endif %}
+					</div>
+					<div class="tab-pane" role="tabpanel" id="sensitive">
+						{% if taxon %}
 								<h2>{% trans "decision_for_admitting_sensitive_data"%}</h2>
 								<table class="table" style="width:100%">
 									<tr style=color:black>
@@ -246,7 +339,7 @@
 									{% elif userRequest.sensstatus == 4 %}
 									<td>{% trans "accepted" %}</td>
 									{% else %}  
-									<td>{% trans "unknown" %}</td>	
+									<td>{% trans "unknown" %}</td>
 									{% endif %}
 									<td>
 									{% if userRequest.sensDecisionExplanation == None %}
@@ -257,26 +350,17 @@
 									</td>
 									</tr>
 								</table>
-								{% endif %}
 						{% endif %}
-						<br></br>
+					</div>
+					<div class="tab-pane" role="tabpanel" id="collection">
 						{% if collections %}
-						<h2>{% trans "collections_in_request" %}</h2>
-						{% if taxon %}
-						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
-						{% endif %}
+						<h2>{% trans "decicions_for_admitting_data" %}</h2>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 									<th>{% trans "collection_name" %}</th>
-									<th>{% trans "collection_description" %}</th>
-									<th>{% trans "secured_by_data_provider" %}</th>
-									<th>{% trans "generally_secured" %}</th>
 									<th>{% trans "state_of_processing" %}</th>
-									<th>{% trans "terms" %}</th>
-									{% if userRequest.status != 1 %}
-									<th>{% trans "cause" %}</th>
-									{% endif %}
-								</tr>	
+									<th>{% trans "collection_decision_arguments" %}</th>
+								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 %}
 									<tr class="info clickable-row"
@@ -296,12 +380,7 @@
 									<tr	
 									{% endif %}
 									>
-									<td>{{collection.result.collectionName}}{% if collection.taxonSecured > 0 %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
-									<td>{{collection.result.description}}</td>
-									<td>{{collection.customSecured}}</td>
-									<td>{{collection.taxonSecured}}</td>
-
-									
+									<td>{{collection.result.collectionName}}</td>
 									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
@@ -315,41 +394,42 @@
 									{% else %}  
 									<td>{% trans "unknown" %}</td>	
 									{% endif %}
-									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
-									<!-- Modal -->
-									<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-									  <div class="modal-dialog modal-lg" role="document">
-										<div class="modal-content">
-										  <div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">{% trans "terms_of_use_of_the_collections" %}</h4>
-										  </div>
-										  <div class="modal-body">
-											{% load static %}
-											<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-												<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
-												<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-											</object>
-										  </div>
-										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
-										  </div>
-										</div>
-									  </div>
-									</div>
-								
-								<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
+									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
 								{% endfor %}
 							</table>
-						{% endif %}
-						
 						{% else %}
 							<strong> {% trans "no_collections_for_requests" %}.</strong>
 						{% endif %}
 					</div>
+					<div class="tab-pane" role="tabpanel" id="filters">
+							<h2>{% trans "request_filters" %}</h2>
+								{% if filters %}
+									<table class = "table" style="width:50%">
+										<tr style=color:black>
+											<th>{% trans "filter" %}</th>
+											<th>{% trans "values" %}</th>	
+										</tr>	
+										{% for filter in filters %}
+										<tr class="info clickable-row">	
+											<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
+											{% for f in filter.1 %}
+											<td>{{ f }}</td>
+										</tr>
+											<tr>
+											{% endfor %}
+											</tr>
+										{% endfor %}
+									</table>
+								{% else %}
+									<strong>{% trans "no_filters" %}.</strong>
+							{% endif %}
+							<br></br>
+							<br></br>
+							<br></br>
+					</div>
 					<div class="tab-pane" role="tabpanel" id="arguments">
-							<h2>{% trans "handler_request_arguments" %}</h2>
-						<p>
+							<h2>{% trans "request_arguments" %}</h2>
+						<span>
 						{% for choice in reasonlist.argument_choices%}
 							{% if choice == 'reason_zoning' %}
 								{% trans "reason_zoning" %}
@@ -367,63 +447,133 @@
 								{% trans "reason_other" %}
 							{% endif %}
 						{% endfor %}
-						</p>
+						</span>
+						<br></br>
+						<table class="table" style="width:100%">
 						{% for field in reasonlist.fields %}
 							{% if field.0 == 'argument_project' %}
-								<p>{% trans "argument_project" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+								<tr style=color:black><th>{% trans "argument_project" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
 							{% elif field.0 == 'argument_research' %}
-								<p>{% trans "argument_research" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
-							{% elif field.0 == 'argument_reason' %}
-								<p>{% trans "argument_reason" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+								<tr style=color:black><th>{% trans "argument_research" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
 							{% elif field.0 == 'argument_goals' %}
-								<p>{% trans "argument_goals" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+								<tr style=color:black><th>{% trans "argument_goals" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
 							{% elif field.0 == 'argument_planning' %}
-								<p>{% trans "argument_planning" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+								<tr style=color:black><th>{% trans "argument_planning" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
 							{% elif field.0 == 'argument_municipality' %}
-								<p>{% trans "argument_municipality" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+								<tr style=color:black><th>{% trans "argument_municipality" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
 							{% elif field.0 == 'argument_natura_areas' %}
-								<p>{% trans "argument_natura_areas" %}</p>
-								<textarea rows="5" cols="70" disabled>{{field.1}}</textarea>
+								<tr style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
+							{% elif field.0 == 'argument_reason' %}
+								<tr style=color:black><th>{% trans "argument_reason" %}</th></tr>
+								<tr><td>{{field.1}}</td></tr>
 							{% endif %}
 						{% endfor %}
-						{% if reasonlist.question %}
-						<h3>{% trans "additional_questions" %}</h3>
-						{% for question in reasonlist.question %}
-						<textarea rows="5" cols="70" disabled>{{question}}</textarea>
-						<br></br>
-						{% endfor %}
-						<h3>{% trans "answers" %}</h3>
-						{% for information in reasonlist.information %}
-						<textarea rows="5" cols="70" disabled>{{information}}</textarea>
-						<br></br>
-						{% endfor %}
-						{% if userRequest.status == 6 %}
-						<h3>{% trans "form_to_send_additional_information" %}</h3>
-						<form action="{% url 'pyha:information' %}" id="requestform" method="post">
-							<div class="form-group">
-								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-								<input type="hidden" id="next" name="next" value={{request.path}}>
-								<textarea rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-								<button type="submit" id="submit" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
-							</div>
-							{% csrf_token %}
-						</form>
-						{% endif %}
-						{% endif %}
+						</table>
+					</div>
+					<div class="tab-pane" role="tabpanel" id="terms">
+							{% if collections %}
+							<h2>{% trans "terms" %}</h2>
+								<table class="table" style="width:100%">
+									<tr style=color:black>
+										<th>{% trans "collection_name" %}</th>
+										<th>{% trans "terms" %}</th>
+									</tr>
+									{% if userRequest.sensstatus == 1 %}
+									<tr class="info clickable-row"
+									{% elif userRequest.sensstatus == 3 %}
+									<tr class="danger clickable-row"
+									{% elif userRequest.sensstatus == 4 %}
+									<tr class="success clickable-row"
+									{% endif %}
+									>
+									<td>{% trans "sensitivity" %}</td>
+									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button></td>
+									</tr>
+									{% for collection in collections %}
+										{% if collection.status == 1 %}
+										<tr class="info clickable-row"
+										{% elif collection.status == 3 %}
+										<tr class="danger clickable-row"
+										{% elif collection.status == 4 %}
+										<tr class="success clickable-row"
+										{% elif collection.taxonSecured > 0 %}
+											{% if userRequest.sensstatus == 1 %}
+											<tr class="info clickable-row"
+											{% elif userRequest.sensstatus == 3 %}
+											<tr class="danger clickable-row"
+											{% elif userRequest.sensstatus == 4 %}
+											<tr class="success clickable-row"
+											{% endif %}  
+										{% else %}  
+										<tr	
+										{% endif %}
+										>
+										<td>{{collection.result.collectionName}}</td>
+										<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
+										<!-- Modal -->
+										<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										  <div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content">
+											  <div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">{% trans "terms_of_use_of_the_collections" %}</h4>
+											  </div>
+											  <div class="modal-body">
+												{% load static %}
+												<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+													<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+													<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+												</object>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+									{% endfor %}
+										<!-- Sens Modal -->
+										<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+										  <div class="modal-lg modal-dialog" role="document">
+											<div class="modal-content">
+											  <div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+											  </div>
+											  <div class="modal-body">
+												{% load static %}
+												<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+													<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
+													<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
+												</object>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</table>
+							
+							{% else %}
+								<strong> {% trans "no_collections_for_requests" %}.</strong>
+							{% endif %}
 					</div>
 					<div class="tab-pane" role="tabpanel" id="contacts">
+						<h2>{% trans "contacts" %}</h2>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "full_name" %}</th>
 								<th>{% trans "street_address" %}</th>
 								<th>{% trans "post_office_name" %}</th>
 								<th>{% trans "postal_code" %}</th>
+								<th>{% trans "country" %}</th>
 								<th>{% trans "email" %}</th>
 								<th>{% trans "phone_number" %}</th>
 								<th>{% trans "corporation/organization_name" %}</th>
@@ -435,6 +585,7 @@
 								<td>{{contact.PersonStreetAddress}}</td>
 								<td>{{contact.PersonPostOfficeName}}</td>
 								<td>{{contact.PersonPostalCode}}</td>
+								<td>{{contact.PersonCountry}}</td>
 								<td>{{contact.PersonEmail}}</td>
 								<td>{{contact.PersonPhoneNumber}}</td>
 								<td>{{contact.PersonOrganizationName}}</td>
@@ -443,6 +594,35 @@
 								{% endfor %}
 						</table>
 					</div>
+					{% if requestInformationChat_list %}
+					<div class="tab-pane" role="tabpanel" id="additional_information">
+							<h2>{% trans "additional_questions" %}</h2>
+							{% for question in requestInformationChat_list %}
+								{% if question.question %}
+								<div class="panel panel-default">
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }}{% trans "asked" %}&#10;&#13;{{question}}</p></div>
+								</div>
+								{% endif %}
+								{% if question.question != True %}
+								<div class="panel panel-default">
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
+								</div>
+								{% endif %}
+							{% endfor %}
+							{% if userRequest.status == 6 %}
+							<h2>{% trans "form_to_send_additional_information" %}</h2>
+							<form action="{% url 'pyha:information' %}" id="requestform" method="post">
+								<div class="form-group">
+									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+									<input type="hidden" id="next" name="next" value={{request.path}}>
+									<textarea rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+									<button type="submit" id="submit" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
+								</div>
+								{% csrf_token %}
+							</form>
+							{% endif %}
+					</div>
+					{% endif %}
 				</div>
 		</div>
 	</div>

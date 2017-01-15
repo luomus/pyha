@@ -133,6 +133,7 @@
 				}
 			namefield.onkeyup = func;
 			namefield.onchange = func;
+			contactsFilled();
 			}
 		};
 	xhttp.open("POST", "/pyha/createContact/", true);

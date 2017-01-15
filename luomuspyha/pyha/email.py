@@ -60,8 +60,6 @@ def fetch_email_address(personId):
 			email = data['rdf:RDF']['MA.person']['MA.emailAddress']
 			cache.set('email'+personId,email)
 			return email
-		else:
-			print('Sähköpostiosoitteen haku ei onnistunut. HTTP statuskoodi: ' + str(response.status_code))
 	else:
 		return cache.get('email'+personId)
 def send_mail_for_approval(requestId, collection, lang):
