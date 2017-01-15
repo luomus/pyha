@@ -68,6 +68,12 @@
 					{% elif userRequest.status == 6 %}
 					{% trans "waiting_for_additional_information" %}
 					
+					{% elif userRequest.status == 7 %}
+					{% trans "waiting_for_download" %} 
+					
+					{% elif userRequest.status == 8 %}
+					{% trans "ready_for_download" %}
+					
 					{% else %}  
 					{% trans "unknown" %}
 					
@@ -89,7 +95,7 @@
 				{% else %}  
 				<div class="alert
 				{% endif %}
-				col-xs-7" style="height:300px;overflow-y:hidden;margin-right:20px;display:flex;">
+				col-xs-7 requestcard">
 					<div class="panel-body col-xs-5" style="display:flex;">
 							{% if userRequest.sensstatus == 1 %}
 							<div class="alert alert-info"
@@ -111,7 +117,7 @@
 							{% endif %}
 							</div>
 					</div>
-					<div class="panel-body col-xs-7" style= "max-height:300px;overflow-y:scroll;color:black;background-color:WhiteSmoke;border-radius:10px;{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+					<div class="panel-body requestcollections col-xs-7" style= "{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
 					<table class="table">
 						{% for collection in customlist %}
 							{% if collection.status == 1 %}
@@ -179,7 +185,37 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 					{% endif %}
 				</div>
-				<button type="button" class="btn btn-default btn-lg">Lopeta odotus ja lataa</button>
+				{% if userRequest.downloadLink %}
+				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'download' %}</button>
+				{% elif userRequest.status == 4 %}
+				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
+				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 %}
+				<div class="initializeContainer">
+					<button type="button" class="btn btn-default btn-lg initializeButton" style="height:100px;width:40%;">{% trans 'stop_wait_initialize_download' %}</button>
+				</div>
+				{% endif %}
+					<!--- hidden confirm modal --->
+					<div id="confirm-modal" class="modal fade modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header">
+							</div>
+							<div class="modal-body">
+								<p>{% trans "are_you_sure_you_want_to_download_only_those_given" %}</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" data-dismiss="modal" class="btn btn-danger" id="yes">{% trans "Yes" %}</button>
+								<button type="button" data-dismiss="modal" class="btn btn-outline-secondary">{% trans "back" %}</button>
+							</div>
+						</div>
+					</div>
+					<form class="form-hidden" action="/pyha/initializeDownload" id="initialize" method="post">
+						<div class="form-group">
+							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+							<input type="hidden" id="next" name="next" value={{request.path}}>
+							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+						{% csrf_token %}
+						</div>
+					</form>
 			</div>
 				<ul class="nav nav-tabs" role="tablist">
 					<li id="request-tab" role="presentation" class="active" style="background-color:#EFF8FB">
@@ -260,10 +296,7 @@
 									<th>{% trans "generally_secured" %}</th>
 									<th>{% trans "all_secured" %}</th>
 									<th>{% trans "state_of_processing" %}</th>
-									{% if userRequest.status != 1 %}
-									<th>{% trans "cause" %}</th>
-									{% endif %}
-								</tr>	
+								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 %}
 									<tr class="info clickable-row"
@@ -303,7 +336,6 @@
 									{% else %}  
 									<td>{% trans "unknown" %}</td>	
 									{% endif %}
-									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
 								{% endfor %}
 							</table>
 						{% endif %}
@@ -628,39 +660,19 @@
 	</div>
 {% endblock %}
 
-{% block script %}
+{% block end_script %}
 	<script>
-	$(document).ready(function(){
-	  $("#filterlist").on("hide.bs.collapse", function(){
-		$("#filterbutton").html('Näytä');
-	  });
-	  $("#filterlist").on("show.bs.collapse", function(){
-		$("#filterbutton").html('Piilota');
-	  });
+	$(document).on('click','.initializeContainer',function(e){
+		var name ="#initialize";
+		e.preventDefault();
+		$('#confirm-modal').off()
+		$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
+			.one('click', '#yes', function(){
+				alert("moi")
+				$(name).submit();
+		});
+		
 	});
-	</script>
-	
-	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
-	<script>
-	$(document).ready(function(){
-		var descExists = {{ userRequest.description.strip|length }};
-		if (descExists == 0) {
-			$("#descriptionEdit").show();
-		}
-	});
-	</script>
-	
-	<!-- oma scripti kuvauksen muokkausnapille show/hide -->
-	<script>
-	$(document).ready(function(){
-	  $("#descriptionEdit").on("hide.bs.collapse", function(){
-		$("#descriptionButton").html('<span class="glyphicon glyphicon-pencil"></span>');
-	  });
-	  $("#descriptionEdit").on("show.bs.collapse", function(){
-		$("#descriptionButton").html('Piilota');
-	  });
-	});
-	
 	</script>
 {% endblock %}
 

@@ -97,8 +97,9 @@ def download(request):
 		req = store(jsond)
 		if(req):
 			data = json.loads(req, object_hook=lambda d: Namespace(**d))
+			print(req)
 			userRequest = Request.requests.get(lajiId = data.id)
-			userRequest.status = 6;
+			userRequest.status = 8;
 			userRequest.save()
 		return HttpResponse('')
 
@@ -380,7 +381,7 @@ def change_description(request):
 		userRequest = Request.requests.get(id = requestId)
 		userRequest.description = request.POST.get('description')
 		userRequest.save(update_fields=['description'])
-	return HttpResponse("")
+	return HttpResponseRedirect(next)
 
 #removes sensitive sightings
 def remove_sensitive_data(request):
@@ -696,6 +697,7 @@ def update_contact_preset(request, userRequest):
 		contactPreset.requestPersonStreetAddress = request.POST.get('request_person_street_address_1')
 		contactPreset.requestPersonPostOfficeName = request.POST.get('request_person_post_office_name_1')
 		contactPreset.requestPersonPostalCode = request.POST.get('request_person_postal_code_1')
+		contactPreset.requestPersonCountry = request.POST.get('request_person_country_1')
 		contactPreset.requestPersonEmail = request.POST.get('request_person_email_1')
 		contactPreset.requestPersonPhoneNumber = request.POST.get('request_person_phone_number_1')
 		contactPreset.requestPersonOrganizationName = request.POST.get('request_person_organization_name_1')
@@ -720,7 +722,7 @@ def answer(request):
 				userRequest.save()
 			elif "sens" not in collectionId:
 				collection = Collection.objects.get(request=requestId, address=collectionId)
-				if request.session["user_id"] in collection.downloadRequestHandler:
+				if (request.session["user_id"] in collection.downloadRequestHandler) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
 					if (int(request.POST.get('answer')) == 1):
 						collection.status = 4
 						#make a log entry
@@ -787,6 +789,8 @@ def update(requestId, lang):
 		#status 3: Hylätty
 		#status 4: Hyväksytty
 		#status 6: Odottaa vastausta lisäkysymyksiin
+		#status 7: Odottaa latauksen valmistumista
+		#status 8: Ladattava
 		wantedRequest = Request.requests.get(id=requestId)
 		#tmp variable for checking if status changed
 		statusBeforeUpdate = wantedRequest.status
@@ -820,7 +824,7 @@ def update(requestId, lang):
 				wantedRequest.status = 3
 			elif (accepted >= 0 and pending > 0) and declined == 0:
 				wantedRequest.status = 1
-			elif accepted > 0 and declined > 0:
+			elif (accepted > 0 and declined > 0) and pending == 0:
 				wantedRequest.status = 2
 				if colaccepted > 0:
 					send_download_request(requestId)
@@ -856,6 +860,17 @@ def send_download_request(requestId):
 		for f in filters.__dict__:
 			payload[f] = getattr(filters, f)
 		'''requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)'''
+
+def initialize_download(request):
+		next = request.POST.get('next', '/')
+		if request.method == 'POST':
+			requestId = request.POST.get('requestid')
+			userRequest = Request.requests.get(id=requestId)
+			if (userRequest.status == 4 or userRequest.status == 2 or userRequest.sensstatus == 4):
+				send_download_request(requestId)
+				userRequest.status = 7
+				userRequest.save()
+		return HttpResponseRedirect(next)
 
 """
 	Send "request has been handled" email 

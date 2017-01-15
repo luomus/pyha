@@ -264,7 +264,22 @@ div.contact-form{
 
   .requestlog {
     margin-left:50px;
-    margin-bottom:50px;
+    margin-bottom:10px;
+}
+
+  .requestcollections {
+    max-height:300px;
+	overflow-y:scroll;
+	color:black;
+	background-color:WhiteSmoke;
+	border-radius:10px;
+}
+
+  .requestcard {
+    height:300px;
+	overflow-y:hidden;
+	margin-right:20px;
+	display:flex;
 }
 
   .floatcontainer {

@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^answer/?$', views.answer, name='answer'),
 	url(r'^information/?$', views.information, name='information'),
 	url(r'^commentSensitive/?$', views.comment_sensitive, name='comment_sensitive'),
-    url(r'^removeCollection/?$', views.removeCollection, name='removeCollection')
+    url(r'^removeCollection/?$', views.removeCollection, name='removeCollection'),
+	url(r'^initializeDownload/?$', views.initialize_download, name='initializeDownload')
 ]

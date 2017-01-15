@@ -34,7 +34,7 @@
             <tr class="warning clickable-row"
         {% elif request.status == 0 or request.status == 6 %}
             <tr class="active clickable-row"
-        {% elif request.status == 4 %}
+        {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
             <tr class="success clickable-row"
         {% else %}  
             <tr	
@@ -61,7 +61,13 @@
                 <td>{% trans "accepted" %}</td>  
             
             {% elif request.status == 6 %}
-                <td>{% trans "waiting_for_additional_information" %}</td>  
+                <td>{% trans "waiting_for_additional_information" %}</td>
+
+            {% elif request.status == 7 %}
+                <td>{% trans "waiting_for_download" %}</td>  
+            
+            {% elif request.status == 8 %}
+                <td>{% trans "ready_for_download" %}</td>  
 
             {% else %}  
                 <td>{% trans "unknown" %}</td>
