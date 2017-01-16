@@ -345,7 +345,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			if(lang == 'sw'):
 				languagelabel = getattr(label, "sv")
 			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?locale='+lang
-			context["downloadable"] = userRequest.downloadDate > datetime.now()-timedelta(days=30)
+			context["downloadable"] = userRequest.downloadDate.strftime('%d.%m.%Y %H:%M') > datetime.now()-timedelta(days=30)
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
