@@ -125,8 +125,17 @@
 							<tr class="danger clickable-row"
 							{% elif collection.status == 4 %}
 							<tr class="success clickable-row"
-							{% else %}  
-							<tr	
+							{% elif collection.customSecured == 0 %}
+								{% if userRequest.sensstatus == 1 %}
+								<tr class="info clickable-row"
+								{% elif userRequest.sensstatus == 3 %}
+								<tr class="danger clickable-row"
+								{% elif userRequest.sensstatus == 4 %}
+								<tr class="success clickable-row"
+								{% else %}
+								<tr
+								{% endif %}
+							{% else %}	
 							{% endif %}
 							>
 							<td>{{collection.result.collectionName}}</td>
@@ -188,6 +197,8 @@
 				<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:80px;height:100px;width:40%;">{% trans 'download' %}</a>
 				{% elif userRequest.status == 4 %}
 				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
+				{% elif userRequest.status == 7 %}
+				<h3>{% trans 'you_will_be_emailed_when_ready' %}</h3>
 				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 %}
 				<div class="initializeContainer">
 					<button type="button" class="btn btn-default btn-lg initializeButton" style="height:100px;width:40%;">{% trans 'stop_wait_initialize_download' %}</button>
