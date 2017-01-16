@@ -93,14 +93,10 @@ def receiver(request):
 
 @csrf_exempt
 def download(request):
-		jsond = request.body.decode("utf-8")
-		req = store(jsond)
-		if(req):
-			data = json.loads(req, object_hook=lambda d: Namespace(**d))
-			print(req)
-			userRequest = Request.requests.get(lajiId = data.id)
-			userRequest.status = 8;
-			userRequest.save()
+		if request.method == 'POST':
+			jsond = request.body.decode("utf-8")
+			print(jsond)
+			print(request.POST)
 		return HttpResponse('')
 
 def jsonmock(request):
@@ -709,6 +705,7 @@ def answer(request):
 		if request.method == 'POST':
 			collectionId = request.POST.get('collectionid')
 			requestId = request.POST.get('requestid')
+			userRequest = Request.requests.get(id = requestId)
 			if(int(request.POST.get('answer')) == 2):
 				newChatEntry = RequestInformationChatEntry()
 				newChatEntry.request = Request.requests.get(id=requestId)
@@ -717,7 +714,6 @@ def answer(request):
 				newChatEntry.question = True
 				newChatEntry.message = request.POST.get('reason')
 				newChatEntry.save()
-				userRequest = Request.requests.get(id = requestId)
 				userRequest.status = 6
 				userRequest.save()
 			elif "sens" not in collectionId:
@@ -735,7 +731,6 @@ def answer(request):
 					collection.save()
 					update(requestId, request.LANGUAGE_CODE)
 			elif HANDLER_SENS in request.session["user_roles"]:
-				userRequest = Request.requests.get(id = requestId)
 				if (int(request.POST.get('answer')) == 1):
 					userRequest.sensstatus = 4
 					#make a log entry
@@ -849,17 +844,22 @@ def send_download_request(requestId):
 		payload["id"] = userRequest.lajiId
 		payload["personId"] = userRequest.user
 		collectionlist = Collection.objects.filter(request=userRequest, status=4)
+		if userRequest.sensstatus == 4:
+			additionlist = Collection.objects.filter(request=userRequest, customSecured=0, taxonSecured__gt=0)
+			collectionlist = list(chain(collectionlist, additionlist))
 		cname = []
 		for c in collectionlist:
 			cname.append(c.address)
 		payload["approvedCollections"] = cname
 		payload["sensitiveApproved"] = "true"
+		payload["secured"] = "true"
 		payload["downloadFormat"] = "CSV_FLAT"
 		payload["access_token"] = secrets.TOKEN
 		filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		for f in filters.__dict__:
 			payload[f] = getattr(filters, f)
-		'''requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)'''
+		response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
+		print(response)
 
 def initialize_download(request):
 		next = request.POST.get('next', '/')
