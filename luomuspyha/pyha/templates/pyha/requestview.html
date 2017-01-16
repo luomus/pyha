@@ -185,8 +185,8 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 					{% endif %}
 				</div>
-				{% if userRequest.downloadLink %}
-				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'download' %}</button>
+				{% if userRequest.status == 1 %}
+				<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:80px;height:100px;width:40%;">{% trans 'download' %}</a>
 				{% elif userRequest.status == 4 %}
 				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
 				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 %}

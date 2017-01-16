@@ -30,7 +30,6 @@ class Request(models.Model):
 	approximateMatches = models.IntegerField()
 	downloadFormat = models.CharField(max_length=40)
 	downloadIncludes = models.CharField(max_length=1000)
-	downloadLink = models.CharField(max_length=400,null=True)
 	downloadDate = models.CharField(max_length=400,null=True)
 	filter_list = models.CharField(max_length=2000)
 	personName = models.CharField(max_length=100,null=True)

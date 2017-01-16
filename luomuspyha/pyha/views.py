@@ -94,7 +94,8 @@ def receiver(request):
 @csrf_exempt
 def download(request, link):
 		if request.method == 'POST':
-			Request.requests.filter(id=userRequest.id, status__gt=0)
+			userRequest = Request.requests.filter(lajiId=link)
+			userRequest.status = 8
 		return HttpResponse('')
 
 def jsonmock(request):
@@ -321,6 +322,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		taxonList = []
 		customList = []
 		collectionList = []
+		lang = request.LANGUAGE_CODE
 		create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 		taxon = False
 		for collection in collectionList:
@@ -334,6 +336,11 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		if userRequest.status > 0:
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
+		if userRequest.status == 1:
+			lang = request.LANGUAGE_CODE
+			if(lang == 'sw'):
+				languagelabel = getattr(label, "sv")
+			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?locale='+lang
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
@@ -701,7 +708,6 @@ def update_contact_preset(request, userRequest):
 def answer(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
-			print(request.POST)
 			collectionId = request.POST.get('collectionid')
 			requestId = request.POST.get('requestid')
 			userRequest = Request.requests.get(id = requestId)
@@ -857,7 +863,6 @@ def send_download_request(requestId):
 		for f in filters.__dict__:
 			payload[f] = getattr(filters, f)
 		response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
-		print(response)
 
 def initialize_download(request):
 		next = request.POST.get('next', '/')
