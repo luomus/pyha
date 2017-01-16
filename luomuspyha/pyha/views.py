@@ -94,8 +94,9 @@ def receiver(request):
 @csrf_exempt
 def download(request, link):
 		if request.method == 'POST':
-			userRequest = Request.requests.filter(lajiId=link)
+			userRequest = Request.requests.get(lajiId=link)
 			userRequest.status = 8
+			userRequest.save()
 		return HttpResponse('')
 
 def jsonmock(request):

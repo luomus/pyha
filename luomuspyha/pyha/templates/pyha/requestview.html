@@ -125,8 +125,18 @@
 							<tr class="danger clickable-row"
 							{% elif collection.status == 4 %}
 							<tr class="success clickable-row"
-							{% else %}  
-							<tr	
+							{% elif collection.customSecured == 0 %}
+								{% if userRequest.sensstatus  == 1 %}
+								<tr class="info clickable-row"
+								{% elif userRequest.sensstatus  == 3 %}
+								<tr class="danger clickable-row"
+								{% elif userRequest.sensstatus  == 4 %}
+								<tr class="success clickable-row"
+								{% else %}
+								<tr
+								{% endif %}
+							{% else %}
+							<tr
 							{% endif %}
 							>
 							<td>{{collection.result.collectionName}}</td>

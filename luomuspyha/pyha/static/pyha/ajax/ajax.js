@@ -129,11 +129,11 @@
 			end.insertAdjacentHTML('beforebegin', this.responseText);
 			var namefield = document.getElementById("request_person_name_"+id)
 			var func = function() { 
-					document.getElementById("contact_tab_text_"+id).textContent = namefield.value;      
+					document.getElementById("contact_tab_text_"+id).textContent = namefield.value;    
+					contactsFilled();
 				}
 			namefield.onkeyup = func;
 			namefield.onchange = func;
-			contactsFilled();
 			}
 		};
 	xhttp.open("POST", "/pyha/createContact/", true);

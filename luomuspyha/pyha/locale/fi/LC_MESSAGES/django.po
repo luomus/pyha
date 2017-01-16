@@ -220,7 +220,7 @@ msgstr "Muutoshistoria on tyhjä"
 
 #: pyha/templates/pyha/handler/requestview.html:147
 msgid "handler_request_window"
-msgstr "Aineistot"
+msgstr "Kokoelma tiedot"
 
 #: pyha/templates/pyha/handler/requestview.html:154
 msgid "handler_sensitive_window"
@@ -1071,7 +1071,7 @@ msgstr "Kyllä"
 
 #: pyha/templates/pyha/requestview.html:224
 msgid "request_window"
-msgstr "Päiväys"
+msgstr "Kokoelma tiedot"
 
 #: pyha/templates/pyha/requestview.html:231
 msgid "sensitive_window"
