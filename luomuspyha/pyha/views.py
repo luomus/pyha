@@ -336,7 +336,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		if userRequest.status > 0:
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
-		if userRequest.status == 1:
+		if userRequest.status == 8:
 			lang = request.LANGUAGE_CODE
 			if(lang == 'sw'):
 				languagelabel = getattr(label, "sv")

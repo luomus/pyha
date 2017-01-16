@@ -4,7 +4,6 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-		
 		  <div class="page-header"> 
 
 			<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
@@ -185,7 +184,7 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 					{% endif %}
 				</div>
-				{% if userRequest.status == 1 %}
+				{% if userRequest.status == 8 %}
 				<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:80px;height:100px;width:40%;">{% trans 'download' %}</a>
 				{% elif userRequest.status == 4 %}
 				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
@@ -439,10 +438,10 @@
 									<table class = "table" style="width:50%">
 										<tr style=color:black>
 											<th>{% trans "filter" %}</th>
-											<th>{% trans "values" %}</th>	
-										</tr>	
+											<th>{% trans "values" %}</th>
+										</tr>
 										{% for filter in filters %}
-										<tr class="info clickable-row">	
+										<tr class="info clickable-row">
 											<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 											{% for f in filter.1 %}
 											<td>{{ f }}</td>
