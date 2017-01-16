@@ -195,7 +195,11 @@
 					{% endif %}
 				</div>
 				{% if userRequest.status == 8 %}
-				<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:80px;height:100px;width:40%;">{% trans 'download' %}</a>
+					{% if downloadable %}
+						<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:80px;height:100px;width:40%;">{% trans 'download' %}</a>
+					{% else %}
+						<h3>{% trans 'download_has_expired' %}</h3>
+					{% endif %}
 				{% elif userRequest.status == 4 %}
 				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
 				{% elif userRequest.status == 7 %}
