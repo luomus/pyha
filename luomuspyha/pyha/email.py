@@ -45,6 +45,35 @@ def send_mail_after_receiving_request(requestId, lang):
 	recipients = [to]
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
 
+def send_mail_after_receiving_download(requestId):
+	lang = 'fi'
+	req = Request.requests.get(id=requestId)
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.REQ_URL+str(req.id)
+	if(lang == 'fi'):
+		if(req.description != ''):
+			subject_content = u"Aineistopyynnön lataus: " + req.description
+		else:
+			subject_content = u"Aineistopyynnön lataus: " + time
+		message = u"Aineisto on valmiina ladattavaksi.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+	elif(lang == 'en'):
+		if(req.description != ''):
+			subject_content = u"Collection ready for download: " + req.description
+		else:
+			subject_content = u"Collection ready for download: " + time
+		message = u"Collection is ready for download.\n\nAddress to your request: "+req_link+"?lang=en" 
+	else:
+		if(req.description != ''):
+			subject_content = u"På svenska: Aineistopyynnön lataus: " + req.description
+		else:
+			subject_content = u"På svenska: Aineistopyynnön lataus: " + time
+		message = u"På svenska: Aineisto on valmiina ladattavaksi.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"
+	subject = subject_content
+	from_email = 'helpdesk@laji.fi'
+	to = fetch_email_address(req.user)
+	recipients = [to]
+	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+
 def fetch_email_address(personId):
 	'''
 	fetches email-address for a person registered in Laji.fi

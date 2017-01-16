@@ -25,6 +25,7 @@ from itertools import groupby
 from pyha.roles import *
 from pyha.email import *
 from django.core.cache import cache
+from datetime import datetime, timedelta
 
 @csrf_exempt
 def index(request):
@@ -96,7 +97,9 @@ def download(request, link):
 		if request.method == 'POST':
 			userRequest = Request.requests.get(lajiId=link)
 			userRequest.status = 8
+			userRequest.downloadDate = datetime.now()
 			userRequest.save()
+			send_mail_after_receiving_request(userRequest.id)
 		return HttpResponse('')
 
 def jsonmock(request):
@@ -342,6 +345,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			if(lang == 'sw'):
 				languagelabel = getattr(label, "sv")
 			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?locale='+lang
+			context["downloadable"] = userRequest.downloadDate > datetime.now()-timedelta(days=30)
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
@@ -362,6 +366,7 @@ def get_values_for_collections(requestId, request, List):
 
 def create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
+		collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if role1:
 				taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
@@ -371,7 +376,6 @@ def create_collections_for_lists(requestId, request, taxonList, customList, coll
 		if not hasCollection:
 			taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
 			customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
-			collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
 		get_values_for_collections(requestId, request, collectionList)
 		get_values_for_collections(requestId, request, customList)
 		get_values_for_collections(requestId, request, taxonList)

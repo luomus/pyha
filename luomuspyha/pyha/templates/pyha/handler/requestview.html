@@ -85,13 +85,23 @@
 					</div>
 					<div class="panel-body requestcollections col-xs-7" style= "{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
 					<table class="table">
-						{% for collection in customlist %}
+						{% for collection in collections %}
 							{% if collection.status == 1 %}
 							<tr class="info clickable-row"
 							{% elif collection.status == 3 %}
 							<tr class="danger clickable-row"
 							{% elif collection.status == 4 %}
 							<tr class="success clickable-row"
+							{% elif collection.customSecured == 0 %}
+								{% if userRequest.sensstatus  == 1 %}
+								<tr class="info clickable-row"
+								{% elif userRequest.sensstatus  == 3 %}
+								<tr class="danger clickable-row"
+								{% elif userRequest.sensstatus  == 4 %}
+								<tr class="success clickable-row"
+								{% else %}
+								<tr
+								{% endif %}
 							{% else %}  
 							<tr	
 							{% endif %}

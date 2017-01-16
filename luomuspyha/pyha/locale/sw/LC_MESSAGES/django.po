@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 14:47+0200\n"
+"POT-Creation-Date: 2017-01-16 23:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: luomuspyha/dev_settings.py:160 luomuspyha/settings.py:155
+#: luomuspyha/dev_settings.py:160 luomuspyha/settings.py:156
 msgid "Suomi"
 msgstr "Suomi"
 
-#: luomuspyha/dev_settings.py:161 luomuspyha/settings.py:156
+#: luomuspyha/dev_settings.py:161 luomuspyha/settings.py:157
 msgid "Englanti"
 msgstr "Englanti"
 
-#: luomuspyha/dev_settings.py:162 luomuspyha/settings.py:157
+#: luomuspyha/dev_settings.py:162 luomuspyha/settings.py:158
 msgid "Ruotsi"
 msgstr "Ruotsi"
 
@@ -43,12 +43,12 @@ msgid "logout"
 msgstr "logout"
 
 #: pyha/templates/pyha/base.html:62 pyha/templates/pyha/base.html:66
-#: pyha/templates/pyha/requestview.html:152
+#: pyha/templates/pyha/requestview.html:160
 msgid "admin"
 msgstr "admin"
 
 #: pyha/templates/pyha/base.html:62 pyha/templates/pyha/base.html:65
-#: pyha/templates/pyha/requestview.html:162
+#: pyha/templates/pyha/requestview.html:170
 msgid "user"
 msgstr "user"
 
@@ -100,10 +100,10 @@ msgstr "you_have_not_accepted_terms"
 
 #: pyha/templates/pyha/handler/index.html:51
 #: pyha/templates/pyha/handler/requestview.html:29
-#: pyha/templates/pyha/handler/requestview.html:239
-#: pyha/templates/pyha/handler/requestview.html:291
-#: pyha/templates/pyha/handler/requestview.html:373
-#: pyha/templates/pyha/handler/requestview.html:426
+#: pyha/templates/pyha/handler/requestview.html:249
+#: pyha/templates/pyha/handler/requestview.html:301
+#: pyha/templates/pyha/handler/requestview.html:383
+#: pyha/templates/pyha/handler/requestview.html:436
 #, fuzzy
 #| msgid "waiting_for_data_provider"
 msgid "handler_waiting_for_data_provider"
@@ -111,10 +111,10 @@ msgstr "waiting_for_data_provider"
 
 #: pyha/templates/pyha/handler/index.html:54
 #: pyha/templates/pyha/handler/requestview.html:32
-#: pyha/templates/pyha/handler/requestview.html:243
-#: pyha/templates/pyha/handler/requestview.html:295
-#: pyha/templates/pyha/handler/requestview.html:377
-#: pyha/templates/pyha/handler/requestview.html:430
+#: pyha/templates/pyha/handler/requestview.html:253
+#: pyha/templates/pyha/handler/requestview.html:305
+#: pyha/templates/pyha/handler/requestview.html:387
+#: pyha/templates/pyha/handler/requestview.html:440
 #, fuzzy
 #| msgid "partially_accepted"
 msgid "handler_partially_accepted"
@@ -122,10 +122,10 @@ msgstr "partially_accepted"
 
 #: pyha/templates/pyha/handler/index.html:57
 #: pyha/templates/pyha/handler/requestview.html:35
-#: pyha/templates/pyha/handler/requestview.html:241
-#: pyha/templates/pyha/handler/requestview.html:293
-#: pyha/templates/pyha/handler/requestview.html:375
-#: pyha/templates/pyha/handler/requestview.html:428
+#: pyha/templates/pyha/handler/requestview.html:251
+#: pyha/templates/pyha/handler/requestview.html:303
+#: pyha/templates/pyha/handler/requestview.html:385
+#: pyha/templates/pyha/handler/requestview.html:438
 #, fuzzy
 #| msgid "denied"
 msgid "handler_denied"
@@ -133,10 +133,10 @@ msgstr "denied"
 
 #: pyha/templates/pyha/handler/index.html:60
 #: pyha/templates/pyha/handler/requestview.html:38
-#: pyha/templates/pyha/handler/requestview.html:245
-#: pyha/templates/pyha/handler/requestview.html:297
-#: pyha/templates/pyha/handler/requestview.html:379
-#: pyha/templates/pyha/handler/requestview.html:432
+#: pyha/templates/pyha/handler/requestview.html:255
+#: pyha/templates/pyha/handler/requestview.html:307
+#: pyha/templates/pyha/handler/requestview.html:389
+#: pyha/templates/pyha/handler/requestview.html:442
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_accepted"
@@ -148,17 +148,29 @@ msgid "handler_waiting_for_additional_information"
 msgstr ""
 
 #: pyha/templates/pyha/handler/index.html:66
+#, fuzzy
+#| msgid "waiting_for_data_provider"
+msgid "handler_waiting_for_download"
+msgstr "waiting_for_data_provider"
+
+#: pyha/templates/pyha/handler/index.html:69
+#, fuzzy
+#| msgid "waiting_for_data_provider"
+msgid "handler_ready_for_download"
+msgstr "waiting_for_data_provider"
+
+#: pyha/templates/pyha/handler/index.html:72
 #: pyha/templates/pyha/handler/requestview.html:44
-#: pyha/templates/pyha/handler/requestview.html:247
-#: pyha/templates/pyha/handler/requestview.html:299
-#: pyha/templates/pyha/handler/requestview.html:381
-#: pyha/templates/pyha/handler/requestview.html:434
+#: pyha/templates/pyha/handler/requestview.html:257
+#: pyha/templates/pyha/handler/requestview.html:309
+#: pyha/templates/pyha/handler/requestview.html:391
+#: pyha/templates/pyha/handler/requestview.html:444
 #, fuzzy
 #| msgid "unknown"
 msgid "handler_unknown"
 msgstr "unknown"
 
-#: pyha/templates/pyha/handler/index.html:75
+#: pyha/templates/pyha/handler/index.html:81
 #, fuzzy
 #| msgid "no_requests_for_admin"
 msgid "handler_no_requests_for_admin"
@@ -171,460 +183,460 @@ msgid "handler_request_from_user"
 msgstr "request_from_user"
 
 #: pyha/templates/pyha/handler/requestview.html:76
-#: pyha/templates/pyha/requestview.html:110
+#: pyha/templates/pyha/requestview.html:109
 #, fuzzy
 #| msgid "sensitive_terms"
 msgid "sensitive"
 msgstr "sensitive_terms"
 
 #: pyha/templates/pyha/handler/requestview.html:78
-#: pyha/templates/pyha/index.html:52 pyha/templates/pyha/requestview.html:57
-#: pyha/templates/pyha/requestview.html:112
-#: pyha/templates/pyha/requestview.html:327
-#: pyha/templates/pyha/requestview.html:366
-#: pyha/templates/pyha/requestview.html:417
+#: pyha/templates/pyha/index.html:52 pyha/templates/pyha/requestview.html:56
+#: pyha/templates/pyha/requestview.html:111
+#: pyha/templates/pyha/requestview.html:337
+#: pyha/templates/pyha/requestview.html:376
+#: pyha/templates/pyha/requestview.html:427
 msgid "waiting_for_data_provider"
 msgstr "waiting_for_data_provider"
 
 #: pyha/templates/pyha/handler/requestview.html:80
-#: pyha/templates/pyha/index.html:58 pyha/templates/pyha/requestview.html:63
-#: pyha/templates/pyha/requestview.html:114
-#: pyha/templates/pyha/requestview.html:329
-#: pyha/templates/pyha/requestview.html:368
-#: pyha/templates/pyha/requestview.html:419
+#: pyha/templates/pyha/index.html:58 pyha/templates/pyha/requestview.html:62
+#: pyha/templates/pyha/requestview.html:113
+#: pyha/templates/pyha/requestview.html:339
+#: pyha/templates/pyha/requestview.html:378
+#: pyha/templates/pyha/requestview.html:429
 msgid "denied"
 msgstr "denied"
 
 #: pyha/templates/pyha/handler/requestview.html:82
-#: pyha/templates/pyha/index.html:61 pyha/templates/pyha/requestview.html:66
-#: pyha/templates/pyha/requestview.html:116
-#: pyha/templates/pyha/requestview.html:333
-#: pyha/templates/pyha/requestview.html:372
-#: pyha/templates/pyha/requestview.html:423
+#: pyha/templates/pyha/index.html:61 pyha/templates/pyha/requestview.html:65
+#: pyha/templates/pyha/requestview.html:115
+#: pyha/templates/pyha/requestview.html:343
+#: pyha/templates/pyha/requestview.html:382
+#: pyha/templates/pyha/requestview.html:433
 msgid "accepted"
 msgstr "accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:107
+#: pyha/templates/pyha/handler/requestview.html:117
 #, fuzzy
 #| msgid "changes_history"
 msgid "handler_changes_history"
 msgstr "changes_history"
 
-#: pyha/templates/pyha/handler/requestview.html:110
+#: pyha/templates/pyha/handler/requestview.html:120
 #, fuzzy
 #| msgid "log_date"
 msgid "handler_log_date"
 msgstr "log_date"
 
-#: pyha/templates/pyha/handler/requestview.html:111
+#: pyha/templates/pyha/handler/requestview.html:121
 #, fuzzy
 #| msgid "log_maker"
 msgid "handler_log_maker"
 msgstr "log_maker"
 
-#: pyha/templates/pyha/handler/requestview.html:112
+#: pyha/templates/pyha/handler/requestview.html:122
 #, fuzzy
 #| msgid "log_description"
 msgid "handler_log_description"
 msgstr "log_description"
 
-#: pyha/templates/pyha/handler/requestview.html:119
+#: pyha/templates/pyha/handler/requestview.html:129
 #, fuzzy
 #| msgid "log_viewed"
 msgid "handler_log_viewed"
 msgstr "log_viewed"
 
-#: pyha/templates/pyha/handler/requestview.html:121
+#: pyha/templates/pyha/handler/requestview.html:131
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_log_terms_accepted"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:124
+#: pyha/templates/pyha/handler/requestview.html:134
 #, fuzzy
 #| msgid "log_sensitives_accepted"
 msgid "handler_log_sensitives_accepted"
 msgstr "log_sensitives_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:126
+#: pyha/templates/pyha/handler/requestview.html:136
 #, fuzzy
 #| msgid "log_collection_accepted"
 msgid "handler_log_collection_accepted"
 msgstr "log_collection_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:130
+#: pyha/templates/pyha/handler/requestview.html:140
 #, fuzzy
 #| msgid "log_sensitives_denied"
 msgid "handler_log_sensitives_denied"
 msgstr "log_sensitives_denied"
 
-#: pyha/templates/pyha/handler/requestview.html:132
+#: pyha/templates/pyha/handler/requestview.html:142
 #, fuzzy
 #| msgid "log_collection_denied"
 msgid "handler_log_collection_denied"
 msgstr "log_collection_denied"
 
-#: pyha/templates/pyha/handler/requestview.html:139
+#: pyha/templates/pyha/handler/requestview.html:149
 #, fuzzy
 #| msgid "log_no_history"
 msgid "handler_log_no_history"
 msgstr "log_no_history"
 
-#: pyha/templates/pyha/handler/requestview.html:147
+#: pyha/templates/pyha/handler/requestview.html:157
 #, fuzzy
 #| msgid "request_date"
 msgid "handler_request_window"
 msgstr "request_date"
 
-#: pyha/templates/pyha/handler/requestview.html:154
+#: pyha/templates/pyha/handler/requestview.html:164
 #, fuzzy
 #| msgid "sensitive_terms"
 msgid "handler_sensitive_window"
 msgstr "sensitive_terms"
 
-#: pyha/templates/pyha/handler/requestview.html:161
+#: pyha/templates/pyha/handler/requestview.html:171
 #, fuzzy
 #| msgid "log_collection_denied"
 msgid "handler_collection_window"
 msgstr "log_collection_denied"
 
-#: pyha/templates/pyha/handler/requestview.html:168
+#: pyha/templates/pyha/handler/requestview.html:178
 msgid "handler_argument_window"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:175
+#: pyha/templates/pyha/handler/requestview.html:185
 #, fuzzy
 #| msgid "no_filters"
 msgid "handler_filter_window"
 msgstr "no_filters"
 
-#: pyha/templates/pyha/handler/requestview.html:182
+#: pyha/templates/pyha/handler/requestview.html:192
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_terms_window"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:189
+#: pyha/templates/pyha/handler/requestview.html:199
 msgid "handler_contact_window"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:196
+#: pyha/templates/pyha/handler/requestview.html:206
 #, fuzzy
 #| msgid "waiting_for_data_provider"
 msgid "handler_additional_information_window"
 msgstr "waiting_for_data_provider"
 
-#: pyha/templates/pyha/handler/requestview.html:204
+#: pyha/templates/pyha/handler/requestview.html:214
 #, fuzzy
 #| msgid "denied"
 msgid "handler_comments_window"
 msgstr "denied"
 
-#: pyha/templates/pyha/handler/requestview.html:216
-#: pyha/templates/pyha/handler/requestview.html:350
+#: pyha/templates/pyha/handler/requestview.html:226
+#: pyha/templates/pyha/handler/requestview.html:360
 #, fuzzy
 #| msgid "request_included_sensitive_data"
 msgid "handler_user_no_sensitive_data"
 msgstr "request_included_sensitive_data"
 
-#: pyha/templates/pyha/handler/requestview.html:218
-#: pyha/templates/pyha/handler/requestview.html:352
+#: pyha/templates/pyha/handler/requestview.html:228
+#: pyha/templates/pyha/handler/requestview.html:362
 #, fuzzy
 #| msgid "list_of_collections"
 msgid "handler_list_of_collections"
 msgstr "list_of_collections"
 
-#: pyha/templates/pyha/handler/requestview.html:225
-#: pyha/templates/pyha/handler/requestview.html:273
-#: pyha/templates/pyha/handler/requestview.html:359
-#: pyha/templates/pyha/handler/requestview.html:408
+#: pyha/templates/pyha/handler/requestview.html:235
+#: pyha/templates/pyha/handler/requestview.html:283
+#: pyha/templates/pyha/handler/requestview.html:369
+#: pyha/templates/pyha/handler/requestview.html:418
 #, fuzzy
 #| msgid "state_of_processing"
 msgid "handler_state_of_processing"
 msgstr "state_of_processing"
 
-#: pyha/templates/pyha/handler/requestview.html:226
-#: pyha/templates/pyha/handler/requestview.html:274
-#: pyha/templates/pyha/handler/requestview.html:360
-#: pyha/templates/pyha/handler/requestview.html:409
+#: pyha/templates/pyha/handler/requestview.html:236
+#: pyha/templates/pyha/handler/requestview.html:284
+#: pyha/templates/pyha/handler/requestview.html:370
+#: pyha/templates/pyha/handler/requestview.html:419
 #, fuzzy
 #| msgid "decision_arguments"
 msgid "handler_decision_arguments"
 msgstr "decision_arguments"
 
-#: pyha/templates/pyha/handler/requestview.html:256
-#: pyha/templates/pyha/handler/requestview.html:309
-#: pyha/templates/pyha/handler/requestview.html:390
-#: pyha/templates/pyha/handler/requestview.html:444
+#: pyha/templates/pyha/handler/requestview.html:266
+#: pyha/templates/pyha/handler/requestview.html:319
+#: pyha/templates/pyha/handler/requestview.html:400
+#: pyha/templates/pyha/handler/requestview.html:454
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_accept"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:257
-#: pyha/templates/pyha/handler/requestview.html:310
-#: pyha/templates/pyha/handler/requestview.html:391
-#: pyha/templates/pyha/handler/requestview.html:445
+#: pyha/templates/pyha/handler/requestview.html:267
+#: pyha/templates/pyha/handler/requestview.html:320
+#: pyha/templates/pyha/handler/requestview.html:401
+#: pyha/templates/pyha/handler/requestview.html:455
 #, fuzzy
 #| msgid "refuse"
 msgid "handler_refuse"
 msgstr "refuse"
 
-#: pyha/templates/pyha/handler/requestview.html:268
-#: pyha/templates/pyha/handler/requestview.html:403
+#: pyha/templates/pyha/handler/requestview.html:278
+#: pyha/templates/pyha/handler/requestview.html:413
 #, fuzzy
 #| msgid "secured_collections_in_request"
 msgid "handler_secured_collections_in_request"
 msgstr "secured_collections_in_request"
 
-#: pyha/templates/pyha/handler/requestview.html:271
-#: pyha/templates/pyha/handler/requestview.html:406
-#: pyha/templates/pyha/handler/requestview.html:538
+#: pyha/templates/pyha/handler/requestview.html:281
+#: pyha/templates/pyha/handler/requestview.html:416
+#: pyha/templates/pyha/handler/requestview.html:548
 #, fuzzy
 #| msgid "log_collection_denied"
 msgid "handler_collection_name"
 msgstr "log_collection_denied"
 
-#: pyha/templates/pyha/handler/requestview.html:272
-#: pyha/templates/pyha/handler/requestview.html:407
+#: pyha/templates/pyha/handler/requestview.html:282
+#: pyha/templates/pyha/handler/requestview.html:417
 #, fuzzy
 #| msgid "no_description"
 msgid "handler_collection_description"
 msgstr "no_description"
 
-#: pyha/templates/pyha/handler/requestview.html:324
+#: pyha/templates/pyha/handler/requestview.html:334
 #, fuzzy
 #| msgid "no_collections_for_requests"
 msgid "handler_no_collections_for_requests"
 msgstr "no_collections_for_requests"
 
-#: pyha/templates/pyha/handler/requestview.html:334
-#: pyha/templates/pyha/handler/requestview.html:601
+#: pyha/templates/pyha/handler/requestview.html:344
+#: pyha/templates/pyha/handler/requestview.html:611
 #, fuzzy
 #| msgid "sensitive_terms"
 msgid "handler_sensitive_terms"
 msgstr "sensitive_terms"
 
-#: pyha/templates/pyha/handler/requestview.html:339
-#: pyha/templates/pyha/handler/requestview.html:606
+#: pyha/templates/pyha/handler/requestview.html:349
+#: pyha/templates/pyha/handler/requestview.html:616
 #, fuzzy
 #| msgid "If_you_cannot_see_terms_you_can_load_them"
 msgid "handler_If_you_cannot_see_terms_you_can_load_them"
 msgstr "If_you_cannot_see_terms_you_can_load_them"
 
-#: pyha/templates/pyha/handler/requestview.html:339
-#: pyha/templates/pyha/handler/requestview.html:584
-#: pyha/templates/pyha/handler/requestview.html:606
+#: pyha/templates/pyha/handler/requestview.html:349
+#: pyha/templates/pyha/handler/requestview.html:594
+#: pyha/templates/pyha/handler/requestview.html:616
 msgid "handler_here"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:344
-#: pyha/templates/pyha/handler/requestview.html:589
-#: pyha/templates/pyha/handler/requestview.html:611
+#: pyha/templates/pyha/handler/requestview.html:354
+#: pyha/templates/pyha/handler/requestview.html:599
+#: pyha/templates/pyha/handler/requestview.html:621
 msgid "handler_exit"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:459
+#: pyha/templates/pyha/handler/requestview.html:469
 #, fuzzy
 #| msgid "request_filters"
 msgid "handler_request_filters"
 msgstr "request_filters"
 
-#: pyha/templates/pyha/handler/requestview.html:463
+#: pyha/templates/pyha/handler/requestview.html:473
 #, fuzzy
 #| msgid "no_filters"
 msgid "handler_filter"
 msgstr "no_filters"
 
-#: pyha/templates/pyha/handler/requestview.html:464
+#: pyha/templates/pyha/handler/requestview.html:474
 #, fuzzy
 #| msgid "values"
 msgid "handler_values"
 msgstr "values"
 
-#: pyha/templates/pyha/handler/requestview.html:478
+#: pyha/templates/pyha/handler/requestview.html:488
 #, fuzzy
 #| msgid "no_filters"
 msgid "handler_no_filters"
 msgstr "no_filters"
 
-#: pyha/templates/pyha/handler/requestview.html:485
-#: pyha/templates/pyha/requestview.html:463
+#: pyha/templates/pyha/handler/requestview.html:495
+#: pyha/templates/pyha/requestview.html:473
 #, fuzzy
 #| msgid "required_arguments"
 msgid "request_arguments"
 msgstr "required_arguments"
 
-#: pyha/templates/pyha/handler/requestview.html:489
+#: pyha/templates/pyha/handler/requestview.html:499
 msgid "handler_reason_zoning"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:491
+#: pyha/templates/pyha/handler/requestview.html:501
 msgid "handler_reason_permission"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:493
+#: pyha/templates/pyha/handler/requestview.html:503
 msgid "handler_reason_enviromental"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:495
+#: pyha/templates/pyha/handler/requestview.html:505
 msgid "handler_reason_natura"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:497
+#: pyha/templates/pyha/handler/requestview.html:507
 msgid "handler_reason_scientific"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:499
+#: pyha/templates/pyha/handler/requestview.html:509
 msgid "handler_reason_forest"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:501
+#: pyha/templates/pyha/handler/requestview.html:511
 msgid "handler_reason_other"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:509
+#: pyha/templates/pyha/handler/requestview.html:519
 msgid "handler_argument_project"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:512
+#: pyha/templates/pyha/handler/requestview.html:522
 msgid "handler_argument_research"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:515
+#: pyha/templates/pyha/handler/requestview.html:525
 #, fuzzy
 #| msgid "decision_arguments"
 msgid "handler_argument_goals"
 msgstr "decision_arguments"
 
-#: pyha/templates/pyha/handler/requestview.html:518
+#: pyha/templates/pyha/handler/requestview.html:528
 msgid "handler_argument_planning"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:521
+#: pyha/templates/pyha/handler/requestview.html:531
 msgid "handler_argument_municipality"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:524
+#: pyha/templates/pyha/handler/requestview.html:534
 msgid "handler_argument_natura_areas"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:527
+#: pyha/templates/pyha/handler/requestview.html:537
 msgid "handler_argument_reason"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:535
-#: pyha/templates/pyha/handler/requestview.html:539
-#: pyha/templates/pyha/handler/requestview.html:550
-#: pyha/templates/pyha/handler/requestview.html:572
+#: pyha/templates/pyha/handler/requestview.html:545
+#: pyha/templates/pyha/handler/requestview.html:549
+#: pyha/templates/pyha/handler/requestview.html:560
+#: pyha/templates/pyha/handler/requestview.html:582
 msgid "handler_terms"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:549
+#: pyha/templates/pyha/handler/requestview.html:559
 #, fuzzy
 #| msgid "sensitive_terms"
 msgid "handler_sensitivity"
 msgstr "sensitive_terms"
 
-#: pyha/templates/pyha/handler/requestview.html:579
+#: pyha/templates/pyha/handler/requestview.html:589
 #, fuzzy
 #| msgid "Terms of use of the collections"
 msgid "handler_terms_of_use_of_the_collections"
 msgstr "Terms of use of the collections"
 
-#: pyha/templates/pyha/handler/requestview.html:584
+#: pyha/templates/pyha/handler/requestview.html:594
 #, fuzzy
 #| msgid "If_you_cannot_see_terms_you_can_load_them"
 msgid "handler_if_you_cannot_see_terms_you_can_load_them"
 msgstr "If_you_cannot_see_terms_you_can_load_them"
 
-#: pyha/templates/pyha/handler/requestview.html:619
+#: pyha/templates/pyha/handler/requestview.html:629
 #: pyha/templates/pyha/requestform.html:295
-#: pyha/templates/pyha/requestview.html:344
-#: pyha/templates/pyha/requestview.html:433
-#: pyha/templates/pyha/requestview.html:597
+#: pyha/templates/pyha/requestview.html:354
+#: pyha/templates/pyha/requestview.html:443
+#: pyha/templates/pyha/requestview.html:607
 msgid "no_collections_for_requests"
 msgstr "no_collections_for_requests"
 
-#: pyha/templates/pyha/handler/requestview.html:623
+#: pyha/templates/pyha/handler/requestview.html:633
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_contacts"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:626
+#: pyha/templates/pyha/handler/requestview.html:636
 msgid "handler_full_name"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:627
+#: pyha/templates/pyha/handler/requestview.html:637
 msgid "handler_street_address"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:628
+#: pyha/templates/pyha/handler/requestview.html:638
 msgid "handler_post_office_name"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:629
+#: pyha/templates/pyha/handler/requestview.html:639
 msgid "handler_postal_code"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:630
+#: pyha/templates/pyha/handler/requestview.html:640
 #, fuzzy
 #| msgid "log_no_history"
 msgid "handler_country"
 msgstr "log_no_history"
 
-#: pyha/templates/pyha/handler/requestview.html:631
+#: pyha/templates/pyha/handler/requestview.html:641
 msgid "handler_email"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:632
+#: pyha/templates/pyha/handler/requestview.html:642
 msgid "handler_phone_number"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:633
+#: pyha/templates/pyha/handler/requestview.html:643
 msgid "handler_corporation/organization_name"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:634
+#: pyha/templates/pyha/handler/requestview.html:644
 msgid "handler_corporation_id"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:653
+#: pyha/templates/pyha/handler/requestview.html:663
 msgid "handler_additional_questions"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:657
+#: pyha/templates/pyha/handler/requestview.html:667
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_asked"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:662
+#: pyha/templates/pyha/handler/requestview.html:672
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "handler_answered"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/handler/requestview.html:666
+#: pyha/templates/pyha/handler/requestview.html:676
 msgid "handler_form_to_request_additional_information"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:672
+#: pyha/templates/pyha/handler/requestview.html:682
 msgid "handler_request_additional_information"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:682
+#: pyha/templates/pyha/handler/requestview.html:692
 #, fuzzy
 #| msgid "official_comment_area"
 msgid "handler_official_comment_area"
 msgstr "official_comment_area"
 
-#: pyha/templates/pyha/handler/requestview.html:685
+#: pyha/templates/pyha/handler/requestview.html:695
 msgid "handler_said"
 msgstr ""
 
-#: pyha/templates/pyha/handler/requestview.html:694
+#: pyha/templates/pyha/handler/requestview.html:704
 msgid "handler_save"
 msgstr ""
 
@@ -664,33 +676,33 @@ msgstr "request_description"
 msgid "you_have_not_accepted_terms"
 msgstr "you_have_not_accepted_terms"
 
-#: pyha/templates/pyha/index.html:55 pyha/templates/pyha/requestview.html:60
-#: pyha/templates/pyha/requestview.html:331
-#: pyha/templates/pyha/requestview.html:370
-#: pyha/templates/pyha/requestview.html:421
+#: pyha/templates/pyha/index.html:55 pyha/templates/pyha/requestview.html:59
+#: pyha/templates/pyha/requestview.html:341
+#: pyha/templates/pyha/requestview.html:380
+#: pyha/templates/pyha/requestview.html:431
 msgid "partially_accepted"
 msgstr "partially_accepted"
 
-#: pyha/templates/pyha/index.html:64 pyha/templates/pyha/requestview.html:69
+#: pyha/templates/pyha/index.html:64 pyha/templates/pyha/requestview.html:68
 #, fuzzy
 #| msgid "waiting_for_data_provider"
 msgid "waiting_for_additional_information"
 msgstr "waiting_for_data_provider"
 
-#: pyha/templates/pyha/index.html:67 pyha/templates/pyha/requestview.html:72
+#: pyha/templates/pyha/index.html:67 pyha/templates/pyha/requestview.html:71
 #, fuzzy
 #| msgid "waiting_for_data_provider"
 msgid "waiting_for_download"
 msgstr "waiting_for_data_provider"
 
-#: pyha/templates/pyha/index.html:70 pyha/templates/pyha/requestview.html:75
+#: pyha/templates/pyha/index.html:70 pyha/templates/pyha/requestview.html:74
 msgid "ready_for_download"
 msgstr ""
 
-#: pyha/templates/pyha/index.html:73 pyha/templates/pyha/requestview.html:78
-#: pyha/templates/pyha/requestview.html:337
-#: pyha/templates/pyha/requestview.html:374
-#: pyha/templates/pyha/requestview.html:427
+#: pyha/templates/pyha/index.html:73 pyha/templates/pyha/requestview.html:77
+#: pyha/templates/pyha/requestview.html:347
+#: pyha/templates/pyha/requestview.html:384
+#: pyha/templates/pyha/requestview.html:437
 msgid "unknown"
 msgstr "unknown"
 
@@ -699,27 +711,27 @@ msgid "no_requests_for_user"
 msgstr "no_requests_for_user"
 
 #: pyha/templates/pyha/requestform.html:12
-#: pyha/templates/pyha/requestview.html:437
+#: pyha/templates/pyha/requestview.html:447
 msgid "request_filters"
 msgstr "request_filters"
 
 #: pyha/templates/pyha/requestform.html:14
-#: pyha/templates/pyha/requestform.html:589
+#: pyha/templates/pyha/requestform.html:590
 msgid "show"
 msgstr "show"
 
 #: pyha/templates/pyha/requestform.html:20
-#: pyha/templates/pyha/requestview.html:441
+#: pyha/templates/pyha/requestview.html:451
 msgid "filter"
 msgstr "filter"
 
 #: pyha/templates/pyha/requestform.html:21
-#: pyha/templates/pyha/requestview.html:442
+#: pyha/templates/pyha/requestview.html:452
 msgid "values"
 msgstr "values"
 
 #: pyha/templates/pyha/requestform.html:35
-#: pyha/templates/pyha/requestview.html:456
+#: pyha/templates/pyha/requestview.html:466
 msgid "no_filters"
 msgstr "no_filters"
 
@@ -849,37 +861,37 @@ msgid "request_arguments_for_user"
 msgstr "request_arguments_for_user"
 
 #: pyha/templates/pyha/requestform.html:176
-#: pyha/templates/pyha/requestview.html:467
+#: pyha/templates/pyha/requestview.html:477
 msgid "reason_zoning"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:177
-#: pyha/templates/pyha/requestview.html:469
+#: pyha/templates/pyha/requestview.html:479
 msgid "reason_permission"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:178
-#: pyha/templates/pyha/requestview.html:471
+#: pyha/templates/pyha/requestview.html:481
 msgid "reason_enviromental"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:179
-#: pyha/templates/pyha/requestview.html:473
+#: pyha/templates/pyha/requestview.html:483
 msgid "reason_natura"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:180
-#: pyha/templates/pyha/requestview.html:475
+#: pyha/templates/pyha/requestview.html:485
 msgid "reason_scientific"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:181
-#: pyha/templates/pyha/requestview.html:477
+#: pyha/templates/pyha/requestview.html:487
 msgid "reason_forest"
 msgstr ""
 
 #: pyha/templates/pyha/requestform.html:182
-#: pyha/templates/pyha/requestview.html:479
+#: pyha/templates/pyha/requestview.html:489
 msgid "reason_other"
 msgstr ""
 
@@ -940,7 +952,7 @@ msgstr "continue_to_step_3"
 
 #: pyha/templates/pyha/requestform.html:226
 #: pyha/templates/pyha/requestform.html:256
-#: pyha/templates/pyha/requestview.html:579
+#: pyha/templates/pyha/requestview.html:589
 msgid "sensitive_terms"
 msgstr "sensitive_terms"
 
@@ -951,8 +963,8 @@ msgstr "If_you_cannot_see_terms_you_can_load_them"
 
 #: pyha/templates/pyha/requestform.html:231
 #: pyha/templates/pyha/requestform.html:261
-#: pyha/templates/pyha/requestview.html:562
-#: pyha/templates/pyha/requestview.html:584
+#: pyha/templates/pyha/requestview.html:572
+#: pyha/templates/pyha/requestview.html:594
 msgid "here"
 msgstr "here"
 
@@ -962,8 +974,8 @@ msgstr "i_accept_terms"
 
 #: pyha/templates/pyha/requestform.html:239
 #: pyha/templates/pyha/requestform.html:270
-#: pyha/templates/pyha/requestview.html:567
-#: pyha/templates/pyha/requestview.html:589
+#: pyha/templates/pyha/requestview.html:577
+#: pyha/templates/pyha/requestview.html:599
 msgid "exit"
 msgstr "exit"
 
@@ -984,7 +996,7 @@ msgid "delete"
 msgstr "delete"
 
 #: pyha/templates/pyha/requestform.html:308
-#: pyha/templates/pyha/requestview.html:207
+#: pyha/templates/pyha/requestview.html:217
 msgid "back"
 msgstr "back"
 
@@ -997,21 +1009,21 @@ msgstr "you_accepted_terms"
 msgid "new_contact"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:592
+#: pyha/templates/pyha/requestform.html:593
 msgid "hide"
 msgstr "hide"
 
-#: pyha/templates/pyha/requestform.html:667
+#: pyha/templates/pyha/requestform.html:668
 #, fuzzy
 #| msgid "request_for_user"
 msgid "request_choose_reason"
 msgstr "request_for_user"
 
-#: pyha/templates/pyha/requestform.html:668
+#: pyha/templates/pyha/requestform.html:669
 msgid "request_chosen_multiple_reasons"
 msgstr ""
 
-#: pyha/templates/pyha/requestform.html:669
+#: pyha/templates/pyha/requestform.html:670
 msgid "request_chosen_all_reasons"
 msgstr ""
 
@@ -1040,10 +1052,10 @@ msgstr "Delete_these_sightings"
 
 #: pyha/templates/pyha/requestformcustom.html:25
 #: pyha/templates/pyha/requestformtaxon.html:43
-#: pyha/templates/pyha/requestview.html:513
-#: pyha/templates/pyha/requestview.html:517
-#: pyha/templates/pyha/requestview.html:528
-#: pyha/templates/pyha/requestview.html:550
+#: pyha/templates/pyha/requestview.html:523
+#: pyha/templates/pyha/requestview.html:527
+#: pyha/templates/pyha/requestview.html:538
+#: pyha/templates/pyha/requestview.html:560
 msgid "terms"
 msgstr "terms"
 
@@ -1062,17 +1074,17 @@ msgid "request_summary"
 msgstr "request_date"
 
 #: pyha/templates/pyha/requestformsummary.html:5
-#: pyha/templates/pyha/requestview.html:288
+#: pyha/templates/pyha/requestview.html:298
 msgid "Collections including sensitive sightings are marked with symbol"
 msgstr "Collections including sensitive sightings are marked with symbol"
 
 #: pyha/templates/pyha/requestformsummary.html:10
-#: pyha/templates/pyha/requestview.html:295
+#: pyha/templates/pyha/requestview.html:305
 msgid "secured_by_data_provider"
 msgstr "secured_by_data_provider"
 
 #: pyha/templates/pyha/requestformsummary.html:11
-#: pyha/templates/pyha/requestview.html:296
+#: pyha/templates/pyha/requestview.html:306
 msgid "generally_secured"
 msgstr "generally_secured"
 
@@ -1097,12 +1109,12 @@ msgid "continue_to_step_4"
 msgstr "continue_to_step_3"
 
 #: pyha/templates/pyha/requestheader.html:2
-#: pyha/templates/pyha/requestview.html:10
+#: pyha/templates/pyha/requestview.html:9
 msgid "request_for_user"
 msgstr "request_for_user"
 
 #: pyha/templates/pyha/requestheader.html:22
-#: pyha/templates/pyha/requestview.html:14
+#: pyha/templates/pyha/requestview.html:13
 msgid "no_description"
 msgstr "no_description"
 
@@ -1118,315 +1130,319 @@ msgstr ""
 "A description is a voluntary way to name your request. Without it the "
 "requests title will be the requests date"
 
-#: pyha/templates/pyha/requestview.html:24
+#: pyha/templates/pyha/requestview.html:23
 #, fuzzy
 #| msgid "no_description"
 msgid "description"
 msgstr "no_description"
 
-#: pyha/templates/pyha/requestview.html:36
+#: pyha/templates/pyha/requestview.html:35
 #, fuzzy
 #| msgid "no_description"
 msgid "change_description"
 msgstr "no_description"
 
-#: pyha/templates/pyha/requestview.html:141
+#: pyha/templates/pyha/requestview.html:149
 msgid "changes_history"
 msgstr "changes_history"
 
-#: pyha/templates/pyha/requestview.html:144
+#: pyha/templates/pyha/requestview.html:152
 msgid "log_date"
 msgstr "log_date"
 
-#: pyha/templates/pyha/requestview.html:145
+#: pyha/templates/pyha/requestview.html:153
 msgid "log_maker"
 msgstr "log_maker"
 
-#: pyha/templates/pyha/requestview.html:146
+#: pyha/templates/pyha/requestview.html:154
 msgid "log_description"
 msgstr "log_description"
 
-#: pyha/templates/pyha/requestview.html:154
+#: pyha/templates/pyha/requestview.html:162
 msgid "log_sensitive_data_handler"
 msgstr "log_sensitive_data_handler"
 
-#: pyha/templates/pyha/requestview.html:156
+#: pyha/templates/pyha/requestview.html:164
 msgid "log_collection_provider"
 msgstr "log_collection_provider"
 
-#: pyha/templates/pyha/requestview.html:158
+#: pyha/templates/pyha/requestview.html:166
 msgid "log_sensitive_and_collections_handler"
 msgstr "log_sensitive_and_collections_handler"
 
-#: pyha/templates/pyha/requestview.html:165
+#: pyha/templates/pyha/requestview.html:173
 msgid "log_viewed"
 msgstr "log_viewed"
 
-#: pyha/templates/pyha/requestview.html:167
+#: pyha/templates/pyha/requestview.html:175
 msgid "log_terms_accepted"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/requestview.html:170
+#: pyha/templates/pyha/requestview.html:178
 msgid "log_sensitives_accepted"
 msgstr "log_sensitives_accepted"
 
-#: pyha/templates/pyha/requestview.html:172
+#: pyha/templates/pyha/requestview.html:180
 msgid "log_collection_accepted"
 msgstr "log_collection_accepted"
 
-#: pyha/templates/pyha/requestview.html:176
+#: pyha/templates/pyha/requestview.html:184
 msgid "log_sensitives_denied"
 msgstr "log_sensitives_denied"
 
-#: pyha/templates/pyha/requestview.html:178
+#: pyha/templates/pyha/requestview.html:186
 msgid "log_collection_denied"
 msgstr "log_collection_denied"
 
-#: pyha/templates/pyha/requestview.html:185
+#: pyha/templates/pyha/requestview.html:193
 msgid "log_no_history"
 msgstr "log_no_history"
 
-#: pyha/templates/pyha/requestview.html:189
+#: pyha/templates/pyha/requestview.html:197
 msgid "download"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:191
+#: pyha/templates/pyha/requestview.html:199
 msgid "initialize_download"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:194
+#: pyha/templates/pyha/requestview.html:201
+msgid "you_will_be_emailed_when_ready"
+msgstr ""
+
+#: pyha/templates/pyha/requestview.html:204
 msgid "stop_wait_initialize_download"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:203
+#: pyha/templates/pyha/requestview.html:213
 #, fuzzy
 #| msgid "are_you_sure_you_want_to_remove_collection"
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr "are_you_sure_you_want_to_remove_collection"
 
-#: pyha/templates/pyha/requestview.html:206
+#: pyha/templates/pyha/requestview.html:216
 msgid "Yes"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:224
+#: pyha/templates/pyha/requestview.html:234
 #, fuzzy
 #| msgid "request_date"
 msgid "request_window"
 msgstr "request_date"
 
-#: pyha/templates/pyha/requestview.html:231
+#: pyha/templates/pyha/requestview.html:241
 #, fuzzy
 #| msgid "sensitive_sightings"
 msgid "sensitive_window"
 msgstr "sensitive_sightings"
 
-#: pyha/templates/pyha/requestview.html:238
+#: pyha/templates/pyha/requestview.html:248
 #, fuzzy
 #| msgid "collections_tab"
 msgid "collection_window"
 msgstr "collections_tab"
 
-#: pyha/templates/pyha/requestview.html:245
+#: pyha/templates/pyha/requestview.html:255
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_window"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:252
+#: pyha/templates/pyha/requestview.html:262
 #, fuzzy
 #| msgid "filter"
 msgid "filter_window"
 msgstr "filter"
 
-#: pyha/templates/pyha/requestview.html:259
+#: pyha/templates/pyha/requestview.html:269
 msgid "terms_window"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:266
+#: pyha/templates/pyha/requestview.html:276
 #, fuzzy
 #| msgid "collections_tab"
 msgid "contact_window"
 msgstr "collections_tab"
 
-#: pyha/templates/pyha/requestview.html:274
+#: pyha/templates/pyha/requestview.html:284
 #, fuzzy
 #| msgid "waiting_for_data_provider"
 msgid "additional_information_window"
 msgstr "waiting_for_data_provider"
 
-#: pyha/templates/pyha/requestview.html:286
+#: pyha/templates/pyha/requestview.html:296
 msgid "collections_in_request"
 msgstr "collections_in_request"
 
-#: pyha/templates/pyha/requestview.html:292
-#: pyha/templates/pyha/requestview.html:392
-#: pyha/templates/pyha/requestview.html:516
+#: pyha/templates/pyha/requestview.html:302
+#: pyha/templates/pyha/requestview.html:402
+#: pyha/templates/pyha/requestview.html:526
 #, fuzzy
 #| msgid "collections_tab"
 msgid "collection_name"
 msgstr "collections_tab"
 
-#: pyha/templates/pyha/requestview.html:294
+#: pyha/templates/pyha/requestview.html:304
 #, fuzzy
 #| msgid "log_description"
 msgid "collection_description"
 msgstr "log_description"
 
-#: pyha/templates/pyha/requestview.html:297
+#: pyha/templates/pyha/requestview.html:307
 #, fuzzy
 #| msgid "generally_secured"
 msgid "all_secured"
 msgstr "generally_secured"
 
-#: pyha/templates/pyha/requestview.html:298
-#: pyha/templates/pyha/requestview.html:352
-#: pyha/templates/pyha/requestview.html:393
+#: pyha/templates/pyha/requestview.html:308
+#: pyha/templates/pyha/requestview.html:362
+#: pyha/templates/pyha/requestview.html:403
 msgid "state_of_processing"
 msgstr "state_of_processing"
 
-#: pyha/templates/pyha/requestview.html:335
-#: pyha/templates/pyha/requestview.html:425
+#: pyha/templates/pyha/requestview.html:345
+#: pyha/templates/pyha/requestview.html:435
 msgid "Admission_for_sensitive_data"
 msgstr "Admission_for_sensitive_data"
 
-#: pyha/templates/pyha/requestview.html:349
+#: pyha/templates/pyha/requestview.html:359
 #, fuzzy
 #| msgid "Decision for admitting sensitive data"
 msgid "decision_for_admitting_sensitive_data"
 msgstr "Decision for admitting sensitive data"
 
-#: pyha/templates/pyha/requestview.html:353
+#: pyha/templates/pyha/requestview.html:363
 msgid "decision_arguments"
 msgstr "decision_arguments"
 
-#: pyha/templates/pyha/requestview.html:389
+#: pyha/templates/pyha/requestview.html:399
 #, fuzzy
 #| msgid "Decision for admitting sensitive data"
 msgid "decicions_for_admitting_data"
 msgstr "Decision for admitting sensitive data"
 
-#: pyha/templates/pyha/requestview.html:394
+#: pyha/templates/pyha/requestview.html:404
 #, fuzzy
 #| msgid "decision_arguments"
 msgid "collection_decision_arguments"
 msgstr "decision_arguments"
 
-#: pyha/templates/pyha/requestview.html:487
+#: pyha/templates/pyha/requestview.html:497
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_project"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:490
+#: pyha/templates/pyha/requestview.html:500
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_research"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:493
+#: pyha/templates/pyha/requestview.html:503
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_goals"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:496
+#: pyha/templates/pyha/requestview.html:506
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_planning"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:499
+#: pyha/templates/pyha/requestview.html:509
 msgid "argument_municipality"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:502
+#: pyha/templates/pyha/requestview.html:512
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_natura_areas"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:505
+#: pyha/templates/pyha/requestview.html:515
 #, fuzzy
 #| msgid "arguments_tab"
 msgid "argument_reason"
 msgstr "arguments_tab"
 
-#: pyha/templates/pyha/requestview.html:527
+#: pyha/templates/pyha/requestview.html:537
 #, fuzzy
 #| msgid "sensitivity_tab"
 msgid "sensitivity"
 msgstr "sensitivity_tab"
 
-#: pyha/templates/pyha/requestview.html:557
+#: pyha/templates/pyha/requestview.html:567
 #, fuzzy
 #| msgid "Terms of use of the collections"
 msgid "terms_of_use_of_the_collections"
 msgstr "Terms of use of the collections"
 
-#: pyha/templates/pyha/requestview.html:562
-#: pyha/templates/pyha/requestview.html:584
+#: pyha/templates/pyha/requestview.html:572
+#: pyha/templates/pyha/requestview.html:594
 #, fuzzy
 #| msgid "If_you_cannot_see_terms_you_can_load_them"
 msgid "if_you_cannot_see_terms_you_can_load_them"
 msgstr "If_you_cannot_see_terms_you_can_load_them"
 
-#: pyha/templates/pyha/requestview.html:601
+#: pyha/templates/pyha/requestview.html:611
 msgid "contacts"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:604
+#: pyha/templates/pyha/requestview.html:614
 msgid "full_name"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:605
+#: pyha/templates/pyha/requestview.html:615
 msgid "street_address"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:606
+#: pyha/templates/pyha/requestview.html:616
 msgid "post_office_name"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:607
+#: pyha/templates/pyha/requestview.html:617
 msgid "postal_code"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:608
+#: pyha/templates/pyha/requestview.html:618
 msgid "country"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:609
+#: pyha/templates/pyha/requestview.html:619
 msgid "email"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:610
+#: pyha/templates/pyha/requestview.html:620
 msgid "phone_number"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:611
+#: pyha/templates/pyha/requestview.html:621
 msgid "corporation/organization_name"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:612
+#: pyha/templates/pyha/requestview.html:622
 msgid "corporation_id"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:631
+#: pyha/templates/pyha/requestview.html:641
 msgid "additional_questions"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:635
+#: pyha/templates/pyha/requestview.html:645
 msgid "asked"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:640
+#: pyha/templates/pyha/requestview.html:650
 msgid "answered"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:645
+#: pyha/templates/pyha/requestview.html:655
 msgid "form_to_send_additional_information"
 msgstr ""
 
-#: pyha/templates/pyha/requestview.html:651
+#: pyha/templates/pyha/requestview.html:661
 msgid "send_additional_information"
 msgstr ""
 
