@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^createContact/?$', views.create_contact, name='create_contact'),
     url(r'^index/?$', views.index, name='index'),
     url(r'^api/request/?$', views.receiver, name='receiver'),
-	url(r'^api/download/?$', views.download, name='download'),
+	url(r'^api/download/[^/]+/?$', views.download, name='download'),
     url(r'^request/[1-9][0-9]*/?$', views.show_request),
     url(r'^description/?$', views.change_description, name='description'),
     url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),
