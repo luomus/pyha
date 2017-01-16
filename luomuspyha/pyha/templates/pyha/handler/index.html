@@ -32,9 +32,9 @@
             <tr class="danger clickable-row"
         {% elif request.status == 2 %}
             <tr class="warning clickable-row"
-        {% elif request.status == 0 or  request.status == 6 %}
+        {% elif request.status == 0 or request.status == 6 %}
             <tr class="active clickable-row"
-        {% elif request.status == 4 %}
+        {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
             <tr class="success clickable-row"
         {% else %}  
             <tr	
@@ -62,8 +62,14 @@
             {% elif request.status == 6 %}
                 <td>{% trans "handler_waiting_for_additional_information" %}</td>  
 
+            {% elif request.status == 7 %}
+                <td>{% trans "handler_waiting_for_download" %}</td>  
+            
+            {% elif request.status == 8 %}
+                <td>{% trans "handler_ready_for_download" %}</td>  
+				
             {% else %}  
-                <td>{% trans "handler_unknown" %}</td>	
+                <td>{% trans "handler_unknown" %}</td>
             {% endif %}
         
             

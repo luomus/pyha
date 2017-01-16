@@ -92,41 +92,36 @@ def receiver(request):
 		return HttpResponse('')
 
 @csrf_exempt
-def download(request):
-		jsond = request.body.decode("utf-8")
-		data = json.loads(req, object_hook=lambda d: Namespace(**d))
-		print(jsond)
-		print(data)
-		userRequest = Request.requests.get(lajiId = data.id)
-		userRequest.status = 8;
-		userRequest.save()
+def download(request, link):
+		if request.method == 'POST':
+			Request.requests.filter(id=userRequest.id, status__gt=0)
 		return HttpResponse('')
 
 def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
 		
 def check_language(request):
-	if request.GET.get('lang'):
-			request.session["_language"] = request.GET.get('lang')
-			return True
-	return False
+		if request.GET.get('lang'):
+				request.session["_language"] = request.GET.get('lang')
+				return True
+		return False
 
 
 def allowed_to_view(request, userRequest, userId, role1, role2):
-	if HANDLER_ANY in request.session.get("current_user_role", [None]):
-			if not Request.requests.filter(id=userRequest.id, status__gt=0).exists():
-				return False
-			if role2 and not role1:
-				if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
+		if HANDLER_ANY in request.session.get("current_user_role", [None]):
+				if not Request.requests.filter(id=userRequest.id, status__gt=0).exists():
 					return False
-			if(userRequest.status == 0):
+				if role2 and not role1:
+					if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
+						return False
+				if(userRequest.status == 0):
+					return False
+		else:
+				if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists():
+					return False
+		if(userRequest.status == -1):
 				return False
-	else:
-			if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists():
-				return False
-	if(userRequest.status == -1):
-			return False
-	return True
+		return True
 
 @csrf_exempt
 def show_request(request):
@@ -278,15 +273,15 @@ def show_reasons(userRequest):
 def show_request_contacts(userRequest):
 		contacts = []
 		contact = {}
-		contact["PersonName"] = userRequest.PersonName
-		contact["PersonStreetAddress"] = userRequest.PersonStreetAddress
-		contact["PersonPostOfficeName"] = userRequest.PersonPostOfficeName
-		contact["PersonPostalCode"] = userRequest.PersonPostalCode
-		contact["PersonCountry"] = userRequest.PersonCountry
-		contact["PersonEmail"] = userRequest.PersonEmail
-		contact["PersonPhoneNumber"] = userRequest.PersonPhoneNumber
-		contact["PersonOrganizationName"] = userRequest.PersonOrganizationName
-		contact["PersonCorporationId"] = userRequest.PersonCorporationId
+		contact["PersonName"] = userRequest.personName
+		contact["PersonStreetAddress"] = userRequest.personStreetAddress
+		contact["PersonPostOfficeName"] = userRequest.personPostOfficeName
+		contact["PersonPostalCode"] = userRequest.personPostalCode
+		contact["PersonCountry"] = userRequest.personCountry
+		contact["PersonEmail"] = userRequest.personEmail
+		contact["PersonPhoneNumber"] = userRequest.personPhoneNumber
+		contact["PersonOrganizationName"] = userRequest.personOrganizationName
+		contact["PersonCorporationId"] = userRequest.personCorporationId
 		contacts.append(contact)
 		contactlist = RequestContact.objects.filter(request=userRequest)
 		for c in contactlist:
@@ -638,15 +633,15 @@ def approve(request):
 			userRequest.status = 1
 			if senschecked:
 				userRequest.sensstatus = 1
-			userRequest.PersonName = request.POST.get('request_person_name_1')
-			userRequest.PersonStreetAddress = request.POST.get('request_person_street_address_1')
-			userRequest.PersonPostOfficeName = request.POST.get('request_person_post_office_name_1')
-			userRequest.PersonPostalCode = request.POST.get('request_person_postal_code_1')
-			userRequest.PersonCountry = request.POST.get('request_person_country_1')
-			userRequest.PersonEmail = request.POST.get('request_person_email_1')
-			userRequest.PersonPhoneNumber = request.POST.get('request_person_phone_number_1')
-			userRequest.PersonOrganizationName = request.POST.get('request_person_organization_name_1')
-			userRequest.PersonCorporationId = request.POST.get('request_person_corporation_id_1')
+			userRequest.personName = request.POST.get('request_person_name_1')
+			userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
+			userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
+			userRequest.personPostalCode = request.POST.get('request_person_postal_code_1')
+			userRequest.personCountry = request.POST.get('request_person_country_1')
+			userRequest.personEmail = request.POST.get('request_person_email_1')
+			userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
+			userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
+			userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
 			userRequest.save()
 			update_contact_preset(request, userRequest)
 			if userRequest.sensstatus == 1:
@@ -665,15 +660,15 @@ def count_contacts(post):
 def create_new_contact(request, userRequest, count):
 	contact = RequestContact()
 	contact.request = userRequest
-	contact.PersonName = request.POST.get('request_person_name_'+str(count))
-	contact.PersonStreetAddress = request.POST.get('request_person_street_address_'+str(count))
-	contact.PersonPostOfficeName = request.POST.get('request_person_post_office_name_'+str(count))
-	contact.PersonPostalCode = request.POST.get('request_person_postal_code_'+str(count))
-	contact.PersonCountry = request.POST.get('request_person_country_'+str(count))
-	contact.PersonEmail = request.POST.get('request_person_email_'+str(count))
-	contact.PersonPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
-	contact.PersonOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
-	contact.PersonCorporationId = request.POST.get('request_person_corporation_id_'+str(count))
+	contact.personName = request.POST.get('request_person_name_'+str(count))
+	contact.personStreetAddress = request.POST.get('request_person_street_address_'+str(count))
+	contact.personPostOfficeName = request.POST.get('request_person_post_office_name_'+str(count))
+	contact.personPostalCode = request.POST.get('request_person_postal_code_'+str(count))
+	contact.personCountry = request.POST.get('request_person_country_'+str(count))
+	contact.personEmail = request.POST.get('request_person_email_'+str(count))
+	contact.personPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
+	contact.personOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
+	contact.personCorporationId = request.POST.get('request_person_corporation_id_'+str(count))
 	contact.save()
 
 def create_argument_blob(request):
@@ -861,7 +856,8 @@ def send_download_request(requestId):
 		filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		for f in filters.__dict__:
 			payload[f] = getattr(filters, f)
-		'''requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)'''
+		response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
+		print(response)
 
 def initialize_download(request):
 		next = request.POST.get('next', '/')
