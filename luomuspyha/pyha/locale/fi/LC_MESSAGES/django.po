@@ -1067,7 +1067,7 @@ msgstr "Saat ilmoituksen sähköpostiin latauksen valmistumisesta"
 
 #: pyha/templates/pyha/requestview.html:204
 msgid "stop_wait_initialize_download"
-msgstr "Haluan ladata"
+msgstr "Keskeytän käsittelyn, ja lataan hyväksytyt"
 
 #: pyha/templates/pyha/requestview.html:213
 msgid "are_you_sure_you_want_to_download_only_those_given"
