@@ -126,14 +126,10 @@ msgid "handler_waiting_for_additional_information"
 msgstr "Odottaa lisätietoja"
 
 #: pyha/templates/pyha/handler/index.html:66
-#, fuzzy
-#| msgid "waiting_for_download"
 msgid "handler_waiting_for_download"
 msgstr "Odottaa latauksen valmistumista"
 
 #: pyha/templates/pyha/handler/index.html:69
-#, fuzzy
-#| msgid "ready_for_download"
 msgid "handler_ready_for_download"
 msgstr "Valmiina ladattavaksi"
 
