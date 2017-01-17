@@ -304,8 +304,7 @@ msgstr "Hylkää"
 #: pyha/templates/pyha/handler/requestview.html:413
 msgid "handler_secured_collections_in_request"
 msgstr ""
-"Aineistopyyntöösi liittyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
-"käyttöehdot"
+"Pyyntöön sisältyvät aineistot"
 
 #: pyha/templates/pyha/handler/requestview.html:281
 #: pyha/templates/pyha/handler/requestview.html:416
