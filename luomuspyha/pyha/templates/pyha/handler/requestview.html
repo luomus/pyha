@@ -40,6 +40,12 @@
 					{% elif userRequest.status == 6 %}
 					{% trans "handler_waiting_for_additional_information" %}
 					
+					{% elif userRequest.status == 7 %}
+					{% trans "handler_waiting_for_download" %} 
+					
+					{% elif userRequest.status == 8 %}
+					{% trans "handler_ready_for_download" %}
+					
 					{% else %}  
 					{% trans "handler_unknown" %}
 					
@@ -56,7 +62,7 @@
 				<div class="alert alert-warning
 				{% elif userRequest.status == 3 %}
 				<div class="alert alert-danger
-				{% elif userRequest.status == 4 %}
+				{% elif userRequest.status == 4 or userRequest.status == 7 or userRequest.status == 8 %}
 				<div class="alert alert-success
 				{% else %}  
 				<div class="alert

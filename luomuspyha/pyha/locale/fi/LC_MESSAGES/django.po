@@ -1142,7 +1142,7 @@ msgstr "Käsittelyn tila"
 #: pyha/templates/pyha/requestview.html:345
 #: pyha/templates/pyha/requestview.html:435
 msgid "Admission_for_sensitive_data"
-msgstr "Odottaa päätöstä"
+msgstr "Sensitiiviset aineistot"
 
 #: pyha/templates/pyha/requestview.html:359
 msgid "decision_for_admitting_sensitive_data"
