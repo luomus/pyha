@@ -1149,7 +1149,7 @@ msgstr "Perustelut päätökselle"
 
 #: pyha/templates/pyha/requestview.html:399
 msgid "decicions_for_admitting_data"
-msgstr "Päätös sensitiivisen tiedon antamisesta"
+msgstr "Päätös aineistokohtaisen tiedon antamisesta"
 
 #: pyha/templates/pyha/requestview.html:404
 msgid "collection_decision_arguments"

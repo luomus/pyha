@@ -200,11 +200,11 @@
 					{% else %}
 						<h3>{% trans 'download_has_expired' %}</h3>
 					{% endif %}
-				{% elif userRequest.status == 4 %}
+				{% elif userRequest.status == 4 }
 				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
 				{% elif userRequest.status == 7 %}
 				<h3>{% trans 'you_will_be_emailed_when_ready' %}</h3>
-				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 %}
+				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 and endable %}
 				<div class="initializeContainer">
 					<button type="button" class="btn btn-default btn-lg initializeButton" style="height:100px;width:40%;">{% trans 'stop_wait_initialize_download' %}</button>
 				</div>
