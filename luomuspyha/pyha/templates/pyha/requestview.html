@@ -200,7 +200,7 @@
 					{% else %}
 						<h3>{% trans 'download_has_expired' %}</h3>
 					{% endif %}
-				{% elif userRequest.status == 4 }
+				{% elif userRequest.status == 4 %}
 				<button type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
 				{% elif userRequest.status == 7 %}
 				<h3>{% trans 'you_will_be_emailed_when_ready' %}</h3>
@@ -500,25 +500,25 @@
 						{% for field in reasonlist.fields %}
 							{% if field.0 == 'argument_project' %}
 								<tr style=color:black><th>{% trans "argument_project" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</td></p></tr>
 							{% elif field.0 == 'argument_research' %}
 								<tr style=color:black><th>{% trans "argument_research" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_goals' %}
 								<tr style=color:black><th>{% trans "argument_goals" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_planning' %}
 								<tr style=color:black><th>{% trans "argument_planning" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_municipality' %}
 								<tr style=color:black><th>{% trans "argument_municipality" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_natura_areas' %}
 								<tr style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_reason' %}
 								<tr style=color:black><th>{% trans "argument_reason" %}</th></tr>
-								<tr><td>{{field.1}}</td></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
 							{% endif %}
 						{% endfor %}
 						</table>
@@ -628,15 +628,15 @@
 							</tr>
 								{% for contact in contactlist %}
 							<tr class="info clickable-row">
-								<td>{{contact.PersonName}}</td>
-								<td>{{contact.PersonStreetAddress}}</td>
-								<td>{{contact.PersonPostOfficeName}}</td>
-								<td>{{contact.PersonPostalCode}}</td>
-								<td>{{contact.PersonCountry}}</td>
-								<td>{{contact.PersonEmail}}</td>
-								<td>{{contact.PersonPhoneNumber}}</td>
-								<td>{{contact.PersonOrganizationName}}</td>
-								<td>{{contact.PersonCorporationId}}</td>
+								<td>{{contact.personName}}</td>
+								<td>{{contact.personStreetAddress}}</td>
+								<td>{{contact.personPostOfficeName}}</td>
+								<td>{{contact.personPostalCode}}</td>
+								<td>{{contact.personCountry}}</td>
+								<td>{{contact.personEmail}}</td>
+								<td>{{contact.personPhoneNumber}}</td>
+								<td>{{contact.personOrganizationName}}</td>
+								<td>{{contact.personCorporationId}}</td>
 							</tr>
 								{% endfor %}
 						</table>

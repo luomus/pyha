@@ -278,15 +278,15 @@ def show_reasons(userRequest):
 def show_request_contacts(userRequest):
 		contacts = []
 		contact = {}
-		contact["PersonName"] = userRequest.personName
-		contact["PersonStreetAddress"] = userRequest.personStreetAddress
-		contact["PersonPostOfficeName"] = userRequest.personPostOfficeName
-		contact["PersonPostalCode"] = userRequest.personPostalCode
-		contact["PersonCountry"] = userRequest.personCountry
-		contact["PersonEmail"] = userRequest.personEmail
-		contact["PersonPhoneNumber"] = userRequest.personPhoneNumber
-		contact["PersonOrganizationName"] = userRequest.personOrganizationName
-		contact["PersonCorporationId"] = userRequest.personCorporationId
+		contact["personName"] = userRequest.personName
+		contact["personStreetAddress"] = userRequest.personStreetAddress
+		contact["personPostOfficeName"] = userRequest.personPostOfficeName
+		contact["personPostalCode"] = userRequest.personPostalCode
+		contact["personCountry"] = userRequest.personCountry
+		contact["personEmail"] = userRequest.personEmail
+		contact["personPhoneNumber"] = userRequest.personPhoneNumber
+		contact["personOrganizationName"] = userRequest.personOrganizationName
+		contact["personCorporationId"] = userRequest.personCorporationId
 		contacts.append(contact)
 		contactlist = RequestContact.objects.filter(request=userRequest)
 		for c in contactlist:
