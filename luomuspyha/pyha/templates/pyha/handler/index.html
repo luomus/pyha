@@ -27,15 +27,15 @@
         
         
         {% if request.status == 1 %}
-            <tr class="info clickable-row"
+            <tr class="info clickable-row indextr"
         {% elif request.status == 3 %}
-            <tr class="danger clickable-row"
+            <tr class="danger clickable-row indextr"
         {% elif request.status == 2 %}
-            <tr class="warning clickable-row"
+            <tr class="warning clickable-row indextr"
         {% elif request.status == 0 or request.status == 6 %}
-            <tr class="active clickable-row"
+            <tr class="active clickable-row indextr"
         {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
-            <tr class="success clickable-row"
+            <tr class="success clickable-row indextr"
         {% else %}  
             <tr	
         {% endif %}

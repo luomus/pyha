@@ -11,7 +11,7 @@
 			</h1>
 					
 				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
-			<h2><span style="white-space: nowrap;">(
+			<h2><span style="white-space: nowrap;">
 					<span
 					{% if userRequest.status == 1 %}
 						 style="color:#AABBDD;"
@@ -52,7 +52,6 @@
 					{% endif %}
 					
 					</span>
-					)
 				</span></h2>
 		</div>
 			<div class="col-xs-12" style="float:left;padding-left:0px;">
@@ -351,8 +350,13 @@
 											<input type="hidden" id="next" name="next" value={{request.path}}>
 											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 											<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
-											<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
 											<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "handler_refuse" %}</button>
+										</div>
+										<div class="form-group">
+											<input type="hidden" id="collectionid" name="collectionid" value="sens">
+											<input type="hidden" id="next" name="next" value={{request.path}}>
+											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+											<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
 										</div>
 										{% csrf_token %}
 										</form>
@@ -428,7 +432,7 @@
 											<th>{% trans "handler_values" %}</th>	
 										</tr>	
 										{% for filter in filters %}
-										<tr class="info clickable-row">	
+										<tr>	
 											<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 											{% for f in filter.1 %}
 											<td>{{ f }}</td>
@@ -502,38 +506,15 @@
 										<th>{% trans "handler_collection_name" %}</th>
 										<th>{% trans "handler_terms" %}</th>
 									</tr>
-									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
-									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
-									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
-									{% endif %}
-									>
+									<tr>
 									<td>{% trans "handler_sensitivity" %}</td>
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "handler_terms" %}</button></td>
 									</tr>
 									{% for collection in customlist %}
-										{% if collection.status == 1 %}
-										<tr class="info clickable-row"
-										{% elif collection.status == 3 %}
-										<tr class="danger clickable-row"
-										{% elif collection.status == 4 %}
-										<tr class="success clickable-row"
-										{% elif collection.taxonSecured > 0 %}
-											{% if userRequest.sensstatus == 1 %}
-											<tr class="info clickable-row"
-											{% elif userRequest.sensstatus == 3 %}
-											<tr class="danger clickable-row"
-											{% elif userRequest.sensstatus == 4 %}
-											<tr class="success clickable-row"
-											{% endif %}  
-										{% else %}  
-										<tr	
-										{% endif %}
-										>
+										<tr>
 										<td>{{collection.result.collectionName}}</td>
 										<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
+										</tr>
 										<!-- Modal -->
 										<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 										  <div class="modal-dialog modal-lg" role="document">
@@ -598,7 +579,7 @@
 									<th>{% trans "handler_corporation_id" %}</th>
 								</tr>
 									{% for contact in contactlist %}
-								<tr class="info clickable-row">
+								<tr>
 									<td>{{contact.PersonName}}</td>
 									<td>{{contact.PersonStreetAddress}}</td>
 									<td>{{contact.PersonPostOfficeName}}</td>
