@@ -66,9 +66,8 @@
 				{% else %}  
 				<div class="alert
 				{% endif %}
-				requestcard">
-					<div class="col-xs-12" style="height:relative">
-							<h1 style="margin-top:0px;text-align:center;">{% trans "sensitive" %}</h1>
+				col-xs-7 requestcard">
+					<div class="panel-body col-xs-5" style="display:flex;">
 							{% if userRequest.sensstatus == 1 %}
 							<div class="alert alert-info"
 							{% elif userRequest.sensstatus == 3 %}
@@ -78,53 +77,84 @@
 							{% else %}  
 							<div class="alert"
 							{% endif %}
-							style="width:100%;text-align:center;margin:0px;height:85%;">
-								<h2 class="slider-group" style="position:relative;top:30%;">
-									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-lg slider-declined{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
-								</h2>
+							style="width:100%;text-align:center;margin:0px;">
+							<h1 style="position:relative;top:25%;">{% trans "sensitive" %}</h1>
+							{% if userRequest.sensstatus == 1 %}
+							<h2 style="position:relative;top:25%;">{% trans "waiting_for_data_provider" %}</h2>
+							{% elif userRequest.sensstatus == 3 %}
+							<h2 style="position:relative;top:25%;">{% trans "denied" %}</h2>
+							{% elif userRequest.sensstatus == 4 %}
+							<h2 style="position:relative;top:25%;">{% trans "accepted" %}</h2>
+							{% endif %}
 							</div>
 					</div>
-					<div class="col-xs-12">
-						<h1 style="margin-top:0px;text-align:center;top:0%;">{% trans "restricted" %}</h1>
-						<div class="panel-body requestcollections" style= "{% if userRequest.sensstatus == 3%}opacity: 0.5;{% endif %}">
-						<table class="table">
-							{% for collection in collections %}
-								{% if collection.status == 1 %}
+					<div class="panel-body requestcollections col-xs-7" style= "{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+					<table class="table">
+						{% for collection in collections %}
+							{% if collection.status == 1 %}
+							<tr class="info clickable-row"
+							{% elif collection.status == 3 %}
+							<tr class="danger clickable-row"
+							{% elif collection.status == 4 %}
+							<tr class="success clickable-row"
+							{% elif collection.customSecured == 0 %}
+								{% if userRequest.sensstatus  == 1 %}
 								<tr class="info clickable-row"
-								{% elif collection.status == 3 %}
+								{% elif userRequest.sensstatus  == 3 %}
 								<tr class="danger clickable-row"
-								{% elif collection.status == 4 %}
+								{% elif userRequest.sensstatus  == 4 %}
 								<tr class="success clickable-row"
-								{% elif collection.customSecured == 0 %}
-									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
-									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
-									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
-									{% else %}
-									<tr
-									{% endif %}
 								{% else %}
 								<tr
 								{% endif %}
-								>
-								<td>{{collection.result.collectionName}}</td>
-								<td>
-								<div class="slider-group">
-									<span class="slider slider-waiting{% if collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-accepted{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-declined{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
-								</div>
-								</td>
-							</tr>
-							{% endfor %}
-						</table>
-						</div>
+							{% else %}  
+							<tr	
+							{% endif %}
+							>
+							<td>{{collection.result.collectionName}}</td>
+						</tr>
+						{% endfor %}
+					</table>
 					</div>
-			</div>
+				</div>
+					<div class="inner requestlog" id="requestLog_list" style="overflow-y: scroll;">
+						{% if requestLog_list %}
+						<h4>{% trans "handler_changes_history" %}</h4>
+							<table class="table-bordered">
+								<tr>
+									<th>{% trans "handler_log_date" %}</th>
+									<th>{% trans "handler_log_maker" %}</th>
+									<th>{% trans "handler_log_description" %}</th>
+								</tr>
+							{% for requestLog in requestLog_list %}
+							<tr>
+								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+								<td>{{requestLog.name}} ({{requestLog.email}})</td>
+								{% if requestLog.action == 'VIEW' %}
+								<td>{% trans "handler_log_viewed" %}</td>
+								{% elif requestLog.action == 'ACC' %}
+								<td>{% trans "handler_log_terms_accepted" %}</td>
+								{% elif requestLog.action == 'POS' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "handler_log_sensitives_accepted" %}</td>
+									{% else %}
+									<td>{% trans "handler_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
+									{% endif %}
+								{% elif requestLog.action == 'NEG' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "handler_log_sensitives_denied" %}</td>
+									{% else %}
+									<td>{% trans "handler_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+									{% endif %}
+								{% endif %}
+								</tr>
+							{% endfor %}
+							</table>
+						{% else %}
+							<strong>{% trans "handler_log_no_history" %}.</strong>
+						{% endif %}
+					</div>
+				</div>
 				<ul class="nav nav-tabs" role="tablist">
 					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} style="background-color:#EFF8FB">
 						<a href="#request" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
@@ -191,13 +221,6 @@
 						</a>
 					</li>
 					{% endif %}
-					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} style="background-color:#EFF8FB">
-						<a href="#history" class="vertical-tab" data-toggle="tab" aria-controls="history" role="tab">
-							<span>
-								{% trans "handler_changes_history" %}
-							</span>
-						</a>
-					</li>
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
@@ -318,7 +341,7 @@
 									{% elif userRequest.sensstatus == 4 %}
 									<td>{% trans "handler_accepted" %}</td>
 									{% else %}  
-									<td>{% trans "handler_unknown" %}</td>
+									<td>{% trans "handler_unknown" %}</td>	
 									{% endif %}
 									<td>
 										<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
@@ -387,8 +410,8 @@
 									<div class="form-group">
 											<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-											<input type="hidden" id="next" name="next" value="{{request.path}}?next=collection">
-											<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+											<input type="hidden" id="next" name="next" value={{request.path}}>
+											<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
 											<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
 											<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
 										</div>
@@ -406,7 +429,7 @@
 						<div class="tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
 							<h2>{% trans "handler_request_filters" %}</h2>
 								{% if filters %}
-									<table class = "table" style="width:100%">
+									<table class = "table" style="width:50%">
 										<tr style=color:black>
 											<th>{% trans "handler_filter" %}</th>
 											<th>{% trans "handler_values" %}</th>	
@@ -422,12 +445,12 @@
 											</tr>
 										{% endfor %}
 									</table>
-									{% if coordinates %}
-									<div id="filtermap"></div>
-									{% endif %}
 								{% else %}
 									<strong>{% trans "handler_no_filters" %}.</strong>
 								{% endif %}
+							<br></br>
+							<br></br>
+							<br></br>
 						</div>
 						<div class="tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
 							<h2>{% trans "request_arguments" %}</h2>
@@ -560,15 +583,15 @@
 								</tr>
 									{% for contact in contactlist %}
 								<tr>
-									<td>{{contact.personName}}</td>
-									<td>{{contact.personStreetAddress}}</td>
-									<td>{{contact.personPostOfficeName}}</td>
-									<td>{{contact.personPostalCode}}</td>
-									<td>{{contact.personCountry}}</td>
-									<td>{{contact.personEmail}}</td>
-									<td>{{contact.personPhoneNumber}}</td>
-									<td>{{contact.personOrganizationName}}</td>
-									<td>{{contact.personCorporationId}}</td>
+									<td>{{contact.PersonName}}</td>
+									<td>{{contact.PersonStreetAddress}}</td>
+									<td>{{contact.PersonPostOfficeName}}</td>
+									<td>{{contact.PersonPostalCode}}</td>
+									<td>{{contact.PersonCountry}}</td>
+									<td>{{contact.PersonEmail}}</td>
+									<td>{{contact.PersonPhoneNumber}}</td>
+									<td>{{contact.PersonOrganizationName}}</td>
+									<td>{{contact.PersonCorporationId}}</td>
 								</tr>
 									{% endfor %}
 							</table>
@@ -624,62 +647,44 @@
 								</div>
 						</div>
 						{% endif %}
-						<div class="tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
-						{% if requestLog_list %}
-						<h2>{% trans "handler_changes_history" %}</h4>
-						<table class="table" style="width:100%">
-								<tr>
-									<th>{% trans "handler_log_date" %}</th>
-									<th>{% trans "handler_log_maker" %}</th>
-									<th>{% trans "handler_log_description" %}</th>
-								</tr>
-							{% for requestLog in requestLog_list %}
-							<tr>
-								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-								<td>{{requestLog.name}} ({{requestLog.email}})</td>
-								{% if requestLog.action == 'VIEW' %}
-								<td>{% trans "handler_log_viewed" %}</td>
-								{% elif requestLog.action == 'ACC' %}
-								<td>{% trans "handler_log_terms_accepted" %}</td>
-								{% elif requestLog.action == 'POS' %}
-									{% if requestLog.collection == None %}
-									<td>{% trans "handler_log_sensitives_accepted" %}</td>
-									{% else %}
-									<td>{% trans "handler_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
-									{% endif %}
-								{% elif requestLog.action == 'NEG' %}
-									{% if requestLog.collection == None %}
-									<td>{% trans "handler_log_sensitives_denied" %}</td>
-									{% else %}
-									<td>{% trans "handler_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
-									{% endif %}
-								{% endif %}
-								</tr>
-							{% endfor %}
-						</table>
-					{% else %}
-						<strong>{% trans "log_no_history" %}.</strong>
-					{% endif %}
-					</div>
 				</div>
 		</div>
 	</div>
 {% endblock %}
 
-{% block end_script %}
-	{% if coordinates %}
+{% block script %}
 	<script>
-		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
-			initializeMap();
-			document.getElementById('filters').style.display = 'block';
-			map.invalidateSize();
-			document.getElementById('filters').style.display = '';
-			var bounds = [[{{coordinates.0}}, {{coordinates.2}}], [{{coordinates.1}},{{coordinates.3}}]];
-			L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
-		});
+	$(document).ready(function(){
+	  $("#filterlist").on("hide.bs.collapse", function(){
+		$("#filterbutton").html('Näytä');
+	  });
+	  $("#filterlist").on("show.bs.collapse", function(){
+		$("#filterbutton").html('Piilota');
+	  });
+	});
 	</script>
-	{% endif %}
+	
+	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
+	<script>
+	$(document).ready(function(){
+		var descExists = {{ userRequest.description.strip|length }};
+		if (descExists == 0) {
+			$("#descriptionEdit").show();
+		}
+	});
+	</script>
+	
+	<!-- oma scripti kuvauksen muokkausnapille show/hide -->
+	<script>
+	$(document).ready(function(){
+	  $("#descriptionEdit").on("hide.bs.collapse", function(){
+		$("#descriptionButton").html('<span class="glyphicon glyphicon-pencil"></span>');
+	  });
+	  $("#descriptionEdit").on("show.bs.collapse", function(){
+		$("#descriptionButton").html('Piilota');
+	  });
+	});
+	</script>
 {% endblock %}
 
 {% block modal %}

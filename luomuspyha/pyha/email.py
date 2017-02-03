@@ -201,6 +201,25 @@ def send_mail_after_request_has_been_handled_to_requester(requestId, lang):
 	to = fetch_email_address(req.user)
 	recipients = [to]
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	
+def send_mail_after_additional_information_requested(requestId, lang):
+
+	req = Request.requests.get(id = requestId)
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.REQ_URL+str(req.id)
+	if(lang == 'fi'):
+		subject = u"Pyyntösi käsittely on valmistunut"
+		message = u"Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi&next=information"
+	elif(lang == 'en'):
+		subject = u"Your download request from FinBIF has been handled"
+		message = u"Your request from Finnish Biodiversity Info Faculty at "+time+" requires additional information.\n\nAddress to the request: "+req_link+"?lang=en&next=information"
+	else:
+		subject = u"Pyyntösi käsittely on valmistunut"
+		message = u"På svenska: Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw&next=information"
+	from_email = 'helpdesk@laji.fi'
+	to = fetch_email_address(req.user)
+	recipients = [to]
+	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
 
 
 

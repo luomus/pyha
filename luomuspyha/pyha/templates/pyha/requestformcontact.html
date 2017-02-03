@@ -1,19 +1,21 @@
 ﻿								{% load i18n %}
 									<div id="contact{{contact_id}}" class="tab-pane contact-form" role="tabpanel">
 										<div class="form-style-10">
+											{% trans 'required_fields_indicated_with_sign' %}
+											<br></br>
 											<div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
 											<div class="inner-wrap">
-												<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name_{{contact_id}}" name="request_person_name_{{contact_id}}" value=""/></label>
-												<label>{% trans "enter_street_address" %} <input onkeyup="contactsFilled();" type="text" id="request_person_street_address_{{contact_id}}" name="request_person_street_address_{{contact_id}}" value=""/></label>
-												<label>{% trans "enter_post_office_name" %}<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_{{contact_id}}" name="request_person_post_office_name_{{contact_id}}" value=""/></label>
-												<label>{% trans "enter_postal_code" %}<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_{{contact_id}}" name="request_person_postal_code_{{contact_id}}" value=""/></label>
-												<label>{% trans "enter_country" %}<input onkeyup="contactsFilled();" type="text" id="request_person_country_{{contact_id}}" name="request_person_country_{{contact_id}}" value="Suomi"/></label>
+												<label>{% trans 'enter_full_name' %} *<input type="text" id="request_person_name_{{contact_id}}" name="request_person_name_{{contact_id}}" value=""/></label>
+												<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_street_address_{{contact_id}}" name="request_person_street_address_{{contact_id}}" value=""/></label>
+												<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_{{contact_id}}" name="request_person_post_office_name_{{contact_id}}" value=""/></label>
+												<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_{{contact_id}}" name="request_person_postal_code_{{contact_id}}" value=""/></label>
+												<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_country_{{contact_id}}" name="request_person_country_{{contact_id}}" value="Suomi"/></label>
 											</div>
 
 											<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
 											<div class="inner-wrap">
-												<label>{% trans 'enter_email' %} <input onkeyup="contactsFilled();" type="email" id="request_person_email_{{contact_id}}" name="request_person_email_{{contact_id}}" value=""/></label>
-												<label>{% trans "enter_phone_number" %}<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_{{contact_id}}" name="request_person_phone_number_{{contact_id}}" value=""/></label>
+												<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" id="request_person_email_{{contact_id}}" name="request_person_email_{{contact_id}}" value=""/></label>
+												<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_{{contact_id}}" name="request_person_phone_number_{{contact_id}}" value=""/></label>
 											</div>
 
 											<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>

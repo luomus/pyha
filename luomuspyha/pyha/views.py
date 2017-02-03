@@ -322,6 +322,15 @@ def requestInformationChat(request, requestId):
 			l.name = fetch_user_name(l.user)
 		return requestChat_list
 
+def create_coordinates(userRequest):
+		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+		coord = getattr(filterList,"coordinates", None)
+		if(coord):
+			coordinates = coord.split(":", 5)
+			return coordinates
+		return None
+
+
 def create_request_view_context(requestId, request, userRequest, userId, role1, role2):
 		taxonList = []
 		customList = []
@@ -338,6 +347,8 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		request_owners_email = fetch_email_address(userRequest.user)
 		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		if userRequest.status > 0:
+			context["coordinates"] = create_coordinates(userRequest)
+			context["next"] = next = request.GET.get('next', 'request')
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
 			context["endable"] = Collection.objects.filter(request=userRequest.id,taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()
@@ -351,7 +362,10 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
 			context["requestChat_list"] = requestChat(request, requestId)
-			context["requestInformationChat_list"] = requestInformationChat(request, requestId)
+			requestInformationChat_list = requestInformationChat(request, requestId)
+			context["requestInformationChat_list"] = requestInformationChat_list
+			if(requestInformationChat_list):
+				context["information"] = not requestInformationChat_list[-1].question
 		return context
 
 def get_values_for_collections(requestId, request, List):
@@ -727,6 +741,7 @@ def answer(request):
 				newChatEntry.save()
 				userRequest.status = 6
 				userRequest.save()
+				send_mail_after_additional_information_requested(requestId, request.LANGUAGE_CODE)
 			elif "sens" not in collectionId:
 				collection = Collection.objects.get(request=requestId, address=collectionId)
 				if (request.session["user_id"] in collection.downloadRequestHandler) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:

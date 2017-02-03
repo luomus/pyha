@@ -26,6 +26,7 @@
 <!-- <link rel="stylesheet" href="{{ static }}pyha/bootstrap-dataTables/dataTables.bootstrap.min.css"> -->
 <link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css" >
 <link rel="stylesheet" type="text/css" href="{{ static }}pyha/tabs/tabs.css" >
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 {% if request.session.current_user_role == 'handler' %}
 <link rel="stylesheet" type="text/css" href="{{ static }}pyha/handler.css" >
 {% endif %}
@@ -120,13 +121,14 @@
   <script>window.jQuery.DataTable || document.write('<script src="{{ static }}pyha/jquery-dataTables/jquery.dataTables.min.js"><\/script>')</script>
 
 
-  <!-- non-cdn ei toimi jostain syystä. Luultavasti puuttuu jotain -->
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
   <!-- <script src="{{ static }}pyha/boostrap-dataTables/dataTables.bootstrap.min.js"></script> -->
   <script type="text/javascript" src="{{ static }}pyha/js/bootstrap-multiselect.js"></script>
   <link rel="stylesheet" href="{{ static }}pyha/css/bootstrap-multiselect.css" type="text/css"/>
   <script src="{{ static }}pyha/tabs/tabs.js"></script>
   <script src="{{ static }}pyha/ajax/ajax.js"></script>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script src="{{ static }}pyha/js/map.js"></script>
     <script>
 		function myFunction() {
 		    document.getElementById("myDropdown").classList.toggle("show");

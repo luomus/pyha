@@ -2,7 +2,7 @@
 {% block content %}
 {% load i18n %}
 
-<div class="container-fluid">
+<div class="container-fluid" style="overflow-y: hide;">
 	<div class="col-xs-12">
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
@@ -92,9 +92,10 @@
 							<div class="tab-content">
 									<div class="tab-pane active" role="tabpanel" id="step1">
 										<h3 style="color:#2980B9">{% trans 'contact_list'%}</h3>
-										<ul id="contact_list" class="vertical">
+										<div id="contacts_content" class="tab-content col-md-12">
+											<ul id="contact_list" class="vertical col-md-2">
 											<p style="color:#2980B9;align:center;">{% trans 'main_contact'%}</p>
-											<li id="contact_tab1" class="active">
+											<li id="contact_tab1" class="active vertical-li">
 												<a href="#contact1" class="vertical-tab" data-toggle="tab" aria-controls="contact1" role="tab">
 													<span id="contact_tab_text_1">{{old_request.requestPersonName}}</span>
 												</a>
@@ -114,24 +115,25 @@
 													</span>
 												</a>
 											</li>
-										</ul>
-										<div id="contacts_content" class="tab-content">
-											<div id="contact1" class="tab-pane active contact-form" role="tabpanel">
+											</ul>
+											<div id="contact1" class="tab-pane active contact-form col-md-10" role="tabpanel">
 												<div class="form-style-10">
+													{% trans 'required_fields_indicated_with_sign' %}
+													<br></br>
 													<div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
 													{% if old_request %}
 													<div class="inner-wrap">
-														<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name_1" name="request_person_name_1" value="{{old_request.requestPersonName}}"/></label>
-														<label>{% trans "enter_street_address" %} <input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1" value="{{old_request.requestPersonStreetAddress}}"/></label>
-														<label>{% trans "enter_post_office_name" %}<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
-														<label>{% trans "enter_postal_code" %}<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{old_request.requestPersonPostalCode}}"/></label>
-														<label>{% trans "enter_country" %}<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="{{old_request.requestPersonCountry}}"/></label>
+														<label>{% trans 'enter_full_name' %} *<input type="text" id="request_person_name_1" name="request_person_name_1" value="{{old_request.requestPersonName}}"/></label>
+														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1" value="{{old_request.requestPersonStreetAddress}}"/></label>
+														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
+														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{old_request.requestPersonPostalCode}}"/></label>
+														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="{{old_request.requestPersonCountry}}"/></label>
 													</div>
 
 													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
 													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} <input onkeyup="contactsFilled();" type="email" id="request_person_email_1" name="request_person_email_1" value="{{old_request.requestPersonEmail}}"/></label>
-														<label>{% trans "enter_phone_number" %}<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{old_request.requestPersonPhoneNumber}}"/></label>
+														<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" id="request_person_email_1" name="request_person_email_1" value="{{old_request.requestPersonEmail}}"/></label>
+														<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{old_request.requestPersonPhoneNumber}}"/></label>
 													</div>
 
 													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
@@ -141,17 +143,17 @@
 													</div>
 													{% else %}
 													<div class="inner-wrap">
-														<label>{% trans 'enter_full_name' %} <input type="text" id="request_person_name_1" name="request_person_name_1" value="{{request_owner}}"></input></label>
-														<label>{% trans "enter_street_address" %} <input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1"/></label>
-														<label>{% trans "enter_post_office_name" %}<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
-														<label>{% trans "enter_postal_code" %}<input onkeyup="contactsFilled();" type="text" name="request_person_postal_code_1" id="request_person_postal_code_1"/></label>
-														<label>{% trans "enter_country" %}<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="Suomi"/></label>
+														<label>{% trans 'enter_full_name' %} *<input type="text" id="request_person_name_1" name="request_person_name_1" value="{{request_owner}}"></input></label>
+														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1"/></label>
+														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
+														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" name="request_person_postal_code_1" id="request_person_postal_code_1"/></label>
+														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="Suomi"/></label>
 													</div>
 
 													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
 													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} <input onkeyup="contactsFilled();" type="email" id="request_person_email_1" name="request_person_email_1" value="{{request_owners_email}}"/></label>
-														<label>{% trans "enter_phone_number" %}<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_1" name="request_person_phone_number_1"/></label>
+														<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" id="request_person_email_1" name="request_person_email_1" value="{{request_owners_email}}"/></label>
+														<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_phone_number_1" name="request_person_phone_number_1"/></label>
 													</div>
 
 													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
@@ -426,6 +428,7 @@
 	newspan.textContent = "{% trans 'new_contact' %}";
 	newspan.id = "contact_tab_text_" + current;
 	newli.id = "contact_tab" + current;
+	newli.className = "vertical-li";
 	newa.appendChild(newspan);
 	newli.appendChild(newa);
 	ul.insertBefore(newli, addli);
