@@ -326,7 +326,7 @@ def create_coordinates(userRequest):
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		coord = getattr(filterList,"coordinates", None)
 		if(coord):
-			coordinates = coord.split(":", 5)
+			coordinates = coord[0].split(":", 5)
 			return coordinates
 		return None
 
@@ -356,7 +356,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			lang = request.LANGUAGE_CODE
 			if(lang == 'sw'):
 				languagelabel = getattr(label, "sv")
-			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?locale='+lang
+			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+userId
 			context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=30)
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)
