@@ -1159,10 +1159,9 @@ msgid "request_window"
 msgstr "Kokoelma tiedot"
 
 #: pyha/templates/pyha/requestview.html:204
-#, fuzzy
 #| msgid "collection_window"
 msgid "decision_window"
-msgstr "Aineistokohtaiset päätökset"
+msgstr "Päätökset"
 
 #: pyha/templates/pyha/requestview.html:211
 msgid "argument_window"
