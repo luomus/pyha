@@ -95,7 +95,7 @@
 				{% endif %}
 				requestcard">
 					<div class="col-xs-12" style="height:relative">
-							<h1 style="margin-top:0px;text-align:center;">{% trans "sensitive" %}</h1>
+							<h1 style="text-align:center;">{% trans "sensitive" %}</h1>
 							{% if userRequest.sensstatus == 1 %}
 							<div class="alert alert-info"
 							{% elif userRequest.sensstatus == 3 %}
@@ -114,7 +114,7 @@
 							</div>
 					</div>
 					<div class="col-xs-12">
-						<h1 style="margin-top:0px;text-align:center;top:0%;">{% trans "restricted" %}</h1>
+						<h1 style="text-align:center;top:0%;">{% trans "restricted" %}</h1>
 						<div class="panel-body requestcollections" style="{% if userRequest.sensstatus == 3 or  userRequest.sensstatus == 1 %}opacity: 0.5;{% endif %}">
 						<table class="table">
 							{% for collection in collections %}
