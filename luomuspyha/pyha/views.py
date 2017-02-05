@@ -350,8 +350,8 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		request_owner = fetch_user_name(userRequest.user)
 		request_owners_email = fetch_email_address(userRequest.user)
 		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+		context["coordinates"] = create_coordinates(userRequest)
 		if userRequest.status > 0:
-			context["coordinates"] = create_coordinates(userRequest)
 			context["next"] = next = request.GET.get('next', 'request')
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
@@ -360,7 +360,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			lang = request.LANGUAGE_CODE
 			if(lang == 'sw'):
 				languagelabel = getattr(label, "sv")
-			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+userId
+			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
 			context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=30)
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)

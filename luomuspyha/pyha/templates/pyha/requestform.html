@@ -31,6 +31,10 @@
 							</tr>
 						{% endfor %}
 					</table>
+					{% if coordinates %}
+					<div id="filtermap"></div>
+					{% endif %}
+				{{coordinates}}
 				{% else %}
 					<strong>{% trans "no_filters" %}.</strong>
 				{% endif %}
@@ -684,6 +688,19 @@
 	contactsFilled();
 	});
 	</script>
+	{% if coordinates %}
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();   
+			initializeMap();
+			document.getElementById('filterlist').style.display = 'block';
+			map.invalidateSize();
+			document.getElementById('filterlist').style.display = '';
+			var bounds = [[{{coordinates.0}}, {{coordinates.2}}], [{{coordinates.1}},{{coordinates.3}}]];
+			L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
+		});
+	</script>
+	{% endif %}
 {% endblock %}
 {% block modal %}
 {% endblock %}

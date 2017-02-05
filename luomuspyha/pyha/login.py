@@ -17,12 +17,14 @@ def _get_authentication_info(request, token):
        content = json.loads(response.content.decode('utf-8'))
        return content
 
-def log_in(request, content):
+def log_in(request, content, token):
    if not "user_id" in request.session:
        request.session["user_id"] = content["user"]["qname"]
        request.session["user_name"] = content["user"]["name"]
        request.session["user_email"] = content["user"]["email"]
        request.session["user_roles"] = content["user"]["roles"]
+       request.session["token"] = token
+       print(token)
        if not "_language" in request.session:
           request.session["_language"] = "fi"
        if not request.session["user_roles"]:
@@ -65,7 +67,7 @@ def authenticate(request, token):
    if result is None:
        return False
    else:
-       log_in(request, result)
+       log_in(request, result, token)
        return True
 
 def authenticated(request):
