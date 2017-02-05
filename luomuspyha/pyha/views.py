@@ -52,6 +52,7 @@ def index(request):
 			context = {"role": hasRole, "email": request.session["user_email"], "requests": request_list, "static": settings.STA_URL }
 			return render(request, 'pyha/index.html', context)
 
+
 def logout(request):
 		if not logged_in(request):
 			return _process_auth_response(request, '')
@@ -111,21 +112,24 @@ def check_language(request):
 				return True
 		return False
 
+def is_allowed_to_view(request, requestId):
+		userRequest = Request.requests.get(id=requestId)
+		userId = request.session["user_id"]
+		userRole = request.session["current_user_role"]
+		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
+		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+		return allowed_to_view(request, requestId, userId, role1, role2)
 
-def allowed_to_view(request, userRequest, userId, role1, role2):
+def allowed_to_view(request, requestId, userId, role1, role2):
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
-				if not Request.requests.filter(id=userRequest.id, status__gt=0).exists():
+				if not Request.requests.filter(id=requestId, status__gt=0).exists():
 					return False
 				if role2 and not role1:
-					if not Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
+					if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
 						return False
-				if(userRequest.status == 0):
-					return False
 		else:
-				if not Request.requests.filter(id=userRequest.id, user=userId, status__gte=0).exists():
+				if not Request.requests.filter(id=requestId, user=userId, status__gte=0).exists():
 					return False
-		if(userRequest.status == -1):
-				return False
 		return True
 
 @csrf_exempt
@@ -136,13 +140,13 @@ def show_request(request):
 		requestId = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestId)
-		userRequest = Request.requests.get(id=requestId)
-		userId = request.session["user_id"]
-		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
+		userId = request.session["user_id"]
+		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
+		userRequest = Request.requests.get(id=requestId)
+		userRole = request.session["current_user_role"]
 		#make a log entry
 		if userRequest.user != userId:
 			make_logEntry_view(request, userRequest, userId, role1, role2)
@@ -397,16 +401,23 @@ def create_collections_for_lists(requestId, request, taxonList, customList, coll
 
 def change_description(request):
 	if request.method == 'POST':
+		if not logged_in(request):
+			return _process_auth_response(request, "pyha")
 		next = request.POST.get('next', '/')
 		requestId = request.POST.get('requestid')
+		if not is_allowed_to_view(request, requestId):
+			return HttpResponseRedirect('/pyha/')
 		userRequest = Request.requests.get(id = requestId)
 		userRequest.description = request.POST.get('description')
 		userRequest.save(update_fields=['description'])
-	return HttpResponseRedirect(next)
+		return HttpResponseRedirect(next)
+	return HttpResponseRedirect('/pyha/')
 
 #removes sensitive sightings
 def remove_sensitive_data(request):
 	if request.method == 'POST':
+		if not logged_in(request):
+			return _process_auth_response(request, "pyha")
 		next = request.POST.get('next', '/')
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
@@ -418,11 +429,14 @@ def remove_sensitive_data(request):
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(next)
+	return HttpResponseRedirect('/pyha/')
 
 #removes custom sightings
 def remove_custom_data(request):
-	next = request.POST.get('next', '/')
 	if request.method == 'POST':
+		if not logged_in(request):
+			return _process_auth_response(request, "pyha")
+		next = request.POST.get('next', '/')
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
 		collection = Collection.objects.get(id = collectionId)
@@ -433,7 +447,7 @@ def remove_custom_data(request):
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(next)
-	return HttpResponseRedirect(next)
+	return HttpResponseRedirect('/pyha/')
 
 def remove_ajax(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
@@ -442,14 +456,14 @@ def remove_ajax(request):
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
-			return _process_auth_response(request, "request/"+requestId)
+			return _process_auth_response(request, "pyha")
 		userRequest = Request.requests.get(id=requestId)
 		userId = request.session["user_id"]
 		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
+		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponse('/pyha/', status=310)
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
@@ -481,7 +495,7 @@ def get_taxon(request):
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
+		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponse("/pyha/", status=310)
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		return render(request, 'pyha/requestformtaxon.html', context)
@@ -494,18 +508,18 @@ def get_custom(request):
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
-			return _process_auth_response(request, "request/"+requestId)
+			return HttpResponse("/pyha/", status=310)
 		userRequest = Request.requests.get(id=requestId)
 		userId = request.session["user_id"]
 		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
+		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		return render(request, 'pyha/requestformcustom.html', context)
-	return HttpResponse("")
+	return HttpResponse("/pyha/", status=310)
 	
 def get_summary(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
@@ -514,25 +528,25 @@ def get_summary(request):
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
-			return _process_auth_response(request, "request/"+requestId)
+			return HttpResponse("/pyha/", status=310)
 		userRequest = Request.requests.get(id=requestId)
 		userId = request.session["user_id"]
 		userRole = request.session["current_user_role"]
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
-			return HttpResponseRedirect('/pyha/')
+		if not allowed_to_view(request, requestId, userId, role1, role2):
+			return HttpResponse("/pyha/", status=310)
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		return render(request, 'pyha/requestformsummary.html', context)
-	return HttpResponse("")
+	return HttpResponse("/pyha/", status=310)
 	
 def create_contact(request):
 	if request.method == 'POST' and request.POST.get('requestid') and request.POST.get('id'):
 		if check_language(request):
 				return HttpResponseRedirect(request.path)
 		#Has Access
-		requestId = request.POST.get('requestid')
+		requestId = request.POST.get('requestid','?')
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestId)
 		userRequest = Request.requests.get(id=requestId)
@@ -541,31 +555,19 @@ def create_contact(request):
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
+		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		context["contact_id"] = request.POST.get('id');
 		return render(request, 'pyha/requestformcontact.html', context)
-	return HttpResponse("")
-
-def description_ajax(request):
-	if request.method == 'POST' and request.POST.get('requestid'):
-		if request.method == 'POST':
-			next = request.POST.get('next', '/')
-			requestId = request.POST.get('requestid')
-			userRequest = Request.requests.get(id = requestId)
-			userRequest.description = request.POST.get('description')
-			userRequest.save(update_fields=['description'])
-			return HttpResponseRedirect(next)
-		return render(request, 'pyha/requestformcustom.html', context)
-	return HttpResponse("")
+	return HttpResponse("/pyha/")
 	
 def get_request_header(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
 		if check_language(request):
 				return HttpResponseRedirect(request.path)
 		#Has Access
-		requestId = request.POST.get('requestid')
+		requestId = request.POST.get('requestid','?')
 		if not logged_in(request):
 			return _process_auth_response(request, "request/"+requestId)
 		userRequest = Request.requests.get(id=requestId)
@@ -574,7 +576,7 @@ def get_request_header(request):
 		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
 		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
 		
-		if not allowed_to_view(request, userRequest, userId, role1, role2):
+		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
 		return render(request, 'pyha/requestheader.html', context)
@@ -604,16 +606,24 @@ def fetch_user_name(personId):
 
 def removeCollection(request):
 	if request.method == 'POST':
-		requestId = request.POST.get('requestid')
+		if not logged_in(request):
+			return _process_auth_response(request, "pyha")
+		requestId = request.POST.get('requestid', '?')
+		if not is_allowed_to_view(request, requestId):
+			return HttpResponseRedirect('/pyha/')
 		collectionId = request.POST.get('collectionid')
 		redirect_path = request.POST.get('next')
 		collection = Collection.objects.get(address = collectionId, request = requestId)
+		if not allowed_to_view(request, requestId, userId, role1, role2):
+			return HttpResponseRedirect('/pyha/')
 		#avoid work when submitted multiple times
 		if(collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(redirect_path)
+	return HttpResponseRedirect("/pyha/")
+
 
 
 
@@ -629,8 +639,12 @@ def check_all_collections_removed(requestId):
 
 def approve(request):
 	if request.method == 'POST':
+		if not logged_in(request):
+			return _process_auth_response(request, "pyha")
+		requestId = request.POST.get('requestid', '?')
+		if not is_allowed_to_view(request, requestId):
+			return HttpResponseRedirect('/pyha/')
 		lang = 'fi' #ainakin toistaiseksi
-		requestId = request.POST.get('requestid')
 		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb');
 		senschecked = request.POST.get('checkbsens');
@@ -728,8 +742,12 @@ def update_contact_preset(request, userRequest):
 def answer(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
+			if not logged_in(request):
+				return _process_auth_response(request, "pyha")
+			requestId = request.POST.get('requestid', '?')
+			if not is_allowed_to_view(request, requestId):
+				return HttpResponseRedirect('/pyha/')
 			collectionId = request.POST.get('collectionid')
-			requestId = request.POST.get('requestid')
 			userRequest = Request.requests.get(id = requestId)
 			if(int(request.POST.get('answer')) == 2):
 				newChatEntry = RequestInformationChatEntry()
@@ -773,7 +791,11 @@ def answer(request):
 def information(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
-			requestId = request.POST.get('requestid')
+			if not logged_in(request):
+				return _process_auth_response(request, "pyha")
+			requestId = request.POST.get('requestid', '?')
+			if not is_allowed_to_view(request, requestId):
+				return HttpResponseRedirect('/pyha/')
 			if(int(request.POST.get('information')) == 2):
 				newChatEntry = RequestInformationChatEntry()
 				newChatEntry.request = Request.requests.get(id=requestId)
@@ -791,8 +813,12 @@ def information(request):
 def comment_sensitive(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
+			if not logged_in(request):
+				return _process_auth_response(request, "pyha")
+			requestId = request.POST.get('requestid', '?')
+			if not is_allowed_to_view(request, requestId):
+				return HttpResponseRedirect('/pyha/')
 			message = request.POST.get('commentsForAuthorities')
-			requestId = request.POST.get('requestid')
 			if HANDLER_SENS in request.session["user_roles"]:
 				newChatEntry = RequestChatEntry()
 				newChatEntry.request = Request.requests.get(id=requestId)
@@ -888,7 +914,11 @@ def send_download_request(requestId):
 def initialize_download(request):
 		next = request.POST.get('next', '/')
 		if request.method == 'POST':
-			requestId = request.POST.get('requestid')
+			if not logged_in(request):
+				return _process_auth_response(request, "pyha")
+			requestId = request.POST.get('requestid', '?')
+			if not is_allowed_to_view(request, requestId):
+				return HttpResponseRedirect('/pyha/')
 			userRequest = Request.requests.get(id=requestId)
 			if (userRequest.status == 4 or userRequest.status == 2 or userRequest.sensstatus == 4):
 				send_download_request(requestId)
@@ -914,7 +944,6 @@ def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
 	elif(statusBeforeUpdate!=userRequest.status):
 		#Send email if status changed
 		send_mail_after_request_status_change_to_requester(userRequest.id, lang)
-
 
 
 

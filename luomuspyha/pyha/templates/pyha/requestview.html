@@ -65,7 +65,7 @@
 					{% trans "accepted" %}
 					
 					{% elif userRequest.status == 6 %}
-					{% trans "waiting_for_additional_information" %}
+					<a href="{{request.path}}?next=information" style="color:black;text-decoration: none;">{% trans "waiting_for_additional_information" %}</a>
 					
 					{% elif userRequest.status == 7 %}
 					{% trans "waiting_for_download" %} 
@@ -91,7 +91,7 @@
 				{% elif userRequest.status == 4 or userRequest.status == 7 or userRequest.status == 8 %}
 				<div class="alert alert-success
 				{% else %}  
-				<div class="alert
+				<div class="alert panel-default
 				{% endif %}
 				requestcard">
 					<div class="col-xs-12" style="height:relative">
@@ -105,7 +105,7 @@
 							{% else %}  
 							<div class="alert"
 							{% endif %}
-							style="width:100%;text-align:center;margin:0px;height:85%;">
+							style="width:100%;text-align:center;margin:0px;height:calc(100% - 70px);">
 								<h2 class="slider-group" style="position:relative;top:30%;">
 									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
 									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
@@ -597,7 +597,7 @@
 							<form action="{% url 'pyha:information' %}" id="requestform" method="post">
 								<div class="form-group">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-									<input type="hidden" id="next" name="next" value={{request.path}}>
+									<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
 									<textarea rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
 									<button type="submit" id="submit" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
 								</div>
@@ -683,6 +683,14 @@
 			document.getElementById('filters').style.display = '';
 			var bounds = [[{{coordinates.0}}, {{coordinates.2}}], [{{coordinates.1}},{{coordinates.3}}]];
 			L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
+		});
+	</script>
+	{% endif %}
+	{% if next == 'information' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('additional_information').scrollIntoView();
+			document.getElementById('requestform').scrollIntoView();
 		});
 	</script>
 	{% endif %}
