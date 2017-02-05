@@ -1021,7 +1021,7 @@ msgstr "Kuvaus"
 
 #: pyha/templates/pyha/requestview.html:35
 msgid "change_description"
-msgstr "Ei kuvausta"
+msgstr "Muuta kuvaus"
 
 #: pyha/templates/pyha/requestview.html:157
 msgid "download"
