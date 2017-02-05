@@ -133,6 +133,7 @@
 							</span>
 						</a>
 					</li>
+					{% if role1 %}
 					<li id="sensitive-tab" role="presentation" {% if next == "sensitive" %} class="active" {% endif %} style="background-color:#EFF8FB">
 						<a href="#sensitive" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
@@ -140,6 +141,7 @@
 							</span>
 						</a>
 					</li>
+					{% endif %}
 					<li id="collection-tab" role="presentation" {% if next == "collection" %} class="active" {% endif %} style="background-color:#EFF8FB">
 						<a href="#collection" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
@@ -575,7 +577,6 @@
 							</table>
 						</div>
 						<div class="tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-							{% if role1 %}
 							<h2>{% trans "handler_additional_questions" %}</h2>
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
@@ -589,6 +590,7 @@
 								</div>
 								{% endif %}
 							{% endfor %}
+							{% if role1 %}
 							<h2>{% trans "handler_form_to_request_additional_information" %}</h2>
 							<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 								<div class="form-group">
