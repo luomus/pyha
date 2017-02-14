@@ -4,6 +4,7 @@ import requests
 import ast
 import time
 from luomuspyha import secrets
+from luomuspyha.wsgi import basic_auth_required
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
@@ -81,6 +82,7 @@ def _process_auth_response(request, indexpath):
 			return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 
 @csrf_exempt
+@basic_auth_required
 def receiver(request):
 		if 'JSON' in request.POST:
 			text = request.POST['JSON']
@@ -94,6 +96,7 @@ def receiver(request):
 		return HttpResponse('')
 
 @csrf_exempt
+@basic_auth_required
 def download(request, link):
 		if request.method == 'POST':
 			userRequest = Request.requests.get(lajiId=link)
