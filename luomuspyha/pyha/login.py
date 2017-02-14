@@ -22,9 +22,11 @@ def log_in(request, content, token):
        request.session["user_id"] = content["user"]["qname"]
        request.session["user_name"] = content["user"]["name"]
        request.session["user_email"] = content["user"]["email"]
-       request.session["user_roles"] = content["user"]["roles"]
+       request.session["user_roles"] = None
+       for r in content["user"]["roles"]:
+           if HANDLER_SENS in r:
+               request.session["user_roles"] = [r]
        request.session["token"] = token
-       print(token)
        if not "_language" in request.session:
           request.session["_language"] = "fi"
        if not request.session["user_roles"]:
