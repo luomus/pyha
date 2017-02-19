@@ -39,6 +39,7 @@
 					</form>
 				</div>
 			<h2><span style="white-space: nowrap;">
+					{% trans "state_of_request" %}
 					<span
 					{% if userRequest.status == 1 %}
 						 style="color:#AABBDD;"
@@ -65,7 +66,8 @@
 					{% trans "accepted" %}
 					
 					{% elif userRequest.status == 6 %}
-					<a href="{{request.path}}?next=information" style="color:black;text-decoration: none;">{% trans "waiting_for_additional_information" %}</a>
+					{% trans "waiting_for_additional_information" %}
+					<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "show_additional_information" %}</a>
 					
 					{% elif userRequest.status == 7 %}
 					{% trans "waiting_for_download" %} 
@@ -95,26 +97,17 @@
 				{% endif %}
 				requestcard">
 					<div class="col-xs-12" style="height:relative">
-							<h1 style="text-align:center;">{% trans "sensitive" %}</h1>
-							{% if userRequest.sensstatus == 1 %}
-							<div class="alert alert-info"
-							{% elif userRequest.sensstatus == 3 %}
-							<div class="alert alert-danger"
-							{% elif userRequest.sensstatus == 4 %}
-							<div class="alert alert-success"
-							{% else %}  
-							<div class="alert"
-							{% endif %}
-							style="width:100%;text-align:center;margin:0px;height:calc(100% - 70px);">
-								<h2 class="slider-group" style="position:relative;top:30%;">
+							<h2 style="text-align:center;">{% trans "sensitive" %}</h1>
+							<div class="panel-body requestcollections" style="text-align:center;">
+								<h3 class="slider-group" style="vertical-align:middle;margin-bottom:20px;margin-top:5px;">
 									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
 									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
 									<span class="slider slider-lg slider-declined{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
-								</h2>
+								</h3>
 							</div>
 					</div>
 					<div class="col-xs-12">
-						<h1 style="text-align:center;top:0%;">{% trans "restricted" %}</h1>
+						<h2 style="text-align:center;top:0%;">{% trans "restricted" %}</h2>
 						<div class="panel-body requestcollections" style="{% if userRequest.sensstatus == 3 or  userRequest.sensstatus == 1 %}opacity: 0.5;{% endif %}">
 						<table class="table">
 							{% for collection in collections %}
@@ -140,7 +133,7 @@
 								>
 								<td>{{collection.result.collectionName}}</td>
 								<td>
-								<div class="slider-group">
+								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-waiting{% if collection.status == 1 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
 									<span class="slider slider-accepted{% if collection.status == 4 and userRequest.sensstatus == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
 									<span class="slider slider-declined{% if collection.status == 3 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "denied" %}</span>
@@ -154,17 +147,21 @@
 				</div>
 				{% if userRequest.status == 8 %}
 					{% if downloadable %}
-						<a style="width:100%;" href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:80px;height:100px;width:40%;">{% trans 'download' %}</a>
+						<div style="text-align:center;">
+						<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;"><span class="glyphicon glyphicon-open-file"></span> {% trans 'download' %}</a>
+						</div>
 					{% else %}
 						<h3 style="text-align:center;">{% trans 'download_has_expired' %}</h3>
 					{% endif %}
-				{% elif userRequest.status == 4%}
-				<button style="width:100%;" type="button" class="btn btn-default btn-lg" style="height:100px;width:40%;">{% trans 'initialize_download' %}</button>
+				{% elif userRequest.status == 4  %}
+				<div style="text-align:center;">
+				<button style="width:100%; max-width:500px;" type="button" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;">{% trans 'initialize_download' %}</button>
+				</div>
 				{% elif userRequest.status == 7%}
 				<h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
 				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 and endable %}
-				<div class="initializeContainer">
-					<button style="width:100%;" type="button" class="btn btn-default btn-lg initializeButton" style="height:100px;width:40%;">{% trans 'stop_wait_initialize_download' %}</button>
+				<div style="text-align:center;">
+					<button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">{% trans 'stop_wait_initialize_download' %}</button>
 				</div>
 				{% endif %}
 					<!--- hidden confirm modal --->
@@ -256,7 +253,7 @@
 					<div class="tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
 					{% if collections %}
 						{% if collections %}
-						<h2>{% trans "collections_in_request" %}</h2>
+						<h3>{% trans "collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -486,10 +483,6 @@
 							{% if collections %}
 							<h2>{% trans "terms" %}</h2>
 								<table class="table" style="width:100%">
-									<tr style=color:black>
-										<th>{% trans "collection_name" %}</th>
-										<th>{% trans "terms" %}</th>
-									</tr>
 									<tr>
 									<td>{% trans "sensitivity" %}</td>
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button></td>
@@ -530,11 +523,15 @@
 												<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
 											  </div>
 											  <div class="modal-body">
-												{% load static %}
-												<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-													<alt>{% trans "if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
-													<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-												</object>
+												<p>{% trans 'contact_name' %} {{contactlist.0.personName}}</p>
+												<p>{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p>
+												<p>{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p>
+												<p>{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p>
+												<p>{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p>
+												<p>{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p>
+												<p>{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p>
+												<p>{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p>
+												<p>{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p>
 											  </div>
 											  <div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
@@ -678,6 +675,7 @@
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();   
 			initializeMap();
+			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filters').style.display = 'block';
 			map.invalidateSize();
 			document.getElementById('filters').style.display = '';

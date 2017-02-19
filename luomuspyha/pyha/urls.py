@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^index/?$', views.index, name='index'),
     url(r'^api/request/?$', views.receiver, name='receiver'),
     url(r'^api/download/(?P<link>[^/]+)/?$', views.download, name='download'),
+	url(r'^api/newcount', views.new_count, name='new_count'),
     url(r'^request/[1-9][0-9]*/?$', views.show_request),
     url(r'^description/?$', views.change_description, name='description'),
     url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),

@@ -231,11 +231,15 @@
 															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
 														</div>
 														<div class="modal-body">
-															{% load static %}
-																<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-																	<alt>{% trans "If_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "here" %}</a></alt>
-																	<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-																</object>
+															<p>{% trans 'contact_name' %} <span id="contact_name"></span></p>
+															<p>{% trans 'contact_street_address' %} <span id="contact_street_address"></span></p>
+															<p>{% trans 'contact_post_office' %} <span id="contact_post_office"></span></p>
+															<p>{% trans 'contact_postal' %} <span id="contact_postal"></span></p>
+															<p>{% trans 'contact_country' %} <span id="contact_country"></span></p>
+															<p>{% trans 'contact_email' %} <span id="contact_email"></span></p>
+															<p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p>
+															<p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p>
+															<p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p>
 														</div>
 														<div class="modal-footer">
 															<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
@@ -373,13 +377,21 @@
 	function check(counter) { 
 		approvetext = "{% trans 'you_accepted_terms' %}";
 		nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
-		if(document.getElementById(counter).checked){
-			document.getElementById('statustext'+ counter).textContent=approvetext;
+		if(!document.getElementById(counter)){
+			accepted[counter] = 1;
+		}else if(document.getElementById(counter).checked){
+			if(document.getElementById('statustext'+ counter)){
+				document.getElementById('statustext'+ counter).textContent=approvetext;
+			}
 			document.getElementById(counter).disabled = true;
 			accepted[counter] = 1;
 		}else{
-			document.getElementById('statustext'+ counter).textContent=nonapprovetext;
-			accepted[counter] = 0;
+			if(document.getElementById('statustext'+ counter)){
+				document.getElementById('statustext'+ counter).textContent=nonapprovetext;
+				accepted[counter] = 0;
+			}else{
+				accepted[counter] = 1;
+			}
 		}
 	}
 	function remove(counter) { 
@@ -391,6 +403,7 @@
 		for(var i=0; i<elements.length; i++) {
 		check(elements[i].id);
 		}
+		checkForApproval();
 	}
 	function checkv(counter, value) { 
 		accepted[counter] = value;
@@ -410,9 +423,6 @@
 			document.getElementById('to_step_summary').disabled = true;
 			document.getElementById('submit').disabled = true;
 		}
-	}
-	function updateContact(current){
-	document.getElementById('to_step_summary')
 	}
 	
 	function addContact(current) {
@@ -611,14 +621,18 @@
 
 	<script>
 	$(document).ready(function() {
-		var namefield = document.getElementById("request_person_name_1")
+		var fields = ["request_person_name_1","request_person_street_address_1","request_person_post_office_name_1","request_person_postal_code_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
+		var fills = ["contact_name","contact_street_address","contact_post_office","contact_postal","contact_country","contact_email","contact_phone_number","contact_corporation/organization","contact_corporation_id"];
+		for (i = 0; i < fields.length; i++){
+			var namefield = document.getElementById(fields[i])
 			var func = function() { 
-				document.getElementById("contact_tab_text_1").textContent = namefield.value; 
+				document.getElementById(fills[i]).textContent = namefield.value; 
 				contactsFilled();
 			}
-		namefield.onkeyup = func;
-		namefield.onchange = func;
-		func();
+			namefield.onkeyup = func;
+			namefield.onchange = func;
+			func();
+		}
 	});
 	</script>
 
@@ -692,6 +706,7 @@
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();   
 			initializeMap();
+			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filterlist').style.display = 'block';
 			map.invalidateSize();
 			document.getElementById('filterlist').style.display = '';

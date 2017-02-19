@@ -14,6 +14,7 @@
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#349934" style="color:white;">
+        <th>{% trans "handler_viewed" %}</th>
         <th>{% trans "handler_request_date" %}</th>
         <th>{% trans "handler_requester" %}</th>	
         <th>{% trans "handler_request_hits" %}</th>
@@ -41,6 +42,7 @@
         {% endif %}
             data-href="request/{{request.id}}"
             >
+            <td>{% if not request.viewed %}{% trans "handler_new_request" %}{% endif %}</td>
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
             <td>{{request.email}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
@@ -48,8 +50,13 @@
                 <td>{% trans "handler_you_have_not_accepted_terms" %}</td>
             
             {% elif request.status == 1 %}
-                <td>{% trans "handler_waiting_for_data_provider" %}</td>
-                
+				<td>
+					{% if request.waitingstatus == 0 %}
+					{% trans "handler_waiting_for_others" %}
+					{% elif request.waitingstatus == 1 %}
+					{% trans "handler_waiting_for_you" %}
+					{% endif %}
+				</td>
             {% elif request.status == 2 %}
                 <td>{% trans "handler_partially_accepted" %}</td>
                 

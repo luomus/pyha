@@ -31,7 +31,7 @@ from datetime import datetime, timedelta
 @csrf_exempt
 def index(request):
 		if check_language(request):
-			return HttpResponseRedirect(request.path)
+			return HttpResponseRedirect(request.get_full_path())
 		if not logged_in(request):
 			return _process_auth_response(request,'')
 		userId = request.session["user_id"]
@@ -45,7 +45,10 @@ def index(request):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 			request_list = list(set(request_list))
 			for r in request_list:
-				r.email =fetch_email_address(r.user)
+				r.email = fetch_email_address(r.user)
+				handler_waiting_status(r, request, userId)
+				if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0):
+					r.viewed = True
 			context = {"role": hasRole, "email": request.session["user_email"], "requests": request_list, "static": settings.STA_URL }
 			return render(request, 'pyha/handler/index.html', context)
 		else:
@@ -106,11 +109,24 @@ def download(request, link):
 			send_mail_after_receiving_download(userRequest.id)
 		return HttpResponse('')
 
+@csrf_exempt
+@basic_auth_required
+def new_count(request):
+		if request.method == 'GET':
+			'''return JsonResponse({'count':RequestLogEntry.requestLog.filter(request = Request.requests.exclude(status__lte=0)).exclude(user = request.GET.get('token'), role = HANDLER_SENS, action = 'VIEW').count()})'''
+			request_list = Request.requests.exclude(status__lte=0)
+			count = 0
+			for r in request_list:
+				if(RequestLogEntry.requestLog.filter(request = r.id, user = request.GET.get('token'), action = 'VIEW').count() == 0):
+					count += 1
+			return JsonResponse({'count':count})
+		return HttpResponse('')
+
 def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
 		
 def check_language(request):
-		if request.GET.get('lang'):
+		if request.GET.get('lang') and request.session["_language"] != request.GET.get('lang'):
 				request.session["_language"] = request.GET.get('lang')
 				return True
 		return False
@@ -138,7 +154,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
 @csrf_exempt
 def show_request(request):
 		if check_language(request):
-			return HttpResponseRedirect(request.path)
+			return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = os.path.basename(os.path.normpath(request.path))
 		if not logged_in(request):
@@ -333,7 +349,10 @@ def create_coordinates(userRequest):
 		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		coord = getattr(filterList,"coordinates", None)
 		if(coord):
-			coordinates = coord[0].split(":", 5)
+			coordinates = coord[0].split(":", 4)
+			coordinates = coordinates[:7]
+			coordinates.append("{:.6f}".format((float(coordinates[1])-float(coordinates[0]))/2 + float(coordinates[0])))
+			coordinates.append("{:.6f}".format((float(coordinates[3])-float(coordinates[2]))/2 + float(coordinates[2])))
 			return coordinates
 		return None
 
@@ -359,6 +378,8 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
 			context["endable"] = Collection.objects.filter(request=userRequest.id,taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()
+			context["user"] = userId
+			handler_waiting_status(userRequest, request, userId)
 		if userRequest.status == 8:
 			lang = request.LANGUAGE_CODE
 			if(lang == 'sw'):
@@ -374,6 +395,15 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			if(requestInformationChat_list):
 				context["information"] = not requestInformationChat_list[-1].question
 		return context
+
+def handler_waiting_status(r, request, userId):
+		r.waitingstatus = 0
+		if HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
+			r.waitingstatus = 1
+		elif HANDLER_COLL in request.session.get("user_roles", [None]):
+			for c in Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1):
+				r.waitingstatus = 1
+		return
 
 def get_values_for_collections(requestId, request, List):
 		for i, c in enumerate(List):
@@ -455,7 +485,7 @@ def remove_custom_data(request):
 def remove_ajax(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
 		if check_language(request):
-				return HttpResponseRedirect(request.path)
+				return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
@@ -487,7 +517,7 @@ def remove_ajax(request):
 def get_taxon(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
 		if check_language(request):
-				return HttpResponseRedirect(request.path)
+				return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
@@ -507,7 +537,7 @@ def get_taxon(request):
 def get_custom(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
 		if check_language(request):
-				return HttpResponseRedirect(request.path)
+				return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
@@ -527,7 +557,7 @@ def get_custom(request):
 def get_summary(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
 		if check_language(request):
-				return HttpResponseRedirect(request.path)
+				return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = request.POST.get('requestid')
 		if not logged_in(request):
@@ -547,7 +577,7 @@ def get_summary(request):
 def create_contact(request):
 	if request.method == 'POST' and request.POST.get('requestid') and request.POST.get('id'):
 		if check_language(request):
-				return HttpResponseRedirect(request.path)
+				return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = request.POST.get('requestid','?')
 		if not logged_in(request):
@@ -568,7 +598,7 @@ def create_contact(request):
 def get_request_header(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
 		if check_language(request):
-				return HttpResponseRedirect(request.path)
+				return HttpResponseRedirect(request.get_full_path())
 		#Has Access
 		requestId = request.POST.get('requestid','?')
 		if not logged_in(request):

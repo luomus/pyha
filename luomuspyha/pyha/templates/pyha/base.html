@@ -43,7 +43,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="https://beta.laji.fi/">LAJI.FI</a>
+        <span class="navbar-brand nohover">LAJI.FI</span>
       </div>
       {% if email %}
       <div id="navbar" class="collapse navbar-collapse">
@@ -62,7 +62,7 @@
 
 		<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.current_user_role == 'handler' %}{% trans "admin" %}{% else %}{% trans "user" %}{% endif %} {% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
 
-			<div id="roleDropdown" class="dropdown-content">			
+			<div id="roleDropdown" class="dropdown-content">
               <a onclick='roleSubmit("user")' name="role" id="role">{% trans "user" %}</a>
               <a onclick='roleSubmit("handler")' name="role" id="role">{% trans "admin" %}</a>
 			  
@@ -89,6 +89,7 @@
 			  
 			</div>
 		<input id='language_form_select' name="language" type="hidden" value="">
+		<input type="hidden" id="next" name="next" value={{request.path}}>
 		</form>
           
       

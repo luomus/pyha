@@ -208,13 +208,13 @@ def send_mail_after_additional_information_requested(requestId, lang):
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.REQ_URL+str(req.id)
 	if(lang == 'fi'):
-		subject = u"Pyyntösi käsittely on valmistunut"
+		subject = u"Pyyntösi tarvitsee lisätietoja"
 		message = u"Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi&next=information"
 	elif(lang == 'en'):
-		subject = u"Your download request from FinBIF has been handled"
+		subject = u"Your download request requires additional information"
 		message = u"Your request from Finnish Biodiversity Info Faculty at "+time+" requires additional information.\n\nAddress to the request: "+req_link+"?lang=en&next=information"
 	else:
-		subject = u"Pyyntösi käsittely on valmistunut"
+		subject = u"Pyyntösi tarvitsee lisätietoja"
 		message = u"På svenska: Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw&next=information"
 	from_email = 'helpdesk@laji.fi'
 	to = fetch_email_address(req.user)
