@@ -82,9 +82,9 @@ span.round-tab:hover {
 
 .wizard :not(.multiselect-container)> li:not(.vertical-li).active:after {
     position: absolute;
-    left: 46%;
+    left: 50%;
     opacity: 1;
-    margin: 0 auto;
+    margin: 0 -11px;
     bottom: 0px;
     border: 11px solid transparent;
     border-bottom-color: #5bc0de;

@@ -40,8 +40,6 @@ p {
 .slider{
 	display: inline-block;
 	padding: 6px 20px;
-	margin: -5px;
-	margin-bottom: 5px;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.42857143;
@@ -49,15 +47,17 @@ p {
 	white-space: nowrap;
 	vertical-align: middle;
 	background-image: none;
-	border: 1px solid transparent;
 	border-radius: 4px;
+	margin-right: -4px;
 	color:white;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	width:33%;
 }
 
 .slider-lg{
-	font-size: 24px;
+	font-size: 20px;
 	padding: 6px 24px;
+	margin: -4px;
+	width:33%;
 }
 
 .slider-waiting-light {
@@ -66,7 +66,7 @@ p {
 }
 
 .slider-waiting {
-    background-color: #00008B;
+    background-color: #DDDDDD;
 	color:#A9A9A9;
 }
 
@@ -76,22 +76,23 @@ p {
 }
 
 .slider-accepted {
-    background-color: #006400;
+    background-color: #DDDDDD;
 	color:#A9A9A9;
 }
 
 .slider-declined-light {
-    background-color: #FF0000;
+    background-color: #FF3F3F;
 	color:white;
 }
 
 .slider-declined {
-    background-color: #8B0000;
+    background-color: #DDDDDD;
 	color:#A9A9A9;
 }
 
 #filtermap { 
-	height: 500px; 
+	height: 250px; 
+	width: 250px;
 }
 
 tr.indextr {
@@ -347,7 +348,6 @@ div.contact-form{
 	color:black;
 	background-color:WhiteSmoke;
 	border-radius:10px;
-	min-height:300px;
 	padding-bottom:0px;
 }
 
@@ -358,6 +358,7 @@ div.contact-form{
 	margin-right:20px;
 	display:flex;
 	overflow-x: hidden;
+	display:inline-block;
 }
 
   .floatcontainer {
@@ -542,11 +543,6 @@ div.contact-form{
     width: 992px;
   }
 }
-@media (max-width: 1200px) {
-.requestcard{
-	display:inline-block;
-}
-}
 @media (max-width: 1080px) {
 .contact-form{
 	width:100% !important;
@@ -571,13 +567,14 @@ h1{
 h2{
 	font-size: 24px;
 	}
+h3{
+	font-size: 20px;
+	}
 body{
 	font-size: 12px;
 	}
 .slider{
-	display: inline-block;
-	padding: 3px 10px;
-	margin-bottom: 4px;
+	padding: 3px 20px;
 	font-size: 12px;
 	font-weight: 400;
 	line-height: 1.42857143;
@@ -588,6 +585,17 @@ body{
 	border: 1px solid transparent;
 	border-radius: 3px;
 	}
+.slider-lg{
+	font-size: 19px;
+	padding: 0px 20px;
+	margin: 0px -3px;
+	width:250px;
+}
+}
+@media (max-width: 885px) {
+.slider{
+			width:100% !important;
+		}
 }
 @media (max-width: 850px) {
 h1{
@@ -595,6 +603,9 @@ h1{
 	}
 h2{
 	font-size: 18px;
+	}
+h3{
+	font-size: 16px;
 	}
 body{
 	font-size: 10px;
@@ -614,6 +625,12 @@ body{
 	word-wrap: break-word;
 	white-space: normal;
 	}
+.tooltip{
+	opacity:0 !important;
+	}
+li:hover > .tooltip{
+	opacity:1 !important;
+	}
 }
 
 @media (max-width: 700px) {
@@ -625,10 +642,12 @@ h2{
 	font-size: 16px;
 	overflow-x:hide;
 	}
+h3{
+	font-size: 14px;
+	overflow-x:hide;
+	}
 .slider{
-	display: inline-block;
 	padding: 2px 6px;
-	margin-bottom: 4px;
 	font-size: 10px;
 	font-weight: 400;
 	line-height: 1.42857143;
@@ -658,6 +677,5 @@ h2{
 	}
 .slider{
 	padding: 2px 10px;
-	width:100%;
 	}
 }
