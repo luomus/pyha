@@ -68,9 +68,9 @@
 				{% elif userRequest.status == 4 or userRequest.status == 7 or userRequest.status == 8 %}
 				<div class="alert alert-success
 				{% else %}  
-				<div class="alert panel-default
+				<div class="alert panel-default 
 				{% endif %}
-				requestcard">
+				requestcard" style="background-color:#EFF8FB;">
 					<div class="col-xs-12" style="height:relative">
 							<h2 style="text-align:center;">{% trans "handler_sensitive" %}</h2>
 							<div class="panel-body requestcollections" style="text-align:center;">
@@ -200,7 +200,7 @@
 					<div class="tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						{% if collections %}
 							{% if collections %}
-							<h2>{% trans "handler_collections_in_request" %}</h2>
+							<h3>{% trans "handler_collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -265,9 +265,9 @@
 						<div class="tab-pane {% if next == 'sensitive' %} active {% endif %}" role="tabpanel" id="sensitive">
 							{% if role1 %}
 								{% if userRequest.sensstatus == 0 %}
-								<h2>{% trans "handler_user_no_sensitive_data"%}</h2>
+								<h3>{% trans "handler_user_no_sensitive_data"%}</h3>
 								{% else %}
-								<h2>{% trans "handler_list_of_collections"%}</h2>
+								<h3>{% trans "handler_list_of_collections"%}</h3>
 								{% for collection in taxonlist %}
 									<span>{{collection.result.collectionName}}</span>
 								{% endfor %}
@@ -328,7 +328,7 @@
 						</div>
 						<div class="tab-pane {% if next == 'collection' %} active {% endif %}" role="tabpanel" id="collection">
 							{% if customlist %}
-								<h2>{% trans "handler_secured_collection_decicions" %}</h2>
+								<h3>{% trans "handler_secured_collection_decicions" %}</h3>
 									<table class="table" style="width:100%">
 										<tr style=color:black>
 											<th>{% trans "handler_collection_name" %}</th>
@@ -384,7 +384,7 @@
 							{% endif %}
 						</div>
 						<div class="tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-							<h2>{% trans "handler_request_filters" %}</h2>
+							<h3>{% trans "handler_request_filters" %}</h3>
 								{% if filters %}
 									<table class = "table" style="width:100%">
 										<tr style=color:black>
@@ -410,7 +410,7 @@
 								{% endif %}
 						</div>
 						<div class="tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-							<h2>{% trans "request_arguments" %}</h2>
+							<h3>{% trans "request_arguments" %}</h3>
 						<span>
 						{% for choice in reasonlist.argument_choices%}
 							{% if choice == 'reason_zoning' %}
@@ -460,7 +460,7 @@
 						</div>
 						<div class="tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 							{% if customlist %}
-								<h2>{% trans "handler_terms" %}</h2>
+								<h3>{% trans "handler_terms" %}</h3>
 								<table class="table" style="width:100%">
 									<tr>
 									<td>{% trans "handler_sensitivity" %}</td>
@@ -525,7 +525,7 @@
 							{% endif %}
 						</div>
 						<div class="tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-							<h2>{% trans "handler_contacts" %}</h2>
+							<h3>{% trans "handler_contacts" %}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 									<th>{% trans "handler_full_name" %}</th>
@@ -554,7 +554,7 @@
 							</table>
 						</div>
 						<div class="tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-							<h2>{% trans "handler_additional_questions" %}</h2>
+							<h3>{% trans "handler_additional_questions" %}</h3>
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#EFF8FB;" {% endif %}>
@@ -568,7 +568,7 @@
 								{% endif %}
 							{% endfor %}
 							{% if role1 %}
-							<h2>{% trans "handler_form_to_request_additional_information" %}</h2>
+							<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
 							<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 								<div class="form-group">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -584,7 +584,7 @@
 						<div class="tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
 								<div>
 									<div>
-										<h2>{% trans "handler_official_comment_area" %}</h2>
+										<h3>{% trans "handler_official_comment_area" %}</h3>
 										{% for requestChat in requestChat_list %}
 										<div class="panel panel-default">
 										<div class="panel-body" {% if requestChat.user == user %} style="background-color:#EFF8FB;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "handler_said" %}&#10;&#13;{{ requestChat }}</p></div>
@@ -606,7 +606,7 @@
 						{% endif %}
 						<div class="tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
 						{% if requestLog_list %}
-						<h2>{% trans "handler_changes_history" %}</h4>
+						<h3>{% trans "handler_changes_history" %}</h3>
 						<table class="table" style="width:100%">
 								<tr>
 									<th>{% trans "handler_log_date" %}</th>

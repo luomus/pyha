@@ -351,9 +351,10 @@ def create_coordinates(userRequest):
 		if(coord):
 			coordinates = coord[0].split(":", 4)
 			coordinates = coordinates[:7]
-			coordinates.append("{:.6f}".format((float(coordinates[1])-float(coordinates[0]))/2 + float(coordinates[0])))
-			coordinates.append("{:.6f}".format((float(coordinates[3])-float(coordinates[2]))/2 + float(coordinates[2])))
-			return coordinates
+			if(len(coordinates)>=4):
+				coordinates.append("{:.6f}".format((float(coordinates[1])-float(coordinates[0]))/2 + float(coordinates[0])))
+				coordinates.append("{:.6f}".format((float(coordinates[3])-float(coordinates[2]))/2 + float(coordinates[2])))
+				return coordinates
 		return None
 
 
