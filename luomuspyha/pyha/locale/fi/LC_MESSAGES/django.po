@@ -67,8 +67,6 @@ msgid "click_for_info"
 msgstr "Tarkastele aineistopyynnön tilaa valitsemalla se luettelosta"
 
 #: pyha/templates/pyha/handler/index.html:17
-#, fuzzy
-#| msgid "handler_log_viewed"
 msgid "handler_viewed"
 msgstr "Katsottu"
 
@@ -89,10 +87,8 @@ msgid "handler_request_status_for_admin"
 msgstr "Aineistopyynnön tila"
 
 #: pyha/templates/pyha/handler/index.html:45
-#, fuzzy
-#| msgid "handler_requester"
 msgid "handler_new_request"
-msgstr "Ainestopyynnön tekijä"
+msgstr "Uusi pyyntö"
 
 #: pyha/templates/pyha/handler/index.html:50
 msgid "handler_you_have_not_accepted_terms"
@@ -100,17 +96,13 @@ msgstr "Lue ja hyväksy ehdot"
 
 #: pyha/templates/pyha/handler/index.html:55
 #: pyha/templates/pyha/handler/requestview.html:31
-#, fuzzy
-#| msgid "handler_waiting_for_data_provider"
 msgid "handler_waiting_for_others"
-msgstr "Odottaa päätöstä"
+msgstr "Odottaa muiden päätöstä"
 
 #: pyha/templates/pyha/handler/index.html:57
 #: pyha/templates/pyha/handler/requestview.html:33
-#, fuzzy
-#| msgid "handler_waiting_for_download"
 msgid "handler_waiting_for_you"
-msgstr "Odottaa latauksen valmistumista"
+msgstr "Odottaa sinun päätöstäsi"
 
 #: pyha/templates/pyha/handler/index.html:61
 #: pyha/templates/pyha/handler/requestview.html:36
@@ -164,22 +156,16 @@ msgid "handler_request_from_user"
 msgstr "Pyyntö käyttäjältä"
 
 #: pyha/templates/pyha/handler/requestview.html:15
-#, fuzzy
-#| msgid "handler_state_of_processing"
 msgid "handler_state_of_request"
-msgstr "Käsittelyn tila"
+msgstr "Pyynnön tila:"
 
 #: pyha/templates/pyha/handler/requestview.html:46
-#, fuzzy
-#| msgid "handler_request_additional_information"
 msgid "handler_show_additional_information"
-msgstr "Pyydä lisätietoja"
+msgstr "Näytä lisätietopyyntö"
 
 #: pyha/templates/pyha/handler/requestview.html:75
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "handler_sensitive"
-msgstr "Sensitiivisyys"
+msgstr "Sensitiiviset aineistot"
 
 #: pyha/templates/pyha/handler/requestview.html:78
 #: pyha/templates/pyha/handler/requestview.html:112
@@ -218,10 +204,8 @@ msgid "denied"
 msgstr "Hylätty"
 
 #: pyha/templates/pyha/handler/requestview.html:85
-#, fuzzy
-#| msgid "handler_refuse"
 msgid "handler_restricted"
-msgstr "Hylkää"
+msgstr "Käyttörajoitetut aineistot"
 
 #: pyha/templates/pyha/handler/requestview.html:127
 msgid "handler_request_window"
@@ -480,74 +464,56 @@ msgstr "Sensitiivisten ainestojen käyttöehdot"
 #: pyha/templates/pyha/handler/requestview.html:505
 #: pyha/templates/pyha/requestform.html:234
 #: pyha/templates/pyha/requestview.html:526
-#, fuzzy
-#| msgid "contact_info_tab"
 msgid "contact_name"
-msgstr "Hakijat"
+msgstr "Nimi:"
 
 #: pyha/templates/pyha/handler/requestview.html:506
 #: pyha/templates/pyha/requestform.html:235
 #: pyha/templates/pyha/requestview.html:527
-#, fuzzy
-#| msgid "enter_street_address"
 msgid "contact_street_address"
-msgstr "Katuosoite"
+msgstr "Katuosoite:"
 
 #: pyha/templates/pyha/handler/requestview.html:507
 #: pyha/templates/pyha/requestform.html:236
 #: pyha/templates/pyha/requestview.html:528
-#, fuzzy
-#| msgid "enter_post_office_name"
 msgid "contact_post_office"
-msgstr "Postitoimipaikka"
+msgstr "Postitoimipaikka:"
 
 #: pyha/templates/pyha/handler/requestview.html:508
 #: pyha/templates/pyha/requestform.html:237
 #: pyha/templates/pyha/requestview.html:529
-#, fuzzy
-#| msgid "contact_list"
 msgid "contact_postal"
-msgstr "Hakijat"
+msgstr "Postinumero:"
 
 #: pyha/templates/pyha/handler/requestview.html:509
 #: pyha/templates/pyha/requestform.html:238
 #: pyha/templates/pyha/requestview.html:530
-#, fuzzy
-#| msgid "enter_country"
 msgid "contact_country"
-msgstr "Maa"
+msgstr "Maa:"
 
 #: pyha/templates/pyha/handler/requestview.html:510
 #: pyha/templates/pyha/requestform.html:239
 #: pyha/templates/pyha/requestview.html:531
-#, fuzzy
-#| msgid "contact_list"
 msgid "contact_email"
-msgstr "Hakijat"
+msgstr "Sähköposti:"
 
 #: pyha/templates/pyha/handler/requestview.html:511
 #: pyha/templates/pyha/requestform.html:240
 #: pyha/templates/pyha/requestview.html:532
-#, fuzzy
-#| msgid "enter_phone_number"
 msgid "contact_phone_number"
-msgstr "Puhelinnumero"
+msgstr "Puhelinnumero:"
 
 #: pyha/templates/pyha/handler/requestview.html:512
 #: pyha/templates/pyha/requestform.html:241
 #: pyha/templates/pyha/requestview.html:533
-#, fuzzy
-#| msgid "enter_corporation_id"
 msgid "contact_corporation"
-msgstr "Y-Tunnus"
+msgstr "Yritys/Organisaatio:"
 
 #: pyha/templates/pyha/handler/requestview.html:513
 #: pyha/templates/pyha/requestform.html:242
 #: pyha/templates/pyha/requestview.html:534
-#, fuzzy
-#| msgid "enter_corporation_id"
 msgid "contact_corporation_id"
-msgstr "Y-Tunnus"
+msgstr "Y-Tunnus:"
 
 #: pyha/templates/pyha/handler/requestview.html:524
 #: pyha/templates/pyha/requestform.html:304
@@ -1129,16 +1095,12 @@ msgid "change_description"
 msgstr "Muuta kuvaus"
 
 #: pyha/templates/pyha/requestview.html:42
-#, fuzzy
-#| msgid "state_of_processing"
 msgid "state_of_request"
-msgstr "Käsittelyn tila"
+msgstr "Pyynnön tila:"
 
 #: pyha/templates/pyha/requestview.html:70
-#, fuzzy
-#| msgid "additional_information"
 msgid "show_additional_information"
-msgstr "Lisätietojen pyytäminen"
+msgstr "Näytä lisätietopyyntö"
 
 #: pyha/templates/pyha/requestview.html:100
 msgid "sensitive"
