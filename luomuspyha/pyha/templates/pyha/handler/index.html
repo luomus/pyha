@@ -108,8 +108,9 @@ $(document).ready(function($) {
 </script>
 <script>
 $(document).ready(function() {
+    $.fn.dataTable.moment('DD.MM.YYYY    HH:mm');
     $('#requests-table').dataTable( {
-            "order": [[ 0, "desc" ]],
+            "order": [[ 1, "desc" ]],
             "language": {
              {% if LANGUAGE == "fi" %}
             "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Finnish.json"
