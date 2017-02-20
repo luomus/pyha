@@ -12,7 +12,7 @@ import base64
 from functools import wraps
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.wsgi import get_wsgi_application
-from luomuspyha import secrets
+from django.conf import settings
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "luomuspyha.settings")
 
@@ -28,7 +28,7 @@ def basic_auth_required(func):
 				auth = base64.b64decode(auth).decode("utf-8")
 				if(len(auth.split(':', 1)) == 2):
 					username, password = auth.split(':', 1)
-					if username == secrets.HTTPS_USER and password == secrets.HTTPS_PSW:
+					if username == settings.HTTPS_USER and password == settings.HTTPS_PSW:
 						return func(request, *args, **kwargs)
 					else:
 						return HttpResponseForbidden('<h1>Forbidden</h1>')

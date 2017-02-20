@@ -34,6 +34,8 @@ LAJIPERSONAPI_PW = os.environ["PW_1"]
 LAJIAPI_URL = 'https://apitest.laji.fi/v0/'
 LAJIFILTERS_URL= 'https://apitest.laji.fi/v0/warehouse/filters'
 TARGET='KE.541'
+HTTPS_USER = 'kivaa'
+HTTPS_PSW = 'kivaa'
 MOCK_JSON=True
 APPEND_SLASH=False
 
