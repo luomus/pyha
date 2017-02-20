@@ -579,12 +579,12 @@
 							<h2>{% trans "additional_questions" %}</h2>
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
-								<div class="panel panel-default">
+								<div class="panel panel-default" {% if question.user == user %} style="background-color:#EFF8FB;" {% endif %}>
 								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }}{% trans "asked" %}&#10;&#13;{{question}}</p></div>
 								</div>
 								{% endif %}
 								{% if question.question != True %}
-								<div class="panel panel-default">
+								<div class="panel panel-default" {% if question.user == user %} style="background-color:#EFF8FB;" {% endif %}>
 								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
 								</div>
 								{% endif %}
