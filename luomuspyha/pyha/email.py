@@ -43,6 +43,7 @@ def send_mail_after_receiving_request(requestId, lang):
 	from_email = 'helpdesk@laji.fi'	
 	to = fetch_email_address(req.user)
 	recipients = [to]
+	print(to)
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
 
 def send_mail_after_receiving_download(requestId):

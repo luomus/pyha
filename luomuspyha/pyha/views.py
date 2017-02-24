@@ -126,7 +126,7 @@ def jsonmock(request):
 		return render(request, 'pyha/mockjson.html')
 		
 def check_language(request):
-		if request.GET.get('lang') and request.session["_language"] != request.GET.get('lang'):
+		if request.GET.get('lang') and request.session.get('_language', "none") != request.GET.get('lang'):
 				request.session["_language"] = request.GET.get('lang')
 				return True
 		return False

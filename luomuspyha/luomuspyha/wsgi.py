@@ -34,6 +34,6 @@ def basic_auth_required(func):
 						return HttpResponseForbidden('<h1>Forbidden</h1>')
 		res = HttpResponse()
 		res.status_code = 401
-		res['WWW-Authenticate'] = 'Basic'
+		res['WWW-Authenticate'] = 'Basic realm="Pyha"'
 		return res
 	return _decorator

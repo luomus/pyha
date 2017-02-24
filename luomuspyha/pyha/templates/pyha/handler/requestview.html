@@ -676,6 +676,14 @@
 			}
 		}
 	</script>
+	{% if next == 'information' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('additional_information').scrollIntoView();
+			document.getElementById('requestform').scrollIntoView();
+		});
+	</script>
+	{% endif %}
 {% endblock %}
 
 {% block modal %}
