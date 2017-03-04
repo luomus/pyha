@@ -17,7 +17,6 @@ from django.conf import settings
 from pyha.login import authenticate
 from pyha.login import log_out
 from requests.auth import HTTPBasicAuth
-from pyha.email import fetch_email_address
 from pyha.warehouse import store
 from pyha.models import Collection, Request, RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
@@ -27,6 +26,7 @@ from pyha.roles import *
 from pyha.email import *
 from django.core.cache import cache
 from datetime import datetime, timedelta
+from functools import reduce
 
 @csrf_exempt
 def index(request):
@@ -43,10 +43,11 @@ def index(request):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(taxonSecured__gt = 0).exclude(downloadRequestHandler__contains = str(userId)).values("request")).order_by('-date')
 			if HANDLER_COLL in request.session.get("user_roles", [None]):
 				request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
-			request_list = list(set(request_list))
+			request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 			for r in request_list:
 				r.email = fetch_email_address(r.user)
 				handler_waiting_status(r, request, userId)
+				handler_information_answered_status(r, request, userId)
 				if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0):
 					r.viewed = True
 			context = {"role": hasRole, "email": request.session["user_email"], "requests": request_list, "static": settings.STA_URL }
@@ -113,13 +114,33 @@ def download(request, link):
 @basic_auth_required
 def new_count(request):
 		if request.method == 'GET':
-			'''return JsonResponse({'count':RequestLogEntry.requestLog.filter(request = Request.requests.exclude(status__lte=0)).exclude(user = request.GET.get('token'), role = HANDLER_SENS, action = 'VIEW').count()})'''
-			request_list = Request.requests.exclude(status__lte=0)
-			count = 0
-			for r in request_list:
-				if(RequestLogEntry.requestLog.filter(request = r.id, user = request.GET.get('token'), action = 'VIEW').count() == 0):
-					count += 1
-			return JsonResponse({'count':count})
+			if 'none' != request.GET.get('person', 'none'):
+				personId = request.GET.get('person');
+				role = fetch_role(personId)
+				count = 0
+				if(settings.TUN_URL+HANDLER_SENS in role.values()):
+					request_list = Request.requests.exclude(status__lte=0)
+					for r in request_list:
+						if(RequestLogEntry.requestLog.filter(request = r.id, user = request.GET.get('person'), action = 'VIEW').count() == 0):
+							count += 1
+							print(r.id)
+						else:
+							if r.sensstatus == 1 and RequestInformationChatEntry.requestInformationChat.filter(request=r.id).count() > 0:
+								chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id).order_by('-date')[0]
+								if not chat.question:
+									count += 1
+									print(r.id)
+				else:
+					request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(personId),status__gt = 0 ).values("request"))
+					for r in request_list:
+						if(RequestLogEntry.requestLog.filter(request = r.id, user = request.GET.get('person'), action = 'VIEW').count() == 0):
+							count += 1
+				return JsonResponse({'count':count})
+		return HttpResponse('')
+
+def new_pdf(request):
+		if request.method == 'POST':
+			return HttpResponse(fetch_pdf(request.POST.get('source')),content_type='application/pdf')
 		return HttpResponse('')
 
 def jsonmock(request):
@@ -404,6 +425,15 @@ def handler_waiting_status(r, request, userId):
 		elif HANDLER_COLL in request.session.get("user_roles", [None]):
 			for c in Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1):
 				r.waitingstatus = 1
+		return
+
+def handler_information_answered_status(r, request, userId):
+		r.answerstatus = 0
+		if HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
+			if RequestInformationChatEntry.requestInformationChat.filter(request=r.id).exists():
+				chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id).order_by('-date')[0]
+				if not chat.question:
+					r.answerstatus = 1
 		return
 
 def get_values_for_collections(requestId, request, List):
@@ -978,8 +1008,6 @@ def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
 	elif(statusBeforeUpdate!=userRequest.status):
 		#Send email if status changed
 		send_mail_after_request_status_change_to_requester(userRequest.id, lang)
-
-
 
 
 

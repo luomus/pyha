@@ -12,7 +12,7 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="http://front.laji-test.luomus.fi/favicon.ico">
+  <link rel="icon" href="http://cdn.laji.fi/images/icons/favicon.ico">
 
   <title>{{ title }}</title>
 
@@ -52,9 +52,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
         <li><a class="nohover" >{{email}} <span class="glyphicon glyphicon-user"></span></a></li>
-        <li><a href="{% url 'pyha:logout' %}">{% trans "logout" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
-		
 		{% if role %}
+		<li>
 		<div class="dropdown">
 		<form id='role_form' action="{% url 'pyha:change_role' %}" method="post"
             data-currenturl='{{ request.path }}'
@@ -71,20 +70,31 @@
 		<input type="hidden" id="next" name="next" value={{request.path}}>
 		<input id='role_form_select' name="role" type="hidden" value="">
 		</form>
+		</li>
 		{% endif %}
-		
+        <li><a href="{% url 'pyha:logout' %}">{% trans "logout" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
         {% get_current_language as LANGUAGE %}
 		<div class="dropdown">
 		<form id='language_form' action="{% url 'set_language' %}" method="post"
             data-currenturl='{{ request.path }}'
             data-currentfullurl='{{ request.get_full_path }}'>
-		<button type="button" onclick="myFunction()" class="dropbtn">{{LANGUAGE}}{% csrf_token %} <span class="glyphicon glyphicon-globe"></span></button>
-			<div id="myDropdown" class="dropdown-content">
+		<button type="button" onclick="myFunction()" class="dropbtn">{% if LANGUAGE == 'sw' %}SV{% else %}{{LANGUAGE|upper}}{% endif %}{% csrf_token %} <span class="glyphicon glyphicon-globe"></span></button>
+			<div id="myDropdown" class="dropdown-content" style="left: -50%;">
               {% get_available_languages as LANGUAGES %}
               {% get_language_info_list for LANGUAGES as languages %}
               
               {% for language in languages %}
-              <a onclick='submit("{{ language.code }}")' name="code" id="code">{{ language.code }}</a>
+				{% if not LANGUAGE == language.code %}
+				  <a onclick='submit("{{ language.code }}")' name="code" id="code">
+					  {% if language.code == 'fi' %}
+					  {% trans "set_lang_fi" %}
+					  {% elif language.code == 'sw' %}
+					  {% trans "set_lang_sv" %}
+					  {% elif language.code == 'en' %}
+					  {% trans "set_lang_en" %}
+					  {% endif %}
+				  </a>
+				  {% endif %}
               {% endfor %}
 			  
 			</div>

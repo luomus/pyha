@@ -61,7 +61,7 @@ p {
 }
 
 .slider-waiting-light {
-    background-color: #337ab7;
+    background-color: #2980B9;
 	color:white;
 }
 
@@ -81,7 +81,7 @@ p {
 }
 
 .slider-declined-light {
-    background-color: #FF3F3F;
+    background-color: #EF1313;
 	color:white;
 }
 
@@ -413,6 +413,22 @@ div.contact-form{
 
 .show {display:block;}
 
+.vertical-sideway {
+    -ms-transform: rotate(270deg); /* IE 9 */
+	-ms-transform-origin: 50% 50%; /* IE 9 */
+    -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+	-webkit-transform-origin: 50% 50%; /* Chrome, Safari, Opera */
+    transform: rotate(270deg);
+	transform-origin: 50% 50%;
+	float: left;
+	font-size: 56px;
+	position: absolute;
+	font-weight: 700;
+	opacity: 0.7;
+	padding-bottom: 150px;
+	letter-spacing: -6px;
+}
+
 
   /* Custom page CSS
   -------------------------------------------------- */
@@ -456,6 +472,10 @@ div.contact-form{
     background-color: #2980B9;
     border-color: #2980B9;
   }
+  
+  .navbar-toggle .icon-bar {
+    background-color: white;
+}
 
   .navbar-custom .navbar-nav>.active>a:not(.nohover), .navbar-custom .navbar-nav>.active>a:focus:not(.nohover),
   .navbar-custom .navbar-nav>.active>a:hover:not(.nohover), .navbar-custom .navbar-nav > li > a:hover:not(.nohover),
@@ -478,6 +498,10 @@ div.contact-form{
   code {
     font-size: 80%;
   }
+  
+  .model-field {
+	font-size: 14px;
+  }
 
   .side-bar {
     background-color: #ECF0F1;
@@ -495,7 +519,6 @@ div.contact-form{
   .modal-body {
   position: relative;
   padding: 15px;
-  height: 700;
 }
 
  .modal-confirm {
@@ -596,6 +619,17 @@ body{
 .slider{
 			width:100% !important;
 		}
+.slider-group > .slider:first-child:not(:last-child){
+	border-top-right-radius: 3px;
+	border-bottom-left-radius: 0;
+}
+.slider-group > .slider:not(:first-child):not(:last-child){
+	border-radius: 0;
+}
+.slider-group > .slider:last-child:not(:first-child){
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 3px;
+}
 }
 @media (max-width: 850px) {
 h1{
@@ -630,6 +664,9 @@ body{
 	}
 li:hover > .tooltip{
 	opacity:1 !important;
+	}
+.slider-lg{
+	font-size: 17px;
 	}
 }
 

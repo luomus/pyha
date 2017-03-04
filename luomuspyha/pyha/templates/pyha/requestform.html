@@ -229,17 +229,31 @@
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+															<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('sens-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 														</div>
-														<div class="modal-body">
-															<p>{% trans 'contact_name' %} <span id="contact_name"></span></p>
-															<p>{% trans 'contact_street_address' %} <span id="contact_street_address"></span></p>
-															<p>{% trans 'contact_post_office' %} <span id="contact_post_office"></span></p>
-															<p>{% trans 'contact_postal' %} <span id="contact_postal"></span></p>
-															<p>{% trans 'contact_country' %} <span id="contact_country"></span></p>
-															<p>{% trans 'contact_email' %} <span id="contact_email"></span></p>
-															<p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p>
-															<p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p>
-															<p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p>
+														<div id="sens-content" class="modal-body">
+															<div style="float:left;">
+															<svg xmlns="http://www.w3.org/2000/svg"
+																width="60" height="160" version="1.1" baseProfile="full"
+																style="width: 60px; height: 160px; display: block;">
+																<g transform="rotate(270)">
+																	<text textLength="160" fill="#777777" font-weight="700" font-size="50px" style="font-family: Arial, Helvetica, sans-serif;">
+																		<tspan x="-160" dy="50" >LAJI.FI</tspan>
+																	</text>
+																   </g>
+															  </svg>
+															</div>
+															<div style="margin-left:120px;margin-top:50px;">
+																<p>{% trans 'contact_name' %} <span id="contact_name"></span></p>
+																<p>{% trans 'contact_street_address' %} <span id="contact_street_address"></span></p>
+																<p>{% trans 'contact_post_office' %} <span id="contact_post_office"></span></p>
+																<p>{% trans 'contact_postal' %} <span id="contact_postal"></span></p>
+																<p>{% trans 'contact_country' %} <span id="contact_country"></span></p>
+																<p>{% trans 'contact_email' %} <span id="contact_email"></span></p>
+																<p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p>
+																<p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p>
+																<p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p>
+															</div>
 														</div>
 														<div class="modal-footer">
 															<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">

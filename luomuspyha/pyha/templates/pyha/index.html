@@ -10,8 +10,9 @@
       </div>
       {% if requests %}
       <h2>{% trans "requests_for_user" %}</h2>
-  <p class ="text-muted">{% trans "click_for_info" %}.</p>            
-  <table id="requests-table" class="table table-hover table-bordered">
+  <p class ="text-muted">{% trans "click_for_info" %}.</p>
+  
+  <table title="{% trans 'given_values_are_not_absolute' %}" id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#3498DB" style="color:white;">
         <th>{% trans "request_date" %}</th>	
@@ -78,12 +79,12 @@
         </tr>
         
 	{% endfor %}
-    
+	</tbody>
+  </table>
+    <p>{% trans 'given_values_are_not_absolute' %}</p>
 	{% else %}
 		<strong>{% trans "no_requests_for_user" %}.</strong>
 	{% endif %}
-    </tbody>
-  </table>
     </div>
   <!--
     <div class="col-sm-3 col-lg-2 side-bar">

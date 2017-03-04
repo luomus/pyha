@@ -14,7 +14,7 @@
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#349934" style="color:white;">
-        <th>{% trans "handler_viewed" %}</th>
+        <th>{% trans "handler_new_events" %}</th>
         <th>{% trans "handler_request_date" %}</th>
         <th>{% trans "handler_requester" %}</th>	
         <th>{% trans "handler_request_hits" %}</th>
@@ -42,7 +42,7 @@
         {% endif %}
             data-href="request/{{request.id}}"
             >
-            <td>{% if not request.viewed %}{% trans "handler_new_request" %}{% endif %}</td>
+            <td>{% if not request.viewed or request.answerstatus == 1%}<span class="glyphicon glyphicon-bell"></span>{% endif %}</td>
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
             <td>{{request.email}}</td>
             <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
@@ -51,7 +51,9 @@
             
             {% elif request.status == 1 %}
 				<td>
-					{% if request.waitingstatus == 0 %}
+					{% if request.answerstatus == 1 %}
+					{% trans "handler_waiting_for_response_on_answer" %}
+					{% elif request.waitingstatus == 0 %}
 					{% trans "handler_waiting_for_others" %}
 					{% elif request.waitingstatus == 1 %}
 					{% trans "handler_waiting_for_you" %}
@@ -89,6 +91,7 @@
 	{% endif %}
     </tbody>
   </table>
+  <p>{% trans 'given_values_are_not_absolute' %}</p>
     </div>
   <!--
     <div class="col-sm-3 col-lg-2 side-bar">

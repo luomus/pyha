@@ -10,6 +10,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 from django.core.cache import cache
+import urllib
 
 
 def send_mail_after_receiving_request(requestId, lang):
@@ -92,6 +93,28 @@ def fetch_email_address(personId):
 			return email
 	else:
 		return cache.get('email'+personId)
+
+def fetch_role(personId):
+	username = settings.LAJIPERSONAPI_USER
+	password = settings.LAJIPERSONAPI_PW 
+	if 'has expired' in cache.get('role'+personId, 'has expired'):
+		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
+		if(response.status_code == 200):
+			data = response.json()
+			role = data['rdf:RDF']['MA.person'].get('MA.role', {'role':'none'})
+			cache.set('role'+personId,role)
+			return role
+	else:
+		return cache.get('role'+personId)
+
+def fetch_pdf(data):
+	username = settings.PDFAPI_USER
+	password = settings.PDFAPI_PW 
+	payload = {'html': data}
+	response = requests.post(settings.PDFAPI_URL, params = payload, auth=HTTPBasicAuth(username, password ))
+	if(response.status_code == 200):
+		return response
+
 def send_mail_for_approval(requestId, collection, lang):
 	'''
 	Sends mail to collection download request handler(s) for request approval.

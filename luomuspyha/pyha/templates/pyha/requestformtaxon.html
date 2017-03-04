@@ -2,7 +2,7 @@
 												{% if taxon %}
 												<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}</h3>
 												<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
-
+												<p>{% trans 'given_values_are_not_absolute' %}</p>
 
 												<div id="sensitiveInfo" class="collapse">
 													<p>{more_sensitivity_info}</p>

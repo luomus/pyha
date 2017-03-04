@@ -84,59 +84,29 @@
 				</span></h2>
 			</div>
 			<div style="padding-left:0px;">
-				{% if userRequest.status == 1 %}
-				<div class="alert alert-info
-				{% elif userRequest.status == 2 %}
-				<div class="alert alert-warning
-				{% elif userRequest.status == 3 %}
-				<div class="alert alert-danger
-				{% elif userRequest.status == 4 or userRequest.status == 7 or userRequest.status == 8 %}
-				<div class="alert alert-success
-				{% else %}  
-				<div class="alert panel-default
-				{% endif %}
-				requestcard" style="background-color:#EFF8FB;">
+				<div>
 					<div class="col-xs-12" style="height:relative">
 							<h2 style="text-align:center;">{% trans "sensitive" %}</h1>
-							<div class="panel-body requestcollections" style="text-align:center;">
+							<div style="text-align:center;">
 								<h3 class="slider-group" style="vertical-align:middle;margin-bottom:20px;margin-top:5px;">
 									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-lg slider-declined{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</h3>
 							</div>
 					</div>
 					<div class="col-xs-12">
 						<h2 style="text-align:center;top:0%;">{% trans "restricted" %}</h2>
-						<div class="panel-body requestcollections" style="{% if userRequest.sensstatus == 3 or  userRequest.sensstatus == 1 %}opacity: 0.5;{% endif %}">
+						<div style="{% if userRequest.sensstatus == 3 or  userRequest.sensstatus == 1 %}opacity: 0.5;{% endif %}">
 						<table class="table">
 							{% for collection in collections %}
-								{% if collection.status == 1 or userRequest.sensstatus != 4 %}
-								<tr class="info clickable-row"
-								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row"
-								{% elif collection.status == 4 %}
-								<tr class="success clickable-row"
-								{% elif collection.customSecured == 0 %}
-									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
-									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
-									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
-									{% else %}
-									<tr
-									{% endif %}
-								{% else %}
-								<tr
-								{% endif %}
-								>
+								<tr>
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-waiting{% if collection.status == 1 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-accepted{% if collection.status == 4 and userRequest.sensstatus == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-declined{% if collection.status == 3 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-waiting{% if collection.status == 4 and userRequest.sensstatus == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-waiting{% if collection.status == 3 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
 								</td>
 							</tr>
@@ -188,42 +158,42 @@
 					</form>
 			</div>
 				<ul class="nav nav-tabs" role="tablist">
-					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
 						<a href="#request" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
 								{% trans 'request_window' %}
 							</span>
 						</a>
 					</li>
-					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
 						<a href="#decision" class="vertical-tab" data-toggle="tab" aria-controls="decision" role="tab">
 							<span>
 								{% trans 'decision_window' %}
 							</span>
 						</a>
 					</li>  
-					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} >
 						<a href="#arguments" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
 							<span>
 								{% trans 'argument_window' %}
 							</span>
 						</a>
 					</li>
-					<li id="filters-tab" role="presentation" {% if next == "filters" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="filters-tab" role="presentation" {% if next == "filters" %} class="active" {% endif %} >
 						<a href="#filters" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
 							<span>
 								{% trans 'filter_window' %}
 							</span>
 						</a>
 					</li>
-					<li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} >
 						<a href="#terms" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
 							<span>
 								{% trans 'terms_window' %}
 							</span>
 						</a>
 					</li>
-					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
 						<a href="#contacts" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
 								{% trans 'contact_window' %}
@@ -231,7 +201,7 @@
 						</a>
 					</li>
 					{% if requestInformationChat_list %}
-					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
 						<a href="#additional_information" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span> 
 								{% if userRequest.status == 6 %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'additional_information_window' %}
@@ -239,7 +209,7 @@
 						</a>
 					</li>
 					{% endif %}
-					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} style="background-color:#EFF8FB">
+					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
 						<a href="#history" class="vertical-tab" data-toggle="tab" aria-controls="history" role="tab">
 							<span>
 								{% trans "changes_history" %}
@@ -518,20 +488,38 @@
 										<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 										  <div class="modal-lg modal-dialog" role="document">
 											<div class="modal-content">
-											  <div class="modal-header">
+												<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 												<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
-											  </div>
-											  <div class="modal-body">
-												<p>{% trans 'contact_name' %} {{contactlist.0.personName}}</p>
-												<p>{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p>
-												<p>{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p>
-												<p>{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p>
-												<p>{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p>
-												<p>{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p>
-												<p>{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p>
-												<p>{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p>
-												<p>{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p>
+												<form action="{% url 'pyha:newpdf' %}" onsubmit="this.source.value=document.getElementById('sens-content').outerHTML" method="post">
+													<button type="submit" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+													<input type="hidden" name="source" />
+													{% csrf_token %}
+												</form>
+												</div>
+												<div id="sens-content" class="modal-body">
+												<div style="float:left;">
+												<svg xmlns="http://www.w3.org/2000/svg"
+													width="60" height="160" version="1.1" baseProfile="full"
+													style="width: 60px; height: 160px; display: block;">
+													<g transform="rotate(270)">
+														<text textLength="160" fill="#777777" font-weight="700" font-size="50px" style="font-family: Arial, Helvetica, sans-serif;">
+															<tspan x="-160" dy="50" >LAJI.FI</tspan>
+														</text>
+													   </g>
+												  </svg>
+												</div>
+												<div style="margin-left:120px;margin-top:50px;">
+												<p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p>
+												<p class="model-field">{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p>
+												<p class="model-field">{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p>
+												<p class="model-field">{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p>
+												<p class="model-field">{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p>
+												<p class="model-field">{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p>
+												<p class="model-field">{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p>
+												<p class="model-field">{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p>
+												<p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p>
+												</div>
 											  </div>
 											  <div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
@@ -579,12 +567,12 @@
 							<h3>{% trans "additional_questions" %}</h3>
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
-								<div class="panel panel-default" {% if question.user == user %} style="background-color:#EFF8FB;" {% endif %}>
+								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
 								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }}{% trans "asked" %}&#10;&#13;{{question}}</p></div>
 								</div>
 								{% endif %}
 								{% if question.question != True %}
-								<div class="panel panel-default" {% if question.user == user %} style="background-color:#EFF8FB;" {% endif %}>
+								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
 								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
 								</div>
 								{% endif %}
