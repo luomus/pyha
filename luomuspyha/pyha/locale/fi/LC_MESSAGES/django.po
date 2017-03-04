@@ -56,15 +56,15 @@ msgstr "Kirjaudu ulos"
 
 #: pyha/templates/pyha/base.html:90
 msgid "set_lang_fi"
-msgstr ""
+msgstr "Suomeksi"
 
 #: pyha/templates/pyha/base.html:92
 msgid "set_lang_sv"
-msgstr ""
+msgstr "På svenska"
 
 #: pyha/templates/pyha/base.html:94
 msgid "set_lang_en"
-msgstr ""
+msgstr "In English"
 
 #: pyha/templates/pyha/handler/index.html:9
 msgid "handler_welcome"
@@ -79,10 +79,8 @@ msgid "click_for_info"
 msgstr "Tarkastele aineistopyynnön tilaa valitsemalla se luettelosta"
 
 #: pyha/templates/pyha/handler/index.html:17
-#, fuzzy
-#| msgid "handler_new_request"
 msgid "handler_new_events"
-msgstr "Uusi pyyntö"
+msgstr "Uusia tapahtumia"
 
 #: pyha/templates/pyha/handler/index.html:18
 msgid "handler_request_date"
@@ -105,10 +103,8 @@ msgid "handler_you_have_not_accepted_terms"
 msgstr "Lue ja hyväksy ehdot"
 
 #: pyha/templates/pyha/handler/index.html:55
-#, fuzzy
-#| msgid "handler_waiting_for_download"
 msgid "handler_waiting_for_response_on_answer"
-msgstr "Odottaa latauksen valmistumista"
+msgstr "Lisätietokysymykseen on vastattu"
 
 #: pyha/templates/pyha/handler/index.html:57
 #: pyha/templates/pyha/handler/requestview.html:31
@@ -479,10 +475,8 @@ msgid "handler_sensitive_terms"
 msgstr "Sensitiivisten ainestojen käyttöehdot"
 
 #: pyha/templates/pyha/handler/requestview.html:470
-#, fuzzy
-#| msgid "handler_asked"
 msgid "handler_as_pdf"
-msgstr " kysyi:"
+msgstr "PDF muodossa"
 
 #: pyha/templates/pyha/handler/requestview.html:488
 #: pyha/templates/pyha/requestform.html:246

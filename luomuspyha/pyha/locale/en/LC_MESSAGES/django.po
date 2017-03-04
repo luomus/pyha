@@ -54,15 +54,15 @@ msgstr "Log out"
 
 #: pyha/templates/pyha/base.html:90
 msgid "set_lang_fi"
-msgstr ""
+msgstr "Suomeksi"
 
 #: pyha/templates/pyha/base.html:92
 msgid "set_lang_sv"
-msgstr ""
+msgstr "På svenska"
 
 #: pyha/templates/pyha/base.html:94
 msgid "set_lang_en"
-msgstr ""
+msgstr "In English"
 
 #: pyha/templates/pyha/handler/index.html:9
 #, fuzzy
