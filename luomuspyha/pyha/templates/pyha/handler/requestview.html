@@ -71,6 +71,7 @@
 							</div>
 					</div>
 					<div class="col-xs-12">
+						{% if collections %}
 						<h2 style="text-align:center;top:0%;">{% trans "handler_restricted" %}</h2>
 						<div style= "{% if userRequest.sensstatus == 3%}opacity: 0.5;{% endif %}">
 						<table class="table">
@@ -88,6 +89,7 @@
 							{% endfor %}
 						</table>
 						</div>
+						{% endif %}
 					</div>
 			</div>
 				<ul class="nav nav-tabs" role="tablist">
@@ -107,13 +109,15 @@
 						</a>
 					</li>
 					{% endif %}
+					{% if customlist %}
 					<li id="collection-tab" role="presentation" {% if next == "collection" %} class="active" {% endif %} ">
 						<a href="#collection" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
 								{% trans 'handler_collection_window' %}
 							</span>
 						</a>
-					</li>  
+					</li>
+					{% endif %}  
 					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} >
 						<a href="#arguments" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
 							<span>
@@ -168,9 +172,7 @@
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
-						{% if collections %}
-							{% if collections %}
-							<h3>{% trans "handler_collections_in_request" %}</h3>
+						<h3>{% trans "handler_collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -226,11 +228,6 @@
 									{% endif %}
 								{% endfor %}
 							</table>
-						{% endif %}
-						
-						{% else %}
-							<strong> {% trans "handler_no_collections_for_requests" %}.</strong>
-						{% endif %}
 						</div>
 						<div class="tab-pane {% if next == 'sensitive' %} active {% endif %}" role="tabpanel" id="sensitive">
 							{% if role1 %}
@@ -429,7 +426,6 @@
 							</table>
 						</div>
 						<div class="tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
-							{% if customlist %}
 								<h3>{% trans "handler_terms" %}</h3>
 								<table class="table" style="width:100%">
 									<tr>
@@ -507,10 +503,6 @@
 										  </div>
 										</div>
 								</table>
-							
-							{% else %}
-								<strong> {% trans "no_collections_for_requests" %}.</strong>
-							{% endif %}
 						</div>
 						<div class="tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
 							<h3>{% trans "handler_contacts" %}</h3>
