@@ -243,15 +243,40 @@
 															  </svg>
 															</div>
 															<div style="margin-left:120px;margin-top:50px;">
-																<p>{% trans 'contact_name' %} <span id="contact_name"></span></p>
-																<p>{% trans 'contact_street_address' %} <span id="contact_street_address"></span></p>
-																<p>{% trans 'contact_post_office' %} <span id="contact_post_office"></span></p>
-																<p>{% trans 'contact_postal' %} <span id="contact_postal"></span></p>
-																<p>{% trans 'contact_country' %} <span id="contact_country"></span></p>
-																<p>{% trans 'contact_email' %} <span id="contact_email"></span></p>
-																<p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p>
-																<p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p>
-																<p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p>
+																<h3 style="font-weight: bold;">Suomen Lajitietokeskuksen sensitiivinen lajitieto – Käyttöehdot</h3>
+																<h4 style="font-weight: bold;">Taustaa</h4>
+																<div style="margin-left:30px">
+																	<h5 style="font-weight: bold;">Lainsäädäntö</h5>
+																	<p>Tärkein ohjaava lainsäädäntö Lajitietokeskuksen kautta jaettavien tietojen karkeistamiselle tai salaukselle on <a href="http://www.finlex.fi/fi/laki/ajantasa/1999/19990621">laki viranomaisten toiminnan julkisuudesta</a> eli julkisuuslaki (21.5.1999/621)</p>
+																	<p>24 § Salassa pidettävät viranomaisen asiakirjat14) asiakirjat, jotka sisältävät tietoja uhanalaisista eläin- tai kasvilajeista tai arvokkaiden luonnonalueiden suojelusta, jos tiedon antaminen niistä vaarantaisi kysymyksessä olevan eläin- tai kasvilajin tai alueen suojelun;</p>
+																	<h5 style="font-weight: bold;">Menetelmä</h5>
+																	<p>Suomen Lajitietokeskuksessa sensitiivistä tietoa varjellaan joko paikkatietoa karkeistamisella tai salaamalla. Tämä koskee lajeja, joiden suojelu vaarantuisi tiedon antamisesta esimerkiksi vainon, pyynnin, häirinnän tai kaupallisen tai harrastuspohjaisen keräämisen vuoksi. Uhan tulee kohdistua juuri kyseiseen lajiin.</p>
+																	<h5 style="font-weight: bold;">Lajiluettelo</h5>
+																	<p>Lajitiedon parissa työskentelevien asiantuntijoiden johdolla on laadittu kansallinen luettelo lajeista, jotka on arvioitu olevan erityisen herkkiä erilaisille uhille ja joiden tietoja tulee salata julkisuuslain perusteella (linkki: <a href="http://cms.laji.fi/wp-content/uploads/2016/12/Suomen_Lajitietokeskus_sensitiivinen-lajitieto_lajilista_2016.xlsx">Suomen Lajitietokeskus – sensitiiviset lajiaineistot</a>).</p>
+																</div>
+																<h4 style="font-weight: bold;">Käyttöehdot</h4>
+																<div style="margin-left:30px">
+																	<h5 style="font-weight: bold;">Jos käyttölupa sensitiiviseen aineistoon myönnetään, aineistonpyytäjä sitoutuu</h5>
+																	<ul>
+																		<li>noudattamaan erityistä varovaisuutta, jotta vältetään julkisuuslaissa kuvattu lajin vaarantuminen.</li>
+																		<li>käyttämään tietoa vain ja yksinomaan aineistopyynnössä esittämäänsä tarkoitusta varten.</li>
+																		<li>olemaan jakamatta aineistoja kenellekään ulkopuoliselle, jotka eivät ole osapuolia aineistopyynnössä.</li>
+																	</ul>
+																</div>
+																<h4 style="font-weight: bold;">Aineistopyynnön tekijän/tekijöiden tiedot</h4>
+																<div style="margin-left:30px">
+																<ul>
+																	<li><p>{% trans 'contact_name' %} <span id="contact_name"></span></p></li>
+																	<li><p>{% trans 'contact_street_address' %} <span id="contact_street_address"></span></p></li>
+																	<li><p>{% trans 'contact_post_office' %} <span id="contact_post_office"></span></p></li>
+																	<li><p>{% trans 'contact_postal' %} <span id="contact_postal"></span></p></li>
+																	<li><p>{% trans 'contact_country' %} <span id="contact_country"></span></p></li>
+																	<li><p>{% trans 'contact_email' %} <span id="contact_email"></span></p></li>
+																	<li><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p></li>
+																	<li><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p></li>
+																	<li><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p></li>
+																</ul>
+																</div>
 															</div>
 														</div>
 														<div class="modal-footer">
@@ -275,7 +300,7 @@
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+															<h4 class="modal-title" id="myModalLabel">{% trans "terms" %}</h4>
 														</div>
 													<div class="modal-body">
 													{% load static %}
@@ -636,14 +661,22 @@
 		var fills = ["contact_name","contact_street_address","contact_post_office","contact_postal","contact_country","contact_email","contact_phone_number","contact_corporation/organization","contact_corporation_id"];
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i])
+			var fillfield = document.getElementById(fills[i])
 			var func = function() { 
-				document.getElementById(fills[i]).textContent = namefield.value; 
+				fillfield.textContent = namefield.value;
 				contactsFilled();
 			}
 			namefield.onkeyup = func;
 			namefield.onchange = func;
 			func();
 		}
+		namefield = document.getElementById("request_person_name_"+id);
+		var func = function() { 
+					document.getElementById("contact_tab_text_1").textContent = namefield.value;
+					contactsFilled();      
+				}
+		namefield.onkeyup = func;
+		namefield.onchange = func;
 	});
 	</script>
 

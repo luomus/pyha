@@ -135,7 +135,7 @@ msgstr "Hylätty"
 #: pyha/templates/pyha/handler/requestview.html:264
 #: pyha/templates/pyha/handler/requestview.html:327
 msgid "handler_accepted"
-msgstr "Ehdot hyväksytty"
+msgstr "Hyväksytty"
 
 #: pyha/templates/pyha/handler/index.html:72
 #: pyha/templates/pyha/handler/requestview.html:45
