@@ -129,7 +129,7 @@
 			end.insertAdjacentHTML('beforebegin', this.responseText);
 			contactsFilled();
 			var namefield = document.getElementById("request_person_name_"+id)
-			var func = function() { 
+			var func = function() {
 					document.getElementById("contact_tab_text_"+id).textContent = namefield.value;
 					contactsFilled();      
 				}
