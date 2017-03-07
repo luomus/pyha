@@ -99,7 +99,7 @@
 											<p style="color:#2980B9;align:center;">{% trans 'main_contact'%}</p>
 											<li id="contact_tab1" class="active vertical-li">
 												<a href="#contact1" class="vertical-tab" data-toggle="tab" aria-controls="contact1" role="tab">
-													<span id="contact_tab_text_1">{{old_request.requestPersonName}}</span>
+													<span id="contact_tab_text_1">{% if old_request %}{{old_request.requestPersonName}}{% else %}{{request_owner}}{% endif %}</span>
 												</a>
 											</li>
 											<p style="color:#2980B9;align:center;">{% trans 'additional_contacts'%}</p>
@@ -660,8 +660,8 @@
 		var fields = ["request_person_name_1","request_person_street_address_1","request_person_post_office_name_1","request_person_postal_code_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
 		var fills = ["contact_name","contact_street_address","contact_post_office","contact_postal","contact_country","contact_email","contact_phone_number","contact_corporation/organization","contact_corporation_id"];
 		for (i = 0; i < fields.length; i++){
-			var namefield = document.getElementById(fields[i])
-			var fillfield = document.getElementById(fills[i])
+			var namefield = document.getElementById(fields[i]);
+			var fillfield = document.getElementById(fills[i]);
 			var func = function() { 
 				fillfield.textContent = namefield.value;
 				contactsFilled();
@@ -670,7 +670,7 @@
 			namefield.onchange = func;
 			func();
 		}
-		namefield = document.getElementById("request_person_name_"+id);
+		namefield = document.getElementById("request_person_name_1");
 		var func = function() { 
 					document.getElementById("contact_tab_text_1").textContent = namefield.value;
 					contactsFilled();      

@@ -110,7 +110,7 @@
 					</li>
 					{% endif %}
 					{% if customlist %}
-					<li id="collection-tab" role="presentation" {% if next == "collection" %} class="active" {% endif %} ">
+					<li id="collection-tab" role="presentation" {% if next == "collection" %} class="active" {% endif %}>
 						<a href="#collection" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
 								{% trans 'handler_collection_window' %}
@@ -676,7 +676,7 @@
 	<script>
 		function showDecline() {
 			var x = document.getElementById('sensitive_refuse_form');
-			if (x.style.display === 'none') {
+			if (x.style.display == 'none') {
 				x.style.display = 'block';
 			}
 		}

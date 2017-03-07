@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 06:47+0200\n"
+"POT-Creation-Date: 2017-03-06 11:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,39 +30,39 @@ msgstr "Englanti"
 msgid "Ruotsi"
 msgstr "Ruotsi"
 
-#: pyha/templates/pyha/base.html:41 pyha/templates/pyha/document.html:8
+#: pyha/templates/pyha/base.html:42 pyha/templates/pyha/document.html:8
 msgid "Toggle_navigation"
 msgstr "Toggle_navigation"
 
-#: pyha/templates/pyha/base.html:51 pyha/templates/pyha/document.html:18
+#: pyha/templates/pyha/base.html:52 pyha/templates/pyha/document.html:18
 msgid "all_requests"
 msgstr "all_requests"
 
-#: pyha/templates/pyha/base.html:62 pyha/templates/pyha/base.html:66
+#: pyha/templates/pyha/base.html:63 pyha/templates/pyha/base.html:67
 #: pyha/templates/pyha/document.html:30 pyha/templates/pyha/document.html:34
-#: pyha/templates/pyha/requestview.html:597
+#: pyha/templates/pyha/requestview.html:596
 msgid "admin"
 msgstr "admin"
 
-#: pyha/templates/pyha/base.html:62 pyha/templates/pyha/base.html:65
+#: pyha/templates/pyha/base.html:63 pyha/templates/pyha/base.html:66
 #: pyha/templates/pyha/document.html:30 pyha/templates/pyha/document.html:33
-#: pyha/templates/pyha/requestview.html:607
+#: pyha/templates/pyha/requestview.html:606
 msgid "user"
 msgstr "user"
 
-#: pyha/templates/pyha/base.html:75 pyha/templates/pyha/document.html:22
+#: pyha/templates/pyha/base.html:76 pyha/templates/pyha/document.html:22
 msgid "logout"
 msgstr "logout"
 
-#: pyha/templates/pyha/base.html:90
+#: pyha/templates/pyha/base.html:91
 msgid "set_lang_fi"
 msgstr "Suomeksi"
 
-#: pyha/templates/pyha/base.html:92
+#: pyha/templates/pyha/base.html:93
 msgid "set_lang_sv"
 msgstr "På svenska"
 
-#: pyha/templates/pyha/base.html:94
+#: pyha/templates/pyha/base.html:95
 msgid "set_lang_en"
 msgstr "In English"
 
@@ -483,55 +483,55 @@ msgstr "handler_asked"
 
 #: pyha/templates/pyha/handler/requestview.html:488
 #: pyha/templates/pyha/requestform.html:246
-#: pyha/templates/pyha/requestview.html:506
+#: pyha/templates/pyha/requestview.html:505
 msgid "contact_name"
 msgstr "contact_name"
 
 #: pyha/templates/pyha/handler/requestview.html:489
 #: pyha/templates/pyha/requestform.html:247
-#: pyha/templates/pyha/requestview.html:507
+#: pyha/templates/pyha/requestview.html:506
 msgid "contact_street_address"
 msgstr "contact_street_address"
 
 #: pyha/templates/pyha/handler/requestview.html:490
 #: pyha/templates/pyha/requestform.html:248
-#: pyha/templates/pyha/requestview.html:508
+#: pyha/templates/pyha/requestview.html:507
 msgid "contact_post_office"
 msgstr "contact_post_office"
 
 #: pyha/templates/pyha/handler/requestview.html:491
 #: pyha/templates/pyha/requestform.html:249
-#: pyha/templates/pyha/requestview.html:509
+#: pyha/templates/pyha/requestview.html:508
 msgid "contact_postal"
 msgstr "contact_postal"
 
 #: pyha/templates/pyha/handler/requestview.html:492
 #: pyha/templates/pyha/requestform.html:250
-#: pyha/templates/pyha/requestview.html:510
+#: pyha/templates/pyha/requestview.html:509
 msgid "contact_country"
 msgstr "contact_country"
 
 #: pyha/templates/pyha/handler/requestview.html:493
 #: pyha/templates/pyha/requestform.html:251
-#: pyha/templates/pyha/requestview.html:511
+#: pyha/templates/pyha/requestview.html:510
 msgid "contact_email"
 msgstr "contact_email"
 
 #: pyha/templates/pyha/handler/requestview.html:494
 #: pyha/templates/pyha/requestform.html:252
-#: pyha/templates/pyha/requestview.html:512
+#: pyha/templates/pyha/requestview.html:511
 msgid "contact_phone_number"
 msgstr "contact_phone_number"
 
 #: pyha/templates/pyha/handler/requestview.html:495
 #: pyha/templates/pyha/requestform.html:253
-#: pyha/templates/pyha/requestview.html:513
+#: pyha/templates/pyha/requestview.html:512
 msgid "contact_corporation"
 msgstr "contact_corporation"
 
 #: pyha/templates/pyha/handler/requestview.html:496
 #: pyha/templates/pyha/requestform.html:254
-#: pyha/templates/pyha/requestview.html:514
+#: pyha/templates/pyha/requestview.html:513
 msgid "contact_corporation_id"
 msgstr "contact_corporation_id"
 
@@ -646,7 +646,7 @@ msgid "handler_log_collection_denied"
 msgstr "handler_log_collection_denied"
 
 #: pyha/templates/pyha/handler/requestview.html:621
-#: pyha/templates/pyha/requestview.html:630
+#: pyha/templates/pyha/requestview.html:629
 msgid "log_no_history"
 msgstr "log_no_history"
 
@@ -935,12 +935,12 @@ msgstr "continue_to_step_3"
 
 #: pyha/templates/pyha/requestform.html:230
 #: pyha/templates/pyha/requestform.html:278
-#: pyha/templates/pyha/requestview.html:486
+#: pyha/templates/pyha/requestview.html:485
 msgid "sensitive_terms"
 msgstr "sensitive_terms"
 
 #: pyha/templates/pyha/requestform.html:231
-#: pyha/templates/pyha/requestview.html:488
+#: pyha/templates/pyha/requestview.html:487
 msgid "as_pdf"
 msgstr ""
 
@@ -950,8 +950,8 @@ msgstr "i_accept_terms"
 
 #: pyha/templates/pyha/requestform.html:261
 #: pyha/templates/pyha/requestform.html:292
-#: pyha/templates/pyha/requestview.html:474
-#: pyha/templates/pyha/requestview.html:518
+#: pyha/templates/pyha/requestview.html:473
+#: pyha/templates/pyha/requestview.html:517
 msgid "exit"
 msgstr "exit"
 
@@ -960,7 +960,7 @@ msgid "If_you_cannot_see_terms_you_can_load_them"
 msgstr "If_you_cannot_see_terms_you_can_load_them"
 
 #: pyha/templates/pyha/requestform.html:283
-#: pyha/templates/pyha/requestview.html:469
+#: pyha/templates/pyha/requestview.html:468
 msgid "here"
 msgstr "here"
 
@@ -1035,9 +1035,9 @@ msgstr "Delete_these_sightings"
 
 #: pyha/templates/pyha/requestformcustom.html:26
 #: pyha/templates/pyha/requestformtaxon.html:43
-#: pyha/templates/pyha/requestview.html:447
-#: pyha/templates/pyha/requestview.html:451
-#: pyha/templates/pyha/requestview.html:456
+#: pyha/templates/pyha/requestview.html:446
+#: pyha/templates/pyha/requestview.html:450
+#: pyha/templates/pyha/requestview.html:455
 msgid "terms"
 msgstr "terms"
 
@@ -1186,7 +1186,7 @@ msgid "additional_information_window"
 msgstr "additional_information_window"
 
 #: pyha/templates/pyha/requestview.html:222
-#: pyha/templates/pyha/requestview.html:586
+#: pyha/templates/pyha/requestview.html:585
 msgid "changes_history"
 msgstr "changes_history"
 
@@ -1229,151 +1229,151 @@ msgstr "decicions_for_admitting_data"
 msgid "collection_decision_arguments"
 msgstr "collection_decision_arguments"
 
-#: pyha/templates/pyha/requestview.html:422
+#: pyha/templates/pyha/requestview.html:421
 msgid "argument_project"
 msgstr "argument_project"
 
-#: pyha/templates/pyha/requestview.html:425
+#: pyha/templates/pyha/requestview.html:424
 msgid "argument_research"
 msgstr "argument_research"
 
-#: pyha/templates/pyha/requestview.html:428
+#: pyha/templates/pyha/requestview.html:427
 msgid "argument_goals"
 msgstr "argument_goals"
 
-#: pyha/templates/pyha/requestview.html:431
+#: pyha/templates/pyha/requestview.html:430
 msgid "argument_planning"
 msgstr "argument_planning"
 
-#: pyha/templates/pyha/requestview.html:434
+#: pyha/templates/pyha/requestview.html:433
 msgid "argument_municipality"
 msgstr "argument_municipality"
 
-#: pyha/templates/pyha/requestview.html:437
+#: pyha/templates/pyha/requestview.html:436
 msgid "argument_natura_areas"
 msgstr "argument_natura_areas"
 
-#: pyha/templates/pyha/requestview.html:440
+#: pyha/templates/pyha/requestview.html:439
 msgid "argument_reason"
 msgstr "argument_reason"
 
-#: pyha/templates/pyha/requestview.html:450
+#: pyha/templates/pyha/requestview.html:449
 msgid "sensitivity"
 msgstr "sensitivity"
 
-#: pyha/templates/pyha/requestview.html:464
+#: pyha/templates/pyha/requestview.html:463
 msgid "terms_of_use_of_the_collections"
 msgstr "terms_of_use_of_the_collections"
 
-#: pyha/templates/pyha/requestview.html:469
+#: pyha/templates/pyha/requestview.html:468
 msgid "if_you_cannot_see_terms_you_can_load_them"
 msgstr "if_you_cannot_see_terms_you_can_load_them"
 
-#: pyha/templates/pyha/requestview.html:527
+#: pyha/templates/pyha/requestview.html:526
 msgid "contacts"
 msgstr "contacts"
 
-#: pyha/templates/pyha/requestview.html:530
+#: pyha/templates/pyha/requestview.html:529
 msgid "full_name"
 msgstr "full_name"
 
-#: pyha/templates/pyha/requestview.html:531
+#: pyha/templates/pyha/requestview.html:530
 msgid "street_address"
 msgstr "street_address"
 
-#: pyha/templates/pyha/requestview.html:532
+#: pyha/templates/pyha/requestview.html:531
 msgid "post_office_name"
 msgstr "post_office_name"
 
-#: pyha/templates/pyha/requestview.html:533
+#: pyha/templates/pyha/requestview.html:532
 msgid "postal_code"
 msgstr "postal_code"
 
-#: pyha/templates/pyha/requestview.html:534
+#: pyha/templates/pyha/requestview.html:533
 msgid "country"
 msgstr "country"
 
-#: pyha/templates/pyha/requestview.html:535
+#: pyha/templates/pyha/requestview.html:534
 msgid "email"
 msgstr "email"
 
-#: pyha/templates/pyha/requestview.html:536
+#: pyha/templates/pyha/requestview.html:535
 msgid "phone_number"
 msgstr "phone_number"
 
-#: pyha/templates/pyha/requestview.html:537
+#: pyha/templates/pyha/requestview.html:536
 msgid "corporation/organization_name"
 msgstr "corporation/organization_name"
 
-#: pyha/templates/pyha/requestview.html:538
+#: pyha/templates/pyha/requestview.html:537
 msgid "corporation_id"
 msgstr "corporation_id"
 
-#: pyha/templates/pyha/requestview.html:557
+#: pyha/templates/pyha/requestview.html:556
 msgid "additional_questions"
 msgstr "additional_questions"
 
-#: pyha/templates/pyha/requestview.html:561
+#: pyha/templates/pyha/requestview.html:560
 msgid "asked"
 msgstr "asked"
 
-#: pyha/templates/pyha/requestview.html:566
+#: pyha/templates/pyha/requestview.html:565
 msgid "answered"
 msgstr "answered"
 
-#: pyha/templates/pyha/requestview.html:571
+#: pyha/templates/pyha/requestview.html:570
 msgid "form_to_send_additional_information"
 msgstr "form_to_send_additional_information"
 
-#: pyha/templates/pyha/requestview.html:577
+#: pyha/templates/pyha/requestview.html:576
 msgid "send_additional_information"
 msgstr "send_additional_information"
 
-#: pyha/templates/pyha/requestview.html:589
+#: pyha/templates/pyha/requestview.html:588
 msgid "log_date"
 msgstr "log_date"
 
-#: pyha/templates/pyha/requestview.html:590
+#: pyha/templates/pyha/requestview.html:589
 msgid "log_maker"
 msgstr "log_maker"
 
-#: pyha/templates/pyha/requestview.html:591
+#: pyha/templates/pyha/requestview.html:590
 msgid "log_description"
 msgstr "log_description"
 
-#: pyha/templates/pyha/requestview.html:599
+#: pyha/templates/pyha/requestview.html:598
 msgid "log_sensitive_data_handler"
 msgstr "log_sensitive_data_handler"
 
-#: pyha/templates/pyha/requestview.html:601
+#: pyha/templates/pyha/requestview.html:600
 msgid "log_collection_provider"
 msgstr "log_collection_provider"
 
-#: pyha/templates/pyha/requestview.html:603
+#: pyha/templates/pyha/requestview.html:602
 msgid "log_sensitive_and_collections_handler"
 msgstr "log_sensitive_and_collections_handler"
 
-#: pyha/templates/pyha/requestview.html:610
+#: pyha/templates/pyha/requestview.html:609
 msgid "log_viewed"
 msgstr "log_viewed"
 
-#: pyha/templates/pyha/requestview.html:612
+#: pyha/templates/pyha/requestview.html:611
 msgid "log_terms_accepted"
 msgstr "log_terms_accepted"
 
-#: pyha/templates/pyha/requestview.html:615
+#: pyha/templates/pyha/requestview.html:614
 msgid "log_sensitives_accepted"
 msgstr "log_sensitives_accepted"
 
-#: pyha/templates/pyha/requestview.html:617
+#: pyha/templates/pyha/requestview.html:616
 msgid "log_collection_accepted"
 msgstr "log_collection_accepted"
 
-#: pyha/templates/pyha/requestview.html:621
+#: pyha/templates/pyha/requestview.html:620
 msgid "log_sensitives_denied"
 msgstr "log_sensitives_denied"
 
-#: pyha/templates/pyha/requestview.html:623
+#: pyha/templates/pyha/requestview.html:622
 msgid "log_collection_denied"
 msgstr "log_collection_denied"
 
