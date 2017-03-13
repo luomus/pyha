@@ -389,11 +389,11 @@ msgstr "Perustelut"
 
 #: pyha/templates/pyha/handler/requestview.html:384
 msgid "handler_reason_zoning"
-msgstr "Kaavoitus"
+msgstr "Maankäytönsuunnittelu"
 
 #: pyha/templates/pyha/handler/requestview.html:386
 msgid "handler_reason_permission"
-msgstr "Lupahakemus (ympäristönsuojelulaki / vesilaki / kaivoslaki)"
+msgstr "Lupahakemus"
 
 #: pyha/templates/pyha/handler/requestview.html:388
 msgid "handler_reason_enviromental"
@@ -413,7 +413,7 @@ msgstr "Metsäsuunnittelu"
 
 #: pyha/templates/pyha/handler/requestview.html:396
 msgid "handler_reason_other"
-msgstr "Muu"
+msgstr "Muu (Perustele vapaatekstikenttään)"
 
 #: pyha/templates/pyha/handler/requestview.html:404
 msgid "handler_argument_project"
@@ -853,12 +853,12 @@ msgstr "Perustele aineistopyyntösi käyttötarkoitus"
 #: pyha/templates/pyha/requestform.html:180
 #: pyha/templates/pyha/requestview.html:402
 msgid "reason_zoning"
-msgstr "Kaavoitus"
+msgstr "Maankäytönsuunnittelu"
 
 #: pyha/templates/pyha/requestform.html:181
 #: pyha/templates/pyha/requestview.html:404
 msgid "reason_permission"
-msgstr "Lupahakemus (ympäristönsuojelulaki / vesilaki / kaivoslaki)"
+msgstr "Lupahakemus"
 
 #: pyha/templates/pyha/requestform.html:182
 #: pyha/templates/pyha/requestview.html:406
@@ -883,7 +883,7 @@ msgstr "Metsäsuunnittelu"
 #: pyha/templates/pyha/requestform.html:186
 #: pyha/templates/pyha/requestview.html:414
 msgid "reason_other"
-msgstr "Muu"
+msgstr "Muu (Perustele vapaatekstikenttään)"
 
 #: pyha/templates/pyha/requestform.html:190
 msgid "additional_information"
