@@ -626,27 +626,6 @@ def create_contact(request):
 		context["contact_id"] = request.POST.get('id');
 		return render(request, 'pyha/requestformcontact.xml', context)
 	return HttpResponse("/pyha/")
-	
-def create_contact_modal(request):
-	if request.method == 'POST' and request.POST.get('requestid') and request.POST.get('id'):
-		if check_language(request):
-				return HttpResponseRedirect(request.get_full_path())
-		#Has Access
-		requestId = request.POST.get('requestid','?')
-		if not logged_in(request):
-			return _process_auth_response(request, "request/"+requestId)
-		userRequest = Request.requests.get(id=requestId)
-		userId = request.session["user_id"]
-		userRole = request.session["current_user_role"]
-		role1 = HANDLER_SENS in request.session.get("user_roles", [None])
-		role2 = HANDLER_COLL in request.session.get("user_roles", [None])
-		
-		if not allowed_to_view(request, requestId, userId, role1, role2):
-			return HttpResponseRedirect('/pyha/')
-		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
-		context["contact_id"] = request.POST.get('id');
-		return render(request, 'pyha/requestformmodalcontact.html', context)
-	return HttpResponse("/pyha/")
 
 def get_request_header(request):
 	if request.method == 'POST' and request.POST.get('requestid'):
