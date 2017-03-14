@@ -118,29 +118,54 @@
 	var data = 'requestid='+requestid+'&id='+id;
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var end = document.getElementById("contacts_content_end");
-			var contacthtml = sessionStorage.getItem("contacts"+requestid)
+			var contacthtml = sessionStorage.getItem("contacts"+requestid);
+			var xmlcontent = this.responseXML;
 			if(contacthtml != null){
 				contacthtml += this.responseText;
 			}else{
 				contacthtml = this.responseText;
 			}
 			//sessionStorage.setItem("contacts"+requestid, contacthtml);
-			end.insertAdjacentHTML('beforebegin', this.responseText);
+			var end = document.getElementById("contacts_content_end");
+			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("contact")[0].getElementsByTagName("div")[0]));
+			end = document.getElementById("modal_contacts_end");
+			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
 			contactsFilled();
-			var namefield = document.getElementById("request_person_name_"+id)
-			var func = function() {
-					document.getElementById("contact_tab_text_"+id).textContent = namefield.value;
-					contactsFilled();      
+			var fields = ["request_person_name_"+id,"request_person_street_address_"+id,"request_person_post_office_name_"+id,"request_person_postal_code_"+id,"request_person_country_"+id,"request_person_email_"+id,"request_person_phone_number_"+id,"request_person_organization_name_"+id,"request_person_corporation_id_"+id];
+			var fills = ["contact_name_"+id,"contact_street_address_"+id,"contact_post_office_"+id,"contact_postal_"+id,"contact_country_"+id,"contact_email_"+id,"contact_phone_number_"+id,"contact_corporation/organization_"+id,"contact_corporation_id_"+id];
+			for (i = 0; i < fields.length; i++){
+				var namefield = document.getElementById(fields[i]);
+				var fillfield = document.getElementById(fills[i]);
+				if(i == 0){
+					namefield.onkeyup = updateTabField(namefield, fillfield, id);
+					namefield.onchange = updateTabField(namefield, fillfield, id);
+				}else{
+					namefield.onkeyup = updateField(namefield, fillfield);
+					namefield.onchange = updateField(namefield, fillfield);
+					updateField(namefield, fillfield)();
 				}
-			namefield.onkeyup = func;
-			namefield.onchange = func;
+			}
 			}
 		};
+	xhttp.overrideMimeType('text/xml');
 	xhttp.open("POST", "/pyha/createContact/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
+	}
+	
+	
+	function updateTabField(namefield, fillfield, id){
+	return function() { document.getElementById("contact_tab_text_"+id).textContent = namefield.value;
+						fillfield.textContent = namefield.value;
+						contactsFilled();
+						}
+	}
+	
+	function updateField(namefield, fillfield){
+	return function() { fillfield.textContent = namefield.value;
+						contactsFilled();
+						}
 	}
 
 	var complete = [0,0,0];

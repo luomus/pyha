@@ -534,6 +534,17 @@
 														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p></li>
 														<li><p class="model-field">{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p></li>
 														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
+														{% for contact in contactlist|slice:"1:" %}
+														<li><p class="model-field">{% trans 'additional_contact_name' %} {{contact.personName}}</p></li>
+														<li><p class="model-field">{% trans 'contact_street_address' %} {{contact.personStreetAddress}}</p></li>
+														<li><p class="model-field">{% trans 'contact_post_office' %} {{contact.personPostOfficeName}}</p></li>
+														<li><p class="model-field">{% trans 'contact_postal' %} {{contact.personPostalCode}}</p></li>
+														<li><p class="model-field">{% trans 'contact_country' %} {{contact.personCountry}}</p></li>
+														<li><p class="model-field">{% trans 'contact_email' %} {{contact.personEmail}}</p></li>
+														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contact.personPhoneNumber}}</p></li>
+														<li><p class="model-field">{% trans 'contact_corporation' %} {{contact.personOrganizationName}}</p></li>
+														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contact.personCorporationId}}</p></li>
+														{% endfor %}
 													</ul>
 													</div>
 												</div>

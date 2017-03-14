@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^getDescription/?$', views.get_request_header, name='get_request_header'),
     url(r'^getSummary/?$', views.get_summary, name='get_summary'),
     url(r'^createContact/?$', views.create_contact, name='create_contact'),
+	url(r'^createContactModal/?$', views.create_contact_modal, name='create_contact_modal'),
     url(r'^index/?$', views.index, name='index'),
     url(r'^api/request/?$', views.receiver, name='receiver'),
     url(r'^api/download/(?P<link>[^/]+)/?$', views.download, name='download'),

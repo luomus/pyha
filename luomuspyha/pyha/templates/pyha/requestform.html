@@ -275,6 +275,7 @@
 																	<li><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p></li>
 																	<li><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p></li>
 																	<li><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p></li>
+																	<div id="modal_contacts_end"></div>
 																</ul>
 																</div>
 															</div>
@@ -495,9 +496,11 @@
 	var rema = document.getElementById("remove_contact_link");
 	var adda = document.getElementById("add_contact_link");
 	var div = document.getElementById("contact" + current);
+	var modaldiv = document.getElementById("contact_" + current);
 	adda.setAttribute("href", "javascript:addContact("+current+")");
 	current -= 1;
 	rema.setAttribute("href", "javascript:removeContact("+current+")");
+	modaldiv.parentNode.removeChild(modaldiv);
 	div.parentNode.removeChild(div);
 	li.parentNode.removeChild(li);
 		if(current == 1){
@@ -662,13 +665,9 @@
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
 			var fillfield = document.getElementById(fills[i]);
-			var func = function() { 
-				fillfield.textContent = namefield.value;
-				contactsFilled();
-			}
-			namefield.onkeyup = func;
-			namefield.onchange = func;
-			func();
+			namefield.onkeyup = updateField(namefield, fillfield);
+			namefield.onchange = updateField(namefield, fillfield);
+			updateField(namefield, fillfield)();
 		}
 		namefield = document.getElementById("request_person_name_1");
 		var func = function() { 
