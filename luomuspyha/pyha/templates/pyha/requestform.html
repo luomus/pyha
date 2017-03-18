@@ -284,7 +284,7 @@
 															<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
 															{% trans "i_accept_terms" %}<br>
 															<p></p>
-															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
 														</div>
 													</div>
 												</div>
@@ -315,7 +315,7 @@
 															onchange="check({{ collection.id }}); checkForApproval();">
 															{% trans "I have read and understood the terms" %}<br>
 															<p></p>
-															<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
 														</div>
 													</div>
 												</div>
@@ -665,17 +665,15 @@
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
 			var fillfield = document.getElementById(fills[i]);
-			namefield.onkeyup = updateField(namefield, fillfield);
-			namefield.onchange = updateField(namefield, fillfield);
-			updateField(namefield, fillfield)();
+			if(i == 0){
+				namefield.onkeyup = updateTabField(namefield, fillfield, 1);
+				namefield.onchange = updateTabField(namefield, fillfield, 1);
+			}else{
+				namefield.onkeyup = updateField(namefield, fillfield);
+				namefield.onchange = updateField(namefield, fillfield);
+				updateField(namefield, fillfield)();
+			}
 		}
-		namefield = document.getElementById("request_person_name_1");
-		var func = function() { 
-					document.getElementById("contact_tab_text_1").textContent = namefield.value;
-					contactsFilled();      
-				}
-		namefield.onkeyup = func;
-		namefield.onchange = func;
 	});
 	</script>
 
