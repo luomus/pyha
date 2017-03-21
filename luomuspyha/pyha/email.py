@@ -90,6 +90,9 @@ def fetch_email_address(personId):
 			email = data['rdf:RDF']['MA.person']['MA.emailAddress']
 			cache.set('email'+personId,email)
 			return email
+		else:
+			email = personId
+			cache.set('email'+personId,email)
 	else:
 		return cache.get('email'+personId)
 

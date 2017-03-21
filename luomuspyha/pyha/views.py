@@ -123,13 +123,11 @@ def new_count(request):
 					for r in request_list:
 						if(RequestLogEntry.requestLog.filter(request = r.id, user = request.GET.get('person'), action = 'VIEW').count() == 0):
 							count += 1
-							print(r.id)
 						else:
 							if r.sensstatus == 1 and RequestInformationChatEntry.requestInformationChat.filter(request=r.id).count() > 0:
 								chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id).order_by('-date')[0]
 								if not chat.question:
 									count += 1
-									print(r.id)
 				else:
 					request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(personId),status__gt = 0 ).values("request"))
 					for r in request_list:
@@ -359,8 +357,18 @@ def requestChat(request, requestId):
 			l.name = fetch_user_name(l.user)
 		return requestChat_list
 
-def requestInformationChat(request, requestId):
-		requestChat_list = list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId).order_by('date'))
+def requestInformationChat(request, requestId, role1, role2, userId):
+		requestChat_list = []
+		if HANDLER_ANY in request.session.get("current_user_role", [None]):
+			if role1:
+				requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target='sens').order_by('date'))
+			if role2:
+				for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
+					requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target=str(collection)).order_by('date'))
+		else:
+			requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId).order_by('date'))
+		for l in requestChat_list:
+			get_result_for_target(request, l)
 		email = []
 		for l in requestChat_list:
 			l.name = fetch_user_name(l.user)
@@ -411,12 +419,24 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
+			context["filter_link"] = filterlink(request, context["filters"])
 			context["requestChat_list"] = requestChat(request, requestId)
-			requestInformationChat_list = requestInformationChat(request, requestId)
+			requestInformationChat_list = requestInformationChat(request, requestId, role1, role2, userId)
 			context["requestInformationChat_list"] = requestInformationChat_list
 			if(requestInformationChat_list):
 				context["information"] = not requestInformationChat_list[-1].question
 		return context
+
+def filterlink(request, filters):
+		link = settings.FILTERS_LINK
+		first = True
+		for f in filters:
+			if not first:
+				link += "&"
+			else:
+				first = False
+			link += f[0] + "=" + f[1][0]
+		return link
 
 def handler_waiting_status(r, request, userId):
 		r.waitingstatus = 0
@@ -447,6 +467,15 @@ def get_values_for_collections(requestId, request, List):
 				c.result = cache.get(str(c)+'collection_values'+request.LANGUAGE_CODE)
 				c.result["collectionName"] = c.result.get("collectionName",c.address)
 				c.result["description"] = c.result.get("description","-")
+
+def get_result_for_target(request, l):
+		if 'has expired' in cache.get(str(l.target)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
+			l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+secrets.TOKEN).json()
+			cache.set(str(l.target)+'collection_values'+request.LANGUAGE_CODE, l.result)
+			l.result["collectionName"] = l.result.get("collectionName",l.target)
+		else:
+			l.result = cache.get(str(l.target)+'collection_values'+request.LANGUAGE_CODE)
+			l.result["collectionName"] = l.result.get("collectionName",l.target)
 
 def create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 		hasCollection = False
@@ -714,46 +743,51 @@ def approve(request):
 		requestedCollections = request.POST.getlist('checkb');
 		senschecked = request.POST.get('checkbsens');
 		if(userRequest.status == 0 and senschecked):
-			for rc in requestedCollections:
-				userCollection = Collection.objects.get(address = rc, request = requestId)
-				if userCollection.status == 0:
-					userCollection.status = 1
-					userCollection.save(update_fields=['status'])
-			for c in Collection.objects.filter(request = requestId):
-				if c.status == 0:
-					c.customSecured = 0
-					if userRequest.sensstatus == 0:
-						c.taxonsecured = 0
-					c.save(update_fields=['customSecured'])
-					if c.taxonSecured == 0:
-						c.status = -1
-						c.save(update_fields=['status'])
-				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
-				if(c.customSecured > 0):
-					send_mail_for_approval(requestId, c, lang)
+			if len(requestedCollections) > 0:
+				for rc in requestedCollections:
+					userCollection = Collection.objects.get(address = rc, request = requestId)
+					if userCollection.status == 0:
+						userCollection.status = 1
+						userCollection.save(update_fields=['status'])
+				for c in Collection.objects.filter(request = requestId):
+					if c.status == 0:
+						c.customSecured = 0
+						if userRequest.sensstatus == 0:
+							c.taxonsecured = 0
+						c.save(update_fields=['customSecured'])
+						if c.taxonSecured == 0:
+							c.status = -1
+							c.save(update_fields=['status'])
+					#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
+					if(c.customSecured > 0):
+						send_mail_for_approval(requestId, c, lang)
 
-			for count in range(2, count_contacts(request.POST)+1):
-				create_new_contact(request, userRequest, count)
+				for count in range(2, count_contacts(request.POST)+1):
+					create_new_contact(request, userRequest, count)
 
-			userRequest.reason = create_argument_blob(request)
-			userRequest.status = 1
-			if senschecked:
-				userRequest.sensstatus = 1
-			userRequest.personName = request.POST.get('request_person_name_1')
-			userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
-			userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
-			userRequest.personPostalCode = request.POST.get('request_person_postal_code_1')
-			userRequest.personCountry = request.POST.get('request_person_country_1')
-			userRequest.personEmail = request.POST.get('request_person_email_1')
-			userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
-			userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
-			userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
-			userRequest.save()
-			update_contact_preset(request, userRequest)
-			if userRequest.sensstatus == 1:
-				send_mail_for_approval_sens(requestId, lang)
-			#make a log entry
-			RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+				userRequest.reason = create_argument_blob(request)
+				userRequest.status = 1
+				if senschecked:
+					userRequest.sensstatus = 1
+				userRequest.personName = request.POST.get('request_person_name_1')
+				userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
+				userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
+				userRequest.personPostalCode = request.POST.get('request_person_postal_code_1')
+				userRequest.personCountry = request.POST.get('request_person_country_1')
+				userRequest.personEmail = request.POST.get('request_person_email_1')
+				userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
+				userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
+				userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
+				userRequest.save()
+				update_contact_preset(request, userRequest)
+				if userRequest.sensstatus == 1:
+					send_mail_for_approval_sens(requestId, lang)
+				#make a log entry
+				RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+			else:
+				userRequest.status = -1
+				userRequest.save()
+				RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
 	return HttpResponseRedirect('/pyha/')
 
 def count_contacts(post):
@@ -810,16 +844,20 @@ def answer(request):
 			if not logged_in(request):
 				return _process_auth_response(request, "pyha")
 			requestId = request.POST.get('requestid', '?')
+			target = request.POST.get('target', '?')
 			if not is_allowed_to_view(request, requestId):
 				return HttpResponseRedirect('/pyha/')
 			collectionId = request.POST.get('collectionid')
 			userRequest = Request.requests.get(id = requestId)
 			if(int(request.POST.get('answer')) == 2):
+				if not is_allowed_to_handle(request, target, requestId):
+					return HttpResponseRedirect('/pyha/')
 				newChatEntry = RequestInformationChatEntry()
 				newChatEntry.request = Request.requests.get(id=requestId)
 				newChatEntry.date = datetime.now()
 				newChatEntry.user = request.session["user_id"]
 				newChatEntry.question = True
+				newChatEntry.target = target
 				newChatEntry.message = request.POST.get('reason')
 				newChatEntry.save()
 				userRequest.status = 6
@@ -859,14 +897,18 @@ def information(request):
 			if not logged_in(request):
 				return _process_auth_response(request, "pyha")
 			requestId = request.POST.get('requestid', '?')
+			target = request.POST.get('target', '?')
 			if not is_allowed_to_view(request, requestId):
 				return HttpResponseRedirect('/pyha/')
 			if(int(request.POST.get('information')) == 2):
+				if not target_valid(request, target, requestId):
+					return HttpResponseRedirect('/pyha/')
 				newChatEntry = RequestInformationChatEntry()
 				newChatEntry.request = Request.requests.get(id=requestId)
 				newChatEntry.date = datetime.now()
 				newChatEntry.user = request.session["user_id"]
 				newChatEntry.question = False
+				newChatEntry.target = target
 				newChatEntry.message = request.POST.get('reason')
 				newChatEntry.save()
 				userRequest = Request.requests.get(id = requestId)
@@ -874,6 +916,21 @@ def information(request):
 				userRequest.save()
 				update(requestId, request.LANGUAGE_CODE)
 		return HttpResponseRedirect(next)
+
+def is_allowed_to_handle(request, target, requestId):
+		if target == 'sens':
+			return HANDLER_SENS in request.session["user_roles"]
+		elif Collection.objects.filter(request=requestId, address=target).exists():
+			collection = Collection.objects.get(request=requestId, address=target)
+			return request.session["user_id"] in collection.downloadRequestHandler
+		return False
+
+def target_valid(request, target, requestId):
+		if target == 'sens':
+			return True
+		elif Collection.objects.filter(request=requestId, address=target).exists():
+			return True
+		return False
 
 def comment_sensitive(request):
 		next = request.POST.get('next', '/')

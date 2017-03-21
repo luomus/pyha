@@ -2,6 +2,8 @@
 {% block content %}
 {% load i18n %}
 
+{% if not taxon %} <style>.wizard .nav-tabs > li { width:25%; } .connecting-line{ width: 79%; }</style> {% endif %}
+
 <div class="container-fluid" style="overflow-y: hide;">
 	<div class="col-xs-12">
 			<div class="page-header" id="request_header">
@@ -64,7 +66,7 @@
 												</span>
 											</a>
 										</li>
-
+										{% if taxon %}
 										<li role="presentation" class="disabled">
 											<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'sensitivity_tab' %}">
 												<span class="round-tab">
@@ -88,7 +90,26 @@
 													<i class="glyphicon glyphicon-ok"></i>
 												</span>
 											</a>
-										</li>                
+										</li>      
+										{% else %}
+										
+										<li role="presentation" class="disabled">
+											<a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="{% trans 'collections_tab'%}">
+												<span class="round-tab">
+													<i>3</i>
+												</span>
+											</a>
+										</li>
+										
+
+										<li role="presentation" class="disabled">
+											<a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="{% trans 'summary_tab'%}">
+												<span class="round-tab">
+													<i class="glyphicon glyphicon-ok"></i>
+												</span>
+											</a>
+										</li>
+										{% endif %}
 									</ul>
 								</div>
 							<div class="tab-content">
@@ -98,7 +119,7 @@
 											<ul id="contact_list" class="vertical col-md-2">
 											<p style="color:#2980B9;align:center;">{% trans 'main_contact'%}</p>
 											<li id="contact_tab1" class="active vertical-li">
-												<a href="#contact1" class="vertical-tab" data-toggle="tab" aria-controls="contact1" role="tab">
+												<a id="contact_tab_button_1" href="#contact1" class="vertical-tab" data-toggle="tab" aria-controls="contact1" role="tab">
 													<span id="contact_tab_text_1">{% if old_request %}{{old_request.requestPersonName}}{% else %}{{request_owner}}{% endif %}</span>
 												</a>
 											</li>
@@ -281,7 +302,7 @@
 															</div>
 														</div>
 														<div class="modal-footer">
-															<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
+															<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();" {% if not taxon %}checked{% endif %}>
 															{% trans "i_accept_terms" %}<br>
 															<p></p>
 															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
@@ -328,7 +349,11 @@
 										</div>
 											<ul class="list-inline pull-right">
 												<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
+												{% if not taxon and not collection %}
+												<li><button type="submit" id="submit" class="btn btn-success">{% trans "end_request" %}</button></li>
+												{% else %}
 												<li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
+												{% endif %}
 											</ul>
 										<div class="clearfix"></div>
 									</div>
@@ -475,6 +500,7 @@
 	newa.setAttribute("href", "#contact"+current);
 	newa.setAttribute("data-toggle", "tab");
 	newa.setAttribute("role", "tab");
+	newa.id ="contact_tab_button_" + current;
 	newspan.textContent = "{% trans 'new_contact' %}";
 	newspan.id = "contact_tab_text_" + current;
 	newli.id = "contact_tab" + current;
@@ -508,6 +534,7 @@
 			}
 	}
 	contactsFilled();
+	document.getElementById("contact_tab_button_1").click();
 	}
 	
 	function updateReason() { 
@@ -668,6 +695,7 @@
 			if(i == 0){
 				namefield.onkeyup = updateTabField(namefield, fillfield, 1);
 				namefield.onchange = updateTabField(namefield, fillfield, 1);
+				updateTabField(namefield, fillfield, 1)();
 			}else{
 				namefield.onkeyup = updateField(namefield, fillfield);
 				namefield.onchange = updateField(namefield, fillfield);

@@ -32,14 +32,15 @@ LAJIPERSONAPI_URL = 'https://fmnh-ws-test.it.helsinki.fi/triplestore/'
 LAJIPERSONAPI_USER = 'pyha'
 LAJIPERSONAPI_PW = os.environ["PW_1"]
 PDFAPI_URL = 'https://fmnh-ws-prod.it.helsinki.fi/tipu-api/html2pdf'
-PDFAPI_USER = 'j'
-PDFAPI_PW = 'j'
+PDFAPI_USER = 'tipu-api-self'
+PDFAPI_PW = 'jasksaJJhhj443s'
 LAJIAPI_URL = 'https://apitest.laji.fi/v0/'
 LAJIFILTERS_URL= 'https://apitest.laji.fi/v0/warehouse/filters'
 TUN_URL = 'http://tun.fi/'
 TARGET='KE.541'
 HTTPS_USER = 'kivaa'
 HTTPS_PSW = 'kivaa'
+FILTERS_LINK = 'https://beta.laji.fi/observation/map?'
 MOCK_JSON=True
 APPEND_SLASH=False
 

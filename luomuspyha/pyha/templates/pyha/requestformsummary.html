@@ -1,4 +1,7 @@
 ﻿{% load i18n %}
+				{% if not collections and not taxon %}
+				<h3>{% trans "request_was_empty_and_will_be_closed" %}</h3>
+				{% else %}
 				<h3>{% trans "request_summary" %}</h3>
 				<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 				<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -17,3 +20,4 @@
 								</tr>
 							{% endfor %}
 						</table>
+				{% endif %}
