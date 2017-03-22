@@ -403,6 +403,8 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		request_owners_email = fetch_email_address(userRequest.user)
 		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		context["coordinates"] = create_coordinates(userRequest)
+		context["filter_link"] = filterlink(request, context["filters"],settings.FILTERS_LINK)
+		context["official_filter_link"] = filterlink(request, context["filters"],settings.OFFICIAL_FILTERS_LINK)
 		if userRequest.status > 0:
 			context["next"] = next = request.GET.get('next', 'request')
 			context["contactlist"] = show_request_contacts(userRequest)
@@ -419,7 +421,6 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 			context["old_request"] = ContactPreset.objects.get(user=userId)
 		else:
-			context["filter_link"] = filterlink(request, context["filters"])
 			context["requestChat_list"] = requestChat(request, requestId)
 			requestInformationChat_list = requestInformationChat(request, requestId, role1, role2, userId)
 			context["requestInformationChat_list"] = requestInformationChat_list
@@ -427,8 +428,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 				context["information"] = not requestInformationChat_list[-1].question
 		return context
 
-def filterlink(request, filters):
-		link = settings.FILTERS_LINK
+def filterlink(request, filters, link):
 		first = True
 		for f in filters:
 			if not first:

@@ -15,8 +15,8 @@
 
 			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 			<div id="filterlist" class="collapse">
-
 				{% if filters %}
+				<a href="{{ filter_link }}">{% trans "show_in_portal" %}</a>
 					<table class = "table" style="width:100%">
 						<tr style=color:black>
 							<th>{% trans "filter" %}</th>
@@ -296,8 +296,8 @@
 																	<li><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p></li>
 																	<li><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p></li>
 																	<li><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p></li>
-																	<div id="modal_contacts_end"></div>
 																</ul>
+																<div id="modal_contacts_end"></div>
 																</div>
 															</div>
 														</div>

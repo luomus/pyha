@@ -41,6 +41,7 @@ TARGET='KE.541'
 HTTPS_USER = 'kivaa'
 HTTPS_PSW = 'kivaa'
 FILTERS_LINK = 'https://beta.laji.fi/observation/map?'
+OFFICIAL_FILTERS_LINK = 'https://beta.laji.fi/observation/map?'
 MOCK_JSON=True
 APPEND_SLASH=False
 
