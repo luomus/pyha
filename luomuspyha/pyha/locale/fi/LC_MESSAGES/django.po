@@ -371,16 +371,12 @@ msgid "handler_request_filters"
 msgstr "Aineistopyynnön rajaukset"
 
 #: pyha/templates/pyha/handler/requestview.html:354
-#, fuzzy
-#| msgid "handler_official_comment_area"
 msgid "handler_show_in_officials_portal"
-msgstr "Viranomaisten kommentit"
+msgstr "Katso tulokset viranomaisportaalissa"
 
 #: pyha/templates/pyha/handler/requestview.html:354
-#, fuzzy
-#| msgid "handler_show"
-msgid "handler_show_in_laji.fi"
-msgstr "Näytä"
+msgid "handler_show_in_portal"
+msgstr "Näytä Laji.fi portaalissa"
 
 #: pyha/templates/pyha/handler/requestview.html:358
 msgid "handler_filter"
@@ -654,10 +650,8 @@ msgid "handler_form_to_request_additional_information"
 msgstr "Lomake lisätietojen pyytämiseen"
 
 #: pyha/templates/pyha/handler/requestview.html:594
-#, fuzzy
-#| msgid "handler_show"
 msgid "ask_as_handler_of"
-msgstr "Näytä"
+msgstr "Kysy kyseisessä roolissa"
 
 #: pyha/templates/pyha/handler/requestview.html:604
 msgid "handler_request_additional_information"
@@ -1045,10 +1039,8 @@ msgid "I have read and understood the terms"
 msgstr "Olen lukenut ja ymmärtänyt ehdot"
 
 #: pyha/templates/pyha/requestform.html:353
-#, fuzzy
-#| msgid "handler_requester"
 msgid "end_request"
-msgstr "Aineistopyynnön tekijä"
+msgstr "Päätä pyyntö"
 
 #: pyha/templates/pyha/requestform.html:355
 msgid "send_to_be_accepted"
@@ -1310,10 +1302,8 @@ msgid "collection_decision_arguments"
 msgstr "Aineistokohtaiset perustelut päätökselle"
 
 #: pyha/templates/pyha/requestview.html:372
-#, fuzzy
-#| msgid "handler_official_comment_area"
 msgid "show_in_portal"
-msgstr "Viranomaisten kommentit"
+msgstr "Näytä Laji.fi portaalissa"
 
 #: pyha/templates/pyha/requestview.html:421
 msgid "argument_project"
@@ -1400,10 +1390,8 @@ msgid "asked"
 msgstr " kysyi:"
 
 #: pyha/templates/pyha/requestview.html:597
-#, fuzzy
-#| msgid "answered"
 msgid "answer"
-msgstr " vastasi:"
+msgstr "Vastaa kyselyyn"
 
 #: pyha/templates/pyha/requestview.html:602
 msgid "answered"
@@ -1414,10 +1402,8 @@ msgid "form_to_send_additional_information"
 msgstr "Lomake vastauksen lähettämiseen"
 
 #: pyha/templates/pyha/requestview.html:609
-#, fuzzy
-#| msgid "answered"
 msgid "answering_to"
-msgstr " vastasi:"
+msgstr "Vastaat kyselyyn"
 
 #: pyha/templates/pyha/requestview.html:615
 msgid "send_additional_information"
