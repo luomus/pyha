@@ -145,6 +145,7 @@
 					updateField(namefield, fillfield)();
 				}
 			}
+			document.getElementById("contact_tab_button_"+id).click();
 			}
 		};
 	xhttp.overrideMimeType('text/xml');
