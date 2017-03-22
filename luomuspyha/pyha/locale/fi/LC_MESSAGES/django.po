@@ -639,7 +639,7 @@ msgstr " kysyi:"
 #: pyha/templates/pyha/handler/requestview.html:582
 #: pyha/templates/pyha/requestview.html:602
 msgid "inquiry"
-msgstr ""
+msgstr "kyselyyn"
 
 #: pyha/templates/pyha/handler/requestview.html:582
 msgid "handler_answered"
