@@ -238,7 +238,7 @@
 								{% for collection in taxonlist %}
 									<span>{{collection.result.collectionName}}</span>
 								{% endfor %}
-								<br></br>
+								<br><br />
 								<table class="table" style="width:100%">
 									<tr style=color:black>
 									<th>{% trans "handler_state_of_processing" %}</th>
@@ -397,7 +397,7 @@
 							{% endif %}
 						{% endfor %}
 						</span>
-						<br></br>
+						<br><br />
 							<table class="table" style="width:100%">
 						{% for field in reasonlist.fields %}
 							{% if field.0 == 'argument_project' %}
@@ -519,7 +519,6 @@
 														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
 													</ul>
 														{% for contact in contactlist|slice:"1:" %}
-															<br></br>
 													<ul>
 														<li><p class="model-field">{% trans 'additional_contact_name' %} {{contact.personName}}</p></li>
 														<li><p class="model-field">{% trans 'contact_street_address' %} {{contact.personStreetAddress}}</p></li>
