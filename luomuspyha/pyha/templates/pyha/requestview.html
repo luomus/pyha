@@ -538,8 +538,12 @@
 														<li><p class="model-field">{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p></li>
 														<li><p class="model-field">{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p></li>
 														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p></li>
+														{% if contactlist.0.personOrganizationName != "" %}
 														<li><p class="model-field">{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p></li>
+														{% endif %}
+														{% if contactlist.0.personCorporationId != "" %}
 														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
+														{% endif %}
 													</ul>
 													
 														{% for contact in contactlist|slice:"1:" %}
@@ -551,8 +555,12 @@
 														<li><p class="model-field">{% trans 'contact_country' %} {{contact.personCountry}}</p></li>
 														<li><p class="model-field">{% trans 'contact_email' %} {{contact.personEmail}}</p></li>
 														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contact.personPhoneNumber}}</p></li>
+														{% if contact.personOrganizationName != "" %}
 														<li><p class="model-field">{% trans 'contact_corporation' %} {{contact.personOrganizationName}}</p></li>
+														{% endif %}
+														{% if contact.personCorporationId != "" %}
 														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contact.personCorporationId}}</p></li>
+														{% endif %}
 													</ul>
 														{% endfor %}
 													</div>
