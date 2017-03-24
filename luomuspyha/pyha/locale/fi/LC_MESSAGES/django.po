@@ -1121,7 +1121,7 @@ msgstr "Jatka yhteenvetoon"
 
 #: pyha/templates/pyha/requestformsummary.html:3
 msgid "request_was_empty_and_will_be_closed"
-msgstr ""
+msgstr "Pyyntösi oli tyhjä, ja sen käsittely päätetään."
 
 #: pyha/templates/pyha/requestformsummary.html:5
 msgid "request_summary"
@@ -1167,7 +1167,7 @@ msgstr "Ei kuvausta"
 
 #: pyha/templates/pyha/requestheader.html:31
 msgid "change"
-msgstr "Tallenna pyynnön nimi"
+msgstr "Tallenna pyynnön kuvaus"
 
 #: pyha/templates/pyha/requestheader.html:35
 msgid ""

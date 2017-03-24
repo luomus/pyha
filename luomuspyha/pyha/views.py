@@ -504,7 +504,7 @@ def change_description(request):
 		userRequest = Request.requests.get(id = requestId)
 		userRequest.description = request.POST.get('description')
 		userRequest.save(update_fields=['description'])
-		return HttpResponseRedirect(next)
+		return HttpResponse(status=200)
 	return HttpResponseRedirect('/pyha/')
 
 #removes sensitive sightings
