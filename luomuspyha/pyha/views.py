@@ -115,7 +115,7 @@ def download(request, link):
 def new_count(request):
 		if request.method == 'GET':
 			if 'none' != request.GET.get('person', 'none'):
-				personId = request.GET.get('person');
+				personId = request.GET.get('person')
 				role = fetch_role(personId)
 				count = 0
 				if(settings.TUN_URL+HANDLER_SENS in role.values()):
@@ -409,7 +409,7 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			context["next"] = next = request.GET.get('next', 'request')
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
-			context["endable"] = Collection.objects.filter(request=userRequest.id,taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()
+			context["endable"] = (Collection.objects.filter(request=userRequest.id,taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == 4)
 			context["user"] = userId
 			handler_waiting_status(userRequest, request, userId)
 		if userRequest.status == 8:
@@ -516,7 +516,7 @@ def remove_sensitive_data(request):
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
 		collection = Collection.objects.get(id = collectionId)
-		collection.taxonSecured = 0;
+		collection.taxonSecured = 0
 		collection.save(update_fields=['taxonSecured'])
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
@@ -534,7 +534,7 @@ def remove_custom_data(request):
 		collectionId = request.POST.get('collectionId')
 		requestId = request.POST.get('requestid')
 		collection = Collection.objects.get(id = collectionId)
-		collection.customSecured = 0;
+		collection.customSecured = 0
 		collection.save(update_fields=['customSecured'])
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = -1
@@ -563,12 +563,16 @@ def remove_ajax(request):
 		requestId = request.POST.get('requestid')
 		userRequest = Request.requests.get(id = requestId)
 		collection = Collection.objects.get(id = collectionId)
-		collection.taxonSecured = 0;
-		collection.customSecured = 0;
+		value = collection.taxonSecured + collection.customSecured
+		collection.taxonSecured = 0
+		collection.customSecured = 0
 		collection.save(update_fields=['taxonSecured', 'customSecured'])
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
+			userRequest = Request.requests.get(id = requestId)
+			userRequest.approximateMatches -= value
+			userRequest.save(update_fields=['approximateMatches'])
 			if(check_all_collections_removed(requestId)):
 				return HttpResponse("/pyha/", status=310)
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
@@ -652,7 +656,7 @@ def create_contact(request):
 		if not allowed_to_view(request, requestId, userId, role1, role2):
 			return HttpResponseRedirect('/pyha/')
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
-		context["contact_id"] = request.POST.get('id');
+		context["contact_id"] = request.POST.get('id')
 		return render(request, 'pyha/requestformcontact.xml', context)
 	return HttpResponse("/pyha/")
 
@@ -724,7 +728,7 @@ def removeCollection(request):
 #check if all collections have status -1. If so set status of request to -1.
 def check_all_collections_removed(requestId):
 		userRequest = Request.requests.get(id = requestId)
-		collectionList = userRequest.collection_set.filter(status__gte=0 )
+		collectionList = userRequest.collection_set.filter(status__gte=0)
 		if not collectionList:
 			userRequest.status = -1
 			userRequest.save(update_fields=['status'])
@@ -740,9 +744,15 @@ def approve(request):
 			return HttpResponseRedirect('/pyha/')
 		lang = 'fi' #ainakin toistaiseksi
 		userRequest = Request.requests.get(id = requestId)
-		requestedCollections = request.POST.getlist('checkb');
-		senschecked = request.POST.get('checkbsens');
+		requestedCollections = request.POST.getlist('checkb')
+		senschecked = request.POST.get('checkbsens')
 		if(userRequest.status == 0 and senschecked):
+			collectionList = Collection.objects.filter(request=requestId, status__gte=0)
+			taxon = False
+			for collection in collectionList:
+				collection.allSecured = collection.customSecured + collection.taxonSecured
+				if(collection.taxonSecured > 0):
+					taxon = True
 			if len(requestedCollections) > 0:
 				for rc in requestedCollections:
 					userCollection = Collection.objects.get(address = rc, request = requestId)
@@ -768,7 +778,10 @@ def approve(request):
 				userRequest.reason = create_argument_blob(request)
 				userRequest.status = 1
 				if senschecked:
-					userRequest.sensstatus = 1
+					if not taxon:
+						userRequest.sensstatus = 4
+					else:
+						userRequest.sensstatus = 1
 				userRequest.personName = request.POST.get('request_person_name_1')
 				userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
 				userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
@@ -780,7 +793,7 @@ def approve(request):
 				userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
 				userRequest.save()
 				update_contact_preset(request, userRequest)
-				if userRequest.sensstatus == 1:
+				if userRequest.sensstatus == 1 and taxon:
 					send_mail_for_approval_sens(requestId, lang)
 				#make a log entry
 				RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
@@ -963,21 +976,58 @@ def update(requestId, lang):
 		wantedRequest = Request.requests.get(id=requestId)
 		#tmp variable for checking if status changed
 		statusBeforeUpdate = wantedRequest.status
-		requestCollections = Collection.objects.filter(request=requestId)
+		requestCollections = Collection.objects.filter(request=requestId, status__gte=0)
+		taxon = False
+		for collection in requestCollections:
+			if(collection.taxonSecured > 0):
+				taxon = True
+				break
 		accepted = 0
 		colaccepted = 0
 		declined = 0
 		pending = 0
-		if wantedRequest.status != 6:
-			if wantedRequest.sensstatus == 1:
-				pending += 1
-			elif wantedRequest.sensstatus == 2:
-				accepted += 1
-				declined += 1
-			elif wantedRequest.sensstatus == 3:
-				declined += 1
-			elif wantedRequest.sensstatus == 4:
-				accepted += 1
+		if taxon:
+			if wantedRequest.status != 6:
+				if wantedRequest.sensstatus == 1:
+					pending += 1
+				elif wantedRequest.sensstatus == 2:
+					accepted += 1
+					declined += 1
+				elif wantedRequest.sensstatus == 3:
+					declined += 1
+				elif wantedRequest.sensstatus == 4:
+					accepted += 1
+				for c in requestCollections:
+					if c.status == 1:
+						pending += 1
+					elif c.status == 2:
+						accepted += 1
+						declined += 1
+					elif c.status == 3:
+						declined += 1
+					elif c.status == 4:
+						colaccepted += 1
+						accepted += 1
+				if wantedRequest.sensstatus == 3:
+					wantedRequest.status = 3
+				elif (accepted >= 0 and pending > 0) and declined == 0:
+					wantedRequest.status = 1
+				elif (accepted > 0 and declined > 0) and pending == 0:
+					wantedRequest.status = 2
+					if colaccepted > 0:
+						send_download_request(requestId)
+				elif (pending == 0 and accepted == 0) and declined > 0:
+					wantedRequest.status = 3
+				elif accepted > 0 and (declined == 0 and pending == 0):
+					wantedRequest.status = 4
+					if colaccepted > 0:
+						send_download_request(requestId)
+				elif declined > 0:
+					wantedRequest.status = 1
+				else:
+					wantedRequest.status = 5
+				wantedRequest.save()
+		else:
 			for c in requestCollections:
 				if c.status == 1:
 					pending += 1
@@ -989,9 +1039,7 @@ def update(requestId, lang):
 				elif c.status == 4:
 					colaccepted += 1
 					accepted += 1
-			if wantedRequest.sensstatus == 3:
-				wantedRequest.status = 3
-			elif (accepted >= 0 and pending > 0) and declined == 0:
+			if (accepted >= 0 and pending > 0) and declined == 0:
 				wantedRequest.status = 1
 			elif (accepted > 0 and declined > 0) and pending == 0:
 				wantedRequest.status = 2
@@ -1008,7 +1056,7 @@ def update(requestId, lang):
 			else:
 				wantedRequest.status = 5
 			wantedRequest.save()
-		
+				
 		emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 
 def send_download_request(requestId):

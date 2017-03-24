@@ -60,6 +60,7 @@
 		</div>
 			<div style="padding-left:0px;">
 				<div>
+					{% if taxon %}
 					<div class="col-xs-12" style="height:relative">
 							<h2 style="text-align:center;">{% trans "handler_sensitive" %}</h2>
 							<div style="text-align:center;">
@@ -70,6 +71,7 @@
 								</h3>
 							</div>
 					</div>
+					{% endif %}
 					<div class="col-xs-12">
 						{% if collections %}
 						<h2 style="text-align:center;top:0%;">{% trans "handler_restricted" %}</h2>
@@ -100,7 +102,7 @@
 							</span>
 						</a>
 					</li>
-					{% if role1 %}
+					{% if role1 and taxon %}
 					<li id="sensitive-tab" role="presentation" {% if next == "sensitive" %} class="active" {% endif %} >
 						<a href="#sensitive" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
 							<span>
@@ -428,10 +430,12 @@
 						<div class="tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 								<h3>{% trans "handler_terms" %}</h3>
 								<table class="table" style="width:100%">
+									{% if taxon %}
 									<tr>
 									<td>{% trans "handler_sensitivity" %}</td>
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "handler_terms" %}</button></td>
 									</tr>
+									{% endif %}
 									{% for collection in customlist %}
 										<tr>
 										<td>{{collection.result.collectionName}}</td>

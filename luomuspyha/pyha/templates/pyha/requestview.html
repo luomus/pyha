@@ -85,6 +85,7 @@
 			</div>
 			<div style="padding-left:0px;">
 				<div>
+					{% if taxon %}
 					<div class="col-xs-12" style="height:relative">
 							<h2 style="text-align:center;">{% trans "sensitive" %}</h2>
 							<div style="text-align:center;">
@@ -95,6 +96,7 @@
 								</h3>
 							</div>
 					</div>
+					{% endif %}
 					<div class="col-xs-12">
 						{% if collections %}
 						<h2 style="text-align:center;top:0%;">{% trans "restricted" %}</h2>
@@ -105,9 +107,9 @@
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
-									<span class="slider slider-waiting{% if collection.status == 1 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-waiting{% if collection.status == 4 and userRequest.sensstatus == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-waiting{% if collection.status == 3 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-waiting{% if userRequest.sensstatus == 4 and collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-waiting{% if userRequest.sensstatus == 4 and collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-waiting{% if userRequest.sensstatus == 4 and collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
 								</td>
 							</tr>
@@ -136,7 +138,7 @@
 				</div>
 				{% elif userRequest.status == 7%}
 				<h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
-				{% elif userRequest.status == 1 and userRequest.sensstatus == 4 and endable %}
+				{% elif userRequest.status == 1 and endable %}
 				<div style="text-align:center;">
 					<button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">{% trans 'stop_wait_initialize_download' %}</button>
 				</div>
@@ -286,6 +288,7 @@
 							</table>
 					</div>
 					<div class="tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
+							{% if taxon %}
 								<h3>{% trans "decision_for_admitting_sensitive_data"%}</h3>
 								<table class="table" style="width:100%">
 									<tr style=color:black>
@@ -322,6 +325,7 @@
 									</td>
 									</tr>
 								</table>
+							{% endif %}
 						<div style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
 						<h3>{% trans "decicions_for_admitting_data" %}</h3>
 							<table class="table" style="width:100%">
@@ -445,10 +449,12 @@
 					<div class="tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 							<h3>{% trans "terms" %}</h3>
 								<table class="table" style="width:100%">
+									{% if taxon %}
 									<tr>
 									<td>{% trans "sensitivity" %}</td>
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button></td>
 									</tr>
+									{% endif %}
 									{% for collection in collections %}
 										<tr>
 										<td>{{collection.result.collectionName}}</td>

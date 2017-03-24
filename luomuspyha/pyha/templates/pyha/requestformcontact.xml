@@ -29,17 +29,16 @@
 									</contact>
 									<modal>
 										<div id="contact_{{contact_id}}">
-										<br></br>
 										<ul>
-											<li><p>{% trans 'additional_contact_name' %} <span id="contact_name_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_street_address' %} <span id="contact_street_address_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_post_office' %} <span id="contact_post_office_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_postal' %} <span id="contact_postal_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_country' %} <span id="contact_country_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_email' %} <span id="contact_email_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization_{{contact_id}}"></span></p></li>
-											<li><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id_{{contact_id}}"></span></p></li>
+											<li id="li_contact_name_{{contact_id}}"><p>{% trans 'additional_contact_name' %} <span id="contact_name_{{contact_id}}"></span></p></li>
+											<li id="li_contact_street_address_{{contact_id}}"><p>{% trans 'contact_street_address' %} <span id="contact_street_address_{{contact_id}}"></span></p></li>
+											<li id="li_contact_post_office_{{contact_id}}"><p>{% trans 'contact_post_office' %} <span id="contact_post_office_{{contact_id}}"></span></p></li>
+											<li id="li_contact_postal_{{contact_id}}"><p>{% trans 'contact_postal' %} <span id="contact_postal_{{contact_id}}"></span></p></li>
+											<li id="li_contact_country_{{contact_id}}"><p>{% trans 'contact_country' %} <span id="contact_country_{{contact_id}}"></span></p></li>
+											<li id="li_contact_email_{{contact_id}}"><p>{% trans 'contact_email' %} <span id="contact_email_{{contact_id}}"></span></p></li>
+											<li id="li_contact_phone_number_{{contact_id}}"><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number_{{contact_id}}"></span></p></li>
+											<li id="li_contact_corporation/organization_{{contact_id}}"><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization_{{contact_id}}"></span></p></li>
+											<li id="li_contact_corporation_id_{{contact_id}}"><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id_{{contact_id}}"></span></p></li>
 										</ul>
 										</div>
 									</modal>

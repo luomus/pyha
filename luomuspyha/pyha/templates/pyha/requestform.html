@@ -181,8 +181,8 @@
 
 													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
 														<div class="inner-wrap">
-														<label>{% trans "enter_corporation/organization_name" %}<input type="text" id="request_person_organization_name_1" name="request_person_organization_name_1" /></label>
-														<label>{% trans "enter_corporation_id" %}<input type="text" id="request_person_corporation_id_1" name="request_person_corporation_id_1" /></label>
+														<label>{% trans "enter_corporation/organization_name" %}<input onkeyup="contactsFilled();" type="text" id="request_person_organization_name_1" name="request_person_organization_name_1" /></label>
+														<label>{% trans "enter_corporation_id" %}<input onkeyup="contactsFilled();" type="text" id="request_person_corporation_id_1" name="request_person_corporation_id_1" /></label>
 													</div>
 													{% endif %}
 												</div>
@@ -287,15 +287,15 @@
 																<h4 style="font-weight: bold;">Aineistopyynnön tekijän/tekijöiden tiedot</h4>
 																<div style="margin-left:30px">
 																<ul>
-																	<li><p>{% trans 'contact_name' %} <span id="contact_name"></span></p></li>
-																	<li><p>{% trans 'contact_street_address' %} <span id="contact_street_address"></span></p></li>
-																	<li><p>{% trans 'contact_post_office' %} <span id="contact_post_office"></span></p></li>
-																	<li><p>{% trans 'contact_postal' %} <span id="contact_postal"></span></p></li>
-																	<li><p>{% trans 'contact_country' %} <span id="contact_country"></span></p></li>
-																	<li><p>{% trans 'contact_email' %} <span id="contact_email"></span></p></li>
-																	<li><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number"></span></p></li>
-																	<li><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization"></span></p></li>
-																	<li><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id"></span></p></li>
+																	<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span id="contact_name_1"></span></p></li>
+																	<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span id="contact_street_address_1"></span></p></li>
+																	<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span id="contact_post_office_1"></span></p></li>
+																	<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span id="contact_postal_1"></span></p></li>
+																	<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span id="contact_country_1"></span></p></li>
+																	<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span id="contact_email_1"></span></p></li>
+																	<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span id="contact_phone_number_1"></span></p></li>
+																	<li id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span id="contact_corporation/organization_1"></span></p></li>
+																	<li id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span id="contact_corporation_id_1"></span></p></li>
 																</ul>
 																<div id="modal_contacts_end"></div>
 																</div>
@@ -349,7 +349,7 @@
 										</div>
 											<ul class="list-inline pull-right">
 												<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-												{% if not taxon and not collection %}
+												{% if not taxon and not customlist %}
 												<li><button type="submit" id="submit" class="btn btn-success">{% trans "end_request" %}</button></li>
 												{% else %}
 												<li><button type="submit" id="submit" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>
@@ -649,6 +649,18 @@
 		}
 	}
 	document.getElementById('to_step_2').disabled = state;
+	
+	var secfills = ["request_person_organization_name_","request_person_corporation_id_"];
+	var seccontacts = ["li_contact_corporation/organization_","li_contact_corporation_id_"];
+	for (var i=1; i<=count; i++) {
+		for (var j=0; j<secfills.length; j++){
+				if (document.getElementById(secfills[j]+""+i).value == ''){
+					document.getElementById(seccontacts[j]+""+i).style.display = "none";
+				}else{
+					document.getElementById(seccontacts[j]+""+i).style.display = "block";
+				}
+			}
+		}
 	}
 	
 	function getSelectValues(select) {
@@ -688,7 +700,7 @@
 	<script>
 	$(document).ready(function() {
 		var fields = ["request_person_name_1","request_person_street_address_1","request_person_post_office_name_1","request_person_postal_code_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
-		var fills = ["contact_name","contact_street_address","contact_post_office","contact_postal","contact_country","contact_email","contact_phone_number","contact_corporation/organization","contact_corporation_id"];
+		var fills = ["contact_name_1","contact_street_address_1","contact_post_office_1","contact_postal_1","contact_country_1","contact_email_1","contact_phone_number_1","contact_corporation/organization_1","contact_corporation_id_1"];
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
 			var fillfield = document.getElementById(fills[i]);
