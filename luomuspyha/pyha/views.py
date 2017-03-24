@@ -571,8 +571,6 @@ def remove_ajax(request):
 			collection.status = -1
 			collection.save(update_fields=['status'])
 			userRequest = Request.requests.get(id = requestId)
-			userRequest.approximateMatches -= value
-			userRequest.save(update_fields=['approximateMatches'])
 			if(check_all_collections_removed(requestId)):
 				return HttpResponse("/pyha/", status=310)
 		context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
