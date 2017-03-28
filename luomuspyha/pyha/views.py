@@ -757,48 +757,48 @@ def approve(request):
 					if userCollection.status == 0:
 						userCollection.status = 1
 						userCollection.save(update_fields=['status'])
-				for c in Collection.objects.filter(request = requestId):
-					if c.status == 0:
-						c.customSecured = 0
-						if userRequest.sensstatus == 0:
-							c.taxonsecured = 0
-						c.save(update_fields=['customSecured'])
-						if c.taxonSecured == 0:
-							c.status = -1
-							c.save(update_fields=['status'])
-					#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
-					if(c.customSecured > 0):
-						send_mail_for_approval(requestId, c, lang)
+			for c in Collection.objects.filter(request = requestId):
+				if c.status == 0:
+					c.customSecured = 0
+					if userRequest.sensstatus == 0:
+						c.taxonsecured = 0
+					c.save(update_fields=['customSecured'])
+					if c.taxonSecured == 0:
+						c.status = -1
+						c.save(update_fields=['status'])
+				#postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
+				if(c.customSecured > 0):
+					send_mail_for_approval(requestId, c, lang)
 
-				for count in range(2, count_contacts(request.POST)+1):
-					create_new_contact(request, userRequest, count)
+			for count in range(2, count_contacts(request.POST)+1):
+				create_new_contact(request, userRequest, count)
 
-				userRequest.reason = create_argument_blob(request)
-				userRequest.status = 1
-				if senschecked:
-					if not taxon:
-						userRequest.sensstatus = 4
-					else:
-						userRequest.sensstatus = 1
-				userRequest.personName = request.POST.get('request_person_name_1')
-				userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
-				userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
-				userRequest.personPostalCode = request.POST.get('request_person_postal_code_1')
-				userRequest.personCountry = request.POST.get('request_person_country_1')
-				userRequest.personEmail = request.POST.get('request_person_email_1')
-				userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
-				userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
-				userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
-				userRequest.save()
-				update_contact_preset(request, userRequest)
-				if userRequest.sensstatus == 1 and taxon:
-					send_mail_for_approval_sens(requestId, lang)
-				#make a log entry
-				RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-			else:
-				userRequest.status = -1
-				userRequest.save()
-				RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+			userRequest.reason = create_argument_blob(request)
+			userRequest.status = 1
+			if senschecked:
+				if not taxon:
+					userRequest.sensstatus = 4
+				else:
+					userRequest.sensstatus = 1
+			userRequest.personName = request.POST.get('request_person_name_1')
+			userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
+			userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
+			userRequest.personPostalCode = request.POST.get('request_person_postal_code_1')
+			userRequest.personCountry = request.POST.get('request_person_country_1')
+			userRequest.personEmail = request.POST.get('request_person_email_1')
+			userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
+			userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
+			userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
+			userRequest.save()
+			update_contact_preset(request, userRequest)
+			if userRequest.sensstatus == 1 and taxon:
+				send_mail_for_approval_sens(requestId, lang)
+			#make a log entry
+			RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+		else:
+			userRequest.status = -1
+			userRequest.save()
+			RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
 	return HttpResponseRedirect('/pyha/')
 
 def count_contacts(post):
