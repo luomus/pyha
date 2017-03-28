@@ -744,8 +744,8 @@ def approve(request):
 		userRequest = Request.requests.get(id = requestId)
 		requestedCollections = request.POST.getlist('checkb')
 		senschecked = request.POST.get('checkbsens')
-		if(userRequest.status == 0 and senschecked):
-			collectionList = Collection.objects.filter(request=requestId, status__gte=0)
+		collectionList = Collection.objects.filter(request=requestId, status__gte=0)
+		if(userRequest.status == 0 and senschecked and len(collectionList) > 0):
 			taxon = False
 			for collection in collectionList:
 				collection.allSecured = collection.customSecured + collection.taxonSecured
