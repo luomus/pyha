@@ -651,7 +651,7 @@ msgstr "Lomake lisätietojen pyytämiseen"
 
 #: pyha/templates/pyha/handler/requestview.html:594
 msgid "ask_as_handler_of"
-msgstr "Kysy kyseisessä roolissa"
+msgstr "Kysy roolissa"
 
 #: pyha/templates/pyha/handler/requestview.html:604
 msgid "handler_request_additional_information"
