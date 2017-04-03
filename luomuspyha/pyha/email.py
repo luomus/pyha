@@ -109,11 +109,13 @@ def fetch_role(personId):
 	else:
 		return cache.get('role'+personId)
 
-def fetch_pdf(data):
+def fetch_pdf(data,style):
 	username = settings.PDFAPI_USER
 	password = settings.PDFAPI_PW 
+	if(style):
+		data = "<div style='"+ style +"'>" + data +  "</div>"
 	payload = {'html': data}
-	response = requests.post(settings.PDFAPI_URL, params = payload, auth=HTTPBasicAuth(username, password ))
+	response = requests.post(settings.PDFAPI_URL, data = payload, auth=HTTPBasicAuth(username, password ))
 	if(response.status_code == 200):
 		return response
 

@@ -138,7 +138,7 @@ def new_count(request):
 
 def new_pdf(request):
 		if request.method == 'POST':
-			return HttpResponse(fetch_pdf(request.POST.get('source')),content_type='application/pdf')
+			return HttpResponse(fetch_pdf(request.POST.get('source'),request.POST.get('style')),content_type='application/pdf')
 		return HttpResponse('')
 
 def jsonmock(request):
@@ -403,10 +403,11 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 		request_owners_email = fetch_email_address(userRequest.user)
 		context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 		context["coordinates"] = create_coordinates(userRequest)
-		context["filter_link"] = filterlink(request, context["filters"],settings.FILTERS_LINK)
-		context["official_filter_link"] = filterlink(request, context["filters"],settings.OFFICIAL_FILTERS_LINK)
+		context["filter_link"] = filterlink(userRequest, request, context["filters"],settings.FILTERS_LINK)
+		context["official_filter_link"] = filterlink(userRequest, request, context["filters"],settings.OFFICIAL_FILTERS_LINK)
+		context["sensitivity_terms"] = "pyha/sensitivity/sensitivity-"+lang+".html"
 		if userRequest.status > 0:
-			context["next"] = next = request.GET.get('next', 'request')
+			context["next"] = next = request.GET.get('next', 'history')
 			context["contactlist"] = show_request_contacts(userRequest)
 			context["reasonlist"] = show_reasons(userRequest)
 			context["endable"] = (Collection.objects.filter(request=userRequest.id,taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == 4)
@@ -428,14 +429,23 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 				context["information"] = not requestInformationChat_list[-1].question
 		return context
 
-def filterlink(request, filters, link):
+def filterlink(userRequest, request, filters, link):
+		filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		first = True
-		for f in filters:
+		for f in vars(filterList).keys():
 			if not first:
 				link += "&"
 			else:
 				first = False
-			link += f[0] + "=" + f[1][0]
+			link += f + "="
+			if not isinstance(getattr(filterList, f), str):
+				secondfirst = True
+				for e in getattr(filterList, f):
+					if not secondfirst:
+						link += "%2C"
+					link += e
+			else:
+				link += getattr(filterList, f)
 		return link
 
 def handler_waiting_status(r, request, userId):

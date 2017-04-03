@@ -4,60 +4,60 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-		<div class="page-header"> 
-			<h1>{% trans "handler_request_from_user" %}
-				{{request_owner}},
-				{{request_owners_email}}
-			</h1>
-					
-				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
-			<h2><span style="white-space: nowrap;">
-					{% trans "handler_state_of_request" %}
-					<span
-					{% if userRequest.status == 1 %}
-						 style="color:#AABBDD;"
-					{% elif userRequest.status == 2 %}
-						 style="color:#BBBB77;"
-					{% elif userRequest.status == 3 %}
-						 style="color:#DDBBAA;"
-					{% elif userRequest.status == 4 %}
-						 style="color:#99DD99;"
-					{% else %}
+			<div class="page-header"> 
+				<h1>{% trans "handler_request_from_user" %}
+					{{request_owner}},
+					{{request_owners_email}}
+				</h1>
 						
-					{% endif %}
-					> 
-					{% if userRequest.status == 1 %}
-						{% if userRequest.waitingstatus == 0 %}
-						{% trans "handler_waiting_for_others" %}
-						{% elif userRequest.waitingstatus == 1 %}
-						{% trans "handler_waiting_for_you" %}
+					<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
+				<h2><span style="white-space: nowrap;">
+						{% trans "handler_state_of_request" %}
+						<span
+						{% if userRequest.status == 1 %}
+							 style="color:#AABBDD;"
+						{% elif userRequest.status == 2 %}
+							 style="color:#BBBB77;"
+						{% elif userRequest.status == 3 %}
+							 style="color:#DDBBAA;"
+						{% elif userRequest.status == 4 %}
+							 style="color:#99DD99;"
+						{% else %}
+							
 						{% endif %}
-					{% elif userRequest.status == 2 %}
-					{% trans "handler_partially_accepted" %}
-					
-					{% elif userRequest.status == 3 %}
-					{% trans "handler_denied" %}
-					
-					{% elif userRequest.status == 4 %}
-					{% trans "handler_accepted" %}
-					
-					{% elif userRequest.status == 6 %}
-					{% trans "handler_waiting_for_additional_information" %}
-					<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "handler_show_additional_information" %}</a>
-					{% elif userRequest.status == 7 %}
-					{% trans "handler_waiting_for_download" %} 
-					
-					{% elif userRequest.status == 8 %}
-					{% trans "handler_ready_for_download" %}
-					
-					{% else %}  
-					{% trans "handler_unknown" %}
-					
-					{% endif %}
-					
-					</span>
-				</span></h2>
-		</div>
+						> 
+						{% if userRequest.status == 1 %}
+							{% if userRequest.waitingstatus == 0 %}
+							{% trans "handler_waiting_for_others" %}
+							{% elif userRequest.waitingstatus == 1 %}
+							{% trans "handler_waiting_for_you" %}
+							{% endif %}
+						{% elif userRequest.status == 2 %}
+						{% trans "handler_partially_accepted" %}
+						
+						{% elif userRequest.status == 3 %}
+						{% trans "handler_denied" %}
+						
+						{% elif userRequest.status == 4 %}
+						{% trans "handler_accepted" %}
+						
+						{% elif userRequest.status == 6 %}
+						{% trans "handler_waiting_for_additional_information" %}
+						<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "handler_show_additional_information" %}</a>
+						{% elif userRequest.status == 7 %}
+						{% trans "handler_waiting_for_download" %} 
+						
+						{% elif userRequest.status == 8 %}
+						{% trans "handler_ready_for_download" %}
+						
+						{% else %}  
+						{% trans "handler_unknown" %}
+						
+						{% endif %}
+						
+						</span>
+					</span></h2>
+			</div>
 			<div style="padding-left:0px;">
 				<div>
 					{% if taxon %}
@@ -82,7 +82,7 @@
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
-									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
 									<span class="slider slider-accepted{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
 									<span class="slider slider-accepted{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
@@ -95,61 +95,57 @@
 					</div>
 			</div>
 				<ul class="nav nav-tabs" role="tablist">
+					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
+						<a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans "handler_changes_history" %}
+							</span>
+						</a>
+					</li>
 					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
-						<a href="#request" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+						<a href="#request" class="request-tab request-view-tab" data-toggle="tab" aria-controls="request" role="tab" {% if next == "request" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_request_window' %}
 							</span>
 						</a>
 					</li>
-					{% if role1 and taxon %}
-					<li id="sensitive-tab" role="presentation" {% if next == "sensitive" %} class="active" {% endif %} >
-						<a href="#sensitive" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
-							<span>
-								{% trans 'handler_sensitive_window' %}
-							</span>
-						</a>
-					</li>
-					{% endif %}
-					{% if customlist %}
-					<li id="collection-tab" role="presentation" {% if next == "collection" %} class="active" {% endif %}>
-						<a href="#collection" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
-							<span>
-								{% trans 'handler_collection_window' %}
-							</span>
-						</a>
-					</li>
-					{% endif %}  
 					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} >
-						<a href="#arguments" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
+						<a href="#arguments" class="request-tab request-view-tab" data-toggle="tab" aria-controls="arguments" role="tab" {% if next == "arguments" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_argument_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="filters-tab" role="presentation" {% if next == "filters" %} class="active" {% endif %} >
-						<a href="#filters" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
+						<a href="#filters" class="request-tab request-view-tab" data-toggle="tab" aria-controls="filters" role="tab" {% if next == "filters" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_filter_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} >
-						<a href="#terms" class="vertical-tab" data-toggle="tab" aria-controls="argument" role="tab">
+						<a href="#terms" class="request-tab request-view-tab" data-toggle="tab" aria-controls="terms" role="tab" {% if next == "terms" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_terms_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
-						<a href="#contacts" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+						<a href="#contacts" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contacts" role="tab" {% if next == "contacts" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_contact_window' %}
 							</span>
 						</a>
 					</li>
+					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
+						<a href="#decision" class="request-tab request-action-tab" data-toggle="tab" aria-controls="decision" role="tab" {% if next == "decision" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'handler_decision_window' %}
+							</span>
+						</a>
+					</li>
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
-						<a href="#additional_information" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="additional_information" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% if userRequest.sensstatus == 1 and information %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'handler_additional_information_window' %}
 							</span>
@@ -157,23 +153,16 @@
 					</li>
 					{% if role1%}
 					<li id="handler_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
-						<a href="#handler_comments" class="vertical-tab" data-toggle="tab" aria-controls="contact" role="tab">
+						<a href="#handler_comments" class="request-tab request-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_comments_window' %}
 							</span>
 						</a>
 					</li>
 					{% endif %}
-					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
-						<a href="#history" class="vertical-tab" data-toggle="tab" aria-controls="history" role="tab">
-							<span>
-								{% trans "handler_changes_history" %}
-							</span>
-						</a>
-					</li>
 				</ul>
 				<div class="tab-content">
-					<div class="tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
+					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "handler_collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
@@ -189,499 +178,500 @@
 									<th>{% trans "handler_all_secured" %}</th>
 									<th>{% trans "handler_state_of_processing" %}</th>
 								</tr>
-								{% for collection in collections %}
-									{% if collection.status == 1 %}
-									<tr class="info clickable-row"
-									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
-									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
-									{% elif collection.taxonSecured > 0 %}
-										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
-										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
-										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
-										{% endif %}  
-									{% else %}  
-									<tr	
-									{% endif %}
-									>
-									<td>{{collection.result.collectionName}}</td>
-									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
-									<td>{{collection.result.description}}</td>
-									<td>{{collection.customSecured}}</td>
-									<td>{{collection.taxonSecured}}</td>
-									<td>{{collection.allSecured}}</td>
-									
-									{% if collection.status == 1 %}
-									<td>{% trans "waiting_for_data_provider" %}</td>
-									{% elif collection.status == 3 %}
-									<td>{% trans "denied" %}</td>
-									{% elif collection.status == 2 %}
-									<td>{% trans "partially_accepted" %}</td>
-									{% elif collection.status == 4 %}
-									<td>{% trans "accepted" %}</td>
-									{% elif collection.taxonSecured > 0 %}
-									<td>{% trans "Admission_for_sensitive_data" %}</td>
-									{% else %}  
-									<td>{% trans "unknown" %}</td>
-									{% endif %}
-								{% endfor %}
-							</table>
-						</div>
-						<div class="tab-pane {% if next == 'sensitive' %} active {% endif %}" role="tabpanel" id="sensitive">
-							{% if role1 %}
-								{% if userRequest.sensstatus == 0 %}
-								<h3>{% trans "handler_user_no_sensitive_data"%}</h3>
-								{% else %}
-								<h3>{% trans "handler_list_of_collections"%}</h3>
-								{% for collection in taxonlist %}
-									<span>{{collection.result.collectionName}}</span>
-								{% endfor %}
-								<br><br />
-								<table class="table" style="width:100%">
-									<tr style=color:black>
-									<th>{% trans "handler_state_of_processing" %}</th>
-									<th>{% trans "handler_decision_arguments" %}</th>
-									</tr>
+							{% for collection in collections %}
+								{% if collection.status == 1 %}
+								<tr class="info clickable-row"
+								{% elif collection.status == 3 %}
+								<tr class="danger clickable-row"
+								{% elif collection.status == 4 %}
+								<tr class="success clickable-row"
+								{% elif collection.taxonSecured > 0 %}
 									{% if userRequest.sensstatus == 1 %}
 									<tr class="info clickable-row"
 									{% elif userRequest.sensstatus == 3 %}
 									<tr class="danger clickable-row"
 									{% elif userRequest.sensstatus == 4 %}
 									<tr class="success clickable-row"
-									{% else %}  
-									<tr	
-									{% endif %}
-									>
-									{% if userRequest.sensstatus == 1 %}
-									<td>{% trans "handler_waiting_for_data_provider" %}</td>
-									{% elif userRequest.sensstatus == 3 %}
-									<td>{% trans "handler_denied" %}</td>
-									{% elif userRequest.sensstatus == 2 %}
-									<td>{% trans "handler_partially_accepted" %}</td>
-									{% elif userRequest.sensstatus == 4 %}
-									<td>{% trans "handler_accepted" %}</td>
-									{% else %}  
-									<td>{% trans "handler_unknown" %}</td>
-									{% endif %}
-									<td style="width:100%;">
-										<form action="{% url 'pyha:answer' %}" id="requestform" method="post" style="display:inline-block;">
-										<div class="form-group">
-											<input type="hidden" id="collectionid" name="collectionid" value="sens">
-											<input type="hidden" id="next" name="next" value="{{request.path}}?next=sensitive">
-											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-											<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
-										</div>
-										{% csrf_token %}
-										</form>
-										<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post">
-										<button onclick="showDecline()" type="submit" name="answer" value=0 class="btn btn-default btn-sm" style="position: relative;top: -44.5px;left: 70px;">{% trans "handler_refuse" %}</button>
-										<div class="form-group" style="position: relative;top:-30px;">
-											<input type="hidden" id="collectionid" name="collectionid" value="sens">
-											<input type="hidden" id="next" name="next" value="{{request.path}}?next=sensitive">
-											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-											<div id="sensitive_refuse_form" style="width:100%;display:{% if userRequest.sensstatus == 3 %}block{% else %}none{% endif %};">
-											<textarea class="form-control" rows="10" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
-											</div>
-										</div>
-										{% csrf_token %}
-										</form>
-									</td>
-									</tr>
-								</table>
+									{% endif %}  
+								{% else %}  
+								<tr	
 								{% endif %}
-							{% endif %}
-						</div>
-						<div class="tab-pane {% if next == 'collection' %} active {% endif %}" role="tabpanel" id="collection">
-							{% if customlist %}
-								<h3>{% trans "handler_secured_collection_decicions" %}</h3>
-									<table class="table" style="width:100%">
-										<tr style=color:black>
-											<th>{% trans "handler_collection_name" %}</th>
-											<th>{% trans "handler_collection_description" %}</th>
-											<th>{% trans "handler_state_of_processing" %}</th>
-											<th>{% trans "handler_decision_arguments" %}</th>
-										</tr>
-										{% for collection in customlist %}
-											{% if collection.status == 1 %}
-											<tr class="info clickable-row"
-											{% elif collection.status == 3 %}
-											<tr class="danger clickable-row"
-											{% elif collection.status == 4 %}
-											<tr class="success clickable-row"
-											{% else %}  
-											<tr	
-											{% endif %}
-											>
-											<td>{{collection.result.collectionName}}</td>
-											<td>{{collection.result.description}}</td>
-											
-											{% if collection.status == 1 %}
-											<td>{% trans "handler_waiting_for_data_provider" %}</td>
-											{% elif collection.status == 3 %}
-											<td>{% trans "handler_denied" %}</td>
-											{% elif collection.status == 2 %}
-											<td>{% trans "handler_partially_accepted" %}</td>
-											{% elif collection.status == 4 %}
-											<td>{% trans "handler_accepted" %}</td>
-											{% else %}  
-											<td>{% trans "handler_unknown" %}</td>	
-											{% endif %}
-										<td>
-									{% if request.session.user_id in collection.downloadRequestHandler %}
-									<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-									<div class="form-group">
-											<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-											<input type="hidden" id="next" name="next" value="{{request.path}}?next=collection">
-											<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-											<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
-											<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
-										</div>
-										{% csrf_token %}
-									</form>
-									{% else %}
-									{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
-									{% endif %}
-								</td>
-								</tr>
-								{% endfor %}
-							</table>
-							{% endif %}
-						</div>
-						<div class="tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-							<h3>{% trans "handler_request_filters" %} </h3> <a {% if role1 %}href="{{ official_filter_link }}">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
-								{% if filters %}
-									<table class = "table" style="width:100%">
-										<tr style=color:black>
-											<th>{% trans "handler_filter" %}</th>
-											<th>{% trans "handler_values" %}</th>	
-										</tr>	
-										{% for filter in filters %}
-										<tr>	
-											<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
-											{% for f in filter.1 %}
-											<td>{{ f }}</td>
-										</tr>
-											<tr>
-											{% endfor %}
-											</tr>
-										{% endfor %}
-									</table>
-									{% if coordinates %}
-									<div id="filtermap"></div>
-									{% endif %}
-								{% else %}
-									<strong>{% trans "handler_no_filters" %}.</strong>
+								>
+								<td>{{collection.result.collectionName}}</td>
+								{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
+								<td>{{collection.result.description}}</td>
+								<td>{{collection.customSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+								<td>{{collection.allSecured}}</td>
+								
+								{% if collection.status == 1 %}
+								<td>{% trans "waiting_for_data_provider" %}</td>
+								{% elif collection.status == 3 %}
+								<td>{% trans "denied" %}</td>
+								{% elif collection.status == 2 %}
+								<td>{% trans "partially_accepted" %}</td>
+								{% elif collection.status == 4 %}
+								<td>{% trans "accepted" %}</td>
+								{% elif collection.taxonSecured > 0 %}
+								<td>{% trans "Admission_for_sensitive_data" %}</td>
+								{% else %}  
+								<td>{% trans "unknown" %}</td>
 								{% endif %}
-						</div>
-						<div class="tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-							<h3>{% trans "request_arguments" %}</h3>
-						<span>
-						{% for choice in reasonlist.argument_choices%}
-							{% if choice == 'reason_zoning' %}
-								{% trans "handler_reason_zoning" %}
-							{% elif choice == 'reason_permission' %}
-								{% trans "handler_reason_permission" %}
-							{% elif choice == 'reason_enviromental' %}
-								{% trans "handler_reason_enviromental" %}
-							{% elif choice == 'reason_natura' %}
-								{% trans "handler_reason_natura" %}
-							{% elif choice == 'reason_scientific' %}
-								{% trans "handler_reason_scientific" %}
-							{% elif choice == 'reason_forest' %}
-								{% trans "handler_reason_forest" %}
-							{% elif choice == 'reason_other' %}
-								{% trans "handler_reason_other" %}
-							{% endif %}
-						{% endfor %}
-						</span>
-						<br><br />
-							<table class="table" style="width:100%">
-						{% for field in reasonlist.fields %}
-							{% if field.0 == 'argument_project' %}
-								<tr style=color:black><th>{% trans "handler_argument_project" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% elif field.0 == 'argument_research' %}
-								<tr style=color:black><th>{% trans "handler_argument_research" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% elif field.0 == 'argument_goals' %}
-								<tr style=color:black><th>{% trans "handler_argument_goals" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% elif field.0 == 'argument_planning' %}
-								<tr style=color:black><th>{% trans "handler_argument_planning" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% elif field.0 == 'argument_municipality' %}
-								<tr style=color:black><th>{% trans "handler_argument_municipality" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% elif field.0 == 'argument_natura_areas' %}
-								<tr style=color:black><th>{% trans "handler_argument_natura_areas" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% elif field.0 == 'argument_reason' %}
-								<tr style=color:black><th>{% trans "handler_argument_reason" %}</th></tr>
-								<tr><td><p>{{field.1}}</p></td></tr>
-							{% endif %}
-						{% endfor %}
-							</table>
-						</div>
-						<div class="tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
-								<h3>{% trans "handler_terms" %}</h3>
-								<table class="table" style="width:100%">
-									{% if taxon %}
-									<tr>
-									<td>{% trans "handler_sensitivity" %}</td>
-									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "handler_terms" %}</button></td>
-									</tr>
-									{% endif %}
-									{% for collection in customlist %}
-										<tr>
-										<td>{{collection.result.collectionName}}</td>
-										<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
-										</tr>
-										<!-- Modal -->
-										<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-										  <div class="modal-dialog modal-lg" role="document">
-											<div class="modal-content">
-											  <div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title" id="myModalLabel">{% trans "handler_terms_of_use_of_the_collections" %}</h4>
-											  </div>
-											  <div class="modal-body">
-												{% load static %}
-												<object data= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-													<alt>{% trans "handler_if_you_cannot_see_terms_you_can_load_them" %} <a href="{{ static }}pyha/ehdot.pdf">{% trans "handler_here" %}</a></alt>
-													<embed src= "{{ static }}pyha/ehdot.pdf" width="100%" height="700" type='application/pdf'>
-												</object>
-											  </div>
-											  <div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
-											  </div>
-											</div>
-										  </div>
-										</div>
-									{% endfor %}
-										<!-- Sens Modal -->
-										<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
-										  <div class="modal-lg modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title" id="myModalLabel">{% trans "handler_sensitive_terms" %}</h4>
-												<form action="{% url 'pyha:newpdf' %}" onsubmit="this.source.value=document.getElementById('sens-content').outerHTML" method="post">
-													<button type="submit" class="btn btn-default btn-sm">{% trans "handler_as_pdf" %}</button>
-													<input type="hidden" name="source" />
-													{% csrf_token %}
-												</form>
-												</div>
-												<div id="sens-content" class="modal-body">
-												<div style="float:left;">
-												<svg xmlns="http://www.w3.org/2000/svg"
-													width="60" height="160" version="1.1" baseProfile="full"
-													style="width: 60px; height: 160px; display: block;">
-													<g transform="rotate(270)">
-														<text textLength="160" fill="#777777" font-weight="700" font-size="50px" style="font-family: Arial, Helvetica, sans-serif;">
-															<tspan x="-160" dy="50" >LAJI.FI</tspan>
-														</text>
-													   </g>
-												  </svg>
-												</div>
-												<div style="margin-left:120px;margin-top:50px;">
-													<h3 style="font-weight: bold;">Suomen Lajitietokeskuksen sensitiivinen lajitieto – Käyttöehdot</h3>
-													<h4 style="font-weight: bold;">Taustaa</h4>
-													<div style="margin-left:30px">
-														<h5 style="font-weight: bold;">Lainsäädäntö</h5>
-														<p>Tärkein ohjaava lainsäädäntö Lajitietokeskuksen kautta jaettavien tietojen karkeistamiselle tai salaukselle on <a href="http://www.finlex.fi/fi/laki/ajantasa/1999/19990621">laki viranomaisten toiminnan julkisuudesta</a> eli julkisuuslaki (21.5.1999/621)</p>
-														<p>24 § Salassa pidettävät viranomaisen asiakirjat14) asiakirjat, jotka sisältävät tietoja uhanalaisista eläin- tai kasvilajeista tai arvokkaiden luonnonalueiden suojelusta, jos tiedon antaminen niistä vaarantaisi kysymyksessä olevan eläin- tai kasvilajin tai alueen suojelun;</p>
-														<h5 style="font-weight: bold;">Menetelmä</h5>
-														<p>Suomen Lajitietokeskuksessa sensitiivistä tietoa varjellaan joko paikkatietoa karkeistamisella tai salaamalla. Tämä koskee lajeja, joiden suojelu vaarantuisi tiedon antamisesta esimerkiksi vainon, pyynnin, häirinnän tai kaupallisen tai harrastuspohjaisen keräämisen vuoksi. Uhan tulee kohdistua juuri kyseiseen lajiin.</p>
-														<h5 style="font-weight: bold;">Lajiluettelo</h5>
-														<p>Lajitiedon parissa työskentelevien asiantuntijoiden johdolla on laadittu kansallinen luettelo lajeista, jotka on arvioitu olevan erityisen herkkiä erilaisille uhille ja joiden tietoja tulee salata julkisuuslain perusteella (linkki: <a href="http://cms.laji.fi/wp-content/uploads/2016/12/Suomen_Lajitietokeskus_sensitiivinen-lajitieto_lajilista_2016.xlsx">Suomen Lajitietokeskus – sensitiiviset lajiaineistot</a>).</p>
-													</div>
-													<h4 style="font-weight: bold;">Käyttöehdot</h4>
-													<div style="margin-left:30px">
-														<h5 style="font-weight: bold;">Jos käyttölupa sensitiiviseen aineistoon myönnetään, aineistonpyytäjä sitoutuu</h5>
-														<ul>
-															<li>noudattamaan erityistä varovaisuutta, jotta vältetään julkisuuslaissa kuvattu lajin vaarantuminen.</li>
-															<li>käyttämään tietoa vain ja yksinomaan aineistopyynnössä esittämäänsä tarkoitusta varten.</li>
-															<li>olemaan jakamatta aineistoja kenellekään ulkopuoliselle, jotka eivät ole osapuolia aineistopyynnössä.</li>
-														</ul>
-													</div>
-													<h4 style="font-weight: bold;">Aineistopyynnön tekijän/tekijöiden tiedot</h4>
-													<div style="margin-left:30px">
-													<ul>
-														<li><p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p></li>
-														<li><p class="model-field">{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p></li>
-														<li><p class="model-field">{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p></li>
-														<li><p class="model-field">{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p></li>
-														<li><p class="model-field">{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p></li>
-														<li><p class="model-field">{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p></li>
-														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p></li>
-														{% if contactlist.0.personOrganizationName != "" %}
-														<li><p class="model-field">{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p></li>
-														{% endif %}
-														{% if contactlist.0.personCorporationId != "" %}
-														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
-														{% endif %}
-													</ul>
-														{% for contact in contactlist|slice:"1:" %}
-													<ul>
-														<li><p class="model-field">{% trans 'additional_contact_name' %} {{contact.personName}}</p></li>
-														<li><p class="model-field">{% trans 'contact_street_address' %} {{contact.personStreetAddress}}</p></li>
-														<li><p class="model-field">{% trans 'contact_post_office' %} {{contact.personPostOfficeName}}</p></li>
-														<li><p class="model-field">{% trans 'contact_postal' %} {{contact.personPostalCode}}</p></li>
-														<li><p class="model-field">{% trans 'contact_country' %} {{contact.personCountry}}</p></li>
-														<li><p class="model-field">{% trans 'contact_email' %} {{contact.personEmail}}</p></li>
-														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contact.personPhoneNumber}}</p></li>
-														{% if contact.personOrganizationName != "" %}
-														<li><p class="model-field">{% trans 'contact_corporation' %} {{contact.personOrganizationName}}</p></li>
-														{% endif %}
-														{% if contact.personCorporationId != "" %}
-														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contact.personCorporationId}}</p></li>
-														{% endif %}
-														{% endfor %}
-													</ul>
-													</div>
-												</div>
-											  </div>
-											  <div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
-											  </div>
-											</div>
-										  </div>
-										</div>
-								</table>
-						</div>
-						<div class="tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-							<h3>{% trans "handler_contacts" %}</h3>
-							<table class="table" style="width:100%">
-								<tr style=color:black>
-									<th>{% trans "handler_full_name" %}</th>
-									<th>{% trans "handler_street_address" %}</th>
-									<th>{% trans "handler_post_office_name" %}</th>
-									<th>{% trans "handler_postal_code" %}</th>
-									<th>{% trans "handler_country" %}</th>
-									<th>{% trans "handler_email" %}</th>
-									<th>{% trans "handler_phone_number" %}</th>
-									<th>{% trans "handler_corporation/organization_name" %}</th>
-									<th>{% trans "handler_corporation_id" %}</th>
-								</tr>
-									{% for contact in contactlist %}
-								<tr>
-									<td>{{contact.personName}}</td>
-									<td>{{contact.personStreetAddress}}</td>
-									<td>{{contact.personPostOfficeName}}</td>
-									<td>{{contact.personPostalCode}}</td>
-									<td>{{contact.personCountry}}</td>
-									<td>{{contact.personEmail}}</td>
-									<td>{{contact.personPhoneNumber}}</td>
-									<td>{{contact.personOrganizationName}}</td>
-									<td>{{contact.personCorporationId}}</td>
-								</tr>
-									{% endfor %}
-							</table>
-						</div>
-						<div class="tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-							<h3>{% trans "handler_additional_questions" %}</h3>
-							{% for question in requestInformationChat_list %}
-								{% if question.question %}
-								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "handler_asked" %}&#10;&#13;{{question}}</p></div>
-								</div>
-								{% endif %}
-								{% if question.question != True %}
-								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "handler_answered" %}&#10;&#13;{{question}}</p></div>
-								</div>
-								{% endif %}
-							{% endfor %}
-							<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
-							<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-								<div class="form-group">
-									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-									<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
-									{% if role1 %}
-									<input type="hidden" id="target" name="target" value="sens">
-									{% else %}
-									<span>{% trans 'ask_as_handler_of'%}</span>
-									<select id="target" name="target">
-									{% for collection in customlist %}
-										{% if request.session.user_id in collection.downloadRequestHandler %}
-										<option value="{{collection}}">{{collection.result.collectionName}}</option>
-										{% endif %}
-									{% endfor %}
-									</select>
-									{% endif %}
-									<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-									<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm">{% trans "handler_request_additional_information" %}</button>
-								</div>
-								{% csrf_token %}
-							</form>
-						</div>
-						{% if role1 %}
-						<div class="tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
-								<div>
-									<div>
-										<h3>{% trans "handler_official_comment_area" %}</h3>
-										{% for requestChat in requestChat_list %}
-										<div class="panel panel-default">
-										<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "handler_said" %}&#10;&#13;{{ requestChat }}</p></div>
-										</div>
-										{% endfor %}
-										<form action="{% url 'pyha:comment_sensitive' %}" id="commentform" method="post">
-										<div class="form-group">
-											<input type="hidden" id="collectionid" name="collectionid" value="sens">
-											<input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
-											<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-											<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required ></textarea>
-											<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_save" %}</button>
-										</div>
-										{% csrf_token %}
-										</form>
-									</div>
-								</div>
-						</div>
-						{% endif %}
-						<div class="tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
-						{% if requestLog_list %}
-						<h3>{% trans "handler_changes_history" %}</h3>
-						<table class="table" style="width:100%">
-								<tr>
-									<th>{% trans "handler_log_date" %}</th>
-									<th>{% trans "handler_log_maker" %}</th>
-									<th>{% trans "handler_log_description" %}</th>
-								</tr>
-							{% for requestLog in requestLog_list %}
-							<tr>
-								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-								<td>{{requestLog.name}} ({{requestLog.email}})</td>
-								{% if requestLog.action == 'VIEW' %}
-								<td>{% trans "handler_log_viewed" %}</td>
-								{% elif requestLog.action == 'ACC' %}
-								<td>{% trans "handler_log_terms_accepted" %}</td>
-								{% elif requestLog.action == 'POS' %}
-									{% if requestLog.collection == None %}
-									<td>{% trans "handler_log_sensitives_accepted" %}</td>
-									{% else %}
-									<td>{% trans "handler_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
-									{% endif %}
-								{% elif requestLog.action == 'NEG' %}
-									{% if requestLog.collection == None %}
-									<td>{% trans "handler_log_sensitives_denied" %}</td>
-									{% else %}
-									<td>{% trans "handler_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
-									{% endif %}
-								{% endif %}
-								</tr>
 							{% endfor %}
 						</table>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
+						<h3>{% trans "handler_request_filters" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
+							{% if filters %}
+								<table class = "table" style="width:100%">
+									<tr style=color:black>
+										<th>{% trans "handler_filter" %}</th>
+										<th>{% trans "handler_values" %}</th>	
+									</tr>	
+									{% for filter in filters %}
+									<tr>	
+										<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
+										{% for f in filter.1 %}
+										<td>{{ f }}</td>
+									</tr>
+										<tr>
+										{% endfor %}
+										</tr>
+									{% endfor %}
+								</table>
+								{% if coordinates %}
+								<div id="filtermap"></div>
+								{% endif %}
+							{% else %}
+								<strong>{% trans "handler_no_filters" %}.</strong>
+							{% endif %}
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
+						<h3>{% trans "request_arguments" %}</h3>
+					<span>
+					{% for choice in reasonlist.argument_choices%}
+						{% if choice == 'reason_zoning' %}
+							{% trans "handler_reason_zoning" %}
+						{% elif choice == 'reason_permission' %}
+							{% trans "handler_reason_permission" %}
+						{% elif choice == 'reason_enviromental' %}
+							{% trans "handler_reason_enviromental" %}
+						{% elif choice == 'reason_natura' %}
+							{% trans "handler_reason_natura" %}
+						{% elif choice == 'reason_scientific' %}
+							{% trans "handler_reason_scientific" %}
+						{% elif choice == 'reason_forest' %}
+							{% trans "handler_reason_forest" %}
+						{% elif choice == 'reason_other' %}
+							{% trans "handler_reason_other" %}
+						{% endif %}
+					{% endfor %}
+					</span>
+					<br><br />
+						<table class="table" style="width:100%">
+					{% for field in reasonlist.fields %}
+						{% if field.0 == 'argument_project' %}
+							<tr style=color:black><th>{% trans "handler_argument_project" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_research' %}
+							<tr style=color:black><th>{% trans "handler_argument_research" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_goals' %}
+							<tr style=color:black><th>{% trans "handler_argument_goals" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_planning' %}
+							<tr style=color:black><th>{% trans "handler_argument_planning" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_municipality' %}
+							<tr style=color:black><th>{% trans "handler_argument_municipality" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_natura_areas' %}
+							<tr style=color:black><th>{% trans "handler_argument_natura_areas" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_reason' %}
+							<tr style=color:black><th>{% trans "handler_argument_reason" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% endif %}
+					{% endfor %}
+						</table>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
+							<h3>{% trans "handler_terms" %}</h3>
+							<table class="table" style="width:100%">
+								{% if taxon %}
+								<tr>
+								<td>{% trans "handler_sensitivity" %}</td>
+								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "handler_terms" %}</button></td>
+								</tr>
+								{% endif %}
+								{% for collection in customlist %}
+									<tr>
+									<td>{{collection.result.collectionName}}</td>
+									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
+									</tr>
+									<!-- Modal -->
+									<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									  <div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">{% trans "handler_terms_of_use_of_the_collections" %}</h4>
+											<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+										</div>
+										<div id="custom-content-{{collection}}" class="modal-body" style="padding-left:20px;">
+											<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
+											<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
+											<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
+											<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
+											<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
+											<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
+											<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
+										</div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								{% endfor %}
+									<!-- Sens Modal -->
+									<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+									  <div class="modal-lg modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">{% trans "handler_sensitive_terms" %}</h4>
+											<form action="{% url 'pyha:newpdf' %}" onsubmit="this.source.value=document.getElementById('sens-content').outerHTML" method="post">
+												<button type="submit" class="btn btn-default btn-sm">{% trans "handler_as_pdf" %}</button>
+												<input type="hidden" name="source" />
+												{% csrf_token %}
+											</form>
+											</div>
+											<div id="sens-content" class="modal-body">
+											<div style="float:left;">
+											<svg xmlns="http://www.w3.org/2000/svg"
+												width="60" height="160" version="1.1" baseProfile="full"
+												style="width: 60px; height: 160px; display: block;">
+												<g transform="rotate(270)">
+													<text textLength="160" fill="#777777" font-weight="700" font-size="50px" style="font-family: Arial, Helvetica, sans-serif;">
+														<tspan x="-160" dy="50" >LAJI.FI</tspan>
+													</text>
+												   </g>
+											  </svg>
+											</div>
+											<div style="margin-left:120px;margin-top:50px;">
+												<h3 style="font-weight: bold;">Suomen Lajitietokeskuksen sensitiivinen lajitieto – Käyttöehdot</h3>
+												<h4 style="font-weight: bold;">Taustaa</h4>
+												<div style="margin-left:30px">
+													<h5 style="font-weight: bold;">Lainsäädäntö</h5>
+													<p>Tärkein ohjaava lainsäädäntö Lajitietokeskuksen kautta jaettavien tietojen karkeistamiselle tai salaukselle on <a href="http://www.finlex.fi/fi/laki/ajantasa/1999/19990621">laki viranomaisten toiminnan julkisuudesta</a> eli julkisuuslaki (21.5.1999/621)</p>
+													<p>24 § Salassa pidettävät viranomaisen asiakirjat14) asiakirjat, jotka sisältävät tietoja uhanalaisista eläin- tai kasvilajeista tai arvokkaiden luonnonalueiden suojelusta, jos tiedon antaminen niistä vaarantaisi kysymyksessä olevan eläin- tai kasvilajin tai alueen suojelun;</p>
+													<h5 style="font-weight: bold;">Menetelmä</h5>
+													<p>Suomen Lajitietokeskuksessa sensitiivistä tietoa varjellaan joko paikkatietoa karkeistamisella tai salaamalla. Tämä koskee lajeja, joiden suojelu vaarantuisi tiedon antamisesta esimerkiksi vainon, pyynnin, häirinnän tai kaupallisen tai harrastuspohjaisen keräämisen vuoksi. Uhan tulee kohdistua juuri kyseiseen lajiin.</p>
+													<h5 style="font-weight: bold;">Lajiluettelo</h5>
+													<p>Lajitiedon parissa työskentelevien asiantuntijoiden johdolla on laadittu kansallinen luettelo lajeista, jotka on arvioitu olevan erityisen herkkiä erilaisille uhille ja joiden tietoja tulee salata julkisuuslain perusteella (linkki: <a href="http://cms.laji.fi/wp-content/uploads/2016/12/Suomen_Lajitietokeskus_sensitiivinen-lajitieto_lajilista_2016.xlsx">Suomen Lajitietokeskus – sensitiiviset lajiaineistot</a>).</p>
+												</div>
+												<h4 style="font-weight: bold;">Käyttöehdot</h4>
+												<div style="margin-left:30px">
+													<h5 style="font-weight: bold;">Jos käyttölupa sensitiiviseen aineistoon myönnetään, aineistonpyytäjä sitoutuu</h5>
+													<ul>
+														<li>noudattamaan erityistä varovaisuutta, jotta vältetään julkisuuslaissa kuvattu lajin vaarantuminen.</li>
+														<li>käyttämään tietoa vain ja yksinomaan aineistopyynnössä esittämäänsä tarkoitusta varten.</li>
+														<li>olemaan jakamatta aineistoja kenellekään ulkopuoliselle, jotka eivät ole osapuolia aineistopyynnössä.</li>
+													</ul>
+												</div>
+												<h4 style="font-weight: bold;">Aineistopyynnön tekijän/tekijöiden tiedot</h4>
+												<div style="margin-left:30px">
+												<ul>
+													<li><p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p></li>
+													<li><p class="model-field">{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p></li>
+													<li><p class="model-field">{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p></li>
+													<li><p class="model-field">{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p></li>
+													<li><p class="model-field">{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p></li>
+													<li><p class="model-field">{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p></li>
+													<li><p class="model-field">{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p></li>
+													{% if contactlist.0.personOrganizationName != "" %}
+													<li><p class="model-field">{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p></li>
+													{% endif %}
+													{% if contactlist.0.personCorporationId != "" %}
+													<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
+													{% endif %}
+												</ul>
+													{% for contact in contactlist|slice:"1:" %}
+												<ul>
+													<li><p class="model-field">{% trans 'additional_contact_name' %} {{contact.personName}}</p></li>
+													<li><p class="model-field">{% trans 'contact_street_address' %} {{contact.personStreetAddress}}</p></li>
+													<li><p class="model-field">{% trans 'contact_post_office' %} {{contact.personPostOfficeName}}</p></li>
+													<li><p class="model-field">{% trans 'contact_postal' %} {{contact.personPostalCode}}</p></li>
+													<li><p class="model-field">{% trans 'contact_country' %} {{contact.personCountry}}</p></li>
+													<li><p class="model-field">{% trans 'contact_email' %} {{contact.personEmail}}</p></li>
+													<li><p class="model-field">{% trans 'contact_phone_number' %} {{contact.personPhoneNumber}}</p></li>
+													{% if contact.personOrganizationName != "" %}
+													<li><p class="model-field">{% trans 'contact_corporation' %} {{contact.personOrganizationName}}</p></li>
+													{% endif %}
+													{% if contact.personCorporationId != "" %}
+													<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contact.personCorporationId}}</p></li>
+													{% endif %}
+													{% endfor %}
+												</ul>
+												</div>
+											</div>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
+										  </div>
+										</div>
+									  </div>
+									</div>
+							</table>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
+						<h3>{% trans "handler_contacts" %}</h3>
+						<table class="table" style="width:100%">
+							<tr style=color:black>
+								<th>{% trans "handler_full_name" %}</th>
+								<th>{% trans "handler_street_address" %}</th>
+								<th>{% trans "handler_post_office_name" %}</th>
+								<th>{% trans "handler_postal_code" %}</th>
+								<th>{% trans "handler_country" %}</th>
+								<th>{% trans "handler_email" %}</th>
+								<th>{% trans "handler_phone_number" %}</th>
+								<th>{% trans "handler_corporation/organization_name" %}</th>
+								<th>{% trans "handler_corporation_id" %}</th>
+							</tr>
+								{% for contact in contactlist %}
+							<tr>
+								<td>{{contact.personName}}</td>
+								<td>{{contact.personStreetAddress}}</td>
+								<td>{{contact.personPostOfficeName}}</td>
+								<td>{{contact.personPostalCode}}</td>
+								<td>{{contact.personCountry}}</td>
+								<td>{{contact.personEmail}}</td>
+								<td>{{contact.personPhoneNumber}}</td>
+								<td>{{contact.personOrganizationName}}</td>
+								<td>{{contact.personCorporationId}}</td>
+							</tr>
+								{% endfor %}
+						</table>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
+						{% if role1 %}
+							{% if userRequest.sensstatus == 0 %}
+							<h3>{% trans "handler_user_no_sensitive_data"%}</h3>
+							{% else %}
+							<h3>{% trans "handler_list_of_collections"%}</h3>
+							{% for collection in taxonlist %}
+								<span>{{collection.result.collectionName}}</span>
+							{% endfor %}
+							<br><br />
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+								<th>{% trans "handler_state_of_processing" %}</th>
+								<th>{% trans "handler_decision_arguments" %}</th>
+								</tr>
+								{% if userRequest.sensstatus == 1 %}
+								<tr class="info clickable-row"
+								{% elif userRequest.sensstatus == 3 %}
+								<tr class="danger clickable-row"
+								{% elif userRequest.sensstatus == 4 %}
+								<tr class="success clickable-row"
+								{% else %}  
+								<tr	
+								{% endif %}
+								>
+								{% if userRequest.sensstatus == 1 %}
+								<td>{% trans "handler_waiting_for_data_provider" %}</td>
+								{% elif userRequest.sensstatus == 3 %}
+								<td>{% trans "handler_denied" %}</td>
+								{% elif userRequest.sensstatus == 2 %}
+								<td>{% trans "handler_partially_accepted" %}</td>
+								{% elif userRequest.sensstatus == 4 %}
+								<td>{% trans "handler_accepted" %}</td>
+								{% else %}  
+								<td>{% trans "handler_unknown" %}</td>
+								{% endif %}
+								<td style="width:100%;">
+									<form action="{% url 'pyha:answer' %}" id="requestform" method="post" style="display:inline-block;">
+									<div class="form-group">
+										<input type="hidden" id="collectionid" name="collectionid" value="sens">
+										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
+									</div>
+									{% csrf_token %}
+									</form>
+									<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post">
+									<button onclick="showDecline()" type="submit" name="answer" value=0 class="btn btn-default btn-sm" style="position: relative;top: -44.5px;left: 70px;">{% trans "handler_refuse" %}</button>
+									<div class="form-group" style="position: relative;top:-30px;">
+										<input type="hidden" id="collectionid" name="collectionid" value="sens">
+										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<div id="sensitive_refuse_form" style="width:100%;display:{% if userRequest.sensstatus == 3 %}block{% else %}none{% endif %};">
+										<textarea class="form-control" rows="10" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
+										</div>
+									</div>
+									{% csrf_token %}
+									</form>
+								</td>
+								</tr>
+							</table>
+							{% endif %}
+						{% endif %}
+						{% if customlist %}
+							<h3>{% trans "handler_secured_collection_decicions" %}</h3>
+								<table class="table" style="width:100%">
+									<tr style=color:black>
+										<th>{% trans "handler_collection_name" %}</th>
+										<th>{% trans "handler_collection_description" %}</th>
+										<th>{% trans "handler_state_of_processing" %}</th>
+										<th>{% trans "handler_decision_arguments" %}</th>
+									</tr>
+									{% for collection in customlist %}
+										{% if collection.status == 1 %}
+										<tr class="info clickable-row"
+										{% elif collection.status == 3 %}
+										<tr class="danger clickable-row"
+										{% elif collection.status == 4 %}
+										<tr class="success clickable-row"
+										{% else %}  
+										<tr	
+										{% endif %}
+										>
+										<td>{{collection.result.collectionName}}</td>
+										<td>{{collection.result.description}}</td>
+										
+										{% if collection.status == 1 %}
+										<td>{% trans "handler_waiting_for_data_provider" %}</td>
+										{% elif collection.status == 3 %}
+										<td>{% trans "handler_denied" %}</td>
+										{% elif collection.status == 2 %}
+										<td>{% trans "handler_partially_accepted" %}</td>
+										{% elif collection.status == 4 %}
+										<td>{% trans "handler_accepted" %}</td>
+										{% else %}  
+										<td>{% trans "handler_unknown" %}</td>	
+										{% endif %}
+									<td>
+								{% if request.session.user_id in collection.downloadRequestHandler %}
+								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+								<div class="form-group">
+										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
+										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
+									</div>
+									{% csrf_token %}
+								</form>
+								{% else %}
+								{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
+								{% endif %}
+							</td>
+							</tr>
+							{% endfor %}
+						</table>
+						{% endif %}
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
+						<h3>{% trans "handler_additional_questions" %}</h3>
+						{% for question in requestInformationChat_list %}
+							{% if question.question %}
+							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "handler_asked" %}&#10;&#13;{{question}}</p></div>
+							</div>
+							{% endif %}
+							{% if question.question != True %}
+							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "handler_answered" %}&#10;&#13;{{question}}</p></div>
+							</div>
+							{% endif %}
+						{% endfor %}
+						<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
+						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+							<div class="form-group">
+								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+								<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
+								{% if role1 %}
+								<input type="hidden" id="target" name="target" value="sens">
+								{% else %}
+								<span>{% trans 'ask_as_handler_of'%}</span>
+								<select id="target" name="target">
+								{% for collection in customlist %}
+									{% if request.session.user_id in collection.downloadRequestHandler %}
+									<option value="{{collection}}">{{collection.result.collectionName}}</option>
+									{% endif %}
+								{% endfor %}
+								</select>
+								{% endif %}
+								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm">{% trans "handler_request_additional_information" %}</button>
+							</div>
+							{% csrf_token %}
+						</form>
+					</div>
+					{% if role1 %}
+					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
+							<div>
+								<div>
+									<h3>{% trans "handler_official_comment_area" %}</h3>
+									{% for requestChat in requestChat_list %}
+									<div class="panel panel-default">
+									<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "handler_said" %}&#10;&#13;{{ requestChat }}</p></div>
+									</div>
+									{% endfor %}
+									<form action="{% url 'pyha:comment_sensitive' %}" id="commentform" method="post">
+									<div class="form-group">
+										<input type="hidden" id="collectionid" name="collectionid" value="sens">
+										<input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
+										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required ></textarea>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_save" %}</button>
+									</div>
+									{% csrf_token %}
+									</form>
+								</div>
+							</div>
+					</div>
+					{% endif %}
+					<div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
+					{% if requestLog_list %}
+					<h3>{% trans "handler_changes_history" %}</h3>
+					<table class="table" style="width:100%">
+							<tr>
+								<th>{% trans "handler_log_date" %}</th>
+								<th>{% trans "handler_log_maker" %}</th>
+								<th>{% trans "handler_log_description" %}</th>
+							</tr>
+						{% for requestLog in requestLog_list %}
+						<tr>
+							<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+							<td>{{requestLog.name}} ({{requestLog.email}})</td>
+							{% if requestLog.action == 'VIEW' %}
+							<td>{% trans "handler_log_viewed" %}</td>
+							{% elif requestLog.action == 'ACC' %}
+							<td>{% trans "handler_log_terms_accepted" %}</td>
+							{% elif requestLog.action == 'POS' %}
+								{% if requestLog.collection == None %}
+								<td>{% trans "handler_log_sensitives_accepted" %}</td>
+								{% else %}
+								<td>{% trans "handler_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
+								{% endif %}
+							{% elif requestLog.action == 'NEG' %}
+								{% if requestLog.collection == None %}
+								<td>{% trans "handler_log_sensitives_denied" %}</td>
+								{% else %}
+								<td>{% trans "handler_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+								{% endif %}
+							{% endif %}
+							</tr>
+						{% endfor %}
+					</table>
 					{% else %}
-						<strong>{% trans "log_no_history" %}.</strong>
+					<strong>{% trans "log_no_history" %}.</strong>
 					{% endif %}
 					</div>
-				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
