@@ -414,9 +414,6 @@ def create_request_view_context(requestId, request, userRequest, userId, role1, 
 			context["user"] = userId
 			handler_waiting_status(userRequest, request, userId)
 		if userRequest.status == 8:
-			lang = request.LANGUAGE_CODE
-			if(lang == 'sw'):
-				languagelabel = getattr(label, "sv")
 			context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
 			context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=30)
 		if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
