@@ -169,7 +169,7 @@ ul.vertical li.active a span, ul.vertical li:hover a span{
     color: #ffffff;
 }
 
-.vertical-tab {
+.request-tab {
     display:block;
     padding-top: 5%;
     padding-bottom: 6%;
@@ -179,11 +179,11 @@ ul.vertical li.active a span, ul.vertical li:hover a span{
     transition: 0.4s;
 }
 
-a.vertical-tab span {
+a.request-tab span {
     display:inline-block;
 }
 
-a.vertical-tab:hover span {
+a.request-tab:hover span {
     background:transparent;
 }
 
@@ -429,6 +429,33 @@ div.contact-form{
 	letter-spacing: -6px;
 }
 
+.request-view-pane {
+	min-height: 500px;
+}
+
+.request-view-tab:not([aria-expanded="true"]) {
+	border: 1px solid #ddd !important;
+	background-color: #f9f5f5;
+	color: #555;
+}
+
+.request-view-tab[aria-expanded="true"] {
+	color: #000 !important;
+}
+
+.request-action-tab:not([aria-expanded="true"]) {
+	border: 1px solid #ddd;
+	background-color: #f9f5f5;
+	color: #555;
+	border-bottom: 4px solid green;
+	padding-bottom: 7px;
+}
+
+.request-action-tab[aria-expanded="true"] {
+	color: #000 !important;
+	border-bottom: 4px solid #349934 !important;
+	padding-bottom: 7px;
+}
 
   /* Custom page CSS
   -------------------------------------------------- */

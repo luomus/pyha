@@ -264,7 +264,7 @@ msgstr "Tee päätös"
 
 #: pyha/templates/pyha/handler/requestview.html:150
 msgid "handler_additional_information_window"
-msgstr "Lisätietojen pyytäminen"
+msgstr "Perustelu"
 
 #: pyha/templates/pyha/handler/requestview.html:158
 msgid "handler_comments_window"
@@ -1334,7 +1334,7 @@ msgstr "Hakijat"
 
 #: pyha/templates/pyha/requestview.html:223
 msgid "additional_information_window"
-msgstr "Lisätietojen pyytäminen"
+msgstr "Perustelu"
 
 #: pyha/templates/pyha/requestview.html:240
 #: pyha/templates/pyha/requestview.html:333
