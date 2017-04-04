@@ -256,10 +256,8 @@ msgid "handler_contact_window"
 msgstr "handler_contact_window"
 
 #: pyha/templates/pyha/handler/requestview.html:143
-#, fuzzy
-#| msgid "handler_collection_window"
 msgid "handler_decision_window"
-msgstr "handler_collection_window"
+msgstr "handler_decision_window"
 
 #: pyha/templates/pyha/handler/requestview.html:150
 msgid "handler_additional_information_window"
@@ -1299,8 +1297,6 @@ msgid "changes_history"
 msgstr "changes_history"
 
 #: pyha/templates/pyha/requestview.html:180
-#, fuzzy
-#| msgid "request_date"
 msgid "request_window"
 msgstr "request_window"
 
