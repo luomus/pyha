@@ -79,10 +79,8 @@ msgid "click_for_info"
 msgstr "click_for_info"
 
 #: pyha/templates/pyha/handler/index.html:17
-#, fuzzy
-#| msgid "handler_new_request"
 msgid "handler_new_events"
-msgstr "handler_new_request"
+msgstr "handler_new_events"
 
 #: pyha/templates/pyha/handler/index.html:18
 msgid "handler_request_date"
@@ -105,10 +103,8 @@ msgid "handler_you_have_not_accepted_terms"
 msgstr "handler_you_have_not_accepted_terms"
 
 #: pyha/templates/pyha/handler/index.html:55
-#, fuzzy
-#| msgid "handler_waiting_for_download"
 msgid "handler_waiting_for_response_on_answer"
-msgstr "handler_waiting_for_download"
+msgstr "handler_waiting_for_response_on_answer"
 
 #: pyha/templates/pyha/handler/index.html:57
 #: pyha/templates/pyha/handler/requestview.html:31
@@ -338,16 +334,12 @@ msgid "handler_request_filters"
 msgstr "handler_request_filters"
 
 #: pyha/templates/pyha/handler/requestview.html:224
-#, fuzzy
-#| msgid "handler_official_comment_area"
 msgid "handler_show_in_officials_portal"
-msgstr "handler_official_comment_area"
+msgstr "handler_show_in_officials_portal"
 
 #: pyha/templates/pyha/handler/requestview.html:224
-#, fuzzy
-#| msgid "handler_official_comment_area"
 msgid "handler_show_in_portal"
-msgstr "handler_official_comment_area"
+msgstr "handler_show_in_portal"
 
 #: pyha/templates/pyha/handler/requestview.html:228
 msgid "handler_filter"
@@ -444,7 +436,7 @@ msgstr "handler_terms_of_use_of_the_collections"
 #: pyha/templates/pyha/requestview.html:471
 #: pyha/templates/pyha/requestview.html:497
 msgid "as_pdf"
-msgstr ""
+msgstr "as_pdf"
 
 #: pyha/templates/pyha/handler/requestview.html:331
 #: pyha/templates/pyha/handler/requestview.html:421
@@ -456,10 +448,8 @@ msgid "handler_sensitive_terms"
 msgstr "handler_sensitive_terms"
 
 #: pyha/templates/pyha/handler/requestview.html:345
-#, fuzzy
-#| msgid "handler_asked"
 msgid "handler_as_pdf"
-msgstr "handler_asked"
+msgstr "handler_as_pdf"
 
 #: pyha/templates/pyha/handler/requestview.html:386
 #: pyha/templates/pyha/requestform.html:270
@@ -551,10 +541,8 @@ msgstr "contact_corporation_id"
 #: pyha/templates/pyha/requestformcontact.html:34
 #: pyha/templates/pyha/requestformmodalcontact.html:5
 #: pyha/templates/pyha/requestview.html:555
-#, fuzzy
-#| msgid "additional_contacts"
 msgid "additional_contact_name"
-msgstr "additional_contacts"
+msgstr "additional_contact_name"
 
 #: pyha/templates/pyha/handler/requestview.html:429
 msgid "handler_contacts"
@@ -577,8 +565,6 @@ msgid "handler_postal_code"
 msgstr "handler_postal_code"
 
 #: pyha/templates/pyha/handler/requestview.html:436
-#, fuzzy
-#| msgid "log_no_history"
 msgid "handler_country"
 msgstr "handler_country"
 
@@ -650,7 +636,7 @@ msgstr "handler_asked"
 #: pyha/templates/pyha/handler/requestview.html:586
 #: pyha/templates/pyha/requestview.html:623
 msgid "inquiry"
-msgstr ""
+msgstr "inquiry"
 
 #: pyha/templates/pyha/handler/requestview.html:586
 msgid "handler_answered"
@@ -662,7 +648,7 @@ msgstr "handler_form_to_request_additional_information"
 
 #: pyha/templates/pyha/handler/requestview.html:598
 msgid "ask_as_handler_of"
-msgstr ""
+msgstr "ask_as_handler_of"
 
 #: pyha/templates/pyha/handler/requestview.html:608
 msgid "handler_request_additional_information"
@@ -785,10 +771,8 @@ msgstr "show"
 
 #: pyha/templates/pyha/requestform.html:19
 #: pyha/templates/pyha/requestview.html:378
-#, fuzzy
-#| msgid "handler_official_comment_area"
 msgid "show_in_portal"
-msgstr "handler_official_comment_area"
+msgstr "show_in_portal"
 
 #: pyha/templates/pyha/requestform.html:22
 #: pyha/templates/pyha/requestview.html:381
@@ -1043,8 +1027,6 @@ msgid "I have read and understood the terms"
 msgstr "I have read and understood the terms"
 
 #: pyha/templates/pyha/requestform.html:332
-#, fuzzy
-#| msgid "request_date"
 msgid "request_summary"
 msgstr "request_summary"
 
@@ -1134,10 +1116,8 @@ msgid "argument_reason"
 msgstr "argument_reason"
 
 #: pyha/templates/pyha/requestform.html:383
-#, fuzzy
-#| msgid "handler_requester"
 msgid "end_request"
-msgstr "handler_requester"
+msgstr "end_request"
 
 #: pyha/templates/pyha/requestform.html:385
 msgid "send_to_be_accepted"
@@ -1214,7 +1194,7 @@ msgstr "continue"
 
 #: pyha/templates/pyha/requestformsummary.html:3
 msgid "request_was_empty_and_will_be_closed"
-msgstr ""
+msgstr "request_was_empty_and_will_be_closed"
 
 #: pyha/templates/pyha/requestformsummary.html:5
 #: pyha/templates/pyha/requestview.html:233
@@ -1396,10 +1376,8 @@ msgid "asked"
 msgstr "asked"
 
 #: pyha/templates/pyha/requestview.html:618
-#, fuzzy
-#| msgid "answered"
 msgid "answer"
-msgstr "answered"
+msgstr "answer"
 
 #: pyha/templates/pyha/requestview.html:623
 msgid "answered"
@@ -1410,10 +1388,8 @@ msgid "form_to_send_additional_information"
 msgstr "form_to_send_additional_information"
 
 #: pyha/templates/pyha/requestview.html:630
-#, fuzzy
-#| msgid "answered"
 msgid "answering_to"
-msgstr "answered"
+msgstr "answering_to"
 
 #: pyha/templates/pyha/requestview.html:636
 msgid "send_additional_information"
