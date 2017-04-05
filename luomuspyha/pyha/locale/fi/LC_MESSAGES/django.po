@@ -68,7 +68,7 @@ msgstr "In English"
 
 #: pyha/templates/pyha/handler/index.html:9
 msgid "handler_welcome"
-msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään!"
+msgstr "Tervetuloa käsittelemään aineistopyyntöjä!"
 
 #: pyha/templates/pyha/handler/index.html:12
 msgid "handler_all_requests"
@@ -80,11 +80,11 @@ msgstr "Siirry aineistopyyntöön valitsemalla se luettelosta"
 
 #: pyha/templates/pyha/handler/index.html:17
 msgid "handler_new_events"
-msgstr "Uusia tapahtumia"
+msgstr "!"
 
 #: pyha/templates/pyha/handler/index.html:18
 msgid "handler_request_date"
-msgstr "Päiväys"
+msgstr "Pyyntö tehty"
 
 #: pyha/templates/pyha/handler/index.html:19
 msgid "handler_requester"
@@ -173,8 +173,8 @@ msgstr "Kannassa ei ole pyyntöjä"
 #: pyha/templates/pyha/requestview.html:239
 msgid "given_values_are_not_absolute"
 msgstr ""
-"Kaikki järjestelmän näyttämät luvut ovat suuntaa-antavia. Lopullinen "
-"lukumäärä saattaa olla suurempi tai pienempi."
+"Salaussyistä kaikki havaintojen lukumäärät ovat suuntaa-antavia. Hyväksytyn "
+"aineistopyynnön havaintojen lukumäärä voi poiketa haetusta."
 
 #: pyha/templates/pyha/handler/requestview.html:8
 msgid "handler_request_from_user"
@@ -263,7 +263,7 @@ msgstr "Tee päätös"
 
 #: pyha/templates/pyha/handler/requestview.html:150
 msgid "handler_additional_information_window"
-msgstr "Perustelu"
+msgstr "Pyydä lisätietoja"
 
 #: pyha/templates/pyha/handler/requestview.html:158
 msgid "handler_comments_window"
@@ -278,7 +278,7 @@ msgstr "Pyyntöön sisältyvät aineistot"
 #: pyha/templates/pyha/requestview.html:235
 msgid "Collections including sensitive sightings are marked with symbol"
 msgstr ""
-"Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkattu kuvakkeella"
+"Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkitty kuvakkeella."
 
 #: pyha/templates/pyha/handler/requestview.html:173
 #: pyha/templates/pyha/handler/requestview.html:524
@@ -536,7 +536,7 @@ msgstr "Yritys/Organisaatio:"
 #: pyha/templates/pyha/requestview.html:549
 #: pyha/templates/pyha/requestview.html:566
 msgid "contact_corporation_id"
-msgstr "Y-Tunnus:"
+msgstr "Y-tunnus:"
 
 #: pyha/templates/pyha/handler/requestview.html:402
 #: pyha/templates/pyha/requestformcontact.html:34
@@ -591,7 +591,7 @@ msgstr "Pyyntö ei sisällä sensitiivistä tietoa"
 
 #: pyha/templates/pyha/handler/requestview.html:462
 msgid "handler_list_of_collections"
-msgstr "Sensitiivisiä tietoja sisältävät aineistot:"
+msgstr "Tee päätös sensitiivisen lajitiedon luovutuksesta"
 
 #: pyha/templates/pyha/handler/requestview.html:470
 #: pyha/templates/pyha/handler/requestview.html:527
@@ -615,7 +615,7 @@ msgstr "Hylkää"
 
 #: pyha/templates/pyha/handler/requestview.html:521
 msgid "handler_secured_collection_decicions"
-msgstr "Aineistokohtaiset päätökset"
+msgstr "Tee päätös aineiston tietojen luovutuksesta"
 
 #: pyha/templates/pyha/handler/requestview.html:577
 msgid "handler_additional_questions"
@@ -628,7 +628,7 @@ msgstr "Lisäkysymyksiä"
 #: pyha/templates/pyha/requestview.html:618
 #: pyha/templates/pyha/requestview.html:623
 msgid "sensitivity"
-msgstr "Sensitiivisyys"
+msgstr "Sensitiivisen lajitiedon käyttöehdot"
 
 #: pyha/templates/pyha/handler/requestview.html:581
 msgid "handler_asked"
@@ -710,7 +710,7 @@ msgstr "Muutoshistoria on tyhjä"
 
 #: pyha/templates/pyha/index.html:9
 msgid "welcome"
-msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään"
+msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään!"
 
 #: pyha/templates/pyha/index.html:12
 msgid "requests_for_user"
@@ -718,7 +718,7 @@ msgstr "Aineistopyyntösi"
 
 #: pyha/templates/pyha/index.html:18
 msgid "request_date"
-msgstr "Päiväys"
+msgstr "Pyyntö tehty"
 
 #: pyha/templates/pyha/index.html:19
 msgid "request_hits"
@@ -839,7 +839,7 @@ msgstr "Poista viimeisin hakija"
 #: pyha/templates/pyha/requestform.html:144
 #: pyha/templates/pyha/requestformcontact.html:5
 msgid "required_fields_indicated_with_sign"
-msgstr "*:llä merkityt kentät ovat pakollisia."
+msgstr "Tähdellä merkityt kentät ovat pakollisia."
 
 #: pyha/templates/pyha/requestform.html:146
 #: pyha/templates/pyha/requestformcontact.html:7
@@ -910,7 +910,7 @@ msgstr "Yrityksen/Järjestön nimi"
 #: pyha/templates/pyha/requestform.html:185
 #: pyha/templates/pyha/requestformcontact.html:25
 msgid "enter_corporation_id"
-msgstr "Y-Tunnus"
+msgstr "Y-tunnus"
 
 #: pyha/templates/pyha/requestform.html:193
 msgid "continue_to_step_2"
@@ -957,7 +957,7 @@ msgstr "Muu (Perustele vapaatekstikenttään)"
 
 #: pyha/templates/pyha/requestform.html:211
 msgid "additional_information"
-msgstr "Perustelu"
+msgstr "Vastaa lisäkysymyksiin"
 
 #: pyha/templates/pyha/requestform.html:214
 msgid "required_project_name"
@@ -981,7 +981,7 @@ msgstr "Sijaintikunta"
 
 #: pyha/templates/pyha/requestform.html:229
 msgid "required_natura_areas"
-msgstr "Natura-alue(et)"
+msgstr "Natura-alueet"
 
 #: pyha/templates/pyha/requestform.html:232
 msgid "required_arguments"
@@ -1079,7 +1079,7 @@ msgstr "Yrityksen/Järjestön nimi"
 #: pyha/templates/pyha/requestform.html:347
 #: pyha/templates/pyha/requestview.html:594
 msgid "corporation_id"
-msgstr "Y-Tunnus"
+msgstr "Y-tunnus"
 
 #: pyha/templates/pyha/requestform.html:364
 #: pyha/templates/pyha/requestview.html:426
@@ -1180,7 +1180,7 @@ msgstr "Käyttörajoittettuja havaintoja"
 
 #: pyha/templates/pyha/requestformcustom.html:11
 msgid "terms_of_collection_use"
-msgstr "Aineistojen käyttöehdot"
+msgstr "Aineistokohtaiset käyttöehdot"
 
 #: pyha/templates/pyha/requestformcustom.html:23
 #: pyha/templates/pyha/requestformtaxon.html:30
@@ -1338,7 +1338,7 @@ msgstr "Perustelu"
 #: pyha/templates/pyha/requestview.html:240
 #: pyha/templates/pyha/requestview.html:333
 msgid "collection_name"
-msgstr "Kokoelman nimi"
+msgstr "Aineisto"
 
 #: pyha/templates/pyha/requestview.html:242
 msgid "collection_description"
@@ -1384,7 +1384,7 @@ msgstr " kysyi:"
 
 #: pyha/templates/pyha/requestview.html:618
 msgid "answer"
-msgstr "Vastaa kyselyyn"
+msgstr "Vastaa kysymykseen"
 
 #: pyha/templates/pyha/requestview.html:623
 msgid "answered"
