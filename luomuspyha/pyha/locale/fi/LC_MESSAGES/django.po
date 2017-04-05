@@ -247,7 +247,7 @@ msgstr "Hakemuksen perustelut"
 
 #: pyha/templates/pyha/handler/requestview.html:122
 msgid "handler_filter_window"
-msgstr "Rajaukset"
+msgstr "Aineistorajaukset"
 
 #: pyha/templates/pyha/handler/requestview.html:129
 msgid "handler_terms_window"
@@ -1321,7 +1321,7 @@ msgstr "Hakemuksen perustelut"
 
 #: pyha/templates/pyha/requestview.html:201
 msgid "filter_window"
-msgstr "Rajaukset"
+msgstr "Aineistorajaukset"
 
 #: pyha/templates/pyha/requestview.html:208
 msgid "terms_window"

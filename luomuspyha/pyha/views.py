@@ -138,7 +138,9 @@ def new_count(request):
 
 def new_pdf(request):
 		if request.method == 'POST':
-			return HttpResponse(fetch_pdf(request.POST.get('source'),request.POST.get('style')),content_type='application/pdf')
+			response = HttpResponse(fetch_pdf(request.POST.get('source'),request.POST.get('style')),content_type='application/pdf')
+			response['Content-Disposition'] = 'attachment; filename=ehdot.pdf'
+			return response
 		return HttpResponse('')
 
 def jsonmock(request):

@@ -102,10 +102,10 @@
 							</span>
 						</a>
 					</li>
-					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
-						<a href="#request" class="request-tab request-view-tab" data-toggle="tab" aria-controls="request" role="tab" {% if next == "request" %} aria-expanded="true" {% endif %}>
+					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
+						<a href="#contacts" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contacts" role="tab" {% if next == "contacts" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_request_window' %}
+								{% trans 'handler_contact_window' %}
 							</span>
 						</a>
 					</li>
@@ -113,6 +113,13 @@
 						<a href="#arguments" class="request-tab request-view-tab" data-toggle="tab" aria-controls="arguments" role="tab" {% if next == "arguments" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_argument_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
+						<a href="#request" class="request-tab request-view-tab" data-toggle="tab" aria-controls="request" role="tab" {% if next == "request" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'handler_request_window' %}
 							</span>
 						</a>
 					</li>
@@ -127,13 +134,6 @@
 						<a href="#terms" class="request-tab request-view-tab" data-toggle="tab" aria-controls="terms" role="tab" {% if next == "terms" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_terms_window' %}
-							</span>
-						</a>
-					</li>
-					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
-						<a href="#contacts" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contacts" role="tab" {% if next == "contacts" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'handler_contact_window' %}
 							</span>
 						</a>
 					</li>
