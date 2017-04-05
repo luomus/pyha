@@ -68,7 +68,7 @@ msgstr "In English"
 
 #: pyha/templates/pyha/handler/index.html:9
 msgid "handler_welcome"
-msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään"
+msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään!"
 
 #: pyha/templates/pyha/handler/index.html:12
 msgid "handler_all_requests"
@@ -76,7 +76,7 @@ msgstr "Aineistopyynnöt"
 
 #: pyha/templates/pyha/handler/index.html:13 pyha/templates/pyha/index.html:13
 msgid "click_for_info"
-msgstr "Tarkastele aineistopyynnön tilaa valitsemalla se luettelosta"
+msgstr "Siirry aineistopyyntöön valitsemalla se luettelosta"
 
 #: pyha/templates/pyha/handler/index.html:17
 msgid "handler_new_events"
