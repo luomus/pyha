@@ -19,6 +19,7 @@ urlpatterns = [
 	url(r'^api/newcount', views.new_count, name='new_count'),
     url(r'^request/[1-9][0-9]*/?$', views.show_request),
     url(r'^description/?$', views.change_description, name='description'),
+	url(r'^descriptionajax/?$', views.change_description_ajax, name='description_ajax'),
     url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),
     url(r'^removeCustom/?$', views.remove_custom_data, name='removeCustom'),
     url(r'^removeAjax/?$', views.remove_ajax, name='removeAjax'),

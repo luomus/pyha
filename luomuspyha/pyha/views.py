@@ -502,7 +502,7 @@ def create_collections_for_lists(requestId, request, taxonList, customList, coll
 		get_values_for_collections(requestId, request, customList)
 		get_values_for_collections(requestId, request, taxonList)
 
-def change_description(request):
+def change_description_ajax(request):
 	if request.method == 'POST':
 		if not logged_in(request):
 			return _process_auth_response(request, "pyha")
@@ -514,6 +514,20 @@ def change_description(request):
 		userRequest.description = request.POST.get('description')
 		userRequest.save(update_fields=['description'])
 		return HttpResponse(status=200)
+	return HttpResponseRedirect('/pyha/')
+
+def change_description(request):
+	if request.method == 'POST':
+		if not logged_in(request):
+			return _process_auth_response(request, "pyha")
+		next = request.POST.get('next', '/')
+		requestId = request.POST.get('requestid')
+		if not is_allowed_to_view(request, requestId):
+			return HttpResponseRedirect('/pyha/')
+		userRequest = Request.requests.get(id = requestId)
+		userRequest.description = request.POST.get('description')
+		userRequest.save(update_fields=['description'])
+		return HttpResponseRedirect(next)
 	return HttpResponseRedirect('/pyha/')
 
 #removes sensitive sightings

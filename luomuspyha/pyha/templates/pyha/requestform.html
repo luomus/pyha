@@ -45,7 +45,6 @@
 		<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
 			<div class="col-xs-12">
 				<div class="row">
-						<h2>{% trans 'approval_of_terms' %} </h2>
 						<div class="wizard">
 								<div class="wizard-inner">
 									<div class="connecting-line"></div>
@@ -141,8 +140,7 @@
 											</ul>
 											<div id="contact1" class="tab-pane active contact-form col-md-10" role="tabpanel">
 												<div class="form-style-10">
-													{% trans 'required_fields_indicated_with_sign' %}
-													<br><br />
+													<p>{% trans 'required_fields_indicated_with_sign' %}</p>
 													<div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
 													{% if old_request %}
 													<div class="inner-wrap">
@@ -268,14 +266,16 @@
 																<div style="margin-left:30px">
 																<ul>
 																	<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
+																	<ul>
 																	<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
 																	<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
 																	<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
 																	<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
 																	<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
 																	<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
-																	<li id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
-																	<li id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
+																	<li name="li_contact_corporation/organization_1" id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
+																	<li name="li_contact_corporation_id_1" id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
+																	</ul>
 																</ul>
 																<div id="modal_contacts_end"></div>
 																</div>
@@ -317,7 +317,7 @@
 														<div class="modal-footer">
 															<input type="checkbox" id ="{{ collection.id }}" name="checkb" value="{{collection.address}}"
 															onchange="check({{ collection.id }}); checkForApproval();">
-															{% trans "I have read and understood the terms" %}<br>
+															{% trans "i_accept_terms" %}<br>
 															<p></p>
 															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
 														</div>
@@ -327,10 +327,9 @@
 										{% endfor %}
 									</div>
 									<div class="tab-pane" role="tabpanel" id="complete">
-										<button style="float:right;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: 'font-size:80%', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
-										<div id="summary-content">
-											<h3>{% trans "request_summary" %}</h3>
-											<div id="summarytable">
+										<div>
+											<h2>{% trans "request_summary" %}</h2>
+											<div name="summarytable">
 											<!--  requestformsummary.html snippet appears here -->
 											</div>
 											<h4>{% trans "contacts" %}</h4>
@@ -377,6 +376,7 @@
 												<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
 											</table>
 										</div>
+										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: 'font-size:80%', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 										<ul class="list-inline pull-right">
 											<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
 											{% if not taxon and not customlist %}
@@ -396,6 +396,44 @@
 			</div>
 		</form>
 	</div>
+					<div id="summary-content" hidden>
+						<h2>{% trans "request_summary" %}</h2>
+						<div name="summarytable">
+						<!--  requestformsummary.html snippet appears here -->
+						</div>
+						<h4>{% trans "contacts" %}</h4>
+						<ul>
+							<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
+							<ul>
+							<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
+							<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
+							<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
+							<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
+							<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
+							<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
+							<li name="li_contact_corporation/organization_1" id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
+							<li name="li_contact_corporation_id_1" id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
+							</ul>
+						</ul>
+						<div id="pdf_contacts_end"></div>
+						<h4>{% trans "request_arguments" %}</h4>
+						<table class="table" style="width:100%">
+							<tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
+							<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
+							<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
+							<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
+							<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
+							<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
+							<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
+							<tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
+							<tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
+							<tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
+							<tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
+							<tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
+							<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
+							<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
+						</table>
+					</div>
 						<!--- hidden confirm modal --->
 					<div id="confirm-modal" class="modal fade modal-sm modal-confirm" >
 						<div class="modal-content" >
@@ -552,12 +590,14 @@
 	var rema = document.getElementById("remove_contact_link");
 	var adda = document.getElementById("add_contact_link");
 	var div = document.getElementById("contact" + current);
-	var modaldiv = document.getElementById("contact_" + current);
+	var modaldivs = document.getElementsByName("contact_" + current);
+	for (i = 0; i < modaldivs.length; i = 0){
+		modaldivs[i].parentNode.removeChild(modaldivs[i]);
+	}
 	var summarytr = document.getElementById("summary_contacts_" + current);
 	adda.setAttribute("href", "javascript:addContact("+current+")");
 	current -= 1;
 	rema.setAttribute("href", "javascript:removeContact("+current+")");
-	modaldiv.parentNode.removeChild(modaldiv);
 	summarytr.parentNode.removeChild(summarytr);
 	div.parentNode.removeChild(div);
 	li.parentNode.removeChild(li);
@@ -674,9 +714,13 @@
 	for (var i=1; i<=count; i++) {
 		for (var j=0; j<secfills.length; j++){
 				if (document.getElementById(secfills[j]+""+i).value == ''){
-					document.getElementById(seccontacts[j]+""+i).style.display = "none";
+					for (k = 0; k < document.getElementsByName(seccontacts[j]+""+i).length; k++){
+						document.getElementsByName(seccontacts[j]+""+i)[k].style.display = "none";
+					}
 				}else{
-					document.getElementById(seccontacts[j]+""+i).style.display = "cell";
+					for (k = 0; k < document.getElementsByName(seccontacts[j]+""+i).length; k++){
+						document.getElementsByName(seccontacts[j]+""+i)[k].style.display = "";
+					}
 				}
 			}
 		}

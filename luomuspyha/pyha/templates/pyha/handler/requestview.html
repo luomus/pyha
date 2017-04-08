@@ -378,6 +378,7 @@
 												<div style="margin-left:30px">
 												<ul>
 													<li><p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p></li>
+													<ul>
 													<li><p class="model-field">{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p></li>
 													<li><p class="model-field">{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p></li>
 													<li><p class="model-field">{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p></li>
@@ -390,10 +391,13 @@
 													{% if contactlist.0.personCorporationId != "" %}
 													<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
 													{% endif %}
+													</ul>
 												</ul>
 													{% for contact in contactlist|slice:"1:" %}
+												<p style="width:100%;height:12px;"></p>
 												<ul>
 													<li><p class="model-field">{% trans 'additional_contact_name' %} {{contact.personName}}</p></li>
+													<ul>
 													<li><p class="model-field">{% trans 'contact_street_address' %} {{contact.personStreetAddress}}</p></li>
 													<li><p class="model-field">{% trans 'contact_post_office' %} {{contact.personPostOfficeName}}</p></li>
 													<li><p class="model-field">{% trans 'contact_postal' %} {{contact.personPostalCode}}</p></li>
@@ -406,8 +410,9 @@
 													{% if contact.personCorporationId != "" %}
 													<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contact.personCorporationId}}</p></li>
 													{% endif %}
-													{% endfor %}
+													</ul>
 												</ul>
+													{% endfor %}
 												</div>
 											</div>
 										  </div>

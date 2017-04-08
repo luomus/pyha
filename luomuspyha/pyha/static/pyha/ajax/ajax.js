@@ -8,7 +8,7 @@
 			get_request_header();
 			}
 		};
-	xhttp.open("POST", "/pyha/description/", true);
+	xhttp.open("POST", "/pyha/descriptionajax/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -88,7 +88,9 @@
 	var data = 'requestid='+requestid;
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("summarytable").innerHTML = this.responseText;
+			for (i = 0; i < document.getElementsByName("summarytable").length; i++){
+				document.getElementsByName("summarytable")[i].innerHTML = this.responseText;
+			}
 			}
 		};
 	xhttp.open("POST", "/pyha/getSummary/", true);
@@ -114,6 +116,8 @@
 			var end = document.getElementById("contacts_content_end");
 			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("contact")[0].getElementsByTagName("div")[0]));
 			end = document.getElementById("modal_contacts_end");
+			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
+			end = document.getElementById("pdf_contacts_end");
 			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
 			end = document.getElementById("summary_contacts_end");
 			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("summary")[0].getElementsByTagName("tr")[0]));
