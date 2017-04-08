@@ -1358,7 +1358,7 @@ msgstr "Päätökset"
 
 #: pyha/templates/pyha/requestview.html:222
 msgid "additional_information_window"
-msgstr "Perustelu"
+msgstr "Lisätietopyynnöt"
 
 #: pyha/templates/pyha/requestview.html:239
 #: pyha/templates/pyha/requestview.html:332
