@@ -12,11 +12,11 @@
       <h2>{% trans "requests_for_user" %}</h2>
   <p class ="text-muted">{% trans "click_for_info" %}.</p>
   
-  <table title="{% trans 'given_values_are_not_absolute' %}" id="requests-table" class="table table-hover table-bordered">
+  <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#3498DB" style="color:white;">
         <th>{% trans "request_date" %}</th>	
-        <th>{% trans "request_hits" %}</th>
+        <th title="{% trans 'given_values_are_not_absolute' %}">{% trans "request_hits" %}</th>
         <th>{% trans "request_status_for_user" %}</th>
 	    <th>{% trans "request_description" %}</th>
       </tr>
@@ -45,7 +45,7 @@
             
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
 
-            <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
+            <td title="{% trans 'given_values_are_not_absolute' %}">{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "you_have_not_accepted_terms" %}</td>
             

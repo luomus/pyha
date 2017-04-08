@@ -218,7 +218,7 @@
 					</li>  
 					{% if requestInformationChat_list %}
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
-						<a href="#additional_information" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contact" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
+						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="contact" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
 							<span> 
 								{% if userRequest.status == 6 %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'additional_information_window' %}
 							</span>
@@ -401,26 +401,27 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
 						<h3>{% trans "request_arguments" %}</h3>
-						<span>
+						<table class="table" style="width:100%">
+						<tr style=color:black><th>{% trans "argument_choices" %}</th></tr>
+						<tr><td>
 						{% for choice in reasonlist.argument_choices%}
 							{% if choice == 'reason_zoning' %}
-								{% trans "reason_zoning" %}
+								<p>{% trans "reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
 							{% elif choice == 'reason_permission' %}
-								{% trans "reason_permission" %}
+								<p>{% trans "reason_permission" %}{% if not forloop.last %},{% endif %}</p>
 							{% elif choice == 'reason_enviromental' %}
-								{% trans "reason_enviromental" %}
+								<p>{% trans "reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
 							{% elif choice == 'reason_natura' %}
-								{% trans "reason_natura" %}
+								<p>{% trans "reason_natura" %}{% if not forloop.last %},{% endif %}</p>
 							{% elif choice == 'reason_scientific' %}
-								{% trans "reason_scientific" %}
+								<p>{% trans "reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
 							{% elif choice == 'reason_forest' %}
-								{% trans "reason_forest" %}
+								<p>{% trans "reason_forest" %}{% if not forloop.last %},{% endif %}</p>
 							{% elif choice == 'reason_other' %}
-								{% trans "reason_other" %}
+								<p>{% trans "reason_other" %}{% if not forloop.last %},{% endif %}</p>
 							{% endif %}
 						{% endfor %}
-						</span>
-						<table class="table" style="width:100%">
+						</td></tr>
 						{% for field in reasonlist.fields %}
 							{% if field.0 == 'argument_project' %}
 								<tr style=color:black><th>{% trans "argument_project" %}</th></tr>
@@ -512,27 +513,7 @@
 												  </svg>
 												</div>
 												<div style="margin-left:120px;margin-top:50px;">
-													<h3 style="font-weight: bold;">Suomen Lajitietokeskuksen sensitiivinen lajitieto – Käyttöehdot</h3>
-													<h4 style="font-weight: bold;">Taustaa</h4>
-													<div style="margin-left:30px">
-														<h5 style="font-weight: bold;">Lainsäädäntö</h5>
-														<p>Tärkein ohjaava lainsäädäntö Lajitietokeskuksen kautta jaettavien tietojen karkeistamiselle tai salaukselle on <a href="http://www.finlex.fi/fi/laki/ajantasa/1999/19990621">laki viranomaisten toiminnan julkisuudesta</a> eli julkisuuslaki (21.5.1999/621)</p>
-														<p>24 § Salassa pidettävät viranomaisen asiakirjat14) asiakirjat, jotka sisältävät tietoja uhanalaisista eläin- tai kasvilajeista tai arvokkaiden luonnonalueiden suojelusta, jos tiedon antaminen niistä vaarantaisi kysymyksessä olevan eläin- tai kasvilajin tai alueen suojelun;</p>
-														<h5 style="font-weight: bold;">Menetelmä</h5>
-														<p>Suomen Lajitietokeskuksessa sensitiivistä tietoa varjellaan joko paikkatietoa karkeistamisella tai salaamalla. Tämä koskee lajeja, joiden suojelu vaarantuisi tiedon antamisesta esimerkiksi vainon, pyynnin, häirinnän tai kaupallisen tai harrastuspohjaisen keräämisen vuoksi. Uhan tulee kohdistua juuri kyseiseen lajiin.</p>
-														<h5 style="font-weight: bold;">Lajiluettelo</h5>
-														<p>Lajitiedon parissa työskentelevien asiantuntijoiden johdolla on laadittu kansallinen luettelo lajeista, jotka on arvioitu olevan erityisen herkkiä erilaisille uhille ja joiden tietoja tulee salata julkisuuslain perusteella (linkki: <a href="http://cms.laji.fi/wp-content/uploads/2016/12/Suomen_Lajitietokeskus_sensitiivinen-lajitieto_lajilista_2016.xlsx">Suomen Lajitietokeskus – sensitiiviset lajiaineistot</a>).</p>
-													</div>
-													<h4 style="font-weight: bold;">Käyttöehdot</h4>
-													<div style="margin-left:30px">
-														<h5 style="font-weight: bold;">Jos käyttölupa sensitiiviseen aineistoon myönnetään, aineistonpyytäjä sitoutuu</h5>
-														<ul>
-															<li>noudattamaan erityistä varovaisuutta, jotta vältetään julkisuuslaissa kuvattu lajin vaarantuminen.</li>
-															<li>käyttämään tietoa vain ja yksinomaan aineistopyynnössä esittämäänsä tarkoitusta varten.</li>
-															<li>olemaan jakamatta aineistoja kenellekään ulkopuoliselle, jotka eivät ole osapuolia aineistopyynnössä.</li>
-														</ul>
-													</div>
-													<h4 style="font-weight: bold;">Aineistopyynnön tekijän/tekijöiden tiedot</h4>
+													{% include sensitivity_terms %}
 													<div style="margin-left:30px">
 													<ul>
 														<li><p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p></li>
@@ -615,7 +596,17 @@
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
 								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
-								<button type="button" onclick="showAnswer('{% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}', '{{question.target}}');" class="btn btn-default btn-sm">{% trans "answer" %}</button>
+								<form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
+								<div class="form-group">
+									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+									<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
+									<input type="hidden" id="target" name="target" value="{{question.target}}">
+									<textarea style="width:100%;" rows="5" cols="70" id="reason" name="reason" required ></textarea>
+									<button type="submit" style="display:none;" onclick="showAnswer('requestform_{{ forloop.counter }}');" id="requestform_submit_{{ forloop.counter }}" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
+								</div>
+								{% csrf_token %}
+								</form>
+								<label style="margin-left:5px;margin-bottom:5px;" for="requestform_submit_{{ forloop.counter }}" class="btn btn-default btn-sm">{% trans "answer" %}</label>
 								</div>
 								{% endif %}
 								{% if question.question != True %}
@@ -625,18 +616,6 @@
 								{% endif %}
 							{% endfor %}
 							<span id="information_bottom"></span>
-							<form action="{% url 'pyha:information' %}" id="requestform" method="post" style="display:none;">
-								<h3>{% trans "form_to_send_additional_information" %}</h3>
-								<h3>{% trans "answering_to" %} <span id="answer_target"><span></h3>
-								<div class="form-group">
-									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-									<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
-									<input type="hidden" id="target" name="target" value="">
-									<textarea rows="5" cols="70" id="reason" name="reason" required ></textarea>
-									<button type="submit" id="submit" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
-								</div>
-								{% csrf_token %}
-							</form>
 					</div>
 					{% endif %}
 					<div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
@@ -707,16 +686,11 @@
 	});
 	</script>
 	<script>
-		function showAnswer(targettext, target) {
-			var x = document.getElementById('requestform');
-			var y = document.getElementById('answer_target');
-			var z = document.getElementById('target');
-			answer_target.innerHTML = targettext;
-			z.value = target;
+		function showAnswer(target) {
+			var x = document.getElementById(target);
 			if (x.style.display == 'none') {
 				x.style.display = 'block';
 			}
-			x.scrollIntoView();
 		}
 	</script>
 	{% if coordinates %}

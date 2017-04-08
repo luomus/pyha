@@ -65,7 +65,12 @@
 							<h2 style="text-align:center;">{% trans "handler_sensitive" %}</h2>
 							<div style="text-align:center;">
 								<h3 class="slider-group" style="vertical-align:middle;margin-bottom:20px;margin-top:5px;">
-									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 1 %}-light{% endif %}">
+									{% if role1 %}
+										{% trans "handler_waiting_for_you" %}
+									{% else %}
+										{% trans "handler_waiting_for_others" %}
+									{% endif %}</span>
 									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
 									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</h3>
@@ -82,7 +87,12 @@
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
-									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">
+											{% if request.session.user_id in collection.downloadRequestHandler %}
+												{% trans "handler_waiting_for_you" %}
+											{% else %}
+												{% trans "handler_waiting_for_others" %}
+											{% endif %}</span>
 									<span class="slider slider-accepted{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
 									<span class="slider slider-accepted{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
@@ -138,14 +148,14 @@
 						</a>
 					</li>
 					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
-						<a href="#decision" class="request-tab request-action-tab" data-toggle="tab" aria-controls="decision" role="tab" {% if next == "decision" %} aria-expanded="true" {% endif %}>
+						<a href="#decision" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="decision" role="tab" {% if next == "decision" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_decision_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
-						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="additional_information" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
+						<a href="#additional_information" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="additional_information" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% if userRequest.sensstatus == 1 and information %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'handler_additional_information_window' %}
 							</span>
@@ -153,7 +163,7 @@
 					</li>
 					{% if role1%}
 					<li id="handler_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
-						<a href="#handler_comments" class="request-tab request-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
+						<a href="#handler_comments" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'handler_comments_window' %}
 							</span>
@@ -205,7 +215,11 @@
 								<td>{{collection.allSecured}}</td>
 								
 								{% if collection.status == 1 %}
-								<td>{% trans "waiting_for_data_provider" %}</td>
+									{% if request.session.user_id in collection.downloadRequestHandler %}
+									<td>{% trans "handler_waiting_for_you" %}</td>
+									{% else %}
+									<td>{% trans "handler_waiting_for_others" %}</td>
+									{% endif %}
 								{% elif collection.status == 3 %}
 								<td>{% trans "denied" %}</td>
 								{% elif collection.status == 2 %}
@@ -248,27 +262,27 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
 						<h3>{% trans "request_arguments" %}</h3>
-					<span>
+					<table class="table" style="width:100%">
+					<tr style=color:black><th>{% trans "handler_argument_choices" %}</th></tr>
+					<tr><td>
 					{% for choice in reasonlist.argument_choices%}
 						{% if choice == 'reason_zoning' %}
-							{% trans "handler_reason_zoning" %}
+							<p>{% trans "handler_reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_permission' %}
-							{% trans "handler_reason_permission" %}
+							<p>{% trans "handler_reason_permission" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_enviromental' %}
-							{% trans "handler_reason_enviromental" %}
+							<p>{% trans "handler_reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_natura' %}
-							{% trans "handler_reason_natura" %}
+							<p>{% trans "handler_reason_natura" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_scientific' %}
-							{% trans "handler_reason_scientific" %}
+							<p>{% trans "handler_reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_forest' %}
-							{% trans "handler_reason_forest" %}
+							<p>{% trans "handler_reason_forest" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_other' %}
-							{% trans "handler_reason_other" %}
+							<p>{% trans "handler_reason_other" %}{% if not forloop.last %},{% endif %}</p>
 						{% endif %}
 					{% endfor %}
-					</span>
-					<br><br />
-						<table class="table" style="width:100%">
+					</td></tr>
 					{% for field in reasonlist.fields %}
 						{% if field.0 == 'argument_project' %}
 							<tr style=color:black><th>{% trans "handler_argument_project" %}</th></tr>
@@ -360,27 +374,7 @@
 											  </svg>
 											</div>
 											<div style="margin-left:120px;margin-top:50px;">
-												<h3 style="font-weight: bold;">Suomen Lajitietokeskuksen sensitiivinen lajitieto – Käyttöehdot</h3>
-												<h4 style="font-weight: bold;">Taustaa</h4>
-												<div style="margin-left:30px">
-													<h5 style="font-weight: bold;">Lainsäädäntö</h5>
-													<p>Tärkein ohjaava lainsäädäntö Lajitietokeskuksen kautta jaettavien tietojen karkeistamiselle tai salaukselle on <a href="http://www.finlex.fi/fi/laki/ajantasa/1999/19990621">laki viranomaisten toiminnan julkisuudesta</a> eli julkisuuslaki (21.5.1999/621)</p>
-													<p>24 § Salassa pidettävät viranomaisen asiakirjat14) asiakirjat, jotka sisältävät tietoja uhanalaisista eläin- tai kasvilajeista tai arvokkaiden luonnonalueiden suojelusta, jos tiedon antaminen niistä vaarantaisi kysymyksessä olevan eläin- tai kasvilajin tai alueen suojelun;</p>
-													<h5 style="font-weight: bold;">Menetelmä</h5>
-													<p>Suomen Lajitietokeskuksessa sensitiivistä tietoa varjellaan joko paikkatietoa karkeistamisella tai salaamalla. Tämä koskee lajeja, joiden suojelu vaarantuisi tiedon antamisesta esimerkiksi vainon, pyynnin, häirinnän tai kaupallisen tai harrastuspohjaisen keräämisen vuoksi. Uhan tulee kohdistua juuri kyseiseen lajiin.</p>
-													<h5 style="font-weight: bold;">Lajiluettelo</h5>
-													<p>Lajitiedon parissa työskentelevien asiantuntijoiden johdolla on laadittu kansallinen luettelo lajeista, jotka on arvioitu olevan erityisen herkkiä erilaisille uhille ja joiden tietoja tulee salata julkisuuslain perusteella (linkki: <a href="http://cms.laji.fi/wp-content/uploads/2016/12/Suomen_Lajitietokeskus_sensitiivinen-lajitieto_lajilista_2016.xlsx">Suomen Lajitietokeskus – sensitiiviset lajiaineistot</a>).</p>
-												</div>
-												<h4 style="font-weight: bold;">Käyttöehdot</h4>
-												<div style="margin-left:30px">
-													<h5 style="font-weight: bold;">Jos käyttölupa sensitiiviseen aineistoon myönnetään, aineistonpyytäjä sitoutuu</h5>
-													<ul>
-														<li>noudattamaan erityistä varovaisuutta, jotta vältetään julkisuuslaissa kuvattu lajin vaarantuminen.</li>
-														<li>käyttämään tietoa vain ja yksinomaan aineistopyynnössä esittämäänsä tarkoitusta varten.</li>
-														<li>olemaan jakamatta aineistoja kenellekään ulkopuoliselle, jotka eivät ole osapuolia aineistopyynnössä.</li>
-													</ul>
-												</div>
-												<h4 style="font-weight: bold;">Aineistopyynnön tekijän/tekijöiden tiedot</h4>
+												{% include sensitivity_terms %}
 												<div style="margin-left:30px">
 												<ul>
 													<li><p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p></li>
@@ -461,7 +455,7 @@
 							{% else %}
 							<h3>{% trans "handler_list_of_collections"%}</h3>
 							{% for collection in taxonlist %}
-								<span>{{collection.result.collectionName}}</span>
+								<span>{{collection.result.collectionName}}{% if not forloop.last %},{% endif %}</span>
 							{% endfor %}
 							<br><br />
 							<table class="table" style="width:100%">
@@ -480,7 +474,11 @@
 								{% endif %}
 								>
 								{% if userRequest.sensstatus == 1 %}
-								<td>{% trans "handler_waiting_for_data_provider" %}</td>
+									{% if role1 %}
+										<td>{% trans "handler_waiting_for_you" %}</td>
+									{% else %}
+										<td>{% trans "handler_waiting_for_others" %}</td>
+									{% endif %}
 								{% elif userRequest.sensstatus == 3 %}
 								<td>{% trans "handler_denied" %}</td>
 								{% elif userRequest.sensstatus == 2 %}
@@ -500,8 +498,9 @@
 									</div>
 									{% csrf_token %}
 									</form>
-									<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post">
-									<button onclick="showDecline()" type="submit" name="answer" value=0 class="btn btn-default btn-sm" style="position: relative;top: -44.5px;left: 70px;">{% trans "handler_refuse" %}</button>
+									<label for="submit-decline" class="btn btn-default btn-sm">{% trans "handler_refuse" %}</label>
+									<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post" style="padding-top:20px;">
+									<button type="hidden" id="submit-decline" onclick="showDecline()" type="submit" name="answer" value=0 style="display:none;">{% trans "handler_refuse" %}</button>
 									<div class="form-group" style="position: relative;top:-30px;">
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
@@ -541,7 +540,11 @@
 										<td>{{collection.result.description}}</td>
 										
 										{% if collection.status == 1 %}
-										<td>{% trans "handler_waiting_for_data_provider" %}</td>
+											{% if request.session.user_id in collection.downloadRequestHandler %}
+											<td>{% trans "handler_waiting_for_you" %}</td>
+											{% else %}
+											<td>{% trans "handler_waiting_for_others" %}</td>
+											{% endif %}
 										{% elif collection.status == 3 %}
 										<td>{% trans "handler_denied" %}</td>
 										{% elif collection.status == 2 %}
