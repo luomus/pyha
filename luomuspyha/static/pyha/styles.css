@@ -447,14 +447,32 @@ div.contact-form{
 	border: 1px solid #ddd;
 	background-color: #f9f5f5;
 	color: #555;
-	border-bottom: 4px solid green;
+	border-bottom: 4px solid #3498db;
 	padding-bottom: 7px;
+	font-weight: bold;
 }
 
 .request-action-tab[aria-expanded="true"] {
 	color: #000 !important;
+	border-bottom: 4px solid #3fb8f5 !important;
+	padding-bottom: 7px;
+	font-weight: bold;
+}
+
+.request-handler-action-tab:not([aria-expanded="true"]) {
+	border: 1px solid #ddd;
+	background-color: #f9f5f5;
+	color: #555;
+	border-bottom: 4px solid green;
+	padding-bottom: 7px;
+	font-weight: bold;
+}
+
+.request-handler-action-tab[aria-expanded="true"] {
+	color: #000 !important;
 	border-bottom: 4px solid #349934 !important;
 	padding-bottom: 7px;
+	font-weight: bold;
 }
 
   /* Custom page CSS
