@@ -362,10 +362,8 @@ msgid "request_arguments"
 msgstr "Perustelut"
 
 #: pyha/templates/pyha/handler/requestview.html:266
-#, fuzzy
-#| msgid "handler_argument_goals"
 msgid "handler_argument_choices"
-msgstr "Tutkimuksen tavoitteet"
+msgstr "Valitut käyttötarkoitukset"
 
 #: pyha/templates/pyha/handler/requestview.html:270
 msgid "handler_reason_zoning"
@@ -1244,10 +1242,10 @@ msgstr ""
 "Aineistopyyntöösi liittyy sensitiivistä tietoa. Lue ja hyväksy käyttöehdot"
 
 #: pyha/templates/pyha/requestformtaxon.html:8
-#, fuzzy
-#| msgid "more_sensitivity_info"
 msgid "sensitivity_info"
-msgstr "teksti"
+msgstr "Suomen Lajitietokeskuksessa sensitiivistä tietoa varjellaan joko paikkatietoa karkeistamisella tai salaamalla. "
+"Tämä koskee lajeja, joiden suojelu vaarantuisi tiedon antamisesta esimerkiksi vainon, pyynnin, häirinnän tai "
+"kaupallisen tai harrastuspohjaisen keräämisen vuoksi. Uhan tulee kohdistua juuri kyseiseen lajiin."
 
 #: pyha/templates/pyha/requestformtaxon.html:17
 msgid "sensitive_sightings"
@@ -1398,10 +1396,8 @@ msgid "collection_decision_arguments"
 msgstr "Aineistokohtaiset perustelut päätökselle"
 
 #: pyha/templates/pyha/requestview.html:404
-#, fuzzy
-#| msgid "argument_goals"
 msgid "argument_choices"
-msgstr "Tutkimuksen tavoitteet"
+msgstr "Valitut käyttötarkoitukset"
 
 #: pyha/templates/pyha/requestview.html:470
 msgid "terms_of_use_of_the_collections"

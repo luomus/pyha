@@ -342,8 +342,6 @@ msgid "handler_filter"
 msgstr "handler_filter"
 
 #: pyha/templates/pyha/handler/requestview.html:243
-#, fuzzy
-#| msgid "values"
 msgid "handler_values"
 msgstr "Values"
 
@@ -359,10 +357,8 @@ msgid "request_arguments"
 msgstr "request_arguments"
 
 #: pyha/templates/pyha/handler/requestview.html:266
-#, fuzzy
-#| msgid "handler_argument_goals"
 msgid "handler_argument_choices"
-msgstr "handler_argument_goals"
+msgstr "handler_argument_choices"
 
 #: pyha/templates/pyha/handler/requestview.html:270
 msgid "handler_reason_zoning"
@@ -1238,10 +1234,8 @@ msgid "Request involves collections requiring approval for sensitive terms"
 msgstr "Request involves collections requiring approval of sensitive terms"
 
 #: pyha/templates/pyha/requestformtaxon.html:8
-#, fuzzy
-#| msgid "sensitivity"
 msgid "sensitivity_info"
-msgstr "Sensitivity"
+msgstr "sensitivity_info"
 
 #: pyha/templates/pyha/requestformtaxon.html:17
 msgid "sensitive_sightings"
@@ -1334,10 +1328,8 @@ msgid "argument_window"
 msgstr "Arguments"
 
 #: pyha/templates/pyha/requestview.html:193
-#, fuzzy
-#| msgid "request_date"
 msgid "request_window"
-msgstr "Date"
+msgstr "Request"
 
 #: pyha/templates/pyha/requestview.html:200
 msgid "filter_window"
@@ -1391,10 +1383,8 @@ msgid "collection_decision_arguments"
 msgstr "Arguments for decision"
 
 #: pyha/templates/pyha/requestview.html:404
-#, fuzzy
-#| msgid "argument_goals"
 msgid "argument_choices"
-msgstr "argument_goals"
+msgstr "argument_choices"
 
 #: pyha/templates/pyha/requestview.html:470
 msgid "terms_of_use_of_the_collections"
