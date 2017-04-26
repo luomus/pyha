@@ -22,34 +22,31 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets.SECRET_KEY_1
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 LOCAL_REQ_URL = 'http://127.0.0.1:8000/pyha/request/'
-LAJI_REQ_URL = 'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
+LAJI_REQ_URL = os.environ["INTERNAL_API_URL"] #'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
 REQ_URL = LOCAL_REQ_URL
-LAJIAUTH_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-auth/'
-LAJIDOW_URL = 'https://fmnh-ws-test.it.helsinki.fi/laji-etl/download/secured/'
-LAJIPERSONAPI_URL = 'https://fmnh-ws-test.it.helsinki.fi/triplestore/'
-LAJIPERSONAPI_USER = 'pyha'
-LAJIPERSONAPI_PW = os.environ["PW_1"]
-PDFAPI_URL = 'https://fmnh-ws-prod.it.helsinki.fi/tipu-api/html2pdf'
-PDFAPI_USER = 'tipu-api-self'
-PDFAPI_PW = 'jasksaJJhhj443s'
-LAJIAPI_URL = 'https://apitest.laji.fi/v0/'
-LAJIFILTERS_URL= 'https://apitest.laji.fi/v0/warehouse/filters'
+LAJIAUTH_URL = os.environ["LAJI_AUTH_URL"] #'https://fmnh-ws-test.it.helsinki.fi/laji-auth/'
+LAJIDOW_URL = os.environ["LAJI_ETL_FILE_DOWNLOAD_URL"] #'https://fmnh-ws-test.it.helsinki.fi/laji-etl/download/secured/'
+LAJIPERSONAPI_URL = os.environ["TRIPLESTORE_URL"] #'https://fmnh-ws-test.it.helsinki.fi/triplestore/'
+LAJIPERSONAPI_USER = os.environ["TRIPLESTORE_USER"]
+LAJIPERSONAPI_PW = os.environ["TRIPLESTORE_PASSWORD"]
+PDFAPI_URL = os.environ["PDF_API_URL"] #'https://fmnh-ws-prod.it.helsinki.fi/tipu-api/html2pdf'
+PDFAPI_USER = os.environ["PDF_API_USER"]
+PDFAPI_PW = os.environ["PDF_API_PASSWORD"]
+LAJIAPI_URL = os.environ["APILAJIFI_URL"] #'https://apitest.laji.fi/v0/'
+LAJIFILTERS_URL= LAJIAPI_URL + 'warehouse/filters'
 TUN_URL = 'http://tun.fi/'
-TARGET='KE.541'
-HTTPS_USER = 'kivaa'
-HTTPS_PSW = 'kivaa'
-FILTERS_LINK = 'https://beta.laji.fi/observation/map?'
-OFFICIAL_FILTERS_LINK = 'https://beta.laji.fi/observation/map?'
-MOCK_JSON=True
+TARGET= os.environ["LAJI_AUTH_TARGET"] #'KE.541'
+HTTPS_USER = os.environ["PYHA_API_USER"] 
+HTTPS_PSW = os.environ["PYHA_API_PASSWORD"] 
+FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
+OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
+MOCK_JSON=False
 APPEND_SLASH=False
 
 DEFAULT_CHARSET = 'utf-8'
-#FORCE_SCRIPT_NAME = '/pyha'
-#SECRET_KEY = os.environ['LUOMUS_SECRET_KEY']
-#LAJIAUTH_URL = os.environ['LUOMUS_LAJIAUTH_URL']
-#TARGET = os.environ['LUOMUS_TARGET']
+
 SESSION_SAVE_EVERY_REQUEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -60,7 +57,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1'
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
@@ -119,8 +116,10 @@ WSGI_APPLICATION = 'luomuspyha.wsgi.application'
 # also need the JDBC Driver if this runs on JVM
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ["DB_ENGINE"],
+        'NAME': os.environ["DB_NAME"],
+        'USER': os.environ["DB_USER"],
+        'PASSWORD': os.environ["DB_PASSWORD"]
     }
 }
 
@@ -188,7 +187,6 @@ STATICFILES_FINDERS = (
 
 STATIC_URL = '/static/'
 STA_URL = STATIC_URL
-#STA_URL = '/pyha' + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")
