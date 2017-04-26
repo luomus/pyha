@@ -55,7 +55,7 @@ DEBUG = True
 #should probably also include server external ip and domain.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1'
 ]
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
