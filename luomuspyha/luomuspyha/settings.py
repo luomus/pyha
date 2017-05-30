@@ -24,8 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 LOCAL_REQ_URL = 'http://127.0.0.1:8000/pyha/request/'
-LAJI_REQ_URL = os.environ["EMAIL_LINK_URL"] #'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
-REQ_URL = LOCAL_REQ_URL
+REQ_URL = os.environ["EMAIL_LINK_URL"] #'https://fmnh-ws-test.it.helsinki.fi/pyha/request/'
 LAJIAUTH_URL = os.environ["LAJI_AUTH_URL"] #'https://fmnh-ws-test.it.helsinki.fi/laji-auth/'
 LAJIDOW_URL = os.environ["LAJI_ETL_FILE_DOWNLOAD_URL"] #'https://fmnh-ws-test.it.helsinki.fi/laji-etl/download/secured/'
 LAJIPERSONAPI_URL = os.environ["TRIPLESTORE_URL"] #'https://fmnh-ws-test.it.helsinki.fi/triplestore/'
