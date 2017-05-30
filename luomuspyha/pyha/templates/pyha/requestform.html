@@ -268,8 +268,8 @@
 																	<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
 																	<ul>
 																	<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
-																	<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
 																	<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
+																	<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
 																	<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
 																	<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
 																	<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
@@ -348,8 +348,8 @@
 												<tr id="summary_contacts_1">
 													<td><span name="contact_name_1"></span></td>
 													<td><span name="contact_street_address_1"></span></td>
-													<td><span name="contact_post_office_1"></span></td>
 													<td><span name="contact_postal_1"></span></td>
+													<td><span name="contact_post_office_1"></span></td>
 													<td><span name="contact_country_1"></span></td>
 													<td><span name="contact_email_1"></span></td>
 													<td><span name="contact_phone_number_1"></span></td>
@@ -406,8 +406,8 @@
 							<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
 							<ul>
 							<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
-							<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
 							<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
+							<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
 							<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
 							<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
 							<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
@@ -763,7 +763,7 @@
 	<script>
 	$(document).ready(function() {
 		var fields = ["request_person_name_1","request_person_street_address_1","request_person_post_office_name_1","request_person_postal_code_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
-		var fills = ["contact_name_1","contact_street_address_1","contact_post_office_1","contact_postal_1","contact_country_1","contact_email_1","contact_phone_number_1","contact_corporation/organization_1","contact_corporation_id_1"];
+		var fills = ["contact_name_1","contact_street_address_1","contact_postal_1","contact_post_office_1","contact_country_1","contact_email_1","contact_phone_number_1","contact_corporation/organization_1","contact_corporation_id_1"];
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
 			var fillfield = document.getElementsByName(fills[i]);

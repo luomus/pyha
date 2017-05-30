@@ -34,8 +34,8 @@
 											<li id="li_contact_name_{{contact_id}}"><p>{% trans 'additional_contact_name' %} <span name="contact_name_{{contact_id}}"></span></p></li>
 											<ul>
 											<li id="li_contact_street_address_{{contact_id}}"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_{{contact_id}}"></span></p></li>
-											<li id="li_contact_post_office_{{contact_id}}"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_{{contact_id}}"></span></p></li>
 											<li id="li_contact_postal_{{contact_id}}"><p>{% trans 'contact_postal' %} <span name="contact_postal_{{contact_id}}"></span></p></li>
+											<li id="li_contact_post_office_{{contact_id}}"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_{{contact_id}}"></span></p></li>
 											<li id="li_contact_country_{{contact_id}}"><p>{% trans 'contact_country' %} <span name="contact_country_{{contact_id}}"></span></p></li>
 											<li id="li_contact_email_{{contact_id}}"><p>{% trans 'contact_email' %} <span name="contact_email_{{contact_id}}"></span></p></li>
 											<li id="li_contact_phone_number_{{contact_id}}"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_{{contact_id}}"></span></p></li>
@@ -49,8 +49,8 @@
 										<tr id="summary_contacts_{{contact_id}}">
 											<td><span name="contact_name_{{contact_id}}"></span></td>
 											<td><span name="contact_street_address_{{contact_id}}"></span></td>
-											<td><span name="contact_post_office_{{contact_id}}"></span></td>
 											<td><span name="contact_postal_{{contact_id}}"></span></td>
+											<td><span name="contact_post_office_{{contact_id}}"></span></td>
 											<td><span name="contact_country_{{contact_id}}"></span></td>
 											<td><span name="contact_email_{{contact_id}}"></span></td>
 											<td><span name="contact_phone_number_{{contact_id}}"></span></td>
