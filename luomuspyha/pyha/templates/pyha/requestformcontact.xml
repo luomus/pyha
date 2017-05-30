@@ -8,8 +8,8 @@
 												<div class="inner-wrap">
 													<label>{% trans 'enter_full_name' %} *<input type="text" id="request_person_name_{{contact_id}}" name="request_person_name_{{contact_id}}" value=""/></label>
 													<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_street_address_{{contact_id}}" name="request_person_street_address_{{contact_id}}" value=""/></label>
-													<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_{{contact_id}}" name="request_person_post_office_name_{{contact_id}}" value=""/></label>
 													<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_{{contact_id}}" name="request_person_postal_code_{{contact_id}}" value=""/></label>
+													<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_{{contact_id}}" name="request_person_post_office_name_{{contact_id}}" value=""/></label>
 													<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_country_{{contact_id}}" name="request_person_country_{{contact_id}}" value="Suomi"/></label>
 												</div>
 

@@ -122,7 +122,7 @@
 			end = document.getElementById("summary_contacts_end");
 			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("summary")[0].getElementsByTagName("tr")[0]));
 			contactsFilled();
-			var fields = ["request_person_name_"+id,"request_person_street_address_"+id,"request_person_post_office_name_"+id,"request_person_postal_code_"+id,"request_person_country_"+id,"request_person_email_"+id,"request_person_phone_number_"+id,"request_person_organization_name_"+id,"request_person_corporation_id_"+id];
+			var fields = ["request_person_name_"+id,"request_person_street_address_"+id,"request_person_postal_code_"+id,"request_person_post_office_name_"+id,"request_person_country_"+id,"request_person_email_"+id,"request_person_phone_number_"+id,"request_person_organization_name_"+id,"request_person_corporation_id_"+id];
 			var fills = ["contact_name_"+id,"contact_street_address_"+id,"contact_postal_"+id,"contact_post_office_"+id,"contact_country_"+id,"contact_email_"+id,"contact_phone_number_"+id,"contact_corporation/organization_"+id,"contact_corporation_id_"+id];
 			for (i = 0; i < fields.length; i++){
 				var namefield = document.getElementById(fields[i]);

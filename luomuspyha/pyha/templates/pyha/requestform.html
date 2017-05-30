@@ -146,8 +146,8 @@
 													<div class="inner-wrap">
 														<label>{% trans 'enter_full_name' %} *<input type="text" id="request_person_name_1" name="request_person_name_1" value="{{old_request.requestPersonName}}"/></label>
 														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1" value="{{old_request.requestPersonStreetAddress}}"/></label>
-														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
 														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{old_request.requestPersonPostalCode}}"/></label>
+														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
 														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="{{old_request.requestPersonCountry}}"/></label>
 													</div>
 
@@ -166,8 +166,8 @@
 													<div class="inner-wrap">
 														<label>{% trans 'enter_full_name' %} *<input type="text" id="request_person_name_1" name="request_person_name_1" value="{{request_owner}}"></input></label>
 														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_street_address_1" name="request_person_street_address_1"/></label>
-														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
 														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" name="request_person_postal_code_1" id="request_person_postal_code_1"/></label>
+														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
 														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" id="request_person_country_1" name="request_person_country_1" value="Suomi"/></label>
 													</div>
 
@@ -337,8 +337,8 @@
 												<tr style=color:black>
 													<th>{% trans "full_name" %}</th>
 													<th>{% trans "street_address" %}</th>
-													<th>{% trans "post_office_name" %}</th>
 													<th>{% trans "postal_code" %}</th>
+													<th>{% trans "post_office_name" %}</th>
 													<th>{% trans "country" %}</th>
 													<th>{% trans "email" %}</th>
 													<th>{% trans "phone_number" %}</th>
@@ -686,7 +686,7 @@
 	
 	function contactsFilled() {
 	var count = 0;
-	var fills = ["request_person_name_","request_person_street_address_","request_person_post_office_name_","request_person_postal_code_","request_person_country_","request_person_email_","request_person_phone_number_"]; 
+	var fills = ["request_person_name_","request_person_street_address_","request_person_postal_code_","request_person_post_office_name_","request_person_country_","request_person_email_","request_person_phone_number_"]; 
 	while(true){
 	count ++;
 		if (document.getElementById("request_person_name_"+count) != null){
@@ -762,7 +762,7 @@
 
 	<script>
 	$(document).ready(function() {
-		var fields = ["request_person_name_1","request_person_street_address_1","request_person_post_office_name_1","request_person_postal_code_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
+		var fields = ["request_person_name_1","request_person_street_address_1","request_person_postal_code_1","request_person_post_office_name_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
 		var fills = ["contact_name_1","contact_street_address_1","contact_postal_1","contact_post_office_1","contact_country_1","contact_email_1","contact_phone_number_1","contact_corporation/organization_1","contact_corporation_id_1"];
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
