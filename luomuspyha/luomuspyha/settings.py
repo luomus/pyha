@@ -66,6 +66,7 @@ EMAIL_USE_TLS = False
 
 INSTALLED_APPS = [
     'pyha.apps.PyhaConfig',
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,6 +88,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_COOKIE_HTTPONLY = False
 ROOT_URLCONF = 'luomuspyha.urls'
 
 TEMPLATES = [
