@@ -1,0 +1,10 @@
+[Unit]
+Description=pyha socket
+
+[Socket]
+ListenStream=/run/pyha/socket
+ListenStream=
+ListenStream=
+
+[Install]
+WantedBy=sockets.target
