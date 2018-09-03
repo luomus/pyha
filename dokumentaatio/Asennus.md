@@ -3,24 +3,30 @@
 Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapalvelimelle.
 
 Luo kansio, mihin aiot asentaa ympäristön esim.
+
 	`mkdir ~/pyyntojenhallinta`
 
 Siirry kansioon
+
 	`cd ~/pyyntojenhallinta`
 
 Asenna *Oracle Instant Client* ja *Instant Client SDK* seuraavasti. Lataa ne [täältä](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen jälkeen lisää tiedostoon `~/.bashrc` seuraavan malliset rivit:
+
 	`export ORACLE_HOME=~/Downloads/instantclient_12_1  <br />
  	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME`
 
 Ja tee seuraava:
+
 	`cd ~/Downloads/instantclient_12_1  <br />
 	ln -s libclntsh.so.12.1 libclntsh.so  <br />
 	ln -s libocci.so.12.1 libocci.so`
 
 Kloonaa repositorio:
+
 	`git clone https://kayttajanimi@bitbucket.org/luomus/pyha.git`
 
 Aluksi asenna seuraavat packaget `sudo apt-get install`in avulla:
+
 	`build-essential  <br />
 	python3-dev  <br />
 	python-pip  <br />
@@ -28,12 +34,15 @@ Aluksi asenna seuraavat packaget `sudo apt-get install`in avulla:
 	python-virtualenv`
 
 Seuraava rivi luo uuden virtuaalienv-ympäristön python 3:lla omaan kansioon env:
+
 	`virtualenv -p python3 env`
 
 Avaa virtuaaliympäristö:
+
 	`source env/bin/activate`
 
 Asenna virtuaaliympäristöön järjestelmän vaatimat ohjelmat:
+
 	`pip install django  <br />
 	pip install requests  <br />
 	pip install cx_Oracle  <br />
