@@ -25,6 +25,16 @@ Kloonaa repositorio:
 
 	git clone https://kayttajanimi@bitbucket.org/luomus/pyha.git
 
+2 - Automaattinen asentaminen
+
+Aja automaattista asentamista varten luotu skripti:
+
+	install.sh
+
+Mik‰li automaattinen asennus onnistui, voit ylitt‰‰ kohdan 3.
+
+3 - Asentaminen k‰sin
+
 Aluksi asenna seuraavat packaget `sudo apt-get install`in avulla:
 
 	build-essential  
