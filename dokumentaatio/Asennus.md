@@ -2,14 +2,6 @@
 
 Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapalvelimelle.
 
-Luo kansio, mihin aiot asentaa ympäristön esim.
-
-	mkdir ~/pyyntojenhallinta
-
-Siirry kansioon
-
-	cd ~/pyyntojenhallinta
-
 Asenna *Oracle Instant Client* ja *Instant Client SDK* seuraavasti. Lataa ne [täältä](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen jälkeen lisää tiedostoon `~/.bashrc` seuraavan malliset rivit:
 
 	export ORACLE_HOME=~/Downloads/instantclient_12_1  
@@ -20,6 +12,14 @@ Ja tee seuraava:
 	cd ~/Downloads/instantclient_12_1  
 	ln -s libclntsh.so.12.1 libclntsh.so  
 	ln -s libocci.so.12.1 libocci.so
+
+Luo kansio, mihin aiot asentaa ympäristön esim.
+
+	mkdir ~/pyyntojenhallinta
+
+Siirry kansioon
+
+	cd ~/pyyntojenhallinta
 
 Kloonaa repositorio:
 
