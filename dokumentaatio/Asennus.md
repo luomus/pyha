@@ -47,17 +47,13 @@ Seuraava rivi luo uuden virtuaalienv-ympäristön python 3:lla omaan kansioon env:
 
 	virtualenv -p python3 env
 
-Avaa virtuaaliympäristö:
+Avaa python virtuaaliympäristö:
 
 	source env/bin/activate
 
-Asenna virtuaaliympäristöön järjestelmän vaatimat ohjelmat:
+Asenna python virtuaaliympäristöön järjestelmän vaatimat ohjelmat:
 
-	pip install django
-	pip install django_extensions
-	pip install requests  
-	pip install cx_Oracle  
-	pip install gunicorn
+	pip install -r Requirements.txt
 
 
 

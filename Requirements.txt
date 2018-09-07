@@ -2,4 +2,4 @@ django==1.10.1
 django_extensions
 requests
 gunicorn
-cx_Oracle
+cx_Oracle==5.3
