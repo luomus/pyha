@@ -4,12 +4,12 @@ Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapa
 
 Asenna *Oracle Instant Client* ja *Instant Client SDK* seuraavasti. Lataa ne [täältä](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen jälkeen lisää tiedostoon `~/.bashrc` seuraavan malliset rivit:
 
-	export ORACLE_HOME=~/Downloads/instantclient_xx_x  
+	export ORACLE_HOME=path/to/instantclient_xx_x  
  	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
 
-Ja tee seuraava:
+Sulje ja käynnistä terminaali uudelleen, minkä jälkeen tee seuraava:
 
-	cd ~/Downloads/instantclient_xx_x  
+	cd path/to/instantclient_xx_x  
 	ln -s libclntsh.so.xx.x libclntsh.so  
 	ln -s libocci.so.xx.x libocci.so
 
@@ -19,7 +19,7 @@ Asenna seuraavat packaget `sudo apt-get install`in avulla:
 
 	sudo apt-get update
 
-	sudo apt-get install build-essential python3-dev python-pip python3-pip python-virtualenv git
+	sudo apt-get install build-essential python3-dev python-pip python3-pip python-virtualenv git libaio1
 
 Luo kansio, mihin aiot asentaa ympäristön esim.
 
@@ -54,6 +54,7 @@ Avaa virtuaaliympäristö:
 Asenna virtuaaliympäristöön järjestelmän vaatimat ohjelmat:
 
 	pip install django
+	pip install django_extensions
 	pip install requests  
 	pip install cx_Oracle  
 	pip install gunicorn
