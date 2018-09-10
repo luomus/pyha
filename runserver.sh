@@ -1,5 +1,26 @@
-source /envi/bin/activate
+source env/bin/activate
 echo "In env $VIRTUAL_ENV"
-echo "Starting gunicorn"
+if [ -e env_variables.sh ]
+then
+    echo "Initializing enviromental variables"
 
-gunicorn -b 127.0.0.1:$PYHA_LISTEN_PORT luomuspyha.wsgi &
+    . env_variables.sh
+
+    echo "Starting gunicorn"
+
+    cd luomuspyha
+
+    gunicorn -b 127.0.0.1:$PYHA_LISTEN_PORT luomuspyha.wsgi &
+
+    cd ..
+
+    echo "To deactivate gunicorn use:"
+    echo "ps ax | grep pyha"
+    echo "kill <pid>"
+    echo "<pid> = process pid determined by 'ps ax | grep pyha'"
+    
+else
+    echo "Unable to find 'env_variables.sh'. Cannot start"
+fi
+
+deactivate

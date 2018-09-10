@@ -1,7 +1,6 @@
 virtualenv -p python3 env
 
-source env/bin/activate
-pip install -r Requirements.txt
+env/bin/pip install -r Requirements.txt
 
 KEYS=(DJANGO_SECRET_KEY "Hash salt used by django" \
 		PYHA_LISTEN_PORT "Port listened by pyyntojenhallinta" \
@@ -49,6 +48,7 @@ do
   LINE=${KEYS[$i-1]}_var
   CONTENT=$CONTENT"export "${KEYS[$i-1]}"='"${!LINE}"'"$'\r'
 done
+CONTENT=$CONTENT"export DB_ENGINE='django.db.backends.oracle'"
 
 echo $CONTENT > env_variables.sh
 
@@ -69,19 +69,13 @@ do
   LINE=${KEYS[$i-1]}_var
   SERVICECONTENT=$SERVICECONTENT"Environment='"${KEYS[$i-1]}"="${!LINE}"'"$'\r'
 done
+SERVICECONTENT=$SERVICECONTENT"Environment='DB_ENGINE=django.db.backends.oracle'"
 
-echo $SERVICECONTENT > pyha.service
+mkdir services
+echo $SERVICECONTENT > services/pyha.service
 
 echo "Created services/pyha.service file"
 
-
-
-
-cd pyha/luomuspyha/
-
-python manage.py collectstatic
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createcachetable
+. updateserver.sh
 
 echo "Installation has finished"

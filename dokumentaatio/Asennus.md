@@ -1,19 +1,25 @@
-## 1 - Kehitysympäristön pystyttäminen
-
 Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapalvelimelle.
 
-Asenna *Oracle Instant Client* ja *Instant Client SDK* seuraavasti. Lataa ne [täältä](https://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen jälkeen lisää tiedostoon `~/.bashrc` seuraavan malliset rivit:
+## 1 - Oracle client asentaminen
 
-	export ORACLE_HOME=path/to/instantclient_xx_x  
+Asenna *Oracle Instant Client Basic Linux 12.1.0.2.0* ja *Instant Client SDK Linux 12.1.0.2.0* seuraavasti. Lataa ne [täältä](https://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen jälkeen lisää tiedostoon `~/.bashrc` seuraavan malliset rivit:
+
+	export ORACLE_HOME=path/to/instantclient_12_1  
  	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
 
-Sulje ja käynnistä terminaali uudelleen, minkä jälkeen tee seuraava:
+Aja terminaalissa:
 
-	cd path/to/instantclient_xx_x  
-	ln -s libclntsh.so.xx.x libclntsh.so  
-	ln -s libocci.so.xx.x libocci.so
+	source ~/.bashrc
 
-Missä xx_x ja xx.x ovat versionumeroita.
+Tai käynnistä terminaali uudelleen, että `~/.bashrc` asennetut ympäristömuuttujat tulevat voimaan.
+
+Tämän jälkeen tee seuraava:
+
+	cd path/to/instantclient_12_1  
+	ln -s libclntsh.so.12.1 libclntsh.so  
+	ln -s libocci.so.12.1 libocci.so
+
+## 2 - Kehitysympäristön pystyttäminen
 
 Asenna seuraavat packaget `sudo apt-get install`in avulla:
 
@@ -33,7 +39,7 @@ Kloonaa repositorio:
 
 	git clone https://kayttajanimi@bitbucket.org/luomus/pyha.git
 
-## 2 - Automaattinen asentaminen
+## 3 - Automaattinen asentaminen
 
 Aja automaattista asentamista varten luotu skripti:
 
@@ -41,7 +47,7 @@ Aja automaattista asentamista varten luotu skripti:
 
 Mikäli automaattinen asennus onnistui, voit ylittää kohdan 3.
 
-## 3 - Asentaminen käsin
+## 4 - Asentaminen käsin
 
 Seuraava rivi luo uuden virtuaalienv-ympäristön python 3:lla omaan kansioon env:
 
@@ -54,6 +60,10 @@ Avaa python virtuaaliympäristö:
 Asenna python virtuaaliympäristöön järjestelmän vaatimat ohjelmat:
 
 	pip install -r Requirements.txt
+
+
+
+
 
 
 

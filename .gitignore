@@ -3,5 +3,5 @@
 db.*
 dev_settings.py
 *secrets.py
-/services
+services/
 env_variables.sh
