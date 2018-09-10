@@ -2,7 +2,7 @@
 
 N‰m‰ ohjeet on kirjoitettu Ubuntulle, ja et‰n‰ k‰ytett‰v‰lle Oracle tietokantapalvelimelle.
 
-Asenna *Oracle Instant Client* ja *Instant Client SDK* seuraavasti. Lataa ne [t‰‰lt‰](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen j‰lkeen lis‰‰ tiedostoon `~/.bashrc` seuraavan malliset rivit:
+Asenna *Oracle Instant Client* ja *Instant Client SDK* seuraavasti. Lataa ne [t‰‰lt‰](https://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html). Pura arkistot (ne purkautuvat samaan kansioon). Sen j‰lkeen lis‰‰ tiedostoon `~/.bashrc` seuraavan malliset rivit:
 
 	export ORACLE_HOME=path/to/instantclient_xx_x  
  	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
