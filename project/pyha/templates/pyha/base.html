@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+{% block start_script %}
+{% endblock %}
+
+<html lang="fi"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="http://cdn.laji.fi/images/icons/favicon.ico">
+
+  <title>{{ title }}</title>
+
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap.min.css">
+<!-- Bootstrap CSS local fallback -->
+<!-- Optional theme -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="{{ static }}pyha/bootstrap-3.3.7/css/bootstrap-theme.min.css">
+
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"> -->
+<link rel="stylesheet" href="{{ static }}pyha/bootstrap-dataTables/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css" >
+<link rel="stylesheet" type="text/css" href="{{ static }}pyha/font.css" >
+<link rel="stylesheet" type="text/css" href="{{ static }}pyha/tabs/tabs.css" >
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+{% if request.session.current_user_role == 'handler' %}
+<link rel="stylesheet" type="text/css" href="{{ static }}pyha/handler.css" >
+{% endif %}
+
+</head>
+
+<body>
+<nav class="navbar navbar-custom navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">{% trans "Toggle_navigation" %}</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand nohover">LAJI.FI</span>
+      </div>
+      {% if email %}
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'pyha:index' %}">{% trans "all_requests" %}</a></li>  
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li><a class="nohover" >{{email}} <span class="glyphicon glyphicon-user"></span></a></li>
+		{% if role %}
+		<li>
+		<div class="dropdown">
+		<form id='role_form' action="{% url 'pyha:change_role' %}" method="post"
+            data-currenturl='{{ request.path }}'
+            data-currentfullurl='{{ request.get_full_path }}'>
+
+		<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.current_user_role == 'handler' %}{% trans "admin" %}{% else %}{% trans "user" %}{% endif %} {% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
+
+			<div id="roleDropdown" class="dropdown-content">
+              <a onclick='roleSubmit("user")' name="role" id="role">{% trans "user" %}</a>
+              <a onclick='roleSubmit("handler")' name="role" id="role">{% trans "admin" %}</a>
+			  
+			</div>
+		</div>
+		<input type="hidden" id="next" name="next" value={{request.path}}>
+		<input id='role_form_select' name="role" type="hidden" value="">
+		</form>
+		</li>
+		{% endif %}
+        <li><a href="{% url 'pyha:logout' %}">{% trans "logout" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
+        {% get_current_language as LANGUAGE %}
+		<div class="dropdown">
+		<form id='language_form' action="{% url 'set_language' %}" method="post"
+            data-currenturl='{{ request.path }}'
+            data-currentfullurl='{{ request.get_full_path }}'>
+		<button type="button" onclick="myFunction()" class="dropbtn"><span class="glyphicon glyphicon-globe"></span> {% if LANGUAGE == 'sw' %}SV{% else %}{{LANGUAGE|upper}}{% endif %}{% csrf_token %}</button>
+			<div id="myDropdown" class="dropdown-content" style="left: -50%;">
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              
+              {% for language in languages %}
+				{% if not LANGUAGE == language.code %}
+				  <a onclick='submit("{{ language.code }}")' name="code" id="code">
+					  {% if language.code == 'fi' %}
+					  {% trans "set_lang_fi" %}
+					  {% elif language.code == 'sw' %}
+					  {% trans "set_lang_sv" %}
+					  {% elif language.code == 'en' %}
+					  {% trans "set_lang_en" %}
+					  {% endif %}
+				  </a>
+				  {% endif %}
+              {% endfor %}
+			  
+			</div>
+		<input id='language_form_select' name="language" type="hidden" value="">
+		<input type="hidden" id="next" name="next" value={{request.path}}>
+		</form>
+          
+      
+
+		</div>
+        </ul>
+      {% endif %}
+    </div>
+   </div>
+  </nav>
+{% block content %}
+{% endblock %}
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- old <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- jQuery local fallback -->
+  <script>window.jQuery || document.write('<script src="{{ static }}pyha/jquery-3.1.1/jquery.min.js"><\/script>')</script>
+  
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS local fallback -->
+  <script>if(typeof($.fn.modal) === 'undefined') {document.write('<script src="{{ static }}pyha/bootstrap-3.3.7/js/bootstrap.min.js"><\/script>')}</script>
+  
+  <!-- jQuery datatables -->
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <!-- jQuery-datatables local fallback -->
+  <script>window.jQuery.DataTable || document.write('<script src="{{ static }}pyha/jquery-dataTables/jquery.dataTables.min.js"><\/script>')</script>
+
+
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+  <script src="{{ static }}pyha/js/datetime.js"></script> 
+  <!-- <script src="{{ static }}pyha/boostrap-dataTables/dataTables.bootstrap.min.js"></script> -->
+  <script type="text/javascript" src="{{ static }}pyha/js/bootstrap-multiselect.js"></script>
+  <link rel="stylesheet" href="{{ static }}pyha/css/bootstrap-multiselect.css" type="text/css"/>
+  <script src="{{ static }}pyha/tabs/tabs.js"></script>
+  <script src="{{ static }}pyha/ajax/ajax.js"></script>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <script src="{{ static }}pyha/js/map.js"></script>
+    <script>
+		function myFunction() {
+		    document.getElementById("myDropdown").classList.toggle("show");
+		}
+		
+		window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+		
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		}
+		
+		function submit(lang) {
+			document.getElementById("language_form_select").value = lang
+			document.getElementById("language_form").submit()
+		}
+		
+		function roleFunction() {
+		    document.getElementById("roleDropdown").classList.toggle("show");
+		}
+		
+		function roleSubmit(lang) {
+			document.getElementById("role_form_select").value = lang
+			document.getElementById("role_form").submit()
+		}
+  </script>
+
+
+
+</body>
+</html>
+{% block end_script %}
+{% endblock %}
