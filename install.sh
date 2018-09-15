@@ -62,7 +62,7 @@ SERVICECONTENT=$SERVICECONTENT\
 "Description=pyha\n"\
 "Requires=pyha.socket\n"\
 "After=network.target\n"\
-\n\
+"\n"\
 "[Service]\n"\
 "PIDFile=/run/pyha/pid\n"\
 "WorkingDirectory="DIR\n\n
@@ -88,10 +88,10 @@ echo "Created services/pyha.service file"
 SOCKETCONTENT=$SOCKETCONTENT\
 "[Unit]\n"\
 "Description=pyha socket\n"\
-\n\
+"\n"\
 "[Socket]\n"\
 "ListenStream=/run/pyha/socket\n"\
-\n\
+"\n"\
 "[Install]\n"\
 "WantedBy=sockets.target\n"\
 
