@@ -53,7 +53,7 @@ do
 done
 CONTENT=$CONTENT"export DB_ENGINE='django.db.backends.oracle'"
 
-echo $CONTENT > env_variables.sh
+echo -e $CONTENT > env_variables.sh
 
 echo "Created env_variables.sh file"
 
@@ -81,7 +81,7 @@ SERVICECONTENT=$SERVICECONTENT\
 "PrivateTmp=true\n"\
 
 mkdir services
-echo $SERVICECONTENT > services/pyha.service
+echo -e $SERVICECONTENT > services/pyha.service
 
 echo "Created services/pyha.service file"
 
@@ -95,12 +95,12 @@ SOCKETCONTENT=$SOCKETCONTENT\
 "[Install]\n"\
 "WantedBy=sockets.target\n"\
 
-echo $SOCKETCONTENT > services/pyha.socket
+echo -e $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
 PIDCONTENT=$PIDCONTENT\
 PID
-echo $PIDCONTENT > services/pyha.pid
+echo -e $PIDCONTENT > services/pyha.pid
 echo "Created services/pyha.pid file"
 . updateserver.sh
 echo "Installation has finished"
