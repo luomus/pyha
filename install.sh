@@ -65,7 +65,8 @@ SERVICECONTENT=$SERVICECONTENT\
 "\n"\
 "[Service]\n"\
 "PIDFile=/run/pyha/pid\n"\
-"WorkingDirectory="DIR\n\n
+"WorkingDirectory="$DIR"\n"
+"\n"
 
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
@@ -74,8 +75,9 @@ do
 done
 SERVICECONTENT=$SERVICECONTENT"Environment='DB_ENGINE=django.db.backends.oracle'"
 
-SERVICECONTENT=$SERVICECONTENT\
-"ExecStart="DIR"/env/bin/gunicorn --threads 3 --timeout 600 --pid /run/pyha/pid project.wsgi\n"\
+SERVICECONTENT=$SERVICECONTENT"\n"\
+"\n"\
+"ExecStart="$DIR"/env/bin/gunicorn --threads 3 --timeout 600 --pid /run/pyha/pid project.wsgi\n"\
 "ExecReload=/bin/kill -s HUP $MAINPID\n"\
 "ExecStop=/bin/kill -s TERM $MAINPID\n"\
 "PrivateTmp=true\n"\
@@ -99,7 +101,7 @@ echo -e $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
 PIDCONTENT=$PIDCONTENT\
-PID
+$PID
 echo -e $PIDCONTENT > services/pyha.pid
 echo "Created services/pyha.pid file"
 . updateserver.sh
