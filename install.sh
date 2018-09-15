@@ -49,7 +49,7 @@ done
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
   LINE=${KEYS[$i-1]}_var
-  CONTENT=$CONTENT"export "${KEYS[$i-1]}"='"${!LINE}"'"$'\r'
+  CONTENT=$CONTENT"export "${KEYS[$i-1]}"='"${!LINE}"'"$'\n'
 done
 CONTENT=$CONTENT"export DB_ENGINE='django.db.backends.oracle'"
 
@@ -58,27 +58,27 @@ echo $CONTENT > env_variables.sh
 echo "Created env_variables.sh file"
 
 SERVICECONTENT=$SERVICECONTENT\
-"[Unit]"$'\r'\
-"Description=pyha"$'\r'\
-"Requires=pyha.socket"$'\r'\
-"After=network.target"$'\r'\
-$'\r'\
-"[Service]"$'\r'\
-"PIDFile=/run/pyha/pid"$'\r'\
-"WorkingDirectory="DIR$'\r'$'\r'
+"[Unit]"$'\n'\
+"Description=pyha"$'\n'\
+"Requires=pyha.socket"$'\n'\
+"After=network.target"$'\n'\
+$'\n'\
+"[Service]"$'\n'\
+"PIDFile=/run/pyha/pid"$'\n'\
+"WorkingDirectory="DIR$'\n'$'\n'
 
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
   LINE=${KEYS[$i-1]}_var
-  SERVICECONTENT=$SERVICECONTENT"Environment='"${KEYS[$i-1]}"="${!LINE}"'"$'\r'
+  SERVICECONTENT=$SERVICECONTENT"Environment='"${KEYS[$i-1]}"="${!LINE}"'"$'\n'
 done
 SERVICECONTENT=$SERVICECONTENT"Environment='DB_ENGINE=django.db.backends.oracle'"
 
 SERVICECONTENT=$SERVICECONTENT\
-"ExecStart="DIR"/env/bin/gunicorn --threads 3 --timeout 600 --pid /run/pyha/pid project.wsgi"$'\r'\
-"ExecReload=/bin/kill -s HUP $MAINPID"$'\r'\
-"ExecStop=/bin/kill -s TERM $MAINPID"$'\r'\
-"PrivateTmp=true"$'\r'\
+"ExecStart="DIR"/env/bin/gunicorn --threads 3 --timeout 600 --pid /run/pyha/pid project.wsgi"$'\n'\
+"ExecReload=/bin/kill -s HUP $MAINPID"$'\n'\
+"ExecStop=/bin/kill -s TERM $MAINPID"$'\n'\
+"PrivateTmp=true"$'\n'\
 
 mkdir services
 echo $SERVICECONTENT > services/pyha.service
@@ -86,14 +86,14 @@ echo $SERVICECONTENT > services/pyha.service
 echo "Created services/pyha.service file"
 
 SOCKETCONTENT=$SOCKETCONTENT\
-"[Unit]"$'\r'\
-"Description=pyha socket"$'\r'\
-$'\r'\
-"[Socket]"$'\r'\
-"ListenStream=/run/pyha/socket"$'\r'\
-$'\r'\
-"[Install]"$'\r'\
-"WantedBy=sockets.target"$'\r'\
+"[Unit]"$'\n'\
+"Description=pyha socket"$'\n'\
+$'\n'\
+"[Socket]"$'\n'\
+"ListenStream=/run/pyha/socket"$'\n'\
+$'\n'\
+"[Install]"$'\n'\
+"WantedBy=sockets.target"$'\n'\
 
 echo $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
