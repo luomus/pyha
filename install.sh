@@ -104,7 +104,5 @@ SOCKETCONTENT=$SOCKETCONTENT\
 echo -e $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
-echo -e $PID_val > services/pyha.pid
-echo "Created services/pyha.pid file"
 . updateserver.sh
 echo "Installation has finished"
