@@ -8,9 +8,9 @@ then
 
     echo "Starting gunicorn"
 
-    cd luomuspyha
+    cd project
 
-    gunicorn -b 127.0.0.1:$PYHA_LISTEN_PORT luomuspyha.wsgi &
+    gunicorn -b 127.0.0.1:$PYHA_LISTEN_PORT wsgi &
 
     cd ..
 
