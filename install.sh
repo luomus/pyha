@@ -81,6 +81,9 @@ SERVICECONTENT=$SERVICECONTENT"\n"\
 "ExecReload=/bin/kill -s HUP $MAINPID\n"\
 "ExecStop=/bin/kill -s TERM $MAINPID\n"\
 "PrivateTmp=true\n"\
+"\n"\
+"[Install]\n"\
+"WantedBy=multi-user.target\n"\
 
 mkdir services
 echo -e $SERVICECONTENT > services/pyha.service
