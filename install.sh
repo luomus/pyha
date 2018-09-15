@@ -65,7 +65,7 @@ SERVICECONTENT=$SERVICECONTENT\
 "\n"\
 "[Service]\n"\
 "PIDFile=/run/pyha/pid\n"\
-"WorkingDirectory="$DIR"\n"
+"WorkingDirectory="$DIR"\n"\
 "\n"
 
 for (( i=1; i<${arraylength}+1; i+=2 ));
@@ -103,9 +103,7 @@ SOCKETCONTENT=$SOCKETCONTENT\
 echo -e $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
-PIDCONTENT=$PIDCONTENT\
-$PID
-echo -e $PIDCONTENT > services/pyha.pid
+echo -e $PID > services/pyha.pid
 echo "Created services/pyha.pid file"
 . updateserver.sh
 echo "Installation has finished"
