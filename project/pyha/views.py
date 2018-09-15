@@ -4,7 +4,7 @@ import requests
 import ast
 import time
 
-from config.wsgi import basic_auth_required
+from wsgi import basic_auth_required
 from argparse import Namespace
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
