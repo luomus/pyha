@@ -2,6 +2,7 @@ virtualenv -p python3 env
 
 env/bin/pip install -r Requirements.txt
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 KEYS=(DJANGO_SECRET_KEY "Hash salt used by django" \
 		PYHA_LISTEN_PORT "Port listened by pyyntojenhallinta" \
 		EMAIL_LINK_URL "Path included in emails linking to certain pyyntojenhallinta request ex. https://fmnh-ws-test.it.helsinki.fi/pyha/request/" \
@@ -14,6 +15,7 @@ KEYS=(DJANGO_SECRET_KEY "Hash salt used by django" \
 		PDF_API_USER 0 \
 		PDF_API_PASSWORD 0 \
 		APILAJIFI_URL 0 \
+		APILAJIFI_TOKEN 0 \
 		LAJI_AUTH_TARGET 0 \
 		PYHA_API_USER 0 \
 		PYHA_API_PASSWORD 0 \
@@ -22,6 +24,7 @@ KEYS=(DJANGO_SECRET_KEY "Hash salt used by django" \
 		DB_NAME 0 \
 		DB_USER 0 \
 		DB_PASSWORD 0 \
+		PID 0 \
 		)
 		
 # get length of an array
@@ -62,7 +65,7 @@ SERVICECONTENT=$SERVICECONTENT\
 $'\r'\
 "[Service]"$'\r'\
 "PIDFile=/run/pyha/pid"$'\r'\
-"WorkingDirectory=""$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"$'\r'$'\r'
+"WorkingDirectory="DIR$'\r'$'\r'
 
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
@@ -71,11 +74,31 @@ do
 done
 SERVICECONTENT=$SERVICECONTENT"Environment='DB_ENGINE=django.db.backends.oracle'"
 
+SERVICECONTENT=$SERVICECONTENT\
+"ExecStart="DIR"/env/bin/gunicorn --threads 3 --timeout 600 --pid /run/pyha/pid project.wsgi"$'\r'\
+"ExecReload=/bin/kill -s HUP $MAINPID"$'\r'\
+"ExecStop=/bin/kill -s TERM $MAINPID"$'\r'\
+"PrivateTmp=true"$'\r'\
+
 mkdir services
 echo $SERVICECONTENT > services/pyha.service
 
 echo "Created services/pyha.service file"
 
-. updateserver.sh
+SOCKETCONTENT=$SOCKETCONTENT\
+"[Unit]"$'\r'\
+"Description=pyha socket"$'\r'\
+$'\r'\
+"[Socket]"$'\r'\
+"ListenStream=/run/pyha/socket"$'\r'\
+$'\r'\
+"[Install]"$'\r'\
+"WantedBy=sockets.target"$'\r'\
 
+echo "Created services/pyha.socket file"
+
+PIDCONTENT=$PIDCONTENT\
+PID
+echo "Created services/pyha.pid file"
+. updateserver.sh
 echo "Installation has finished"
