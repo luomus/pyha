@@ -95,10 +95,12 @@ $'\r'\
 "[Install]"$'\r'\
 "WantedBy=sockets.target"$'\r'\
 
+echo $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
 PIDCONTENT=$PIDCONTENT\
 PID
+echo $PIDCONTENT > services/pyha.pid
 echo "Created services/pyha.pid file"
 . updateserver.sh
 echo "Installation has finished"
