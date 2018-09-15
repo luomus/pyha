@@ -25,6 +25,7 @@ KEYS=(DJANGO_SECRET_KEY "Hash salt used by django" \
 		DB_USER 0 \
 		DB_PASSWORD 0 \
 		PID 0 \
+		SKIP_OFFICIAL "Boolean to skip requirement for decision-making by officials. Insert: true/false" \
 		)
 		
 # get length of an array
