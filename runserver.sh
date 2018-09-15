@@ -10,7 +10,7 @@ then
 
     cd project
 
-    gunicorn -b 127.0.0.1:$PYHA_LISTEN_PORT wsgi &
+    gunicorn -b 127.0.0.1:$PYHA_LISTEN_PORT --pid /run/pyha/pid wsgi &
 
     cd ..
 
