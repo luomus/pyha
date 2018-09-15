@@ -42,14 +42,14 @@ do
 	echo ${KEYS[$i]}
   fi
   echo
-  read -p ${KEYS[$i-1]}":" ${KEYS[$i-1]}_var
+  read -p ${KEYS[$i-1]}":" ${KEYS[$i-1]}_val
 done
 
 
 
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
-  LINE=${KEYS[$i-1]}_var
+  LINE=${KEYS[$i-1]}_val
   CONTENT=$CONTENT"export "${KEYS[$i-1]}"='"${!LINE}"'\n"
 done
 CONTENT=$CONTENT"export DB_ENGINE='django.db.backends.oracle'"
@@ -71,7 +71,7 @@ SERVICECONTENT=$SERVICECONTENT\
 
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
-  LINE=${KEYS[$i-1]}_var
+  LINE=${KEYS[$i-1]}_val
   SERVICECONTENT=$SERVICECONTENT"Environment='"${KEYS[$i-1]}"="${!LINE}"'\n"
 done
 SERVICECONTENT=$SERVICECONTENT"Environment='DB_ENGINE=django.db.backends.oracle'"
@@ -104,7 +104,7 @@ SOCKETCONTENT=$SOCKETCONTENT\
 echo -e $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
-echo -e $PID > services/pyha.pid
+echo -e $PID_val > services/pyha.pid
 echo "Created services/pyha.pid file"
 . updateserver.sh
 echo "Installation has finished"
