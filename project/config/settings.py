@@ -42,6 +42,7 @@ HTTPS_USER = os.environ["PYHA_API_USER"]
 HTTPS_PSW = os.environ["PYHA_API_PASSWORD"] 
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
+SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"]
 MOCK_JSON=False
 APPEND_SLASH=False
 
@@ -50,7 +51,7 @@ DEFAULT_CHARSET = 'utf-8'
 SESSION_SAVE_EVERY_REQUEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ["ENABLE_DEBUG"]
 
 #should probably also include server external ip and domain.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1'
