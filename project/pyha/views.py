@@ -246,7 +246,7 @@ def show_filters(request, userRequest):
 							resource = getattr(filterfield, "resource")
 							for k, a in enumerate(getattr(filterList, b)):
 								if resource.startswith("metadata"):
-									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+config.LAJIAPI_TOKEN)
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
 									filtername = str(a)
 									for ii in filterfield2.json():
 										if (str(a) == ii['id']):
@@ -254,9 +254,9 @@ def show_filters(request, userRequest):
 											break
 								else:
 									if(lang == 'sw'):
-										filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+config.LAJIAPI_TOKEN)
+										filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+settings.LAJIAPI_TOKEN)
 									else:
-										filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+config.LAJIAPI_TOKEN)
+										filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
 									filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
 									filtername = getattr(filternameobject, "name", str(a))
 								filternamelist[k]= filtername
@@ -468,7 +468,7 @@ def handler_information_answered_status(r, request, userId):
 def get_values_for_collections(requestId, request, List):
 		for i, c in enumerate(List):
 			if 'has expired' in cache.get(str(c)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
-				c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+config.LAJIAPI_TOKEN).json()
+				c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN).json()
 				cache.set(str(c)+'collection_values'+request.LANGUAGE_CODE, c.result)
 				c.result["collectionName"] = c.result.get("collectionName",c.address)
 				c.result["description"] = c.result.get("description","-")
@@ -479,7 +479,7 @@ def get_values_for_collections(requestId, request, List):
 
 def get_result_for_target(request, l):
 		if 'has expired' in cache.get(str(l.target)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
-			l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+config.LAJIAPI_TOKEN).json()
+			l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN).json()
 			cache.set(str(l.target)+'collection_values'+request.LANGUAGE_CODE, l.result)
 			l.result["collectionName"] = l.result.get("collectionName",l.target)
 		else:
@@ -1096,7 +1096,7 @@ def send_download_request(requestId):
 		payload["sensitiveApproved"] = "true"
 		payload["secured"] = "true"
 		payload["downloadFormat"] = "CSV_FLAT"
-		payload["access_token"] = config.LAJIAPI_TOKEN
+		payload["access_token"] = settings.LAJIAPI_TOKEN
 		filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 		for f in filters.__dict__:
 			payload[f] = getattr(filters, f)

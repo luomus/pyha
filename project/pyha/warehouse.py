@@ -52,7 +52,7 @@ def makeCollection(req, i):
 		co.count = getattr(i, 'count', 0)
 		co.status = 0
 		co.request = req
-		co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+config.LAJIAPI_TOKEN).json().get('downloadRequestHandler',['none']))
+		co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN).json().get('downloadRequestHandler',['none']))
 		co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
 		co.customSecured = getattr(i, 'customReasonCount', 0)
 		co.save()
