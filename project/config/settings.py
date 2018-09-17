@@ -47,7 +47,7 @@ MOCK_JSON=False
 APPEND_SLASH=False
 
 DEFAULT_CHARSET = 'utf-8'
-
+FORCE_SCRIPT_NAME = os.environ["DOMAIN_PATH_PREFIX"]
 SESSION_SAVE_EVERY_REQUEST = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
