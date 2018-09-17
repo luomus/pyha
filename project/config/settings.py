@@ -189,7 +189,7 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STA_URL = STATIC_URL
+STA_URL = os.environ["STATIC_PATH_URL"] + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")

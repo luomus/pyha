@@ -142,7 +142,7 @@ def send_mail_for_approval(requestId, collection, lang):
 		message = u"På svenska: Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"	
 	from_email = 'helpdesk@laji.fi'
 	recipients = []
-	response = requests.get(settings.LAJIAPI_URL+"collections/"+str(collection)+"?access_token="+config.LAJIAPI_TOKEN)
+	response = requests.get(settings.LAJIAPI_URL+"collections/"+str(collection)+"?access_token="+settings.LAJIAPI_TOKEN)
 	if(response.status_code == 200):
 		data = response.json()
 		if 'downloadRequestHandler' in data:

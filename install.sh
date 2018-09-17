@@ -26,6 +26,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False"
 		DB_USER 0 \
 		DB_PASSWORD 0 \
 		SKIP_OFFICIAL "Boolean to skip requirement for decision-making by officials. Insert: True/False" \
+		STATIC_PATH_URL "Path to static files in URL ex. /pyha"
 		)
 		
 # get length of an array
