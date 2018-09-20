@@ -19,12 +19,12 @@ def index(request):
 	if not logged_in(request):
 		return _process_auth_response(request,'')
 	userId = request.session["user_id"]
-	hasRole = HANDLER_SENS in request.session.get("user_roles", [None]) or HANDLER_COLL in request.session.get("user_roles", [None])
-	if HANDLER_ANY in request.session.get("current_user_role", [None]):
+	hasRole = HANDLER_SENS in request.session.get("user_roles", []) or HANDLER_COLL in request.session.get("user_roles", [])
+	if HANDLER_ANY in request.session.get("current_user_role", []):
 		request_list = []
-		if HANDLER_SENS in request.session.get("user_roles", [None]):
+		if HANDLER_SENS in request.session.get("user_roles", []):
 			request_list += Request.requests.all().exclude(status__lte=0).order_by('-date')
-		if HANDLER_COLL in request.session.get("user_roles", [None]):
+		if HANDLER_COLL in request.session.get("user_roles", []):
 			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 		request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 		for r in request_list:
