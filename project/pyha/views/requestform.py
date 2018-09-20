@@ -1,13 +1,13 @@
-from django.shortcuts import render
+import json
+
 from django.http import HttpResponse, HttpResponseRedirect
-from django.conf import settings
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
-from pyha.warehouse import store
+from django.shortcuts import render
 from pyha.database import create_request_view_context, check_all_collections_removed, create_new_contact, update_contact_preset
-from pyha.models import RequestLogEntry
-from pyha.roles import *
-from pyha.email import *
-from pyha.localization import *
+from pyha.email import send_mail_for_approval, send_mail_for_approval_sens
+from pyha.localization import check_language
+from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
+from pyha.models import RequestLogEntry, Request, Collection
+from pyha.roles import USER
 
 
 def get_taxon(request):

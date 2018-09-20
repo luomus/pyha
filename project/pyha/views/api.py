@@ -1,17 +1,15 @@
-import requests
+from datetime import datetime
 
-from wsgi import basic_auth_required
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, JsonResponse
-from django.template import loader, Context, RequestContext
-from django.core.urlresolvers import reverse
 from django.conf import settings
-from requests.auth import HTTPBasicAuth
-from pyha.warehouse import *
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from pyha.roles import *
-from pyha.email import *
-from pyha.models import *
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from pyha.email import send_mail_after_receiving_request, send_mail_after_receiving_download
+from pyha.models import RequestLogEntry, RequestInformationChatEntry, Request, Collection
+from pyha.roles import HANDLER_SENS
+from pyha.warehouse import store, fetch_role, fetch_pdf
+from wsgi import basic_auth_required
+
 
 @csrf_exempt
 @basic_auth_required

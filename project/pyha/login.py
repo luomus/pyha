@@ -1,10 +1,11 @@
-﻿import requests
-from pyha.roles import *
-from django.http import HttpResponse, HttpResponseRedirect
-from pyha.email import *
+﻿import json
 
+from django.conf import settings
+from django.http import HttpResponseRedirect
+from pyha.models import Collection, Request
+from pyha.roles import HANDLER_SENS, USER, HANDLER_ANY, HANDLER_COLL
+import requests
 
-import json
 
 def _get_authentication_info(request, token):
     url = settings.LAJIAUTH_URL + "token/" + token

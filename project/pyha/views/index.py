@@ -5,10 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pyha.database import handler_waiting_status, handler_information_answered_status
-from pyha.localization import *
+from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry
-from pyha.roles import *
+from pyha.roles import HANDLER_SENS, HANDLER_ANY, HANDLER_COLL
 from pyha.warehouse import fetch_email_address
 
 

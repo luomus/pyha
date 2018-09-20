@@ -1,17 +1,12 @@
 #coding=utf-8
-import time
-import requests
-import json
-import urllib
-
 from __future__ import unicode_literals
-from django.conf import settings
-from pyha.models import Collection, Request
-from datetime import datetime
-from django.core.mail import send_mail
-from requests.auth import HTTPBasicAuth
-from django.core.cache import cache
 
+from django.conf import settings
+from django.core.mail import send_mail
+from pyha.models import Collection, Request
+from pyha.warehouse import fetch_email_address
+import requests
+from requests.auth import HTTPBasicAuth
 
 
 def send_mail_after_receiving_request(requestId, lang):

@@ -1,17 +1,16 @@
-import os
 from datetime import datetime
-from django.shortcuts import render
+import os
+
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from pyha.database import create_request_view_context, make_logEntry_view, update, target_valid
+from pyha.email import send_mail_after_additional_information_requested
+from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_allowed_to_handle
 from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, Request, Collection
-from pyha.database import create_request_view_context, make_logEntry_view, update, target_valid
-from django.views.decorators.csrf import csrf_exempt
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
-from pyha.email import send_mail_after_additional_information_requested
 from pyha.warehouse import send_download_request
-from pyha.localization import check_language
-
-
 
 
 def get_request_header(request):
