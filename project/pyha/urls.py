@@ -1,15 +1,13 @@
 from django.conf.urls import url
 
-from pyha import baseviews
-from pyha import database
-from pyha.views import api, authentication, index, requestform, requestview
+from pyha.views import api, index, requestform, requestview, logout
 
 app_name = 'pyha'
 urlpatterns = [
     url(r'^/?$', index.index, name='index'),
     url(r'^index/?$', index.index, name='index'),
     url(r'^login/?$', index.index, name='login'),
-    url(r'^logout/?$', authentication.logout, name='logout'),
+    url(r'^logout/?$', logout.logout, name='logout'),
     url(r'^getTaxon/?$', requestform.get_taxon, name='get_taxon'),
     url(r'^getCustom/?$', requestform.get_custom, name='get_custom'),
     url(r'^getSummary/?$', requestform.get_summary, name='get_summary'),

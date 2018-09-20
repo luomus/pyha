@@ -93,14 +93,6 @@ def logged_in(request):
         return True
     return False
 
-def change_role(request):
-    if not logged_in(request) and not 'role' in request.POST:
-        return HttpResponse('/')
-    nextRedirect = request.POST.get('next', '/pyha/')
-    request.session['current_user_role'] = request.POST['role']
-    return HttpResponseRedirect(nextRedirect)
-
-
 def _process_auth_response(request, indexpath):
     if not "token" in request.POST:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
