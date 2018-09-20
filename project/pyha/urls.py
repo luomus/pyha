@@ -1,34 +1,35 @@
 from django.conf.urls import url
 
-from . import views
+from pyha import baseviews
+from pyha import database
+from pyha.views import api, authentication, index, requestform, requestview
 
 app_name = 'pyha'
 urlpatterns = [
-    url(r'^/?$', views.index, name='index'),
-    url(r'^login/?$', views.index, name='login'),
-    url(r'^logout/?$', views.logout, name='logout'),
-    url(r'^index/?$', views.index, name='index'),
-    url(r'^getTaxon/?$', views.get_taxon, name='get_taxon'),
-    url(r'^getCustom/?$', views.get_custom, name='get_custom'),
-    url(r'^getDescription/?$', views.get_request_header, name='get_request_header'),
-    url(r'^getSummary/?$', views.get_summary, name='get_summary'),
-    url(r'^createContact/?$', views.create_contact, name='create_contact'),
-    url(r'^index/?$', views.index, name='index'),
-    url(r'^api/request/?$', views.receiver, name='receiver'),
-    url(r'^api/download/(?P<link>[^/]+)/?$', views.download, name='download'),
-	url(r'^api/newcount', views.new_count, name='new_count'),
-    url(r'^request/[1-9][0-9]*/?$', views.show_request),
-    url(r'^description/?$', views.change_description, name='description'),
-	url(r'^descriptionajax/?$', views.change_description_ajax, name='description_ajax'),
-    url(r'^removeSens/?$', views.remove_sensitive_data, name='removeSens'),
-    url(r'^removeCustom/?$', views.remove_custom_data, name='removeCustom'),
-    url(r'^removeAjax/?$', views.remove_ajax, name='removeAjax'),
-    url(r'^role/?$', views.change_role, name='change_role'),
-    url(r'^approve/?$', views.approve, name='approve'),
-    url(r'^answer/?$', views.answer, name='answer'),
-	url(r'^newpdf/?$', views.new_pdf, name='newpdf'),
-    url(r'^information/?$', views.information, name='information'),
-    url(r'^commentSensitive/?$', views.comment_sensitive, name='comment_sensitive'),
-    url(r'^removeCollection/?$', views.removeCollection, name='removeCollection'),
-    url(r'^initializeDownload/?$', views.initialize_download, name='initializeDownload')
+    url(r'^/?$', index.index, name='index'),
+    url(r'^index/?$', index.index, name='index'),
+    url(r'^login/?$', index.index, name='login'),
+    url(r'^logout/?$', authentication.logout, name='logout'),
+    url(r'^getTaxon/?$', requestform.get_taxon, name='get_taxon'),
+    url(r'^getCustom/?$', requestform.get_custom, name='get_custom'),
+    url(r'^getSummary/?$', requestform.get_summary, name='get_summary'),
+    url(r'^createContact/?$', requestform.create_contact_ajax, name='create_contact_ajax'),
+    url(r'^removeSens/?$', requestform.remove_sensitive_data, name='removeSens'),
+    url(r'^removeCustom/?$', requestform.remove_custom_data, name='removeCustom'),
+    url(r'^removeAjax/?$', requestform.remove_ajax, name='removeAjax'),
+    url(r'^removeCollection/?$', requestform.removeCollection, name='removeCollection'),
+    url(r'^approve/?$', requestform.approve, name='approve'),
+    url(r'^getDescription/?$', requestview.get_request_header, name='get_request_header'),
+    url(r'^request/[1-9][0-9]*/?$', requestview.show_request),
+    url(r'^description/?$', requestview.change_description, name='description'),
+	url(r'^descriptionajax/?$', requestview.change_description_ajax, name='description_ajax'),    
+    url(r'^answer/?$', requestview.answer, name='answer'),	
+    url(r'^information/?$', requestview.information, name='information'),
+    url(r'^commentSensitive/?$', requestview.comment_sensitive, name='comment_sensitive'),    
+    url(r'^initializeDownload/?$', requestview.initialize_download, name='initializeDownload'),
+    url(r'^newpdf/?$', api.new_pdf, name='newpdf'),
+    url(r'^api/request/?$', api.receiver, name='receiver'),
+    url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
+    url(r'^api/newcount', api.new_count, name='new_count'),
+    url(r'^role/?$', authentication.change_role, name='change_role')
 ]

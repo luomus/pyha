@@ -4,4 +4,8 @@ db.*
 dev_settings.py
 *secrets.py
 services/
+env/
+.project
+.pydevproject
+.settings
 env_variables.sh

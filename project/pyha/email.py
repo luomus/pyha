@@ -1,16 +1,17 @@
 #coding=utf-8
+import time
+import requests
+import json
+import urllib
+
 from __future__ import unicode_literals
 from django.conf import settings
-
 from pyha.models import Collection, Request
 from datetime import datetime
-import time
 from django.core.mail import send_mail
-import requests
 from requests.auth import HTTPBasicAuth
-import json
 from django.core.cache import cache
-import urllib
+
 
 
 def send_mail_after_receiving_request(requestId, lang):
@@ -74,50 +75,6 @@ def send_mail_after_receiving_download(requestId):
 	to = fetch_email_address(req.user)
 	recipients = [to]
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
-
-def fetch_email_address(personId):
-	'''
-	fetches email-address for a person registered in Laji.fi
-	:param personId: person identifier 
-	:returns: person's email-address
-	'''
-	username = settings.LAJIPERSONAPI_USER
-	password = settings.LAJIPERSONAPI_PW 
-	if 'has expired' in cache.get('email'+personId, 'has expired'):
-		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
-		if(response.status_code == 200):
-			data = response.json()
-			email = data['rdf:RDF']['MA.person']['MA.emailAddress']
-			cache.set('email'+personId,email)
-			return email
-		else:
-			email = personId
-			cache.set('email'+personId,email)
-	else:
-		return cache.get('email'+personId)
-
-def fetch_role(personId):
-	username = settings.LAJIPERSONAPI_USER
-	password = settings.LAJIPERSONAPI_PW 
-	if 'has expired' in cache.get('role'+personId, 'has expired'):
-		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
-		if(response.status_code == 200):
-			data = response.json()
-			role = data['rdf:RDF']['MA.person'].get('MA.role', {'role':'none'})
-			cache.set('role'+personId,role)
-			return role
-	else:
-		return cache.get('role'+personId)
-
-def fetch_pdf(data,style):
-	username = settings.PDFAPI_USER
-	password = settings.PDFAPI_PW 
-	if(style):
-		data = "<div style='"+ style +"'>" + data +  "</div>"
-	payload = {'html': data}
-	response = requests.post(settings.PDFAPI_URL, data = payload, auth=HTTPBasicAuth(username, password ))
-	if(response.status_code == 200):
-		return response
 
 def send_mail_for_approval(requestId, collection, lang):
 	'''
