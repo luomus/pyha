@@ -25,18 +25,18 @@ def log_in(request, content, token):
         for r in content["user"]["roles"]:
             if HANDLER_SENS in r:
                 request.session["user_roles"] = [r]
-                request.session["token"] = token
-                if not "_language" in request.session:
-                    request.session["_language"] = "fi"
-                    if not request.session["user_roles"]:
-                        request.session["user_roles"] = [USER]
-                        request.session["current_user_role"] = USER
-                    else:
-                        request.session["current_user_role"] = HANDLER_ANY
-                        request.session["user_roles"].append(USER)
-                        add_collection_owner(request, content)
-                        request.session.set_expiry(3600)
-                        return True
+        request.session["token"] = token
+        if not "_language" in request.session:
+           request.session["_language"] = "fi"
+        if not request.session["user_roles"]:
+           request.session["user_roles"] = [USER]
+           request.session["current_user_role"] = USER
+        else:
+           request.session["current_user_role"] = HANDLER_ANY
+           request.session["user_roles"].append(USER)
+        add_collection_owner(request, content)
+        request.session.set_expiry(3600)
+        return True
     return False
 
 def log_out(request):
