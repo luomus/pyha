@@ -1,7 +1,6 @@
 {% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
-{{ userRequest.sensstatus }}
 {% if not taxon %} <style>.wizard .nav-tabs > li { width:25%; } .connecting-line{ width: 79%; }</style> {% endif %}
 <div class="container-fluid" style="overflow-y: hide;">
 	<div class="col-xs-12">
@@ -10,7 +9,7 @@
 			</div>
 			
 			<!-- suodatinlista -->
-			<h3>{% trans "request_filters" %}</h3>
+			<h3>{% trans "request_filters" %}{{ userRequest.sensstatus }}</h3>
 
 			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 			<div id="filterlist" class="collapse">
