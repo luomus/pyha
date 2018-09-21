@@ -35,11 +35,11 @@ def index(request):
 			handler_information_answered_status(r, request, userId)
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0):
 				r.viewed = True
-		context = {"role": hasRole, "user_name": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/handler/index.html', context)
 	else:
 		request_list = Request.requests.filter(user=userId, status__gte=0).order_by('-date')
-		context = {"role": hasRole, "user_name": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		context = {"role": hasRole, "user_ame": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
 

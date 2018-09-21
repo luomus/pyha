@@ -48,13 +48,13 @@
         </button>
         <span class="navbar-brand nohover">LAJI.FI</span>
       </div>
-      {% if user_name %}
+      {% if username %}
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li><a href="{% url 'pyha:index' %}">{% trans "all_requests" %}</a></li>  
         </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><a class="nohover" >{{user_name}} <span class="glyphicon glyphicon-user"></span></a></li>
+        <li><a class="nohover" >{{username}} <span class="glyphicon glyphicon-user"></span></a></li>
 		{% if role %}
 		<li>
 		<div class="dropdown">
