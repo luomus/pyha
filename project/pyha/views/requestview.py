@@ -47,7 +47,7 @@ def show_request(request):
             role1 = HANDLER_SENS in request.session.get("user_roles", [None])
             role2 = HANDLER_COLL in request.session.get("user_roles", [None])
             make_logEntry_view(request, userRequest, userId, role1, role2)
-        context = create_request_view_context(requestId, request, userRequest, userId, role1, role2)
+        context = create_request_view_context(requestId, request, userRequest)
         if HANDLER_ANY in request.session.get("current_user_role", [None]):
             return render(request, 'pyha/handler/requestview.html', context)
         else:
