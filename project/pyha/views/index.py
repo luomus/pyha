@@ -39,7 +39,7 @@ def index(request):
 		return render(request, 'pyha/handler/index.html', context)
 	else:
 		request_list = Request.requests.filter(user=userId, status__gte=0).order_by('-date')
-		context = {"role": hasRole, "user_ame": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
 
