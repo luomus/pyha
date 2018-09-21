@@ -140,6 +140,10 @@ def update(requestId, lang):
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
 	#status 8: Ladattava
+	
+	#for sensstatus
+	#status 99: Ohitettu
+	
 	wantedRequest = Request.requests.get(id=requestId)
 	#tmp variable for checking if status changed
 	statusBeforeUpdate = wantedRequest.status

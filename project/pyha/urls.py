@@ -28,6 +28,6 @@ urlpatterns = [
     url(r'^newpdf/?$', api.new_pdf, name='newpdf'),
     url(r'^api/request/?$', api.receiver, name='receiver'),
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
-    url(r'^api/newcount', api.new_count, name='new_count'),
+    url(r'^api/newcount/?$', api.new_count, name='new_count'),
     url(r'^role/?$', logout.change_role, name='change_role')
 ]

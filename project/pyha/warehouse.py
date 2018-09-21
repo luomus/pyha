@@ -25,7 +25,7 @@ def store(jsond):
 	req.description=''
 	req.lajiId = os.path.basename(str(data.id))
 	req.status = status
-	req.sensstatus = 0
+	req.sensstatus = 99 if settings.SKIP_OFFICIAL else 0
 	req.date = time
 	req.source = data.source
 	req.user = data.personId
