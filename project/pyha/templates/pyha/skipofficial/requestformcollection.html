@@ -1,6 +1,5 @@
 											{% load i18n %}
-												<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}</h3>
-												<h3>{% trans "secured_collections_in_request" %}</h3>
+												<h3>{% trans "restricted_collections_in_request" %}</h3>
 												<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
 												<p>{% trans 'given_values_are_not_absolute' %}</p>
 
@@ -14,6 +13,7 @@
 
 												<th>{% trans "collection_for_user" %}</th>
 												<th>{% trans "request_description" %}</th>
+												<th>{% trans "sightings_secured_by_data_provider" %}</th>
 												<th>{% trans "sensitive_sightings" %}</th>
 												<th></th>
 
