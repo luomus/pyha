@@ -270,6 +270,7 @@ def create_request_view_context(requestId, request, userRequest):
 	context["filter_link"] = filterlink(userRequest, request, context["filters"], settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, request, context["filters"], settings.OFFICIAL_FILTERS_LINK)
 	context["sensitivity_terms"] = "pyha/sensitivity/sensitivity-"+lang+".html"
+	context["sensstatus"] = userRequest.sensstatus
 	if userRequest.status > 0:
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)
