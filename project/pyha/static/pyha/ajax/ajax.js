@@ -73,7 +73,7 @@
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				document.getElementById("collectiontable").innerHTML = this.responseText;
-				refreshCheck();
+				checksens();
 				}
 			};
 		xhttp.open("POST", "/pyha/getCollection/", true);
