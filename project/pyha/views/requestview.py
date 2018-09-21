@@ -52,10 +52,7 @@ def show_request(request):
             return render(request, 'pyha/handler/requestview.html', context)
         else:
             if(userRequest.status == 0):
-                result = render(request, 'pyha/requestform.html', context)
-                '''result['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-                result['Pragma'] = 'no-cache'
-                result['Expires'] = '0'''
+                result = render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == 99 else render(request, 'pyha/requestform.html', context)
                 return result
             else:
                 return render(request, 'pyha/requestview.html', context)
