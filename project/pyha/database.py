@@ -271,13 +271,13 @@ def create_request_view_context(requestId, request, userRequest):
 	context["official_filter_link"] = filterlink(userRequest, request, context["filters"], settings.OFFICIAL_FILTERS_LINK)
 	context["sensitivity_terms"] = "pyha/sensitivity/sensitivity-"+lang+".html"
 	context["sensstatus"] = userRequest.sensstatus
+	context["username"] = request.session["user_name"]
 	if userRequest.status > 0:
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)
 		context["reasonlist"] = get_reasons(userRequest)
 		context["endable"] = (Collection.objects.filter(request=userRequest.id,taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == 4)
 		context["user"] = userId
-		context["username"] = request.session["user_name"]
 		handler_waiting_status(userRequest, request, userId)
 	if userRequest.status == 8:
 		context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
