@@ -39,6 +39,21 @@ def get_custom(request):
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/requestformcustom.html', context)
     return HttpResponse("/pyha/", status=310)
+
+def get_collection(request):
+    if request.method == 'POST' and request.POST.get('requestid'):
+        if check_language(request):
+                return HttpResponseRedirect(request.get_full_path())
+        #Has Access
+        requestId = request.POST.get('requestid')
+        if not logged_in(request):
+            return HttpResponse("/pyha/", status=310)
+        userRequest = Request.requests.get(id=requestId)        
+        if not is_allowed_to_view(request, requestId):
+            return HttpResponseRedirect('/pyha/')
+        context = create_request_view_context(requestId, request, userRequest)
+        return render(request, 'pyha/skipofficial/requestformcollection.html', context)
+    return HttpResponse("/pyha/", status=310)
     
 def get_summary(request):
     if request.method == 'POST' and request.POST.get('requestid'):

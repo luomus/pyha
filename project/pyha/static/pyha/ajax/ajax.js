@@ -66,6 +66,22 @@
 	xhttp.send(data);
 	}
 	
+	function get_collection_tab() {
+		var xhttp = new XMLHttpRequest();
+		var requestid = document.getElementById('requestid').value;
+		var data = 'requestid='+requestid;
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("collectiontable").innerHTML = this.responseText;
+				refreshCheck();
+				}
+			};
+		xhttp.open("POST", "/pyha/getCollection/", true);
+		xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhttp.send(data);
+		}
+	
 	function get_request_header() {
 	var xhttp = new XMLHttpRequest();
 	var requestid = document.getElementById('requestid').value;
@@ -192,6 +208,11 @@
 	
 	function allReady() {
 		checkForApproval();
+	}
+	
+	function refresh_skip_official(){
+	get_collection_tab()
+	get_summary_tab();
 	}
 	
 	function post(path, params, method) {

@@ -47,7 +47,6 @@
 								<div class="wizard-inner">
 									<div class="connecting-line"></div>
 									<ul class="nav nav-tabs" role="tablist">
-
 										<li role="presentation" class="active">
 											<a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="{% trans 'contact_info_tab' %}">
 												<span class="round-tab">
@@ -63,42 +62,13 @@
 												</span>
 											</a>
 										</li>
-										{% if taxon %}
 										<li role="presentation" class="disabled">
-											<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'sensitivity_tab' %}">
+											<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="{% trans 'collection_tab' %}">
 												<span class="round-tab">
 													<i>3</i>
 												</span>
 											</a>
 										</li>
-										
-										<li role="presentation" class="disabled">
-											<a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="{% trans 'collections_tab'%}">
-												<span class="round-tab">
-													<i>4</i>
-												</span>
-											</a>
-										</li>
-										
-
-										<li role="presentation" class="disabled">
-											<a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="{% trans 'summary_tab'%}">
-												<span class="round-tab">
-													<i class="glyphicon glyphicon-ok"></i>
-												</span>
-											</a>
-										</li>      
-										{% else %}
-										
-										<li role="presentation" class="disabled">
-											<a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="{% trans 'collections_tab'%}">
-												<span class="round-tab">
-													<i>3</i>
-												</span>
-											</a>
-										</li>
-										
-
 										<li role="presentation" class="disabled">
 											<a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="{% trans 'summary_tab'%}">
 												<span class="round-tab">
@@ -106,7 +76,6 @@
 												</span>
 											</a>
 										</li>
-										{% endif %}
 									</ul>
 								</div>
 							<div class="tab-content">
@@ -236,8 +205,8 @@
 										</ul>
 									</div>
 									<div class="tab-pane" role="tabpanel" id="step3">
-										<div id="senstable" class="form-group">
-										<!--  requestformtaxon.html snippet appears here -->
+										<div id="collectiontable" class="form-group">
+										<!--  requestformcollection.html snippet appears here -->
 										</div>
 										<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 												<div class="modal-lg modal-dialog" role="document">
@@ -289,41 +258,6 @@
 												</div>
 										</div>  
 									</div>  
-									<div class="tab-pane" role="tabpanel" id="step4">
-										<div id="customtable" class="form-group">
-										<!--  requestformcustom.html snippet appears here -->
-										</div>
-										{% for collection in customlist %}
-										<!-- Modal -->
-											<div class="modal fade" id="myModal{{ collection.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-												<div class="modal-lg modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "terms" %}</h4>
-															<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
-														</div>
-														<div id="custom-content-{{collection}}" class="modal-body" style="padding-left:20px;">
-															<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
-															<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
-															<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
-															<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
-															<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
-															<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
-															<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
-														</div>
-														<div class="modal-footer">
-															<input type="checkbox" id ="{{ collection.id }}" name="checkb" value="{{collection.address}}"
-															onchange="check({{ collection.id }}); checkForApproval();">
-															{% trans "i_accept_terms" %}<br>
-															<p></p>
-															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
-														</div>
-													</div>
-												</div>
-											</div>
-										{% endfor %}
-									</div>
 									<div class="tab-pane" role="tabpanel" id="complete">
 										<div>
 											<h2>{% trans "request_summary" %}</h2>
@@ -494,63 +428,17 @@
 		if(document.getElementById('checkbsens').checked){
 			document.getElementById('statustextsens').textContent=approvetext;
 			document.getElementById('checkbsens').disabled = true;
-			document.getElementById('to_step_4').disabled = false;
+			document.getElementById('to_step_summary').disabled = false;
 			acceptedsens = 1;
 		}else{
 			document.getElementById('statustextsens').textContent=nonapprovetext;
-			document.getElementById('to_step_4').disabled = true;
+			document.getElementById('to_step_summary').disabled = true;
 			acceptedsens = 0;
-		}
-	}
-	function check(counter) { 
-		approvetext = "{% trans 'you_accepted_terms' %}";
-		nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
-		if(!document.getElementById(counter)){
-			accepted[counter] = 1;
-		}else if(document.getElementById(counter).checked){
-			if(document.getElementById('statustext'+ counter)){
-				document.getElementById('statustext'+ counter).textContent=approvetext;
-			}
-			document.getElementById(counter).disabled = true;
-			accepted[counter] = 1;
-		}else{
-			if(document.getElementById('statustext'+ counter)){
-				document.getElementById('statustext'+ counter).textContent=nonapprovetext;
-				accepted[counter] = 0;
-			}else{
-				accepted[counter] = 1;
-			}
 		}
 	}
 	function remove(counter) { 
 		delete accepted[counter];
 		removeAjax(counter);
-	}
-	function refreshCheck() {
-		var elements = document.getElementsByName("checkb");
-		for(var i=0; i<elements.length; i++) {
-		check(elements[i].id);
-		}
-		checkForApproval();
-	}
-	function checkv(counter, value) { 
-		accepted[counter] = value;
-	}
-	function checkForApproval(){
-		var approved = 0;
-		var size = 0;
-		for (i in accepted){
-		approved += accepted[i];
-		size += 1;
-		}
-		approved += acceptedsens;
-		if(approved == size+1){
-			document.getElementById('to_step_summary').disabled = false;
-			document.getElementById('send_to_be_accepted').disabled = false;
-		}else{
-			document.getElementById('to_step_summary').disabled = true;
-			document.getElementById('send_to_be_accepted').disabled = true;
-		}
 	}
 	
 	function addContact(current) {
@@ -846,12 +734,13 @@
 	<!-- create html snippets in tabs -->
 	<script>
 	$(document).ready(function(){
-	refresh();
+	refresh_skip_official();
 	get_request_header();
 	updateReason();
 	contactsFilled();
 	});
 	</script>
+	<!-- end create html snippets in tabs -->
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){

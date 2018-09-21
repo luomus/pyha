@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^logout/?$', logout.logout, name='logout'),
     url(r'^getTaxon/?$', requestform.get_taxon, name='get_taxon'),
     url(r'^getCustom/?$', requestform.get_custom, name='get_custom'),
+    url(r'^getCollection/?$', requestform.get_collection, name='get_collection'),
     url(r'^getSummary/?$', requestform.get_summary, name='get_summary'),
     url(r'^createContact/?$', requestform.create_contact_ajax, name='create_contact_ajax'),
     url(r'^removeSens/?$', requestform.remove_sensitive_data, name='removeSens'),
