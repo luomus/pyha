@@ -40,7 +40,7 @@
 			</div>
 			
 			<!-- aineistolista -->
-		<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
+		<form action="{% url 'pyha:approval' %}" id="requestform" method="post">
 			<div class="col-xs-12">
 				<div class="row">
 						<div class="wizard">
@@ -311,7 +311,7 @@
 										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: 'font-size:80%', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 										<ul class="list-inline pull-right">
 											<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
-											{% if not taxon and not customlist %}
+											{% if not collections %}
 											<li><button type="submit" id="send_to_be_accepted" class="btn btn-success">{% trans "end_request" %}</button></li>
 											{% else %}
 											<li><button type="submit" id="send_to_be_accepted" class="btn btn-success">{% trans "send_to_be_accepted" %}</button></li>

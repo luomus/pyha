@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from pyha.views import api, index, requestform, requestview, logout
+from pyha.views import api, index, requestform, requestview, logout, skipofficial
 
 app_name = 'pyha'
 urlpatterns = [
@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^api/request/?$', api.receiver, name='receiver'),
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
     url(r'^api/newcount/?$', api.new_count, name='new_count'),
-    url(r'^role/?$', logout.change_role, name='change_role')
+    url(r'^role/?$', logout.change_role, name='change_role'),
+    url(r'^approval/?$', skipofficial.requestform.approve, name='approval')
 ]
