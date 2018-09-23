@@ -242,13 +242,65 @@ def update(requestId, lang):
 		wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
+	
+	
+def ignore_official_update(requestId, lang):
+	#for collection status
+	#status 0: Ei sensitiivistä tietoa
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 2: Osittain hyväksytty
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 6: Odottaa vastausta lisäkysymyksiin
+	#status 7: Odottaa latauksen valmistumista
+	#status 8: Ladattava
+	
+	wantedRequest = Request.requests.get(id=requestId)
+	#tmp variable for checking if status changed
+	statusBeforeUpdate = wantedRequest.status
+	requestCollections = Collection.objects.filter(request=requestId, status__gte=0)
+
+	accepted = 0
+	colaccepted = 0
+	declined = 0
+	pending = 0
+	for c in requestCollections:
+		if c.status == 1:
+			pending += 1
+		elif c.status == 2:
+			accepted += 1
+			declined += 1
+		elif c.status == 3:
+			declined += 1
+		elif c.status == 4:
+			colaccepted += 1
+			accepted += 1
+	if (accepted >= 0 and pending > 0) and declined == 0:
+		wantedRequest.status = 1
+	elif (accepted > 0 and declined > 0) and pending == 0:
+		wantedRequest.status = 2
+		if colaccepted > 0:
+			send_download_request(requestId)
+	elif (pending == 0 and accepted == 0) and declined > 0:
+		wantedRequest.status = 3
+	elif accepted > 0 and (declined == 0 and pending == 0):
+		wantedRequest.status = 4
+		if colaccepted > 0:
+			send_download_request(requestId)
+	elif declined > 0:
+		wantedRequest.status = 1
+	else:
+		wantedRequest.status = 5
+	wantedRequest.save()
+			
+	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 		
 def handler_waiting_status(r, request, userId):
 	r.waitingstatus = 0
 	if HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
 		r.waitingstatus = 1
 	elif HANDLER_COLL in request.session.get("user_roles", [None]):
-		for c in Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1):
+		if Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1).exists():
 			r.waitingstatus = 1
 	return
 

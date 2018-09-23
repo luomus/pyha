@@ -4,7 +4,7 @@ import os
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import create_request_view_context, make_logEntry_view, update, target_valid
+from pyha.database import create_request_view_context, make_logEntry_view, update, ignore_official_update, target_valid
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_allowed_to_handle
@@ -156,7 +156,10 @@ def answer(request):
                         RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId),collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action =RequestLogEntry.DECISION_NEGATIVE)
                     collection.decisionExplanation = request.POST.get('reason')
                     collection.save()
-                    update(requestId, request.LANGUAGE_CODE)
+                    if userRequest.sensstatus == 99:
+                        ignore_official_update(requestId, request.LANGUAGE_CODE) 
+                    else: 
+                        update(requestId, request.LANGUAGE_CODE)
             elif HANDLER_SENS in request.session["user_roles"]:
                 if (int(request.POST.get('answer')) == 1):
                     userRequest.sensstatus = 4
