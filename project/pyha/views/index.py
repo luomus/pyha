@@ -30,7 +30,7 @@ def index(request):
 			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 		request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 		for r in request_list:
-			r.allSecured = 0
+			r.allSecured = get_all_secured(request, r)
 			r.email = fetch_email_address(r.user)
 			handler_waiting_status(r, request, userId)
 			handler_information_answered_status(r, request, userId)
@@ -40,6 +40,8 @@ def index(request):
 		return render(request, 'pyha/handler/index.html', context)
 	else:
 		request_list = Request.requests.filter(user=userId, status__gte=0).order_by('-date')
+		for r in request_list:
+			r.allSecured = get_all_secured(request, r)
 		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 
