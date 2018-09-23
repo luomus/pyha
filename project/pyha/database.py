@@ -82,6 +82,19 @@ def create_collections_for_lists(requestId, request, taxonList, customList, coll
 	get_values_for_collections(requestId, request, collectionList)
 	get_values_for_collections(requestId, request, customList)
 	get_values_for_collections(requestId, request, taxonList)
+	
+def create_collection_for_list(request, collectionList, userRequest):
+	collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
+	get_values_for_collections(userRequest.id, request, collectionList)
+	
+def get_all_secured(request, userRequest):
+	allSecured = 0
+	collectionList = []
+	create_collection_for_list(request, collectionList, userRequest)
+	for collection in collectionList:
+		collection.allSecured = collection.customSecured + collection.taxonSecured
+		allSecured += collection.allSecured
+	return allSecured
 
 #check if all collections have status -1. If so set status of request to -1.
 def check_all_collections_removed(requestId):
@@ -258,8 +271,10 @@ def create_request_view_context(requestId, request, userRequest):
 	lang = request.LANGUAGE_CODE
 	create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 	taxon = False
+	allSecured = 0
 	for collection in collectionList:
 		collection.allSecured = collection.customSecured + collection.taxonSecured
+		allSecured += collection.allSecured
 		if(collection.taxonSecured > 0):
 			taxon = True
 	hasRole = role1 or role2
@@ -271,6 +286,7 @@ def create_request_view_context(requestId, request, userRequest):
 	context["official_filter_link"] = filterlink(userRequest, request, context["filters"], settings.OFFICIAL_FILTERS_LINK)
 	context["sensitivity_terms"] = "pyha/sensitivity/sensitivity-"+lang+".html"
 	context["username"] = request.session["user_name"]
+	context["allSecured"] = allSecured
 	if userRequest.status > 0:
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)

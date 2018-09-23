@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_waiting_status, handler_information_answered_status
+from pyha.database import handler_waiting_status, handler_information_answered_status, get_all_secured
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry
@@ -30,6 +30,7 @@ def index(request):
 			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 		request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 		for r in request_list:
+			r.allSecured = get_all_secured(request, r)
 			r.email = fetch_email_address(r.user)
 			handler_waiting_status(r, request, userId)
 			handler_information_answered_status(r, request, userId)
