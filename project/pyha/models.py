@@ -1,5 +1,5 @@
 ﻿from __future__ import unicode_literals
-
+from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 class Collection(models.Model):
@@ -82,7 +82,8 @@ class RequestLogEntry(models.Model):
 	
 	def __str__(self):
 		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
-		
+
+@python_2_unicode_compatible		
 class RequestChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
@@ -93,6 +94,7 @@ class RequestChatEntry(models.Model):
 	def __str__(self):
 		return self.message
 
+@python_2_unicode_compatible
 class RequestInformationChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)

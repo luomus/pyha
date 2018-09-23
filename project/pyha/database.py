@@ -421,7 +421,6 @@ def requestChat(request, requestId):
 		requestChat_list = list(RequestChatEntry.requestChat.filter(request=requestId).order_by('date'))
 		for l in requestChat_list:
 			l.name = fetch_user_name(l.user)
-			l.message = l.message.encode('utf-8')
 		return requestChat_list
 
 def requestInformationChat(request, requestId, role1, role2, userId):
@@ -438,7 +437,6 @@ def requestInformationChat(request, requestId, role1, role2, userId):
 			get_result_for_target(request, l)
 		for l in requestChat_list:
 			l.name = fetch_user_name(l.user)
-			l.message = l.message.encode('utf-8')
 		return requestChat_list
 
 
