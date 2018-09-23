@@ -28,13 +28,14 @@ def log_in(request, content, token):
         request.session["token"] = token
         if not "_language" in request.session:
            request.session["_language"] = "fi"
+        add_collection_owner(request, content)
         if not request.session["user_roles"]:
            request.session["user_roles"] = [USER]
            request.session["current_user_role"] = USER
         else:
-           request.session["current_user_role"] = HANDLER_ANY
            request.session["user_roles"].append(USER)
-        add_collection_owner(request, content)
+           request.session["user_roles"].append(HANDLER_ANY)
+           request.session["current_user_role"] = HANDLER_ANY
         request.session.set_expiry(3600)
         return True
     return False
@@ -86,8 +87,7 @@ def get_user_name(request):
 
 def add_collection_owner(request, content):
     if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:	
-        request.session["user_roles"].append(HANDLER_COLL)
-        request.session["current_user_role"] = HANDLER_ANY
+        request.session["user_roles"] = [HANDLER_COLL]
         
 def logged_in(request):
     if "user_id" in request.session:
