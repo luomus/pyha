@@ -30,7 +30,7 @@ def index(request):
 			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 		request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 		for r in request_list:
-			r.allSecured = get_all_secured(request, r)
+			r.allSecured = 0
 			r.email = fetch_email_address(r.user)
 			handler_waiting_status(r, request, userId)
 			handler_information_answered_status(r, request, userId)
