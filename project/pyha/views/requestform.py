@@ -242,13 +242,10 @@ def approve_skip_official(request, userRequest, requestId, lang):
     senschecked = request.POST.get('checkbsens')
     collectionList = Collection.objects.filter(request=requestId, status__gte=0)
     if(userRequest.status == 0 and senschecked and len(collectionList) > 0):
-        taxon = False
         for c in collectionList:
             if c.status == 0:
                 c.status = 1
                 c.save(update_fields=['status'])
-            #postia aineistoille, joilla on salattuja tietoja
-                #send_mail_for_approval(requestId, c, lang)
 
         for count in range(2, count_contacts(request.POST)+1):
             create_new_contact(request, userRequest, count)
@@ -266,8 +263,6 @@ def approve_skip_official(request, userRequest, requestId, lang):
         userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
         userRequest.save()
         update_contact_preset(request, userRequest)
-        if userRequest.sensstatus == 1 and taxon:
-            send_mail_for_approval_sens(requestId, lang)
         #make a log entry
         RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
     else:
