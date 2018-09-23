@@ -55,7 +55,7 @@ def show_request(request):
                 result = render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == 99 else render(request, 'pyha/requestform.html', context)
                 return result
             else:
-                return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == 99 else render(request, 'pyha/requestform.html', context)
+                return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == 99 else render(request, 'pyha/requestview.html', context)
     
 def change_description_ajax(request):
     if request.method == 'POST':
