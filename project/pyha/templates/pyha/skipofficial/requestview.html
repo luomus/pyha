@@ -1,0 +1,711 @@
+{% extends "pyha/base.html" %}
+{% block content %}
+{% load i18n %}
+
+	<div class="container-fluid">
+		<div class="col-xs-12">
+		  <div class="page-header"> 
+
+			<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
+				{% if userRequest.description and userRequest.description.strip %}
+					{{userRequest.description}}
+				{% else %}
+				{% endif %}
+				<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
+			</h1>
+			<!-- lomake kuvauksen muuttamiseen -->
+				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
+					<form class="form-inline" action="{% url 'pyha:description' %}" method="post" id ="description-form">
+						<div class="form-group">
+							
+							<div class="col-12" style="clear: left;">
+								<label for="description">{% trans "description" %}</label>
+							</div>
+							
+							<div class="col-12" style="clear: left;">
+								<textarea class="form-control" name = "description" id="description" rows="2" maxlength="200" style="width:50%;min-width:300px" >{{userRequest.description}}</textarea>
+								<!--<input type="text" class="form-control" id="description" name="description" 
+										value={{userRequest.description}} style="width: 300px;height: 50px"> -->
+								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+								<input type="hidden" id="next" name="next" value={{request.path}}>
+							</div>
+						
+							<div class="col-12" style="clear: left;">
+								<button type="submit" class="btn btn-default">{% trans "change_description" %}</button>
+							</div>
+						</div>
+						{% csrf_token %}
+					</form>
+				</div>
+			<h2><span style="white-space: nowrap;">
+					{% trans "state_of_request" %}
+					<span
+					{% if userRequest.status == 1 %}
+						 style="color:#AABBDD;"
+					{% elif userRequest.status == 3 %}
+						 style="color:#DDBBAA;"
+					{% elif userRequest.status == 4 %}
+						 style="color:#99DD99;"
+					{% elif userRequest.status == 2 %}
+						 style="color:#BBBB77;"
+					{% else %}
+						
+					{% endif %}
+					> 
+					{% if userRequest.status == 1 %}
+					{% trans "waiting_for_data_provider" %}
+					
+					{% elif userRequest.status == 2 %}
+					{% trans "partially_accepted" %}
+					
+					{% elif userRequest.status == 3 %}
+					{% trans "denied" %}
+					
+					{% elif userRequest.status == 4 %}
+					{% trans "accepted" %}
+					
+					{% elif userRequest.status == 6 %}
+					{% trans "waiting_for_additional_information" %}
+					<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "show_additional_information" %}</a>
+					
+					{% elif userRequest.status == 7 %}
+					{% trans "waiting_for_download" %} 
+					
+					{% elif userRequest.status == 8 %}
+					{% trans "ready_for_download" %}
+					
+					{% else %}  
+					{% trans "unknown" %}
+					
+					{% endif %}
+					
+					</span>
+				</span></h2>
+			</div>
+			<div style="padding-left:0px;">
+				<div>
+					<div class="col-xs-12">
+						{% if collections %}
+						<h2 style="text-align:center;top:0%;">{% trans "collections" %}</h2>
+						<div>
+						<table class="table">
+							{% for collection in collections %}
+								<tr>
+								<td>{{collection.result.collectionName}}</td>
+								<td>
+								<div class="slider-group" style="text-align:center;">
+									<span class="slider slider-waiting{% if collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-waiting{% if collection.status == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-waiting{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+								</div>
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				{% if userRequest.status == 8 %}
+					{% if downloadable %}
+						<div style="text-align:center;">
+						<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;"><span class="glyphicon glyphicon-open-file"></span> {% trans 'download' %}</a>
+						</div>
+					{% else %}
+						<h3 style="text-align:center;">{% trans 'download_has_expired' %}</h3>
+					{% endif %}
+				{% elif userRequest.status == 4  %}
+				<div style="text-align:center;">
+					<form action="{% url 'pyha:initializeDownload' %}" method="post">
+						<button style="width:100%; max-width:500px;" class="btn btn-default btn-lg " style="line-height:20px;width:100%; max-width:500px;">{% trans 'initialize_download' %}</button>
+						<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+						<input type="hidden" id="next" name="next" value={{request.path}}>
+						{% csrf_token %}
+					</form>
+				</div>
+				{% elif userRequest.status == 7%}
+				<h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
+				{% elif userRequest.status == 1 and endable %}
+				<div style="text-align:center;">
+					<button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">{% trans 'stop_wait_initialize_download' %}</button>
+				</div>
+				{% endif %}
+					<!-- hidden confirm modal -->
+					<div id="confirm-modal" class="modal fade modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header">
+							</div>
+							<div class="modal-body">
+								<p>{% trans "are_you_sure_you_want_to_download_only_those_given" %}</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" data-dismiss="modal" class="btn btn-danger" id="yes">{% trans "Yes" %}</button>
+								<button type="button" data-dismiss="modal" class="btn btn-outline-secondary">{% trans "back" %}</button>
+							</div>
+						</div>
+					</div>
+					<form class="form-hidden" action="/pyha/initializeDownload" id="initialize" method="post">
+						<div class="form-group">
+							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+							<input type="hidden" id="next" name="next" value={{request.path}}>
+							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;">
+						{% csrf_token %}
+						</div>
+					</form>
+			</div>
+				<ul class="nav nav-tabs" role="tablist">
+					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
+						<a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans "changes_history" %}
+							</span>
+						</a>
+					</li>
+					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
+						<a href="#contacts" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contact" role="tab"{% if next == "contacts" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'contact_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} >
+						<a href="#arguments" class="request-tab request-view-tab" data-toggle="tab" aria-controls="argument" role="tab"{% if next == "arguments" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'argument_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
+						<a href="#request" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contact" role="tab"{% if next == "request" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'request_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="filters-tab" role="presentation" {% if next == "filters" %} class="active" {% endif %} >
+						<a href="#filters" class="request-tab request-view-tab" data-toggle="tab" aria-controls="argument" role="tab"{% if next == "filters" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'filter_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} >
+						<a href="#terms" class="request-tab request-view-tab" data-toggle="tab" aria-controls="argument" role="tab"{% if next == "terms" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'terms_window' %}
+							</span>
+						</a>
+					</li>
+					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
+						<a href="#decision" class="request-tab request-view-tab" data-toggle="tab" aria-controls="decision" role="tab"{% if next == "decision" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'decision_window' %}
+							</span>
+						</a>
+					</li>  
+					{% if requestInformationChat_list %}
+					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
+						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="contact" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
+							<span> 
+								{% if userRequest.status == 6 %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'additional_information_window' %}
+							</span>
+						</a>
+					</li>
+					{% endif %}
+				</ul>
+				<!-- aineistolista -->
+				
+				<div class="tab-content">
+					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+						<h3>{% trans "collections_in_request" %}</h3>
+						{% if taxon %}
+						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
+						<p>{% trans 'given_values_are_not_absolute' %}</p>
+						{% endif %}
+							<table class="table" style="width:100%">
+								<tr title="{% trans 'given_values_are_not_absolute' %}" style=color:black>
+									<th>{% trans "collection_name" %}</th>
+									<th></th>
+									<th>{% trans "collection_description" %}</th>
+									<th>{% trans "secured_by_data_provider" %}</th>
+									<th>{% trans "generally_secured" %}</th>
+									<th>{% trans "all_secured" %}</th>
+									<th>{% trans "state_of_processing" %}</th>
+								</tr>
+								{% for collection in collections %}
+									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									<tr class="info clickable-row"
+									{% elif collection.status == 3 %}
+									<tr class="danger clickable-row"
+									{% elif collection.status == 4 %}
+									<tr class="success clickable-row"
+									{% elif collection.taxonSecured > 0 %}
+										{% if userRequest.sensstatus == 1 %}
+										<tr class="info clickable-row"
+										{% elif userRequest.sensstatus == 3 %}
+										<tr class="danger clickable-row"
+										{% elif userRequest.sensstatus == 4 %}
+										<tr class="success clickable-row"
+										{% endif %}  
+									{% else %}  
+									<tr	
+									{% endif %}
+									>
+									<td>{{collection.result.collectionName}}</td>
+									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
+									<td>{{collection.result.description}}</td>
+									<td>{{collection.customSecured}}</td>
+									<td>{{collection.taxonSecured}}</td>
+									<td>{{collection.allSecured}}</td>
+									
+									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									<td>{% trans "waiting_for_data_provider" %}</td>
+									{% elif collection.status == 3 %}
+									<td>{% trans "denied" %}</td>
+									{% elif collection.status == 2 %}
+									<td>{% trans "partially_accepted" %}</td>
+									{% elif collection.status == 4 %}
+									<td>{% trans "accepted" %}</td>
+									{% elif collection.taxonSecured > 0 %}
+									<td>{% trans "Admission_for_sensitive_data" %}</td>
+									{% else %}  
+									<td>{% trans "unknown" %}</td>
+									{% endif %}
+								{% endfor %}
+							</table>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
+							{% if taxon %}
+								<h3>{% trans "decision_for_admitting_sensitive_data"%}</h3>
+								<table class="table" style="width:100%">
+									<tr style=color:black>
+									<th>{% trans "state_of_processing" %}</th>
+									<th>{% trans "decision_arguments" %}</th>
+									</tr>
+									{% if userRequest.sensstatus == 1 %}
+									<tr class="info clickable-row"
+									{% elif userRequest.sensstatus == 3 %}
+									<tr class="danger clickable-row"
+									{% elif userRequest.sensstatus == 4 %}
+									<tr class="success clickable-row"
+									{% else %}  
+									<tr	
+									{% endif %}
+									>
+									{% if userRequest.sensstatus == 1 %}
+									<td>{% trans "waiting_for_data_provider" %}</td>
+									{% elif userRequest.sensstatus == 3 %}
+									<td>{% trans "denied" %}</td>
+									{% elif userRequest.sensstatus == 2 %}
+									<td>{% trans "partially_accepted" %}</td>
+									{% elif userRequest.sensstatus == 4 %}
+									<td>{% trans "accepted" %}</td>
+									{% else %}  
+									<td>{% trans "unknown" %}</td>
+									{% endif %}
+									<td>
+									{% if userRequest.sensDecisionExplanation == None %}
+									<p>-</p>
+									{% else %}
+									<p>{{userRequest.sensDecisionExplanation}}</p>
+									{% endif %}
+									</td>
+									</tr>
+								</table>
+							{% endif %}
+						<div style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+						<h3>{% trans "decicions_for_admitting_data" %}</h3>
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+									<th>{% trans "collection_name" %}</th>
+									<th>{% trans "state_of_processing" %}</th>
+									<th>{% trans "collection_decision_arguments" %}</th>
+								</tr>
+								{% for collection in collections %}
+									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									<tr class="info clickable-row"
+									{% elif collection.status == 3 %}
+									<tr class="danger clickable-row"
+									{% elif collection.status == 4 %}
+									<tr class="success clickable-row"
+									{% elif collection.taxonSecured > 0 %}
+										{% if userRequest.sensstatus == 1 %}
+										<tr class="info clickable-row"
+										{% elif userRequest.sensstatus == 3 %}
+										<tr class="danger clickable-row"
+										{% elif userRequest.sensstatus == 4 %}
+										<tr class="success clickable-row"
+										{% endif %}  
+									{% else %}  
+									<tr	
+									{% endif %}
+									>
+									<td>{{collection.result.collectionName}}</td>
+									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									<td>{% trans "waiting_for_data_provider" %}</td>
+									{% elif collection.status == 3 %}
+									<td>{% trans "denied" %}</td>
+									{% elif collection.status == 2 %}
+									<td>{% trans "partially_accepted" %}</td>
+									{% elif collection.status == 4 %}
+									<td>{% trans "accepted" %}</td>
+									{% elif collection.taxonSecured > 0 %}
+									<td>{% trans "Admission_for_sensitive_data" %}</td>
+									{% else %}  
+									<td>{% trans "unknown" %}</td>
+									{% endif %}
+									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
+							<h3>{% trans "request_filters" %}</h3>
+								{% if filters %}
+									<a style="padding-left:8px;" href="{{ filter_link }}">{% trans "show_in_portal" %}</a>
+									<table class="table" style="width:100%">
+										<tr style=color:black>
+											<th>{% trans "filter" %}</th>
+											<th>{% trans "values" %}</th>
+										</tr>
+										{% for filter in filters %}
+										<tr>
+											<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
+											{% for f in filter.1 %}
+											<td>{{ f }}</td>
+										</tr>
+											<tr>
+											{% endfor %}
+											</tr>
+										{% endfor %}
+									</table>
+									{% if coordinates %}
+									<div id="filtermap"></div>
+									{% endif %}
+								{% else %}
+									<strong>{% trans "no_filters" %}.</strong>
+								{% endif %}
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
+						<h3>{% trans "request_arguments" %}</h3>
+						<table class="table" style="width:100%">
+						<tr style=color:black><th>{% trans "argument_choices" %}</th></tr>
+						<tr><td>
+						{% for choice in reasonlist.argument_choices%}
+							{% if choice == 'reason_zoning' %}
+								<p>{% trans "reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
+							{% elif choice == 'reason_permission' %}
+								<p>{% trans "reason_permission" %}{% if not forloop.last %},{% endif %}</p>
+							{% elif choice == 'reason_enviromental' %}
+								<p>{% trans "reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
+							{% elif choice == 'reason_natura' %}
+								<p>{% trans "reason_natura" %}{% if not forloop.last %},{% endif %}</p>
+							{% elif choice == 'reason_scientific' %}
+								<p>{% trans "reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
+							{% elif choice == 'reason_forest' %}
+								<p>{% trans "reason_forest" %}{% if not forloop.last %},{% endif %}</p>
+							{% elif choice == 'reason_other' %}
+								<p>{% trans "reason_other" %}{% if not forloop.last %},{% endif %}</p>
+							{% endif %}
+						{% endfor %}
+						</td></tr>
+						{% for field in reasonlist.fields %}
+							{% if field.0 == 'argument_project' %}
+								<tr style=color:black><th>{% trans "argument_project" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_research' %}
+								<tr style=color:black><th>{% trans "argument_research" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_goals' %}
+								<tr style=color:black><th>{% trans "argument_goals" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_planning' %}
+								<tr style=color:black><th>{% trans "argument_planning" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_municipality' %}
+								<tr style=color:black><th>{% trans "argument_municipality" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_natura_areas' %}
+								<tr style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_reason' %}
+								<tr style=color:black><th>{% trans "argument_reason" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% endif %}
+						{% endfor %}
+						</table>
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
+							<h3>{% trans "terms" %}</h3>
+								<table class="table" style="width:100%">
+									{% if taxon %}
+									<tr>
+									<td>{% trans "sensitivity" %}</td>
+									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button></td>
+									</tr>
+									{% endif %}
+									{% for collection in collections %}
+										<tr>
+										<td>{{collection.result.collectionName}}</td>
+										<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
+										</tr>
+										<!-- Modal -->
+										<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										  <div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<h4 class="modal-title" id="myModalLabel">{% trans "terms_of_use_of_the_collections" %}</h4>
+													<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+												</div>
+												<div id="custom-content-{{collection}}" class="modal-body" style="padding-left:20px;">
+													<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
+													<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
+													<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
+													<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
+													<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
+													<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
+													<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+												</div>
+											</div>
+										  </div>
+										</div>
+									{% endfor %}
+										<!-- Sens Modal -->
+										<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
+										  <div class="modal-lg modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+												<form action="{% url 'pyha:newpdf' %}" onsubmit="this.source.value=document.getElementById('sens-content').outerHTML" method="post">
+													<button type="submit" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+													<input type="hidden" name="source" />
+													{% csrf_token %}
+												</form>
+												</div>
+												<div id="sens-content" class="modal-body">
+												<div style="float:left;">
+												<svg xmlns="http://www.w3.org/2000/svg"
+													width="60" height="160" version="1.1" baseProfile="full"
+													style="width: 60px; height: 160px; display: block;">
+													<g transform="rotate(270)">
+														<text textLength="160" fill="#777777" font-weight="700" font-size="50px" style="font-family: Arial, Helvetica, sans-serif;">
+															<tspan x="-160" dy="50" >LAJI.FI</tspan>
+														</text>
+													   </g>
+												  </svg>
+												</div>
+												<div style="margin-left:120px;margin-top:50px;">
+													{% include sensitivity_terms %}
+													<div style="margin-left:30px">
+													<ul>
+														<li><p class="model-field">{% trans 'contact_name' %} {{contactlist.0.personName}}</p></li>
+														<ul>
+														<li><p class="model-field">{% trans 'contact_street_address' %} {{contactlist.0.personStreetAddress}}</p></li>
+														<li><p class="model-field">{% trans 'contact_postal' %} {{contactlist.0.personPostalCode}}</p></li>
+														<li><p class="model-field">{% trans 'contact_post_office' %} {{contactlist.0.personPostOfficeName}}</p></li>
+														<li><p class="model-field">{% trans 'contact_country' %} {{contactlist.0.personCountry}}</p></li>
+														<li><p class="model-field">{% trans 'contact_email' %} {{contactlist.0.personEmail}}</p></li>
+														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contactlist.0.personPhoneNumber}}</p></li>
+														{% if contactlist.0.personOrganizationName != "" %}
+														<li><p class="model-field">{% trans 'contact_corporation' %} {{contactlist.0.personOrganizationName}}</p></li>
+														{% endif %}
+														{% if contactlist.0.personCorporationId != "" %}
+														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contactlist.0.personCorporationId}}</p></li>
+														{% endif %}
+														</ul>
+													</ul>
+														{% for contact in contactlist|slice:"1:" %}
+													<p style="width:100%;height:12px;"></p>
+													<ul>
+														<li><p class="model-field">{% trans 'additional_contact_name' %} {{contact.personName}}</p></li>
+														<ul>
+														<li><p class="model-field">{% trans 'contact_street_address' %} {{contact.personStreetAddress}}</p></li>
+														<li><p class="model-field">{% trans 'contact_postal' %} {{contact.personPostalCode}}</p></li>
+														<li><p class="model-field">{% trans 'contact_post_office' %} {{contact.personPostOfficeName}}</p></li>
+														<li><p class="model-field">{% trans 'contact_country' %} {{contact.personCountry}}</p></li>
+														<li><p class="model-field">{% trans 'contact_email' %} {{contact.personEmail}}</p></li>
+														<li><p class="model-field">{% trans 'contact_phone_number' %} {{contact.personPhoneNumber}}</p></li>
+														{% if contact.personOrganizationName != "" %}
+														<li><p class="model-field">{% trans 'contact_corporation' %} {{contact.personOrganizationName}}</p></li>
+														{% endif %}
+														{% if contact.personCorporationId != "" %}
+														<li><p class="model-field">{% trans 'contact_corporation_id' %} {{contact.personCorporationId}}</p></li>
+														{% endif %}
+														</ul>
+													</ul>
+														{% endfor %}
+													</div>
+												</div>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+								</table>
+							
+					</div>
+					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
+						<h3>{% trans "contacts" %}</h3>
+						<table class="table" style="width:100%">
+							<tr style=color:black>
+								<th>{% trans "full_name" %}</th>
+								<th>{% trans "street_address" %}</th>
+								<th>{% trans "postal_code" %}</th>
+								<th>{% trans "post_office_name" %}</th>
+								<th>{% trans "country" %}</th>
+								<th>{% trans "email" %}</th>
+								<th>{% trans "phone_number" %}</th>
+								<th>{% trans "corporation/organization_name" %}</th>
+								<th>{% trans "corporation_id" %}</th>
+							</tr>
+								{% for contact in contactlist %}
+							<tr>
+								<td>{{contact.personName}}</td>
+								<td>{{contact.personStreetAddress}}</td>
+								<td>{{contact.personPostalCode}}</td>
+								<td>{{contact.personPostOfficeName}}</td>
+								<td>{{contact.personCountry}}</td>
+								<td>{{contact.personEmail}}</td>
+								<td>{{contact.personPhoneNumber}}</td>
+								<td>{{contact.personOrganizationName}}</td>
+								<td>{{contact.personCorporationId}}</td>
+							</tr>
+								{% endfor %}
+						</table>
+					</div>
+					{% if requestInformationChat_list %}
+					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
+							<h3>{% trans "additional_questions" %}</h3>
+							{% for question in requestInformationChat_list %}
+								{% if question.question %}
+								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
+								<form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
+								<div class="form-group">
+									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+									<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
+									<input type="hidden" id="target" name="target" value="{{question.target}}">
+									<textarea style="width:100%;" rows="5" cols="70" id="reason" name="reason" required ></textarea>
+									<button type="submit" style="display:none;" onclick="showAnswer('requestform_{{ forloop.counter }}');" id="requestform_submit_{{ forloop.counter }}" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
+								</div>
+								{% csrf_token %}
+								</form>
+								<label style="margin-left:5px;margin-bottom:5px;" for="requestform_submit_{{ forloop.counter }}" class="btn btn-default btn-sm">{% trans "answer" %}</label>
+								</div>
+								{% endif %}
+								{% if question.question != True %}
+								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
+								</div>
+								{% endif %}
+							{% endfor %}
+							<span id="information_bottom"></span>
+					</div>
+					{% endif %}
+					<div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
+						{% if requestLog_list %}
+						<h3>{% trans "changes_history" %}</h3>
+						<table class="table" style="width:100%">
+							<tr style=color:black>
+								<th>{% trans "log_date" %}</th>
+								<th>{% trans "log_maker" %}</th>
+								<th>{% trans "log_description" %}</th>
+							</tr>
+						{% for requestLog in requestLog_list %}
+						<tr>
+							<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+							{% if requestLog.role == 'handler' %}
+							<td>{% trans "admin" %}</td>
+							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
+							<td>{% trans "log_sensitive_data_handler" %}</td>
+							{% elif requestLog.role == 'MA.downloadRequestHandler' %}
+							<td>{% trans "log_collection_provider" %}</td>
+							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
+							<td>{% trans "log_sensitive_and_collections_handler" %}</td>
+							{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
+							<td>{{requestLog.name}}</td>
+							{% else %}
+							<td>{% trans "user" %}</td>
+							{% endif %}
+							{% if requestLog.action == 'VIEW' %}
+							<td>{% trans "log_viewed" %}</td>
+							{% elif requestLog.action == 'ACC' %}
+							<td>{% trans "log_terms_accepted" %}</td>
+							{% elif requestLog.action == 'POS' %}
+								{% if requestLog.collection == None %}
+								<td>{% trans "log_sensitives_accepted" %}</td>
+								{% else %}
+								<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
+								{% endif %}
+							{% elif requestLog.action == 'NEG' %}
+								{% if requestLog.collection == None %}
+								<td>{% trans "log_sensitives_denied" %}</td>
+								{% else %}
+								<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+								{% endif %}
+							{% endif %}
+							</tr>
+						{% endfor %}
+						</table>
+					{% else %}
+						<strong>{% trans "log_no_history" %}.</strong>
+					{% endif %}
+					</div>
+				</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block end_script %}
+	<script>
+	$(document).on('click','.initializeContainer',function(e){
+		var name ="#initialize";
+		e.preventDefault();
+		$('#confirm-modal').off()
+		$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
+			.one('click', '#yes', function(){
+				$(name).submit();
+		});
+		
+	});
+	</script>
+	<script>
+		function showAnswer(target) {
+			var x = document.getElementById(target);
+			if (x.style.display == 'none') {
+				x.style.display = 'block';
+			}
+		}
+	</script>
+	{% if coordinates %}
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();   
+			initializeMap();
+			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
+			document.getElementById('filters').style.display = 'block';
+			map.invalidateSize();
+			document.getElementById('filters').style.display = '';
+			var bounds = [[{{coordinates.0}}, {{coordinates.2}}], [{{coordinates.1}},{{coordinates.3}}]];
+			L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
+		});
+	</script>
+	{% endif %}
+	{% if next == 'information' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('information_bottom').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+{% endblock %}
+
+{% block modal %}
+{% endblock %}

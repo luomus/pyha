@@ -490,6 +490,8 @@
 								<td>{% trans "handler_partially_accepted" %}</td>
 								{% elif userRequest.sensstatus == 4 %}
 								<td>{% trans "handler_accepted" %}</td>
+								{% elif userRequest.sensstatus == 99 %}
+								<td>{% trans "handler_skipped" %}</td>
 								{% else %}  
 								<td>{% trans "handler_unknown" %}</td>
 								{% endif %}
