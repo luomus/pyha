@@ -45,7 +45,7 @@
             <td {% if not request.viewed or request.answerstatus == 1%}data-order="1"><span class="glyphicon glyphicon-bell"></span>{% else %}data-order="0"><span></span>{% endif %}</td>
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
             <td>{{request.email}}</td>
-            <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
+            <td>{{ request.allSecured }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "handler_you_have_not_accepted_terms" %}</td>
             
