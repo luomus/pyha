@@ -27,15 +27,15 @@ def log_in(request, content, token):
                 request.session["user_roles"].append(r)
         request.session["token"] = token
         if not "_language" in request.session:
-           request.session["_language"] = "fi"
+            request.session["_language"] = "fi"
         add_collection_owner(request, content)
-        if not HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
-           request.session["user_roles"] = [USER]
-           request.session["current_user_role"] = USER
+        if HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
+            request.session["user_roles"].append(USER)
+            request.session["user_roles"].append(HANDLER_ANY)
+            request.session["current_user_role"] = HANDLER_ANY
         else:
-           request.session["user_roles"].append(USER)
-           request.session["user_roles"].append(HANDLER_ANY)
-           request.session["current_user_role"] = HANDLER_ANY
+            request.session["user_roles"] = [USER]
+            request.session["current_user_role"] = USER
         request.session.set_expiry(3600)
         return True
     return False
