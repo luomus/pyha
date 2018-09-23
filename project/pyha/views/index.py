@@ -25,7 +25,7 @@ def index(request):
 	if HANDLER_ANY in request.session.get("current_user_role", [None]):
 		request_list = []
 		if HANDLER_SENS in request.session.get("user_roles", [None]):
-			request_list += Request.requests.all().order_by('-date')
+			request_list += Request.requests.all().exclude(status__lte=0).order_by('-date')
 		if HANDLER_COLL in request.session.get("user_roles", [None]):
 			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date')
 		request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]

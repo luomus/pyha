@@ -21,15 +21,15 @@ def log_in(request, content, token):
         request.session["user_id"] = content["user"]["qname"]
         request.session["user_name"] = content["user"]["name"]
         request.session["user_email"] = content["user"]["email"]
-        request.session["user_roles"] = None
+        request.session["user_roles"] = []
         for r in content["user"]["roles"]:
             if HANDLER_SENS in r:
-                request.session["user_roles"] = [r]
+                request.session["user_roles"].append(r)
         request.session["token"] = token
         if not "_language" in request.session:
            request.session["_language"] = "fi"
         add_collection_owner(request, content)
-        if not request.session["user_roles"]:
+        if not HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
            request.session["user_roles"] = [USER]
            request.session["current_user_role"] = USER
         else:
@@ -87,7 +87,7 @@ def get_user_name(request):
 
 def add_collection_owner(request, content):
     if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:	
-        request.session["user_roles"] = [HANDLER_COLL]
+        request.session["user_roles"].append(HANDLER_COLL)
         
 def logged_in(request):
     if "user_id" in request.session:
