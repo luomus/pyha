@@ -2,6 +2,7 @@
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
+@python_2_unicode_compatible
 class Collection(models.Model):
 	address = models.CharField(max_length=500)
 	count = models.IntegerField()
@@ -15,6 +16,7 @@ class Collection(models.Model):
 	def __str__(self):
 		return self.address
 
+@python_2_unicode_compatible
 class Request(models.Model):
 	#id alkaa ykkösestä ja nousee
 	id = models.AutoField(primary_key=True)
@@ -47,6 +49,7 @@ class Request(models.Model):
 	def __str__(self):
 		return self.id
 
+@python_2_unicode_compatible
 class RequestContact(models.Model):
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -60,6 +63,7 @@ class RequestContact(models.Model):
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
 
+@python_2_unicode_compatible
 class RequestLogEntry(models.Model):
 	VIEW = 'VIEW'
 	ACCEPT = 'ACC'
@@ -107,6 +111,7 @@ class RequestInformationChatEntry(models.Model):
 	def __str__(self):
 		return self.message
 
+@python_2_unicode_compatible
 class ContactPreset(models.Model):
 	user = models.CharField(primary_key=True, max_length=100)
 	requestPersonName = models.CharField(max_length=100,null=True)
