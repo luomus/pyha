@@ -165,8 +165,8 @@ TIME_ZONE = 'Europe/Helsinki'
 
 LANGUAGES = [
     ('fi', _('Suomi')),
-    ('en', _('Englanti')),
     ('sw', _('Ruotsi')),
+    ('en', _('Englanti')),
 ]
 
 LOCALE_PATHS = [
