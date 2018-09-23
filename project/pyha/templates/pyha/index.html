@@ -45,7 +45,7 @@
             
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
 
-            <td title="{% trans 'given_values_are_not_absolute' %}">{% if request.status == 0 %}{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}{% else %}{{ request.allSecured|intcomma|replaceCommaWithSpace }}{% endif %}</td>
+            <td title="{% trans 'given_values_are_not_absolute' %}">{% if request.status == 0 %}{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}{% else %}{{ request.allSecured }}{% endif %}</td>
             {% if request.status == 0 %}
                 <td>{% trans "you_have_not_accepted_terms" %}</td>
             
