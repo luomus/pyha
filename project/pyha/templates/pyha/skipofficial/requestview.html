@@ -274,46 +274,8 @@
 								{% endfor %}
 							</table>
 					</div>
-					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
-							{% if taxon %}
-								<h3>{% trans "decision_for_admitting_sensitive_data"%}</h3>
-								<table class="table" style="width:100%">
-									<tr style=color:black>
-									<th>{% trans "state_of_processing" %}</th>
-									<th>{% trans "decision_arguments" %}</th>
-									</tr>
-									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
-									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
-									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
-									{% else %}  
-									<tr	
-									{% endif %}
-									>
-									{% if userRequest.sensstatus == 1 %}
-									<td>{% trans "waiting_for_data_provider" %}</td>
-									{% elif userRequest.sensstatus == 3 %}
-									<td>{% trans "denied" %}</td>
-									{% elif userRequest.sensstatus == 2 %}
-									<td>{% trans "partially_accepted" %}</td>
-									{% elif userRequest.sensstatus == 4 %}
-									<td>{% trans "accepted" %}</td>
-									{% else %}  
-									<td>{% trans "unknown" %}</td>
-									{% endif %}
-									<td>
-									{% if userRequest.sensDecisionExplanation == None %}
-									<p>-</p>
-									{% else %}
-									<p>{{userRequest.sensDecisionExplanation}}</p>
-									{% endif %}
-									</td>
-									</tr>
-								</table>
-							{% endif %}
-						<div style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">							
+						<div>
 						<h3>{% trans "decicions_for_admitting_data" %}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
@@ -438,42 +400,10 @@
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 							<h3>{% trans "terms" %}</h3>
 								<table class="table" style="width:100%">
-									{% if taxon %}
 									<tr>
-									<td>{% trans "sensitivity" %}</td>
+									<td>{% trans "Collection terms" %}</td>
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button></td>
 									</tr>
-									{% endif %}
-									{% for collection in collections %}
-										<tr>
-										<td>{{collection.result.collectionName}}</td>
-										<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "terms" %}</button></td>
-										</tr>
-										<!-- Modal -->
-										<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-										  <div class="modal-dialog modal-lg" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-													<h4 class="modal-title" id="myModalLabel">{% trans "terms_of_use_of_the_collections" %}</h4>
-													<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
-												</div>
-												<div id="custom-content-{{collection}}" class="modal-body" style="padding-left:20px;">
-													<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
-													<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
-													<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
-													<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
-													<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
-													<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
-													<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
-												</div>
-											</div>
-										  </div>
-										</div>
-									{% endfor %}
 										<!-- Sens Modal -->
 										<div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">
 										  <div class="modal-lg modal-dialog" role="document">
