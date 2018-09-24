@@ -14,7 +14,7 @@
 	xhttp.send(data);
 	}
 	
-	function removeAjax(index) {
+	function removeAjax(index, on_success) {
 	var xhttp = new XMLHttpRequest();
 	var collectionid = document.getElementById('taxoncollectionId'+index).value;
 	var requestid = document.getElementById('requestid').value;
@@ -22,7 +22,7 @@
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4) {
 				if(this.status == 200){
-					refresh();
+					on_success();
 				} else if(this.status == 310){
 					window.location = this.responseText;
 				}

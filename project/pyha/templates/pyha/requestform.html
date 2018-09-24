@@ -526,7 +526,7 @@
 	}
 	function remove(counter) { 
 		delete accepted[counter];
-		removeAjax(counter);
+		removeAjax(counter, refresh);
 	}
 	function refreshCheck() {
 		var elements = document.getElementsByName("checkb");

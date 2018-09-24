@@ -417,7 +417,7 @@
 	}
 	function remove(counter) { 
 		delete accepted[counter];
-		removeAjax(counter);
+		removeAjax(counter, refresh_skip_official);
 	}
 	
 	function addContact(current) {
