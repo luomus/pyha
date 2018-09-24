@@ -62,6 +62,9 @@ class RequestContact(models.Model):
 	personPhoneNumber = models.CharField(max_length=100,null=True)
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
+	
+	def __str__(self):
+		return self.id
 
 @python_2_unicode_compatible
 class RequestLogEntry(models.Model):
