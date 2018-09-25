@@ -28,19 +28,19 @@ def send_mail_after_receiving_request(requestId, lang):
 		else:
 			subject_content = u"Aineistopyyntö: " + time
 			
-		plaintext = get_template('email/send_mail_after_receiving_request_fi.txt')
+		plaintext = get_template('pyha/email/send_mail_after_receiving_request_fi.txt')
 	elif(lang == 'en'):
 		if(req.description != ''):
 			subject_content = u"Download request: " + req.description
 		else:
 			subject_content = u"Download request: " + time
-		plaintext = get_template('email/send_mail_after_receiving_request_en.txt')
+		plaintext = get_template('pyha/email/send_mail_after_receiving_request_en.txt')
 	else:
 		if(req.description != ''):
 			subject_content = u"På svenska: Aineistopyyntö: " + req.description
 		else:
 			subject_content = u"På svenska: Aineistopyyntö: " + time
-		plaintext = get_template('email/send_mail_after_receiving_request_sw.txt')
+		plaintext = get_template('pyha/email/send_mail_after_receiving_request_sw.txt')
 	subject = subject_content	
 	from_email = 'helpdesk@laji.fi'	
 	to = fetch_email_address(req.user)		
