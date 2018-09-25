@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.core.mail import send_mail
+from django.template.loader import get_template
+from django.template import Context
 from pyha.models import Collection, Request
 from pyha.warehouse import fetch_email_address
 import requests
@@ -18,29 +20,34 @@ def send_mail_after_receiving_request(requestId, lang):
 	req = Request.requests.get(id=requestId)	
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.REQ_URL+str(req.id)
+	context = Context({ 'req': req, 'time': time, 'req_link': req_link })
+	
 	if(lang == 'fi'):
 		if(req.description != ''):
 			subject_content = u"Aineistopyyntö: " + req.description
 		else:
 			subject_content = u"Aineistopyyntö: " + time
-		message = u"Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa "+time+".\nPyyntö tarvitsee teiltä vielä käyttöehtojen hyväksynnän.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+			
+		plaintext = get_template('email/send_mail_after_receiving_request_fi.txt')
 	elif(lang == 'en'):
 		if(req.description != ''):
 			subject_content = u"Download request: " + req.description
 		else:
 			subject_content = u"Download request: " + time
-		message = u"You have made a request to download secure FinBIF data on "+time+".\nYou are required to agree to the terms of use.\n\nAddress to your request: "+req_link+"?lang=en" 
+		plaintext = get_template('email/send_mail_after_receiving_request_en.txt')
 	else:
 		if(req.description != ''):
 			subject_content = u"På svenska: Aineistopyyntö: " + req.description
 		else:
 			subject_content = u"På svenska: Aineistopyyntö: " + time
-		message = u"På svenska: Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa "+time+".\nPyyntö tarvitsee teiltä vielä käyttöehtojen hyväksynnän.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"
+		plaintext = get_template('email/send_mail_after_receiving_request_sw.txt')
 	subject = subject_content	
 	from_email = 'helpdesk@laji.fi'	
-	to = fetch_email_address(req.user)
+	to = fetch_email_address(req.user)		
+	text_content = plaintext.render(context)
+	
 	recipients = [to]
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
 def send_mail_after_receiving_download(requestId):
 	lang = 'fi'

@@ -1,0 +1,4 @@
+You have made a request to download secure FinBIF data on {{ time }}.
+You are required to agree to the terms of use.
+
+Address to your request: {{ req_link }}?lang=en"
