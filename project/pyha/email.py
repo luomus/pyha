@@ -20,7 +20,7 @@ def send_mail_after_receiving_request(requestId, lang):
 	req = Request.requests.get(id=requestId)	
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.REQ_URL+str(req.id)
-	context = Context({ 'req': req, 'time': time, 'req_link': req_link })
+	context = {'req': req, 'time': time, 'req_link': req_link}
 	
 	if(lang == 'fi'):
 		if(req.description != ''):
