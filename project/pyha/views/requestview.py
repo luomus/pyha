@@ -49,7 +49,7 @@ def show_request(request):
             make_logEntry_view(request, userRequest, userId, role1, role2)
         context = create_request_view_context(requestId, request, userRequest)
         if HANDLER_ANY in request.session.get("current_user_role", [None]):
-            return render(request, 'pyha/handler/requestview.html', context)
+            return render(request, 'pyha/skipofficial/requestview_handler.html', context) if userRequest.sensstatus == 99 else render(request, 'pyha/handler/requestview.html', context)
         else:
             if(userRequest.status == 0):
                 result = render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == 99 else render(request, 'pyha/requestform.html', context)

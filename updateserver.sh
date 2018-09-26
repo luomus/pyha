@@ -5,7 +5,7 @@ then
     . env_variables.sh
 
     echo "Updating server..."
-
+    rm -r project/static
     env/bin/python project/manage.py collectstatic
     env/bin/python project/manage.py makemigrations
     env/bin/python project/manage.py migrate
