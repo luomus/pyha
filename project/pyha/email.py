@@ -1,6 +1,7 @@
 #coding=utf-8
 from __future__ import unicode_literals
 
+from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import get_template
@@ -10,7 +11,7 @@ from pyha.warehouse import fetch_email_address
 import requests
 from requests.auth import HTTPBasicAuth
 
-
+@python_2_unicode_compatible
 def send_mail_after_receiving_request(requestId, lang):
 	'''
 	Sends email after receiving request from Laji.fi to the person who made the request.
