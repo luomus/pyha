@@ -235,7 +235,7 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-						<h3>{% trans "handler_request_filters" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
+						<h3>{% trans "handler_request_filters" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}" target="_blank">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
 							{% if filters %}
 								<table class = "table" style="width:100%">
 									<tr style=color:black>
