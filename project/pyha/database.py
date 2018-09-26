@@ -200,12 +200,14 @@ def update(requestId, lang):
 				wantedRequest.status = 2
 				if colaccepted > 0:
 					send_download_request(requestId)
+					wantedRequest.status = 7
 			elif (pending == 0 and accepted == 0) and declined > 0:
 				wantedRequest.status = 3
 			elif accepted > 0 and (declined == 0 and pending == 0):
 				wantedRequest.status = 4
 				if colaccepted > 0:
 					send_download_request(requestId)
+					wantedRequest.status = 7
 			elif declined > 0:
 				wantedRequest.status = 1
 			else:
@@ -229,12 +231,14 @@ def update(requestId, lang):
 			wantedRequest.status = 2
 			if colaccepted > 0:
 				send_download_request(requestId)
+				wantedRequest.status = 7
 		elif (pending == 0 and accepted == 0) and declined > 0:
 			wantedRequest.status = 3
 		elif accepted > 0 and (declined == 0 and pending == 0):
 			wantedRequest.status = 4
 			if colaccepted > 0:
 				send_download_request(requestId)
+				wantedRequest.status = 7
 		elif declined > 0:
 			wantedRequest.status = 1
 		else:
@@ -281,12 +285,14 @@ def ignore_official_update(requestId, lang):
 		wantedRequest.status = 2
 		if colaccepted > 0:
 			send_download_request(requestId)
+			wantedRequest.status = 7
 	elif (pending == 0 and accepted == 0) and declined > 0:
 		wantedRequest.status = 3
 	elif accepted > 0 and (declined == 0 and pending == 0):
 		wantedRequest.status = 4
 		if colaccepted > 0:
 			send_download_request(requestId)
+			wantedRequest.status = 7
 	elif declined > 0:
 		wantedRequest.status = 1
 	else:
