@@ -258,7 +258,7 @@
 									<td>{{collection.taxonSecured}}</td>
 									<td>{{collection.allSecured}}</td>
 									
-									{% if collection.status == 1}
+									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
 									<td>{% trans "denied" %}</td>
