@@ -524,8 +524,8 @@
 									{% endif %}
 								{% endfor %}
 								</select>
-								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required >{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm">{% trans "handler_request_additional_information" %}</button>
+								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_request_additional_information" %}</button>
 							</div>
 							{% csrf_token %}
 						</form>
