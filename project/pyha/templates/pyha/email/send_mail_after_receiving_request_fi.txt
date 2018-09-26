@@ -1,4 +1,4 @@
-Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa {{ time }}.
-Pyyntö tarvitsee teiltä vielä käyttöehtojen hyväksynnän.
+ï»¿Olette tehneet pyynnÃ¶n salattuun aineistoon Lajitietokeskuksessa {{ time }}.
+PyyntÃ¶ tarvitsee teiltÃ¤ vielÃ¤ kÃ¤yttÃ¶ehtojen hyvÃ¤ksynnÃ¤n.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi"
+Osoite aineistopyyntÃ¶Ã¶n: {{ req_link }}?lang=fi"
