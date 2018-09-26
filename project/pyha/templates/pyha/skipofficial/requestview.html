@@ -233,7 +233,7 @@
 									<th>{% trans "state_of_processing" %}</th>
 								</tr>
 								{% for collection in collections %}
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 %}
 									<tr class="info clickable-row"
 									{% elif collection.status == 3 %}
 									<tr class="danger clickable-row"
@@ -284,7 +284,7 @@
 									<th>{% trans "collection_decision_arguments" %}</th>
 								</tr>
 								{% for collection in collections %}
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 %}
 									<tr class="info clickable-row"
 									{% elif collection.status == 3 %}
 									<tr class="danger clickable-row"
@@ -303,7 +303,7 @@
 									{% endif %}
 									>
 									<td>{{collection.result.collectionName}}</td>
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
 									<td>{% trans "denied" %}</td>
