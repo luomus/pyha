@@ -7,7 +7,12 @@ from pyha.roles import HANDLER_SENS, USER, HANDLER_ANY, HANDLER_COLL
 import requests
 
 
-def _get_authentication_info(request, token):
+def _get_authentication_info(token):
+    '''
+    Get authentication info for the token.
+    :param token: The token returned by LajiAuth.
+    :return: Authentication info content.                      
+    '''
     url = settings.LAJIAUTH_URL + "token/" + token
     response = requests.get(url)
     if response.status_code != 200:
@@ -16,19 +21,26 @@ def _get_authentication_info(request, token):
         content = json.loads(response.content.decode('utf-8'))
         return content
 
-def log_in(request, token, result):
+def log_in(request, token, authentication_info):
+    '''
+    Create session for the request.
+    :param request: A HttpRequest to create session for.
+    :param token: The token returned by LajiAuth.
+    :param authentication_info: Authentication information from LajiAuth.
+    :return: true if user was succesfully logged in                      
+    '''
     if not "user_id" in request.session:
-        request.session["user_id"] = result["user"]["qname"]
-        request.session["user_name"] = result["user"]["name"]
-        request.session["user_email"] = result["user"]["email"]
+        request.session["user_id"] = authentication_info["user"]["qname"]
+        request.session["user_name"] = authentication_info["user"]["name"]
+        request.session["user_email"] = authentication_info["user"]["email"]
         request.session["user_roles"] = []
-        for r in result["user"]["roles"]:
+        for r in authentication_info["user"]["roles"]:
             if HANDLER_SENS in r:
                 request.session["user_roles"].append(r)
         request.session["token"] = token
         if not "_language" in request.session:
             request.session["_language"] = "fi"
-        add_collection_owner(request, result)
+        add_collection_owner(request, authentication_info)
         if HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
             request.session["user_roles"].append(USER)
             request.session["user_roles"].append(HANDLER_ANY)
@@ -71,15 +83,6 @@ def authenticate(request, token, result):
         log_in(request, token, result)
         return True
 
-def authenticated(request):
-    '''
-    Checks if user is authenticated if MOCK_AUTHENTICATION is set to 'Skip', always returns true,
-    :param request:
-    :return:
-    '''
-    if settings.MOCK_AUTHENTICATION == "Skip": return True
-    else :return "user_id" in request.session
-
 def get_user_name(request):
     if "user_name" in request.session:
         return request.session["user_name"]
@@ -97,7 +100,7 @@ def _process_auth_response(request, indexpath):
     if not "token" in request.POST:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
     token = request.POST["token"]
-    result = _get_authentication_info(request, token)
+    result = _get_authentication_info(token)
     if authenticate(request, token, result):
         return HttpResponseRedirect('/pyha/'+result["next"])
     else:
