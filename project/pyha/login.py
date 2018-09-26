@@ -16,19 +16,19 @@ def _get_authentication_info(request, token):
         content = json.loads(response.content.decode('utf-8'))
         return content
 
-def log_in(request, content, token):
+def log_in(request, token, result):
     if not "user_id" in request.session:
-        request.session["user_id"] = content["user"]["qname"]
-        request.session["user_name"] = content["user"]["name"]
-        request.session["user_email"] = content["user"]["email"]
+        request.session["user_id"] = result["user"]["qname"]
+        request.session["user_name"] = result["user"]["name"]
+        request.session["user_email"] = result["user"]["email"]
         request.session["user_roles"] = []
-        for r in content["user"]["roles"]:
+        for r in result["user"]["roles"]:
             if HANDLER_SENS in r:
                 request.session["user_roles"].append(r)
         request.session["token"] = token
         if not "_language" in request.session:
             request.session["_language"] = "fi"
-        add_collection_owner(request, content)
+        add_collection_owner(request, result)
         if HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
             request.session["user_roles"].append(USER)
             request.session["user_roles"].append(HANDLER_ANY)
@@ -58,18 +58,17 @@ def log_out(request):
             return True
         return False
 
-def authenticate(request, token):
+def authenticate(request, token, result):
     '''
     Logs user in if the token is valid.
     :param request: A HttpRequest to create session for
     :param token: The token returned by LajiAuth.
     :return: true if user is authenticated succesfully
     '''
-    result = _get_authentication_info(request, token)
     if result is None:
         return False
     else:
-        log_in(request, result, token)
+        log_in(request, token, result)
         return True
 
 def authenticated(request):
@@ -97,8 +96,10 @@ def logged_in(request):
 def _process_auth_response(request, indexpath):
     if not "token" in request.POST:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
-    if authenticate(request, request.POST["token"]):
-        return HttpResponseRedirect('/pyha/'+indexpath)
+    token = request.POST["token"]
+    result = _get_authentication_info(request, token)
+    if authenticate(request, token, result):
+        return HttpResponseRedirect('/pyha/'+result["next"])
     else:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
         
