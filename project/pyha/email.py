@@ -11,7 +11,6 @@ from pyha.warehouse import fetch_email_address
 import requests
 from requests.auth import HTTPBasicAuth
 
-@python_2_unicode_compatible
 def send_mail_after_receiving_request(requestId, lang):
 	'''
 	Sends email after receiving request from Laji.fi to the person who made the request.
