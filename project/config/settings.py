@@ -58,6 +58,26 @@ ADMIN = [(os.environ["ADMIN_NAME"], os.environ["ADMIN_EMAIL"])]
 
 SERVER_EMAIL = os.environ["SERVER_EMAIL"]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'ratelimit': {
+            '()': 'pyha.utilities.EmailRateLimitFilter'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false', 'ratelimit']
+        }
+    }
+}
+
 
 #should probably also include server external ip and domain.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1'
