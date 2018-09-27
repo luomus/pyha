@@ -212,6 +212,15 @@ def send_mail_after_additional_information_requested(requestId, lang):
 	to = fetch_email_address(req.user)
 	recipients = [to]
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	
+	
+	
+def mail_test():
+	subject = u"Pyyntösi tarvitsee lisätietoja"
+	message = u"Lajitietokeskukseen"
+	from_email = 'helpdesk@laji.fi'
+	recipients = "kinkku128@gmail.com"
+	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
 
 
 

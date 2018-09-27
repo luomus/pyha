@@ -10,6 +10,7 @@ from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry
 from pyha.roles import HANDLER_SENS, HANDLER_ANY, HANDLER_COLL
 from pyha.warehouse import fetch_email_address
+from pyha.email import mail_test
 
 
 
@@ -43,6 +44,7 @@ def index(request):
 		for r in request_list:
 			r.allSecured = get_all_secured(request, r)
 		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		mail_test()
 		return render(request, 'pyha/index.html', context)
 
 
