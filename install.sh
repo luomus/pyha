@@ -112,11 +112,19 @@ SOCKETCONTENT=$SOCKETCONTENT\
 echo -e $SOCKETCONTENT > services/pyha.socket
 echo "Created services/pyha.socket file"
 
-SOCKETCONTENT=$CONFCONTENT\
-"d /run/pyha 0755 pyha pyha -\n"\
+APACHECONTENT=$APACHECONTENT\
+"#Pyha\n"\
+"<Directory \""$DIR"/project/static\">\n"\
+"    AllowOverride None\n"\
+"    Require all granted\n"\
+"</Directory>\n"\
+"ProxyPass               /pyha/static !\n"\
+"ProxyPass               /pyha http://localhost:"$PYHA_LISTEN_PORT_val"\n"\
+"ProxyPassReverse        /pyha http://localhost:"$PYHA_LISTEN_PORT_val"\n"\
+"Alias /pyha/static     \""$DIR"/project/static\"\n"\
 
-echo -e $CONFCONTENT > services/pyha.conf
-echo "Created services/pyha.socket file"
+echo -e "$APACHECONTENT" > services/pyha.conf
+echo "Created services/pyha.conf file"
 
 . updateserver.sh
 echo "Installation has finished"
