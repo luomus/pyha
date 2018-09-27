@@ -4,8 +4,10 @@ env/bin/pip install -r Requirements.txt
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
+		EMAIL_ERROR_RATE_LIMIT "Throttle decay timer for errormail in seconds. Default 10" \
+		EMAIL_ERROR_RATE_KEY_LIMIT "Maximum size of the errormail throttle cache. Default 100" \
 		DJANGO_SECRET_KEY "Hash salt used by django" \
-		PYHA_LISTEN_PORT "Port listened by pyyntojenhallinta" \
+		PYHA_LISTEN_PORT "Port listened by django" \
 		EMAIL_LINK_URL "Path included in emails linking to certain pyyntojenhallinta request ex. https://fmnh-ws-test.it.helsinki.fi/pyha/request/" \
 		LAJI_AUTH_URL 0 \
 		LAJI_ETL_FILE_DOWNLOAD_URL 0 \
