@@ -53,8 +53,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["ENABLE_DEBUG"] == "True"
-ERROR_RATE_LIMIT = os.environ["EMAIL_ERROR_RATE_LIMIT"]
-ERROR_RATE_KEY_LIMIT = os.environ["EMAIL_ERROR_RATE_KEY_LIMIT"]
+ERROR_RATE_LIMIT = int(os.environ["EMAIL_ERROR_RATE_LIMIT"])
+ERROR_RATE_KEY_LIMIT = int(os.environ["EMAIL_ERROR_RATE_KEY_LIMIT"])
 
 LOGGING = {
     'version': 1,
