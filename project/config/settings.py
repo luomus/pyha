@@ -42,7 +42,7 @@ HTTPS_USER = os.environ["PYHA_API_USER"]
 HTTPS_PSW = os.environ["PYHA_API_PASSWORD"] 
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
-SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"]
+SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == 'True'
 MOCK_JSON=False
 APPEND_SLASH=False
 
@@ -52,7 +52,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ["ENABLE_DEBUG"]
+DEBUG = os.environ["ENABLE_DEBUG"] == 'True'
 
 ADMIN = [(os.environ["ADMIN_NAME"], os.environ["ADMIN_EMAIL"])]
 
