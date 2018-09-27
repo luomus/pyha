@@ -62,7 +62,7 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse',
         },
         'ratelimit': {
-            '()': 'pyha.utilities.RateLimitFilter'
+            '()': 'pyha.utilities.EmailRateLimitFilter'
         }
     },
     'handlers': {
