@@ -54,6 +54,41 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["ENABLE_DEBUG"] == "True"
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'ratelimit': {
+            '()': 'pyha.utilities.RateLimitFilter'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'logfile': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'pyha.log',
+            'maxBytes': 1024 * 100,
+            'backupCount': 3,
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false', 'ratelimit']
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['logfile', 'mail_admins'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+
+        },
+    },
+}
 
 ADMINS = [(os.environ["ADMIN_NAME"], os.environ["ADMIN_EMAIL"])]
 
