@@ -3,7 +3,7 @@ virtualenv -p python env
 env/bin/pip install -r Requirements.txt
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False"
+KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		DJANGO_SECRET_KEY "Hash salt used by django" \
 		PYHA_LISTEN_PORT "Port listened by pyyntojenhallinta" \
 		EMAIL_LINK_URL "Path included in emails linking to certain pyyntojenhallinta request ex. https://fmnh-ws-test.it.helsinki.fi/pyha/request/" \
@@ -26,8 +26,12 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False"
 		DB_USER 0 \
 		DB_PASSWORD 0 \
 		SKIP_OFFICIAL "Boolean to skip requirement for decision-making by officials. Insert: True/False" \
-		STATIC_PATH_URL "Path to static files in URL ex. /pyha"
-		DOMAIN_PATH_PREFIX "Path to this service incase not in domain root. Staging ex. /pyha"
+		STATIC_PATH_URL "Path to static files in URL ex. /pyha" \
+		DOMAIN_PATH_PREFIX "Path to this service incase not in domain root. Staging ex. /pyha" \
+		ADMIN_NAME 0 \
+		ADMIN_EMAIL "Email to send errormail" \
+		SERVER_EMAIL "Name for the error sender ex. django@pyha.luomus.fi" \
+		
 		)
 		
 # get length of an array
