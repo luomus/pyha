@@ -41,7 +41,7 @@ class EmailRateLimitFilter(object):
 
         # Track duplicate errors
         duplicate = False
-        rate = getattr(settings, 'ERROR_RATE_LIMIT', 10)  # seconds
+        rate = getattr(settings, 'ERROR_RATE_LIMIT', 1800)  # seconds
         if rate > 0:
             key = md5(tb.encode('utf-8')).hexdigest()
             prefix = getattr(settings, 'ERROR_RATE_CACHE_PREFIX', 'ERROR_RATE')
