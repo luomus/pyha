@@ -54,6 +54,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["ENABLE_DEBUG"]
 
+ADMIN = [(os.environ["ADMIN_NAME"], os.environ["ADMIN_EMAIL"])]
+
+SERVER_EMAIL = os.environ["SERVER_EMAIL"]
+
+
 #should probably also include server external ip and domain.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1'
 ]
