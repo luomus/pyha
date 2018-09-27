@@ -219,7 +219,7 @@ def mail_test():
 	subject = u"Pyyntösi tarvitsee lisätietoja"
 	message = u"Lajitietokeskukseen"
 	from_email = 'helpdesk@laji.fi'
-	recipients = "kinkku128@gmail.com"
+	recipients = ["kinkku128@gmail.com"]
 	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
 
 
