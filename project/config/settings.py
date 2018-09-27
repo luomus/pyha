@@ -55,7 +55,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 DEBUG = os.environ["ENABLE_DEBUG"] == "True"
 
 
-ADMIN = [(os.environ["ADMIN_NAME"], os.environ["ADMIN_EMAIL"])]
+ADMINS = [(os.environ["ADMIN_NAME"], os.environ["ADMIN_EMAIL"])]
 
 SERVER_EMAIL = os.environ["SERVER_EMAIL"]
 
