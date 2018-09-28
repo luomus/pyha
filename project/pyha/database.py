@@ -342,7 +342,7 @@ def create_request_view_context(requestId, request, userRequest):
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, request, context["filters"], settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, request, context["filters"], settings.OFFICIAL_FILTERS_LINK)
-	context["sensitivity_terms"] = "pyha/sensitivity/sensitivity-"+lang+".html"
+	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensstatus == 99 else "pyha/sensitivity/sensitivity-"+lang+".html"
 	context["username"] = request.session["user_name"]
 	context["allSecured"] = allSecured
 	if userRequest.status > 0:
