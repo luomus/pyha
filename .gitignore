@@ -9,3 +9,4 @@ env/
 .pydevproject
 .settings
 env_variables.sh
+project/static
