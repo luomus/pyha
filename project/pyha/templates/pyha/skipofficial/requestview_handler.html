@@ -511,6 +511,7 @@
 							</div>
 							{% endif %}
 						{% endfor %}
+						{% if role2 %}
 						<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
 						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 							<div class="form-group">
@@ -529,6 +530,7 @@
 							</div>
 							{% csrf_token %}
 						</form>
+						{% endif %}
 					</div>
 					{% if role1 %}
 					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
