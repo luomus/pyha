@@ -195,75 +195,81 @@ def send_download_request(requestId):
 
 	
 def show_filters(request, userRequest):
-    filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-    filterResultList = list(range(len(vars(filterList).keys())))
-    lang = request.LANGUAGE_CODE
-    if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):
-        filters = requests.get(settings.LAJIFILTERS_URL)
-        if(filters.status_code == 200):
-            filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
-            for i, b in enumerate(vars(filterList).keys()):
-                languagelabel = b
-                filternamelist = getattr(filterList, b)
-                if isinstance(filternamelist, str):
-                    stringlist = []
-                    value = getattr(filterList, b)
-                    value = translate_truth(value, lang)
-                    stringlist.append(value)
-                    filternamelist = stringlist
-                if b in filters.json():
-                    filterfield = getattr(filtersobject, b)
-                    label = getattr(filterfield, "label")
-                    if(lang == 'sw'):
-                        languagelabel = getattr(label, "sv")
-                    else:
-                        languagelabel = getattr(label, request.LANGUAGE_CODE)
-                    if "RESOURCE" in getattr(filterfield, "type"):
-                        resource = getattr(filterfield, "resource")
-                        for k, a in enumerate(getattr(filterList, b)):
-                            if resource.startswith("metadata"):
-                                filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
-                                filtername = str(a)
-                                for ii in filterfield2.json():
-                                    if (str(a) == ii['id']):
-                                        filtername = ii['value']
-                                        break
-                            else:
-                                if(lang == 'sw'):
-                                    filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+settings.LAJIAPI_TOKEN)
-                                else:
-                                    filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
-                                filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
-                                filtername = getattr(filternameobject, "name", str(a))
-                            filternamelist[k]= filtername
-                    if "ENUMERATION" in getattr(filterfield, "type"):
-                        enumerations = getattr(filterfield, "enumerations")
-                        for k, e in enumerate(getattr(filterList, b)):
-                            filtername = e
-                            for n in enumerations:
-                                if e == getattr(n, "name"):
-                                    if(lang == 'sw'):
-                                        filtername = getattr(n.label, "sv")
-                                    else:
-                                        filtername = getattr(n.label, lang)
-                                    break
-                            filternamelist[k]= filtername
-                tup = (b, filternamelist, languagelabel)
-                filterResultList[i] = tup
-            cache.set('filters'+str(userRequest.id)+lang,filterResultList)
-        else:
-            for i, b in enumerate(vars(filterList).keys()):
-                languagelabel = b
-                filternamelist = getattr(filterList, b)
-                if isinstance(filternamelist, str):
-                    stringlist = []
-                    value = getattr(filterList, b)
-                    value = translate_truth(value, lang)
-                    stringlist.append(value)
-                    filternamelist = stringlist
-                tup = (b, filternamelist, b)
-                filterResultList[i] = tup
-            return filterResultList
-    else:
-        return cache.get('filters'+str(userRequest.id)+lang)
-    return filterResultList
+	'''
+	Gathers all the names for the filters if available from Laji.api and reforms them into an usable list object. 
+	Also contains them in a cache to lessen the laji.api strain.
+	:param request: request identifier 
+	:param userRequest: language code
+	'''	
+	filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+	filterResultList = list(range(len(vars(filterList).keys())))
+	lang = request.LANGUAGE_CODE
+	if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):
+		filters = requests.get(settings.LAJIFILTERS_URL)
+		if(filters.status_code == 200):
+			filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
+			for i, b in enumerate(vars(filterList).keys()):
+				languagelabel = b
+				filternamelist = getattr(filterList, b)
+				if isinstance(filternamelist, str):
+					stringlist = []
+					value = getattr(filterList, b)
+					value = translate_truth(value, lang)
+					stringlist.append(value)
+					filternamelist = stringlist
+				if b in filters.json():
+					filterfield = getattr(filtersobject, b)
+					label = getattr(filterfield, "label")
+					if(lang == 'sw'):
+						languagelabel = getattr(label, "sv")
+					else:
+						languagelabel = getattr(label, request.LANGUAGE_CODE)
+					if "RESOURCE" in getattr(filterfield, "type"):
+						resource = getattr(filterfield, "resource")
+						for k, a in enumerate(getattr(filterList, b)):
+							if resource.startswith("metadata"):
+								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
+								filtername = str(a)
+								for ii in filterfield2.json():
+									if (str(a) == ii['id']):
+										filtername = ii['value']
+										break
+							else:
+								if(lang == 'sw'):
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+settings.LAJIAPI_TOKEN)
+								else:
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
+								filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
+								filtername = getattr(filternameobject, "name", str(a))
+							filternamelist[k]= filtername
+					if "ENUMERATION" in getattr(filterfield, "type"):
+						enumerations = getattr(filterfield, "enumerations")
+						for k, e in enumerate(getattr(filterList, b)):
+							filtername = e
+							for n in enumerations:
+								if e == getattr(n, "name"):
+									if(lang == 'sw'):
+										filtername = getattr(n.label, "sv")
+									else:
+										filtername = getattr(n.label, lang)
+									break
+							filternamelist[k]= filtername
+				tup = (b, filternamelist, languagelabel)
+				filterResultList[i] = tup
+			cache.set('filters'+str(userRequest.id)+lang,filterResultList)
+		else:
+			for i, b in enumerate(vars(filterList).keys()):
+				languagelabel = b
+				filternamelist = getattr(filterList, b)
+				if isinstance(filternamelist, str):
+					stringlist = []
+					value = getattr(filterList, b)
+					value = translate_truth(value, lang)
+					stringlist.append(value)
+					filternamelist = stringlist
+				tup = (b, filternamelist, b)
+				filterResultList[i] = tup
+			return filterResultList
+	else:
+		return cache.get('filters'+str(userRequest.id)+lang)
+	return filterResultList

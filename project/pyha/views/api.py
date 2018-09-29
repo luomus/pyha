@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from pyha.email import send_mail_after_receiving_request, send_mail_after_receiving_download
 from pyha.models import RequestLogEntry, RequestInformationChatEntry, Request, Collection
@@ -29,11 +29,12 @@ def receiver(request):
 @basic_auth_required
 def download(request, link):
         if request.method == 'POST':
-            userRequest = Request.requests.get(lajiId=link)
-            userRequest.status = 8
-            userRequest.downloadDate = datetime.now()
-            userRequest.save()
-            send_mail_after_receiving_download(userRequest.id)
+            userRequest = get_object_or_404(Request, lajiId=link)
+            if(userRequest.status == 7 and userRequest != None):
+                userRequest.status = 8
+                userRequest.downloadDate = datetime.now()
+                userRequest.save()
+                send_mail_after_receiving_download(userRequest.id)
         return HttpResponse('')
     
 @csrf_exempt

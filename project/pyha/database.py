@@ -354,7 +354,7 @@ def create_request_view_context(requestId, request, userRequest):
 		handler_waiting_status(userRequest, request, userId)
 	if userRequest.status == 8:
 		context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
-		context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=30)
+		context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60)
 	if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
 		context["old_request"] = ContactPreset.objects.get(user=userId)
 	else:
