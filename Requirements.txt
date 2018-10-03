@@ -3,3 +3,4 @@ django_extensions==1.7.5
 requests==2.11.1
 gunicorn==19.6.0
 cx_Oracle==5.3
+selenium==2.53.6

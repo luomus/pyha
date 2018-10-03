@@ -6,6 +6,14 @@ from django.db import models
 class Collection(models.Model):
 	address = models.CharField(max_length=500)
 	count = models.IntegerField()
+	
+	#for collection.status
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 5: Tuntematon
+	#status 6: Odottaa vastausta lisäkysymyksiin
+	
 	status = models.IntegerField()
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0)
@@ -15,14 +23,42 @@ class Collection(models.Model):
 
 	def __str__(self):
 		return self.address
+	
+
+def enum(*sequential, **named):
+	enums = dict(zip(sequential, range(len(sequential))), **named)
+	return type('Enum', (), enums)
+
+StatusEnum = enum(NO_SENSITIVE_DATA=0, WAITING=1, PARTIALLY_APPROVED=2, REJECTED=3, APPROVED=4, UNKNOWN=5, WAITING_FOR_INFORMATION=6, WAITING_FOR_DOWNLOAD=7, DOWNLOADABLE=8)
 
 @python_2_unicode_compatible
 class Request(models.Model):
 	#id alkaa ykkösestä ja nousee
 	id = models.AutoField(primary_key=True)
-	lajiId = models.CharField(max_length=200) #old id
-	description = models.CharField(max_length=400)
+	lajiId = models.CharField(max_length=200) #id given by laji.api
+	description = models.CharField(max_length=400)  #description given by the requester for his request
+	
+	#for status
+	#status 0: Ei sensitiivistä tietoa
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 2: Osittain hyväksytty
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 5: Tuntematon
+	#status 6: Odottaa vastausta lisäkysymyksiin
+	#status 7: Odottaa latauksen valmistumista
+	#status 8: Ladattava
+	
 	status = models.IntegerField()
+	
+	#for sensstatus
+	#status 0: Ei sensitiivistä tietoa
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 5: Tuntematon
+	#status 99: Ohitettu
+	
 	sensstatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
 	sensComment = models.CharField(max_length=1000,null=True)

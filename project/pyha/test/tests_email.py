@@ -6,7 +6,7 @@ from pyha import warehouse
 from django.core import mail
 from pyha.test.mocks import *
 from pyha.email import *
-from pyha.views import update
+from pyha.database import update
 import unittest
 import mock
 
@@ -73,7 +73,7 @@ class EmailTesting (TestCase):
 		requestCollections[0].status = 4
 		wantedRequest.sensstatus = 2
 		wantedRequest.save()
-		update(req.id, "fi")
+		update(req, "fi")
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
 		self.assertEqual(msg.subject, 'Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut')
@@ -93,7 +93,7 @@ class EmailTesting (TestCase):
 			i.status=4
 			i.save()
 		
-		update(req.id, "fi")
+		update(req, "fi")
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
 		self.assertEqual(msg.subject, 'Pyyntösi käsittely on valmistunut')
@@ -122,7 +122,7 @@ class EmailTesting (TestCase):
 						i.status=k
 						i.save()
 					
-					update(req.id, "fi")
+					update(req, "fi")
 					self.assertEqual(len(mail.outbox), mailsTotal)
 					mailsTotal+=1
 					msg = mail.outbox[0]

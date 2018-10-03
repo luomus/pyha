@@ -47,7 +47,7 @@ MOCK_JSON=False
 APPEND_SLASH=False
 
 DEFAULT_CHARSET = 'utf-8'
-FORCE_SCRIPT_NAME = os.environ["DOMAIN_PATH_PREFIX"]
+FORCE_SCRIPT_NAME = os.environ.get("DOMAIN_PATH_PREFIX", "")
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -155,21 +155,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-# TODO change into oracle database
-# also need the JDBC Driver if this runs on JVM
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ["DB_ENGINE"],
-        'NAME': os.environ["DB_NAME"],
-        'USER': os.environ["DB_USER"],
-        'PASSWORD': os.environ["DB_PASSWORD"]
-    }
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -233,7 +218,7 @@ STATICFILES_FINDERS = (
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STA_URL = os.environ["STATIC_PATH_URL"] + STATIC_URL
+STA_URL = os.environ.get("STATIC_PATH_URL", "") + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")

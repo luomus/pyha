@@ -27,12 +27,14 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		DB_NAME 0 \
 		DB_USER 0 \
 		DB_PASSWORD 0 \
+		TEST_DB_USER 0 \
+		TEST_DB_PASSWORD 0 \
 		SKIP_OFFICIAL "Boolean to skip requirement for decision-making by officials. Insert: True/False" \
 		STATIC_PATH_URL "Path to static files in URL ex. /pyha" \
 		DOMAIN_PATH_PREFIX "Path to this service incase not in domain root. Staging ex. /pyha" \
 		ADMIN_NAME 0 \
 		ADMIN_EMAIL "Email to send errormail" \
-		SERVER_EMAIL "Name for the error sender ex. django@pyha.luomus.fi" \
+		SERVER_EMAIL "Name for the errormail sender address ex. django@pyha.fi" \
 		
 		)
 		

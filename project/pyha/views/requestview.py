@@ -4,11 +4,11 @@ import os
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import create_request_view_context, make_logEntry_view, update, ignore_official_update, target_valid
+from pyha.database import create_request_view_context, make_logEntry_view, update_status, target_valid
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_allowed_to_handle
-from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, Request, Collection
+from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
 from pyha.warehouse import send_download_request
 
@@ -140,38 +140,35 @@ def answer(request):
                 newChatEntry.target = target
                 newChatEntry.message = request.POST.get('reason')
                 newChatEntry.save()
-                userRequest.status = 6
+                userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
                 userRequest.save()
                 send_mail_after_additional_information_requested(requestId, request.LANGUAGE_CODE)
             elif "sens" not in collectionId:
                 collection = Collection.objects.get(request=requestId, address=collectionId)
                 if (request.session["user_id"] in collection.downloadRequestHandler) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
                     if (int(request.POST.get('answer')) == 1):
-                        collection.status = 4
+                        collection.status = StatusEnum.APPROVED
                         #make a log entry
                         RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action =RequestLogEntry.DECISION_POSITIVE)
                     else:
-                        collection.status = 3
+                        collection.status = StatusEnum.REJECTED
                         #make a log entry
                         RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId),collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action =RequestLogEntry.DECISION_NEGATIVE)
                     collection.decisionExplanation = request.POST.get('reason')
                     collection.save()
-                    if userRequest.sensstatus == 99:
-                        ignore_official_update(requestId, request.LANGUAGE_CODE) 
-                    else: 
-                        update(requestId, request.LANGUAGE_CODE)
+                    update_status(userRequest, request.LANGUAGE_CODE)
             elif HANDLER_SENS in request.session["user_roles"]:
                 if (int(request.POST.get('answer')) == 1):
-                    userRequest.sensstatus = 4
+                    userRequest.sensstatus = StatusEnum.APPROVED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
                 else:
-                    userRequest.sensstatus = 3
+                    userRequest.sensstatus = StatusEnum.REJECTED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
                 userRequest.sensDecisionExplanation = request.POST.get('reason')
                 userRequest.save()
-                update(requestId, request.LANGUAGE_CODE)
+                update_status(userRequest, request.LANGUAGE_CODE)
         return HttpResponseRedirect(next)
 
 def information(request):
@@ -184,18 +181,30 @@ def information(request):
             if not is_allowed_to_view(request, requestId):
                 return HttpResponseRedirect('/pyha/')
             if(int(request.POST.get('information')) == 2):
-                if not target_valid(request, target, requestId):
+                if not target_valid(target, requestId):
                     return HttpResponseRedirect('/pyha/')
+                userRequest = Request.requests.get(id = requestId)
                 newChatEntry = RequestInformationChatEntry()
-                newChatEntry.request = Request.requests.get(id=requestId)
+                newChatEntry.request = userRequest
                 newChatEntry.date = datetime.now()
                 newChatEntry.user = request.session["user_id"]
                 newChatEntry.question = False
                 newChatEntry.target = target
                 newChatEntry.message = request.POST.get('reason')
-                newChatEntry.save()
-                userRequest = Request.requests.get(id = requestId)
-                userRequest.status = 1
+                newChatEntry.save() 
+                userRequest.status = StatusEnum.WAITING
+                for co in Collection.objects.filter(request = userRequest):
+                    try:
+                        if RequestInformationChatEntry.objects.filter(request=userRequest, target=co.address).latest('date').question: 
+                            userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
+                            break
+                    except RequestInformationChatEntry.DoesNotExist:
+                        pass        
+                try:
+                    if RequestInformationChatEntry.objects.filter(request=userRequest, target="sens").latest('date').question:
+                        userRequest.status = StatusEnum.WAITING_FOR_INFORMATION           
+                except RequestInformationChatEntry.DoesNotExist:
+                    pass        
                 userRequest.save()
-                update(requestId, request.LANGUAGE_CODE)
+                update_status(userRequest, request.LANGUAGE_CODE)
         return HttpResponseRedirect(next)

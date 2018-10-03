@@ -6,7 +6,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
-from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request
+from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL, HANDLER_BOTH, USER
 from pyha.utilities import filterlink
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, create_coordinates, get_result_for_target
@@ -136,31 +136,37 @@ def update_contact_preset(request, userRequest):
 	contactPreset.requestPersonCorporationId = request.POST.get('request_person_corporation_id_1')
 	contactPreset.save()
 
-def target_valid(request, target, requestId):
+def target_valid(target, requestId):
 	if target == 'sens':
 		return True
 	elif Collection.objects.filter(request=requestId, address=target).exists():
 		return True
 	return False
 
-def update(requestId, lang):
+def update_status(userRequest, lang):
+	if userRequest.sensstatus == 99:
+		ignore_official_update(userRequest, lang) 
+	else: 
+		update(userRequest, lang)
+
+def update(wantedRequest, lang):
 	#for both sensstatus and collection status
 	#status 0: Ei sensitiivistä tietoa
 	#status 1: Odottaa aineiston toimittajan käsittelyä
 	#status 2: Osittain hyväksytty
 	#status 3: Hylätty
 	#status 4: Hyväksytty
+	#status 5: Tuntematon
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
 	#status 8: Ladattava
 	
 	#for sensstatus
 	#status 99: Ohitettu
-	
-	wantedRequest = Request.requests.get(id=requestId)
+
 	#tmp variable for checking if status changed
 	statusBeforeUpdate = wantedRequest.status
-	requestCollections = Collection.objects.filter(request=requestId, status__gte=0)
+	requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
 	taxon = False
 	for collection in requestCollections:
 		if(collection.taxonSecured > 0):
@@ -171,84 +177,84 @@ def update(requestId, lang):
 	declined = 0
 	pending = 0
 	if taxon:
-		if wantedRequest.status != 6:
-			if wantedRequest.sensstatus == 1:
+		if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+			if wantedRequest.sensstatus == StatusEnum.WAITING:
 				pending += 1
-			elif wantedRequest.sensstatus == 2:
+			elif wantedRequest.sensstatus == StatusEnum.PARTIALLY_APPROVED:
 				accepted += 1
 				declined += 1
-			elif wantedRequest.sensstatus == 3:
+			elif wantedRequest.sensstatus == StatusEnum.REJECTED:
 				declined += 1
-			elif wantedRequest.sensstatus == 4:
+			elif wantedRequest.sensstatus == StatusEnum.APPROVED:
 				accepted += 1
 			for c in requestCollections:
-				if c.status == 1:
+				if c.status == StatusEnum.WAITING:
 					pending += 1
-				elif c.status == 2:
+				elif c.status == StatusEnum.PARTIALLY_APPROVED:
 					accepted += 1
 					declined += 1
-				elif c.status == 3:
+				elif c.status == StatusEnum.REJECTED:
 					declined += 1
-				elif c.status == 4:
+				elif c.status == StatusEnum.APPROVED:
 					colaccepted += 1
 					accepted += 1
-			if wantedRequest.sensstatus == 3:
-				wantedRequest.status = 3
+			if wantedRequest.sensstatus == StatusEnum.REJECTED:
+				wantedRequest.status = StatusEnum.REJECTED
 			elif (accepted >= 0 and pending > 0) and declined == 0:
-				wantedRequest.status = 1
+				wantedRequest.status = StatusEnum.WAITING
 			elif (accepted > 0 and declined > 0) and pending == 0:
-				wantedRequest.status = 2
+				wantedRequest.status = StatusEnum.PARTIALLY_APPROVED
 				if colaccepted > 0:
-					send_download_request(requestId)
-					wantedRequest.status = 7
+					send_download_request(wantedRequest.id)
+					wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
 			elif (pending == 0 and accepted == 0) and declined > 0:
-				wantedRequest.status = 3
+				wantedRequest.status = StatusEnum.REJECTED
 			elif accepted > 0 and (declined == 0 and pending == 0):
-				wantedRequest.status = 4
+				wantedRequest.status = StatusEnum.APPROVED
 				if colaccepted > 0:
-					send_download_request(requestId)
-					wantedRequest.status = 7
-			elif declined > 0:
-				wantedRequest.status = 1
+					send_download_request(wantedRequest.id)
+					wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
+			elif pending > 0:
+				wantedRequest.status = StatusEnum.WAITING
 			else:
-				wantedRequest.status = 5
+				wantedRequest.status = StatusEnum.UNKNOWN
 			wantedRequest.save()
 	else:
 		for c in requestCollections:
-			if c.status == 1:
+			if c.status == StatusEnum.WAITING:
 				pending += 1
-			elif c.status == 2:
+			elif c.status == StatusEnum.PARTIALLY_APPROVED:
 				accepted += 1
 				declined += 1
-			elif c.status == 3:
+			elif c.status == StatusEnum.REJECTED:
 				declined += 1
-			elif c.status == 4:
+			elif c.status == StatusEnum.APPROVED:
 				colaccepted += 1
 				accepted += 1
 		if (accepted >= 0 and pending > 0) and declined == 0:
-			wantedRequest.status = 1
+			wantedRequest.status = StatusEnum.WAITING
 		elif (accepted > 0 and declined > 0) and pending == 0:
-			wantedRequest.status = 2
+			wantedRequest.status = StatusEnum.PARTIALLY_APPROVED
 			if colaccepted > 0:
-				send_download_request(requestId)
-				wantedRequest.status = 7
+				send_download_request(wantedRequest.id)
+				wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
 		elif (pending == 0 and accepted == 0) and declined > 0:
-			wantedRequest.status = 3
+			wantedRequest.status = StatusEnum.REJECTED
 		elif accepted > 0 and (declined == 0 and pending == 0):
-			wantedRequest.status = 4
+			wantedRequest.status = StatusEnum.APPROVED
 			if colaccepted > 0:
-				send_download_request(requestId)
-				wantedRequest.status = 7
-		elif declined > 0:
-			wantedRequest.status = 1
+				send_download_request(wantedRequest.id)
+				wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
+		elif pending > 0:
+			wantedRequest.status = StatusEnum.WAITING
 		else:
-			wantedRequest.status = 5
+			wantedRequest.status = StatusEnum.UNKNOWN
 		wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 	
 	
-def ignore_official_update(requestId, lang):
+def ignore_official_update(wantedRequest, lang):
 	#for collection status
 	#status 0: Ei sensitiivistä tietoa
 	#status 1: Odottaa aineiston toimittajan käsittelyä
@@ -258,45 +264,44 @@ def ignore_official_update(requestId, lang):
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
 	#status 8: Ladattava
-	
-	wantedRequest = Request.requests.get(id=requestId)
+
 	#tmp variable for checking if status changed
 	statusBeforeUpdate = wantedRequest.status
-	requestCollections = Collection.objects.filter(request=requestId, status__gte=0)
-
+	requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
 	accepted = 0
 	colaccepted = 0
 	declined = 0
 	pending = 0
 	for c in requestCollections:
-		if c.status == 1:
+		if c.status == StatusEnum.WAITING:
 			pending += 1
-		elif c.status == 2:
+		elif c.status == StatusEnum.PARTIALLY_APPROVED:
 			accepted += 1
 			declined += 1
-		elif c.status == 3:
+		elif c.status == StatusEnum.REJECTED:
 			declined += 1
-		elif c.status == 4:
+		elif c.status == StatusEnum.APPROVED:
 			colaccepted += 1
 			accepted += 1
 	if (accepted >= 0 and pending > 0) and declined == 0:
-		wantedRequest.status = 1
+		if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+			wantedRequest.status = StatusEnum.WAITING 
 	elif (accepted > 0 and declined > 0) and pending == 0:
-		wantedRequest.status = 2
+		wantedRequest.status = StatusEnum.PARTIALLY_APPROVED
 		if colaccepted > 0:
-			send_download_request(requestId)
-			wantedRequest.status = 7
+			send_download_request(wantedRequest.id)
+			wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
 	elif (pending == 0 and accepted == 0) and declined > 0:
-		wantedRequest.status = 3
+		wantedRequest.status = StatusEnum.REJECTED
 	elif accepted > 0 and (declined == 0 and pending == 0):
-		wantedRequest.status = 4
+		wantedRequest.status = StatusEnum.APPROVED
 		if colaccepted > 0:
-			send_download_request(requestId)
-			wantedRequest.status = 7
-	elif declined > 0:
-		wantedRequest.status = 1
+			send_download_request(wantedRequest.id)
+			wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
+	elif pending > 0:
+		wantedRequest.status = StatusEnum.WAITING
 	else:
-		wantedRequest.status = 5
+		wantedRequest.status = StatusEnum.UNKNOWN
 	wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
