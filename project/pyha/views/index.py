@@ -1,7 +1,7 @@
 ﻿from functools import reduce
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pyha.database import handler_waiting_status, handler_information_answered_status, get_all_secured
@@ -9,12 +9,14 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry
 from pyha.roles import HANDLER_SENS, HANDLER_ANY, HANDLER_COLL
-from pyha.warehouse import fetch_email_address
+from pyha.warehouse import fetch_email_address, handlers_cannot_be_updated
 
 
 
 @csrf_exempt
 def index(request):
+	if handlers_cannot_be_updated():
+		return HttpResponse(status=503)
 	if check_language(request):
 		return HttpResponseRedirect(request.get_full_path())
 	if not logged_in(request):

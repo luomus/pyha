@@ -1,63 +1,48 @@
-Ôªøfrom __future__ import unicode_literals
-from django.utils.encoding import python_2_unicode_compatible
-from django.db import models
+# Tietokanta
+
+## Yleisesti
+
+K‰ytt‰‰ Oracle-tietokantaa
+
+## Taulut
 
 
-def enum(*sequential, **named):
-	enums = dict(zip(sequential, range(len(sequential))), **named)
-	return type('Enum', (), enums)
-
-StatusEnum = enum(NO_SENSITIVE_DATA=0, WAITING=1, PARTIALLY_APPROVED=2, REJECTED=3, APPROVED=4, UNKNOWN=5, WAITING_FOR_INFORMATION=6, WAITING_FOR_DOWNLOAD=7, DOWNLOADABLE=8)
-
-
-@python_2_unicode_compatible
-class Collection(models.Model):
-	address = models.CharField(max_length=500)
-	count = models.IntegerField()
-	
-	#for collection.status
-	#status 1: Odottaa aineiston toimittajan k√§sittely√§
-	#status 3: Hyl√§tty
-	#status 4: Hyv√§ksytty
-	#status 5: Tuntematon
-	#status 6: Odottaa vastausta lis√§kysymyksiin
-	
-	status = models.IntegerField()
-	request = models.ForeignKey('Request', on_delete=models.CASCADE)
-	taxonSecured = models.IntegerField(default=0)
-	customSecured = models.IntegerField(default=0)
-	downloadRequestHandler = models.CharField(max_length=500,null=True)
-	decisionExplanation = models.CharField(max_length=1000,null=True)
-
-	def __str__(self):
-		return self.address
+Collection: #Sis‰lt‰‰ aineistopyynnˆn tietyst‰ kokoelmasta haluttujen tietojen yleist‰ dataa, sek‰ siihen liittyv‰n p‰‰tˆksen ja p‰‰tˆstekstin
+	address = CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ss‰
+	count = IntegerField()  #Karkeistettujen havaintojen m‰‰r‰
+	status = models.IntegerField() #P‰‰tˆksen tila, mit‰ kuvataan numeroarvona
+	request = models.ForeignKey('Request', on_delete=models.CASCADE) #FOREIGNKEY aineistopyynnˆn numero, mihin aineistokokoelma kuuluu
+	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen m‰‰r‰
+	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen m‰‰r‰
+	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ss‰ 
+	decisionExplanation = models.CharField(max_length=1000,null=True) #P‰‰tˆksen perustelut tekstin‰
 	
 
 @python_2_unicode_compatible
 class Request(models.Model):
-	#id alkaa ykk√∂sest√§ ja nousee
+	#id alkaa ykkˆsest‰ ja nousee
 	id = models.AutoField(primary_key=True)
 	lajiId = models.CharField(max_length=200) #id given by laji.api
 	description = models.CharField(max_length=400)  #description given by the requester for his request
 	
 	#for status
-	#status 0: Ei sensitiivist√§ tietoa
-	#status 1: Odottaa aineiston toimittajan k√§sittely√§
-	#status 2: Osittain hyv√§ksytty
-	#status 3: Hyl√§tty
-	#status 4: Hyv√§ksytty
+	#status 0: Ei sensitiivist‰ tietoa
+	#status 1: Odottaa aineiston toimittajan k‰sittely‰
+	#status 2: Osittain hyv‰ksytty
+	#status 3: Hyl‰tty
+	#status 4: Hyv‰ksytty
 	#status 5: Tuntematon
-	#status 6: Odottaa vastausta lis√§kysymyksiin
+	#status 6: Odottaa vastausta lis‰kysymyksiin
 	#status 7: Odottaa latauksen valmistumista
 	#status 8: Ladattava
 	
 	status = models.IntegerField()
 	
 	#for sensstatus
-	#status 0: Ei sensitiivist√§ tietoa
-	#status 1: Odottaa aineiston toimittajan k√§sittely√§
-	#status 3: Hyl√§tty
-	#status 4: Hyv√§ksytty
+	#status 0: Ei sensitiivist‰ tietoa
+	#status 1: Odottaa aineiston toimittajan k‰sittely‰
+	#status 3: Hyl‰tty
+	#status 4: Hyv‰ksytty
 	#status 5: Tuntematon
 	#status 99: Ohitettu
 	
@@ -167,3 +152,4 @@ class ContactPreset(models.Model):
 
 	def __str__(self):
 		return self.user
+

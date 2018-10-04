@@ -2,7 +2,7 @@
 from argparse import Namespace
 from datetime import datetime
 from django.conf import settings
-from django.core.cache import cache
+from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
@@ -99,7 +99,7 @@ def fetch_user_name(personId):
 	:param personId: person identifier 
 	:returns: person's full name
 	'''
-	username = 'pyha'
+	username = settings.LAJIPERSONAPI_USER
 	password = settings.LAJIPERSONAPI_PW 
 	if 'has expired' in cache.get('name'+personId, 'has expired'):
 		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
@@ -192,6 +192,29 @@ def send_download_request(requestId):
 	for f in filters.__dict__:
 		payload[f] = getattr(filters, f)
 	response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
+
+def handlers_cannot_be_updated():
+	return not update_collection_handlers()
+	
+def update_collection_handlers():	
+	if update_collections():
+		
+		return True
+	
+	return False
+	
+def update_collections():
+	if 'has expired' in caches['collections'].get('collections', 'has expired'):
+		payload = {}
+		payload["access_token"] = settings.LAJIAPI_TOKEN
+		response = requests.get(settings.LAJIAPI_URL+"collections", params=payload)
+		if(response.status_code == 200):
+			data = response.json()
+			print(data)
+			caches['collections'].set('collections',data)
+		else:
+			return False		
+	return True
 
 	
 def show_filters(request, userRequest):

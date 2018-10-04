@@ -176,8 +176,21 @@ AUTH_PASSWORD_VALIDATORS = [
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
+        'LOCATION': 'pyha_cache_table',
         'TIMEOUT': 86400
+    },
+    'collections': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'pyha_collections_cache_table',
+        'TIMEOUT': 20
+    },
+    'error_mail': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'pyha_error_mail_cache_table',
+        'OPTIONS': {
+            'MAX_ENTRIES': os.environ["EMAIL_ERROR_RATE_KEY_LIMIT"]
+        },
+        'TIMEOUT': os.environ["EMAIL_ERROR_RATE_LIMIT"]
     }
 }
 

@@ -158,12 +158,17 @@ def answer(request):
                     collection.save()
                     update_status(userRequest, request.LANGUAGE_CODE)
             elif HANDLER_SENS in request.session["user_roles"]:
+                collections = Collection.objects.filter(request=requestId, customSecured__lte = 0, taxonSecured__gt=0, status__gte = 0)
                 if (int(request.POST.get('answer')) == 1):
                     userRequest.sensstatus = StatusEnum.APPROVED
+                    for co in collections:
+                        co.status =  StatusEnum.APPROVED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
                 else:
                     userRequest.sensstatus = StatusEnum.REJECTED
+                    for co in collections:
+                        co.status =  StatusEnum.REJECTED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
                 userRequest.sensDecisionExplanation = request.POST.get('reason')

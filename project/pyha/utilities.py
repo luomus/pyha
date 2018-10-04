@@ -35,7 +35,7 @@ class EmailRateLimitFilter(object):
 
     def filter(self, record):
         from django.conf import settings
-        from django.core.cache import cache
+        from django.core.cache import caches
 
         tb = '\n'.join(traceback.format_exception(*record.exc_info))
 
@@ -49,15 +49,15 @@ class EmailRateLimitFilter(object):
             # Test if the cache works
             cache_key = '%s_%s' % (prefix, key)
             try:
-                cache.set(prefix, 1, 1)
-                use_cache = cache.get(prefix) == 1
+                caches['error_mail'].set(prefix, 1, 1)
+                use_cache = caches['error_mail'].get(prefix) == 1
             except:
                 use_cache = False
 
             if use_cache:
-                duplicate = cache.get(cache_key) == 1
+                duplicate = caches['error_mail'].get(cache_key) == 1
                 if not duplicate:
-                    cache.set(cache_key, 1, rate)
+                    caches['error_mail'].set(cache_key, 1, rate)
             else:
                 min_date = datetime.now() - timedelta(seconds=rate)
                 max_keys = getattr(settings, 'ERROR_RATE_KEY_LIMIT', 100)
