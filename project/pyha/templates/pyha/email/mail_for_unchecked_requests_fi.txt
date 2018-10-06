@@ -1,0 +1,3 @@
+﻿{{ count }} käsittelemätöntä aineistopyyntöä odottaa käsittelyä Laji.fissä.
+
+Osoite aineistopyyntöjärjestelmään: {{ pyha_link }}?lang=fi

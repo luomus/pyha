@@ -1,0 +1,3 @@
+﻿På svenska: {{ count }} käsittelemätöntä aineistonlataus pyyntöä odottaa käsittelyä Laji.fissä.
+
+Osoite aineistopyyntöjärjestelmään: {{ req_link }}?lang=sw

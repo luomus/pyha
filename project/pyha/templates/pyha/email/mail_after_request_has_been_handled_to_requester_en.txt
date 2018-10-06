@@ -1,0 +1,3 @@
+﻿Your request from Finnish Biodiversity Info Faculty at {{ time }} has been handled.
+
+Address to your request: {{ req_link }}?lang=en

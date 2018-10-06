@@ -1,0 +1,3 @@
+﻿Lajitietokeskukseen {{ time }} tekemäsi aineistopyynnön tila on muuttunut.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi

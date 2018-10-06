@@ -9,7 +9,7 @@ from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
 from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL, HANDLER_BOTH, USER
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, create_coordinates, get_result_for_target
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler
 
 
 #removes sensitive sightings
@@ -311,7 +311,8 @@ def handler_waiting_status(r, request, userId):
 	if HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
 		r.waitingstatus = 1
 	elif HANDLER_COLL in request.session.get("user_roles", [None]):
-		if Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1).exists():
+		#if Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1).exists():
+		if Collection.objects.filter(request=r.id, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = 1).exists():
 			r.waitingstatus = 1
 	return
 
@@ -440,7 +441,8 @@ def requestInformationChat(request, requestId, role1, role2, userId):
 			if role1:
 				requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target='sens').order_by('date'))
 			if role2:
-				for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
+				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
+				for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
 					requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target=str(collection)).order_by('date'))
 		else:
 			requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId).order_by('date'))

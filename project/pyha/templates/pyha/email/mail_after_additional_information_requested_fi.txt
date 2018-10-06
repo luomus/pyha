@@ -1,0 +1,3 @@
+﻿Lajitietokeskukseen {{ time }} tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=information

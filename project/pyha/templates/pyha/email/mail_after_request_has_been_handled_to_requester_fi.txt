@@ -1,0 +1,3 @@
+﻿Lajitietokeskukseen {{ time }} tekemäsi aineistopyyntö on käsitelty.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi

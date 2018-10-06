@@ -11,3 +11,194 @@ Not Found: /favicon.ico
 "GET / HTTP/1.1" 503 0
 "GET / HTTP/1.1" 503 0
 "GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 503 0
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7462
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7462
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 220, in update_collections
+    print(co.id)
+AttributeError: 'dict' object has no attribute 'id'
+"GET / HTTP/1.1" 500 91218
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 221, in update_collections
+    print(co['downloadRequestHandler'])
+KeyError: 'downloadRequestHandler'
+"GET / HTTP/1.1" 500 90995
+"GET / HTTP/1.1" 503 0
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 224, in update_collections
+    if "MA.313" in co.get('downloadRequestHandler', None):
+TypeError: argument of type 'NoneType' is not iterable
+"GET / HTTP/1.1" 500 91179
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 222, in update_collections
+    print(get_collections_where_download_handler("MA.313").size)
+AttributeError: 'list' object has no attribute 'size'
+"GET / HTTP/1.1" 500 89980
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 222, in update_collections
+    print(get_collections_where_download_handler("MA.313").size)
+AttributeError: 'list' object has no attribute 'size'
+"GET / HTTP/1.1" 500 89980
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+"GET / HTTP/1.1" 503 0
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 222, in update_collections
+    print(is_download_handler_in_collection('MA.3','HR.244'))
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 239, in is_download_handler_in_collection
+    for	co in collections["results"]:
+TypeError: 'NoneType' object is not subscriptable
+"GET / HTTP/1.1" 500 87607
+"GET / HTTP/1.1" 503 0
+Not Found: /
+"GET / HTTP/1.1" 404 2387
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2438
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2438
+Not Found: /pyha
+"GET /pyha HTTP/1.1" 404 2417
+"GET /pyha/ HTTP/1.1" 302 0
+Not Found: /
+"GET / HTTP/1.1" 404 2387
+Internal Server Error: /pyha/
+Traceback (most recent call last):
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\exception.py", line 41, in inner
+    response = get_response(request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\env\Lib\site-packages\django\views\decorators\csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\views\index.py", line 18, in index
+    if handlers_cannot_be_updated():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 197, in handlers_cannot_be_updated
+    return not update_collection_handlers()
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 200, in update_collection_handlers
+    if update_collections():
+  File "C:\Users\Riku\Documents\GitHub\projekti2016\pyha\project\pyha\warehouse.py", line 221, in update_collections
+    for handler in co.get('downloadRequestHandler', None):
+TypeError: 'NoneType' object is not iterable
+"GET /pyha/ HTTP/1.1" 500 91641
+"GET /pyha/ HTTP/1.1" 503 0

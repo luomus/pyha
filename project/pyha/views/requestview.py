@@ -7,10 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 from pyha.database import create_request_view_context, make_logEntry_view, update_status, target_valid
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_allowed_to_handle
+from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, add_sensitive_handler_roles
 from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
-from pyha.warehouse import send_download_request
+from pyha.warehouse import send_download_request, is_download_handler_in_collection
 
 
 def get_request_header(request):
@@ -130,7 +130,7 @@ def answer(request):
             collectionId = request.POST.get('collectionid')
             userRequest = Request.requests.get(id = requestId)
             if(int(request.POST.get('answer')) == 2):
-                if not is_allowed_to_handle(request, target, requestId):
+                if not add_sensitive_handler_roles(request, target, requestId):
                     return HttpResponseRedirect('/pyha/')
                 newChatEntry = RequestInformationChatEntry()
                 newChatEntry.request = Request.requests.get(id=requestId)
@@ -145,7 +145,8 @@ def answer(request):
                 send_mail_after_additional_information_requested(requestId, request.LANGUAGE_CODE)
             elif "sens" not in collectionId:
                 collection = Collection.objects.get(request=requestId, address=collectionId)
-                if (request.session["user_id"] in collection.downloadRequestHandler) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
+                #if (request.session["user_id"] in collection.downloadRequestHandler) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
+                if is_download_handler_in_collection(request.session["user_id"], collectionId) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
                     if (int(request.POST.get('answer')) == 1):
                         collection.status = StatusEnum.APPROVED
                         #make a log entry

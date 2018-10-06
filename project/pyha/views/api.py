@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pyha.email import send_mail_after_receiving_request, send_mail_after_receiving_download
 from pyha.models import RequestLogEntry, RequestInformationChatEntry, Request, Collection
 from pyha.roles import HANDLER_SENS
-from pyha.warehouse import store, fetch_role, fetch_pdf
+from pyha.warehouse import store, fetch_role, fetch_pdf, get_collections_where_download_handler
 from wsgi import basic_auth_required
 
 
@@ -42,8 +42,8 @@ def download(request, link):
 def new_count(request):
         if request.method == 'GET':
             if 'none' != request.GET.get('person', 'none'):
-                personId = request.GET.get('person')
-                role = fetch_role(personId)
+                userId = request.GET.get('person')
+                role = fetch_role(userId)
                 count = 0
                 if(settings.TUN_URL+HANDLER_SENS in role.values()):
                     request_list = Request.requests.exclude(status__lte=0)
@@ -56,7 +56,8 @@ def new_count(request):
                                 if not chat.question:
                                     count += 1
                 else:
-                    request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(personId),status__gt = 0 ).values("request"))
+                    #request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt = 0).values("request"))
+                    request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request"))
                     for r in request_list:
                         if(RequestLogEntry.requestLog.filter(request = r.id, user = request.GET.get('person'), action = 'VIEW').count() == 0):
                             count += 1

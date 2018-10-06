@@ -19,7 +19,7 @@ def send_mail_after_receiving_request(requestId, lang):
 	'''	
 	req = Request.requests.get(id=requestId)	
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	context = {'req': req, 'time': time, 'req_link': req_link}
 	
 	if(lang == 'fi'):
@@ -28,19 +28,19 @@ def send_mail_after_receiving_request(requestId, lang):
 		else:
 			subject_content = u"Aineistopyyntö: " + time
 			
-		plaintext = get_template('pyha/email/send_mail_after_receiving_request_fi.txt')
+		plaintext = get_template('pyha/email/mail_after_receiving_request_fi.txt')
 	elif(lang == 'en'):
 		if(req.description != ''):
 			subject_content = u"Download request: " + req.description
 		else:
 			subject_content = u"Download request: " + time
-		plaintext = get_template('pyha/email/send_mail_after_receiving_request_en.txt')
+		plaintext = get_template('pyha/email/mail_after_receiving_request_en.txt')
 	else:
 		if(req.description != ''):
 			subject_content = u"På svenska: Aineistopyyntö: " + req.description
 		else:
 			subject_content = u"På svenska: Aineistopyyntö: " + time
-		plaintext = get_template('pyha/email/send_mail_after_receiving_request_sw.txt')
+		plaintext = get_template('pyha/email/mail_after_receiving_request_sw.txt')
 	subject = subject_content	
 	from_email = 'helpdesk@laji.fi'	
 	to = fetch_email_address(req.user)		
@@ -58,30 +58,33 @@ def send_mail_after_receiving_download(requestId):
 	lang = 'fi'
 	req = Request.requests.get(id=requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		if(req.description != ''):
 			subject_content = u"Aineistopyynnön lataus: " + req.description
 		else:
 			subject_content = u"Aineistopyynnön lataus: " + time
-		message = u"Aineisto on valmiina ladattavaksi.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+		plaintext = get_template('pyha/email/mail_after_receiving_download_fi.txt')
 	elif(lang == 'en'):
 		if(req.description != ''):
 			subject_content = u"Collection ready for download: " + req.description
 		else:
 			subject_content = u"Collection ready for download: " + time
-		message = u"Collection is ready for download.\n\nAddress to your request: "+req_link+"?lang=en" 
+		plaintext = get_template('pyha/email/mail_after_receiving_download_en.txt')
 	else:
 		if(req.description != ''):
 			subject_content = u"På svenska: Aineistopyynnön lataus: " + req.description
 		else:
 			subject_content = u"På svenska: Aineistopyynnön lataus: " + time
-		message = u"På svenska: Aineisto on valmiina ladattavaksi.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"
+		plaintext = get_template('pyha/email/mail_after_receiving_download_sw.txt')
 	subject = subject_content
 	from_email = 'helpdesk@laji.fi'
 	to = fetch_email_address(req.user)
+	text_content = plaintext.render(context)
+	
 	recipients = [to]
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
 def send_mail_for_approval(requestId, collection, lang):
 	'''
@@ -93,17 +96,18 @@ def send_mail_for_approval(requestId, collection, lang):
 	'''	
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	reqCollection = Collection.objects.get(address = collection, request = requestId)
+	context = {'req': req, 'time': time, 'req_link': req_link, 'reqCollection': reqCollection}
 	if(lang == 'fi'):
 		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
-		message = "Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+		plaintext = get_template('pyha/email/mail_for_approval_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Download request from FinBIF waits for approval decision"
-		message = u"Download request sent from Finnish Biodiversity Info Faculty at "+time+" waits for your approval decision.\n\nAddress to the request: "+req_link+"?lang=en"
+		plaintext = get_template('pyha/email/mail_for_approval_en.txt')
 	else:
 		subject = u"På svenska: Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
-		message = u"På svenska: Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"	
+		plaintext = get_template('pyha/email/mail_for_approval_sw.txt')
 	from_email = 'helpdesk@laji.fi'
 	recipients = []
 	response = requests.get(settings.LAJIAPI_URL+"collections/"+str(collection)+"?access_token="+settings.LAJIAPI_TOKEN)
@@ -115,7 +119,8 @@ def send_mail_for_approval(requestId, collection, lang):
 			for personId in handlers:
 				email = fetch_email_address(personId)
 				recipients.append(email)
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	text_content = plaintext.render(context)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
 	
 def send_mail_for_approval_sens(requestId, lang):
@@ -128,16 +133,17 @@ def send_mail_for_approval_sens(requestId, lang):
 	password = settings.LAJIPERSONAPI_PW 
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)	
+	req_link = settings.PYHA_URL+"request/"+str(req.id)	
+	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
-		message = "Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö koskien sensitiivistä aineistoa odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+		plaintext = get_template('pyha/email/mail_for_approval_sens_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Download request from FinBIF waits for approval decision"
-		message = u"Download request sent from Finnish Biodiversity Info Faculty at "+time+" concerning sensitive data waits for your approval decision.\n\nAddress to the request: "+req_link+"?lang=en"
+		plaintext = get_template('pyha/email/mail_for_approval_sens_en.txt')
 	else:
 		subject = u"På svenska: Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
-		message = u"På svenska: Lajitietokeskuksesta "+time+" lähetetty aineistopyyntö koskien sensitiivistä aineistoa odottaa päätöstänne käytön hyväksymisestä.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"	
+		plaintext = get_template('pyha/email/mail_for_approval_sens_sw.txt')
 	from_email = 'helpdesk@laji.fi'
 	response = requests.get(settings.LAJIPERSONAPI_URL+'/search?type=MA.person&predicatename=MA.role&objectresource=MA.sensitiveInformationApprovalRequestHandler&format=json', auth=HTTPBasicAuth(username, password ))
 	recipients = []
@@ -145,7 +151,8 @@ def send_mail_for_approval_sens(requestId, lang):
 		data = response.json()
 		for p in data['rdf:RDF']['MA.person']:
 			recipients.append(p['MA.emailAddress'])
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)	
+	text_content = plaintext.render(context)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)	
 	
 
 def send_mail_after_request_status_change_to_requester(requestId, lang):
@@ -156,20 +163,22 @@ def send_mail_after_request_status_change_to_requester(requestId, lang):
 	'''	
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		subject = u"Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
-		message = u"Lajitietokeskukseen "+time+" tekemäsi aineistopyynnön tila on muuttunut.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+		plaintext = get_template('pyha/email/mail_after_request_status_change_to_requester_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Status change in download request from FinBIF"
-		message = u"Status change in request sent from Finnish Biodiversity Info Faculty at "+time+".\n\nAddress to the request: "+req_link+"?lang=en"
+		plaintext = get_template('pyha/email/mail_after_request_status_change_to_requester_en.txt')
 	else:
 		subject = u"På svenska: Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
-		message = u"På svenska: Lajitietokeskukseen "+time+" tekemäsi aineistopyynnön tila on muuttunut.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"	
+		plaintext = get_template('pyha/email/mail_after_request_status_change_to_requester_sw.txt')
 	from_email = 'helpdesk@laji.fi'
 	to = fetch_email_address(req.user)
 	recipients = [to]
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	text_content = plaintext.render(context)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 	
 def send_mail_after_request_has_been_handled_to_requester(requestId, lang):
 	'''
@@ -179,45 +188,78 @@ def send_mail_after_request_has_been_handled_to_requester(requestId, lang):
 	'''	
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		subject = u"Pyyntösi käsittely on valmistunut"
-		message = u"Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö on käsitelty.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi"
+		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Your download request from FinBIF has been handled"
-		message = u"Your request from Finnish Biodiversity Info Faculty at "+time+" has been handled.\n\nAddress to the request: "+req_link+"?lang=en"
+		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_en.txt')
 	else:
-		subject = u"Pyyntösi käsittely on valmistunut"
-		message = u"På svenska: Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö on käsitelty.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw"	
+		subject = u"På svenska: Pyyntösi käsittely on valmistunut"
+		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_sw.txt')	
 	from_email = 'helpdesk@laji.fi'
 	to = fetch_email_address(req.user)
 	recipients = [to]
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	text_content = plaintext.render(context)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 	
 def send_mail_after_additional_information_requested(requestId, lang):
 
 	req = Request.requests.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
-	req_link = settings.REQ_URL+str(req.id)
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		subject = u"Pyyntösi tarvitsee lisätietoja"
-		message = u"Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=fi&next=information"
+		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Your download request requires additional information"
-		message = u"Your request from Finnish Biodiversity Info Faculty at "+time+" requires additional information.\n\nAddress to the request: "+req_link+"?lang=en&next=information"
+		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_en.txt')
 	else:
-		subject = u"Pyyntösi tarvitsee lisätietoja"
-		message = u"På svenska: Lajitietokeskukseen "+time+" tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.\n\nOsoite aineistopyyntöön: "+req_link+"?lang=sw&next=information"
+		subject = u"På svenska: Pyyntösi tarvitsee lisätietoja"
+		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_sw.txt')
 	from_email = 'helpdesk@laji.fi'
 	to = fetch_email_address(req.user)
 	recipients = [to]
-	mail = send_mail(subject, message, from_email, recipients, fail_silently=False)
+	text_content = plaintext.render(context)
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
+	
+	
+
+def send_mail_for_every_not_answered_request():
+	collectionHandlers = []
 
 
 
 
 
-
+def send_mail_for_unchecked_requests(userId, count, lang):
+	'''
+	Sends email after receiving request from Laji.fi to the person who made the request.
+	:param requestId: request identifier
+	:param lang: language code
+	'''	
+	req_link = settings.PYHA_URL
+	context = {'count': count, 'pyha_link': settings.PYHA_URL}
+	
+	if(lang == 'fi'):
+		subject_content = u"Laji.fi:hin on tullut uusia aineistopyyntöjä"
+		plaintext = get_template('pyha/email/mail_for_unchecked_requests_fi.txt')
+	elif(lang == 'en'):
+		subject_content = u"FinBIF has received new requests which require your attention"
+		plaintext = get_template('pyha/email/mail_for_unchecked_requests_en.txt')
+	else:
+		subject_content = u"På svenska: Laji.fi:hin on tullut uusia aineistopyyntöjä"
+		plaintext = get_template('pyha/email/mail_for_unchecked_requests_sw.txt')
+	subject = subject_content	
+	from_email = 'helpdesk@laji.fi'	
+	to = fetch_email_address(userId)		
+	text_content = plaintext.render(context)	
+	
+	recipients = [to]
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
 
 

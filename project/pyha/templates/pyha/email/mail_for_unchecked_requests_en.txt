@@ -1,0 +1,3 @@
+﻿{{ count }} unchecked download requests in Finnish Biodiversity Info Faculty wait for your approval decision.\n
+
+Link to the request system: {{ pyha_link }}?lang=en

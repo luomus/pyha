@@ -1,0 +1,3 @@
+﻿Collection is ready for download.
+
+Address to your request: {{ req_link }}?lang=en

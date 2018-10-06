@@ -9,7 +9,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry
 from pyha.roles import HANDLER_SENS, HANDLER_ANY, HANDLER_COLL
-from pyha.warehouse import fetch_email_address, handlers_cannot_be_updated
+from pyha.warehouse import fetch_email_address, handlers_cannot_be_updated, get_collections_where_download_handler
 
 
 
@@ -27,9 +27,11 @@ def index(request):
 		request_list = []
 		if HANDLER_SENS in request.session.get("user_roles", [None]):
 			request_list += Request.requests.all().exclude(status__lte=0).order_by('-date')
-		if HANDLER_COLL in request.session.get("user_roles", [None]):
-			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date').filter(id__in=Collection.objects.filter(downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request"),sensstatus=99).order_by('-date')
-		request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
+		if HANDLER_COLL in request.session.get("user_roles", [None]) and not HANDLER_SENS in request.session.get("user_roles", [None]):
+			#request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date').filter(id__in=Collection.objects.filter(downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request"),sensstatus=99).order_by('-date')
+			request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request")).order_by('-date').filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensstatus=99).order_by('-date')
+		#removes duplicates and keeps the dateorder intact when sens and coll at the same time
+		#request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 		for r in request_list:
 			r.allSecured = get_all_secured(request, r)
 			r.email = fetch_email_address(r.user)

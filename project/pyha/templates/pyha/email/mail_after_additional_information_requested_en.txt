@@ -1,0 +1,3 @@
+﻿Your request from Finnish Biodiversity Info Faculty at {{ time }} requires additional information.
+
+Address to the request: {{ req_link }}?lang=en&next=information

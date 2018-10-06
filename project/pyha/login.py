@@ -4,6 +4,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from pyha.models import Collection, Request
 from pyha.roles import HANDLER_SENS, USER, HANDLER_ANY, HANDLER_COLL
+from pyha.warehouse import is_download_handler
 import requests
 
 
@@ -40,7 +41,7 @@ def log_in(request, token, authentication_info):
         request.session["token"] = token
         if not "_language" in request.session:
             request.session["_language"] = "fi"
-        add_collection_owner(request, authentication_info)
+        add_collection_request_handler_roles(request, authentication_info)
         if HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
             request.session["user_roles"].append(USER)
             request.session["user_roles"].append(HANDLER_ANY)
@@ -87,8 +88,9 @@ def get_user_name(request):
     if "user_name" in request.session:
         return request.session["user_name"]
 
-def add_collection_owner(request, content):
-    if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:	
+def add_collection_request_handler_roles(request, content):
+    #if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:	
+    if is_download_handler(request.session["user_id"]):
         request.session["user_roles"].append(HANDLER_COLL)
         
 def logged_in(request):
@@ -117,14 +119,15 @@ def allowed_to_view(request, requestId, userId, role1, role2):
             if not Request.requests.filter(id=requestId, status__gt=0).exists():
                 return False
             if role2 and not role1:
-                if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
+                #if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
+                if not Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                     return False
     else:
             if not Request.requests.filter(id=requestId, user=userId, status__gte=0).exists():
                 return False
     return True
     
-def is_allowed_to_handle(request, target, requestId):
+def add_sensitive_handler_roles(request, target, requestId):
     if target == 'sens':
         return HANDLER_SENS in request.session["user_roles"]
     elif Collection.objects.filter(request=requestId, address=target).exists():

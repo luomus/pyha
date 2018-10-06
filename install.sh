@@ -8,7 +8,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		EMAIL_ERROR_RATE_KEY_LIMIT "Maximum size of different errormail cache. Default 100" \
 		DJANGO_SECRET_KEY "Hash salt used by django" \
 		PYHA_LISTEN_PORT "Port listened by django" \
-		EMAIL_LINK_URL "Path included in emails linking to certain pyyntojenhallinta request ex. https://fmnh-ws-test.it.helsinki.fi/pyha/request/" \
+		PYHA_LINK_URL "Path included in emails linking to pyyntojenhallinta ex. https://fmnh-ws-test.it.helsinki.fi/pyha/" \
 		LAJI_AUTH_URL 0 \
 		LAJI_ETL_FILE_DOWNLOAD_URL 0 \
 		TRIPLESTORE_URL 0 \

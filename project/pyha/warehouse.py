@@ -6,8 +6,8 @@ from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
-from.models import Collection
-from.models import Request
+from pyha.models import Collection
+from pyha.models import Request
 import json
 import os
 import requests
@@ -204,17 +204,41 @@ def update_collection_handlers():
 	return False
 	
 def update_collections():
-	if 'has expired' in caches['collections'].get('collections', 'has expired'):
+	if 'has expired' in caches['collections'].get('collection_update', 'has expired'):
 		payload = {}
 		payload["access_token"] = settings.LAJIAPI_TOKEN
 		response = requests.get(settings.LAJIAPI_URL+"collections", params=payload)
 		if(response.status_code == 200):
 			data = response.json()
-			print(data)
 			caches['collections'].set('collections',data)
+			caches['collections'].set('collection_update','updated', 7200)
 		else:
-			return False		
+			return False
+	else:
+		
+		return False
 	return True
+
+def get_collections_where_download_handler(userId):
+	resultlist = []
+	collections = caches['collections'].get('collections')
+	for	co in collections["results"]:
+			if userId in co.get('downloadRequestHandler', {}):
+				resultlist.append(co['id'])
+	return resultlist
+
+def is_download_handler(userId):
+	return len(get_collections_where_download_handler(userId)) > 0
+
+def is_download_handler_in_collection(userId, collectionId):
+	collections = caches['collections'].get('collections')
+	for	co in collections["results"]:
+		if co['id'] == collectionId:
+			if userId in co.get('downloadRequestHandler', {}):
+				return True
+			else:
+				return False
+	return False
 
 	
 def show_filters(request, userRequest):

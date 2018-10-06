@@ -1,0 +1,3 @@
+﻿Aineisto on valmiina ladattavaksi.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi
