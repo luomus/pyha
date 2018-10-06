@@ -1,4 +1,5 @@
 Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapalvelimelle.
+Ohjeet edellyttävät että ne suoritetaan käyttäjällä pyha
 
 ## 1 - Oracle client asentaminen
 
@@ -166,6 +167,8 @@ Sekä laita sen sisälle:
 	ProxyPass               /pyha http://localhost:portti
 	ProxyPassReverse        /pyha http://localhost:portti
 	Alias /pyha/static     path/to/project/static
+
+	Luo uusi crontab ajastus 
 
 	Anna kaikille yllämainituille tiedostoille ja pyha kansiolle oikeudet käyttäjälle pyha ja ryhmälle pyha.
 
