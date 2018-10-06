@@ -28,7 +28,7 @@ Täyttönäkymässä maallikko täyttää aineistopyynnön valitsemillaan rajauksilla, kä
 
 ### Tietokanta
 
-Tietokannan tiedot löytyvät täältä: [Tietokanta](dokumentaatio/Tietokanta.md)
+Tietokannan tiedot löytyvät täältä: [Tietokanta](Tietokanta.md)
 
 ### Tunnukset
 
