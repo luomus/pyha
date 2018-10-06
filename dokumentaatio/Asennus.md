@@ -1,5 +1,5 @@
 Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapalvelimelle.
-Ohjeet edellyttävät että ne suoritetaan käyttäjällä pyha
+Ohjeet edellyttävät että kaikki käyttäjäkohtaiset (ei sudo) komennot suoritetaan pyha-järjestelmää varten luodulla omalla käyttäjällä. esim. pyha käyttäjä
 
 ## 1 - Oracle client asentaminen
 
@@ -104,6 +104,11 @@ Sekä laita sen sisälle:
 
 	/etc/httpd/conf.d/
 
+	Lisää pyha.cron sisältö käyttäjän crontab tiedostoon ajastettuja toiminnallisuuksia varten.
+
+	Voit muokata käyttäjän crontab tiedostoa komennolla:
+
+	crontab -e
 
 	Mikäli kohta 3. ei onnistunut, luo 
 
@@ -168,7 +173,11 @@ Sekä laita sen sisälle:
 	ProxyPassReverse        /pyha http://localhost:portti
 	Alias /pyha/static     path/to/project/static
 
-	Luo uusi crontab ajastus 
+	Luo uusi crontab ajastus skriptille runmail.sh
+
+	crontab -e
+
+	22 11 * * 2 bin/sh path/to/runmail.sh
 
 	Anna kaikille yllämainituille tiedostoille ja pyha kansiolle oikeudet käyttäjälle pyha ja ryhmälle pyha.
 
