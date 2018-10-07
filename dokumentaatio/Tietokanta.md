@@ -2,7 +2,14 @@
 
 ## Yleisesti
 
-Käyttää Oracle-tietokantaa
+Käyttää Oracle-tietokantaa.
+Mikäli djangon luomat kentät haluaa SQL kielellä. 
+
+env/bin/python project/manage.py sqlmigrate pyha 0001
+
+Olettaen että olet asettanut ympäristömuuttujat.
+
+env_variables.sh
 
 ## Taulut
 
@@ -11,7 +18,7 @@ Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen
 	address = CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
 	count = IntegerField()  #Karkeistettujen havaintojen määrä
 	status = models.IntegerField() #Päätöksen tila, mitä kuvataan numeroarvona
-	request = models.ForeignKey('Request', on_delete=models.CASCADE) #FOREIGNKEY aineistopyynnön numero, mihin aineistokokoelma kuuluu
+	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen määrä
 	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen määrä
 	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssä 
@@ -113,7 +120,7 @@ RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = models.CharField(max_length=2000)
-	target = models.CharField(max_length=200) lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai sens
+	target = models.CharField(max_length=200) #Lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai sens
 
 ContactPreset: #Sisältää muistissa käyttäjän aikaisemmin täyttämät yhteystiedot.
 
