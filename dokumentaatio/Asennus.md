@@ -1,5 +1,6 @@
 Nämä ohjeet on kirjoitettu Ubuntulle, ja etänä käytettävälle Oracle tietokantapalvelimelle.
-Ohjeet edellyttävät että kaikki käyttäjäkohtaiset (ei sudo) komennot suoritetaan pyha-järjestelmää varten luodulla omalla käyttäjällä. esim. pyha käyttäjä
+Ohjeet edellyttävät että kaikki käyttäjäkohtaiset (ei sudo) komennot suoritetaan pyha-järjestelmää varten luodulla omalla käyttäjällä. 
+Esim. pyha käyttäjä ja pyha ryhmä.
 
 ## 1 - Oracle client asentaminen
 
@@ -81,22 +82,22 @@ Sekä laita sen sisälle:
 
 ## 5 - Palvelun aloittaminen
 
-	Luo järjestelmään käyttäjä pyha, sekä käyttäjäryhmä pyha.
+Luo järjestelmään käyttäjä pyha, sekä käyttäjäryhmä pyha.
 
-	Mikäli kohta 3. onnistui, voit siirtää tiedostot 
+### Mikäli kohta 3. onnistui, voit siirtää tiedostot 
 
 	pyha.service 
 	pyha.socket 
 
-	kansiosta: 
+kansiosta: 
 
 	services/
 
-	systemd service kansioon:
+systemd service kansioon:
 
 	/etc/systemd/system/
 
-	Mikäli käytät pyhaa Apachella osoitteessa :hostdomain:/pyha, laita:
+Mikäli käytät pyhaa Apachella osoitteessa :hostdomain:/pyha, laita:
 
 	pyha.conf
 
@@ -104,19 +105,17 @@ Sekä laita sen sisälle:
 
 	/etc/httpd/conf.d/
 
-	Lisää pyha.cron sisältö käyttäjän crontab tiedostoon ajastettuja toiminnallisuuksia varten.
+Lisää pyha.cron sisältö käyttäjän crontab tiedostoon ajastettuja toiminnallisuuksia varten.
 
-	Voit muokata käyttäjän crontab tiedostoa komennolla:
+Voit muokata käyttäjän crontab tiedostoa komennolla:
 
 	crontab -e
 
-	Mikäli kohta 3. ei onnistunut, luo 
-
-	tiedosto:
+### Mikäli kohta 3. ei onnistunut, luo tiedosto:
 	
 	/etc/systemd/system/pyha.service
 
-	sisällöllä:
+sisällöllä:
 
 	[Unit]
 	Description=pyha
@@ -142,11 +141,11 @@ Sekä laita sen sisälle:
 	[Install]
 	WantedBy=multi-user.target
 
-	Luo tiedosto:
+Luo tiedosto:
 
 	/etc/systemd/system/pyha.socket
 
-	sisällöllä:
+sisällöllä:
 
 	[Unit]
 	Description=pyha socket
@@ -157,11 +156,11 @@ Sekä laita sen sisälle:
 	[Install]
 	WantedBy=sockets.target
 
-	Mikäli käytät pyhaa Apachella osoitteessa :hostdomain:/pyha, tee tiedosto:
+Mikäli käytät pyhaa Apachella osoitteessa :hostdomain:/pyha, tee tiedosto:
 
 	/etc/httpd/conf.d/pyha.conf
 
-	sisällöllä:
+sisällöllä:
 
 	#Pyha
 	<Directory "path/to/project/static">
@@ -173,13 +172,16 @@ Sekä laita sen sisälle:
 	ProxyPassReverse        /pyha http://localhost:portti
 	Alias /pyha/static     path/to/project/static
 
-	Luo uusi crontab ajastus skriptille runmail.sh
+Luo uusi crontab ajastus skriptille runmail.sh
 
 	crontab -e
 
 	22 11 * * 2 bin/sh path/to/runmail.sh
 
-	Anna kaikille yllämainituille tiedostoille ja pyha kansiolle oikeudet käyttäjälle pyha ja ryhmälle pyha.
+## 6 - Lopuksi
+
+Varmista että kaikilla yllämainituilla tiedostoilla ja pyha kansiolla oikeudet pyha-järjestelmää varten luodulla käyttäjällä, sekä suoritusoikeudet .sh liitteisille tiedostoille.
+Esim. käyttäjälle pyha ja ryhmälle pyha.
 
 
 
