@@ -7,7 +7,7 @@ Mikäli djangon luomat kentät haluaa SQL kielellä.
 
 env/bin/python project/manage.py sqlmigrate pyha 0001
 
-Olettaen että olet asettanut ympäristömuuttujat terminaaliin [Asennus](Asennus.md).
+Olettaen että olet asettanut ympäristömuuttujat terminaaliin. [[Asennus]](Asennus.md)
 
 env_variables.sh
 
