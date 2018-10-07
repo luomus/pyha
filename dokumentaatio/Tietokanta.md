@@ -6,8 +6,8 @@ Käyttää Oracle-tietokantaa
 
 ## Taulut
 
+Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen yleistä dataa, sekä siihen liittyvän päätöksen ja päätöstekstin
 
-Collection: #Sisältää aineistopyynnön tietystä kokoelmasta haluttujen tietojen yleistä dataa, sekä siihen liittyvän päätöksen ja päätöstekstin
 	address = CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
 	count = IntegerField()  #Karkeistettujen havaintojen määrä
 	status = models.IntegerField() #Päätöksen tila, mitä kuvataan numeroarvona
@@ -15,13 +15,11 @@ Collection: #Sisältää aineistopyynnön tietystä kokoelmasta haluttujen tietojen y
 	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen määrä
 	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen määrä
 	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssä 
-	decisionExplanation = models.CharField(max_length=1000,null=True) #Päätöksen perustelut tekstinä
-	
+	decisionExplanation = models.CharField(max_length=1000,null=True) #Päätöksen perustelut tekstinä	
 
-@python_2_unicode_compatible
-class Request(models.Model):
-	#id alkaa ykkösestä ja nousee
-	id = models.AutoField(primary_key=True)
+Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liittyvän päätöksen ja päätöstekstin
+	
+	id = models.AutoField(primary_key=True) #id alkaa ykkösestä ja nousee
 	lajiId = models.CharField(max_length=200) #id given by laji.api
 	description = models.CharField(max_length=400)  #description given by the requester for his request
 	
@@ -67,13 +65,9 @@ class Request(models.Model):
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
-	requests = models.Manager()
 
-	def __str__(self):
-		return self.id
+RequestContact: #Sisältää lisää yhteystietoja, mikäli Request taulun yhteystiedot eivät riittäneet.
 
-@python_2_unicode_compatible
-class RequestContact(models.Model):
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	personName = models.CharField(max_length=100,null=True)
@@ -85,12 +79,9 @@ class RequestContact(models.Model):
 	personPhoneNumber = models.CharField(max_length=100,null=True)
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
-	
-	def __str__(self):
-		return self.id
 
-@python_2_unicode_compatible
-class RequestLogEntry(models.Model):
+RequestLogEntry: #Sisältää pyyntöihin liittyvien tapahtumien lokin
+
 	VIEW = 'VIEW'
 	ACCEPT = 'ACC'
 	DECISION_POSITIVE = 'POS'
@@ -101,44 +92,31 @@ class RequestLogEntry(models.Model):
 		(DECISION_POSITIVE, 'accepts use of data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
 	)
-	
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, blank=True, null=True)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	role = models.CharField(max_length=100)
 	action = models.CharField(max_length=5, choices=ACTION)
-	requestLog = models.Manager()
-	
-	def __str__(self):
-		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
 
-@python_2_unicode_compatible		
-class RequestChatEntry(models.Model):
+RequestChatEntry: #Sisältää viranomaisten keskustelut
+
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
-	requestChat = models.Manager()
-	
-	def __str__(self):
-		return self.message
 
-@python_2_unicode_compatible
-class RequestInformationChatEntry(models.Model):
+RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
+
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = models.CharField(max_length=2000)
-	target = models.CharField(max_length=200)
-	requestInformationChat = models.Manager()
-	
-	def __str__(self):
-		return self.message
+	target = models.CharField(max_length=200) lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai sens
 
-@python_2_unicode_compatible
-class ContactPreset(models.Model):
+ContactPreset: #Sisältää muistissa käyttäjän aikaisemmin täyttämät yhteystiedot.
+
 	user = models.CharField(primary_key=True, max_length=100)
 	requestPersonName = models.CharField(max_length=100,null=True)
 	requestPersonStreetAddress = models.CharField(max_length=100,null=True)
@@ -149,7 +127,4 @@ class ContactPreset(models.Model):
 	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
 	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
 	requestPersonCorporationId = models.CharField(max_length=100,null=True)
-
-	def __str__(self):
-		return self.user
 
