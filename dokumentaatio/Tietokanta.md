@@ -17,11 +17,19 @@ Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen
 
 	address = CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
 	count = IntegerField()  #Karkeistettujen havaintojen määrä
+	
+	#for status
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 2: Osittain hyväksytty
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 5: Tuntematon
+
 	status = models.IntegerField() #Päätöksen tila, mitä kuvataan numeroarvona
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen määrä
 	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen määrä
-	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssä 
+	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssä hetkellä, kun pyyntö annetaan käsiteltäväksi.
 	decisionExplanation = models.CharField(max_length=1000,null=True) #Päätöksen perustelut tekstinä	
 
 Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liittyvän päätöksen ja päätöstekstin
