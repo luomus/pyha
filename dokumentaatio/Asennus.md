@@ -49,7 +49,7 @@ Aja automaattista asentamista varten luotu skripti:
 
 	install.sh
 
-Mik‰li automaattinen asennus onnistui, voit ylitt‰‰ kohdan 3.
+Mik‰li automaattinen asennus onnistui, voit ylitt‰‰ kohdan 4.
 
 ## 4 - Asentaminen k‰sin
 
@@ -81,8 +81,6 @@ Sek‰ laita sen sis‰lle:
 	#ENVAR Nimet on lueteltu KEYS muuttujassa, sek‰ toivotuntyyppiset content arvot ENVAR muuttujan nime‰ kommentoivassa stringiss‰.#
 
 ## 5 - Palvelun aloittaminen
-
-Luo j‰rjestelm‰‰n k‰ytt‰j‰ pyha, sek‰ k‰ytt‰j‰ryhm‰ pyha.
 
 ### Mik‰li kohta 3. onnistui, voit siirt‰‰ tiedostot 
 
