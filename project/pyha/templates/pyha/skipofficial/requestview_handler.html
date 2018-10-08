@@ -437,62 +437,62 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
-						{% if customlist %}
-							<h3>{% trans "handler_secured_collection_decicions" %}</h3>
-								<table class="table" style="width:100%">
-									<tr style=color:black>
-										<th>{% trans "handler_collection_name" %}</th>
-										<th>{% trans "handler_collection_description" %}</th>
-										<th>{% trans "handler_state_of_processing" %}</th>
-										<th>{% trans "handler_decision_arguments" %}</th>
-									</tr>
-									{% for collection in customlist %}
-										{% if collection.status == 1 %}
-										<tr class="info clickable-row"
-										{% elif collection.status == 3 %}
-										<tr class="danger clickable-row"
-										{% elif collection.status == 4 %}
-										<tr class="success clickable-row"
-										{% else %}  
-										<tr	
-										{% endif %}
-										>
-										<td>{{collection.result.collectionName}}</td>
-										<td>{{collection.result.description}}</td>
-										
-										{% if collection.status == 1 %}
-											{% if request.session.user_id in collection.downloadRequestHandler %}
-											<td>{% trans "handler_waiting_for_you" %}</td>
-											{% else %}
-											<td>{% trans "handler_waiting_for_others" %}</td>
-											{% endif %}
-										{% elif collection.status == 3 %}
-										<td>{% trans "handler_denied" %}</td>
-										{% elif collection.status == 2 %}
-										<td>{% trans "handler_partially_accepted" %}</td>
-										{% elif collection.status == 4 %}
-										<td>{% trans "handler_accepted" %}</td>
-										{% else %}  
-										<td>{% trans "handler_unknown" %}</td>	
-										{% endif %}
-									<td>
-								{% if request.session.user_id in collection.downloadRequestHandler %}
-								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-								<div class="form-group">
-										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
-									</div>
-									{% csrf_token %}
-								</form>
-								{% else %}
-								{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
-								{% endif %}
-							</td>
+						{% if collections %}
+						<h3>{% trans "handler_secured_collection_decicions" %}</h3>
+						<table class="table" style="width:100%">
+							<tr style=color:black>
+								<th>{% trans "handler_collection_name" %}</th>
+								<th>{% trans "handler_collection_description" %}</th>
+								<th>{% trans "handler_state_of_processing" %}</th>
+								<th>{% trans "handler_decision_arguments" %}</th>
 							</tr>
+							{% for collection in collections %}
+								{% if collection.status == 1 %}
+								<tr class="info clickable-row"
+								{% elif collection.status == 3 %}
+								<tr class="danger clickable-row"
+								{% elif collection.status == 4 %}
+								<tr class="success clickable-row"
+								{% else %}  
+								<tr	
+								{% endif %}
+								>
+									<td>{{collection.result.collectionName}}</td>
+									<td>{{collection.result.description}}</td>
+									
+									{% if collection.status == 1 %}
+										{% if request.session.user_id in collection.downloadRequestHandler %}
+										<td>{% trans "handler_waiting_for_you" %}</td>
+										{% else %}
+										<td>{% trans "handler_waiting_for_others" %}</td>
+										{% endif %}
+									{% elif collection.status == 3 %}
+									<td>{% trans "handler_denied" %}</td>
+									{% elif collection.status == 2 %}
+									<td>{% trans "handler_partially_accepted" %}</td>
+									{% elif collection.status == 4 %}
+									<td>{% trans "handler_accepted" %}</td>
+									{% else %}  
+									<td>{% trans "handler_unknown" %}</td>	
+									{% endif %}
+									<td>
+										{% if request.session.user_id in collection.downloadRequestHandler %}
+										<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+										<div class="form-group">
+												<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
+												<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+												<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+												<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+												<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
+												<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
+											</div>
+											{% csrf_token %}
+										</form>
+										{% else %}
+										{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
+										{% endif %}
+									</td>
+								</tr>
 							{% endfor %}
 						</table>
 						{% endif %}

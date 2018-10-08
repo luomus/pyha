@@ -6,8 +6,7 @@ from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
-from pyha.models import Collection
-from pyha.models import Request
+from pyha.models import Request, Collection, StatusEnum
 import json
 import os
 import requests
@@ -176,14 +175,14 @@ def send_download_request(requestId):
 	userRequest = Request.requests.get(id=requestId)
 	payload["id"] = userRequest.lajiId
 	payload["personId"] = userRequest.user
-	collectionlist = Collection.objects.filter(request=userRequest, status=4)
-	if userRequest.sensstatus == 4:
+	collectionlist = Collection.objects.filter(request=userRequest).exclude(status=StatusEnum.APPROVED)
+	if not userRequest.sensstatus in {StatusEnum.APPROVED, StatusEnum.IGNORE_OFFICIAL}:
 		additionlist = Collection.objects.filter(request=userRequest, customSecured=0, taxonSecured__gt=0)
 		collectionlist = list(chain(collectionlist, additionlist))
 	cname = []
 	for c in collectionlist:
 		cname.append(c.address)
-	payload["approvedCollections"] = cname
+	payload["rejectedCollections"] = cname
 	payload["sensitiveApproved"] = "true"
 	payload["secured"] = "true"
 	payload["downloadFormat"] = "CSV_FLAT"

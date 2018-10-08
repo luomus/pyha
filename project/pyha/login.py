@@ -2,9 +2,9 @@
 
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from pyha.models import Collection, Request
+from pyha.models import Collection, Request, StatusEnum
 from pyha.roles import HANDLER_SENS, USER, HANDLER_ANY, HANDLER_COLL
-from pyha.warehouse import is_download_handler
+from pyha.warehouse import is_download_handler, get_collections_where_download_handler
 import requests
 
 
@@ -116,15 +116,20 @@ def is_allowed_to_view(request, requestId):
 
 def allowed_to_view(request, requestId, userId, role1, role2):
     if HANDLER_ANY in request.session.get("current_user_role", [None]):
-            if not Request.requests.filter(id=requestId, status__gt=0).exists():
-                return False
-            if role2 and not role1:
-                #if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:
+        if not Request.requests.filter(id=requestId, status__gt=0).exists():
+            return False
+        currentRequest = Request.requests.filter(id=requestId, status__gt=0)
+        if role2 and not role1:            
+            if(currentRequest.sensstatus == StatusEnum.SKIP_OFFICIAL):
+                if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+                    return False
+            else:
+                #if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:    
                 if not Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                     return False
     else:
-            if not Request.requests.filter(id=requestId, user=userId, status__gte=0).exists():
-                return False
+        if not Request.requests.filter(id=requestId, user=userId, status__gte=0).exists():
+            return False
     return True
     
 def add_sensitive_handler_roles(request, target, requestId):
