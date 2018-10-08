@@ -5,7 +5,7 @@ from django.db import models
 
 def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)
-	return type('Enum', (), enums)
+	return type(str('Enum'), (), enums)
 
 StatusEnum = enum(NO_SENSITIVE_DATA=0, WAITING=1, PARTIALLY_APPROVED=2, REJECTED=3, APPROVED=4, UNKNOWN=5, WAITING_FOR_INFORMATION=6, WAITING_FOR_DOWNLOAD=7, DOWNLOADABLE=8, IGNORE_OFFICIAL=99)
 
