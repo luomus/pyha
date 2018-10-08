@@ -22,8 +22,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    #url(r'^', include('pyha.urls')),
-    url(r'^pyha/', include('pyha.urls')),
+    url(r'^', include('pyha.urls')),
+    #url(r'^pyha/', include('pyha.urls')),
     #url(r'^login/', include('pyha.urls')),
     #url(r'^admin/', admin.site.urls),
     #url(r'^', include('pyyntojarjestelma.urls')),
