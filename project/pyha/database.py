@@ -351,7 +351,7 @@ def create_request_view_context(requestId, request, userRequest):
 	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL else "pyha/sensitivity/sensitivity-"+lang+".html"
 	context["username"] = request.session["user_name"]
 	context["allSecured"] = allSecured
-	context["handles"] = get_collections_where_download_handler(userId)
+	if role2: context["handles"] = get_collections_where_download_handler(userId)
 	if userRequest.status > 0:
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)

@@ -71,7 +71,7 @@
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">
-											{% if request.session.user_id in collection.downloadRequestHandler %}
+											{% if collection.address in handles %}
 												{% trans "handler_waiting_for_you" %}
 											{% else %}
 												{% trans "handler_waiting_for_others" %}
@@ -198,7 +198,7 @@
 								<td>{{collection.allSecured}}</td>
 								
 								{% if collection.status == 1 %}
-									{% if request.session.user_id in collection.downloadRequestHandler %}
+									{% if collection.address in handles %}
 									<td>{% trans "handler_waiting_for_you" %}</td>
 									{% else %}
 									<td>{% trans "handler_waiting_for_others" %}</td>
@@ -461,7 +461,7 @@
 									<td>{{collection.result.description}}</td>
 									
 									{% if collection.status == 1 %}
-										{% if request.session.user_id in collection.downloadRequestHandler %}
+										{% if collection.address in handles %}
 										<td>{% trans "handler_waiting_for_you" %}</td>
 										{% else %}
 										<td>{% trans "handler_waiting_for_others" %}</td>
@@ -520,7 +520,7 @@
 								<span>{% trans 'ask_as_handler_of'%}</span>
 								<select id="target" name="target">
 								{% for collection in customlist %}
-									{% if request.session.user_id in collection.downloadRequestHandler %}
+									{% if collection.address in handles %}
 									<option value="{{collection}}">{{collection.result.collectionName}}</option>
 									{% endif %}
 								{% endfor %}
