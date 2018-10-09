@@ -118,7 +118,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
     if HANDLER_ANY in request.session.get("current_user_role", [None]):
         if not Request.requests.filter(id=requestId, status__gt=0).exists():
             return False
-        currentRequest = Request.requests.filter(id=requestId, status__gt=0)
+        currentRequest = Request.requests.get(id=requestId, status__gt=0)
         if role2 and not role1:            
             if(currentRequest.sensstatus == StatusEnum.SKIP_OFFICIAL):
                 if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
