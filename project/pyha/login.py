@@ -120,7 +120,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
             return False
         currentRequest = Request.requests.get(id=requestId, status__gt=0)
         if role2 and not role1:            
-            if(currentRequest.sensstatus == StatusEnum.SKIP_OFFICIAL):
+            if(currentRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
                 if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                     return False
             else:

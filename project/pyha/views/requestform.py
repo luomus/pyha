@@ -9,7 +9,6 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
 from pyha.models import RequestLogEntry, Request, Collection
 from pyha.roles import USER
-from config.settings import SKIP_OFFICIAL
 
 
 def get_taxon(request):
