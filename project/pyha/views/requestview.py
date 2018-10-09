@@ -48,13 +48,13 @@ def show_request(request):
         make_logEntry_view(request, userRequest, userId, role1, role2)
     context = create_request_view_context(requestId, request, userRequest)
     if HANDLER_ANY in request.session.get("current_user_role", [None]):
-        return render(request, 'pyha/skipofficial/requestview_handler.html', context) if userRequest.sensstatus == 99 else render(request, 'pyha/handler/requestview.html', context)
+        return render(request, 'pyha/skipofficial/requestview_handler.html', context) if userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/handler/requestview.html', context)
     else:
         if(userRequest.status == 0):
-            result = render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == 99 else render(request, 'pyha/requestform.html', context)
+            result = render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/requestform.html', context)
             return result
         else:
-            return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == 99 else render(request, 'pyha/requestview.html', context)
+            return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/requestview.html', context)
     
 def change_description_ajax(request):
     if request.method == 'POST':

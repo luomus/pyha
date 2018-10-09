@@ -461,7 +461,7 @@
 									<td>{{collection.result.description}}</td>
 									
 									{% if collection.status == 1 %}
-										{% if request.session.user_id in collection.downloadRequestHandler %}
+										{% if is_download_handler_in_collection(request.session.user_id, collection.address) %}
 										<td>{% trans "handler_waiting_for_you" %}</td>
 										{% else %}
 										<td>{% trans "handler_waiting_for_others" %}</td>
@@ -476,7 +476,7 @@
 									<td>{% trans "handler_unknown" %}</td>	
 									{% endif %}
 									<td>
-										{% if request.session.user_id in collection.downloadRequestHandler %}
+										{% if is_download_handler_in_collection(request.session.user_id, collection.address) %}
 										<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 										<div class="form-group">
 												<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
