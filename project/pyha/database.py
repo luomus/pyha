@@ -355,7 +355,7 @@ def create_request_view_context(requestId, request, userRequest):
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)
 		context["reasonlist"] = get_reasons(userRequest)
-		if(userRequest.sensstatus == StatusEnum.SKIPOFFICIAL):
+		if(userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
 			isEndable = (Collection.objects.filter(request=userRequest.id,status=4).exists())
 		else:
 			isEndable = (Collection.objects.filter(request=userRequest.id, taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == StatusEnum.APPROVED)		
