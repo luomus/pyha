@@ -96,7 +96,7 @@ def initialize_download(request):
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect('/pyha/')
         userRequest = Request.requests.get(id=requestId)
-        if (userRequest.status == 4 or userRequest.status == 2 or userRequest.sensstatus == 4):
+        if (userRequest.status == 4 or userRequest.status == 2 or userRequest.sensstatus == 4 or userRequest.sensstatus == 99):
             send_download_request(requestId)
             userRequest.status = 7
             userRequest.save()
