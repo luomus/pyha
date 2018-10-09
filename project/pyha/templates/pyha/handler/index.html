@@ -85,14 +85,13 @@
         </tr>
         
 	{% endfor %}
-    
-	{% else %}
-		<strong>{% trans "handler_no_requests_for_admin" %}.</strong>
-	{% endif %}
     </tbody>
   </table>
   <p>{% trans 'given_values_are_not_absolute' %}</p>
-    </div>
+  {% else %}
+	<strong>{% trans "handler_no_requests_for_admin" %}.</strong>
+	{% endif %}
+   </div>
   <!--
     <div class="col-sm-3 col-lg-2 side-bar">
   
