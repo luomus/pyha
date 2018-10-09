@@ -214,8 +214,7 @@ def update_collections():
 		else:
 			return False
 	else:
-		
-		return False
+		return True
 	return True
 
 def get_collections_where_download_handler(userId):

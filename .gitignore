@@ -8,6 +8,6 @@ env/
 .project
 .pydevproject
 .settings
-.log
 env_variables.sh
 project/static
+project/pyha.log
