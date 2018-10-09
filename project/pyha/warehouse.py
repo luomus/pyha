@@ -217,6 +217,14 @@ def update_collections():
 		return True
 	return True
 
+def get_download_handlers_where_collection(collectionId):
+	result = {}
+	collections = caches['collections'].get('collections')
+	for	co in collections["results"]:
+		if co['id'] == collectionId:
+			result = co.get('downloadRequestHandler', {})
+	return result
+
 def get_collections_where_download_handler(userId):
 	resultlist = []
 	collections = caches['collections'].get('collections')
