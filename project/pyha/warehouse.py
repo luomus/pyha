@@ -184,7 +184,6 @@ def send_download_request(requestId):
 		cname.append(c.address)
 	payload["rejectedCollections"] = cname
 	payload["sensitiveApproved"] = "true"
-	payload["secured"] = "true"
 	payload["downloadFormat"] = "CSV_FLAT"
 	payload["access_token"] = settings.LAJIAPI_TOKEN
 	filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
@@ -205,14 +204,25 @@ def update_collection_handlers():
 def update_collections():
 	if 'has expired' in caches['collections'].get('collection_update', 'has expired'):
 		payload = {}
-		payload["access_token"] = settings.LAJIAPI_TOKEN
-		response = requests.get(settings.LAJIAPI_URL+"collections", params=payload)
-		if(response.status_code == 200):
-			data = response.json()
-			caches['collections'].set('collections',data)
-			caches['collections'].set('collection_update','updated', 7200)
-		else:
-			return False
+		payload['access_token'] = settings.LAJIAPI_TOKEN
+		payload['pageSize'] = 1000
+		payload['page'] = 1
+		notFinished = True
+		result = []
+		while notFinished:
+			response = requests.get(settings.LAJIAPI_URL+"collections", params=payload)
+			if(response.status_code == 200):
+				data = response.json()
+			else:
+				return False
+			for co in data['results']:
+				result.append(co)		
+			if payload['page'] < data['lastPage']:
+				payload['page'] += 1	
+			else:
+				notFinished	= False
+		caches['collections'].set('collections',result)
+		caches['collections'].set('collection_update','updated', 7200)
 	else:
 		return True
 	return True
@@ -220,7 +230,7 @@ def update_collections():
 def get_download_handlers_where_collection(collectionId):
 	result = {}
 	collections = caches['collections'].get('collections')
-	for	co in collections["results"]:
+	for	co in collections:
 		if co['id'] == collectionId:
 			result = co.get('downloadRequestHandler', {})
 	return result
@@ -228,7 +238,7 @@ def get_download_handlers_where_collection(collectionId):
 def get_collections_where_download_handler(userId):
 	resultlist = []
 	collections = caches['collections'].get('collections')
-	for	co in collections["results"]:
+	for	co in collections:
 			if userId in co.get('downloadRequestHandler', {}):
 				resultlist.append(co['id'])
 	return resultlist
@@ -238,7 +248,7 @@ def is_download_handler(userId):
 
 def is_download_handler_in_collection(userId, collectionId):
 	collections = caches['collections'].get('collections')
-	for	co in collections["results"]:
+	for	co in collections:
 		if co['id'] == collectionId:
 			if userId in co.get('downloadRequestHandler', {}):
 				return True
