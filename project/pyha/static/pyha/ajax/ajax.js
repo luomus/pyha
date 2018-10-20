@@ -8,7 +8,7 @@
 			get_request_header();
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/description/", true);
+	xhttp.open("POST", "/pyha/ajax/setDescription/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);

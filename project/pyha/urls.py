@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^ajax/createContact/?$', ajax.create_contact_ajax, name='create_contact_ajax'),
     url(r'^ajax/removeCollection/?$', ajax.remove_collection_ajax, name='remove_collection_ajax'),
     url(r'^ajax/getDescription/?$', ajax.get_request_header_ajax, name='get_request_header_ajax'),
-    url(r'^ajax/description?$', ajax.change_description_ajax, name='description_ajax'),    
+    url(r'^ajax/setDescription/?$', ajax.change_description_ajax, name='description_ajax'),    
     url(r'^approve/?$', requestform.approve, name='approve'),
     url(r'^request/[1-9][0-9]*/?$', requestview.show_request),
     url(r'^description/?$', requestview.change_description, name='change_description'),
