@@ -8,7 +8,7 @@ from pyha.email import send_mail_after_receiving_request, send_mail_after_receiv
 from pyha.models import RequestLogEntry, RequestInformationChatEntry, Request, Collection
 from pyha.roles import HANDLER_SENS
 from pyha.warehouse import store, fetch_role, fetch_pdf, get_collections_where_download_handler
-from wsgi import basic_auth_required
+from pyha.login import basic_auth_required
 
 
 @csrf_exempt

@@ -39,7 +39,7 @@ LAJIFILTERS_URL = LAJIAPI_URL + 'warehouse/filters'
 TUN_URL = 'http://tun.fi/'
 TARGET= os.environ["LAJI_AUTH_TARGET"] #'KE.541'
 HTTPS_USER = os.environ["PYHA_API_USER"] 
-HTTPS_PSW = os.environ["PYHA_API_PASSWORD"] 
+HTTPS_PW = os.environ["PYHA_API_PASSWORD"] 
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
 SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == "True"

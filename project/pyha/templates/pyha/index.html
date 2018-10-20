@@ -75,7 +75,7 @@
                 
             {% endif %}
         
-		<td>{{request.description}}</td>            
+		<td>{{request.description|linebreaks}}</td>            
         </tr>
         
 	{% endfor %}

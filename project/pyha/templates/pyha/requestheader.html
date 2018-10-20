@@ -1,11 +1,13 @@
 				{% load i18n %}
 				<h1>{% trans "request_for_user" %} {{userRequest.date|date:"d.m.Y    H:i"}}
-					{% if userRequest.description and userRequest.description.strip %} 
-						{{userRequest.description}}
-					{% else %}
-					{% endif %}
 					<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
 				</h1>
+				<h4>
+					{% if userRequest.description and userRequest.description.strip %} 
+						{{userRequest.description|linebreaks}}
+					{% else %}
+					{% endif %}
+				</h4>
 				<!-- lomake kuvauksen muuttamiseen -->
 				<div id="descriptionEdit" class="collapse" style="margin:20px 0 25px 0">
 					<form class="form-inline" action="javascript:descriptionAjax()" method="post" id ="description-form">

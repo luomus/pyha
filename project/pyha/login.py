@@ -1,5 +1,8 @@
 ﻿import json
 
+import base64
+from functools import wraps
+from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from pyha.models import Collection, Request, StatusEnum
@@ -126,7 +129,6 @@ def allowed_to_view(request, requestId, userId, role1, role2):
         if role2 and not role1:            
             if(currentRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
                 if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
-                    print("hoi")
                     return False
             else:
                 #if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:    
@@ -144,3 +146,23 @@ def add_sensitive_handler_roles(request, target, requestId):
         collection = Collection.objects.get(request=requestId, address=target)
         return request.session["user_id"] in collection.downloadRequestHandler
     return False
+
+def basic_auth_required(func):
+    @wraps(func)
+    def _decorator(request, *args, **kwargs):
+        from django.contrib.auth import authenticate, login
+        if 'HTTP_AUTHORIZATION' in request.META:
+            authmeth, auth = request.META['HTTP_AUTHORIZATION'].split(' ', 1)
+            if authmeth.lower() == 'basic':
+                auth = base64.b64decode(auth).decode("utf-8")
+                if(len(auth.split(':', 1)) == 2):
+                    username, password = auth.split(':', 1)
+                    if username == settings.HTTPS_USER and password == settings.HTTPS_PW:
+                        return func(request, *args, **kwargs)
+                    else:
+                        return HttpResponseForbidden('<h1>Forbidden</h1>')
+        res = HttpResponse()
+        res.status_code = 401
+        res['WWW-Authenticate'] = 'Basic realm="Pyha"'
+        return res
+    return _decorator
