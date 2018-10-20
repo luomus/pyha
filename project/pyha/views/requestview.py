@@ -12,23 +12,6 @@ from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationCha
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
 from pyha.warehouse import send_download_request, is_download_handler_in_collection
 
-
-def get_request_header_ajax(request):
-    if request.method == 'POST' and request.POST.get('requestid'):
-        if check_language(request):
-                return HttpResponseRedirect(request.get_full_path())
-        #Has Access
-        requestId = request.POST.get('requestid','?')
-        if not logged_in(request):
-            return _process_auth_response(request, "request/"+requestId)
-        userRequest = Request.requests.get(id=requestId)
-        
-        if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
-        context = create_request_view_context(requestId, request, userRequest)
-        return render(request, 'pyha/requestheader.html', context)
-    return HttpResponse("")
-
 @csrf_exempt
 def show_request(request):
     if check_language(request):
@@ -56,19 +39,6 @@ def show_request(request):
         else:
             return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/requestview.html', context)
     
-def change_description_ajax(request):
-    if request.method == 'POST':
-        if not logged_in(request):
-            return _process_auth_response(request, "pyha")
-        requestId = request.POST.get('requestid')
-        if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
-        userRequest = Request.requests.get(id = requestId)
-        userRequest.description = request.POST.get('description')
-        userRequest.save(update_fields=['description'])
-        return HttpResponse(status=200)
-    return HttpResponseRedirect('/pyha/')
-
 def comment_sensitive(request):
     nexturl = request.POST.get('next', '/')
     if request.method == 'POST':

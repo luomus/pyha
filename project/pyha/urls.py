@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from pyha.views import api, index, requestform, requestview, logout
+from pyha.views import api, index, requestform, requestview, logout, ajax
 
 app_name = 'pyha'
 urlpatterns = [
@@ -8,14 +8,14 @@ urlpatterns = [
     url(r'^index/?$', index.index, name='index'),
     url(r'^login/?$', index.index, name='login'),
     url(r'^logout/?$', logout.logout, name='logout'),
-    url(r'^ajax/getTaxon/?$', requestform.get_taxon_ajax, name='get_taxon_ajax'),
-    url(r'^ajax/getCustom/?$', requestform.get_custom_ajax, name='get_custom_ajax'),
-    url(r'^ajax/getCollection/?$', requestform.get_collection_ajax, name='get_collection_ajax'),
-    url(r'^ajax/getSummary/?$', requestform.get_summary_ajax, name='get_summary_ajax'),
-    url(r'^ajax/createContact/?$', requestform.create_contact_ajax, name='create_contact_ajax'),
-    url(r'^ajax/removeCollection/?$', requestform.remove_collection_ajax, name='remove_collection_ajax'),
-    url(r'^ajax/getDescription/?$', requestview.get_request_header_ajax, name='get_request_header_ajax'),
-    url(r'^ajax/description?$', requestview.change_description_ajax, name='description_ajax'),    
+    url(r'^ajax/getTaxon/?$', ajax.get_taxon_ajax, name='get_taxon_ajax'),
+    url(r'^ajax/getCustom/?$', ajax.get_custom_ajax, name='get_custom_ajax'),
+    url(r'^ajax/getCollection/?$', ajax.get_collection_ajax, name='get_collection_ajax'),
+    url(r'^ajax/getSummary/?$', ajax.get_summary_ajax, name='get_summary_ajax'),
+    url(r'^ajax/createContact/?$', ajax.create_contact_ajax, name='create_contact_ajax'),
+    url(r'^ajax/removeCollection/?$', ajax.remove_collection_ajax, name='remove_collection_ajax'),
+    url(r'^ajax/getDescription/?$', ajax.get_request_header_ajax, name='get_request_header_ajax'),
+    url(r'^ajax/description?$', ajax.change_description_ajax, name='description_ajax'),    
     url(r'^approve/?$', requestform.approve, name='approve'),
     url(r'^request/[1-9][0-9]*/?$', requestview.show_request),
     url(r'^description/?$', requestview.change_description, name='change_description'),
