@@ -157,7 +157,7 @@ def basic_auth_required(func):
                 auth = base64.b64decode(auth).decode("utf-8")
                 if(len(auth.split(':', 1)) == 2):
                     username, password = auth.split(':', 1)
-                    if username == settings.HTTPS_USER and password == settings.HTTPS_PW:
+                    if username == settings.SECRET_HTTPS_USER and password == settings.SECRET_HTTPS_PW:
                         return func(request, *args, **kwargs)
                     else:
                         return HttpResponseForbidden('<h1>Forbidden</h1>')
