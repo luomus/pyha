@@ -6,14 +6,6 @@
 		<div class="col-xs-12">
 		  <div class="page-header"> 
 
-			<h1>{% trans "request_for_user" %}: {{userRequest.date|date:"d.m.Y    H:i"}}
-				{% if userRequest.description and userRequest.description.strip %}
-					{{userRequest.description}}
-				{% else %}
-				{% endif %}
-				<button class= "btn btn-default btn-xs" data-toggle="collapse" data-target="#descriptionEdit" id="descriptionButton"><span class="glyphicon glyphicon-pencil"></span></button>
-			</h1>
-			<!-- lomake kuvauksen muuttamiseen -->
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
 			</div>
