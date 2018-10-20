@@ -82,6 +82,7 @@ class Request(models.Model):
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
+	lang = models.CharField(max_length=10, default='fi') 
 	requests = models.Manager()
 
 	def __str__(self):

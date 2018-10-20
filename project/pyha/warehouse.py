@@ -32,16 +32,15 @@ def store(jsond):
 	req.downloadFormat = getattr(data,'downloadFormat','UNKNOWN')
 	req.downloadIncludes = getattr(data,'downloadIncludes','UNKNOWN')
 	req.filter_list = makeblob(data.filters)
-
-	req.save()
-
-	if hasattr(data, 'collections'):
-		for i in data.collections:
-				makeCollection(req, i)
 	if hasattr(data, 'locale'):
 		req.lang = data.locale
 	else:
-		req.lang = 'fi'
+		req.lang = u'fi'			
+	req.save()
+	
+	if hasattr(data, 'collections'):
+		for i in data.collections:
+				makeCollection(req, i)
 		
 	return req
 

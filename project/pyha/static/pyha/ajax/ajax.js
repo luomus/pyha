@@ -8,7 +8,7 @@
 			get_request_header();
 			}
 		};
-	xhttp.open("POST", "/pyha/descriptionajax/", true);
+	xhttp.open("POST", "/pyha/ajax/description/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -28,7 +28,7 @@
 				}
 			}
 		};
-	xhttp.open("POST", "/pyha/removeAjax/", true);
+	xhttp.open("POST", "/pyha/ajax/removeCollection/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -44,7 +44,7 @@
 			checksens();
 			}
 		};
-	xhttp.open("POST", "/pyha/getTaxon/", true);
+	xhttp.open("POST", "/pyha/ajax/getTaxon/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -60,7 +60,7 @@
 			refreshCheck();
 			}
 		};
-	xhttp.open("POST", "/pyha/getCustom/", true);
+	xhttp.open("POST", "/pyha/ajax/getCustom/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -76,7 +76,7 @@
 				checksens();
 				}
 			};
-		xhttp.open("POST", "/pyha/getCollection/", true);
+		xhttp.open("POST", "/pyha/ajax/getCollection/", true);
 		xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send(data);
@@ -92,7 +92,7 @@
 			checkHasDescription();
 			}
 		};
-	xhttp.open("POST", "/pyha/getDescription/", true);
+	xhttp.open("POST", "/pyha/ajax/getDescription/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -109,7 +109,7 @@
 			}
 			}
 		};
-	xhttp.open("POST", "/pyha/getSummary/", true);
+	xhttp.open("POST", "/pyha/ajax/getSummary/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -156,7 +156,7 @@
 			}
 		};
 	xhttp.overrideMimeType('text/xml');
-	xhttp.open("POST", "/pyha/createContact/", true);
+	xhttp.open("POST", "/pyha/ajax/createContact/", true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);

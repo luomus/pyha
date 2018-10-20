@@ -11,7 +11,7 @@ from pyha.models import RequestLogEntry, Request, Collection
 from pyha.roles import USER
 
 
-def get_taxon(request):
+def get_taxon_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())
@@ -26,7 +26,7 @@ def get_taxon(request):
         return render(request, 'pyha/requestformtaxon.html', context)
     return HttpResponse("/pyha/", status=310)
     
-def get_custom(request):
+def get_custom_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())
@@ -41,7 +41,7 @@ def get_custom(request):
         return render(request, 'pyha/requestformcustom.html', context)
     return HttpResponse("/pyha/", status=310)
 
-def get_collection(request):
+def get_collection_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())
@@ -56,7 +56,7 @@ def get_collection(request):
         return render(request, 'pyha/skipofficial/requestformcollection.html', context)
     return HttpResponse("/pyha/", status=310)
     
-def get_summary(request):
+def get_summary_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())
@@ -87,7 +87,7 @@ def create_contact_ajax(request):
         return render(request, 'pyha/requestformcontact.xml', context)
     return HttpResponse("/pyha/")
 
-def remove_ajax(request):
+def remove_collection_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())

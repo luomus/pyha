@@ -114,6 +114,10 @@ def is_allowed_to_view(request, requestId):
     role2 = HANDLER_COLL in request.session.get("user_roles", [None])
     return allowed_to_view(request, requestId, userId, role1, role2)
 
+def is_request_owner(request, requestId):
+    userId = request.session["user_id"]
+    return Request.requests.filter(id=requestId, user=userId, status__gte=0).exists()
+
 def allowed_to_view(request, requestId, userId, role1, role2):
     if HANDLER_ANY in request.session.get("current_user_role", [None]):
         if not Request.requests.filter(id=requestId, status__gt=0).exists():
@@ -122,6 +126,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
         if role2 and not role1:            
             if(currentRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
                 if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+                    print("hoi")
                     return False
             else:
                 #if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:    

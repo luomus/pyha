@@ -17,12 +17,12 @@ def receiver(request):
         if 'JSON' in request.POST:
             text = request.POST['JSON']
             jsond = text
-            req = store(jsond)
+            userRequest = store(jsond)
         else:
             jsond = request.body.decode("utf-8")
-            req = store(jsond)
-        if(req):
-            send_mail_after_receiving_request(req.id, req.lang)
+            userRequest = store(jsond)
+        if(userRequest):
+            send_mail_after_receiving_request(userRequest.id, userRequest.lang)
         return HttpResponse('')
 
 @csrf_exempt
@@ -34,7 +34,7 @@ def download(request, link):
                 userRequest.status = 8
                 userRequest.downloadDate = datetime.now()
                 userRequest.save()
-                send_mail_after_receiving_download(userRequest.id)
+                send_mail_after_receiving_download(userRequest.id, userRequest.lang)
         return HttpResponse('')
     
 @csrf_exempt

@@ -49,13 +49,12 @@ def send_mail_after_receiving_request(requestId, lang):
 	recipients = [to]
 	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
-def send_mail_after_receiving_download(requestId):
+def send_mail_after_receiving_download(requestId, lang):
 	'''
 	Sends email after receiving download from Laji.fi to the person who made the request.
 	:param requestId: request identifier
 	:param lang: language code
 	'''	
-	lang = 'fi'
 	req = Request.requests.get(id=requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)

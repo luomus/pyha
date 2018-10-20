@@ -4,9 +4,10 @@ import sys
 
 if __name__ == "__main__":
     if "test" in sys.argv:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.test")
+        configpath = "config.test"
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.default")
+        configpath = "config.main"        
+    os.environ["DJANGO_SETTINGS_MODULE"] = configpath
     try:
         from django.core.management import execute_from_command_line
     except ImportError:

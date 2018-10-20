@@ -6,6 +6,11 @@ K‰ytt‰‰ Oracle-tietokantaa.
 Mik‰li djangon luomat kent‰t haluaa SQL kielell‰. 
 
 env/bin/python project/manage.py sqlmigrate pyha 0001
+...
+env/bin/python project/manage.py sqlmigrate pyha XXXX
+
+miss‰ XXXX on /pyha/project/pyha/migrations/kansion suurin numero.
+
 
 Olettaen ett‰ olet asettanut ymp‰ristˆmuuttujat terminaaliin. [[Asennus]](Asennus.md)
 
@@ -80,6 +85,7 @@ Request: #Sis‰lt‰‰ aineistopyynnˆn tietoja, sen sensitiivisiin aineistoihin liit
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
+	lang = models.CharField(max_length=10, default='fi')
 
 RequestContact: #Sis‰lt‰‰ lis‰‰ yhteystietoja, mik‰li Request taulun yhteystiedot eiv‰t riitt‰neet.
 
@@ -142,4 +148,3 @@ ContactPreset: #Sis‰lt‰‰ muistissa k‰ytt‰j‰n aikaisemmin t‰ytt‰m‰t yhteystiedot.
 	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
 	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
 	requestPersonCorporationId = models.CharField(max_length=100,null=True)
-

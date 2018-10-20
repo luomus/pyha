@@ -44,6 +44,7 @@ FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/obse
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
 SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == "True"
 MOCK_JSON=False
+TESTING=False
 APPEND_SLASH=False
 
 DEFAULT_CHARSET = 'utf-8'
@@ -100,12 +101,6 @@ SERVER_EMAIL = os.environ["SERVER_EMAIL"]
 #should probably also include server external ip and domain.
 ALLOWED_HOSTS = ['localhost', '127.0.0.1'
 ]
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
 
 # Application definition
 

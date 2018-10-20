@@ -143,13 +143,13 @@ def target_valid(target, requestId):
 		return True
 	return False
 
-def update_status(userRequest, lang):
+def update_request_status(userRequest, lang):
 	if userRequest.sensstatus == 99:
-		ignore_official_update(userRequest, lang) 
+		ignore_official_database_update_request_status(userRequest, lang) 
 	else: 
-		update(userRequest, lang)
+		database_update_request_status(userRequest, lang)
 
-def update(wantedRequest, lang):
+def database_update_request_status(wantedRequest, lang):
 	#for both sensstatus and collection status
 	#status 0: Ei sensitiivistä tietoa
 	#status 1: Odottaa aineiston toimittajan käsittelyä
@@ -254,7 +254,7 @@ def update(wantedRequest, lang):
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 	
 	
-def ignore_official_update(wantedRequest, lang):
+def ignore_official_database_update_request_status(wantedRequest, lang):
 	#for collection status
 	#status 0: Ei sensitiivistä tietoa
 	#status 1: Odottaa aineiston toimittajan käsittelyä
@@ -325,6 +325,9 @@ def handler_information_answered_status(r, request, userId):
 				r.answerstatus = 1
 	return
 
+def testing():
+	return settings.TESTING
+
 def create_request_view_context(requestId, request, userRequest):
 	taxonList = []
 	customList = []
@@ -367,7 +370,7 @@ def create_request_view_context(requestId, request, userRequest):
 		context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
 		context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60)
 	if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
-		context["old_request"] = ContactPreset.objects.get(user=userId)
+		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
 		context["requestChat_list"] = requestChat(request, requestId)
 		requestInformationChat_list = requestInformationChat(request, requestId, role1, role2, userId)
@@ -395,14 +398,16 @@ def get_request_contacts(userRequest):
 	return contacts
 
 def get_reasons(userRequest):
-	reasonlist = json.loads(userRequest.reason, object_hook=lambda d: Namespace(**d))
-	fields = reasonlist.fields
-	tuplist = []
-	for f in fields.__dict__:
-		t = (f,getattr(fields, f))
-		tuplist.append(t)
-	reasonlist.fields = tuplist
-	return reasonlist
+	if(userRequest.reason != None):
+		reasonlist = json.loads(userRequest.reason, object_hook=lambda d: Namespace(**d))
+		fields = reasonlist.fields
+		tuplist = []
+		for f in fields.__dict__:
+			t = (f,getattr(fields, f))
+			tuplist.append(t)
+		reasonlist.fields = tuplist
+		return reasonlist
+	return None
 
 def make_logEntry_view(request, userRequest, userId, role1, role2):
 	if not "has_viewed" in request.session:
@@ -471,7 +476,7 @@ def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
 		if c.status != 1:
 			collectionsNotHandled -=1
 	#check if request is handled
-	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or userRequest.sensstatus ==0):
+	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or userRequest.sensstatus == 0):
 		send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
 	elif(statusBeforeUpdate!=userRequest.status):
 		#Send email if status changed

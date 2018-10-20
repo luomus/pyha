@@ -16,6 +16,7 @@ class LoggedInTests(TestCase):
 		session['user_id'] = 10
 		session['user_email'] = 'ex.apmle@example.com'
 		session['token'] = 'asd213'
+		session['lang'] = 'fi'
 		session.save()
 
 	def test_user_sees_the_index_page(self):

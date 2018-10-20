@@ -1,6 +1,6 @@
-Palvelimella:
+Ympäristönkehityksessä/Paikalliseen kokeiluun: 
 
-Käynnistä kansiossa "ohjelmakansio"/pyha/
+Käynnistä kansiossa /pyha/project
 gunicorn -b ip:port luomuspyha.wsgi &
 
 Kaada komennoilla:
@@ -8,10 +8,14 @@ ps ax | grep pyha
 kill <pid>
 <pid> = prosessin id
 
-Ympäristönkehityksessä/Paikalliseen kokeiluun: 
+tai
 
-Käynnistä kansiossa "ohjelmakansio"/pyha/luomuspyha/
-python manage.py runserver
+Käynnistä kansiossa /pyha/project
+python manage.py runserver port
 
 Kaada painamalla: 
 Ctrl+X
+
+Palvelimella:
+
+systemctl status|stop|start pyha.service

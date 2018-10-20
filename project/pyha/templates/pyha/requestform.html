@@ -119,7 +119,7 @@
 											<p style="color:#2980B9;align:center;">{% trans 'main_contact'%}</p>
 											<li id="contact_tab1" class="active vertical-li">
 												<a id="contact_tab_button_1" href="#contact1" class="request-tab" data-toggle="tab" aria-controls="contact1" role="tab">
-													<span id="contact_tab_text_1">{% if old_request %}{{old_request.requestPersonName}}{% else %}{{request_owner}}{% endif %}</span>
+													<span id="contact_tab_text_1">{% if contactPreset %}{{contactPreset.requestPersonName}}{% else %}{{request_owner}}{% endif %}</span>
 												</a>
 											</li>
 											<p style="color:#2980B9;align:center;">{% trans 'additional_contacts'%}</p>
@@ -142,25 +142,25 @@
 												<div class="form-style-10">
 													<p>{% trans 'required_fields_indicated_with_sign' %}</p>
 													<div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
-													{% if old_request %}
+													{% if contactPreset %}
 													<div class="inner-wrap">
-														<label>{% trans 'enter_full_name' %} *<input type="text" maxlength="100" id="request_person_name_1" name="request_person_name_1" value="{{old_request.requestPersonName}}"/></label>
-														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_street_address_1" name="request_person_street_address_1" value="{{old_request.requestPersonStreetAddress}}"/></label>
-														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{old_request.requestPersonPostalCode}}"/></label>
-														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{old_request.requestPersonPostOfficeName}}"/></label>
-														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_country_1" name="request_person_country_1" value="{{old_request.requestPersonCountry}}"/></label>
+														<label>{% trans 'enter_full_name' %} *<input type="text" maxlength="100" id="request_person_name_1" name="request_person_name_1" value="{{contactPreset.requestPersonName}}"/></label>
+														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_street_address_1" name="request_person_street_address_1" value="{{contactPreset.requestPersonStreetAddress}}"/></label>
+														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{contactPreset.requestPersonPostalCode}}"/></label>
+														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{contactPreset.requestPersonPostOfficeName}}"/></label>
+														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_country_1" name="request_person_country_1" value="{{contactPreset.requestPersonCountry}}"/></label>
 													</div>
 
 													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
 													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" maxlength="100" id="request_person_email_1" name="request_person_email_1" value="{{old_request.requestPersonEmail}}"/></label>
-														<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{old_request.requestPersonPhoneNumber}}"/></label>
+														<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" maxlength="100" id="request_person_email_1" name="request_person_email_1" value="{{contactPreset.requestPersonEmail}}"/></label>
+														<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{contactPreset.requestPersonPhoneNumber}}"/></label>
 													</div>
 
 													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
 														<div class="inner-wrap">
-														<label>{% trans "enter_corporation/organization_name" %}<input type="text" maxlength="100" id="request_person_organization_name_1" name="request_person_organization_name_1" value="{{old_request.requestPersonOrganizationName}}"/></label>
-														<label>{% trans "enter_corporation_id" %}<input type="text" maxlength="100" id="request_person_corporation_id_1" name="request_person_corporation_id_1" value="{{old_request.requestPersonCorporationId}}"/></label>
+														<label>{% trans "enter_corporation/organization_name" %}<input type="text" maxlength="100" id="request_person_organization_name_1" name="request_person_organization_name_1" value="{{contactPreset.requestPersonOrganizationName}}"/></label>
+														<label>{% trans "enter_corporation_id" %}<input type="text" maxlength="100" id="request_person_corporation_id_1" name="request_person_corporation_id_1" value="{{contactPreset.requestPersonCorporationId}}"/></label>
 													</div>
 													{% else %}
 													<div class="inner-wrap">

@@ -6,9 +6,11 @@ Pyha on aineistopyyntöjen teko- , hallinnointi- ja seurantajärjestelmä. Pyha:an 
 
 Tyypillinen workflow menee siten, että maallikko luo aineistopyynnön valitsemillaan rajauksilla, käyttötarkoituksella sekä yhteystiedoillaan järjestelmään (hyväksyen tietosuojaehdot). Viranomaisille, sekä mahdollisesti aineiston haltijoille, lähetetään riittävän lyhyin väliajoin ilmoitus (sähköpostitse) aineistopyynnöistä, jotka vaativat heiltä toimenpiteitä. Mikäli kaikki aineistopyyntöä hallitsevat osapuolet (viranomaiset ja aineiston haltijat) ovat tehneet päätöksen (hyväksy/hylkää) koskien aineistopyyntöä, lähetetään aineistopyynnön tekijälle tästä ilmoitus (sähköpostitse). Hyväksytyssä tapauksessa ilmoitus sisältää linkin, jonka kautta maallikko voi (kirjautumisen jälkeen) ladata aineistopyyntöä vastaavan aineiston itselleen.
 
+Järjestelmä tarjoaa vaihtoehtoisen toiminnon (ympäristömuuttuja), jolloin uudet pyynnöt voidaan käsitellä pelkästään aineistonhoitajien toimesta. Tällöin aineistonhoitajat vastaavat myös aineistopyyntöjen omien aineistojen sensitiivisen sisällön hallinnoinnista.
+
 ## Järjestelmän osat
 
-### Pyynnön valinta näkymä (/index)
+### Pyynnön valintanäkymä (/index)
 
 Pyynnön valintanäkymässä luetellaan kaikki maallikon tekemät aineistopyynnöt, sekä kerrotaan niiden yleistiedot ja tila.
 Aineistojen omistajille luetellaan kaikki aineistopyynnöt, jotka sisältävät aineistonomistajan aineistoja.
@@ -23,6 +25,19 @@ Aineistojen omistaja voi yllämainitun lisäksi tehdä päätöksen oman aineistonsa h
 
 Täyttönäkymässä maallikko täyttää aineistopyynnön valitsemillaan rajauksilla, käyttötarkoituksella sekä yhteystiedoillaan järjestelmään (hyväksyen tietosuojaehdot).
 
+### Uloskirjautuminen (/logout)
+
+Tekee sen mitä alaotsikossa mainitaan.
+
+### Rajapinta (/api/)
+
+Tarjoaa rajapinnan toisille aplikaatioille.
+
+### Rajapinta ajax-kyselyille (/ajax/)
+
+Tarjoaa rajapinnan ajax-kyselyille.
+
+
 
 ## Arkkitehtuuri
 
@@ -33,26 +48,3 @@ Tietokannan tiedot löytyvät täältä: [Tietokanta](Tietokanta.md)
 ### Tunnukset
 
 Piilotettavat tunnisteet määritetään ympäristömuuttujiin.
-
-### LajiStore
-
-Lue lisää LajiStoresta: [https://bitbucket.org/luomus/lajistore-api](https://bitbucket.org/luomus/lajistore-api)
-
-### TipuApi
-
-TipuApi-service hakee TipuApista tiedot lajeista Species-luokan ilmentyminä.
-
-### LajiAuth
-
-LajiAuthin toimintalogiikka on seuraava:
-
-1. Kirjautumissivulla (login.html) on linkit kirjautumispalveluihin. Linkkien hrefissä kulkee järjestelmän tunnus ja relatiivinen polku, jonne ohjataan kirjautumisen jälkeen
-2. Luomus määrittää järjestelmän tunnusta vastaavan uudelleenohjausosoitteen. Tunnuksia on kaksi: yksi stagingiin ja toinen localhostiin osoittava
-3. Käyttäjä tulee takaisin järjestelmän login-sivulle POST pyynnöllä tokenin kanssa, joka luetaan backendissa parametrista "token"
-4. Tokenin oikeellisuus lähetetään backendissä laji-authille validoitavaksi POST'n bodyssä
-  - POST https://login.laji.fi/validation/
-  - Content-Type: application/json
-  - Body: &lt;token&gt;
-5. Jos validointi onnistui, vastauksena saadaan käyttäjän tiedot -- Muussa tapauksessa käyttäjää ei tule päästää sisälle
-
-Lue lisää LajiAuthista: [https://bitbucket.org/luomus/laji-auth](https://bitbucket.org/luomus/laji-auth)

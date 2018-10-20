@@ -4,7 +4,7 @@ import os
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import create_request_view_context, make_logEntry_view, update_status, target_valid
+from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, add_sensitive_handler_roles
@@ -13,7 +13,7 @@ from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
 from pyha.warehouse import send_download_request, is_download_handler_in_collection
 
 
-def get_request_header(request):
+def get_request_header_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())
@@ -155,7 +155,7 @@ def answer(request):
                     RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId),collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action = RequestLogEntry.DECISION_NEGATIVE)
                 collection.decisionExplanation = request.POST.get('reason')
                 collection.save()
-                update_status(userRequest, request.LANGUAGE_CODE)
+                update_request_status(userRequest, request.LANGUAGE_CODE)
         elif HANDLER_SENS in request.session["user_roles"]:
             collections = Collection.objects.filter(request=requestId, customSecured__lte = 0, taxonSecured__gt=0, status__gte = 0)
             if (int(request.POST.get('answer')) == 1):
@@ -172,7 +172,7 @@ def answer(request):
                 RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
             userRequest.sensDecisionExplanation = request.POST.get('reason')
             userRequest.save()
-            update_status(userRequest, request.LANGUAGE_CODE)
+            update_request_status(userRequest, request.LANGUAGE_CODE)
     return HttpResponseRedirect(nexturl)
     
 
@@ -211,5 +211,5 @@ def information(request):
             except RequestInformationChatEntry.DoesNotExist:
                 pass        
             userRequest.save()
-            update_status(userRequest, request.LANGUAGE_CODE)
+            update_request_status(userRequest, request.LANGUAGE_CODE)
     return HttpResponseRedirect(nexturl)
