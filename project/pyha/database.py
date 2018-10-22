@@ -9,7 +9,7 @@ from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
 from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL, HANDLER_BOTH, USER
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler
 
 
 #removes sensitive sightings
@@ -148,7 +148,28 @@ def update_request_status(userRequest, lang):
 		ignore_official_database_update_request_status(userRequest, lang) 
 	else: 
 		database_update_request_status(userRequest, lang)
-
+		
+def count_unhandled_requests(userId):
+	role = fetch_role(userId)
+	count = 0
+	if(settings.TUN_URL+HANDLER_SENS in role.values()):
+		request_list = Request.requests.exclude(status__lte=0)
+		for r in request_list:
+			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
+				count += 1
+			else:
+				if r.sensstatus == 1 and RequestInformationChatEntry.requestInformationChat.filter(request=r.id).count() > 0:
+					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id).order_by('-date')[0]
+					if not chat.question:
+						count += 1
+	else:
+		#request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt = 0).values("request"))
+		request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request"))
+		for r in request_list:
+			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
+				count += 1
+	return count
+   
 def database_update_request_status(wantedRequest, lang):
 	#for both sensstatus and collection status
 	#status 0: Ei sensitiivistä tietoa
