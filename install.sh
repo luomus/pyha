@@ -131,7 +131,7 @@ echo -e "$APACHECONTENT" > services/pyha.conf
 echo "Created services/pyha.conf file"
 
 CRONCONTENT=$CRONCONTENT\
-"22 11 * * 2 bin/sh "$DIR"/runmail.sh"
+"22 11 * * 2 cd "$DIR" && bash "$DIR"/runmail.sh > "$DIR"/cronlogs/pyha_runemail.log"
 
 echo -e $CRONCONTENT > services/pyha.cron
 echo "Created services/pyha.cron file"

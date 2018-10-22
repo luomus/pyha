@@ -1,3 +1,4 @@
+echo date
 source env/bin/activate
 echo "In env $VIRTUAL_ENV"
 if [ -e env_variables.sh ]
