@@ -42,7 +42,7 @@ def index(request):
 			r.email = fetch_email_address(r.user)
 			handler_waiting_status(r, request, userId)
 			handler_information_answered_status(r, request, userId)
-			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0):
+			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0 or not r.status == StatusEnum.WAITING):
 				r.viewed = True
 		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/handler/index.html', context)
