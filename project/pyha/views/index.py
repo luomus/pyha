@@ -32,7 +32,7 @@ def index(request):
 		if HANDLER_COLL in request.session.get("user_roles", [None]) and not HANDLER_SENS in request.session.get("user_roles", [None]):
 			#request_list += Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date').filter(id__in=Collection.objects.filter(downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request"),sensstatus=99).order_by('-date')
 			q = Request.requests.exclude(status__lte=0)
-			c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"))
+			c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).exclude(sensstatus=99).values("request"))
 			c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensstatus=99)
 			request_list = chain(c0, c1, request_list)
 		#removes duplicates and keeps the dateorder intact when sens and coll at the same time
