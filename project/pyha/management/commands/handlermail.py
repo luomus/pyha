@@ -22,6 +22,9 @@ class Command(BaseCommand):
         for handler in downloadRequestHandlers:
             count = 0
             request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(downloadRequestHandler__contains = str(handler), status__gt = 0).values("request"))
+            #Ei pysty toteuttamaan sens pyyntöjen laskentaa ilman uutta tapaa selvittää sensitiivinen käsittelijä jostain lajin rajapinnasta
+            #if HANDLER_SENS in request.session.get("user_roles", [None]):
+                #request_list += Request.requests.all().exclude(status__lte=0)
             for r in request_list:
                 if(RequestLogEntry.requestLog.filter(request = r.id, user = handler, action = 'VIEW').count() == 0):
                     count += 1
