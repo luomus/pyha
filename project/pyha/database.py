@@ -1,5 +1,6 @@
 ﻿from argparse import Namespace
 from datetime import timedelta, datetime
+from itertools import chain
 import json
 
 from django.conf import settings
@@ -153,23 +154,32 @@ def count_unhandled_requests(userId):
 	role = fetch_role(userId)
 	count = 0
 	if(settings.TUN_URL+HANDLER_SENS in role.values()):
-		request_list = Request.requests.exclude(status__lte=0)
+		request_list = Request.requests.exclude(status__lte=0).filter(sensstatus = 1)
 		for r in request_list:
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
 				count += 1
 			else:
-				if r.sensstatus == 1 and RequestInformationChatEntry.requestInformationChat.filter(request=r.id).count() > 0:
-					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id).order_by('-date')[0]
+				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0:
+					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 					if not chat.question:
 						count += 1
 	else:
-		#request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt = 0).values("request"))
-		request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request"))
+		q = Request.requests.exclude(status__lte=0)
+		c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request")).exclude(sensstatus=StatusEnum.IGNORE_OFFICIAL)
+		c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensstatus=StatusEnum.IGNORE_OFFICIAL)
+		request_list = chain(c0, c1)
 		for r in request_list:
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
 				count += 1
+			else:
+				for co in get_collections_where_download_handler(userId):
+					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0:
+						cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
+						if not cochat.question:
+							count += 1
+							break
 	return count
-   
+
 def database_update_request_status(wantedRequest, lang):
 	#for both sensstatus and collection status
 	#status 0: Ei sensitiivistä tietoa

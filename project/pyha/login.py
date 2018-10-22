@@ -139,7 +139,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
             return False
     return True
     
-def add_sensitive_handler_roles(request, target, requestId):
+def is_allowed_to_ask_information_as_target(request, target, requestId):
     if target == 'sens':
         return HANDLER_SENS in request.session["user_roles"]
     elif Collection.objects.filter(request=requestId, address=target).exists():

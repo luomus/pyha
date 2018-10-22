@@ -1,11 +1,7 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from pyha.email import send_mail_for_unchecked_requests
-from pyha.models import Request, Collection, RequestLogEntry
-from pyha.warehouse import get_collections_where_download_handler
+from pyha.database import count_unhandled_requests
 from django.core.cache import caches
-from django.conf import settings
-import requests
-from requests.auth import HTTPBasicAuth
 
 class Command(BaseCommand):
     help = 'Sends reminder emails to all collection handlers for unhandled requests'
@@ -20,11 +16,6 @@ class Command(BaseCommand):
             for handler in co.get('downloadRequestHandler', {}):
                 downloadRequestHandlers.add(handler)
         for handler in downloadRequestHandlers:
-            count = 0
-            request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(handler), status__gt = 0).values("request"))
-            
-            for r in request_list:
-                if(RequestLogEntry.requestLog.filter(request = r.id, user = handler, action = 'VIEW').count() == 0):
-                    count += 1
+            count = count_unhandled_requests(handler)
             if(count > 0):
                 send_mail_for_unchecked_requests(handler, count, lang)

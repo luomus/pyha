@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, add_sensitive_handler_roles
+from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_allowed_to_ask_information_as_target
 from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL
 from pyha.warehouse import send_download_request, is_download_handler_in_collection
@@ -98,7 +98,7 @@ def answer(request):
         collectionId = request.POST.get('collectionid')
         userRequest = Request.requests.get(id = requestId)
         if(int(request.POST.get('answer')) == 2):
-            if not add_sensitive_handler_roles(request, target, requestId):
+            if not is_allowed_to_ask_information_as_target(request, target, requestId):
                 return HttpResponseRedirect('/pyha/')
             newChatEntry = RequestInformationChatEntry()
             newChatEntry.request = Request.requests.get(id=requestId)

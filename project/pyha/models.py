@@ -147,7 +147,7 @@ class RequestInformationChatEntry(models.Model):
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = models.CharField(max_length=2000)
-	target = models.CharField(max_length=200)
+	target = models.CharField(max_length=200) #'sens' or apilaji defined collection id
 	requestInformationChat = models.Manager()
 	
 	def __str__(self):
