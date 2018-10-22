@@ -173,7 +173,7 @@ def count_unhandled_requests(userId):
 				count += 1
 			else:
 				for co in get_collections_where_download_handler(userId):
-					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and co.status == StatusEnum.WAITING:
+					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
 						cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
 						if not cochat.question:
 							count += 1
@@ -356,7 +356,7 @@ def handler_information_answered_status(r, request, userId):
 				r.answerstatus = 1
 	if HANDLER_COLL in request.session.get("user_roles", [None]):
 		for co in get_collections_where_download_handler(userId):
-			if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and co.status == StatusEnum.WAITING:
+			if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
 				cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
 				if not cochat.question:
 					r.answerstatus = 1
