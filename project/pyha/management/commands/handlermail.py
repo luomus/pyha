@@ -16,7 +16,7 @@ class Command(BaseCommand):
         collections = caches['collections'].get('collections')
         downloadRequestHandlers = set()
         lang = 'fi' #ainakin toistaiseksi
-        for  co in collections["results"]:
+        for co in collections:
             for handler in co.get('downloadRequestHandler', {}):
                 downloadRequestHandlers.add(handler)
         for handler in downloadRequestHandlers:
