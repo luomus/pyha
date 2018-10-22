@@ -22,7 +22,7 @@ class Command(BaseCommand):
         for handler in downloadRequestHandlers:
             count = 0
             request_list = Request.requests.exclude(status__lte=0).filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(handler), status__gt = 0).values("request"))
-            #Ei pysty toteuttamaan sens pyyntöjen laskentaa ilman uutta tapaa selvittää sensitiivinen käsittelijä jostain lajin rajapinnasta
+            #Ei pysty toteuttamaan sens pyyntojen laskentaa ilman uutta tapaa selvittaa sensitiivinen kasittelija jostain lajin rajapinnasta
             #if HANDLER_SENS in request.session.get("user_roles", [None]):
                 #request_list += Request.requests.all().exclude(status__lte=0)
             for r in request_list:

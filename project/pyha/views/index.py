@@ -34,7 +34,7 @@ def index(request):
 			q = Request.requests.exclude(status__lte=0)
 			c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"))
 			c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensstatus=99)
-			request_list += chain(c0, c1)
+			request_list = chain(c0, c1, request_list)
 		#removes duplicates and keeps the dateorder intact when sens and coll at the same time
 		#request_list = reduce(lambda r, v: v in r[1] and r or (r[0].append(v) or r[1].add(v)) or r, request_list, ([], set()))[0]
 		request_list = sorted(request_list ,key=attrgetter('date'), reverse=True)
