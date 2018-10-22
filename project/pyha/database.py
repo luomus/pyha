@@ -153,7 +153,7 @@ def update_request_status(userRequest, lang):
 def count_unhandled_requests(userId):
 	role = fetch_role(userId)
 	unhandled = set()
-	if(role is not None and settings.TUN_URL+HANDLER_SENS in role.values()):
+	if(settings.TUN_URL+HANDLER_SENS in role.get("values", [None])):
 		request_list = Request.requests.exclude(status__lte=0).filter(sensstatus = StatusEnum.WAITING)
 		for r in request_list:
 			if (r.status == StatusEnum.WAITING):
