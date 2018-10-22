@@ -159,7 +159,7 @@ def count_unhandled_requests(userId):
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
 				count += 1
 			else:
-				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0:
+				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == StatusEnum.WAITING:
 					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 					if not chat.question:
 						count += 1
@@ -173,7 +173,7 @@ def count_unhandled_requests(userId):
 				count += 1
 			else:
 				for co in get_collections_where_download_handler(userId):
-					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0:
+					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and co.status == StatusEnum.WAITING:
 						cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
 						if not cochat.question:
 							count += 1
@@ -349,11 +349,18 @@ def handler_waiting_status(r, request, userId):
 
 def handler_information_answered_status(r, request, userId):
 	r.answerstatus = 0
-	if HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
-		if RequestInformationChatEntry.requestInformationChat.filter(request=r.id).exists():
-			chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id).order_by('-date')[0]
+	if HANDLER_SENS in request.session.get("user_roles", [None]):
+		if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == StatusEnum.WAITING:
+			chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 			if not chat.question:
 				r.answerstatus = 1
+	if HANDLER_COLL in request.session.get("user_roles", [None]):
+		for co in get_collections_where_download_handler(userId):
+			if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and co.status == StatusEnum.WAITING:
+				cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
+				if not cochat.question:
+					r.answerstatus = 1
+					break
 	return
 
 def testing():
