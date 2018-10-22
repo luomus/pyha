@@ -154,7 +154,7 @@ def count_unhandled_requests(userId):
 	role = fetch_role(userId)
 	count = 0
 	if(settings.TUN_URL+HANDLER_SENS in role.values()):
-		request_list = Request.requests.exclude(status__lte=0).filter(sensstatus = 1)
+		request_list = Request.requests.exclude(status__lte=0).filter(sensstatus = StatusEnum.WAITING)
 		for r in request_list:
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
 				count += 1
@@ -164,8 +164,8 @@ def count_unhandled_requests(userId):
 					if not chat.question:
 						count += 1
 	q = Request.requests.exclude(status__lte=0)
-	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request")).exclude(sensstatus=StatusEnum.IGNORE_OFFICIAL)
-	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensstatus=StatusEnum.IGNORE_OFFICIAL)
+	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensstatus=StatusEnum.IGNORE_OFFICIAL)
+	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensstatus=StatusEnum.IGNORE_OFFICIAL)
 	request_list = chain(c0, c1)
 	for r in request_list:
 		if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
