@@ -1,4 +1,4 @@
-* Templateissa käännökset tyylillä `{% trans "Moikka" %}` 
+﻿* Templateissa käännökset tyylillä `{% trans "Moikka" %}` 
     * Jos templatessa on käännettävää, sen alkupuolella pitää aina olla `{% load i18n %}`
 * Python-koodissa käännökset tyylillä:
 ````
@@ -10,7 +10,11 @@
 
 Ota mallia valmiista käännöksistä.
 
-Kun olet käsitellyt koodin ylläolevan mukaisesti, tee seuraava:
+Kun olet käsitellyt koodin ylläolevan mukaisesti, voit käyttää komentoa:
+
+     bash updateserver.sh
+
+tai:
 
     ./manage.py makemessages -a
 
@@ -22,8 +26,8 @@ Se kerää .js -tiedostoista.
 
 Sitten editoi käännöstiedostoja, jotka ovat seuraavan näköisissä paikoissa:
 
-* `satelliittiApp/locale/en/LC_MESSAGES/django.po`   <- template & py -tekstit
-* `satelliittiApp/locale/en/LC_MESSAGES/djangojs.po`  <- js-tekstit
+* `pyha/locale/en/LC_MESSAGES/django.po`   <- template & py -tekstit
+* `pyha/locale/en/LC_MESSAGES/djangojs.po`  <- js-tekstit
 
 Kirjoita käännökset käsin näihin `.po` tiedostoihin (ota mallia vanhoista käännöksistä).
 
@@ -31,7 +35,7 @@ Sitten tee
 
     ./manage.py compilemessages
 
-Ja sitten käynnistä testiserveri tekemällä `./manage.py runserver` -- nyt käännösten pitäisi näkyä.
+Ja sitten käynnistä testiserveri tekemällä `bash runserver.sh` -- nyt käännösten pitäisi näkyä.
 
 ----
 
