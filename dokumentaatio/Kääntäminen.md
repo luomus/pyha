@@ -38,6 +38,10 @@ Sitten tee
 Ja sitten käynnistä testiserveri tekemällä `bash runserver.sh` -- nyt käännösten pitäisi näkyä.
 
 ----
+Mikäli tekemäsi tekstinmuutos ei näy. Tarkista, ettei .po tiedostossa käännösrivin yläpuolelta löydy tällaista:
+    #, fuzzy
+    #| msgid "secured_collections_in_request"
+, se pakottaa käännöksen käyttämään msgid "secured_collections_in_request":n käännöstä haluamasi sijaan.
 
 Jos kielivalitsinta ei ole käytössä, voit testata eri kieliä muuttamalla Chromen preferred languagea seuraavasti:
 

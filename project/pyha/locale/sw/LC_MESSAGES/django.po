@@ -1764,8 +1764,6 @@ msgstr "collections_tab"
 
 #: templates/pyha/skipofficial/requestform.html:216
 #: templates/pyha/skipofficial/requestview.html:385
-#, fuzzy
-#| msgid "sensitive_terms"
 msgid "sensitive_and_other_terms"
 msgstr "sensitive_terms"
 
@@ -1782,8 +1780,6 @@ msgid "Collection terms"
 msgstr "collections_tab"
 
 #: templates/pyha/skipofficial/requestview_handler.html:340
-#, fuzzy
-#| msgid "handler_sensitive_terms"
 msgid "handler_sensitive_and_other_terms"
 msgstr "handler_sensitive_terms"
 
