@@ -26,8 +26,8 @@ Se kerää .js -tiedostoista.
 
 Sitten editoi käännöstiedostoja, jotka ovat seuraavan näköisissä paikoissa:
 
-* `pyha/locale/en/LC_MESSAGES/django.po`   <- template & py -tekstit
-* `pyha/locale/en/LC_MESSAGES/djangojs.po`  <- js-tekstit
+* `path/to/project/pyha/locale/en/LC_MESSAGES/django.po`   <- template & py -tekstit
+* `path/to/project/pyha/locale/en/LC_MESSAGES/djangojs.po`  <- js-tekstit
 
 Kirjoita käännökset käsin näihin `.po` tiedostoihin (ota mallia vanhoista käännöksistä).
 
