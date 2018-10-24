@@ -31,7 +31,7 @@ Tekee sen mitä alaotsikossa mainitaan.
 
 ### Rajapinta (/api/)
 
-Tarjoaa rajapinnan toisille aplikaatioille.
+Tarjoaa rajapinnan toisille applikaatioille.
 
 ### Rajapinta ajax-kyselyille (/ajax/)
 
@@ -44,6 +44,10 @@ Tarjoaa rajapinnan ajax-kyselyille.
 ### Tietokanta
 
 Tietokannan tiedot löytyvät täältä: [Tietokanta](Tietokanta.md)
+
+### Käännökset
+
+Kääntämisen tiedot löytyvät täältä: [Kääntäminen](Kääntäminen.md)
 
 ### Tunnukset
 
