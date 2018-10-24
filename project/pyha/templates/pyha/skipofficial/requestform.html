@@ -213,7 +213,7 @@
 													<div class="modal-content">
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_terms" %}</h4>
+															<h4 class="modal-title" id="myModalLabel">{% trans "sensitive_and_other_terms" %}</h4>
 															<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('sens-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 														</div>
 														<div id="sens-content" class="modal-body">
