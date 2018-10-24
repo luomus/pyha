@@ -1786,10 +1786,8 @@ msgstr ""
 "käyttöehdot"
 
 #: templates/pyha/skipofficial/requestview.html:376
-#, fuzzy
-#| msgid "collections_tab"
 msgid "Collection terms"
-msgstr "Muut käyttörajoitetut aineistot"
+msgstr "Käyttöehdot"
 
 #: templates/pyha/skipofficial/requestview_handler.html:340
 msgid "handler_sensitive_and_other_terms"
