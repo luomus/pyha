@@ -1777,7 +1777,7 @@ msgstr "Muut käyttörajoitetut aineistot"
 #, fuzzy
 #| msgid "sensitive_terms"
 msgid "sensitive_and_other_terms"
-msgstr "Sensitiivisten aineistojen käyttöehdot"
+msgstr "Suomen Lajitietokeskuksen sensitiivinen ja muusta syystä käyttörajoitettu lajitieto"
 
 #: templates/pyha/skipofficial/requestformcollection.html:2
 #, fuzzy
@@ -1797,7 +1797,7 @@ msgstr "Muut käyttörajoitetut aineistot"
 #, fuzzy
 #| msgid "handler_sensitive_terms"
 msgid "handler_sensitive_and_other_terms"
-msgstr "Sensitiivisten aineistojen käyttöehdot"
+msgstr "Suomen Lajitietokeskuksen sensitiivinen ja muusta syystä käyttörajoitettu lajitieto"
 
 #~ msgid "description"
 #~ msgstr "Kuvaus"

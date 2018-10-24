@@ -1761,7 +1761,7 @@ msgstr "Collections"
 #, fuzzy
 #| msgid "sensitive_terms"
 msgid "sensitive_and_other_terms"
-msgstr "Terms for sensitive data"
+msgstr "Terms for sensitivity and other data"
 
 #: templates/pyha/skipofficial/requestformcollection.html:2
 #, fuzzy
@@ -1780,7 +1780,7 @@ msgstr "Collections"
 #, fuzzy
 #| msgid "handler_sensitive_terms"
 msgid "handler_sensitive_and_other_terms"
-msgstr "Terms for sensitive data"
+msgstr "Terms for sensitivity and other data"
 
 #~ msgid "description"
 #~ msgstr "Description"
