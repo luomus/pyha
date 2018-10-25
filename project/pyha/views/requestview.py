@@ -3,6 +3,7 @@ import os
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid
 from pyha.email import send_mail_after_additional_information_requested
@@ -21,7 +22,7 @@ def show_request(request):
     if not logged_in(request):
         return _process_auth_response(request, "request/"+requestId)
     if not is_allowed_to_view(request, requestId):
-        return HttpResponseRedirect('/pyha/')
+        return HttpResponseRedirect(reverse('pyha:pyha'))
     userRequest = Request.requests.get(id=requestId)
     #make a log entry
     userId = request.session["user_id"]
@@ -64,7 +65,7 @@ def initialize_download(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
+            return HttpResponseRedirect(reverse('pyha:pyha'))
         userRequest = Request.requests.get(id=requestId)
         if (userRequest.status == 4 or userRequest.status == 2 or userRequest.sensstatus == 4 or userRequest.sensstatus == 99):
             send_download_request(requestId)
@@ -79,12 +80,12 @@ def change_description(request):
         nexturl = request.POST.get('next', '/')
         requestId = request.POST.get('requestid')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
+            return HttpResponseRedirect(reverse('pyha:pyha'))
         userRequest = Request.requests.get(id = requestId)
         userRequest.description = request.POST.get('description')
         userRequest.save(update_fields=['description'])
         return HttpResponseRedirect(nexturl)
-    return HttpResponseRedirect('/pyha/')
+    return HttpResponseRedirect(reverse('pyha:pyha'))
 
 def answer(request):
     nexturl = request.POST.get('next', '/')
@@ -94,12 +95,12 @@ def answer(request):
         requestId = request.POST.get('requestid', '?')
         target = request.POST.get('target', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
+            return HttpResponseRedirect(reverse('pyha:pyha'))
         collectionId = request.POST.get('collectionid')
         userRequest = Request.requests.get(id = requestId)
         if(int(request.POST.get('answer')) == 2):
             if not is_allowed_to_ask_information_as_target(request, target, requestId):
-                return HttpResponseRedirect('/pyha/')
+                return HttpResponseRedirect(reverse('pyha:pyha'))
             newChatEntry = RequestInformationChatEntry()
             newChatEntry.request = Request.requests.get(id=requestId)
             newChatEntry.date = datetime.now()
@@ -157,7 +158,7 @@ def information(request):
             return HttpResponseRedirect('/pyha/')
         if(int(request.POST.get('information')) == 2):
             if not target_valid(target, requestId):
-                return HttpResponseRedirect('/pyha/')
+                return HttpResponseRedirect(reverse('pyha:pyha'))
             userRequest = Request.requests.get(id = requestId)
             newChatEntry = RequestInformationChatEntry()
             newChatEntry.request = userRequest

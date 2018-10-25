@@ -157,28 +157,34 @@ def count_unhandled_requests(userId):
 		request_list = Request.requests.exclude(status__lte=0).filter(sensstatus = StatusEnum.WAITING)
 		for r in request_list:
 			if (r.status == StatusEnum.WAITING):
-				if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
+				#if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
+				#	unhandled.add(r)
+				#else:
+				questioning = False
+				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == StatusEnum.WAITING:
+					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
+					if chat.question:
+						questioning = True
+				if not questioning:
 					unhandled.add(r)
-				else:
-					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == StatusEnum.WAITING:
-						chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
-						if not chat.question:
-							unhandled.add(r)
 	q = Request.requests.exclude(status__lte=0)
 	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensstatus=StatusEnum.IGNORE_OFFICIAL)
 	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensstatus=StatusEnum.IGNORE_OFFICIAL)
 	request_list = chain(c0, c1)
 	for r in request_list:
 		if (r.status == StatusEnum.WAITING):
-			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
+			#if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
+			#	unhandled.add(r)
+			#else:
+			questioning = False
+			for co in get_collections_where_download_handler(userId):
+				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
+					cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
+					if cochat.question:
+						questioning = True
+						break
+			if not questioning:
 				unhandled.add(r)
-			else:
-				for co in get_collections_where_download_handler(userId):
-					if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
-						cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
-						if not cochat.question:
-							unhandled.add(r)
-							break
 	return len(unhandled)
 
 def database_update_request_status(wantedRequest, lang):
