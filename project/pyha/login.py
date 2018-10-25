@@ -1,4 +1,5 @@
 ﻿import json
+from django.urls import reverse
 
 import base64
 from functools import wraps
@@ -107,7 +108,7 @@ def _process_auth_response(request, indexpath):
     token = request.POST["token"]
     result = _get_authentication_info(token)
     if authenticate(request, token, result):
-        return HttpResponseRedirect('/pyha/'+result["next"])
+        return HttpResponseRedirect(reverse('pyha:root')+result["next"])
     else:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
         
