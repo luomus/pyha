@@ -5,6 +5,7 @@ import re
 
 app_name = 'pyha'
 urlpatterns = [
+    url(r'^pyha/?$', index.pyha, name='pyha'),
     url(r'^/?$', index.index, name='root'),
     url(r'^index/?$', index.index, name='index'),
     url(r'^login/?$', index.index, name='login'),

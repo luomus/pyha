@@ -1,6 +1,7 @@
 ﻿from functools import reduce
 
 from django.conf import settings
+from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -14,6 +15,9 @@ from operator import attrgetter
 from itertools import chain
 
 
+@csrf_exempt
+def pyha(request):
+	return HttpResponseRedirect(reverse("pyha:root"))
 
 @csrf_exempt
 def index(request):
@@ -48,8 +52,8 @@ def index(request):
 		return render(request, 'pyha/handler/index.html', context)
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
-		for r in request_list:
-			r.allSecured = get_all_secured(request, r)
+		#for r in request_list:
+		#	r.allSecured = get_all_secured(request, r)
 		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/index.html', context)
 

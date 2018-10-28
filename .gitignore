@@ -10,4 +10,4 @@ env/
 .settings
 env_variables.sh
 project/static
-project/pyha.log
+*pyha.log
