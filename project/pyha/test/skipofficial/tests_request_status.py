@@ -1,14 +1,17 @@
 #coding=utf-8
 from django.test import TestCase, Client
-from django.conf import settings
-from pyha.models import Collection, Request
-from pyha import warehouse
-from django.core import mail
+from pyha.models import Collection, Request, StatusEnum
+from pyha.warehouse import store 
+from pyha.database import update_request_status 
 from pyha.roles import USER
 from pyha.test.mocks import *
 import unittest
+import mock
 
-class RequestStatusTesting(TestCase):
+def dummy(*args,**kwargs):
+	return True
+
+class RequestTesting(TestCase):
 	def setUp(self):
 		self.client = Client() 
 		session = self.client.session
@@ -18,57 +21,98 @@ class RequestStatusTesting(TestCase):
 		session["current_user_role"] = USER
 		session['token'] = 'asd213'
 		session.save()
-		warehouse.store(JSON_MOCK)
-
-	def test_requests_collections_secure_reason_amounts_are_saved(self):
-		warehouse.store(JSON_MOCK6)
-		col1 = Collection.objects.get(address="colcustomsec1")
-		col2 = Collection.objects.get(address="colsecured")
-		self.assertEqual(col1.customSecured, 1)
-		self.assertEqual(col2.customSecured, 2)
-		self.assertEqual(col2.taxonSecured, 3)
-
-	def test_collection_has_correct_secure_reason_amounts(self):
-		warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colcustomsec1")
-		self.assertEqual(col.customSecured, 1)
-		self.assertEqual(col.taxonSecured, 0)
+		store(JSON_MOCK)
 		
-	def test_collection_has_correct_secure_reason_amounts2(self):
-		warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colsecured")
-		self.assertEqual(col.customSecured, 2)
-		self.assertEqual(col.taxonSecured, 3)
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_waiting(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.APPROVED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.WAITING
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING)
+
+
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_approved(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		for c in Collection.objects.filter(request=req.id):
+			c.status = StatusEnum.APPROVED
+			c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
 		
-	def test_collections_can_be_deleted(self):
-		req = warehouse.store(JSON_MOCK6)
-		col = Collection.objects.all().get(address="colsecured")
-		self.assertEqual(col.customSecured, 2)
-		self.assertEqual(col.taxonSecured, 3)
-
-		response = self.client.post('/removeAjax', {'collectionId': col.id, 'requestid':req.id })
-		col = Collection.objects.all().get(address="colsecured")
-
-		self.assertEqual(col.status, -1)
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_approved_with_discard(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.DISCARDED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.APPROVED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
 		
-
-#Haluttiin että poistaa collectionin
-	'''def test_removing_sens_secure_reasons_doesnt_remove_collection(self):
-		req = warehouse.store(JSON_MOCK7)
-		response = self.client.get('/pyha/request/2')
-		self.assertContains(response, 'Talvilintulaskenta')
-		col = Collection.objects.all().get(address="HR.39", request=2)
-		self.client.post('/pyha/removeSens', {'collectionId': col.id, 'requestid':req.id })
-		response = self.client.get('/request/2')
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_partially_approved(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.APPROVED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
 		
-		self.assertContains(response, 'Talvilintulaskenta')'''
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_rejected(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
+		
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_rejected_with_discard(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.DISCARDED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
 
-
-#Nyt pyynnön sivulla näkyy lähtökohtaisesti pelkästään yleisesti salattu data
-'''	def test_requests_collections_are_shown_in_its_page(self):
-		warehouse.store(JSON_MOCK6)
-		response = self.client.get('/request/2')
-		self.assertContains(response, "Pyyntöösi sisältyvät havainnot:")
-		self.assertContains(response, "Talvilintulaskenta")
-		self.assertContains(response, "Hatikka.fi")
-		self.assertContains(response, "Lintujen ja nisäkkäiden ruokintapaikkaseuranta")'''

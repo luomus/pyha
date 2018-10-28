@@ -52,7 +52,7 @@ class EmailTesting (TestCase):
 
 	def test_mail_is_actually_sent_when_request_is_received(self):
 		json_str= JSON_MOCK4
-		self.client.post('/api/request', data= json_str, content_type='application/json', HTTP_AUTHORIZATION='Basic ' + base64.b64encode((settings.HTTPS_USER+':'+settings.HTTPS_PSW).encode()).decode())
+		self.client.post('/api/request', data= json_str, content_type='application/json', HTTP_AUTHORIZATION='Basic ' + base64.b64encode((settings.SECRET_HTTPS_USER+':'+settings.SECRET_HTTPS_PW).encode()).decode())
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
 		self.assertEqual(msg.to, ['test123@321.asdfgh'])
@@ -61,7 +61,7 @@ class EmailTesting (TestCase):
 	def test_mail_is_actually_sent_when_request_status_is_changed(self):
 		req = store(JSON_MOCK6)
 		req.save()
-		wantedRequest = Request.requests.get(id=req.id)
+		wantedRequest = Request.objects.get(id=req.id)
 		requestCollections = Collection.objects.filter(request=req.id)
 		requestCollections[0].status = 4
 		wantedRequest.sensstatus = 2
@@ -78,7 +78,7 @@ class EmailTesting (TestCase):
 	#def test_correct_mail_is_sent_when_request_is_handled(self):
 	#	req = store(JSON_MOCK6)
 	#	req.save()
-	#	wantedRequest = Request.requests.get(id=req.id)
+	#	wantedRequest = Request.objects.get(id=req.id)
 	#	wantedRequest.sensstatus = 4
 	#	wantedRequest.save()
 	#	
@@ -101,7 +101,7 @@ class EmailTesting (TestCase):
 	#	mailsTotal = 1
 	#	
 	#	for j in range(0,2):
-	#		wantedRequest = Request.requests.get(id=req.id)
+	#		wantedRequest = Request.objects.get(id=req.id)
 	#		if j == 0:
 	#			wantedRequest.sensstatus = 0
 	#		elif j == 1:

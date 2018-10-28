@@ -2,11 +2,11 @@
 from datetime import timedelta, datetime
 from itertools import chain
 import json
-
+from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
+from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum
 from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL, HANDLER_BOTH, USER
 from pyha.utilities import filterlink
@@ -18,9 +18,11 @@ def remove_sensitive_data(request):
 	if request.method == 'POST':
 		if not logged_in(request):
 			return _process_auth_response(request, "pyha")
+		requestId = request.POST.get('requestid')
+		if not is_request_owner(request, requestId):
+			return HttpResponseRedirect(reverse('pyha:root'))
 		nextRedirect = request.POST.get('next', '/')
 		collectionId = request.POST.get('collectionId')
-		requestId = request.POST.get('requestid')
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0
 		collection.save(update_fields=['taxonSecured'])
@@ -29,25 +31,27 @@ def remove_sensitive_data(request):
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
-	return HttpResponseRedirect('/pyha/')
+	return HttpResponseRedirect(reverse('pyha:root'))
 
 #removes custom sightings
 def remove_custom_data(request):
 	if request.method == 'POST':
 		if not logged_in(request):
 			return _process_auth_response(request, "pyha")
+		requestId = request.POST.get('requestid')
+		if not is_request_owner(request, requestId):
+			return HttpResponseRedirect(reverse('pyha:root'))
 		nextRedirect = request.POST.get('next', '/')
 		collectionId = request.POST.get('collectionId')
-		requestId = request.POST.get('requestid')
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0
 		collection.save(update_fields=['customSecured'])
 		if(collection.taxonSecured == 0) and (collection.status != -1):
-			collection.status = -1
+			collection.status = StatusEnum.DISCARDED
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
-	return HttpResponseRedirect('/pyha/')
+	return HttpResponseRedirect(reverse('pyha:root'))
 
 
 def removeCollection(request):
@@ -55,18 +59,18 @@ def removeCollection(request):
 		if not logged_in(request):
 			return _process_auth_response(request, "pyha")
 		requestId = request.POST.get('requestid', '?')
-		if not is_allowed_to_view(request, requestId):
-			return HttpResponseRedirect('/pyha/')
+		if not is_request_owner(request, requestId):
+			return HttpResponseRedirect(reverse('pyha:root'))
+		nextRedirect = request.POST.get('next', '/')
 		collectionId = request.POST.get('collectionid')
-		redirect_path = request.POST.get('next')
 		collection = Collection.objects.get(address = collectionId, request = requestId)
 		#avoid work when submitted multiple times
 		if(collection.status != -1):
 			collection.status = -1
 			collection.save(update_fields=['status'])
 			check_all_collections_removed(requestId)
-		return HttpResponseRedirect(redirect_path)
-	return HttpResponseRedirect("/pyha/")
+		return HttpResponseRedirect(nextRedirect)
+	return HttpResponseRedirect(reverse('pyha:root'))
 
 def create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2):
 	hasCollection = False
@@ -99,7 +103,7 @@ def get_all_secured(request, userRequest):
 
 #check if all collections have status -1. If so set status of request to -1.
 def check_all_collections_removed(requestId):
-	userRequest = Request.requests.get(id = requestId)
+	userRequest = Request.objects.get(id = requestId)
 	collectionList = userRequest.collection_set.filter(status__gte=0)
 	if not collectionList:
 		userRequest.status = -1
@@ -143,18 +147,12 @@ def target_valid(target, requestId):
 	elif Collection.objects.filter(request=requestId, address=target).exists():
 		return True
 	return False
-
-def update_request_status(userRequest, lang):
-	if userRequest.sensstatus == 99:
-		ignore_official_database_update_request_status(userRequest, lang) 
-	else: 
-		database_update_request_status(userRequest, lang)
 		
 def count_unhandled_requests(userId):
 	role = fetch_role(userId)
 	unhandled = set()
 	if(settings.TUN_URL+HANDLER_SENS in role):
-		request_list = Request.requests.exclude(status__lte=0).filter(sensstatus = StatusEnum.WAITING)
+		request_list = Request.objects.exclude(status__lte=0).filter(sensstatus = StatusEnum.WAITING)
 		for r in request_list:
 			if (r.status == StatusEnum.WAITING):
 				#if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
@@ -167,7 +165,7 @@ def count_unhandled_requests(userId):
 						questioning = True
 				if not questioning:
 					unhandled.add(r)
-	q = Request.requests.exclude(status__lte=0)
+	q = Request.objects.exclude(status__lte=0)
 	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensstatus=StatusEnum.IGNORE_OFFICIAL)
 	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensstatus=StatusEnum.IGNORE_OFFICIAL)
 	request_list = chain(c0, c1)
@@ -187,22 +185,14 @@ def count_unhandled_requests(userId):
 				unhandled.add(r)
 	return len(unhandled)
 
-def database_update_request_status(wantedRequest, lang):
-	#for both sensstatus and collection status
-	#status 0: Ei sensitiivistä tietoa
-	#status 1: Odottaa aineiston toimittajan käsittelyä
-	#status 2: Osittain hyväksytty
-	#status 3: Hylätty
-	#status 4: Hyväksytty
-	#status 5: Tuntematon
-	#status 6: Odottaa vastausta lisäkysymyksiin
-	#status 7: Odottaa latauksen valmistumista
-	#status 8: Ladattava
-	
-	#for sensstatus
-	#status 99: Ohitettu
+def update_request_status(userRequest, lang):
+	if userRequest.sensstatus == 99:
+		ignore_official_database_update_request_status(userRequest, lang) 
+	else: 
+		database_update_request_status(userRequest, lang)
 
-	#tmp variable for checking if status changed
+def database_update_request_status(wantedRequest, lang):
+
 	statusBeforeUpdate = wantedRequest.status
 	requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
 	taxon = False
@@ -293,17 +283,7 @@ def database_update_request_status(wantedRequest, lang):
 	
 	
 def ignore_official_database_update_request_status(wantedRequest, lang):
-	#for collection status
-	#status 0: Ei sensitiivistä tietoa
-	#status 1: Odottaa aineiston toimittajan käsittelyä
-	#status 2: Osittain hyväksytty
-	#status 3: Hylätty
-	#status 4: Hyväksytty
-	#status 6: Odottaa vastausta lisäkysymyksiin
-	#status 7: Odottaa latauksen valmistumista
-	#status 8: Ladattava
 
-	#tmp variable for checking if status changed
 	statusBeforeUpdate = wantedRequest.status
 	requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
 	accepted = 0
@@ -370,9 +350,6 @@ def handler_information_answered_status(r, request, userId):
 					break
 	return
 
-def testing():
-	return settings.TESTING
-
 def create_request_view_context(requestId, request, userRequest):
 	taxonList = []
 	customList = []
@@ -414,7 +391,7 @@ def create_request_view_context(requestId, request, userRequest):
 	if userRequest.status == 8:
 		context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
 		context["downloadable"] = datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60)
-	if userRequest.status == 0 and Request.requests.filter(user=userId,status__gte=1).count() > 0:
+	if userRequest.status == 0 and Request.objects.filter(user=userId,status__gte=1).count() > 0:
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
 		context["requestChat_list"] = requestChat(request, requestId)

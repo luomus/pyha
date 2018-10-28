@@ -7,7 +7,7 @@ def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)
 	return type(str('Enum'), (), enums)
 
-StatusEnum = enum(NO_SENSITIVE_DATA=0, WAITING=1, PARTIALLY_APPROVED=2, REJECTED=3, APPROVED=4, UNKNOWN=5, WAITING_FOR_INFORMATION=6, WAITING_FOR_DOWNLOAD=7, DOWNLOADABLE=8, IGNORE_OFFICIAL=99)
+StatusEnum = enum(DISCARDED=-1, NO_SENSITIVE_DATA=0, WAITING=1, PARTIALLY_APPROVED=2, REJECTED=3, APPROVED=4, UNKNOWN=5, WAITING_FOR_INFORMATION=6, WAITING_FOR_DOWNLOAD=7, DOWNLOADABLE=8, IGNORE_OFFICIAL=99)
 
 
 @python_2_unicode_compatible
@@ -83,7 +83,6 @@ class Request(models.Model):
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
 	lang = models.CharField(max_length=10, default='fi') 
-	requests = models.Manager()
 
 	def __str__(self):
 		return self.id

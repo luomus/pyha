@@ -15,7 +15,7 @@ def get_request_header_ajax(request):
         requestId = request.POST.get('requestid')
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
-        userRequest = Request.requests.get(id=requestId)
+        userRequest = Request.objects.get(id=requestId)
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/requestheader.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
@@ -27,7 +27,7 @@ def change_description_ajax(request):
         requestId = request.POST.get('requestid')
         if not is_request_owner(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
-        userRequest = Request.requests.get(id = requestId)
+        userRequest = Request.objects.get(id = requestId)
         userRequest.description = request.POST.get('description')
         userRequest.save(update_fields=['description'])
         return HttpResponse(status=200)
@@ -42,7 +42,7 @@ def get_taxon_ajax(request):
         requestId = request.POST.get('requestid')
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
-        userRequest = Request.requests.get(id=requestId)
+        userRequest = Request.objects.get(id=requestId)
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/requestformtaxon.html', context)
     return HttpResponse("/pyha/", status=310)
@@ -54,7 +54,7 @@ def get_custom_ajax(request):
         if not logged_in(request):
             return HttpResponseRedirect(reverse('pyha:index'))
         requestId = request.POST.get('requestid')
-        userRequest = Request.requests.get(id=requestId)        
+        userRequest = Request.objects.get(id=requestId)        
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
         context = create_request_view_context(requestId, request, userRequest)
@@ -70,7 +70,7 @@ def get_collection_ajax(request):
         requestId = request.POST.get('requestid') 
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
-        userRequest = Request.requests.get(id=requestId)   
+        userRequest = Request.objects.get(id=requestId)   
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/skipofficial/requestformcollection.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
@@ -84,7 +84,7 @@ def get_summary_ajax(request):
         requestId = request.POST.get('requestid') 
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
-        userRequest = Request.requests.get(id=requestId)   
+        userRequest = Request.objects.get(id=requestId)   
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/requestformsummary.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
@@ -98,7 +98,7 @@ def create_contact_ajax(request):
         requestId = request.POST.get('requestid') 
         if not is_request_owner(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
-        userRequest = Request.requests.get(id=requestId)   
+        userRequest = Request.objects.get(id=requestId)   
         context = create_request_view_context(requestId, request, userRequest)
         context["contact_id"] = request.POST.get('id')
         return render(request, 'pyha/requestformcontact.xml', context)

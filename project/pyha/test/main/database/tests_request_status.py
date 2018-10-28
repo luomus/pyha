@@ -1,12 +1,15 @@
 #coding=utf-8
 from django.test import TestCase, Client
-from django.conf import settings
-from pyha.models import Collection, Request
+from pyha.models import Collection, Request, StatusEnum
 from pyha.warehouse import store 
-from pyha.database import update_request_status, testing 
+from pyha.database import update_request_status 
 from pyha.roles import USER
 from pyha.test.mocks import *
 import unittest
+import mock
+
+def dummy(*args,**kwargs):
+	return True
 
 class RequestTesting(TestCase):
 	def setUp(self):
@@ -19,23 +22,99 @@ class RequestTesting(TestCase):
 		session['token'] = 'asd213'
 		session.save()
 		store(JSON_MOCK)
-
-	def test_requests(self):
+		
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_waiting(self):
 		req = store(JSON_MOCK6)
-		req.status = 1
-		req.sensstatus = 1
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.APPROVED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.WAITING
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING)
+
+
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_approved(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		for c in Collection.objects.filter(request=req.id):
-			c.status = 2
+			c.status = StatusEnum.APPROVED
 			c.save()
-		requestCollections = Collection.objects.filter(request=req.id)
-		print(requestCollections[0].status)
 		update_request_status(req, "fi")
-		print(Request.requests.get(id=req.id).status)
-		print(testing())
-		settings.TESTING = True
-		print(testing())
-		self.assertTrue(True)
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
+		
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_approved_with_discard(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.DISCARDED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.APPROVED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
+		
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_partially_approved(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.APPROVED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
+		
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_rejected(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
+		
+	@mock.patch('pyha.warehouse.requests.post', dummy)
+	def test_requests_skip_offi_rejected_with_discard(self):
+		req = store(JSON_MOCK6)
+		req.status = StatusEnum.WAITING
+		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.save()
+		requestCollections = Collection.objects.filter(request=req.id)
+		c = requestCollections[0]
+		c.status = StatusEnum.DISCARDED
+		c.save()
+		c = requestCollections[1]
+		c.status = StatusEnum.REJECTED
+		c.save()
+		update_request_status(req, "fi")
+		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
 
 
 		

@@ -20,6 +20,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		APILAJIFI_URL 0 \
 		APILAJIFI_TOKEN 0 \
 		LAJI_AUTH_TARGET 0 \
+		ZABBIX_STATUS_SUB_DIR "Path to subdirectory used by zabbix" \
 		PYHA_API_USER 0 \
 		PYHA_API_PASSWORD 0 \
 		OBSERVATION_LINK_PREFIX 0 \

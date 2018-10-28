@@ -17,7 +17,7 @@ def send_mail_after_receiving_request(requestId, lang):
 	:param requestId: request identifier
 	:param lang: language code
 	'''	
-	req = Request.requests.get(id=requestId)	
+	req = Request.objects.get(id=requestId)	
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	context = {'req': req, 'time': time, 'req_link': req_link}
@@ -55,7 +55,7 @@ def send_mail_after_receiving_download(requestId, lang):
 	:param requestId: request identifier
 	:param lang: language code
 	'''	
-	req = Request.requests.get(id=requestId)
+	req = Request.objects.get(id=requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	context = {'req': req, 'time': time, 'req_link': req_link}
@@ -93,7 +93,7 @@ def send_mail_for_approval(requestId, collection, lang):
 	:param collection: collection address
 	:param lang: language code
 	'''	
-	req = Request.requests.get(id = requestId)
+	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	reqCollection = Collection.objects.get(address = collection, request = requestId)
@@ -130,7 +130,7 @@ def send_mail_for_approval_sens(requestId, lang):
 	'''	
 	username = settings.LAJIPERSONAPI_USER
 	password = settings.LAJIPERSONAPI_PW 
-	req = Request.requests.get(id = requestId)
+	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)	
 	context = {'req': req, 'time': time, 'req_link': req_link}
@@ -160,7 +160,7 @@ def send_mail_after_request_status_change_to_requester(requestId, lang):
 	:param requestId: request identifier 
 	:param lang: language code
 	'''	
-	req = Request.requests.get(id = requestId)
+	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	context = {'req': req, 'time': time, 'req_link': req_link}
@@ -185,7 +185,7 @@ def send_mail_after_request_has_been_handled_to_requester(requestId, lang):
 	:param requestId: request identifier 
 	:param lang: language code
 	'''	
-	req = Request.requests.get(id = requestId)
+	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	context = {'req': req, 'time': time, 'req_link': req_link}
@@ -206,7 +206,7 @@ def send_mail_after_request_has_been_handled_to_requester(requestId, lang):
 	
 def send_mail_after_additional_information_requested(requestId, lang):
 
-	req = Request.requests.get(id = requestId)
+	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
 	context = {'req': req, 'time': time, 'req_link': req_link}

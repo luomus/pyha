@@ -76,7 +76,7 @@ def approve(request):
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
         lang = 'fi' #ainakin toistaiseksi
-        userRequest = Request.requests.get(id = requestId)
+        userRequest = Request.objects.get(id = requestId)
         if userRequest.sensstatus == 99:
             approve_skip_official(request, userRequest, requestId, lang)
         else:
@@ -105,8 +105,8 @@ def approve(request):
                             c.status = -1
                             c.save(update_fields=['status'])
                     #postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
-                    if(c.customSecured > 0):
-                        send_mail_for_approval(requestId, c, lang)
+                    #if(c.customSecured > 0):
+                    #    send_mail_for_approval(requestId, c, lang)
     
                 for count in range(2, count_contacts(request.POST)+1):
                     create_new_contact(request, userRequest, count)
@@ -129,8 +129,8 @@ def approve(request):
                 userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
                 userRequest.save()
                 update_contact_preset(request, userRequest)
-                if userRequest.sensstatus == 1 and taxon:
-                    send_mail_for_approval_sens(requestId, lang)
+                #if userRequest.sensstatus == 1 and taxon:
+                    #send_mail_for_approval_sens(requestId, lang)
                 #make a log entry
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
             else:

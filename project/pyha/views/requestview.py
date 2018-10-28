@@ -22,8 +22,8 @@ def show_request(request):
     if not logged_in(request):
         return _process_auth_response(request, "request/"+requestId)
     if not is_allowed_to_view(request, requestId):
-        return HttpResponseRedirect(reverse('pyha:pyha'))
-    userRequest = Request.requests.get(id=requestId)
+        return HttpResponseRedirect(reverse('pyha:root'))
+    userRequest = Request.objects.get(id=requestId)
     #make a log entry
     userId = request.session["user_id"]
     if userRequest.user != userId:
@@ -51,7 +51,7 @@ def comment_sensitive(request):
         message = request.POST.get('commentsForAuthorities')
         if HANDLER_SENS in request.session["user_roles"]:
             newChatEntry = RequestChatEntry()
-            newChatEntry.request = Request.requests.get(id=requestId)
+            newChatEntry.request = Request.objects.get(id=requestId)
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.message = message
@@ -65,8 +65,8 @@ def initialize_download(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:pyha'))
-        userRequest = Request.requests.get(id=requestId)
+            return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id=requestId)
         if (userRequest.status == 4 or userRequest.status == 2 or userRequest.sensstatus == 4 or userRequest.sensstatus == 99):
             send_download_request(requestId)
             userRequest.status = 7
@@ -80,12 +80,12 @@ def change_description(request):
         nexturl = request.POST.get('next', '/')
         requestId = request.POST.get('requestid')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:pyha'))
-        userRequest = Request.requests.get(id = requestId)
+            return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id = requestId)
         userRequest.description = request.POST.get('description')
         userRequest.save(update_fields=['description'])
         return HttpResponseRedirect(nexturl)
-    return HttpResponseRedirect(reverse('pyha:pyha'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 def answer(request):
     nexturl = request.POST.get('next', '/')
@@ -95,14 +95,14 @@ def answer(request):
         requestId = request.POST.get('requestid', '?')
         target = request.POST.get('target', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:pyha'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = request.POST.get('collectionid')
-        userRequest = Request.requests.get(id = requestId)
+        userRequest = Request.objects.get(id = requestId)
         if(int(request.POST.get('answer')) == 2):
             if not is_allowed_to_ask_information_as_target(request, target, requestId):
-                return HttpResponseRedirect(reverse('pyha:pyha'))
+                return HttpResponseRedirect(reverse('pyha:root'))
             newChatEntry = RequestInformationChatEntry()
-            newChatEntry.request = Request.requests.get(id=requestId)
+            newChatEntry.request = Request.objects.get(id=requestId)
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.question = True
@@ -119,11 +119,11 @@ def answer(request):
                 if (int(request.POST.get('answer')) == 1):
                     collection.status = StatusEnum.APPROVED
                     #make a log entry
-                    RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action= RequestLogEntry.DECISION_POSITIVE)
+                    RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action= RequestLogEntry.DECISION_POSITIVE)
                 else:
                     collection.status = StatusEnum.REJECTED
                     #make a log entry
-                    RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId),collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action = RequestLogEntry.DECISION_NEGATIVE)
+                    RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId),collection = collection, user = request.session["user_id"], role = HANDLER_COLL, action = RequestLogEntry.DECISION_NEGATIVE)
                 collection.decisionExplanation = request.POST.get('reason')
                 collection.save()
                 update_request_status(userRequest, request.LANGUAGE_CODE)
@@ -134,13 +134,13 @@ def answer(request):
                 for co in collections:
                     co.status =  StatusEnum.APPROVED
                 #make a log entry
-                RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
+                RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
             else:
                 userRequest.sensstatus = StatusEnum.REJECTED
                 for co in collections:
                     co.status =  StatusEnum.REJECTED
                 #make a log entry
-                RequestLogEntry.requestLog.create(request = Request.requests.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
+                RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
             userRequest.sensDecisionExplanation = request.POST.get('reason')
             userRequest.save()
             update_request_status(userRequest, request.LANGUAGE_CODE)
@@ -158,8 +158,8 @@ def information(request):
             return HttpResponseRedirect('/pyha/')
         if(int(request.POST.get('information')) == 2):
             if not target_valid(target, requestId):
-                return HttpResponseRedirect(reverse('pyha:pyha'))
-            userRequest = Request.requests.get(id = requestId)
+                return HttpResponseRedirect(reverse('pyha:root'))
+            userRequest = Request.objects.get(id = requestId)
             newChatEntry = RequestInformationChatEntry()
             newChatEntry.request = userRequest
             newChatEntry.date = datetime.now()

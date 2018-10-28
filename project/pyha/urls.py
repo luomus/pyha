@@ -1,6 +1,7 @@
 from django.conf.urls import url
-
+from django.conf import settings
 from pyha.views import api, index, requestform, requestview, logout, ajax
+import re
 
 app_name = 'pyha'
 urlpatterns = [
@@ -17,7 +18,7 @@ urlpatterns = [
     url(r'^ajax/getDescription/?$', ajax.get_request_header_ajax, name='get_request_header_ajax'),
     url(r'^ajax/setDescription/?$', ajax.change_description_ajax, name='description_ajax'),    
     url(r'^approve/?$', requestform.approve, name='approve'),
-    url(r'^request/[1-9][0-9]*/?$', requestview.show_request),
+    url(r'^request/[1-9][0-9]*/?$', requestview.show_request, name='show_request'),
     url(r'^description/?$', requestview.change_description, name='change_description'),
     url(r'^answer/?$', requestview.answer, name='answer'),	
     url(r'^information/?$', requestview.information, name='information'),
@@ -27,5 +28,6 @@ urlpatterns = [
     url(r'^api/request/?$', api.receiver, name='receiver'),
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
     url(r'^api/newcount/?$', api.new_count, name='new_count'),
+    url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
     url(r'^role/?$', logout.change_role, name='change_role')
 ]

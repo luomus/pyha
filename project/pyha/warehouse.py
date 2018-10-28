@@ -15,7 +15,7 @@ def store(jsond):
 	if not checkJson(jsond):
 		return
 	data = json.loads(jsond, object_hook=lambda d: Namespace(**d))
-	if Request.requests.filter(lajiId=os.path.basename(str(data.id))).exists():
+	if Request.objects.filter(lajiId=os.path.basename(str(data.id))).exists():
 		return
 	status = getattr(data,'status', 0)
 	time = datetime.now()
@@ -50,7 +50,7 @@ def makeCollection(req, i):
 	co.count = getattr(i, 'count', 0)
 	co.status = 0
 	co.request = req
-	co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN).json().get('downloadRequestHandler',['none']))
+	co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler',['none']))
 	co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
 	co.customSecured = getattr(i, 'customReasonCount', 0)
 	co.save()
@@ -72,7 +72,7 @@ def makeblob(x):
 def get_values_for_collections(requestId, request, List):
 	for i, c in enumerate(List):
 		if 'has expired' in cache.get(str(c)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
-			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN).json()
+			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
 			cache.set(str(c)+'collection_values'+request.LANGUAGE_CODE, c.result)
 			c.result["collectionName"] = c.result.get("collectionName",c.address)
 			c.result["description"] = c.result.get("description","-")
@@ -83,7 +83,7 @@ def get_values_for_collections(requestId, request, List):
 
 def get_result_for_target(request, l):
 	if 'has expired' in cache.get(str(l.target)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
-		l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN).json()
+		l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
 		cache.set(str(l.target)+'collection_values'+request.LANGUAGE_CODE, l.result)
 		l.result["collectionName"] = l.result.get("collectionName",l.target)
 	else:
@@ -100,7 +100,7 @@ def fetch_user_name(personId):
 	username = settings.LAJIPERSONAPI_USER
 	password = settings.LAJIPERSONAPI_PW 
 	if 'has expired' in cache.get('name'+personId, 'has expired'):
-		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
+		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
 		if(response.status_code == 200):
 			data = response.json()
 			name = data['rdf:RDF']['MA.person']['MA.fullName']
@@ -116,7 +116,7 @@ def fetch_role(personId):
 	username = settings.LAJIPERSONAPI_USER
 	password = settings.LAJIPERSONAPI_PW 
 	if 'has expired' in cache.get('role'+personId, 'has expired'):
-		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
+		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
 		if(response.status_code == 200):
 			data = response.json()
 			role = data['rdf:RDF']['MA.person'].get('MA.role', {'role':'none'})
@@ -131,7 +131,7 @@ def fetch_pdf(data,style):
 	if(style):
 		data = "<div style='"+ style +"'>" + data +  "</div>"
 	payload = {'html': data}
-	response = requests.post(settings.PDFAPI_URL, data = payload, auth=HTTPBasicAuth(username, password ))
+	response = requests.post(settings.PDFAPI_URL, data = payload, auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
 	if(response.status_code == 200):
 		return response
 	
@@ -144,7 +144,7 @@ def fetch_email_address(personId):
 	username = settings.LAJIPERSONAPI_USER
 	password = settings.LAJIPERSONAPI_PW 
 	if 'has expired' in cache.get('email'+personId, 'has expired'):
-		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ))
+		response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
 		if(response.status_code == 200):
 			data = response.json()
 			email = data['rdf:RDF']['MA.person']['MA.emailAddress']
@@ -171,7 +171,7 @@ def create_coordinates(userRequest):
 	
 def send_download_request(requestId):
 	payload = {}
-	userRequest = Request.requests.get(id=requestId)
+	userRequest = Request.objects.get(id=requestId)
 	payload["id"] = userRequest.lajiId
 	payload["personId"] = userRequest.user
 	collectionlist = Collection.objects.filter(request=userRequest).exclude(status=StatusEnum.APPROVED)
@@ -188,7 +188,7 @@ def send_download_request(requestId):
 	filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 	for f in filters.__dict__:
 		payload[f] = getattr(filters, f)
-	response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload)
+	response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
 
 def handlers_cannot_be_updated():
 	return not update_collection_handlers()
@@ -209,7 +209,7 @@ def update_collections():
 		notFinished = True
 		result = []
 		while notFinished:
-			response = requests.get(settings.LAJIAPI_URL+"collections", params=payload)
+			response = requests.get(settings.LAJIAPI_URL+"collections", params=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
 			if(response.status_code == 200):
 				data = response.json()
 			else:
@@ -267,7 +267,7 @@ def show_filters(request, userRequest):
 	filterResultList = list(range(len(vars(filterList).keys())))
 	lang = request.LANGUAGE_CODE
 	if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):
-		filters = requests.get(settings.LAJIFILTERS_URL)
+		filters = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
 		if(filters.status_code == 200):
 			filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
 			for i, b in enumerate(vars(filterList).keys()):
@@ -290,7 +290,7 @@ def show_filters(request, userRequest):
 						resource = getattr(filterfield, "resource")
 						for k, a in enumerate(getattr(filterList, b)):
 							if resource.startswith("metadata"):
-								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
+								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
 								filtername = str(a)
 								for ii in filterfield2.json():
 									if (str(a) == ii['id']):
@@ -298,9 +298,9 @@ def show_filters(request, userRequest):
 										break
 							else:
 								if(lang == 'sw'):
-									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+settings.LAJIAPI_TOKEN)
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
 								else:
-									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN)
+									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
 								filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
 								filtername = getattr(filternameobject, "name", str(a))
 							filternamelist[k]= filtername

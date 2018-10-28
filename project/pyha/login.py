@@ -19,7 +19,7 @@ def _get_authentication_info(token):
     :return: Authentication info content.                      
     '''
     url = settings.LAJIAUTH_URL + "token/" + token
-    response = requests.get(url)
+    response = requests.get(url, timeout=settings.SECRET_TIMEOUT_PERIOD)
     if response.status_code != 200:
         return None
     else:
@@ -120,13 +120,13 @@ def is_allowed_to_view(request, requestId):
 
 def is_request_owner(request, requestId):
     userId = request.session["user_id"]
-    return Request.requests.filter(id=requestId, user=userId, status__gte=0).exists()
+    return Request.objects.filter(id=requestId, user=userId, status__gte=0).exists()
 
 def allowed_to_view(request, requestId, userId, role1, role2):
     if HANDLER_ANY in request.session.get("current_user_role", [None]):
-        if not Request.requests.filter(id=requestId, status__gt=0).exists():
+        if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
-        currentRequest = Request.requests.get(id=requestId, status__gt=0)
+        currentRequest = Request.objects.get(id=requestId, status__gt=0)
         if role2 and not role1:            
             if(currentRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
                 if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
@@ -136,7 +136,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
                 if not Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                     return False
     else:
-        if not Request.requests.filter(id=requestId, user=userId, status__gte=0).exists():
+        if not Request.objects.filter(id=requestId, user=userId, status__gte=0).exists():
             return False
     return True
     

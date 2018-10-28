@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.test import TestCase, Client
 from django.conf import settings
+from django.urls import reverse
 from pyha.models import Collection, Request
 from pyha.warehouse import store
 from django.core import mail
@@ -46,7 +47,7 @@ class CollectionTesting(TestCase):
 		self.assertEqual(col.customSecured, 2)
 		self.assertEqual(col.taxonSecured, 3)
 
-		response = self.client.post('/removeAjax', {'collectionId': col.id, 'requestid':req.id })
+		response = self.client.post(reverse('pyha:remove_collection_ajax'), {'collectionId': col.id, 'requestid':req.id })
 		col = Collection.objects.all().get(address="colsecured")
 
 		self.assertEqual(col.status, -1)

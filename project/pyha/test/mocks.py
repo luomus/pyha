@@ -330,3 +330,121 @@ JSON_MOCK7= '''
 	]
 	}
   '''
+
+#Custom col only pyyntö.
+JSON_MOCK8 = '''
+{
+	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
+	"source": "KE.398",
+	"email": "ex.apmle@example.com",
+	"personId":"MA.309",
+	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
+	],
+	"filters": [
+		{
+			"target": [
+				"linnut",
+				"nisäkkäät"
+			]
+		},
+		{
+			"time": [
+				"2000/"
+			]
+		}
+	],
+	"collections": [
+		{
+			"id": "HR.39",
+			"customReasonCount": 1031
+		},
+		{
+			"id": "HR.447",
+			"customReasonCount": 904
+		},
+		{
+			"id": "HR.60",
+			"customReasonCount": 14
+		}
+	]
+}'''
+
+JSON_MOCK9 = '''
+{
+	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
+	"source": "KE.398",
+	"email": "ex.apmle@example.com",
+	"personId":"MA.309",
+	"approximateMatches": 1742,
+	"downloadFormat": "CSV_FLAT",
+	"downloadIncludes": [
+	  "DOCUMENT_FACTS",
+	  "GATHERING_FACTS",
+	  "UNIT_FACTS"
+	],
+	"filters": [
+		{
+			"target": [
+				"linnut",
+				"nisäkkäät"
+			]
+		},
+		{
+			"time": [
+				"2000/"
+			]
+		}
+	],
+	"collections": [
+		{
+			"id": "HR.1",
+			"customReasonCount": 1031
+		},
+		{
+			"id": "HR.2",
+			"customReasonCount": 904
+		},
+		{
+			"id": "HR.3",
+			"customReasonCount": 14
+		},
+		{
+			"id": "HR.4",
+			"conservationReasonCount": 1031,
+			"customReasonCount": 1031
+		},
+		{
+			"id": "HR.5",
+			"conservationReasonCount": 904,
+			"customReasonCount": 904
+		},
+		{
+			"id": "HR.6",
+			"conservationReasonCount": 14,
+			"customReasonCount": 14
+		},
+		{
+			"id": "HR.7",
+			"customReasonCount": 904
+		},
+		{
+			"id": "HR.8",
+			"customReasonCount": 14
+		},
+		{
+			"id": "HR.9",
+			"conservationReasonCount": 1031,
+			"customReasonCount": 1031
+		},
+		{
+			"id": "HR.10",
+			"conservationReasonCount": 904,
+			"customReasonCount": 904
+		},
+	]
+}'''
