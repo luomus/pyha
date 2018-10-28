@@ -129,16 +129,10 @@
   <!-- Bootstrap JS local fallback -->
   <script>if(typeof($.fn.modal) === 'undefined') {document.write('<script src="{{ static }}pyha/bootstrap-3.3.7/js/bootstrap.min.js"><\/script>')}</script>
   
-  <!-- jQuery datatables -->
-  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <!-- jQuery-datatables local fallback -->
-  <script>window.jQuery.DataTable || document.write('<script src="{{ static }}pyha/jquery-dataTables/jquery.dataTables.min.js"><\/script>')</script>
-
-
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+  <script src="{{ static }}pyha/jquery-dataTables/jquery.dataTables.min.js"></script>
+  <script src="{{ static }}pyha/bootstrap-dataTables/dataTables.bootstrap.min.js"></script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
   <script src="{{ static }}pyha/js/datetime.js"></script> 
-  <!-- <script src="{{ static }}pyha/boostrap-dataTables/dataTables.bootstrap.min.js"></script> -->
   <script type="text/javascript" src="{{ static }}pyha/js/bootstrap-multiselect.js"></script>
   <link rel="stylesheet" href="{{ static }}pyha/css/bootstrap-multiselect.css" type="text/css"/>
   <script src="{{ static }}pyha/tabs/tabs.js"></script>
