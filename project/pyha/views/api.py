@@ -58,12 +58,23 @@ def new_pdf(request):
 @csrf_exempt
 def status(request):
     if request.method == 'GET':
-        requests.get(settings.LAJIAPI_URL+"collections?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
-        requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(settings.LAJIPERSONAPI_USER, settings.LAJIPERSONAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
-        requests.post(settings.PDFAPI_URL, data = {''}, auth=HTTPBasicAuth(settings.PDFAPI_USER, settings.PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
-        requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
-        return HttpResponse(200)
-    return HttpResponse(503)
+        try:
+            response = requests.get(settings.LAJIAPI_URL+"collections?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
+            if not response.status_code == 200:
+                return HttpResponse(status=504)
+            response = requests.get(settings.LAJIPERSONAPI_URL+"search?objectresource=pyharesponsestatustestping", auth=HTTPBasicAuth(settings.LAJIPERSONAPI_USER, settings.LAJIPERSONAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
+            if not response.status_code == 200:
+                return HttpResponse(status=504)
+            response = requests.post(settings.PDFAPI_URL, data = {'html': "<div>pyha test</div>"}, auth=HTTPBasicAuth(settings.PDFAPI_USER, settings.PDFAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
+            if not response.status_code == 200:
+                return HttpResponse(status=504)
+            response = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
+            if not response.status_code == 200:
+                return HttpResponse(status=504)
+        except:
+            return HttpResponse(status=504)
+        return HttpResponse(status=200)
+    return HttpResponse(status=405)
 
 def jsonmock(request):
     return render(request, 'pyha/mockjson.html')

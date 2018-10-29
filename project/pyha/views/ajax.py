@@ -45,7 +45,7 @@ def get_taxon_ajax(request):
         userRequest = Request.objects.get(id=requestId)
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/requestformtaxon.html', context)
-    return HttpResponse("/pyha/", status=310)
+    return HttpResponse(reverse('pyha:index'), status=310)
     
 def get_custom_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
@@ -120,5 +120,4 @@ def remove_collection_ajax(request):
             collection.save(update_fields=['status'])
             if(check_all_collections_removed(requestId)):
                 return HttpResponse(reverse('pyha:index'), status=310)
-        reverse('pyha:index')
-    return HttpResponse("")
+    return HttpResponseRedirect(reverse('pyha:index'))
