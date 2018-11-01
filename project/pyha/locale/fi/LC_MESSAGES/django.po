@@ -1799,7 +1799,7 @@ msgstr ""
 
 #: views/requestform.py:137 views/requestform.py:173
 msgid "toast_thanks_request_has_been_registered"
-msgstr ""
+msgstr "Kiitos, pyyntösi on kirjattu."
 
 #~ msgid "description"
 #~ msgstr "Kuvaus"
