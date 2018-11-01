@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-24 17:43+0300\n"
+"POT-Creation-Date: 2018-11-01 02:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,22 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/pyha/base.html:44 templates/pyha/document.html:8
+#: templates/pyha/base.html:46 templates/pyha/document.html:8
 msgid "Toggle_navigation"
 msgstr "Toggle navigation"
 
-#: templates/pyha/base.html:54 templates/pyha/document.html:18
+#: templates/pyha/base.html:56 templates/pyha/document.html:18
 msgid "all_requests"
 msgstr "Requests"
 
-#: templates/pyha/base.html:65 templates/pyha/base.html.py:69
+#: templates/pyha/base.html:67 templates/pyha/base.html.py:70
 #: templates/pyha/document.html:30 templates/pyha/document.html.py:34
 #: templates/pyha/requestview.html:609
 #: templates/pyha/skipofficial/requestview.html:527
 msgid "admin"
 msgstr "Requesthandler"
 
-#: templates/pyha/base.html:65 templates/pyha/base.html.py:68
+#: templates/pyha/base.html:67 templates/pyha/base.html.py:69
 #: templates/pyha/document.html:30 templates/pyha/document.html.py:33
 #: templates/pyha/requestview.html:619
 #: templates/pyha/skipofficial/requestview.html:537
@@ -1775,6 +1775,10 @@ msgstr "Collection terms"
 #: templates/pyha/skipofficial/requestview_handler.html:340
 msgid "handler_sensitive_and_other_terms"
 msgstr "Terms for sensitivity and other data"
+
+#: views/requestform.py:137 views/requestform.py:173
+msgid "toast_thanks_request_has_been_registered"
+msgstr ""
 
 #~ msgid "description"
 #~ msgstr "Description"
