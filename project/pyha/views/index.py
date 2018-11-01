@@ -1,5 +1,6 @@
 ﻿from functools import reduce
 
+from django.utils.translation import ugettext
 from django.conf import settings
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
@@ -48,17 +49,20 @@ def index(request):
 			handler_information_answered_status(r, request, userId)
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0 or not r.status == StatusEnum.WAITING):
 				r.viewed = True
-		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		context = {"role": hasRole, "message": request.session.get("message", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		if(request.session.get("message", None) is not None):
+			request.session["message"] = None
+			request.session.save()
 		return render(request, 'pyha/handler/index.html', context)
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
 		#for r in request_list:
 		#	r.allSecured = get_all_secured(request, r)
-		context = {"role": hasRole, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		context = {"role": hasRole, "message": request.session.get("message", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		if(request.session.get("message", None) is not None): 
+			request.session["message"] = None
+			request.session.save()
 		return render(request, 'pyha/index.html', context)
-
-
-
 
 
 

@@ -1,5 +1,6 @@
 import json
 
+from django.utils.translation import ugettext
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -68,7 +69,7 @@ def removeCollection(request):
     return HttpResponseRedirect(reverse('pyha:index'))
 
 
-def approve(request):
+def approve_terms(request):
     if request.method == 'POST':
         if not logged_in(request):
             return _process_auth_response(request, "pyha")
@@ -78,7 +79,7 @@ def approve(request):
         lang = 'fi' #ainakin toistaiseksi
         userRequest = Request.objects.get(id = requestId)
         if userRequest.sensstatus == 99:
-            approve_skip_official(request, userRequest, requestId, lang)
+            approve_terms_skip_official(request, userRequest, requestId, lang)
         else:
             requestedCollections = request.POST.getlist('checkb')
             senschecked = request.POST.get('checkbsens')
@@ -133,6 +134,8 @@ def approve(request):
                     #send_mail_for_approval_sens(requestId, lang)
                 #make a log entry
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+                request.session["message"] = ugettext('toast_thanks_request_has_been_registered')
+                request.session.save()
             else:
                 userRequest.status = -1
                 userRequest.save()
@@ -140,7 +143,7 @@ def approve(request):
     return HttpResponseRedirect(reverse('pyha:index'))
 
 
-def approve_skip_official(request, userRequest, requestId, lang):
+def approve_terms_skip_official(request, userRequest, requestId, lang):
     senschecked = request.POST.get('checkbsens')
     collectionList = Collection.objects.filter(request=requestId, status__gte=0)
     if(userRequest.status == 0 and senschecked and len(collectionList) > 0):
@@ -167,6 +170,8 @@ def approve_skip_official(request, userRequest, requestId, lang):
         update_contact_preset(request, userRequest)
         #make a log entry
         RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+        request.session["message"] = ugettext('toast_thanks_request_has_been_registered')
+        request.session.save()
     else:
         userRequest.status = -1
         userRequest.save()

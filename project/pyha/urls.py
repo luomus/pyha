@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from django.conf import settings
 from pyha.views import api, index, requestform, requestview, logout, ajax
-import re
 
 app_name = 'pyha'
 urlpatterns = [
@@ -18,7 +17,7 @@ urlpatterns = [
     url(r'^ajax/removeCollection/?$', ajax.remove_collection_ajax, name='remove_collection_ajax'),
     url(r'^ajax/getDescription/?$', ajax.get_request_header_ajax, name='get_request_header_ajax'),
     url(r'^ajax/setDescription/?$', ajax.change_description_ajax, name='description_ajax'),    
-    url(r'^approve/?$', requestform.approve, name='approve'),
+    url(r'^approve/?$', requestform.approve_terms, name='approve'),
     url(r'^request/[1-9][0-9]*/?$', requestview.show_request, name='show_request'),
     url(r'^description/?$', requestview.change_description, name='change_description'),
     url(r'^answer/?$', requestview.answer, name='answer'),	
