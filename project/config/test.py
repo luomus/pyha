@@ -3,6 +3,8 @@ from .settings import *
 
 import os
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ["ENABLE_DEBUG"] == "True"
 #DATABASES = {
 #    'default': {
 #        'ENGINE': os.environ["DB_ENGINE"],

@@ -1,7 +1,9 @@
 {% extends "pyha/base.html" %}
 {% block content %}
 {% load i18n %}
+
 <style>.wizard .nav-tabs > li { width:25%; } .connecting-line{ width: 76%; }</style>
+
 <div class="container-fluid" style="overflow-y: hide;">
 	<div class="col-xs-12">
 			<div class="page-header" id="request_header">
@@ -328,72 +330,84 @@
 			</div>
 		</form>
 	</div>
-					<div id="summary-content" hidden>
-						<h2>{% trans "request_summary" %}</h2>
-						<div name="summarytable">
-						<!--  requestformsummary.html snippet appears here -->
-						</div>
-						<h4>{% trans "contacts" %}</h4>
-						<ul>
-							<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
-							<ul>
-							<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
-							<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
-							<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
-							<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
-							<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
-							<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
-							<li name="li_contact_corporation/organization_1" id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
-							<li name="li_contact_corporation_id_1" id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
-							</ul>
-						</ul>
-						<div id="pdf_contacts_end"></div>
-						<h4>{% trans "request_arguments" %}</h4>
-						<table class="table" style="width:100%">
-							<tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
-							<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
-							<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
-							<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
-							<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
-							<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
-							<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
-							<tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
-							<tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
-							<tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
-							<tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
-							<tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
-							<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
-							<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
-						</table>
-					</div>
-						<!--- hidden confirm modal --->
-					<div id="confirm-modal" class="modal fade modal-sm modal-confirm" >
-						<div class="modal-content" >
-							<div class="modal-header">
-							</div>
-							<div class="modal-body">
-								{% trans "are_you_sure_you_want_to_remove_collection" %}
-							</div>
-							<div class="modal-footer">
-								<button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">{% trans "delete" %}</button>
-								<button type="button" data-dismiss="modal" class="btn btn-outline-secondary">{% trans "back" %}</button>
-							</div>
-						</div>
-					</div>
-					{% if collections %} 
-					<!-- hidden delete collection form -->
-						{% for collection in collections %}
-					<form class="form-hidden" action="javascript:remove({{ collection.id }})" id="deleteform{{ collection.id }}" method="post">
-						<div class="form-group">
-							<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-							<input type="hidden" id="taxoncollectionId{{ collection.id }}" name="collectionId" value={{collection.id}}>
-							<input type="hidden" id="next" name="next" value={{request.path}}>
-							<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
-						</div>
-						{% csrf_token %}
-					</form>
-						{% endfor %}
-					{% endif %}
+	<div id="summary-content" hidden>
+		<h2>{% trans "request_summary" %}</h2>
+		<div name="summarytable">
+		<!--  requestformsummary.html snippet appears here -->
+		</div>
+		<h4>{% trans "contacts" %}</h4>
+		<ul>
+			<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
+			<ul>
+			<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
+			<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
+			<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
+			<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
+			<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
+			<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
+			<li name="li_contact_corporation/organization_1" id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
+			<li name="li_contact_corporation_id_1" id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
+			</ul>
+		</ul>
+		<div id="pdf_contacts_end"></div>
+		<h4>{% trans "request_arguments" %}</h4>
+		<table class="table" style="width:100%">
+			<tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
+			<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
+			<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
+			<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
+			<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
+			<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
+			<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
+			<tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
+			<tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
+			<tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
+			<tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
+			<tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
+			<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
+			<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
+		</table>
+	</div>
+		<!--- hidden confirm modal --->
+	<div id="confirm-modal" class="modal fade modal-sm modal-confirm" >
+		<div class="modal-content" >
+			<div class="modal-header">
+			</div>
+			<div class="modal-body">
+				{% trans "are_you_sure_you_want_to_remove_collection" %}
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">{% trans "delete" %}</button>
+				<button type="button" data-dismiss="modal" class="btn btn-outline-secondary">{% trans "back" %}</button>
+			</div>
+		</div>
+	</div>
+	{% if collections %} 
+	<!-- hidden delete collection form -->
+		{% for collection in collections %}
+	<form class="form-hidden" action="javascript:remove({{ collection.id }})" id="deleteform{{ collection.id }}" method="post">
+		<div class="form-group">
+			<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+			<input type="hidden" id="taxoncollectionId{{ collection.id }}" name="collectionId" value={{collection.id}}>
+			<input type="hidden" id="next" name="next" value={{request.path}}>
+			<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;"></button>
+		</div>
+		{% csrf_token %}
+	</form>
+		{% endfor %}
+	{% endif %}
+</div>
+
+<div>
+	<input type="hidden" id="setDescriptionURL" name="setDescription" value="{% url 'pyha:set_description_ajax' %}">
+	<input type="hidden" id="getDescriptionURL" name="getDescription" value="{% url 'pyha:get_description_ajax' %}">
+	<input type="hidden" id="removeCollectionURL" name="removeCollection" value="{% url 'pyha:remove_collection_ajax' %}">
+	<input type="hidden" id="getCollectionURL" name="getCollection" value="{% url 'pyha:get_collection_ajax' %}">
+	<input type="hidden" id="getSummaryURL" name="getSummary" value="{% url 'pyha:get_summary_ajax' %}">
+	<input type="hidden" id="getCollectionURL" name="getCollection" value="{% url 'pyha:get_collection_ajax' %}">
+	<input type="hidden" id="getTaxonURL" name="getTaxon" value="{% url 'pyha:get_taxon_ajax' %}">
+	<input type="hidden" id="getCustomURL" name="getCustom" value="{% url 'pyha:get_custom_ajax' %}">
+	<input type="hidden" id="createContactURL" name="createContact" value="{% url 'pyha:create_contact_ajax' %}">
 </div>
 {% endblock %}
 

@@ -27,7 +27,7 @@ Asenna seuraavat packaget `sudo apt-get install`in avulla:
 
 	sudo apt-get update
 
-	sudo apt-get install build-essential python3-dev python-pip python3-pip python-virtualenv git libaio1
+	sudo apt-get install build-essential python2.7 python-pip python-virtualenv git libaio1
 
 Luo kansio, mihin aiot asentaa ympäristön esim.
 
@@ -46,6 +46,8 @@ Siirry tämän jälkeen luotuun kansioon nimeltä pyha.
 ## 3 - Automaattinen asentaminen
 
 Aja automaattista asentamista varten luotu skripti:
+
+	chmod u+x install.sh
 
 	install.sh
 
@@ -97,13 +99,13 @@ systemd service kansioon:
 
 Mikäli käytät pyhaa Apachella osoitteessa :hostdomain:/pyha, laita:
 
-	pyha.conf
+	services/pyha.conf
 
 	kansioon:
 
 	/etc/httpd/conf.d/
 
-Lisää pyha.cron sisältö käyttäjän crontab tiedostoon ajastettuja toiminnallisuuksia varten.
+Lisää services/pyha.cron sisältö käyttäjän crontab tiedostoon ajastettuja toiminnallisuuksia varten.
 
 Voit muokata käyttäjän crontab tiedostoa komennolla:
 

@@ -6,7 +6,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, is_allowed_to_view, is_request_owner
 from pyha.models import Request, Collection
 
-def get_request_header_ajax(request):
+def get_description_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
         if check_language(request):
                 return HttpResponseRedirect(request.get_full_path())
@@ -20,7 +20,7 @@ def get_request_header_ajax(request):
         return render(request, 'pyha/requestheader.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
 
-def change_description_ajax(request):
+def set_description_ajax(request):
     if request.method == 'POST':
         if not logged_in(request):
             return HttpResponseRedirect(reverse('pyha:index'))

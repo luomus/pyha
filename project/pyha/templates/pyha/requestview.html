@@ -645,6 +645,10 @@
 				</div>
 		</div>
 	</div>
+	<div>
+		<input type="hidden" id="setDescriptionURL" name="setDescription" value="{% url 'pyha:set_description_ajax' %}">
+		<input type="hidden" id="getDescriptionURL" name="getDescription" value="{% url 'pyha:get_description_ajax' %}">
+	</div>
 {% endblock %}
 
 {% block end_script %}

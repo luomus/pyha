@@ -54,8 +54,6 @@ FORCE_SCRIPT_NAME = os.environ.get("DOMAIN_PATH_PREFIX", "")
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ["ENABLE_DEBUG"] == "True"
 ERROR_RATE_LIMIT = int(os.environ["EMAIL_ERROR_RATE_LIMIT"])
 ERROR_RATE_KEY_LIMIT = int(os.environ["EMAIL_ERROR_RATE_KEY_LIMIT"])
 
@@ -79,6 +77,7 @@ LOGGING = {
             'filename': 'pyha.log',
             'maxBytes': 1024 * 100,
             'backupCount': 3,
+            'filters': ['require_debug_false']
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -179,7 +178,7 @@ CACHES = {
     'collections': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'pyha_collections_cache_table',
-        'TIMEOUT': None
+        'TIMEOUT': 86400
     },
     'error_mail': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',

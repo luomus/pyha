@@ -7,59 +7,31 @@
 
 <body>
 
-<form action="http://127.0.0.1:8000/pyha/api/request/" method="post" accept-charset="UTF-8">
+<form action="http://127.0.0.1:8000/api/request/" method="post" accept-charset="UTF-8">
   <textarea name = "JSON" rows="60" cols="100">
 	
 {
- "id": "HBF.6F58A973-73F0-4403-A26B-B79FD7C1031A",
- "source": "KE.398",
- "personId": "MA.309",
- "approximateMatches": 17,
- "requested": "2016-11-30",
- "downloadFormat": "CSV_FLAT",
- "downloadIncludes": [
-   
- ],
- "filters": [
-   {
-      "includeNonValidTaxa": "false"
-   },
-   {
-     "target": [
-       "aves"
-     ]
-   },
-   {
-     "secured": "true"
-   },
-   {
-      "superRecordBasis": [
-        "PRESERVED_SPECIMEN"
-      ]
-   },
-   {
-      "coordinates": ["63.106688:63.442651:27.850342:28.850098:WGS84"]
-   }
- ],
- "collections": [
-   {
-     "id": "HR.447",
-     "conservationReasonCount": 17,
-     "customReasonCount": 122
-   },
-   {
-     "id": "HR.39",
-     "conservationReasonCount": 82,
-     "customReasonCount": 11
-   },
-   {
-     "id": "HR.48",
-     "customReasonCount": 25
-   }
- ]
+"id":"HBF.DEV6F58A973",
+"source":"KE.389",
+"personId":"MA.309",
+"locale":"fi",
+"approximateMatches":83,
+"requested":"2018-11-02",
+"downloadFormat":"TSV_FLAT",
+"downloadIncludes":["DOCUMENT_FACTS","GATHERING_FACTS","UNIT_FACTS","UNIT_MEDIA"],
+"filters":[
+		{"informalTaxonGroupId":["MVL.140"]},
+		{"coordinates":["63.509375:64.358931:25.861744:27.796244:WGS84"]}
+	],
+"collections":[
+		{"id":"HR.447","conservationReasonCount":36,"customReasonCount":0},
+		{"id":"HR.61","conservationReasonCount":12,"customReasonCount":32},
+		{"id":"HR.2691","conservationReasonCount":1,"customReasonCount":0}
+	]
 }
-  </textarea>
-  <input type="submit">
+
+   </textarea>
+<input type="submit">
 </form>
 
 </body>

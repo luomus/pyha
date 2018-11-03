@@ -8,7 +8,7 @@
 			get_request_header();
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/setDescription/", true);
+	xhttp.open("POST", document.getElementById("setDescriptionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -28,7 +28,7 @@
 				}
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/removeCollection/", true);
+	xhttp.open("POST", document.getElementById("removeCollectionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -44,7 +44,7 @@
 			checksens();
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/getTaxon/", true);
+	xhttp.open("POST", document.getElementById("getTaxonURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -60,7 +60,7 @@
 			refreshCheck();
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/getCustom/", true);
+	xhttp.open("POST", document.getElementById("getCustomURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -76,7 +76,7 @@
 				checksens();
 				}
 			};
-		xhttp.open("POST", "/pyha/ajax/getCollection/", true);
+		xhttp.open("POST", document.getElementById("getCollectionURL").value, true);
 		xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send(data);
@@ -92,7 +92,7 @@
 			checkHasDescription();
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/getDescription/", true);
+	xhttp.open("POST", document.getElementById("getDescriptionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -109,7 +109,7 @@
 			}
 			}
 		};
-	xhttp.open("POST", "/pyha/ajax/getSummary/", true);
+	xhttp.open("POST", document.getElementById("getSummaryURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
@@ -156,7 +156,7 @@
 			}
 		};
 	xhttp.overrideMimeType('text/xml');
-	xhttp.open("POST", "/pyha/ajax/createContact/", true);
+	xhttp.open("POST", document.getElementById("createContactURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);

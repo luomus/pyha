@@ -3,6 +3,8 @@ from .settings import *
 
 import os
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ["ENABLE_DEBUG"] == "True"
 DATABASES = {
     'default': {
         'ENGINE': os.environ["DB_ENGINE"],
@@ -11,8 +13,8 @@ DATABASES = {
         'PASSWORD': os.environ["DB_PASSWORD"]
     }
 }
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if(DEBUG): EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend' 
+else: EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = ''
