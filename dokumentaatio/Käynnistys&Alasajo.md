@@ -1,5 +1,9 @@
 Ympäristönkehityksessä/Paikalliseen kokeiluun: 
 
+bash runserver.sh
+
+tai
+
 Käynnistä kansiossa /pyha/project
 gunicorn -b ip:port luomuspyha.wsgi &
 
@@ -10,11 +14,17 @@ kill <pid>
 
 tai
 
+kansiossa /pyha
+
+source env/bin/activate
+
 Käynnistä kansiossa /pyha/project
 python manage.py runserver port
 
 Kaada painamalla: 
 Ctrl+X
+
+deactivate
 
 Palvelimella:
 

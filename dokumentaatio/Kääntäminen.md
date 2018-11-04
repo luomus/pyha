@@ -2,11 +2,10 @@
     * Jos templatessa on käännettävää, sen alkupuolella pitää aina olla `{% load i18n %}`
 * Python-koodissa käännökset tyylillä:
 ````
-    from django.utils.translation import ugettext as _
+    from django.utils.translation import ugettext
     # ...
-    myMessage = _('Moikka')
+    myMessage = ugettext('Moikka')
 ````
-* Javascript-koodissa käännökset tyylillä `var myMessage = gettext('Moikka');` 
 
 Ota mallia valmiista käännöksistä.
 
@@ -20,14 +19,9 @@ tai:
 
 Se kerää käännettävät templateista ja .py -tiedostoista django.po -tiedostoihin. Ja sitten:
 
-    ./manage.py makemessages -a -d djangojs
-
-Se kerää .js -tiedostoista.
-
 Sitten editoi käännöstiedostoja, jotka ovat seuraavan näköisissä paikoissa:
 
 * `path/to/project/pyha/locale/en/LC_MESSAGES/django.po`   <- template & py -tekstit
-* `path/to/project/pyha/locale/en/LC_MESSAGES/djangojs.po`  <- js-tekstit
 
 Kirjoita käännökset käsin näihin `.po` tiedostoihin (ota mallia vanhoista käännöksistä).
 

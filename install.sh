@@ -1,6 +1,7 @@
-virtualenv -p python env
-
-env/bin/pip install -r Requirements.txt
+virtualenv -p python3 env
+source env/bin/activate
+pip install -r Requirements.txt
+deactivate
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
@@ -9,27 +10,27 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		DJANGO_SECRET_KEY "Hash salt used by django" \
 		PYHA_LISTEN_PORT "Port listened by django" \
 		PYHA_LINK_URL "Path included in emails linking to pyyntojenhallinta ex. https://fmnh-ws-test.it.helsinki.fi/pyha/" \
-		LAJI_AUTH_URL 0 \
-		LAJI_ETL_FILE_DOWNLOAD_URL 0 \
-		TRIPLESTORE_URL 0 \
+		LAJI_AUTH_URL "ex. https://fmnh-ws-test.it.helsinki.fi/laji-auth/" \
+		LAJI_ETL_FILE_DOWNLOAD_URL "ex. https://staging.laji.fi/laji-etl/download/secured/" \
+		TRIPLESTORE_URL "ex. https://fmnh-ws-test.it.helsinki.fi/triplestore/" \
 		TRIPLESTORE_USER 0 \
 		TRIPLESTORE_PASSWORD 0 \
-		PDF_API_URL 0 \
+		PDF_API_URL "ex. https://fmnh-ws-prod.it.helsinki.fi/tipu-api/html2pdf" \
 		PDF_API_USER 0 \
 		PDF_API_PASSWORD 0 \
-		APILAJIFI_URL 0 \
+		APILAJIFI_URL "ex. https://apitest.laji.fi/v0/" \
 		APILAJIFI_TOKEN 0 \
-		LAJI_AUTH_TARGET 0 \
-		ZABBIX_STATUS_SUB_DIR "Path to subdirectory used by zabbix" \
+		LAJI_AUTH_TARGET "ex. KE.521 for staging / KE.541 for local" \
+		ZABBIX_STATUS_SUB_DIR "Path to subdirectory used by zabbix ex. api/status" \
 		PYHA_API_USER 0 \
 		PYHA_API_PASSWORD 0 \
-		OBSERVATION_LINK_PREFIX 0 \
-		OFFICIAL_OBSERVATION_LINK_PREFIX 0 \
+		OBSERVATION_LINK_PREFIX "ex. https://laji.fi/observation/map?" \
+		OFFICIAL_OBSERVATION_LINK_PREFIX "https://viranomainen.laji.fi/observation/map?" \
 		DB_NAME 0 \
 		DB_USER 0 \
 		DB_PASSWORD 0 \
-		TEST_DB_USER 0 \
-		TEST_DB_PASSWORD 0 \
+		TEST_DB_USER "Can be left empty" \
+		TEST_DB_PASSWORD "Can be left empty" \
 		SKIP_OFFICIAL "Boolean to skip requirement for decision-making by officials. Insert: True/False" \
 		STATIC_PATH_URL "Path to static files in URL ex. /pyha" \
 		DOMAIN_PATH_PREFIX "Path to this service incase not in domain root. Staging ex. /pyha" \
@@ -132,10 +133,11 @@ echo -e "$APACHECONTENT" > services/pyha.conf
 echo "Created services/pyha.conf file"
 
 CRONCONTENT=$CRONCONTENT\
-"22 11 * * 2 cd "$DIR" && bash "$DIR"/runmail.sh > "$DIR"/cronlogs/pyha_runemail.log"
+'22 11 * * 2 cd '$DIR' && bash runmail.sh > '$DIR'/cronlogs/pyha_runemail.log'
 
 echo -e $CRONCONTENT > services/pyha.cron
 echo "Created services/pyha.cron file"
 
-. updateserver.sh
-echo "Installation has finished"
+echo "Installation has finished."
+echo "Please run updateserver.sh after you have set the correct values to env_variables.sh file"
+echo "Also remember to put files in the /services folder to their correct locations."

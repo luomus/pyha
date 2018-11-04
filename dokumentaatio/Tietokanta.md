@@ -5,23 +5,28 @@
 Käyttää Oracle-tietokantaa.
 Mikäli djangon luomat kentät haluaa SQL kielellä. 
 
-env/bin/python project/manage.py sqlmigrate pyha 0001
+kansiossa /pyha
+
+source env/bin/activate
+
+Käynnistä kansiossa /pyha/project
+
+python manage.py sqlmigrate pyha 0001
 ...
-env/bin/python project/manage.py sqlmigrate pyha XXXX
+python manage.py sqlmigrate pyha XXXX
+
+deactivate
 
 missä XXXX on /pyha/project/pyha/migrations/kansion suurin numero.
 
 
-Olettaen että olet asettanut ympäristömuuttujat terminaaliin. [[Asennus]](Asennus.md)
-
-env_variables.sh
 
 ## Taulut
 
 Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen yleistä dataa, sekä siihen liittyvän päätöksen ja päätöstekstin
 
-	address = CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
-	count = IntegerField()  #Karkeistettujen havaintojen määrä
+	address = models.CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
+	count = models.IntegerField()  #Karkeistettujen havaintojen määrä
 	
 	#for status
 	#status 1: Odottaa aineiston toimittajan käsittelyä
@@ -87,7 +92,7 @@ Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liit
 	reason = models.CharField(max_length=16000,null=True)
 	lang = models.CharField(max_length=10, default='fi')
 
-RequestContact: #Sisältää lisää yhteystietoja, mikäli Request taulun yhteystiedot eivät riittäneet.
+RequestContact: #Sisältää lisää yhteystietoja, mikäli Request taulun yhdet yhteystiedot eivät riittäneet.
 
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -134,7 +139,7 @@ RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = models.CharField(max_length=2000)
-	target = models.CharField(max_length=200) #Lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai sens
+	target = models.CharField(max_length=200) #Lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai 'sens' sensitiivisille
 
 ContactPreset: #Sisältää muistissa käyttäjän aikaisemmin täyttämät yhteystiedot.
 

@@ -1,0 +1,1 @@
+﻿Pohjat ympäristömuuttujien arvoille, sekä tunnukset kehitysympäristön käyttäjille löytyvät wiki sivuilta.

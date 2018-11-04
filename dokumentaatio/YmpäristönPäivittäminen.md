@@ -1,5 +1,19 @@
-﻿Mikäli tehty muutoksia `/static/` kansiossa. Pitää suorittaa:
+﻿Yleinen skripti ympäristön päivittämiseen
 
-`python manage.py collectstatic`
+kansiossa /pyha
 
-Kansiossa, mikä sisältää tiedoston `manage.py`
+bash updateserver.sh
+
+tai
+
+Mikäli tehty muutoksia pelkässä `/static/` kansiossa. Voi suorittaa:
+
+kansiossa /pyha
+
+source env/bin/activate
+
+Käynnistä kansiossa /pyha/project
+
+python manage.py collectstatic
+
+deactivate

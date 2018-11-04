@@ -27,7 +27,7 @@ Asenna seuraavat packaget `sudo apt-get install`in avulla:
 
 	sudo apt-get update
 
-	sudo apt-get install build-essential python2.7 python-pip python-virtualenv git libaio1
+	sudo apt-get install build-essential python3 python-pip python3-pip python-virtualenv git libaio1
 
 Luo kansio, mihin aiot asentaa ympäristön esim.
 
@@ -45,9 +45,11 @@ Siirry tämän jälkeen luotuun kansioon nimeltä pyha.
 
 ## 3 - Automaattinen asentaminen
 
-Aja automaattista asentamista varten luotu skripti:
+Varmista ettï¿½ kaikilla kloonatuilla tiedostoilla ja pyha kansiolla oikeudet pyha-jï¿½rjestelmï¿½ï¿½ varten luodulla kï¿½yttï¿½jï¿½llï¿½, sekï¿½ suoritusoikeudet .sh liitteisille tiedostoille.
 
-	chmod u+x install.sh
+	chmod u+x *.sh
+
+Aja automaattista asentamista varten luotu skripti:
 
 	install.sh
 
@@ -176,7 +178,7 @@ Luo uusi crontab ajastus skriptille runmail.sh
 
 	crontab -e
 
-	22 11 * * 2 bin/sh path/to/runmail.sh
+	22 11 * * 2 cd path/to/runmail-root-folder && bash runmail.sh > path/to/runmail-root/cronlogs/pyha_runemail.log
 
 ## 6 - Lopuksi
 
