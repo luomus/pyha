@@ -45,7 +45,7 @@ Siirry tämän jälkeen luotuun kansioon nimeltä pyha.
 
 ## 3 - Automaattinen asentaminen
 
-Varmista ettï¿½ kaikilla kloonatuilla tiedostoilla ja pyha kansiolla oikeudet pyha-jï¿½rjestelmï¿½ï¿½ varten luodulla kï¿½yttï¿½jï¿½llï¿½, sekï¿½ suoritusoikeudet .sh liitteisille tiedostoille.
+Varmista että kaikilla kloonatuilla tiedostoilla ja pyha kansiolla oikeudet pyha-järjestelmää varten luodulla käyttäjällä, sekä suoritusoikeudet .sh liitteisille tiedostoille.
 
 	chmod u+x *.sh
 
