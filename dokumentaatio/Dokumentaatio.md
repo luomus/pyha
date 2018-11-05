@@ -31,7 +31,7 @@ Tekee sen mitä alaotsikossa mainitaan.
 
 ### Rajapinta (/api/)
 
-Tarjoaa rajapinnan toisille applikaatioille. ([Linkki](Api.md))
+Tarjoaa rajapinnan toisille applikaatioille. ([Api-dokumentaatio](Api.md))
 
 ### Rajapinta ajax-kyselyille (/ajax/)
 
