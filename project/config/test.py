@@ -10,7 +10,10 @@ DEBUG = os.environ["ENABLE_DEBUG"] == "True"
 #        'ENGINE': os.environ["DB_ENGINE"],
 #        'NAME': os.environ["DB_NAME"],
 #        'USER': os.environ["TEST_DB_USER"],
-#        'PASSWORD': os.environ["TEST_DB_PASSWORD"]
+#        'PASSWORD': os.environ["TEST_DB_PASSWORD"],
+#		'OPTIONS': {
+#			'threaded': True,
+#		}
 #    }
 #}
 DATABASES = {
