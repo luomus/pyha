@@ -1,0 +1,6 @@
+﻿På svenska: Pyyntöjenhallintajärjestelmä varoittaa, että metatiedoissa käsittelijät puuttuvat seuraavilta kokoelmilta:
+
+{% for co in collections_missing_handler %}{{co}}
+{% endfor %}
+
+Pyha huomioi kokoelmien käsittelijöihin liittyvät muutokset välimuistinsa vanhentumisen/tyhjentymisen aikana.

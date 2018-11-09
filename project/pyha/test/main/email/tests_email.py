@@ -1,7 +1,7 @@
 #coding=utf-8
 from django.test import TestCase, Client
 from django.conf import settings
-from pyha.models import Collection, Request
+from pyha.models import Collection, Request, Sens_StatusEnum
 from pyha.warehouse import store
 from django.core import mail
 from django.core.cache import cache
@@ -64,7 +64,7 @@ class EmailTesting (TestCase):
 		wantedRequest = Request.objects.get(id=req.id)
 		requestCollections = Collection.objects.filter(request=req.id)
 		requestCollections[0].status = 4
-		wantedRequest.sensstatus = 2
+		wantedRequest.sensstatus = Sens_StatusEnum.REJECTED
 		wantedRequest.save()
 		update_request_status(req, "fi")
 		self.assertEqual(len(mail.outbox), 1)

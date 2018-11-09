@@ -8,7 +8,7 @@ from pyha.database import create_request_view_context, check_all_collections_rem
 from pyha.email import send_mail_for_approval, send_mail_for_approval_sens
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
-from pyha.models import RequestLogEntry, Request, Collection
+from pyha.models import RequestLogEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import USER
 
 
@@ -78,13 +78,13 @@ def approve_terms(request):
             return HttpResponseRedirect(reverse('pyha:index'))
         lang = 'fi' #ainakin toistaiseksi
         userRequest = Request.objects.get(id = requestId)
-        if userRequest.sensstatus == 99:
+        if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
             approve_terms_skip_official(request, userRequest, requestId, lang)
         else:
             requestedCollections = request.POST.getlist('checkb')
             senschecked = request.POST.get('checkbsens')
             collectionList = Collection.objects.filter(request=requestId, status__gte=0)
-            if(userRequest.status == 0 and senschecked and len(collectionList) > 0):
+            if(userRequest.status == StatusEnum.APPROVETERMS_WAIT and senschecked and len(collectionList) > 0):
                 taxon = False
                 for collection in collectionList:
                     collection.allSecured = collection.customSecured + collection.taxonSecured
@@ -99,7 +99,7 @@ def approve_terms(request):
                 for c in Collection.objects.filter(request = requestId):
                     if c.status == 0:
                         c.customSecured = 0
-                        if userRequest.sensstatus == 0:
+                        if userRequest.sensstatus == Sens_StatusEnum.APPROVETERMS_WAIT:
                             c.taxonsecured = 0
                         c.save(update_fields=['customSecured'])
                         if c.taxonSecured == 0:

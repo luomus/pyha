@@ -1,0 +1,31 @@
+  .footer { background-color: #8080c0 !important; }
+  .navbar-custom {
+    background-color: #8080c0 !important;
+    border-color: #8080c0 !important;
+  }
+
+  .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
+    background-color: #8080c0 !important;
+    border-color: #8080c0!important;
+  }
+
+  .navbar-custom .navbar-nav>.active>a:not(.nohover), .navbar-custom .navbar-nav>.active>a:focus:not(.nohover),
+  .navbar-custom .navbar-nav>.active>a:hover:not(.nohover), .navbar-custom .navbar-nav > li > a:hover:not(.nohover),
+  .navbar-custom .navbar-brand:hover:not(.nohover), .navbar-custom .navbar-nav>.open>a:not(.nohover),
+  .navbar-custom .navbar-nav>.open>a:focus:not(.nohover), .navbar-custom .navbar-nav>.open>a:hover:not(.nohover) {
+    background-color: #8080c0 !important;
+  }
+  .nohover{
+	background-color: #8080c0 !important;
+  }
+
+  .navbar-custom .navbar-toggle, .navbar-custom .navbar-collapse, .navbar-custom .navbar-form {
+    border-color: #8080c0!important;
+  }
+   .dropbtn {
+    background-color: #8080c0 ;
+  }
+
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #8080c0;
+  }

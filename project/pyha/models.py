@@ -3,23 +3,16 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 
-def enum(*sequential, **named):
-	enums = dict(zip(sequential, range(len(sequential))), **named)
-	return type(str('Enum'), (), enums)
-
-StatusEnum = enum(DISCARDED=-1, NO_SENSITIVE_DATA=0, WAITING=1, PARTIALLY_APPROVED=2, REJECTED=3, APPROVED=4, UNKNOWN=5, WAITING_FOR_INFORMATION=6, WAITING_FOR_DOWNLOAD=7, DOWNLOADABLE=8, IGNORE_OFFICIAL=99)
-
-
 @python_2_unicode_compatible
 class Collection(models.Model):
 	address = models.CharField(max_length=500)
 	count = models.IntegerField()
 	
 	#for collection.status
+	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa aineiston toimittajan käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
-	#status 5: Tuntematon
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	
 	status = models.IntegerField()
@@ -41,7 +34,7 @@ class Request(models.Model):
 	description = models.CharField(max_length=400)  #description given by the requester for his request
 	
 	#for status
-	#status 0: Ei sensitiivistä tietoa
+	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa aineiston toimittajan käsittelyä
 	#status 2: Osittain hyväksytty
 	#status 3: Hylätty
@@ -49,17 +42,16 @@ class Request(models.Model):
 	#status 5: Tuntematon
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
-	#status 8: Ladattava
+	#status 8: Ladattavissa
 	
 	status = models.IntegerField()
 	
 	#for sensstatus
-	#status 0: Ei sensitiivistä tietoa
-	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 0: Odottaa pyytäjän hyväksymistä
+	#status 1: Odottaa viranomaisen käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
-	#status 5: Tuntematon
-	#status 99: Ohitettu
+	#status 99: Ohitettu (skippofficial)
 	
 	sensstatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
@@ -167,3 +159,34 @@ class ContactPreset(models.Model):
 
 	def __str__(self):
 		return self.user
+
+
+
+def enum(*sequential, **named):
+	enums = dict(zip(sequential, range(len(sequential))), **named)
+	return type(str('Enum'), (), enums)
+
+StatusEnum = enum(
+				DISCARDED=-1,
+				APPROVETERMS_WAIT=0,
+				WAITING=1,
+				PARTIALLY_APPROVED=2,
+				REJECTED=3,
+				APPROVED=4,
+				UNKNOWN=5,
+				WAITING_FOR_INFORMATION=6,
+				WAITING_FOR_DOWNLOAD=7,
+				DOWNLOADABLE=8)
+
+Sens_StatusEnum = enum(
+				APPROVETERMS_WAIT=0,
+				WAITING=1,
+				REJECTED=3,
+				APPROVED=4,
+				IGNORE_OFFICIAL=99)
+
+Col_StatusEnum = enum(
+				APPROVETERMS_WAIT=0,
+				WAITING=1,
+				REJECTED=3,
+				APPROVED=4)

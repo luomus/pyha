@@ -17,7 +17,7 @@ def get_description_ajax(request):
             return HttpResponseRedirect(reverse('pyha:index'))
         userRequest = Request.objects.get(id=requestId)
         context = create_request_view_context(requestId, request, userRequest)
-        return render(request, 'pyha/requestheader.html', context)
+        return render(request, 'pyha/base/ajax/requestheader.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
 
 def set_description_ajax(request):
@@ -44,7 +44,7 @@ def get_taxon_ajax(request):
             return HttpResponseRedirect(reverse('pyha:index'))
         userRequest = Request.objects.get(id=requestId)
         context = create_request_view_context(requestId, request, userRequest)
-        return render(request, 'pyha/requestformtaxon.html', context)
+        return render(request, 'pyha/official/ajax/requestformtaxon.html', context)
     return HttpResponse(reverse('pyha:index'), status=310)
     
 def get_custom_ajax(request):
@@ -58,7 +58,7 @@ def get_custom_ajax(request):
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:index'))
         context = create_request_view_context(requestId, request, userRequest)
-        return render(request, 'pyha/requestformcustom.html', context)
+        return render(request, 'pyha/official/ajax/requestformcustom.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
 
 def get_collection_ajax(request):
@@ -72,7 +72,7 @@ def get_collection_ajax(request):
             return HttpResponseRedirect(reverse('pyha:index'))
         userRequest = Request.objects.get(id=requestId)   
         context = create_request_view_context(requestId, request, userRequest)
-        return render(request, 'pyha/skipofficial/requestformcollection.html', context)
+        return render(request, 'pyha/skipofficial/ajax/requestformcollection.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
     
 def get_summary_ajax(request):
@@ -86,7 +86,7 @@ def get_summary_ajax(request):
             return HttpResponseRedirect(reverse('pyha:index'))
         userRequest = Request.objects.get(id=requestId)   
         context = create_request_view_context(requestId, request, userRequest)
-        return render(request, 'pyha/requestformsummary.html', context)
+        return render(request, 'pyha/base/ajax/requestformsummary.html', context)
     return HttpResponseRedirect(reverse('pyha:index'))
 
 def create_contact_ajax(request):
@@ -101,7 +101,7 @@ def create_contact_ajax(request):
         userRequest = Request.objects.get(id=requestId)   
         context = create_request_view_context(requestId, request, userRequest)
         context["contact_id"] = request.POST.get('id')
-        return render(request, 'pyha/requestformcontact.xml', context)
+        return render(request, 'pyha/base/ajax/requestformcontact.xml', context)
     return HttpResponseRedirect(reverse('pyha:index'))
 
 def remove_collection_ajax(request):

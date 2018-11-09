@@ -33,7 +33,9 @@
 		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/tabs/tabs.css" >
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 		
-		{% if request.session.current_user_role == 'handler' %}
+		{% if request.session.current_user_role == 'admin' %}
+		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/admin.css" >
+		{% elif request.session.current_user_role == 'handler' %}
 		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/handler.css" >
 		{% endif %}
 	</head>
@@ -64,10 +66,11 @@
 		            data-currenturl='{{ request.path }}'
 		            data-currentfullurl='{{ request.get_full_path }}'>
 		
-				<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.current_user_role == 'handler' %}{% trans "admin" %}{% else %}{% trans "user" %}{% endif %} {% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
+				<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.current_user_role == 'admin' %}{% trans "admin" %}{% elif request.session.current_user_role == 'handler' %}{% trans "admin" %}{% else %}{% trans "user" %}{% endif %} {% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
 				<div id="roleDropdown" class="dropdown-content">
 	              	<a onclick='roleSubmit("user")' name="role" id="role">{% trans "user" %}</a>
-	              	<a onclick='roleSubmit("handler")' name="role" id="role">{% trans "admin" %}</a>
+	              	{% if 'handler' in request.session.user_roles %}<a onclick='roleSubmit("handler")' name="role" id="role">{% trans "handler" %}</a>{% endif %}
+	              	{% if 'admin' in request.session.user_roles %}<a onclick='roleSubmit("admin")' name="role" id="role">{% trans "admin" %}</a>{% endif %}
 				</div>
 				</div>
 				<input type="hidden" id="next" name="next" value={{request.path}}>
@@ -91,7 +94,7 @@
 						  <a onclick='submit("{{ language.code }}")' name="code" id="code">
 							  {% if language.code == 'fi' %}
 							  {% trans "set_lang_fi" %}
-							  {% elif language.code == 'sw' %}
+							  {% elif language.code == 'sv' %}
 							  {% trans "set_lang_sv" %}
 							  {% elif language.code == 'en' %}
 							  {% trans "set_lang_en" %}
@@ -166,8 +169,8 @@
 		    document.getElementById("roleDropdown").classList.toggle("show");
 		}
 		
-		function roleSubmit(lang) {
-			document.getElementById("role_form_select").value = lang
+		function roleSubmit(role) {
+			document.getElementById("role_form_select").value = role
 			document.getElementById("role_form").submit()
 		}
 		

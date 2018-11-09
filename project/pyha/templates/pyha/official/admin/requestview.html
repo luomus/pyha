@@ -1,18 +1,18 @@
-{% extends "pyha/base.html" %}
+{% extends "pyha/base/base.html" %}
 {% block content %}
 {% load i18n %}
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
 			<div class="page-header"> 
-				<h1>{% trans "handler_request_from_user" %}
+				<h1>{% trans "admin_request_from_user" %}
 					{{request_owner}},
 					{{request_owners_email}}
 				</h1>
 						
 					<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 				<h2><span style="white-space: nowrap;">
-						{% trans "handler_state_of_request" %}
+						{% trans "admin_state_of_request" %}
 						<span
 						{% if userRequest.status == 1 %}
 							 style="color:#AABBDD;"
@@ -28,30 +28,30 @@
 						> 
 						{% if userRequest.status == 1 %}
 							{% if userRequest.waitingstatus == 0 %}
-							{% trans "handler_waiting_for_others" %}
+							{% trans "admin_waiting_for_others" %}
 							{% elif userRequest.waitingstatus == 1 %}
-							{% trans "handler_waiting_for_you" %}
+							{% trans "admin_waiting_for_you" %}
 							{% endif %}
 						{% elif userRequest.status == 2 %}
-						{% trans "handler_partially_accepted" %}
+						{% trans "admin_partially_accepted" %}
 						
 						{% elif userRequest.status == 3 %}
-						{% trans "handler_denied" %}
+						{% trans "admin_denied" %}
 						
 						{% elif userRequest.status == 4 %}
-						{% trans "handler_accepted" %}
+						{% trans "admin_accepted" %}
 						
 						{% elif userRequest.status == 6 %}
-						{% trans "handler_waiting_for_additional_information" %}
-						<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "handler_show_additional_information" %}</a>
+						{% trans "admin_waiting_for_additional_information" %}
+						<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "admin_show_additional_information" %}</a>
 						{% elif userRequest.status == 7 %}
-						{% trans "handler_waiting_for_download" %} 
+						{% trans "admin_waiting_for_download" %} 
 						
 						{% elif userRequest.status == 8 %}
-						{% trans "handler_ready_for_download" %}
+						{% trans "admin_ready_for_download" %}
 						
 						{% else %}  
-						{% trans "handler_unknown" %}
+						{% trans "admin_unknown" %}
 						
 						{% endif %}
 						
@@ -62,24 +62,19 @@
 				<div>
 					{% if taxon %}
 					<div class="col-xs-12" style="height:relative">
-							<h2 style="text-align:center;">{% trans "handler_sensitive" %}</h2>
+							<h2 style="text-align:center;">{% trans "admin_sensitive" %}</h2>
 							<div style="text-align:center;">
 								<h3 class="slider-group" style="vertical-align:middle;margin-bottom:20px;margin-top:5px;">
-									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 1 %}-light{% endif %}">
-									{% if role1 %}
-										{% trans "handler_waiting_for_you" %}
-									{% else %}
-										{% trans "handler_waiting_for_others" %}
-									{% endif %}</span>
-									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-lg slider-accepted{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-lg slider-admin{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
+									<span class="slider slider-lg slider-admin{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-lg slider-admin{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</h3>
 							</div>
 					</div>
 					{% endif %}
 					<div class="col-xs-12">
 						{% if collections %}
-						<h2 style="text-align:center;top:0%;">{% trans "handler_restricted" %}</h2>
+						<h2 style="text-align:center;top:0%;">{% trans "admin_restricted" %}</h2>
 						<div style= "{% if userRequest.sensstatus == 3%}opacity: 0.5;{% endif %}">
 						<table class="table">
 							{% for collection in collections %}
@@ -87,14 +82,9 @@
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
-									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">
-											{% if collection.address in handles %}
-												{% trans "handler_waiting_for_you" %}
-											{% else %}
-												{% trans "handler_waiting_for_others" %}
-											{% endif %}</span>
-									<span class="slider slider-accepted{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-accepted{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
+									<span class="slider slider-admin{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-admin{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
 								</td>
 							</tr>
@@ -108,64 +98,64 @@
 					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
 						<a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans "handler_changes_history" %}
+								{% trans "admin_changes_history" %}
 							</span>
 						</a>
 					</li>
 					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
 						<a href="#contacts" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contacts" role="tab" {% if next == "contacts" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_contact_window' %}
+								{% trans 'admin_contact_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} >
 						<a href="#arguments" class="request-tab request-view-tab" data-toggle="tab" aria-controls="arguments" role="tab" {% if next == "arguments" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_argument_window' %}
+								{% trans 'admin_argument_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
 						<a href="#request" class="request-tab request-view-tab" data-toggle="tab" aria-controls="request" role="tab" {% if next == "request" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_request_window' %}
+								{% trans 'admin_request_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="filters-tab" role="presentation" {% if next == "filters" %} class="active" {% endif %} >
 						<a href="#filters" class="request-tab request-view-tab" data-toggle="tab" aria-controls="filters" role="tab" {% if next == "filters" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_filter_window' %}
+								{% trans 'admin_filter_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} >
 						<a href="#terms" class="request-tab request-view-tab" data-toggle="tab" aria-controls="terms" role="tab" {% if next == "terms" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_terms_window' %}
+								{% trans 'admin_terms_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
-						<a href="#decision" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="decision" role="tab" {% if next == "decision" %} aria-expanded="true" {% endif %}>
+						<a href="#decision" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="decision" role="tab" {% if next == "decision" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_decision_window' %}
+								{% trans 'admin_decision_window' %}
 							</span>
 						</a>
 					</li>
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
-						<a href="#additional_information" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="additional_information" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
+						<a href="#additional_information" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="additional_information" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% if userRequest.sensstatus == 1 and information %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'handler_additional_information_window' %}
+								{% if userRequest.sensstatus == 1 and information %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'admin_additional_information_window' %}
 							</span>
 						</a>
 					</li>
 					{% if role1%}
-					<li id="handler_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
-						<a href="#handler_comments" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
+					<li id="admin_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
+						<a href="#admin_comments" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="admin_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'handler_comments_window' %}
+								{% trans 'admin_comments_window' %}
 							</span>
 						</a>
 					</li>
@@ -173,20 +163,20 @@
 				</ul>
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
-						<h3>{% trans "handler_collections_in_request" %}</h3>
+						<h3>{% trans "admin_collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
 							<table class="table" style="width:100%">
 								<tr style=color:black>
-									<th>{% trans "handler_collection_name" %}</th>
+									<th>{% trans "admin_collection_name" %}</th>
 									<th></th>
-									<th>{% trans "handler_collection_description" %}</th>
-									<th>{% trans "handler_secured_by_data_provider" %}</th>
-									<th>{% trans "handler_generally_secured" %}</th>
-									<th>{% trans "handler_all_secured" %}</th>
-									<th>{% trans "handler_state_of_processing" %}</th>
+									<th>{% trans "admin_collection_description" %}</th>
+									<th>{% trans "admin_secured_by_data_provider" %}</th>
+									<th>{% trans "admin_generally_secured" %}</th>
+									<th>{% trans "admin_all_secured" %}</th>
+									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
 								{% if collection.status == 1 %}
@@ -216,9 +206,9 @@
 								
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
-									<td>{% trans "handler_waiting_for_you" %}</td>
+									<td>{% trans "admin_waiting_for_you" %}</td>
 									{% else %}
-									<td>{% trans "handler_waiting_for_others" %}</td>
+									<td>{% trans "admin_waiting_for_others" %}</td>
 									{% endif %}
 								{% elif collection.status == 3 %}
 								<td>{% trans "denied" %}</td>
@@ -235,12 +225,12 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-						<h3>{% trans "handler_request_filters" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}" target="_blank">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
+						<h3>{% trans "admin_request_filters" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}" target="_blank">{% trans "admin_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "admin_show_in_portal" %}{% endif %}</a>
 							{% if filters %}
 								<table class = "table" style="width:100%">
 									<tr style=color:black>
-										<th>{% trans "handler_filter" %}</th>
-										<th>{% trans "handler_values" %}</th>	
+										<th>{% trans "admin_filter" %}</th>
+										<th>{% trans "admin_values" %}</th>	
 									</tr>	
 									{% for filter in filters %}
 									<tr>	
@@ -257,71 +247,71 @@
 								<div id="filtermap"></div>
 								{% endif %}
 							{% else %}
-								<strong>{% trans "handler_no_filters" %}.</strong>
+								<strong>{% trans "admin_no_filters" %}.</strong>
 							{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
 						<h3>{% trans "request_arguments" %}</h3>
 					<table class="table" style="width:100%">
-					<tr style=color:black><th>{% trans "handler_argument_choices" %}</th></tr>
+					<tr style=color:black><th>{% trans "admin_argument_choices" %}</th></tr>
 					<tr><td>
 					{% for choice in reasonlist.argument_choices%}
 						{% if choice == 'reason_zoning' %}
-							<p>{% trans "handler_reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_permission' %}
-							<p>{% trans "handler_reason_permission" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_permission" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_enviromental' %}
-							<p>{% trans "handler_reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_natura' %}
-							<p>{% trans "handler_reason_natura" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_natura" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_scientific' %}
-							<p>{% trans "handler_reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_forest' %}
-							<p>{% trans "handler_reason_forest" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_forest" %}{% if not forloop.last %},{% endif %}</p>
 						{% elif choice == 'reason_other' %}
-							<p>{% trans "handler_reason_other" %}{% if not forloop.last %},{% endif %}</p>
+							<p>{% trans "admin_reason_other" %}{% if not forloop.last %},{% endif %}</p>
 						{% endif %}
 					{% endfor %}
 					</td></tr>
 					{% for field in reasonlist.fields %}
 						{% if field.0 == 'argument_project' %}
-							<tr style=color:black><th>{% trans "handler_argument_project" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_project" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_research' %}
-							<tr style=color:black><th>{% trans "handler_argument_research" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_research" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_goals' %}
-							<tr style=color:black><th>{% trans "handler_argument_goals" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_goals" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_planning' %}
-							<tr style=color:black><th>{% trans "handler_argument_planning" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_planning" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_municipality' %}
-							<tr style=color:black><th>{% trans "handler_argument_municipality" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_municipality" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_natura_areas' %}
-							<tr style=color:black><th>{% trans "handler_argument_natura_areas" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_natura_areas" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_reason' %}
-							<tr style=color:black><th>{% trans "handler_argument_reason" %}</th></tr>
+							<tr style=color:black><th>{% trans "admin_argument_reason" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% endif %}
 					{% endfor %}
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
-							<h3>{% trans "handler_terms" %}</h3>
+							<h3>{% trans "admin_terms" %}</h3>
 							<table class="table" style="width:100%">
 								{% if taxon %}
 								<tr>
-								<td>{% trans "handler_sensitivity" %}</td>
-								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "handler_terms" %}</button></td>
+								<td>{% trans "admin_sensitivity" %}</td>
+								<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "admin_terms" %}</button></td>
 								</tr>
 								{% endif %}
 								{% for collection in customlist %}
 									<tr>
 									<td>{{collection.result.collectionName}}</td>
-									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "handler_terms" %}</button></td>
+									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "admin_terms" %}</button></td>
 									</tr>
 									<!-- Modal -->
 									<div class="modal fade" id="myModal{{ forloop.counter0 }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -329,7 +319,7 @@
 										<div class="modal-content">
 										  <div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">{% trans "handler_terms_of_use_of_the_collections" %}</h4>
+											<h4 class="modal-title" id="myModalLabel">{% trans "admin_terms_of_use_of_the_collections" %}</h4>
 											<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 										</div>
 										<div id="custom-content-{{collection}}" class="modal-body" style="padding-left:20px;">
@@ -342,7 +332,7 @@
 											<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
 										</div>
 										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "admin_exit" %}</button>
 										  </div>
 										</div>
 									  </div>
@@ -354,9 +344,9 @@
 										<div class="modal-content">
 											<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">{% trans "handler_sensitive_terms" %}</h4>
+											<h4 class="modal-title" id="myModalLabel">{% trans "admin_sensitive_terms" %}</h4>
 											<form action="{% url 'pyha:newpdf' %}" onsubmit="this.source.value=document.getElementById('sens-content').outerHTML" method="post">
-												<button type="submit" class="btn btn-default btn-sm">{% trans "handler_as_pdf" %}</button>
+												<button type="submit" class="btn btn-default btn-sm">{% trans "admin_as_pdf" %}</button>
 												<input type="hidden" name="source" />
 												{% csrf_token %}
 											</form>
@@ -417,7 +407,7 @@
 											</div>
 										  </div>
 										  <div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
+											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "admin_exit" %}</button>
 										  </div>
 										</div>
 									  </div>
@@ -425,18 +415,18 @@
 							</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-						<h3>{% trans "handler_contacts" %}</h3>
+						<h3>{% trans "admin_contacts" %}</h3>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "handler_full_name" %}</th>
-								<th>{% trans "handler_street_address" %}</th>
-								<th>{% trans "handler_postal_code" %}</th>
-								<th>{% trans "handler_post_office_name" %}</th>
-								<th>{% trans "handler_country" %}</th>
-								<th>{% trans "handler_email" %}</th>
-								<th>{% trans "handler_phone_number" %}</th>
-								<th>{% trans "handler_corporation/organization_name" %}</th>
-								<th>{% trans "handler_corporation_id" %}</th>
+								<th>{% trans "admin_full_name" %}</th>
+								<th>{% trans "admin_street_address" %}</th>
+								<th>{% trans "admin_postal_code" %}</th>
+								<th>{% trans "admin_post_office_name" %}</th>
+								<th>{% trans "admin_country" %}</th>
+								<th>{% trans "admin_email" %}</th>
+								<th>{% trans "admin_phone_number" %}</th>
+								<th>{% trans "admin_corporation/organization_name" %}</th>
+								<th>{% trans "admin_corporation_id" %}</th>
 							</tr>
 								{% for contact in contactlist %}
 							<tr>
@@ -454,19 +444,18 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
-						{% if role1 %}
 							{% if userRequest.sensstatus == 0 %}
-							<h3>{% trans "handler_user_no_sensitive_data"%}</h3>
+							<h3>{% trans "admin_user_no_sensitive_data"%}</h3>
 							{% else %}
-							<h3>{% trans "handler_list_of_collections"%}</h3>
+							<h3>{% trans "admin_list_of_collections"%}</h3>
 							{% for collection in taxonlist %}
 								<span>{{collection.result.collectionName}}{% if not forloop.last %},{% endif %}</span>
 							{% endfor %}
 							<br><br />
 							<table class="table" style="width:100%">
 								<tr style=color:black>
-								<th>{% trans "handler_state_of_processing" %}</th>
-								<th>{% trans "handler_decision_arguments" %}</th>
+								<th>{% trans "admin_state_of_processing" %}</th>
+								<th>{% trans "admin_decision_arguments" %}</th>
 								</tr>
 								{% if userRequest.sensstatus == 1 %}
 								<tr class="info clickable-row"
@@ -480,20 +469,20 @@
 								>
 								{% if userRequest.sensstatus == 1 %}
 									{% if role1 %}
-										<td>{% trans "handler_waiting_for_you" %}</td>
+										<td>{% trans "admin_waiting_for_you" %}</td>
 									{% else %}
-										<td>{% trans "handler_waiting_for_others" %}</td>
+										<td>{% trans "admin_waiting_for_others" %}</td>
 									{% endif %}
 								{% elif userRequest.sensstatus == 3 %}
-								<td>{% trans "handler_denied" %}</td>
+								<td>{% trans "admin_denied" %}</td>
 								{% elif userRequest.sensstatus == 2 %}
-								<td>{% trans "handler_partially_accepted" %}</td>
+								<td>{% trans "admin_partially_accepted" %}</td>
 								{% elif userRequest.sensstatus == 4 %}
-								<td>{% trans "handler_accepted" %}</td>
+								<td>{% trans "admin_accepted" %}</td>
 								{% elif userRequest.sensstatus == 99 %}
-								<td>{% trans "handler_skipped" %}</td>
+								<td>{% trans "admin_skipped" %}</td>
 								{% else %}  
-								<td>{% trans "handler_unknown" %}</td>
+								<td>{% trans "admin_unknown" %}</td>
 								{% endif %}
 								<td style="width:100%;">
 									<form action="{% url 'pyha:answer' %}" id="requestform" method="post" style="display:inline-block;">
@@ -501,13 +490,13 @@
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "admin_accept" %}</button>
 									</div>
 									{% csrf_token %}
 									</form>
-									<label for="submit-decline" class="btn btn-default btn-sm">{% trans "handler_refuse" %}</label>
+									<label for="submit-decline" class="btn btn-default btn-sm">{% trans "admin_refuse" %}</label>
 									<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post" style="padding-top:20px;">
-									<button type="hidden" id="submit-decline" onclick="showDecline()" type="submit" name="answer" value=0 style="display:none;">{% trans "handler_refuse" %}</button>
+									<button type="hidden" id="submit-decline" onclick="showDecline()" type="submit" name="answer" value=0 style="display:none;">{% trans "admin_refuse" %}</button>
 									<div class="form-group" style="position: relative;top:-30px;">
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
@@ -522,15 +511,14 @@
 								</tr>
 							</table>
 							{% endif %}
-						{% endif %}
 						{% if customlist %}
-							<h3>{% trans "handler_secured_collection_decicions" %}</h3>
+							<h3>{% trans "admin_secured_collection_decicions" %}</h3>
 								<table class="table" style="width:100%">
 									<tr style=color:black>
-										<th>{% trans "handler_collection_name" %}</th>
-										<th>{% trans "handler_collection_description" %}</th>
-										<th>{% trans "handler_state_of_processing" %}</th>
-										<th>{% trans "handler_decision_arguments" %}</th>
+										<th>{% trans "admin_collection_name" %}</th>
+										<th>{% trans "admin_collection_description" %}</th>
+										<th>{% trans "admin_state_of_processing" %}</th>
+										<th>{% trans "admin_decision_arguments" %}</th>
 									</tr>
 									{% for collection in customlist %}
 										{% if collection.status == 1 %}
@@ -548,35 +536,31 @@
 										
 										{% if collection.status == 1 %}
 											{% if collection.address in handles %}
-											<td>{% trans "handler_waiting_for_you" %}</td>
+											<td>{% trans "admin_waiting_for_you" %}</td>
 											{% else %}
-											<td>{% trans "handler_waiting_for_others" %}</td>
+											<td>{% trans "admin_waiting_for_others" %}</td>
 											{% endif %}
 										{% elif collection.status == 3 %}
-										<td>{% trans "handler_denied" %}</td>
+										<td>{% trans "admin_denied" %}</td>
 										{% elif collection.status == 2 %}
-										<td>{% trans "handler_partially_accepted" %}</td>
+										<td>{% trans "admin_partially_accepted" %}</td>
 										{% elif collection.status == 4 %}
-										<td>{% trans "handler_accepted" %}</td>
+										<td>{% trans "admin_accepted" %}</td>
 										{% else %}  
-										<td>{% trans "handler_unknown" %}</td>	
+										<td>{% trans "admin_unknown" %}</td>	
 										{% endif %}
 									<td>
-								{% if collection.address in handles %}
 								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 								<div class="form-group">
 										<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
+										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "admin_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "admin_refuse" %}</button>
 									</div>
 									{% csrf_token %}
 								</form>
-								{% else %}
-								{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
-								{% endif %}
 							</td>
 							</tr>
 							{% endfor %}
@@ -584,20 +568,20 @@
 						{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-						<h3>{% trans "handler_additional_questions" %}</h3>
+						<h3>{% trans "admin_additional_questions" %}</h3>
 						{% for question in requestInformationChat_list %}
 							{% if question.question %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "handler_asked" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question}}</p></div>
 							</div>
 							{% endif %}
 							{% if question.question != True %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "handler_answered" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question}}</p></div>
 							</div>
 							{% endif %}
 						{% endfor %}
-						<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
+						<h3>{% trans "admin_form_to_request_additional_information" %}</h3>
 						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
 							<div class="form-group">
 								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -605,7 +589,7 @@
 								{% if role1 %}
 								<input type="hidden" id="target" name="target" value="sens">
 								{% else %}
-								<span>{% trans 'ask_as_handler_of'%}</span>
+								<span>{% trans 'ask_as_admin_of'%}</span>
 								<select id="target" name="target">
 								{% for collection in customlist %}
 									{% if collection.address in handles %}
@@ -615,19 +599,19 @@
 								</select>
 								{% endif %}
 								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_request_additional_information" %}</button>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "admin_request_additional_information" %}</button>
 							</div>
 							{% csrf_token %}
 						</form>
 					</div>
 					{% if role1 %}
-					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
+					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="admin_comments">
 							<div>
 								<div>
-									<h3>{% trans "handler_official_comment_area" %}</h3>
+									<h3>{% trans "admin_official_comment_area" %}</h3>
 									{% for requestChat in requestChat_list %}
 									<div class="panel panel-default">
-									<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "handler_said" %}&#10;&#13;{{ requestChat }}</p></div>
+									<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "admin_said" %}&#10;&#13;{{ requestChat }}</p></div>
 									</div>
 									{% endfor %}
 									<form action="{% url 'pyha:comment_sensitive' %}" id="commentform" method="post">
@@ -636,7 +620,7 @@
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required ></textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_save" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "admin_save" %}</button>
 									</div>
 									{% csrf_token %}
 									</form>
@@ -646,32 +630,32 @@
 					{% endif %}
 					<div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
 					{% if requestLog_list %}
-					<h3>{% trans "handler_changes_history" %}</h3>
+					<h3>{% trans "admin_changes_history" %}</h3>
 					<table class="table" style="width:100%">
 							<tr>
-								<th>{% trans "handler_log_date" %}</th>
-								<th>{% trans "handler_log_maker" %}</th>
-								<th>{% trans "handler_log_description" %}</th>
+								<th>{% trans "admin_log_date" %}</th>
+								<th>{% trans "admin_log_maker" %}</th>
+								<th>{% trans "admin_log_description" %}</th>
 							</tr>
 						{% for requestLog in requestLog_list %}
 						<tr>
 							<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
 							<td>{{requestLog.name}} ({{requestLog.email}})</td>
 							{% if requestLog.action == 'VIEW' %}
-							<td>{% trans "handler_log_viewed" %}</td>
+							<td>{% trans "admin_log_viewed" %}</td>
 							{% elif requestLog.action == 'ACC' %}
-							<td>{% trans "handler_log_terms_accepted" %}</td>
+							<td>{% trans "admin_log_terms_accepted" %}</td>
 							{% elif requestLog.action == 'POS' %}
 								{% if requestLog.collection == None %}
-								<td>{% trans "handler_log_sensitives_accepted" %}</td>
+								<td>{% trans "admin_log_sensitives_accepted" %}</td>
 								{% else %}
-								<td>{% trans "handler_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
+								<td>{% trans "admin_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
 								{% endif %}
 							{% elif requestLog.action == 'NEG' %}
 								{% if requestLog.collection == None %}
-								<td>{% trans "handler_log_sensitives_denied" %}</td>
+								<td>{% trans "admin_log_sensitives_denied" %}</td>
 								{% else %}
-								<td>{% trans "handler_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+								<td>{% trans "admin_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
 								{% endif %}
 							{% endif %}
 							</tr>

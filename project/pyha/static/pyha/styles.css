@@ -90,6 +90,16 @@ p {
 	color:#A9A9A9;
 }
 
+.slider-admin-light {
+    background-color: #8080c0;
+	color:white;
+}
+
+.slider-admin {
+    background-color: #DDDDDD;
+	color:#A9A9A9;
+}
+
 #filtermap { 
 	height: 250px; 
 	width: 250px;
@@ -499,6 +509,15 @@ div.contact-form{
 .request-handler-action-tab[aria-expanded="true"] {
 	color: #000 !important;
 	border-bottom: 4px solid #349934 !important;
+	padding-bottom: 7px;
+	font-weight: bold;
+}
+
+.request-admin-action-tab:not([aria-expanded="true"]) {
+	border: 1px solid #ddd;
+	background-color: #f9f5f5;
+	color: #555;
+	border-bottom: 4px solid #5a136c;
 	padding-bottom: 7px;
 	font-weight: bold;
 }

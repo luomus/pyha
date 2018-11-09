@@ -1,5 +1,10 @@
-﻿USER = 'user'
+﻿#current role in session
+USER = 'user'
+ADMIN = 'admin'
 HANDLER_ANY = 'handler'
-HANDLER_SENS = 'MA.sensitiveInformationApprovalRequestHandler'
-HANDLER_COLL = 'MA.downloadRequestHandler'
-HANDLER_BOTH = HANDLER_SENS + ' and ' + HANDLER_COLL
+
+#role categories
+CAT_ADMIN = 'MA.admin'
+CAT_HANDLER_SENS = 'MA.sensitiveInformationApprovalRequestHandler'
+CAT_HANDLER_COLL = 'MA.downloadRequestHandler'
+CAT_HANDLER_BOTH = CAT_HANDLER_SENS + ' and ' + CAT_HANDLER_COLL

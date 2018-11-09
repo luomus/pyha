@@ -1,10 +1,8 @@
 from __future__ import absolute_import
 from .settings import *
 
-import os
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ["ENABLE_DEBUG"] == "True"
+DEBUG = os.environ.get("ENABLE_DEBUG", "False") == "True"
 DATABASES = {
     'default': {
         'ENGINE': os.environ["DB_ENGINE"],
@@ -16,7 +14,12 @@ DATABASES = {
 		}
     }
 }
-if(DEBUG): EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend' 
+if DEBUG: 
+    if not os.environ.get("EMAIL_BACKEND_FILE_PATH") == None:
+        EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+        EMAIL_FILE_PATH = os.environ["EMAIL_BACKEND_FILE_PATH"]
+    else:
+        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 else: EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25

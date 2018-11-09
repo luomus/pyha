@@ -1,4 +1,4 @@
-{% extends "pyha/base.html" %}
+{% extends "pyha/base/base.html" %}
 {% block content %}
 {% load i18n %}
 
@@ -115,9 +115,9 @@ $(document).ready(function() {
             "order": [[ 1, "desc" ]],
 	    "pageLength": 100,
             "language": {
-             {% if LANGUAGE == "fi" %}
+            {% if LANGUAGE == "fi" %}
             "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Finnish.json"
-            {% elif LANGUAGE == "sw" %}
+            {% elif LANGUAGE == "sv" %}
             "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Swedish.json"
             {% endif %}
             }

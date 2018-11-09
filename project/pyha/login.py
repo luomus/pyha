@@ -6,9 +6,9 @@ from functools import wraps
 from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from pyha.models import Collection, Request, StatusEnum
-from pyha.roles import HANDLER_SENS, USER, HANDLER_ANY, HANDLER_COLL
-from pyha.warehouse import is_download_handler, get_collections_where_download_handler
+from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
+from pyha.roles import CAT_ADMIN, ADMIN, CAT_HANDLER_SENS, USER, HANDLER_ANY, CAT_HANDLER_COLL
+from pyha.warehouse import is_download_handler, get_collections_where_download_handler, is_download_handler_in_collection
 import requests
 
 
@@ -40,19 +40,20 @@ def log_in(request, token, authentication_info):
         request.session["user_email"] = authentication_info["user"]["email"]
         request.session["user_roles"] = []
         for r in authentication_info["user"]["roles"]:
-            if HANDLER_SENS in r:
+            if any(role in r for role in (CAT_HANDLER_SENS, CAT_ADMIN)):
                 request.session["user_roles"].append(r)
         request.session["token"] = token
         if not "_language" in request.session:
             request.session["_language"] = "fi"
         add_collection_request_handler_roles(request, authentication_info)
-        if HANDLER_SENS in request.session["user_roles"] or HANDLER_COLL in request.session["user_roles"]:
-            request.session["user_roles"].append(USER)
+        request.session["user_roles"].append(USER)
+        request.session["current_user_role"] = USER
+        if CAT_HANDLER_SENS in request.session["user_roles"] or CAT_HANDLER_COLL in request.session["user_roles"]:
             request.session["user_roles"].append(HANDLER_ANY)
             request.session["current_user_role"] = HANDLER_ANY
-        else:
-            request.session["user_roles"] = [USER]
-            request.session["current_user_role"] = USER
+        if CAT_ADMIN in request.session["user_roles"]:
+            request.session["user_roles"].append(ADMIN)
+            request.session["current_user_role"] = ADMIN
         request.session.set_expiry(3600)
         return True
     return False
@@ -93,9 +94,8 @@ def get_user_name(request):
         return request.session["user_name"]
 
 def add_collection_request_handler_roles(request, content):
-    #if Collection.objects.filter(downloadRequestHandler__contains=request.session["user_id"]).count() > 0:	
     if is_download_handler(request.session["user_id"]):
-        request.session["user_roles"].append(HANDLER_COLL)
+        request.session["user_roles"].append(CAT_HANDLER_COLL)
         
 def logged_in(request):
     if "user_id" in request.session:
@@ -114,8 +114,8 @@ def _process_auth_response(request, indexpath):
         
 def is_allowed_to_view(request, requestId):
     userId = request.session["user_id"]
-    role1 = HANDLER_SENS in request.session.get("user_roles", [None])
-    role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+    role1 = CAT_HANDLER_SENS in request.session.get("user_roles", [None])
+    role2 = CAT_HANDLER_COLL in request.session.get("user_roles", [None])
     return allowed_to_view(request, requestId, userId, role1, role2)
 
 def is_request_owner(request, requestId):
@@ -123,16 +123,18 @@ def is_request_owner(request, requestId):
     return Request.objects.filter(id=requestId, user=userId, status__gte=0).exists()
 
 def allowed_to_view(request, requestId, userId, role1, role2):
-    if HANDLER_ANY in request.session.get("current_user_role", [None]):
+    if ADMIN in request.session.get("current_user_role", [None]):
+        if not Request.objects.filter(id=requestId, status__gt=0).exists():
+            return False
+    elif HANDLER_ANY in request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
         currentRequest = Request.objects.get(id=requestId, status__gt=0)
         if role2 and not role1:            
-            if(currentRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
+            if(currentRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL):
                 if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                     return False
             else:
-                #if not Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status__gt=0).count() > 0:    
                 if not Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                     return False
     else:
@@ -141,11 +143,12 @@ def allowed_to_view(request, requestId, userId, role1, role2):
     return True
     
 def is_allowed_to_ask_information_as_target(request, target, requestId):
-    if target == 'sens':
-        return HANDLER_SENS in request.session["user_roles"]
+    if target == 'admin':
+        return ADMIN in request.session["user_roles"]
+    elif target == 'sens':
+        return CAT_HANDLER_SENS in request.session["user_roles"]
     elif Collection.objects.filter(request=requestId, address=target).exists():
-        collection = Collection.objects.get(request=requestId, address=target)
-        return request.session["user_id"] in collection.downloadRequestHandler
+        return is_download_handler_in_collection(request.session["user_id"], target)
     return False
 
 def basic_auth_required(func):
