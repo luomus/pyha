@@ -59,7 +59,6 @@
 					</span></h2>
 			</div>
 			<div style="padding-left:0px;">
-				<div>
 					<div class="col-xs-12">
 						{% if collections %}
 						<h2 style="text-align:center;top:0%;">{% trans "admin_restricted" %}</h2>
@@ -168,23 +167,22 @@
 								</tr>
 							{% for collection in collections %}
 								{% if collection.status == 1 %}
-								<tr class="info clickable-row"
+								<tr class="info clickable-row">
 								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row"
+								<tr class="danger clickable-row">
 								{% elif collection.status == 4 %}
-								<tr class="success clickable-row"
+								<tr class="success clickable-row">
 								{% elif collection.taxonSecured > 0 %}
 									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% endif %}  
 								{% else %}  
-								<tr	
+								<tr>	
 								{% endif %}
-								>
 								<td>{{collection.result.collectionName}}</td>
 								{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 								<td>{{collection.result.description}}</td>
@@ -411,15 +409,14 @@
 							</tr>
 							{% for collection in collections %}
 								{% if collection.status == 1 %}
-								<tr class="info clickable-row"
+								<tr class="info clickable-row">
 								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row"
+								<tr class="danger clickable-row">
 								{% elif collection.status == 4 %}
-								<tr class="success clickable-row"
+								<tr class="success clickable-row">
 								{% else %}  
-								<tr	
+								<tr>
 								{% endif %}
-								>
 									<td>{{collection.result.collectionName}}</td>
 									<td>{{collection.result.description}}</td>
 									
@@ -506,6 +503,7 @@
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+										<input type="hidden" id="requestid" name="requestid" value="admin">
 										<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required ></textarea>
 										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "admin_save" %}</button>
 									</div>

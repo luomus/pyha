@@ -8,7 +8,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, send_mail_for_missing_handlers
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
-from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum
+from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections
@@ -403,8 +403,9 @@ def create_request_view_context(requestId, request, userRequest):
 	if userRequest.status == 0 and Request.objects.filter(user=userId,status__gte=1).count() > 0:
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
-		context["requestChat_list"] = requestChat(request, requestId)
-		requestInformationChat_list = requestInformationChat(request, requestId, role1, role2, userId)
+		context["requestSensitiveChat_list"] = requestSensitiveChat(userRequest)
+		context["requestHandlerChat_list"] = requestHandlerChat(userRequest)
+		requestInformationChat_list = requestInformationChat(request, userRequest, role1, role2, userId)
 		context["requestInformationChat_list"] = requestInformationChat_list
 		if(requestInformationChat_list):
 			context["information"] = not requestInformationChat_list[-1].question
@@ -472,28 +473,38 @@ def requestLog(request, requestId):
 				collectionList.append(l)
 		return requestLog_list
 
-def requestChat(request, requestId):
-		requestChat_list = list(RequestChatEntry.requestChat.filter(request=requestId).order_by('date'))
-		for l in requestChat_list:
-			l.name = fetch_user_name(l.user)
-		return requestChat_list
+def requestSensitiveChat(userRequest):
+		requestSensitiveChat_list = list(RequestSensitiveChatEntry.requestChat.filter(request=userRequest).order_by('date'))
+		for c in requestSensitiveChat_list:
+			c.name = fetch_user_name(c.user)
+		return requestSensitiveChat_list
+	
+def requestHandlerChat(userRequest):
+		requestHandlerChat_list = list(RequestHandlerChatEntry.requestHandlerChat.filter(request=userRequest).order_by('date'))
+		for c in requestHandlerChat_list:
+			c.name = fetch_user_name(c.user)
+		return requestHandlerChat_list
 
-def requestInformationChat(request, requestId, role1, role2, userId):
-		requestChat_list = []
+def requestInformationChat(request, userRequest, role1, role2, userId):
+		requestInformationChat_list = []
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if role1:
-				requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target='sens').order_by('date'))
+				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target='sens').order_by('date'))
 			if role2:
 				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
-				for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
-					requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target=str(collection)).order_by('date'))
+				if(userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL):
+					for collection in Collection.objects.filter(request=userRequest, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
+						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
+				else:
+					for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
+						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
 		else:
-			requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId).order_by('date'))
-		for l in requestChat_list:
+			requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
+		for l in requestInformationChat_list:
 			get_result_for_target(request, l)
-		for l in requestChat_list:
+		for l in requestInformationChat_list:
 			l.name = fetch_user_name(l.user)
-		return requestChat_list
+		return requestInformationChat_list
 
 def contains_approved_collection(requestId):
 	return Collection.objects.filter(request=requestId, status = 4).count() > 0

@@ -6,9 +6,11 @@ from functools import wraps
 from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext
 from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
 from pyha.roles import CAT_ADMIN, ADMIN, CAT_HANDLER_SENS, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import is_download_handler, get_collections_where_download_handler, is_download_handler_in_collection
+from pyha import toast
 import requests
 
 
@@ -117,6 +119,13 @@ def is_allowed_to_view(request, requestId):
     role1 = CAT_HANDLER_SENS in request.session.get("user_roles", [None])
     role2 = CAT_HANDLER_COLL in request.session.get("user_roles", [None])
     return allowed_to_view(request, requestId, userId, role1, role2)
+
+def is_admin_frozen_and_not_admin(request, userRequest):
+    if(userRequest.frozen and not ADMIN in request.session["current_user_role"]):
+        return True
+    else:
+        request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
+        return False
 
 def is_request_owner(request, requestId):
     userId = request.session["user_id"]

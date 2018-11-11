@@ -10,6 +10,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
 from pyha.models import RequestLogEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import USER
+from pyha import toast
 
 
 #removes sensitive sightings
@@ -28,7 +29,7 @@ def remove_sensitive_data(request):
             collection.save(update_fields=['status'])
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(nextRedirect)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 #removes custom sightings
 def remove_custom_data(request):
@@ -46,7 +47,7 @@ def remove_custom_data(request):
             collection.save(update_fields=['status'])
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(next)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 def removeCollection(request):
     if request.method == 'POST':
@@ -54,19 +55,19 @@ def removeCollection(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:index'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = request.POST.get('collectionid')
         redirect_path = request.POST.get('next')
         collection = Collection.objects.get(address = collectionId, request = requestId)
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:index'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         #avoid work when submitted multiple times
         if(collection.status != -1):
             collection.status = -1
             collection.save(update_fields=['status'])
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(redirect_path)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 
 def approve_terms(request):
@@ -75,7 +76,7 @@ def approve_terms(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:index'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         lang = 'fi' #ainakin toistaiseksi
         userRequest = Request.objects.get(id = requestId)
         if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
@@ -134,13 +135,13 @@ def approve_terms(request):
                     #send_mail_for_approval_sens(requestId, lang)
                 #make a log entry
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-                request.session["message"] = ugettext('toast_thanks_request_has_been_registered')
+                request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_thanks_request_has_been_registered')}
                 request.session.save()
             else:
                 userRequest.status = -1
                 userRequest.save()
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 
 def approve_terms_skip_official(request, userRequest, requestId, lang):
@@ -170,7 +171,7 @@ def approve_terms_skip_official(request, userRequest, requestId, lang):
         update_contact_preset(request, userRequest)
         #make a log entry
         RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-        request.session["message"] = ugettext('toast_thanks_request_has_been_registered')
+        request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_thanks_request_has_been_registered')}
         request.session.save()
     else:
         userRequest.status = -1

@@ -75,6 +75,7 @@ class Request(models.Model):
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
 	lang = models.CharField(max_length=10, default='fi') 
+	frozen = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.id
@@ -121,12 +122,24 @@ class RequestLogEntry(models.Model):
 		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
 
 @python_2_unicode_compatible		
-class RequestChatEntry(models.Model):
+class RequestSensitiveChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
 	requestChat = models.Manager()
+	
+	def __str__(self):
+		return self.message
+	
+@python_2_unicode_compatible		
+class RequestHandlerChatEntry(models.Model):
+	request = models.ForeignKey(Request, on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=100)
+	message = models.CharField(max_length=2000)
+	target = models.CharField(max_length=200)
+	requestHandlerChat = models.Manager()
 	
 	def __str__(self):
 		return self.message

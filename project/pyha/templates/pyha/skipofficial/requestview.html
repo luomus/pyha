@@ -206,23 +206,22 @@
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
 										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
+										<tr class="info clickable-row">
 										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
+										<tr class="danger clickable-row">
 										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
+										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
-									<tr	
+									<tr>	
 									{% endif %}
-									>
 									<td>{{collection.result.collectionName}}</td>
 									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 									<td>{{collection.result.description}}</td>
@@ -257,23 +256,22 @@
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
 										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
+										<tr class="info clickable-row">
 										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
+										<tr class="danger clickable-row">
 										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
+										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
 									<td>{{collection.result.collectionName}}</td>
 									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
@@ -520,41 +518,41 @@
 								<th>{% trans "log_maker" %}</th>
 								<th>{% trans "log_description" %}</th>
 							</tr>
-						{% for requestLog in requestLog_list %}
-						<tr>
-							<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-							{% if requestLog.role == 'handler' %}
-							<td>{% trans "admin" %}</td>
-							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
-							<td>{% trans "log_sensitive_data_handler" %}</td>
-							{% elif requestLog.role == 'MA.downloadRequestHandler' %}
-							<td>{% trans "log_collection_provider" %}</td>
-							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
-							<td>{% trans "log_sensitive_and_collections_handler" %}</td>
-							{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
-							<td>{{requestLog.name}}</td>
-							{% else %}
-							<td>{% trans "user" %}</td>
-							{% endif %}
-							{% if requestLog.action == 'VIEW' %}
-							<td>{% trans "log_viewed" %}</td>
-							{% elif requestLog.action == 'ACC' %}
-							<td>{% trans "log_terms_accepted" %}</td>
-							{% elif requestLog.action == 'POS' %}
-								{% if requestLog.collection == None %}
-								<td>{% trans "log_sensitives_accepted" %}</td>
+							{% for requestLog in requestLog_list %}
+							<tr>
+								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+								{% if requestLog.role == 'handler' %}
+								<td>{% trans "admin" %}</td>
+								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
+								<td>{% trans "log_sensitive_data_handler" %}</td>
+								{% elif requestLog.role == 'MA.downloadRequestHandler' %}
+								<td>{% trans "log_collection_provider" %}</td>
+								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
+								<td>{% trans "log_sensitive_and_collections_handler" %}</td>
+								{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
+								<td>{{requestLog.name}}</td>
 								{% else %}
-								<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
+								<td>{% trans "user" %}</td>
 								{% endif %}
-							{% elif requestLog.action == 'NEG' %}
-								{% if requestLog.collection == None %}
-								<td>{% trans "log_sensitives_denied" %}</td>
-								{% else %}
-								<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+								{% if requestLog.action == 'VIEW' %}
+								<td>{% trans "log_viewed" %}</td>
+								{% elif requestLog.action == 'ACC' %}
+								<td>{% trans "log_terms_accepted" %}</td>
+								{% elif requestLog.action == 'POS' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "log_sensitives_accepted" %}</td>
+									{% else %}
+									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
+									{% endif %}
+								{% elif requestLog.action == 'NEG' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "log_sensitives_denied" %}</td>
+									{% else %}
+									<td>{% trans "log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
+									{% endif %}
 								{% endif %}
-							{% endif %}
-							</tr>
-						{% endfor %}
+								</tr>
+							{% endfor %}
 						</table>
 					{% else %}
 						<strong>{% trans "log_no_history" %}.</strong>

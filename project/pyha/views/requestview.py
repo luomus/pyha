@@ -5,13 +5,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.translation import ugettext
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_allowed_to_ask_information_as_target
-from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum
+from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen_and_not_admin, is_allowed_to_ask_information_as_target
+from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN
 from pyha.warehouse import send_download_request, is_download_handler_in_collection
+from pyha import toast
 
 @csrf_exempt
 def show_request(request):
@@ -24,26 +26,34 @@ def show_request(request):
     if not is_allowed_to_view(request, requestId):
         return HttpResponseRedirect(reverse('pyha:root'))
     userRequest = Request.objects.get(id=requestId)
-    #make a log entry
+    if is_admin_frozen_and_not_admin(request, requestId):
+        return HttpResponseRedirect(reverse('pyha:root'))
     userId = request.session["user_id"]
     if userRequest.user != userId:
         role1 = CAT_HANDLER_SENS in request.session.get("user_roles", [None])
         role2 = CAT_HANDLER_COLL in request.session.get("user_roles", [None])
         role3 = CAT_ADMIN in request.session.get("user_roles", [None])
+        #make a log entry
         make_logEntry_view(request, userRequest, userId, role1, role2, role3)
     context = create_request_view_context(requestId, request, userRequest)
     if ADMIN in request.session.get("current_user_role", [None]):
         update_request_status(userRequest, userRequest.lang)
         return render(request, 'pyha/skipofficial/admin/requestview.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/admin/requestview.html', context)
-    elif HANDLER_ANY in request.session.get("current_user_role", [None]):
-        update_request_status(userRequest, userRequest.lang)
-        return render(request, 'pyha/skipofficial/handler/requestview.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/handler/requestview.html', context)
     else:
-        if(userRequest.status == 0):
-            return render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestform.html', context)
+        if not userRequest.frozen:
+            if HANDLER_ANY in request.session.get("current_user_role", [None]):
+                update_request_status(userRequest, userRequest.lang)
+                return render(request, 'pyha/skipofficial/handler/requestview.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/handler/requestview.html', context)
+            else:
+                if(userRequest.status == 0):
+                    return render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestform.html', context)
+                else:
+                    update_request_status(userRequest, userRequest.lang)
+                    return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestview.html', context)
         else:
-            update_request_status(userRequest, userRequest.lang)
-            return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestview.html', context)
+            request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
+            request.session.save()
+            return HttpResponseRedirect(reverse('pyha:root'))
     
 def comment_sensitive(request):
     nexturl = request.POST.get('next', '/')
@@ -52,49 +62,79 @@ def comment_sensitive(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
+            return HttpResponseRedirect(reverse('pyha:root'))
         message = request.POST.get('commentsForAuthorities')
         userRequest = Request.objects.get(id=requestId) 
+        if is_admin_frozen_and_not_admin(request, requestId):
+            return HttpResponseRedirect(reverse('pyha:root'))
         if CAT_HANDLER_SENS in request.session["user_roles"] and not userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
-            newChatEntry = RequestChatEntry()
+            newChatEntry = RequestSensitiveChatEntry()
             newChatEntry.request = userRequest
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.message = message
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
+
+def comment_handler(request):
+    nexturl = request.POST.get('next', '/')
+    if request.method == 'POST':
+        requestId = request.POST.get('requestid', '?')
+        message = request.POST.get('commentsForHandlers')
+        if not logged_in(request):
+            return _process_auth_response(request, "pyha")
+        if not is_allowed_to_view(request, requestId):
+            return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id=requestId) 
+        if is_admin_frozen_and_not_admin(request, requestId):
+            return HttpResponseRedirect(reverse('pyha:root'))
+        if(not userRequest.frozen or ADMIN in request.session["current_user_role"]):
+            if CAT_HANDLER_COLL in request.session["user_roles"]:
+                newChatEntry = RequestHandlerChatEntry()
+                newChatEntry.request = userRequest
+                newChatEntry.date = datetime.now()
+                newChatEntry.user = request.session["user_id"]
+                newChatEntry.message = message
+                newChatEntry.save()
+    return HttpResponseRedirect(nexturl)
     
 def initialize_download(request):
     nexturl = request.POST.get('next', '/')
     if request.method == 'POST':
+        requestId = request.POST.get('requestid', '?')
         if not logged_in(request):
             return _process_auth_response(request, "pyha")
-        requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         if not is_request_owner(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id=requestId) 
+        if is_admin_frozen_and_not_admin(request, userRequest):
+            return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id=requestId)
-        if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensstatus in [4,99] and contains_approved_collection(requestId))):
-            send_download_request(requestId)
-            userRequest.status = 7
-            userRequest.save()
+        if(not userRequest.frozen or ADMIN in request.session["current_user_role"]):
+            if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensstatus in [4,99] and contains_approved_collection(requestId))):
+                send_download_request(requestId)
+                userRequest.status = 7
+                userRequest.save()
     return HttpResponseRedirect(nexturl)
     
 def change_description(request):
     if request.method == 'POST':
-        if not logged_in(request):
-            return _process_auth_response(request, "pyha")
         nexturl = request.POST.get('next', '/')
         requestId = request.POST.get('requestid')
-        if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:root'))
+        if not logged_in(request):
+            return _process_auth_response(request, "pyha")
         if not is_request_owner(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id = requestId)
-        userRequest.description = request.POST.get('description')
-        userRequest.save(update_fields=['description'])
-        return HttpResponseRedirect(nexturl)
+        if is_admin_frozen_and_not_admin(request, userRequest):
+            return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id = requestId)
+        if(not userRequest.frozen or ADMIN in request.session["current_user_role"]):
+            userRequest.description = request.POST.get('description')
+            userRequest.save(update_fields=['description'])
+            return HttpResponseRedirect(nexturl)
     return HttpResponseRedirect(reverse('pyha:root'))
 
 def answer(request):
@@ -108,6 +148,8 @@ def answer(request):
             return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = request.POST.get('collectionid')
         userRequest = Request.objects.get(id = requestId)
+        if is_admin_frozen_and_not_admin(request, userRequest):
+            return HttpResponseRedirect(reverse('pyha:root'))
         if(int(request.POST.get('answer')) == 2):
             if not is_allowed_to_ask_information_as_target(request, target, requestId):
                 return HttpResponseRedirect(reverse('pyha:root'))
@@ -122,8 +164,7 @@ def answer(request):
             userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
             userRequest.save()
             send_mail_after_additional_information_requested(requestId, request.LANGUAGE_CODE)
-        elif HANDLER_ANY == request.session["current_user_role"]:
-            if CAT_ADMIN in request.session["user_roles"]:
+        elif CAT_ADMIN in request.session["user_roles"]:
                 collection = Collection.objects.get(request=requestId, address=collectionId)
                 if (int(request.POST.get('answer')) == 1):
                     collection.status = StatusEnum.APPROVED
@@ -136,7 +177,8 @@ def answer(request):
                 collection.decisionExplanation = request.POST.get('reason')
                 collection.save()
                 update_request_status(userRequest, userRequest.lang)
-            elif "sens" not in collectionId:
+        elif HANDLER_ANY == request.session["current_user_role"]:
+            if "sens" not in collectionId:
                 collection = Collection.objects.get(request=requestId, address=collectionId)
                 #if (request.session["user_id"] in collection.downloadRequestHandler) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
                 if is_download_handler_in_collection(request.session["user_id"], collectionId) and userRequest.status != 7 and userRequest.status != 8 and userRequest.status != 3:
@@ -179,11 +221,13 @@ def information(request):
         requestId = request.POST.get('requestid', '?')
         target = request.POST.get('target', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect('/pyha/')
+            return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id = requestId)
+        if is_admin_frozen_and_not_admin(request, userRequest):
+            return HttpResponseRedirect(reverse('pyha:root'))
         if(int(request.POST.get('information')) == 2):
             if not target_valid(target, requestId):
                 return HttpResponseRedirect(reverse('pyha:root'))
-            userRequest = Request.objects.get(id = requestId)
             newChatEntry = RequestInformationChatEntry()
             newChatEntry.request = userRequest
             newChatEntry.date = datetime.now()

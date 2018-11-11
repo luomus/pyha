@@ -218,23 +218,23 @@
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
 										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
+										<tr class="info clickable-row">
 										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
+										<tr class="danger clickable-row">
 										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
+										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
+									
 									<td>{{collection.result.collectionName}}</td>
 									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 									<td>{{collection.result.description}}</td>
@@ -267,15 +267,14 @@
 									<th>{% trans "decision_arguments" %}</th>
 									</tr>
 									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
 									{% if userRequest.sensstatus == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif userRequest.sensstatus == 3 %}
@@ -307,23 +306,22 @@
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
 										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
+										<tr class="info clickable-row">
 										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
+										<tr class="danger clickable-row">
 										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
+										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
 									<td>{{collection.result.collectionName}}</td>
 									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>

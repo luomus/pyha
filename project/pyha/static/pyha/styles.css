@@ -812,7 +812,6 @@ h3{
 #toastbox {
 	visibility: hidden;
 	min-width: 250px;
-	background-color: #51a351;
 	box-shadow: 0 0 12px #999;
 	color: #fff;
 	text-align: center;
@@ -825,6 +824,18 @@ h3{
 	padding: 15px 15px 15px 50px;
 	width: 300px;
 	border-radius: 3px;
+}
+
+#toastbox.info {
+	background-color: #00abfd;
+}
+
+#toastbox.positive {
+	background-color: #51a351;
+}
+
+#toastbox.error {
+	background-color: #dd0000;
 }
 
 #toastbox.show {

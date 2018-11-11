@@ -35,9 +35,9 @@ def index(request):
 		for r in request_list:
 			r.allSecured = get_all_secured(r)
 			r.email = fetch_email_address(r.user)
-		context = {"role": hasRole, "message": request.session.get("message", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		if(request.session.get("message", None) is not None):
-			request.session["message"] = None
+		context = {"role": hasRole, "toast": request.session.get("toast", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		if(request.session.get("toast", None) is not None):
+			request.session["toast"] = None
 			request.session.save()
 		return render(request, 'pyha/base/admin/index.html', context)
 	elif HANDLER_ANY in request.session.get("current_user_role", [None]):
@@ -60,16 +60,16 @@ def index(request):
 			handler_information_answered_status(r, request, userId)
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0 or not r.status == StatusEnum.WAITING):
 				r.viewed = True
-		context = {"role": hasRole, "message": request.session.get("message", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		if(request.session.get("message", None) is not None):
-			request.session["message"] = None
+		context = {"role": hasRole, "toast": request.session.get("toast", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		if(request.session.get("toast", None) is not None):
+			request.session["toast"] = None
 			request.session.save()
 		return render(request, 'pyha/base/handler/index.html', context)
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
-		context = {"role": hasRole, "message": request.session.get("message", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		if(request.session.get("message", None) is not None): 
-			request.session["message"] = None
+		context = {"role": hasRole, "toast": request.session.get("toast", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+		if(request.session.get("toast", None) is not None): 
+			request.session["toast"] = None
 			request.session.save()
 		return render(request, 'pyha/base/index.html', context)
 

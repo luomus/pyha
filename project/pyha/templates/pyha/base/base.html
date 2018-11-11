@@ -114,8 +114,14 @@
 		   </div>
 		   
 		</nav>
-	  	{% if message %}
-	  	<div id="toastbox"><span class="glyphicon glyphicon-ok large-thin-glyphicon toast-glyphicon"> </span>{{ message }}</div>
+	  	{% if toast %}
+	  		{% if toast.status == 'error' %}
+	  			<div id="toastbox" class="error"><span class="glyphicon glyphicon-remove large-thin-glyphicon toast-glyphicon"> </span>{{ toast.message }}</div>
+	  		{% elif toast.status == 'positive' %}
+	  			<div id="toastbox" class="positive"><span class="glyphicon glyphicon-ok large-thin-glyphicon toast-glyphicon"> </span>{{ toast.message }}</div>
+	  		{% else %}
+	  			<div id="toastbox" class="info"><span class="glyphicon glyphicon-info-sign large-thin-glyphicon toast-glyphicon"> </span>{{ toast.message }}</div>
+	  		{% endif %}
 	  	{% endif %}
 		{% block content %}
 		{% endblock %}
@@ -176,8 +182,8 @@
 		
 		function showToast() {
 			var message = document.getElementById("toastbox");
-			setTimeout(function(){ message.className = "show";}, 1000);
-		    setTimeout(function(){ message.className = message.className.replace("show", ""); }, 7000);
+			setTimeout(function(){ message.classList.add("show");}, 1000);
+		    setTimeout(function(){ message.classList.remove("show");}, 7000);
 		}
 		
 		
