@@ -1,4 +1,4 @@
 ﻿På svenska: Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa {{ time }}.
 Pyyntö tarvitsee teiltä vielä käyttöehtojen hyväksynnän.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=sw
+Osoite aineistopyyntöön: {{ req_link }}?lang=sv

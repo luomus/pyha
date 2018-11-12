@@ -75,14 +75,13 @@ class RequestTesting(TestCase):
 		wanted.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		session["user_roles"] = HANDLER_BOTH
-		session["current_user_role"] = HANDLER_ANY
+		session["user_roles"] = CAT_HANDLER_BOTH in session["current_user_role"] = HANDLER_ANY
 		session.save()
 	
 		response = self.client.get('/request/2')
 		logEntry = RequestLogEntry.requestLog.get(request = wanted)	
 		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, HANDLER_BOTH)
+		self.assertEqual(logEntry.role, CAT_HANDLER_BOTH)	
 		self.assertEqual(logEntry.collection, None)
 		self.assertEqual(logEntry.action, "VIEW")
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1) 
@@ -102,14 +101,13 @@ class RequestTesting(TestCase):
 		request1.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		session["user_roles"] = HANDLER_BOTH
-		session["current_user_role"] = HANDLER_ANY
+		session["user_roles"] = CAT_HANDLER_BOTH in session["current_user_role"] = HANDLER_ANY
 		session.save()
 
 		self.client.post(reverse('pyha:answer'), {'requestid': 1,'answer' : 1, 'collectionid':'sens'})
 		logEntry = RequestLogEntry.requestLog.get(request = request1)
 		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, HANDLER_SENS)
+		self.assertEqual(logEntry.role, CAT_HANDLER_SENS)		
 		self.assertEqual(logEntry.action, 'POS')
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
 
@@ -120,14 +118,14 @@ class RequestTesting(TestCase):
 		request2.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		session["user_roles"] = HANDLER_BOTH
+		session["user_roles"] = CAT_HANDLER_BOTH	
 		session["current_user_role"] = HANDLER_ANY
 		session.save()
 
 		self.client.post(reverse('pyha:answer'), {'requestid': 2,'answer' : 0,'collectionid': 'sens', 'reason': 'ei sovi' })
 		logEntry = RequestLogEntry.requestLog.get(request = request2)
 		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, HANDLER_SENS)
+		self.assertEqual(logEntry.role, CAT_HANDLER_SENS)
 		self.assertEqual(logEntry.action, 'NEG')
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
 
@@ -142,14 +140,14 @@ class RequestTesting(TestCase):
 		col.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		session["user_roles"] = HANDLER_COLL
+		session["user_roles"] = CAT_HANDLER_COLL	
 		session["current_user_role"] = HANDLER_ANY
 		session.save()
 
 		self.client.post(reverse('pyha:answer'), {'requestid': 1,'answer' : 1, 'collectionid':"HR.39"})
 		logEntry = RequestLogEntry.requestLog.get(request = request1, collection = col)
 		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, HANDLER_COLL)
+		self.assertEqual(logEntry.role, CAT_HANDLER_COLL)
 		self.assertEqual(logEntry.action, 'POS')
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
 
@@ -165,14 +163,14 @@ class RequestTesting(TestCase):
 		col.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		session["user_roles"] = HANDLER_BOTH
+		session["user_roles"] = CAT_HANDLER_BOTH	
 		session["current_user_role"] = HANDLER_ANY
 		session.save()
 
 		self.client.post(reverse('pyha:answer'), {'requestid': 2,'answer' : 0,'collectionid': 'colcustomsec1', 'reason': 'ei sovi' })
 		logEntry = RequestLogEntry.requestLog.get(request = request2, collection = col )
 		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, HANDLER_COLL)
+		self.assertEqual(logEntry.role, CAT_HANDLER_COLL)	
 		self.assertEqual(logEntry.action, 'NEG')
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
 

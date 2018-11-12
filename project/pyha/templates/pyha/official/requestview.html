@@ -1,4 +1,4 @@
-{% extends "pyha/base.html" %}
+{% extends "pyha/base/base.html" %}
 {% block content %}
 {% load i18n %}
 
@@ -218,23 +218,23 @@
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
 										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
+										<tr class="info clickable-row">
 										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
+										<tr class="danger clickable-row">
 										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
+										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
+									
 									<td>{{collection.result.collectionName}}</td>
 									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 									<td>{{collection.result.description}}</td>
@@ -267,15 +267,14 @@
 									<th>{% trans "decision_arguments" %}</th>
 									</tr>
 									{% if userRequest.sensstatus == 1 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif userRequest.sensstatus == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif userRequest.sensstatus == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
 									{% if userRequest.sensstatus == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif userRequest.sensstatus == 3 %}
@@ -307,23 +306,22 @@
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
-									<tr class="info clickable-row"
+									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
-									<tr class="danger clickable-row"
+									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
-									<tr class="success clickable-row"
+									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
 										{% if userRequest.sensstatus == 1 %}
-										<tr class="info clickable-row"
+										<tr class="info clickable-row">
 										{% elif userRequest.sensstatus == 3 %}
-										<tr class="danger clickable-row"
+										<tr class="danger clickable-row">
 										{% elif userRequest.sensstatus == 4 %}
-										<tr class="success clickable-row"
+										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
-									<tr	
+									<tr>
 									{% endif %}
-									>
 									<td>{{collection.result.collectionName}}</td>
 									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
@@ -570,7 +568,7 @@
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
 								<form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
 								<div class="form-group">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -586,7 +584,7 @@
 								{% endif %}
 								{% if question.question != True %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
 								</div>
 								{% endif %}
 							{% endfor %}
@@ -605,8 +603,12 @@
 						{% for requestLog in requestLog_list %}
 						<tr>
 							<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-							{% if requestLog.role == 'handler' %}
-							<td>{% trans "admin" %}</td>
+							{% if requestLog.role == 'admin' %}
+							<td>{% trans "log_admin" %}</td>
+							{% elif requestLog.role == 'handler' %}
+							<td>{% trans "log_handler" %}</td>
+							{% elif requestLog.role == 'MA.admin' %}
+							<td>{% trans "log_admin" %}</td>
 							{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
 							<td>{% trans "log_sensitive_data_handler" %}</td>
 							{% elif requestLog.role == 'MA.downloadRequestHandler' %}
@@ -628,6 +630,12 @@
 								{% else %}
 								<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
 								{% endif %}
+							{% elif requestLog.action == 'RESET' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "log_sensitives_reset" %}</td>
+									{% else %}
+									<td>{% trans "log_collection_reset" %} ({{ requestLog.collection.result.collectionName }})</td>
+									{% endif %}
 							{% elif requestLog.action == 'NEG' %}
 								{% if requestLog.collection == None %}
 								<td>{% trans "log_sensitives_denied" %}</td>

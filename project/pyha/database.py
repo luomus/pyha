@@ -2,15 +2,16 @@
 from datetime import timedelta, datetime
 from itertools import chain
 import json
+from django.core.cache import caches
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester
+from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, send_mail_for_missing_handlers
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
-from pyha.models import RequestLogEntry, RequestChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum
-from pyha.roles import HANDLER_ANY, HANDLER_SENS, HANDLER_COLL, HANDLER_BOTH, USER
+from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum
+from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections
 
 
 #removes sensitive sightings
@@ -92,14 +93,14 @@ def create_collection_for_list(request, collectionList, userRequest):
 	collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
 	get_values_for_collections(userRequest.id, request, collectionList)
 	
-def get_all_secured(request, userRequest):
+def get_all_secured(userRequest):
 	allSecured = 0
-	collectionList = []
-	create_collection_for_list(request, collectionList, userRequest)
+	collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
 	for collection in collectionList:
 		collection.allSecured = collection.customSecured + collection.taxonSecured
 		allSecured += collection.allSecured
 	return allSecured
+	
 
 #check if all collections have status -1. If so set status of request to -1.
 def check_all_collections_removed(requestId):
@@ -142,32 +143,49 @@ def update_contact_preset(request, userRequest):
 	contactPreset.save()
 
 def target_valid(target, requestId):
-	if target == 'sens':
+	if target == 'sens' or target == 'admin':
 		return True
 	elif Collection.objects.filter(request=requestId, address=target).exists():
 		return True
 	return False
-		
+
+def handlers_cannot_be_updated():
+	return not update_collection_handlers()
+	
+def update_collection_handlers():	
+	if 'has expired' in caches['collections'].get('collection_update', 'has expired'):
+		if update_collections():
+			collections_missing_handler = []
+			for co in caches['collections'].get('collections'):
+				if(co.get('downloadRequestHandler', {}) == {}):
+					collections_missing_handler.append(co.get('id'))
+			if(len(collections_missing_handler) > 0):
+				send_mail_for_missing_handlers(collections_missing_handler, "fi")
+			return True
+		else:
+			return False
+	return True
+
 def count_unhandled_requests(userId):
 	role = fetch_role(userId)
 	unhandled = set()
-	if(settings.TUN_URL+HANDLER_SENS in role):
-		request_list = Request.objects.exclude(status__lte=0).filter(sensstatus = StatusEnum.WAITING)
+	if(settings.TUN_URL+CAT_HANDLER_SENS in role):
+		request_list = Request.objects.exclude(status__lte=0).filter(sensstatus = Sens_StatusEnum.WAITING)
 		for r in request_list:
 			if (r.status == StatusEnum.WAITING):
 				#if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
 				#	unhandled.add(r)
 				#else:
 				questioning = False
-				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == StatusEnum.WAITING:
+				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == Sens_StatusEnum.WAITING:
 					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 					if chat.question:
 						questioning = True
 				if not questioning:
 					unhandled.add(r)
 	q = Request.objects.exclude(status__lte=0)
-	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensstatus=StatusEnum.IGNORE_OFFICIAL)
-	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensstatus=StatusEnum.IGNORE_OFFICIAL)
+	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
+	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
 	request_list = chain(c0, c1)
 	for r in request_list:
 		if (r.status == StatusEnum.WAITING):
@@ -186,11 +204,12 @@ def count_unhandled_requests(userId):
 	return len(unhandled)
 
 def update_request_status(userRequest, lang):
-	if userRequest.sensstatus == 99:
-		ignore_official_database_update_request_status(userRequest, lang) 
-	else: 
-		database_update_request_status(userRequest, lang)
-
+	if(not userRequest.status in [StatusEnum.WAITING_FOR_DOWNLOAD, StatusEnum.DOWNLOADABLE]):
+		if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
+			ignore_official_database_update_request_status(userRequest, lang) 
+		else: 
+			database_update_request_status(userRequest, lang)
+			
 def database_update_request_status(wantedRequest, lang):
 
 	statusBeforeUpdate = wantedRequest.status
@@ -206,27 +225,21 @@ def database_update_request_status(wantedRequest, lang):
 	pending = 0
 	if taxon:
 		if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
-			if wantedRequest.sensstatus == StatusEnum.WAITING:
+			if wantedRequest.sensstatus == Sens_StatusEnum.WAITING:
 				pending += 1
-			elif wantedRequest.sensstatus == StatusEnum.PARTIALLY_APPROVED:
-				accepted += 1
+			elif wantedRequest.sensstatus == Sens_StatusEnum.REJECTED:
 				declined += 1
-			elif wantedRequest.sensstatus == StatusEnum.REJECTED:
-				declined += 1
-			elif wantedRequest.sensstatus == StatusEnum.APPROVED:
+			elif wantedRequest.sensstatus == Sens_StatusEnum.APPROVED:
 				accepted += 1
 			for c in requestCollections:
 				if c.status == StatusEnum.WAITING:
 					pending += 1
-				elif c.status == StatusEnum.PARTIALLY_APPROVED:
-					accepted += 1
-					declined += 1
 				elif c.status == StatusEnum.REJECTED:
 					declined += 1
 				elif c.status == StatusEnum.APPROVED:
 					colaccepted += 1
 					accepted += 1
-			if wantedRequest.sensstatus == StatusEnum.REJECTED:
+			if wantedRequest.sensstatus == Sens_StatusEnum.REJECTED:
 				wantedRequest.status = StatusEnum.REJECTED
 			elif (accepted >= 0 and pending > 0) and declined == 0:
 				wantedRequest.status = StatusEnum.WAITING
@@ -251,16 +264,14 @@ def database_update_request_status(wantedRequest, lang):
 		for c in requestCollections:
 			if c.status == StatusEnum.WAITING:
 				pending += 1
-			elif c.status == StatusEnum.PARTIALLY_APPROVED:
-				accepted += 1
-				declined += 1
 			elif c.status == StatusEnum.REJECTED:
 				declined += 1
 			elif c.status == StatusEnum.APPROVED:
 				colaccepted += 1
 				accepted += 1
 		if (accepted >= 0 and pending > 0) and declined == 0:
-			wantedRequest.status = StatusEnum.WAITING
+			if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+				wantedRequest.status = StatusEnum.WAITING
 		elif (accepted > 0 and declined > 0) and pending == 0:
 			wantedRequest.status = StatusEnum.PARTIALLY_APPROVED
 			if colaccepted > 0:
@@ -293,9 +304,6 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
 	for c in requestCollections:
 		if c.status == StatusEnum.WAITING:
 			pending += 1
-		elif c.status == StatusEnum.PARTIALLY_APPROVED:
-			accepted += 1
-			declined += 1
 		elif c.status == StatusEnum.REJECTED:
 			declined += 1
 		elif c.status == StatusEnum.APPROVED:
@@ -326,9 +334,9 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
 		
 def handler_waiting_status(r, request, userId):
 	r.waitingstatus = 0
-	if HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
+	if CAT_HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
 		r.waitingstatus = 1
-	elif HANDLER_COLL in request.session.get("user_roles", [None]):
+	elif CAT_HANDLER_COLL in request.session.get("user_roles", [None]):
 		#if Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1).exists():
 		if Collection.objects.filter(request=r.id, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = 1).exists():
 			r.waitingstatus = 1
@@ -336,12 +344,12 @@ def handler_waiting_status(r, request, userId):
 
 def handler_information_answered_status(r, request, userId):
 	r.answerstatus = 0
-	if HANDLER_SENS in request.session.get("user_roles", [None]):
-		if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == StatusEnum.WAITING:
+	if CAT_HANDLER_SENS in request.session.get("user_roles", [None]):
+		if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == Sens_StatusEnum.WAITING:
 			chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 			if not chat.question:
 				r.answerstatus = 1
-	if HANDLER_COLL in request.session.get("user_roles", [None]):
+	if CAT_HANDLER_COLL in request.session.get("user_roles", [None]):
 		for co in get_collections_where_download_handler(userId):
 			if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
 				cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
@@ -355,8 +363,9 @@ def create_request_view_context(requestId, request, userRequest):
 	customList = []
 	collectionList = []
 	userId = request.session["user_id"]
-	role1 = HANDLER_SENS in request.session.get("user_roles", [None])
-	role2 = HANDLER_COLL in request.session.get("user_roles", [None])
+	role1 = CAT_HANDLER_SENS in request.session.get("user_roles", [None])
+	role2 = CAT_HANDLER_COLL in request.session.get("user_roles", [None])
+	role3 = CAT_ADMIN in request.session.get("user_roles", [None])
 	lang = request.LANGUAGE_CODE
 	create_collections_for_lists(requestId, request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 	taxon = False
@@ -366,14 +375,14 @@ def create_request_view_context(requestId, request, userRequest):
 		allSecured += collection.allSecured
 		if(collection.taxonSecured > 0):
 			taxon = True
-	hasRole = role1 or role2
+	hasRole = role1 or role2 or role3
 	request_owner = fetch_user_name(userRequest.user)
 	request_owners_email = fetch_email_address(userRequest.user)
 	context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(request, requestId), "filters": show_filters(request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 	context["coordinates"] = create_coordinates(userRequest)
-	context["filter_link"] = filterlink(userRequest, request, context["filters"], settings.FILTERS_LINK)
-	context["official_filter_link"] = filterlink(userRequest, request, context["filters"], settings.OFFICIAL_FILTERS_LINK)
-	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL else "pyha/sensitivity/sensitivity-"+lang+".html"
+	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
+	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
+	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else "pyha/official/terms/sensitivity-"+lang+".html"
 	context["username"] = request.session["user_name"]
 	context["allSecured"] = allSecured
 	if role2: context["handles"] = get_collections_where_download_handler(userId)
@@ -381,10 +390,10 @@ def create_request_view_context(requestId, request, userRequest):
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)
 		context["reasonlist"] = get_reasons(userRequest)
-		if(userRequest.sensstatus == StatusEnum.IGNORE_OFFICIAL):
+		if(userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL):
 			isEndable = (Collection.objects.filter(request=userRequest.id,status=4).exists())
 		else:
-			isEndable = (Collection.objects.filter(request=userRequest.id, taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == StatusEnum.APPROVED)		
+			isEndable = (Collection.objects.filter(request=userRequest.id, taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == Sens_StatusEnum.APPROVED)		
 		context["endable"] = isEndable
 		context["user"] = userId
 		handler_waiting_status(userRequest, request, userId)
@@ -394,8 +403,9 @@ def create_request_view_context(requestId, request, userRequest):
 	if userRequest.status == 0 and Request.objects.filter(user=userId,status__gte=1).count() > 0:
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
-		context["requestChat_list"] = requestChat(request, requestId)
-		requestInformationChat_list = requestInformationChat(request, requestId, role1, role2, userId)
+		context["requestSensitiveChat_list"] = requestSensitiveChat(userRequest)
+		context["requestHandlerChat_list"] = requestHandlerChat(request, userRequest)
+		requestInformationChat_list = requestInformationChat(request, userRequest, role1, role2, userId)
 		context["requestInformationChat_list"] = requestInformationChat_list
 		if(requestInformationChat_list):
 			context["information"] = not requestInformationChat_list[-1].question
@@ -431,20 +441,22 @@ def get_reasons(userRequest):
 		return reasonlist
 	return None
 
-def make_logEntry_view(request, userRequest, userId, role1, role2):
+def make_logEntry_view(request, userRequest, userId, role1, role2, role3):
 	if not "has_viewed" in request.session:
 		request.session["has_viewed"] = []
 	if userRequest.id not in request.session.get("has_viewed", [None]):
 		logRole = USER
-		if role1:
-			logRole = HANDLER_SENS
+		if role3:
+			logRole = CAT_ADMIN
+		elif role1:
+			logRole = CAT_HANDLER_SENS
 			if role2:
-				logRole = HANDLER_BOTH 
+				logRole = CAT_HANDLER_BOTH 
 		elif role2:
-			logRole = HANDLER_COLL
+			logRole = CAT_HANDLER_COLL
 		request.session["has_viewed"].append(userRequest.id)
-		RequestLogEntry.requestLog.create(request=userRequest, user=userId, 
-        role=logRole, action=RequestLogEntry.VIEW)
+		RequestLogEntry.requestLog.create(request=userRequest, user=userId, role=logRole, action=RequestLogEntry.VIEW)
+		
 
 def requestLog(request, requestId):
 		requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId).order_by('-date'))
@@ -461,29 +473,42 @@ def requestLog(request, requestId):
 				collectionList.append(l)
 		return requestLog_list
 
-def requestChat(request, requestId):
-		requestChat_list = list(RequestChatEntry.requestChat.filter(request=requestId).order_by('date'))
-		for l in requestChat_list:
-			l.name = fetch_user_name(l.user)
-		return requestChat_list
+def requestSensitiveChat(userRequest):
+		requestSensitiveChat_list = list(RequestSensitiveChatEntry.requestChat.filter(request=userRequest).order_by('date'))
+		for c in requestSensitiveChat_list:
+			c.name = fetch_user_name(c.user)
+		return requestSensitiveChat_list
+	
+def requestHandlerChat(request, userRequest):
+		requestHandlerChat_list = list(RequestHandlerChatEntry.requestHandlerChat.filter(request=userRequest).order_by('date'))
+		for c in requestHandlerChat_list:
+			c.name = fetch_user_name(c.user)
+			get_result_for_target(request, c)
+		return requestHandlerChat_list
 
-def requestInformationChat(request, requestId, role1, role2, userId):
-		requestChat_list = []
+def requestInformationChat(request, userRequest, role1, role2, userId):
+		requestInformationChat_list = []
 		if HANDLER_ANY in request.session.get("current_user_role", [None]):
 			if role1:
-				requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target='sens').order_by('date'))
+				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target='sens').order_by('date'))
 			if role2:
 				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
-				for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
-					requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId, target=str(collection)).order_by('date'))
+				if(userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL):
+					for collection in Collection.objects.filter(request=userRequest, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
+						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
+				else:
+					for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
+						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
 		else:
-			requestChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=requestId).order_by('date'))
-		for l in requestChat_list:
+			requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
+		for l in requestInformationChat_list:
 			get_result_for_target(request, l)
-		for l in requestChat_list:
+		for l in requestInformationChat_list:
 			l.name = fetch_user_name(l.user)
-		return requestChat_list
+		return requestInformationChat_list
 
+def contains_approved_collection(requestId):
+	return Collection.objects.filter(request=requestId, status = 4).count() > 0
 
 """
 	Send "request has been handled" email 

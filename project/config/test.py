@@ -4,7 +4,7 @@ from .settings import *
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ["ENABLE_DEBUG"] == "True"
+DEBUG = os.environ.get("ENABLE_DEBUG", "False") == "True"
 #DATABASES = {
 #    'default': {
 #        'ENGINE': os.environ["DB_ENGINE"],

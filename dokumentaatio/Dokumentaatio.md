@@ -20,6 +20,7 @@ Viranomaisille luetellaan kaikki aineistopyynnöt, jotka sisältävät sensitiivisiä
 
 Pyynnön tilanäkymässä näytetään maallikolle kaikki pyyntöön, ja sen tilaan liittyvät tiedot.
 Aineistojen omistaja voi yllämainitun lisäksi tehdä päätöksen oman aineistonsa hyväksymisestä aineiston pyytäjälle.
+Viranomainen voi tehdä päätöksen koskien sensitiivisten havaintojen antoa.
 
 ### Pyyntölomakkeen täyttönäkymä (/requestform/id)
 

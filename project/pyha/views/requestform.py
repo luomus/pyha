@@ -8,8 +8,9 @@ from pyha.database import create_request_view_context, check_all_collections_rem
 from pyha.email import send_mail_for_approval, send_mail_for_approval_sens
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
-from pyha.models import RequestLogEntry, Request, Collection
+from pyha.models import RequestLogEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import USER
+from pyha import toast
 
 
 #removes sensitive sightings
@@ -28,7 +29,7 @@ def remove_sensitive_data(request):
             collection.save(update_fields=['status'])
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(nextRedirect)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 #removes custom sightings
 def remove_custom_data(request):
@@ -46,7 +47,7 @@ def remove_custom_data(request):
             collection.save(update_fields=['status'])
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(next)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 def removeCollection(request):
     if request.method == 'POST':
@@ -54,19 +55,19 @@ def removeCollection(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:index'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = request.POST.get('collectionid')
         redirect_path = request.POST.get('next')
         collection = Collection.objects.get(address = collectionId, request = requestId)
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:index'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         #avoid work when submitted multiple times
         if(collection.status != -1):
             collection.status = -1
             collection.save(update_fields=['status'])
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(redirect_path)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 
 def approve_terms(request):
@@ -75,16 +76,16 @@ def approve_terms(request):
             return _process_auth_response(request, "pyha")
         requestId = request.POST.get('requestid', '?')
         if not is_allowed_to_view(request, requestId):
-            return HttpResponseRedirect(reverse('pyha:index'))
+            return HttpResponseRedirect(reverse('pyha:root'))
         lang = 'fi' #ainakin toistaiseksi
         userRequest = Request.objects.get(id = requestId)
-        if userRequest.sensstatus == 99:
+        if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
             approve_terms_skip_official(request, userRequest, requestId, lang)
         else:
             requestedCollections = request.POST.getlist('checkb')
             senschecked = request.POST.get('checkbsens')
             collectionList = Collection.objects.filter(request=requestId, status__gte=0)
-            if(userRequest.status == 0 and senschecked and len(collectionList) > 0):
+            if(userRequest.status == StatusEnum.APPROVETERMS_WAIT and senschecked and len(collectionList) > 0):
                 taxon = False
                 for collection in collectionList:
                     collection.allSecured = collection.customSecured + collection.taxonSecured
@@ -99,7 +100,7 @@ def approve_terms(request):
                 for c in Collection.objects.filter(request = requestId):
                     if c.status == 0:
                         c.customSecured = 0
-                        if userRequest.sensstatus == 0:
+                        if userRequest.sensstatus == Sens_StatusEnum.APPROVETERMS_WAIT:
                             c.taxonsecured = 0
                         c.save(update_fields=['customSecured'])
                         if c.taxonSecured == 0:
@@ -134,13 +135,13 @@ def approve_terms(request):
                     #send_mail_for_approval_sens(requestId, lang)
                 #make a log entry
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-                request.session["message"] = ugettext('toast_thanks_request_has_been_registered')
+                request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_thanks_request_has_been_registered')}
                 request.session.save()
             else:
                 userRequest.status = -1
                 userRequest.save()
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-    return HttpResponseRedirect(reverse('pyha:index'))
+    return HttpResponseRedirect(reverse('pyha:root'))
 
 
 def approve_terms_skip_official(request, userRequest, requestId, lang):
@@ -170,7 +171,7 @@ def approve_terms_skip_official(request, userRequest, requestId, lang):
         update_contact_preset(request, userRequest)
         #make a log entry
         RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-        request.session["message"] = ugettext('toast_thanks_request_has_been_registered')
+        request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_thanks_request_has_been_registered')}
         request.session.save()
     else:
         userRequest.status = -1

@@ -6,7 +6,7 @@ from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
-from pyha.models import Request, Collection, StatusEnum
+from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum
 import json
 import os
 import requests
@@ -24,7 +24,7 @@ def store(jsond):
 	req.description=''
 	req.lajiId = os.path.basename(str(data.id))
 	req.status = status
-	req.sensstatus = 99 if settings.SKIP_OFFICIAL else 0
+	req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL if settings.SKIP_OFFICIAL else 0
 	req.date = time
 	req.source = data.source
 	req.user = data.personId
@@ -175,7 +175,7 @@ def send_download_request(requestId):
 	payload["id"] = userRequest.lajiId
 	payload["personId"] = userRequest.user
 	collectionlist = Collection.objects.filter(request=userRequest).exclude(status=StatusEnum.APPROVED)
-	if not userRequest.sensstatus in {StatusEnum.APPROVED, StatusEnum.IGNORE_OFFICIAL}:
+	if not userRequest.sensstatus in {StatusEnum.APPROVED, Sens_StatusEnum.IGNORE_OFFICIAL}:
 		additionlist = Collection.objects.filter(request=userRequest, customSecured=0, taxonSecured__gt=0)
 		collectionlist = list(chain(collectionlist, additionlist))
 	cname = []
@@ -183,47 +183,35 @@ def send_download_request(requestId):
 		cname.append(c.address)
 	payload["rejectedCollections"] = cname
 	payload["sensitiveApproved"] = "true"
-	payload["downloadFormat"] = "CSV_FLAT"
+	payload["downloadFormat"] = userRequest.downloadFormat
+	payload["downloadIncludes"] = userRequest.downloadIncludes
 	payload["access_token"] = settings.LAJIAPI_TOKEN
 	filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
 	for f in filters.__dict__:
 		payload[f] = getattr(filters, f)
 	response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
-
-def handlers_cannot_be_updated():
-	return not update_collection_handlers()
 	
-def update_collection_handlers():	
-	if update_collections():
-		
-		return True
-	
-	return False
-	
-def update_collections():
-	if 'has expired' in caches['collections'].get('collection_update', 'has expired'):
-		payload = {}
-		payload['access_token'] = settings.LAJIAPI_TOKEN
-		payload['pageSize'] = 1000
-		payload['page'] = 1
-		notFinished = True
-		result = []
-		while notFinished:
-			response = requests.get(settings.LAJIAPI_URL+"collections", params=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
-			if(response.status_code == 200):
-				data = response.json()
-			else:
-				return False
-			for co in data['results']:
-				result.append(co)		
-			if payload['page'] < data['lastPage']:
-				payload['page'] += 1	
-			else:
-				notFinished	= False
-		caches['collections'].set('collections',result)
-		caches['collections'].set('collection_update','updated', 7200)
-	else:
-		return True
+def update_collections():	
+	payload = {}
+	payload['access_token'] = settings.LAJIAPI_TOKEN
+	payload['pageSize'] = 1000
+	payload['page'] = 1
+	notFinished = True
+	result = []
+	while notFinished:
+		response = requests.get(settings.LAJIAPI_URL+"collections", params=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+		if(response.status_code == 200):
+			data = response.json()
+		else:
+			return False
+		for co in data['results']:
+			result.append(co)
+		if payload['page'] < data['lastPage']:
+			payload['page'] += 1	
+		else:
+			notFinished	= False
+	caches['collections'].set('collections',result)
+	caches['collections'].set('collection_update','updated', 7200)
 	return True
 
 def get_download_handlers_where_collection(collectionId):
@@ -232,6 +220,7 @@ def get_download_handlers_where_collection(collectionId):
 	for	co in collections:
 		if co['id'] == collectionId:
 			result = co.get('downloadRequestHandler', {})
+			break
 	return result
 
 def get_collections_where_download_handler(userId):
@@ -282,10 +271,7 @@ def show_filters(request, userRequest):
 				if b in filters.json():
 					filterfield = getattr(filtersobject, b)
 					label = getattr(filterfield, "label")
-					if(lang == 'sw'):
-						languagelabel = getattr(label, "sv")
-					else:
-						languagelabel = getattr(label, request.LANGUAGE_CODE)
+					languagelabel = getattr(label, request.LANGUAGE_CODE)
 					if "RESOURCE" in getattr(filterfield, "type"):
 						resource = getattr(filterfield, "resource")
 						for k, a in enumerate(getattr(filterList, b)):
@@ -297,10 +283,7 @@ def show_filters(request, userRequest):
 										filtername = ii['value']
 										break
 							else:
-								if(lang == 'sw'):
-									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=sv&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
-								else:
-									filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
+								filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
 								filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
 								filtername = getattr(filternameobject, "name", str(a))
 							filternamelist[k]= filtername
@@ -310,10 +293,7 @@ def show_filters(request, userRequest):
 							filtername = e
 							for n in enumerations:
 								if e == getattr(n, "name"):
-									if(lang == 'sw'):
-										filtername = getattr(n.label, "sv")
-									else:
-										filtername = getattr(n.label, lang)
+									filtername = getattr(n.label, lang)
 									break
 							filternamelist[k]= filtername
 				tup = (b, filternamelist, languagelabel)

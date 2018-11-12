@@ -135,7 +135,7 @@ class Languages_TestCase(unittest.TestCase):
 		ruotsi = driver.find_element_by_xpath('//*[@id="myDropdown"]/a[3]')
 		ruotsi.click()
 		kieli = driver.find_element_by_xpath('//*[@id="language_form"]/button[1]')
-		self.assertEqual(kieli.text,"sw")
+		self.assertEqual(kieli.text,"sv")
 
 	def test_sivunKieliVaihtuu(self):
 		driver=self.driver

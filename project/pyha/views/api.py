@@ -75,7 +75,4 @@ def status(request):
             return HttpResponse(status=504)
         return HttpResponse(status=200)
     return HttpResponse(status=405)
-
-def jsonmock(request):
-    return render(request, 'pyha/mockjson.html')
         

@@ -45,6 +45,8 @@ SECRET_HTTPS_PW = os.environ["PYHA_API_PASSWORD"]
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
 SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == "True"
+ICT_EMAIL = "helpdesk@laji.fi"
+PYHA_EMAIL = "pyha.staging@laji.fi"
 MOCK_JSON=False
 TESTING=False
 APPEND_SLASH=False
@@ -54,8 +56,8 @@ FORCE_SCRIPT_NAME = os.environ.get("DOMAIN_PATH_PREFIX", "")
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-ERROR_RATE_LIMIT = int(os.environ["EMAIL_ERROR_RATE_LIMIT"])
-ERROR_RATE_KEY_LIMIT = int(os.environ["EMAIL_ERROR_RATE_KEY_LIMIT"])
+ERROR_RATE_LIMIT = int(os.environ.get("EMAIL_ERROR_RATE_LIMIT", 1800))
+ERROR_RATE_KEY_LIMIT = int(os.environ.get("EMAIL_ERROR_RATE_KEY_LIMIT", 100))
 
 LOGGING = {
     'version': 1,
@@ -72,13 +74,13 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
-        'logfile': {
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'pyha.log',
-            'maxBytes': 1024 * 100,
-            'backupCount': 3,
-            'filters': ['require_debug_false']
-        },
+        #'logfile': {
+        #    'class': 'logging.handlers.RotatingFileHandler',
+        #    'filename': 'pyha.log',
+        #    'maxBytes': 1024 * 100,
+        #    'backupCount': 3,
+        #    'filters': ['require_debug_false']
+        #},
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
@@ -87,7 +89,8 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['logfile', 'mail_admins'],
+            #'handlers': ['logfile', 'mail_admins'],
+            'handlers': ['mail_admins'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
 
         },
@@ -202,7 +205,7 @@ TIME_ZONE = 'Europe/Helsinki'
 
 LANGUAGES = [
     ('fi', _('Suomi')),
-    ('sw', _('Ruotsi')),
+    ('sv', _('Ruotsi')),
     ('en', _('Englanti')),
 ]
 

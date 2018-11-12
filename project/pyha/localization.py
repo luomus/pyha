@@ -11,13 +11,13 @@ def translate_truth(value, lang):
 			value = "Kyllä"
 		if(lang == 'en'):
 			value = "Yes"
-		if(lang == 'sw'):
+		if(lang == 'sv'):
 			value = "Ja"
 	elif value == "false":
 		if(lang == 'fi'):
 			value = "Ei"
 		if(lang == 'en'):
 			value = "No"
-		if(lang == 'sw'):
+		if(lang == 'sv'):
 			value = "Nej"
 	return value

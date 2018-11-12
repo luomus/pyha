@@ -28,12 +28,12 @@ Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen
 	address = models.CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
 	count = models.IntegerField()  #Karkeistettujen havaintojen määrä
 	
-	#for status
+	#for collection.status
+	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa aineiston toimittajan käsittelyä
-	#status 2: Osittain hyväksytty
 	#status 3: Hylätty
 	#status 4: Hyväksytty
-	#status 5: Tuntematon
+	#status 6: Odottaa vastausta lisäkysymyksiin
 
 	status = models.IntegerField() #Päätöksen tila, mitä kuvataan numeroarvona
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -49,7 +49,7 @@ Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liit
 	description = models.CharField(max_length=400)  #description given by the requester for his request
 	
 	#for status
-	#status 0: Ei sensitiivistä tietoa
+	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa aineiston toimittajan käsittelyä
 	#status 2: Osittain hyväksytty
 	#status 3: Hylätty
@@ -57,17 +57,16 @@ Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liit
 	#status 5: Tuntematon
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
-	#status 8: Ladattava
+	#status 8: Ladattavissa
 	
 	status = models.IntegerField()
 	
 	#for sensstatus
-	#status 0: Ei sensitiivistä tietoa
-	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 0: Odottaa pyytäjän hyväksymistä
+	#status 1: Odottaa viranomaisen käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
-	#status 5: Tuntematon
-	#status 99: Ohitettu
+	#status 99: Ohitettu (skippofficial)
 	
 	sensstatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,null=True)

@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.test import TestCase, Client
-from pyha.models import Collection, Request, StatusEnum
+from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
 from pyha.warehouse import store 
 from pyha.database import update_request_status 
 from pyha.roles import USER
@@ -27,7 +27,7 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_waiting(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
@@ -44,7 +44,7 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_approved(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		for c in Collection.objects.filter(request=req.id):
 			c.status = StatusEnum.APPROVED
@@ -56,7 +56,7 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_approved_with_discard(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
@@ -72,7 +72,7 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_partially_approved(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
@@ -88,7 +88,7 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_rejected(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
@@ -104,7 +104,7 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_rejected_with_discard(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = StatusEnum.IGNORE_OFFICIAL
+		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]

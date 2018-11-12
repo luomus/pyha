@@ -90,6 +90,16 @@ p {
 	color:#A9A9A9;
 }
 
+.slider-admin-light {
+    background-color: #8080c0;
+	color:white;
+}
+
+.slider-admin {
+    background-color: #DDDDDD;
+	color:#A9A9A9;
+}
+
 #filtermap { 
 	height: 250px; 
 	width: 250px;
@@ -503,6 +513,15 @@ div.contact-form{
 	font-weight: bold;
 }
 
+.request-admin-action-tab:not([aria-expanded="true"]) {
+	border: 1px solid #ddd;
+	background-color: #f9f5f5;
+	color: #555;
+	border-bottom: 4px solid #5a136c;
+	padding-bottom: 7px;
+	font-weight: bold;
+}
+
   /* Custom page CSS
   -------------------------------------------------- */
   /* Not required for template or sticky footer method. */
@@ -790,10 +809,18 @@ h3{
 	}
 }
 
+.stale-form {
+	background-color: #f3f0cc;
+	border-radius: 12px;
+	padding: 10px;
+	line-height: 40px;
+	border: 1px solid #e0e0e0;
+	display: inline-block;
+}
+
 #toastbox {
 	visibility: hidden;
 	min-width: 250px;
-	background-color: #51a351;
 	box-shadow: 0 0 12px #999;
 	color: #fff;
 	text-align: center;
@@ -806,6 +833,18 @@ h3{
 	padding: 15px 15px 15px 50px;
 	width: 300px;
 	border-radius: 3px;
+}
+
+#toastbox.info {
+	background-color: #00abfd;
+}
+
+#toastbox.positive {
+	background-color: #51a351;
+}
+
+#toastbox.error {
+	background-color: #c94e4e;
 }
 
 #toastbox.show {
@@ -834,9 +873,19 @@ h3{
     to {top: 60px; opacity: 0;}
 }
 
-.large-thin-glyphicon {
+.large-thin-glyphicon-positive {
 	font-size: 30px; 
 	-webkit-text-stroke: 2px #51a351;
+}
+
+.large-thin-glyphicon-info {
+	font-size: 30px; 
+	-webkit-text-stroke: 2px #00abfd;
+}
+
+.large-thin-glyphicon-error {
+	font-size: 30px; 
+	-webkit-text-stroke: 2px #c94e4e;
 }
 
 .toast-glyphicon {
