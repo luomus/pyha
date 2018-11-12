@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 02:26+0200\n"
+"POT-Creation-Date: 2018-11-12 05:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,1774 +18,2937 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/pyha/base.html:46 templates/pyha/document.html:8
-msgid "Toggle_navigation"
-msgstr "Toggle_navigation"
+#: login.py:118
+#, fuzzy
+#| msgid "handler_request_status_for_admin"
+msgid "error_request_has_been_frozen_by_admin"
+msgstr "handler_request_status_for_admin"
 
-#: templates/pyha/base.html:56 templates/pyha/document.html:18
-msgid "all_requests"
-msgstr "all_requests"
-
-#: templates/pyha/base.html:67 templates/pyha/base.html.py:70
-#: templates/pyha/document.html:30 templates/pyha/document.html.py:34
-#: templates/pyha/requestview.html:609
-#: templates/pyha/skipofficial/requestview.html:527
-msgid "admin"
-msgstr "admin"
-
-#: templates/pyha/base.html:67 templates/pyha/base.html.py:69
-#: templates/pyha/document.html:30 templates/pyha/document.html.py:33
-#: templates/pyha/requestview.html:619
-#: templates/pyha/skipofficial/requestview.html:537
-msgid "user"
-msgstr "user"
-
-#: templates/pyha/base.html:78 templates/pyha/document.html:22
-msgid "logout"
-msgstr "logout"
-
-#: templates/pyha/base.html:93
-msgid "set_lang_fi"
-msgstr "Suomeksi"
-
-#: templates/pyha/base.html:95
-msgid "set_lang_sv"
-msgstr "På svenska"
-
-#: templates/pyha/base.html:97
-msgid "set_lang_en"
-msgstr "In English"
-
-#: templates/pyha/handler/index.html:9
-msgid "handler_welcome"
+#: templates/pyha/base/admin/index.html:9
+#, fuzzy
+#| msgid "handler_welcome"
+msgid "admin_welcome"
 msgstr "handler_welcome"
 
-#: templates/pyha/handler/index.html:12
-msgid "handler_all_requests"
-msgstr "handler_all_requests"
+#: templates/pyha/base/admin/index.html:12
+#, fuzzy
+#| msgid "all_requests"
+msgid "admin_all_requests"
+msgstr "all_requests"
 
-#: templates/pyha/handler/index.html:13 templates/pyha/index.html:13
+#: templates/pyha/base/admin/index.html:13
+#: templates/pyha/base/handler/index.html:13 templates/pyha/base/index.html:13
 msgid "click_for_info"
 msgstr "click_for_info"
 
-#: templates/pyha/handler/index.html:17
-msgid "handler_new_events"
-msgstr "handler_new_events"
+#: templates/pyha/base/admin/index.html:17
+#, fuzzy
+#| msgid "request_date"
+msgid "admin_request_date"
+msgstr "request_date"
 
-#: templates/pyha/handler/index.html:18
-msgid "handler_request_date"
-msgstr "handler_request_date"
-
-#: templates/pyha/handler/index.html:19
-msgid "handler_requester"
+#: templates/pyha/base/admin/index.html:18
+#, fuzzy
+#| msgid "handler_requester"
+msgid "admin_requester"
 msgstr "handler_requester"
 
-#: templates/pyha/handler/index.html:20
-msgid "handler_request_hits"
-msgstr "handler_request_hits"
+#: templates/pyha/base/admin/index.html:19
+#, fuzzy
+#| msgid "request_hits"
+msgid "admin_request_hits"
+msgstr "request_hits"
 
-#: templates/pyha/handler/index.html:21
-msgid "handler_request_status_for_admin"
+#: templates/pyha/base/admin/index.html:20
+#, fuzzy
+#| msgid "handler_request_status_for_admin"
+msgid "admin_request_status_for_admin"
 msgstr "handler_request_status_for_admin"
 
-#: templates/pyha/handler/index.html:50
-msgid "handler_you_have_not_accepted_terms"
-msgstr "handler_you_have_not_accepted_terms"
+#: templates/pyha/base/admin/index.html:48
+#, fuzzy
+#| msgid "you_have_not_accepted_terms"
+msgid "admin_you_have_not_accepted_terms"
+msgstr "you_have_not_accepted_terms"
 
-#: templates/pyha/handler/index.html:55
-msgid "handler_waiting_for_response_on_answer"
-msgstr "handler_waiting_for_response_on_answer"
+#: templates/pyha/base/admin/index.html:51
+#: templates/pyha/official/admin/requestview.html:84
+#: templates/pyha/official/admin/requestview.html:101
+#: templates/pyha/skipofficial/admin/requestview.html:89
+msgid "admin_waiting"
+msgstr ""
 
-#: templates/pyha/handler/index.html:57
-#: templates/pyha/handler/requestview.html:31
-#: templates/pyha/handler/requestview.html:72
-#: templates/pyha/handler/requestview.html:94
-#: templates/pyha/handler/requestview.html:221
-#: templates/pyha/handler/requestview.html:485
-#: templates/pyha/handler/requestview.html:553
-#: templates/pyha/skipofficial/requestview_handler.html:31
-#: templates/pyha/skipofficial/requestview_handler.html:77
-#: templates/pyha/skipofficial/requestview_handler.html:204
-#: templates/pyha/skipofficial/requestview_handler.html:467
-msgid "handler_waiting_for_others"
-msgstr "handler_waiting_for_others"
+#: templates/pyha/base/admin/index.html:54
+#: templates/pyha/official/admin/requestview.html:36
+#: templates/pyha/official/admin/requestview.html:493
+#: templates/pyha/official/admin/requestview.html:559
+#: templates/pyha/skipofficial/admin/requestview.html:36
+#: templates/pyha/skipofficial/admin/requestview.html:449
+#, fuzzy
+#| msgid "partially_accepted"
+msgid "admin_partially_accepted"
+msgstr "partially_accepted"
 
-#: templates/pyha/handler/index.html:59
-#: templates/pyha/handler/requestview.html:33
-#: templates/pyha/handler/requestview.html:70
-#: templates/pyha/handler/requestview.html:92
-#: templates/pyha/handler/requestview.html:219
-#: templates/pyha/handler/requestview.html:483
-#: templates/pyha/handler/requestview.html:551
-#: templates/pyha/skipofficial/requestview_handler.html:33
-#: templates/pyha/skipofficial/requestview_handler.html:75
-#: templates/pyha/skipofficial/requestview_handler.html:202
-#: templates/pyha/skipofficial/requestview_handler.html:465
-msgid "handler_waiting_for_you"
-msgstr "handler_waiting_for_you"
-
-#: templates/pyha/handler/index.html:63
-#: templates/pyha/handler/requestview.html:36
-#: templates/pyha/handler/requestview.html:490
-#: templates/pyha/handler/requestview.html:558
-#: templates/pyha/skipofficial/requestview_handler.html:36
-#: templates/pyha/skipofficial/requestview_handler.html:472
-msgid "handler_partially_accepted"
-msgstr "handler_partially_accepted"
-
-#: templates/pyha/handler/index.html:66
-#: templates/pyha/handler/requestview.html:39
-#: templates/pyha/handler/requestview.html:488
-#: templates/pyha/handler/requestview.html:556
-#: templates/pyha/skipofficial/requestview_handler.html:39
-#: templates/pyha/skipofficial/requestview_handler.html:470
-msgid "handler_denied"
+#: templates/pyha/base/admin/index.html:57
+#: templates/pyha/official/admin/requestview.html:39
+#: templates/pyha/official/admin/requestview.html:491
+#: templates/pyha/official/admin/requestview.html:557
+#: templates/pyha/skipofficial/admin/requestview.html:39
+#: templates/pyha/skipofficial/admin/requestview.html:447
+#, fuzzy
+#| msgid "handler_denied"
+msgid "admin_denied"
 msgstr "handler_denied"
 
-#: templates/pyha/handler/index.html:69
-#: templates/pyha/handler/requestview.html:42
-#: templates/pyha/handler/requestview.html:492
-#: templates/pyha/handler/requestview.html:560
-#: templates/pyha/skipofficial/requestview_handler.html:42
-#: templates/pyha/skipofficial/requestview_handler.html:474
-msgid "handler_accepted"
+#: templates/pyha/base/admin/index.html:60
+#: templates/pyha/official/admin/requestview.html:42
+#: templates/pyha/official/admin/requestview.html:495
+#: templates/pyha/official/admin/requestview.html:561
+#: templates/pyha/skipofficial/admin/requestview.html:42
+#: templates/pyha/skipofficial/admin/requestview.html:451
+#, fuzzy
+#| msgid "handler_accepted"
+msgid "admin_accepted"
 msgstr "handler_accepted"
 
-#: templates/pyha/handler/index.html:72
-#: templates/pyha/handler/requestview.html:45
-#: templates/pyha/skipofficial/requestview_handler.html:45
-msgid "handler_waiting_for_additional_information"
-msgstr "handler_waiting_for_additional_information"
+#: templates/pyha/base/admin/index.html:63
+#: templates/pyha/official/admin/requestview.html:45
+#: templates/pyha/skipofficial/admin/requestview.html:45
+#, fuzzy
+#| msgid "waiting_for_additional_information"
+msgid "admin_waiting_for_additional_information"
+msgstr "waiting_for_additional_information"
 
-#: templates/pyha/handler/index.html:75
-#: templates/pyha/handler/requestview.html:48
-#: templates/pyha/skipofficial/requestview_handler.html:48
-msgid "handler_waiting_for_download"
-msgstr "handler_waiting_for_download"
+#: templates/pyha/base/admin/index.html:66
+#: templates/pyha/official/admin/requestview.html:48
+#: templates/pyha/skipofficial/admin/requestview.html:48
+#, fuzzy
+#| msgid "waiting_for_download"
+msgid "admin_waiting_for_download"
+msgstr "waiting_for_download"
 
-#: templates/pyha/handler/index.html:78
-#: templates/pyha/handler/requestview.html:51
-#: templates/pyha/skipofficial/requestview_handler.html:51
-msgid "handler_ready_for_download"
-msgstr "handler_ready_for_download"
+#: templates/pyha/base/admin/index.html:69
+#: templates/pyha/official/admin/requestview.html:51
+#: templates/pyha/skipofficial/admin/requestview.html:51
+#, fuzzy
+#| msgid "ready_for_download"
+msgid "admin_ready_for_download"
+msgstr "ready_for_download"
 
-#: templates/pyha/handler/index.html:81
-#: templates/pyha/handler/requestview.html:54
-#: templates/pyha/handler/requestview.html:496
-#: templates/pyha/handler/requestview.html:562
-#: templates/pyha/skipofficial/requestview_handler.html:54
-#: templates/pyha/skipofficial/requestview_handler.html:476
-msgid "handler_unknown"
+#: templates/pyha/base/admin/index.html:72
+#: templates/pyha/official/admin/requestview.html:54
+#: templates/pyha/official/admin/requestview.html:499
+#: templates/pyha/official/admin/requestview.html:563
+#: templates/pyha/skipofficial/admin/requestview.html:54
+#: templates/pyha/skipofficial/admin/requestview.html:453
+#, fuzzy
+#| msgid "handler_unknown"
+msgid "admin_unknown"
 msgstr "handler_unknown"
 
-#: templates/pyha/handler/index.html:90
-#: templates/pyha/handler/requestview.html:179 templates/pyha/index.html:19
-#: templates/pyha/index.html.py:48 templates/pyha/index.html:84
-#: templates/pyha/requestformcustom.html:4
-#: templates/pyha/requestformsummary.html:7
-#: templates/pyha/requestformtaxon.html:5 templates/pyha/requestview.html:207
-#: templates/pyha/requestview.html:210
-#: templates/pyha/skipofficial/requestformcollection.html:4
+#: templates/pyha/base/admin/index.html:81
+#: templates/pyha/base/ajax/requestformsummary.html:7
+#: templates/pyha/base/handler/index.html:90 templates/pyha/base/index.html:19
+#: templates/pyha/base/index.html.py:48 templates/pyha/base/index.html:84
+#: templates/pyha/official/admin/requestview.html:185
+#: templates/pyha/official/ajax/requestformcustom.html:4
+#: templates/pyha/official/ajax/requestformtaxon.html:5
+#: templates/pyha/official/handler/requestview.html:179
+#: templates/pyha/official/requestview.html:207
+#: templates/pyha/official/requestview.html:210
+#: templates/pyha/skipofficial/admin/requestview.html:173
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:4
+#: templates/pyha/skipofficial/handler/requestview.html:162
 #: templates/pyha/skipofficial/requestview.html:195
 #: templates/pyha/skipofficial/requestview.html:198
-#: templates/pyha/skipofficial/requestview_handler.html:162
 msgid "given_values_are_not_absolute"
 msgstr "given_values_are_not_absolute"
 
-#: templates/pyha/handler/index.html:92
-msgid "handler_no_requests_for_admin"
+#: templates/pyha/base/admin/index.html:83
+#, fuzzy
+#| msgid "handler_no_requests_for_admin"
+msgid "admin_no_requests_for_admin"
 msgstr "handler_no_requests_for_admin"
 
-#: templates/pyha/handler/requestview.html:8
-#: templates/pyha/skipofficial/requestview_handler.html:8
-msgid "handler_request_from_user"
-msgstr "handler_request_from_user"
-
-#: templates/pyha/handler/requestview.html:15
-#: templates/pyha/skipofficial/requestview_handler.html:15
-msgid "handler_state_of_request"
-msgstr "handler_state_of_request"
-
-#: templates/pyha/handler/requestview.html:46
-#: templates/pyha/skipofficial/requestview_handler.html:46
-msgid "handler_show_additional_information"
-msgstr "handler_show_additional_information"
-
-#: templates/pyha/handler/requestview.html:65
-msgid "handler_sensitive"
-msgstr "handler_sensitive"
-
-#: templates/pyha/handler/requestview.html:74
-#: templates/pyha/handler/requestview.html:96
-#: templates/pyha/handler/requestview.html:228 templates/pyha/index.html:62
-#: templates/pyha/requestview.html:37 templates/pyha/requestview.html.py:65
-#: templates/pyha/requestview.html:82 templates/pyha/requestview.html.py:252
-#: templates/pyha/requestview.html:286 templates/pyha/requestview.html:335
-#: templates/pyha/skipofficial/requestview.html:37
-#: templates/pyha/skipofficial/requestview.html:70
-#: templates/pyha/skipofficial/requestview.html:240
-#: templates/pyha/skipofficial/requestview.html:285
-#: templates/pyha/skipofficial/requestview_handler.html:79
-#: templates/pyha/skipofficial/requestview_handler.html:211
-msgid "accepted"
-msgstr "accepted"
-
-#: templates/pyha/handler/requestview.html:75
-#: templates/pyha/handler/requestview.html:97
-#: templates/pyha/handler/requestview.html:224 templates/pyha/index.html:59
-#: templates/pyha/requestview.html:34 templates/pyha/requestview.html.py:66
-#: templates/pyha/requestview.html:83 templates/pyha/requestview.html.py:248
-#: templates/pyha/requestview.html:282 templates/pyha/requestview.html:331
-#: templates/pyha/skipofficial/requestview.html:34
-#: templates/pyha/skipofficial/requestview.html:71
-#: templates/pyha/skipofficial/requestview.html:236
-#: templates/pyha/skipofficial/requestview.html:281
-#: templates/pyha/skipofficial/requestview_handler.html:80
-#: templates/pyha/skipofficial/requestview_handler.html:207
-msgid "denied"
-msgstr "denied"
-
-#: templates/pyha/handler/requestview.html:82
-#: templates/pyha/skipofficial/requestview_handler.html:65
-msgid "handler_restricted"
-msgstr "handler_restricted"
-
-#: templates/pyha/handler/requestview.html:111
-#: templates/pyha/handler/requestview.html:649
-#: templates/pyha/skipofficial/requestview_handler.html:94
-#: templates/pyha/skipofficial/requestview_handler.html:561
-msgid "handler_changes_history"
-msgstr "handler_changes_history"
-
-#: templates/pyha/handler/requestview.html:118
-#: templates/pyha/skipofficial/requestview_handler.html:101
-msgid "handler_contact_window"
-msgstr "handler_contact_window"
-
-#: templates/pyha/handler/requestview.html:125
-#: templates/pyha/skipofficial/requestview_handler.html:108
-msgid "handler_argument_window"
-msgstr "handler_argument_window"
-
-#: templates/pyha/handler/requestview.html:132
-#: templates/pyha/skipofficial/requestview_handler.html:115
-msgid "handler_request_window"
-msgstr "handler_request_window"
-
-#: templates/pyha/handler/requestview.html:139
-#: templates/pyha/skipofficial/requestview_handler.html:122
-msgid "handler_filter_window"
-msgstr "handler_filter_window"
-
-#: templates/pyha/handler/requestview.html:146
-#: templates/pyha/skipofficial/requestview_handler.html:129
-msgid "handler_terms_window"
-msgstr "handler_terms_window"
-
-#: templates/pyha/handler/requestview.html:153
-#: templates/pyha/skipofficial/requestview_handler.html:136
-msgid "handler_decision_window"
-msgstr "handler_decision_window"
-
-#: templates/pyha/handler/requestview.html:160
-#: templates/pyha/skipofficial/requestview_handler.html:143
-msgid "handler_additional_information_window"
-msgstr "handler_additional_information_window"
-
-#: templates/pyha/handler/requestview.html:168
-#: templates/pyha/skipofficial/requestview_handler.html:151
-msgid "handler_comments_window"
-msgstr "handler_comments_window"
-
-#: templates/pyha/handler/requestview.html:176
-#: templates/pyha/skipofficial/requestview_handler.html:159
-msgid "handler_collections_in_request"
-msgstr "handler_collections_in_request"
-
-#: templates/pyha/handler/requestview.html:178
-#: templates/pyha/requestformsummary.html:6 templates/pyha/requestview.html:206
-#: templates/pyha/skipofficial/requestview.html:194
-#: templates/pyha/skipofficial/requestview_handler.html:161
-msgid "Collections including sensitive sightings are marked with symbol"
-msgstr "Collections including sensitive sightings are marked with symbol"
-
-#: templates/pyha/handler/requestview.html:183
-#: templates/pyha/handler/requestview.html:530
-#: templates/pyha/skipofficial/requestview_handler.html:166
-#: templates/pyha/skipofficial/requestview_handler.html:444
-msgid "handler_collection_name"
-msgstr "handler_collection_name"
-
-#: templates/pyha/handler/requestview.html:185
-#: templates/pyha/handler/requestview.html:531
-#: templates/pyha/skipofficial/requestview_handler.html:168
-#: templates/pyha/skipofficial/requestview_handler.html:445
-msgid "handler_collection_description"
-msgstr "handler_collection_description"
-
-#: templates/pyha/handler/requestview.html:186
-#: templates/pyha/skipofficial/requestview_handler.html:169
-msgid "handler_secured_by_data_provider"
-msgstr "handler_secured_by_data_provider"
-
-#: templates/pyha/handler/requestview.html:187
-#: templates/pyha/skipofficial/requestview_handler.html:170
-msgid "handler_generally_secured"
-msgstr "handler_generally_secured"
-
-#: templates/pyha/handler/requestview.html:188
-#: templates/pyha/skipofficial/requestview_handler.html:171
-msgid "handler_all_secured"
-msgstr "handler_all_secured"
-
-#: templates/pyha/handler/requestview.html:189
-#: templates/pyha/handler/requestview.html:468
-#: templates/pyha/handler/requestview.html:532
-#: templates/pyha/skipofficial/requestview_handler.html:172
-#: templates/pyha/skipofficial/requestview_handler.html:446
-msgid "handler_state_of_processing"
-msgstr "handler_state_of_processing"
-
-#: templates/pyha/handler/requestview.html:226 templates/pyha/index.html:56
-#: templates/pyha/requestview.html:31 templates/pyha/requestview.html.py:250
-#: templates/pyha/requestview.html:284 templates/pyha/requestview.html:333
-#: templates/pyha/skipofficial/requestview.html:31
-#: templates/pyha/skipofficial/requestview.html:238
-#: templates/pyha/skipofficial/requestview.html:283
-#: templates/pyha/skipofficial/requestview_handler.html:209
-msgid "partially_accepted"
-msgstr "partially_accepted"
-
-#: templates/pyha/handler/requestview.html:230
-#: templates/pyha/requestview.html:254 templates/pyha/requestview.html:337
-#: templates/pyha/skipofficial/requestview.html:242
-#: templates/pyha/skipofficial/requestview.html:287
-#: templates/pyha/skipofficial/requestview_handler.html:213
-msgid "Admission_for_sensitive_data"
-msgstr "Admission_for_sensitive_data"
-
-#: templates/pyha/handler/requestview.html:232 templates/pyha/index.html:74
-#: templates/pyha/requestview.html:50 templates/pyha/requestview.html.py:256
-#: templates/pyha/requestview.html:288 templates/pyha/requestview.html:339
-#: templates/pyha/skipofficial/requestview.html:50
-#: templates/pyha/skipofficial/requestview.html:244
-#: templates/pyha/skipofficial/requestview.html:289
-#: templates/pyha/skipofficial/requestview_handler.html:215
-msgid "unknown"
-msgstr "unknown"
-
-#: templates/pyha/handler/requestview.html:238
-#: templates/pyha/skipofficial/requestview_handler.html:221
-msgid "handler_request_filters"
-msgstr "handler_request_filters"
-
-#: templates/pyha/handler/requestview.html:238
-#: templates/pyha/skipofficial/requestview_handler.html:221
-msgid "handler_show_in_officials_portal"
-msgstr "handler_show_in_officials_portal"
-
-#: templates/pyha/handler/requestview.html:238
-#: templates/pyha/skipofficial/requestview_handler.html:221
-msgid "handler_show_in_portal"
-msgstr "handler_show_in_portal"
-
-#: templates/pyha/handler/requestview.html:242
-#: templates/pyha/skipofficial/requestview_handler.html:225
-msgid "handler_filter"
-msgstr "handler_filter"
-
-#: templates/pyha/handler/requestview.html:243
-#: templates/pyha/skipofficial/requestview_handler.html:226
-msgid "handler_values"
-msgstr "handler_values"
-
-#: templates/pyha/handler/requestview.html:260
-#: templates/pyha/skipofficial/requestview_handler.html:243
-msgid "handler_no_filters"
-msgstr "handler_no_filters"
-
-#: templates/pyha/handler/requestview.html:264
-#: templates/pyha/requestform.html:361 templates/pyha/requestform.html:419
-#: templates/pyha/requestview.html:374
-#: templates/pyha/skipofficial/requestform.html:293
-#: templates/pyha/skipofficial/requestform.html:351
-#: templates/pyha/skipofficial/requestview.html:324
-#: templates/pyha/skipofficial/requestview_handler.html:247
-msgid "request_arguments"
-msgstr "request_arguments"
-
-#: templates/pyha/handler/requestview.html:266
-#: templates/pyha/skipofficial/requestview_handler.html:249
-#, fuzzy
-#| msgid "handler_argument_goals"
-msgid "handler_argument_choices"
-msgstr "handler_argument_goals"
-
-#: templates/pyha/handler/requestview.html:270
-#: templates/pyha/skipofficial/requestview_handler.html:253
-msgid "handler_reason_zoning"
-msgstr "handler_reason_zoning"
-
-#: templates/pyha/handler/requestview.html:272
-#: templates/pyha/skipofficial/requestview_handler.html:255
-msgid "handler_reason_permission"
-msgstr "handler_reason_permission"
-
-#: templates/pyha/handler/requestview.html:274
-#: templates/pyha/skipofficial/requestview_handler.html:257
-msgid "handler_reason_enviromental"
-msgstr "handler_reason_enviromental"
-
-#: templates/pyha/handler/requestview.html:276
-#: templates/pyha/skipofficial/requestview_handler.html:259
-msgid "handler_reason_natura"
-msgstr "handler_reason_natura"
-
-#: templates/pyha/handler/requestview.html:278
-#: templates/pyha/skipofficial/requestview_handler.html:261
-msgid "handler_reason_scientific"
-msgstr "handler_reason_scientific"
-
-#: templates/pyha/handler/requestview.html:280
-#: templates/pyha/skipofficial/requestview_handler.html:263
-msgid "handler_reason_forest"
-msgstr "handler_reason_forest"
-
-#: templates/pyha/handler/requestview.html:282
-#: templates/pyha/skipofficial/requestview_handler.html:265
-msgid "handler_reason_other"
-msgstr "handler_reason_other"
-
-#: templates/pyha/handler/requestview.html:288
-#: templates/pyha/skipofficial/requestview_handler.html:271
-msgid "handler_argument_project"
-msgstr "handler_argument_project"
-
-#: templates/pyha/handler/requestview.html:291
-#: templates/pyha/skipofficial/requestview_handler.html:274
-msgid "handler_argument_research"
-msgstr "handler_argument_research"
-
-#: templates/pyha/handler/requestview.html:294
-#: templates/pyha/skipofficial/requestview_handler.html:277
-msgid "handler_argument_goals"
-msgstr "handler_argument_goals"
-
-#: templates/pyha/handler/requestview.html:297
-#: templates/pyha/skipofficial/requestview_handler.html:280
-msgid "handler_argument_planning"
-msgstr "handler_argument_planning"
-
-#: templates/pyha/handler/requestview.html:300
-#: templates/pyha/skipofficial/requestview_handler.html:283
-msgid "handler_argument_municipality"
-msgstr "handler_argument_municipality"
-
-#: templates/pyha/handler/requestview.html:303
-#: templates/pyha/skipofficial/requestview_handler.html:286
-msgid "handler_argument_natura_areas"
-msgstr "handler_argument_natura_areas"
-
-#: templates/pyha/handler/requestview.html:306
-#: templates/pyha/skipofficial/requestview_handler.html:289
-msgid "handler_argument_reason"
-msgstr "handler_argument_reason"
-
-#: templates/pyha/handler/requestview.html:313
-#: templates/pyha/handler/requestview.html:318
-#: templates/pyha/handler/requestview.html:324
-#: templates/pyha/skipofficial/requestview_handler.html:296
-#: templates/pyha/skipofficial/requestview_handler.html:301
-#: templates/pyha/skipofficial/requestview_handler.html:307
-msgid "handler_terms"
-msgstr "handler_terms"
-
-#: templates/pyha/handler/requestview.html:317
-#: templates/pyha/skipofficial/requestview_handler.html:300
-msgid "handler_sensitivity"
-msgstr "handler_sensitivity"
-
-#: templates/pyha/handler/requestview.html:332
-#: templates/pyha/skipofficial/requestview_handler.html:315
-msgid "handler_terms_of_use_of_the_collections"
-msgstr "handler_terms_of_use_of_the_collections"
-
-#: templates/pyha/handler/requestview.html:333
-#: templates/pyha/requestform.html:250 templates/pyha/requestform.html:306
-#: templates/pyha/requestform.html:379 templates/pyha/requestview.html:443
-#: templates/pyha/requestview.html:469
-#: templates/pyha/skipofficial/requestform.html:217
-#: templates/pyha/skipofficial/requestform.html:311
-#: templates/pyha/skipofficial/requestview.html:387
-#: templates/pyha/skipofficial/requestview_handler.html:316
-msgid "as_pdf"
-msgstr "as_pdf"
-
-#: templates/pyha/handler/requestview.html:345
-#: templates/pyha/handler/requestview.html:420
-#: templates/pyha/skipofficial/requestview_handler.html:328
-#: templates/pyha/skipofficial/requestview_handler.html:403
-msgid "handler_exit"
-msgstr "handler_exit"
-
-#: templates/pyha/handler/requestview.html:357
-msgid "handler_sensitive_terms"
-msgstr "handler_sensitive_terms"
-
-#: templates/pyha/handler/requestview.html:359
-#: templates/pyha/skipofficial/requestview_handler.html:342
-msgid "handler_as_pdf"
-msgstr "handler_as_pdf"
-
-#: templates/pyha/handler/requestview.html:380
-#: templates/pyha/requestform.html:268 templates/pyha/requestform.html:406
-#: templates/pyha/requestview.html:490
-#: templates/pyha/skipofficial/requestform.html:235
-#: templates/pyha/skipofficial/requestform.html:338
-#: templates/pyha/skipofficial/requestview.html:408
-#: templates/pyha/skipofficial/requestview_handler.html:363
-msgid "contact_name"
-msgstr "contact_name"
-
-#: templates/pyha/handler/requestview.html:382
-#: templates/pyha/handler/requestview.html:401
-#: templates/pyha/requestform.html:270 templates/pyha/requestform.html:408
-#: templates/pyha/requestformcontact.html:34
-#: templates/pyha/requestformmodalcontact.html:6
-#: templates/pyha/requestview.html:492 templates/pyha/requestview.html:511
-#: templates/pyha/skipofficial/requestform.html:237
-#: templates/pyha/skipofficial/requestform.html:340
-#: templates/pyha/skipofficial/requestview.html:410
-#: templates/pyha/skipofficial/requestview.html:429
-#: templates/pyha/skipofficial/requestview_handler.html:365
-#: templates/pyha/skipofficial/requestview_handler.html:384
-msgid "contact_street_address"
-msgstr "contact_street_address"
-
-#: templates/pyha/handler/requestview.html:383
-#: templates/pyha/handler/requestview.html:402
-#: templates/pyha/requestform.html:271 templates/pyha/requestform.html:409
-#: templates/pyha/requestformcontact.html:35
-#: templates/pyha/requestformmodalcontact.html:7
-#: templates/pyha/requestview.html:493 templates/pyha/requestview.html:512
-#: templates/pyha/skipofficial/requestform.html:238
-#: templates/pyha/skipofficial/requestform.html:341
-#: templates/pyha/skipofficial/requestview.html:411
-#: templates/pyha/skipofficial/requestview.html:430
-#: templates/pyha/skipofficial/requestview_handler.html:366
-#: templates/pyha/skipofficial/requestview_handler.html:385
-msgid "contact_postal"
-msgstr "contact_postal"
-
-#: templates/pyha/handler/requestview.html:384
-#: templates/pyha/handler/requestview.html:403
-#: templates/pyha/requestform.html:272 templates/pyha/requestform.html:410
-#: templates/pyha/requestformcontact.html:36
-#: templates/pyha/requestformmodalcontact.html:8
-#: templates/pyha/requestview.html:494 templates/pyha/requestview.html:513
-#: templates/pyha/skipofficial/requestform.html:239
-#: templates/pyha/skipofficial/requestform.html:342
-#: templates/pyha/skipofficial/requestview.html:412
-#: templates/pyha/skipofficial/requestview.html:431
-#: templates/pyha/skipofficial/requestview_handler.html:367
-#: templates/pyha/skipofficial/requestview_handler.html:386
-msgid "contact_post_office"
-msgstr "contact_post_office"
-
-#: templates/pyha/handler/requestview.html:385
-#: templates/pyha/handler/requestview.html:404
-#: templates/pyha/requestform.html:273 templates/pyha/requestform.html:411
-#: templates/pyha/requestformcontact.html:37
-#: templates/pyha/requestformmodalcontact.html:9
-#: templates/pyha/requestview.html:495 templates/pyha/requestview.html:514
-#: templates/pyha/skipofficial/requestform.html:240
-#: templates/pyha/skipofficial/requestform.html:343
-#: templates/pyha/skipofficial/requestview.html:413
-#: templates/pyha/skipofficial/requestview.html:432
-#: templates/pyha/skipofficial/requestview_handler.html:368
-#: templates/pyha/skipofficial/requestview_handler.html:387
-msgid "contact_country"
-msgstr "contact_country"
-
-#: templates/pyha/handler/requestview.html:386
-#: templates/pyha/handler/requestview.html:405
-#: templates/pyha/requestform.html:274 templates/pyha/requestform.html:412
-#: templates/pyha/requestformcontact.html:38
-#: templates/pyha/requestformmodalcontact.html:10
-#: templates/pyha/requestview.html:496 templates/pyha/requestview.html:515
-#: templates/pyha/skipofficial/requestform.html:241
-#: templates/pyha/skipofficial/requestform.html:344
-#: templates/pyha/skipofficial/requestview.html:414
-#: templates/pyha/skipofficial/requestview.html:433
-#: templates/pyha/skipofficial/requestview_handler.html:369
-#: templates/pyha/skipofficial/requestview_handler.html:388
-msgid "contact_email"
-msgstr "contact_email"
-
-#: templates/pyha/handler/requestview.html:387
-#: templates/pyha/handler/requestview.html:406
-#: templates/pyha/requestform.html:275 templates/pyha/requestform.html:413
-#: templates/pyha/requestformcontact.html:39
-#: templates/pyha/requestformmodalcontact.html:11
-#: templates/pyha/requestview.html:497 templates/pyha/requestview.html:516
-#: templates/pyha/skipofficial/requestform.html:242
-#: templates/pyha/skipofficial/requestform.html:345
-#: templates/pyha/skipofficial/requestview.html:415
-#: templates/pyha/skipofficial/requestview.html:434
-#: templates/pyha/skipofficial/requestview_handler.html:370
-#: templates/pyha/skipofficial/requestview_handler.html:389
-msgid "contact_phone_number"
-msgstr "contact_phone_number"
-
-#: templates/pyha/handler/requestview.html:389
-#: templates/pyha/handler/requestview.html:408
-#: templates/pyha/requestform.html:276 templates/pyha/requestform.html:414
-#: templates/pyha/requestformcontact.html:40
-#: templates/pyha/requestformmodalcontact.html:12
-#: templates/pyha/requestview.html:499 templates/pyha/requestview.html:518
-#: templates/pyha/skipofficial/requestform.html:243
-#: templates/pyha/skipofficial/requestform.html:346
-#: templates/pyha/skipofficial/requestview.html:417
-#: templates/pyha/skipofficial/requestview.html:436
-#: templates/pyha/skipofficial/requestview_handler.html:372
-#: templates/pyha/skipofficial/requestview_handler.html:391
-msgid "contact_corporation"
-msgstr "contact_corporation"
-
-#: templates/pyha/handler/requestview.html:392
-#: templates/pyha/handler/requestview.html:411
-#: templates/pyha/requestform.html:277 templates/pyha/requestform.html:415
-#: templates/pyha/requestformcontact.html:41
-#: templates/pyha/requestformmodalcontact.html:13
-#: templates/pyha/requestview.html:502 templates/pyha/requestview.html:521
-#: templates/pyha/skipofficial/requestform.html:244
-#: templates/pyha/skipofficial/requestform.html:347
-#: templates/pyha/skipofficial/requestview.html:420
-#: templates/pyha/skipofficial/requestview.html:439
-#: templates/pyha/skipofficial/requestview_handler.html:375
-#: templates/pyha/skipofficial/requestview_handler.html:394
-msgid "contact_corporation_id"
-msgstr "contact_corporation_id"
-
-#: templates/pyha/handler/requestview.html:399
-#: templates/pyha/requestformcontact.html:33
-#: templates/pyha/requestformmodalcontact.html:5
-#: templates/pyha/requestview.html:509
-#: templates/pyha/skipofficial/requestview.html:427
-#: templates/pyha/skipofficial/requestview_handler.html:382
-msgid "additional_contact_name"
-msgstr "additional_contact_name"
-
-#: templates/pyha/handler/requestview.html:428
-#: templates/pyha/skipofficial/requestview_handler.html:411
-msgid "handler_contacts"
-msgstr "handler_contacts"
-
-#: templates/pyha/handler/requestview.html:431
-#: templates/pyha/skipofficial/requestview_handler.html:414
-msgid "handler_full_name"
-msgstr "handler_full_name"
-
-#: templates/pyha/handler/requestview.html:432
-#: templates/pyha/skipofficial/requestview_handler.html:415
-msgid "handler_street_address"
-msgstr "handler_street_address"
-
-#: templates/pyha/handler/requestview.html:433
-#: templates/pyha/skipofficial/requestview_handler.html:416
-msgid "handler_postal_code"
-msgstr "handler_postal_code"
-
-#: templates/pyha/handler/requestview.html:434
-#: templates/pyha/skipofficial/requestview_handler.html:417
-msgid "handler_post_office_name"
-msgstr "handler_post_office_name"
-
-#: templates/pyha/handler/requestview.html:435
-#: templates/pyha/skipofficial/requestview_handler.html:418
-msgid "handler_country"
-msgstr "handler_country"
-
-#: templates/pyha/handler/requestview.html:436
-#: templates/pyha/skipofficial/requestview_handler.html:419
-msgid "handler_email"
-msgstr "handler_email"
-
-#: templates/pyha/handler/requestview.html:437
-#: templates/pyha/skipofficial/requestview_handler.html:420
-msgid "handler_phone_number"
-msgstr "handler_phone_number"
-
-#: templates/pyha/handler/requestview.html:438
-#: templates/pyha/skipofficial/requestview_handler.html:421
-msgid "handler_corporation/organization_name"
-msgstr "handler_corporation/organization_name"
-
-#: templates/pyha/handler/requestview.html:439
-#: templates/pyha/skipofficial/requestview_handler.html:422
-msgid "handler_corporation_id"
-msgstr "handler_corporation_id"
-
-#: templates/pyha/handler/requestview.html:459
-msgid "handler_user_no_sensitive_data"
-msgstr "handler_user_no_sensitive_data"
-
-#: templates/pyha/handler/requestview.html:461
-msgid "handler_list_of_collections"
-msgstr "handler_list_of_collections"
-
-#: templates/pyha/handler/requestview.html:469
-#: templates/pyha/handler/requestview.html:533
-#: templates/pyha/skipofficial/requestview_handler.html:447
-msgid "handler_decision_arguments"
-msgstr "handler_decision_arguments"
-
-#: templates/pyha/handler/requestview.html:494
-#, fuzzy
-#| msgid "handler_asked"
-msgid "handler_skipped"
-msgstr "handler_asked"
-
-#: templates/pyha/handler/requestview.html:504
-#: templates/pyha/handler/requestview.html:572
-#: templates/pyha/skipofficial/requestview_handler.html:486
-msgid "handler_accept"
-msgstr "handler_accept"
-
-#: templates/pyha/handler/requestview.html:508
-#: templates/pyha/handler/requestview.html:510
-#: templates/pyha/handler/requestview.html:573
-#: templates/pyha/skipofficial/requestview_handler.html:487
-msgid "handler_refuse"
-msgstr "handler_refuse"
-
-#: templates/pyha/handler/requestview.html:527
-#: templates/pyha/skipofficial/requestview_handler.html:441
-msgid "handler_secured_collection_decicions"
-msgstr "handler_secured_collection_decicions"
-
-#: templates/pyha/handler/requestview.html:587
-#: templates/pyha/skipofficial/requestview_handler.html:501
-msgid "handler_additional_questions"
-msgstr "handler_additional_questions"
-
-#: templates/pyha/handler/requestview.html:591
-#: templates/pyha/handler/requestview.html:596
-#: templates/pyha/requestview.html:427 templates/pyha/requestview.html:573
-#: templates/pyha/requestview.html:589
-#: templates/pyha/skipofficial/requestview.html:491
-#: templates/pyha/skipofficial/requestview.html:507
-#: templates/pyha/skipofficial/requestview_handler.html:505
-#: templates/pyha/skipofficial/requestview_handler.html:510
-msgid "sensitivity"
-msgstr "sensitivity"
-
-#: templates/pyha/handler/requestview.html:591
-#: templates/pyha/skipofficial/requestview_handler.html:505
-msgid "handler_asked"
-msgstr "handler_asked"
-
-#: templates/pyha/handler/requestview.html:596
-#: templates/pyha/requestview.html:589
-#: templates/pyha/skipofficial/requestview.html:507
-#: templates/pyha/skipofficial/requestview_handler.html:510
-msgid "inquiry"
-msgstr "inquiry"
-
-#: templates/pyha/handler/requestview.html:596
-#: templates/pyha/skipofficial/requestview_handler.html:510
-msgid "handler_answered"
-msgstr "handler_answered"
-
-#: templates/pyha/handler/requestview.html:600
-#: templates/pyha/skipofficial/requestview_handler.html:515
-msgid "handler_form_to_request_additional_information"
-msgstr "handler_form_to_request_additional_information"
-
-#: templates/pyha/handler/requestview.html:608
-#: templates/pyha/skipofficial/requestview_handler.html:520
-msgid "ask_as_handler_of"
-msgstr "ask_as_handler_of"
-
-#: templates/pyha/handler/requestview.html:618
-#: templates/pyha/skipofficial/requestview_handler.html:529
-msgid "handler_request_additional_information"
-msgstr "handler_request_additional_information"
-
-#: templates/pyha/handler/requestview.html:627
-#: templates/pyha/skipofficial/requestview_handler.html:539
-msgid "handler_official_comment_area"
-msgstr "handler_official_comment_area"
-
-#: templates/pyha/handler/requestview.html:630
-#: templates/pyha/skipofficial/requestview_handler.html:542
-msgid "handler_said"
-msgstr "handler_said"
-
-#: templates/pyha/handler/requestview.html:639
-#: templates/pyha/skipofficial/requestview_handler.html:551
-msgid "handler_save"
-msgstr "handler_save"
-
-#: templates/pyha/handler/requestview.html:652
-#: templates/pyha/skipofficial/requestview_handler.html:564
-msgid "handler_log_date"
-msgstr "handler_log_date"
-
-#: templates/pyha/handler/requestview.html:653
-#: templates/pyha/skipofficial/requestview_handler.html:565
-msgid "handler_log_maker"
-msgstr "handler_log_maker"
-
-#: templates/pyha/handler/requestview.html:654
-#: templates/pyha/skipofficial/requestview_handler.html:566
-msgid "handler_log_description"
-msgstr "handler_log_description"
-
-#: templates/pyha/handler/requestview.html:661
-#: templates/pyha/skipofficial/requestview_handler.html:573
-msgid "handler_log_viewed"
-msgstr "handler_log_viewed"
-
-#: templates/pyha/handler/requestview.html:663
-#: templates/pyha/skipofficial/requestview_handler.html:575
-msgid "handler_log_terms_accepted"
-msgstr "handler_log_terms_accepted"
-
-#: templates/pyha/handler/requestview.html:666
-#: templates/pyha/skipofficial/requestview_handler.html:578
-msgid "handler_log_sensitives_accepted"
-msgstr "handler_log_sensitives_accepted"
-
-#: templates/pyha/handler/requestview.html:668
-#: templates/pyha/skipofficial/requestview_handler.html:580
-msgid "handler_log_collection_accepted"
-msgstr "handler_log_collection_accepted"
-
-#: templates/pyha/handler/requestview.html:672
-#: templates/pyha/skipofficial/requestview_handler.html:584
-msgid "handler_log_sensitives_denied"
-msgstr "handler_log_sensitives_denied"
-
-#: templates/pyha/handler/requestview.html:674
-#: templates/pyha/skipofficial/requestview_handler.html:586
-msgid "handler_log_collection_denied"
-msgstr "handler_log_collection_denied"
-
-#: templates/pyha/handler/requestview.html:681
-#: templates/pyha/requestview.html:642
-#: templates/pyha/skipofficial/requestview.html:560
-#: templates/pyha/skipofficial/requestview_handler.html:593
-msgid "log_no_history"
-msgstr "log_no_history"
-
-#: templates/pyha/index.html:9
-msgid "welcome"
-msgstr "welcome"
-
-#: templates/pyha/index.html:12
-msgid "requests_for_user"
-msgstr "requests_for_user"
-
-#: templates/pyha/index.html:18
-msgid "request_date"
-msgstr "request_date"
-
-#: templates/pyha/index.html:19
-msgid "request_hits"
-msgstr "request_hits"
-
-#: templates/pyha/index.html:20 templates/pyha/requestformcustom.html:12
-msgid "request_status_for_user"
-msgstr "request_status_for_user"
-
-#: templates/pyha/index.html:21 templates/pyha/requestformcustom.html:8
-#: templates/pyha/requestformsummary.html:11
-#: templates/pyha/requestformtaxon.html:16 templates/pyha/requestheader.html:17
-#: templates/pyha/skipofficial/requestformcollection.html:15
-msgid "request_description"
-msgstr "request_description"
-
-#: templates/pyha/index.html:50 templates/pyha/requestform.html:495
-#: templates/pyha/requestform.html:509 templates/pyha/requestformcustom.html:27
-#: templates/pyha/requestformtaxon.html:42
-#: templates/pyha/skipofficial/requestform.html:406
-#: templates/pyha/skipofficial/requestformcollection.html:39
-msgid "you_have_not_accepted_terms"
-msgstr "you_have_not_accepted_terms"
-
-#: templates/pyha/index.html:53 templates/pyha/requestview.html:28
-#: templates/pyha/requestview.html.py:64 templates/pyha/requestview.html:81
-#: templates/pyha/requestview.html.py:246 templates/pyha/requestview.html:280
-#: templates/pyha/requestview.html:329
-#: templates/pyha/skipofficial/requestview.html:28
-#: templates/pyha/skipofficial/requestview.html:69
-#: templates/pyha/skipofficial/requestview.html:234
-#: templates/pyha/skipofficial/requestview.html:279
-msgid "waiting_for_data_provider"
-msgstr "waiting_for_data_provider"
-
-#: templates/pyha/index.html:65 templates/pyha/requestview.html:40
-#: templates/pyha/skipofficial/requestview.html:40
-msgid "waiting_for_additional_information"
-msgstr "waiting_for_additional_information"
-
-#: templates/pyha/index.html:68 templates/pyha/requestview.html:44
-#: templates/pyha/skipofficial/requestview.html:44
-msgid "waiting_for_download"
-msgstr "waiting_for_download"
-
-#: templates/pyha/index.html:71 templates/pyha/requestview.html:47
-#: templates/pyha/skipofficial/requestview.html:47
-msgid "ready_for_download"
-msgstr "ready_for_download"
-
-#: templates/pyha/index.html:86
-msgid "no_requests_for_user"
-msgstr "no_requests_for_user"
-
-#: templates/pyha/requestform.html:14 templates/pyha/requestview.html:347
-#: templates/pyha/skipofficial/requestform.html:12
-#: templates/pyha/skipofficial/requestview.html:297
-msgid "request_filters"
-msgstr "request_filters"
-
-#: templates/pyha/requestform.html:16 templates/pyha/requestform.html.py:747
-#: templates/pyha/skipofficial/requestform.html:14
-#: templates/pyha/skipofficial/requestform.html:612
-msgid "show"
-msgstr "show"
-
-#: templates/pyha/requestform.html:19 templates/pyha/requestview.html:349
-#: templates/pyha/skipofficial/requestform.html:17
-#: templates/pyha/skipofficial/requestview.html:299
-msgid "show_in_portal"
-msgstr "show_in_portal"
-
-#: templates/pyha/requestform.html:22 templates/pyha/requestview.html:352
-#: templates/pyha/skipofficial/requestform.html:20
-#: templates/pyha/skipofficial/requestview.html:302
-msgid "filter"
-msgstr "filter"
-
-#: templates/pyha/requestform.html:23 templates/pyha/requestview.html:353
-#: templates/pyha/skipofficial/requestform.html:21
-#: templates/pyha/skipofficial/requestview.html:303
-msgid "values"
-msgstr "values"
-
-#: templates/pyha/requestform.html:40 templates/pyha/requestview.html:370
-#: templates/pyha/skipofficial/requestform.html:38
-#: templates/pyha/skipofficial/requestview.html:320
-msgid "no_filters"
-msgstr "no_filters"
-
-#: templates/pyha/requestform.html:54
-#: templates/pyha/skipofficial/requestform.html:51
-msgid "contact_info_tab"
-msgstr "contact_info_tab"
-
-#: templates/pyha/requestform.html:62
-#: templates/pyha/skipofficial/requestform.html:59
-msgid "arguments_tab"
-msgstr "arguments_tab"
-
-#: templates/pyha/requestform.html:70
-msgid "sensitivity_tab"
-msgstr "sensitivity_tab"
-
-#: templates/pyha/requestform.html:78 templates/pyha/requestform.html.py:96
-msgid "collections_tab"
-msgstr "collections_tab"
-
-#: templates/pyha/requestform.html:87 templates/pyha/requestform.html.py:105
-#: templates/pyha/skipofficial/requestform.html:73
-msgid "summary_tab"
-msgstr "summary_tab"
-
-#: templates/pyha/requestform.html:116
-#: templates/pyha/skipofficial/requestform.html:83
-msgid "contact_list"
-msgstr "contact_list"
-
-#: templates/pyha/requestform.html:119
-#: templates/pyha/skipofficial/requestform.html:86
-msgid "main_contact"
-msgstr "main_contact"
-
-#: templates/pyha/requestform.html:125
-#: templates/pyha/skipofficial/requestform.html:92
-msgid "additional_contacts"
-msgstr "additional_contacts"
-
-#: templates/pyha/requestform.html:129
-#: templates/pyha/skipofficial/requestform.html:96
-msgid "add_new_contact"
-msgstr "add_new_contact"
-
-#: templates/pyha/requestform.html:136
-#: templates/pyha/skipofficial/requestform.html:103
-msgid "remove_last_contact"
-msgstr "remove_last_contact"
-
-#: templates/pyha/requestform.html:143 templates/pyha/requestformcontact.html:5
-#: templates/pyha/skipofficial/requestform.html:110
+#: templates/pyha/base/ajax/requestformcontact.html:5
+#: templates/pyha/official/requestform.html:143
+#: templates/pyha/skipofficial/requestform.html:112
 msgid "required_fields_indicated_with_sign"
 msgstr "required_fields_indicated_with_sign"
 
-#: templates/pyha/requestform.html:144 templates/pyha/requestformcontact.html:6
-#: templates/pyha/skipofficial/requestform.html:111
+#: templates/pyha/base/ajax/requestformcontact.html:6
+#: templates/pyha/official/requestform.html:144
+#: templates/pyha/skipofficial/requestform.html:113
 msgid "enter_name_and_address"
 msgstr "enter_name_and_address"
 
-#: templates/pyha/requestform.html:147 templates/pyha/requestform.html:167
-#: templates/pyha/requestformcontact.html:8
-#: templates/pyha/skipofficial/requestform.html:114
-#: templates/pyha/skipofficial/requestform.html:134
+#: templates/pyha/base/ajax/requestformcontact.html:8
+#: templates/pyha/official/requestform.html:147
+#: templates/pyha/official/requestform.html:167
+#: templates/pyha/skipofficial/requestform.html:116
+#: templates/pyha/skipofficial/requestform.html:136
 msgid "enter_full_name"
 msgstr "enter_full_name"
 
-#: templates/pyha/requestform.html:148 templates/pyha/requestform.html:168
-#: templates/pyha/requestformcontact.html:9
-#: templates/pyha/skipofficial/requestform.html:115
-#: templates/pyha/skipofficial/requestform.html:135
+#: templates/pyha/base/ajax/requestformcontact.html:9
+#: templates/pyha/official/requestform.html:148
+#: templates/pyha/official/requestform.html:168
+#: templates/pyha/skipofficial/requestform.html:117
+#: templates/pyha/skipofficial/requestform.html:137
 msgid "enter_street_address"
 msgstr "enter_street_address"
 
-#: templates/pyha/requestform.html:149 templates/pyha/requestform.html:169
-#: templates/pyha/requestformcontact.html:10
-#: templates/pyha/skipofficial/requestform.html:116
-#: templates/pyha/skipofficial/requestform.html:136
+#: templates/pyha/base/ajax/requestformcontact.html:10
+#: templates/pyha/official/requestform.html:149
+#: templates/pyha/official/requestform.html:169
+#: templates/pyha/skipofficial/requestform.html:118
+#: templates/pyha/skipofficial/requestform.html:138
 msgid "enter_postal_code"
 msgstr "enter_postal_code"
 
-#: templates/pyha/requestform.html:150 templates/pyha/requestform.html:170
-#: templates/pyha/requestformcontact.html:11
-#: templates/pyha/skipofficial/requestform.html:117
-#: templates/pyha/skipofficial/requestform.html:137
+#: templates/pyha/base/ajax/requestformcontact.html:11
+#: templates/pyha/official/requestform.html:150
+#: templates/pyha/official/requestform.html:170
+#: templates/pyha/skipofficial/requestform.html:119
+#: templates/pyha/skipofficial/requestform.html:139
 msgid "enter_post_office_name"
 msgstr "enter_post_office_name"
 
-#: templates/pyha/requestform.html:151 templates/pyha/requestform.html:171
-#: templates/pyha/requestformcontact.html:12
-#: templates/pyha/skipofficial/requestform.html:118
-#: templates/pyha/skipofficial/requestform.html:138
+#: templates/pyha/base/ajax/requestformcontact.html:12
+#: templates/pyha/official/requestform.html:151
+#: templates/pyha/official/requestform.html:171
+#: templates/pyha/skipofficial/requestform.html:120
+#: templates/pyha/skipofficial/requestform.html:140
 msgid "enter_country"
 msgstr "enter_country"
 
-#: templates/pyha/requestform.html:154 templates/pyha/requestform.html:174
-#: templates/pyha/requestformcontact.html:15
-#: templates/pyha/skipofficial/requestform.html:121
-#: templates/pyha/skipofficial/requestform.html:141
+#: templates/pyha/base/ajax/requestformcontact.html:15
+#: templates/pyha/official/requestform.html:154
+#: templates/pyha/official/requestform.html:174
+#: templates/pyha/skipofficial/requestform.html:123
+#: templates/pyha/skipofficial/requestform.html:143
 msgid "enter_email_and_phone"
 msgstr "enter_email_and_phone"
 
-#: templates/pyha/requestform.html:156 templates/pyha/requestform.html:176
-#: templates/pyha/requestformcontact.html:17
-#: templates/pyha/skipofficial/requestform.html:123
-#: templates/pyha/skipofficial/requestform.html:143
+#: templates/pyha/base/ajax/requestformcontact.html:17
+#: templates/pyha/official/requestform.html:156
+#: templates/pyha/official/requestform.html:176
+#: templates/pyha/skipofficial/requestform.html:125
+#: templates/pyha/skipofficial/requestform.html:145
 msgid "enter_email"
 msgstr "enter_email"
 
-#: templates/pyha/requestform.html:157 templates/pyha/requestform.html:177
-#: templates/pyha/requestformcontact.html:18
-#: templates/pyha/skipofficial/requestform.html:124
-#: templates/pyha/skipofficial/requestform.html:144
+#: templates/pyha/base/ajax/requestformcontact.html:18
+#: templates/pyha/official/requestform.html:157
+#: templates/pyha/official/requestform.html:177
+#: templates/pyha/skipofficial/requestform.html:126
+#: templates/pyha/skipofficial/requestform.html:146
 msgid "enter_phone_number"
 msgstr "enter_phone_number"
 
-#: templates/pyha/requestform.html:160 templates/pyha/requestform.html:180
-#: templates/pyha/requestformcontact.html:21
-#: templates/pyha/skipofficial/requestform.html:127
-#: templates/pyha/skipofficial/requestform.html:147
+#: templates/pyha/base/ajax/requestformcontact.html:21
+#: templates/pyha/official/requestform.html:160
+#: templates/pyha/official/requestform.html:180
+#: templates/pyha/skipofficial/requestform.html:129
+#: templates/pyha/skipofficial/requestform.html:149
 msgid "enter_corporation/organization"
 msgstr "enter_corporation/organization"
 
-#: templates/pyha/requestform.html:162 templates/pyha/requestform.html:182
-#: templates/pyha/requestformcontact.html:23
-#: templates/pyha/skipofficial/requestform.html:129
-#: templates/pyha/skipofficial/requestform.html:149
+#: templates/pyha/base/ajax/requestformcontact.html:23
+#: templates/pyha/official/requestform.html:162
+#: templates/pyha/official/requestform.html:182
+#: templates/pyha/skipofficial/requestform.html:131
+#: templates/pyha/skipofficial/requestform.html:151
 msgid "enter_corporation/organization_name"
 msgstr "enter_corporation/organization_name"
 
-#: templates/pyha/requestform.html:163 templates/pyha/requestform.html:183
-#: templates/pyha/requestformcontact.html:24
-#: templates/pyha/skipofficial/requestform.html:130
-#: templates/pyha/skipofficial/requestform.html:150
+#: templates/pyha/base/ajax/requestformcontact.html:24
+#: templates/pyha/official/requestform.html:163
+#: templates/pyha/official/requestform.html:183
+#: templates/pyha/skipofficial/requestform.html:132
+#: templates/pyha/skipofficial/requestform.html:152
 msgid "enter_corporation_id"
 msgstr "enter_corporation_id"
 
-#: templates/pyha/requestform.html:191
-#: templates/pyha/skipofficial/requestform.html:158
-msgid "continue_to_step_2"
-msgstr "continue_to_step_2"
+#: templates/pyha/base/ajax/requestformcontact.html:33
+#: templates/pyha/base/ajax/requestformmodalcontact.html:5
+#: templates/pyha/official/admin/requestview.html:404
+#: templates/pyha/official/handler/requestview.html:398
+#: templates/pyha/official/requestview.html:507
+#: templates/pyha/skipofficial/admin/requestview.html:360
+#: templates/pyha/skipofficial/handler/requestview.html:349
+#: templates/pyha/skipofficial/requestview.html:425
+msgid "additional_contact_name"
+msgstr "additional_contact_name"
 
-#: templates/pyha/requestform.html:196
-#: templates/pyha/skipofficial/requestform.html:163
-msgid "request_arguments_for_user"
-msgstr "request_arguments_for_user"
+#: templates/pyha/base/ajax/requestformcontact.html:34
+#: templates/pyha/base/ajax/requestformmodalcontact.html:6
+#: templates/pyha/official/admin/requestview.html:387
+#: templates/pyha/official/admin/requestview.html:406
+#: templates/pyha/official/handler/requestview.html:381
+#: templates/pyha/official/handler/requestview.html:400
+#: templates/pyha/official/requestform.html:270
+#: templates/pyha/official/requestform.html:408
+#: templates/pyha/official/requestview.html:490
+#: templates/pyha/official/requestview.html:509
+#: templates/pyha/skipofficial/admin/requestview.html:343
+#: templates/pyha/skipofficial/admin/requestview.html:362
+#: templates/pyha/skipofficial/handler/requestview.html:332
+#: templates/pyha/skipofficial/handler/requestview.html:351
+#: templates/pyha/skipofficial/requestform.html:239
+#: templates/pyha/skipofficial/requestform.html:342
+#: templates/pyha/skipofficial/requestview.html:408
+#: templates/pyha/skipofficial/requestview.html:427
+msgid "contact_street_address"
+msgstr "contact_street_address"
 
-#: templates/pyha/requestform.html:199 templates/pyha/requestview.html:380
-#: templates/pyha/skipofficial/requestform.html:166
-#: templates/pyha/skipofficial/requestview.html:330
-msgid "reason_zoning"
-msgstr "reason_zoning"
+#: templates/pyha/base/ajax/requestformcontact.html:35
+#: templates/pyha/base/ajax/requestformmodalcontact.html:7
+#: templates/pyha/official/admin/requestview.html:388
+#: templates/pyha/official/admin/requestview.html:407
+#: templates/pyha/official/handler/requestview.html:382
+#: templates/pyha/official/handler/requestview.html:401
+#: templates/pyha/official/requestform.html:271
+#: templates/pyha/official/requestform.html:409
+#: templates/pyha/official/requestview.html:491
+#: templates/pyha/official/requestview.html:510
+#: templates/pyha/skipofficial/admin/requestview.html:344
+#: templates/pyha/skipofficial/admin/requestview.html:363
+#: templates/pyha/skipofficial/handler/requestview.html:333
+#: templates/pyha/skipofficial/handler/requestview.html:352
+#: templates/pyha/skipofficial/requestform.html:240
+#: templates/pyha/skipofficial/requestform.html:343
+#: templates/pyha/skipofficial/requestview.html:409
+#: templates/pyha/skipofficial/requestview.html:428
+msgid "contact_postal"
+msgstr "contact_postal"
 
-#: templates/pyha/requestform.html:200 templates/pyha/requestview.html:382
-#: templates/pyha/skipofficial/requestform.html:167
-#: templates/pyha/skipofficial/requestview.html:332
-msgid "reason_permission"
-msgstr "reason_permission"
+#: templates/pyha/base/ajax/requestformcontact.html:36
+#: templates/pyha/base/ajax/requestformmodalcontact.html:8
+#: templates/pyha/official/admin/requestview.html:389
+#: templates/pyha/official/admin/requestview.html:408
+#: templates/pyha/official/handler/requestview.html:383
+#: templates/pyha/official/handler/requestview.html:402
+#: templates/pyha/official/requestform.html:272
+#: templates/pyha/official/requestform.html:410
+#: templates/pyha/official/requestview.html:492
+#: templates/pyha/official/requestview.html:511
+#: templates/pyha/skipofficial/admin/requestview.html:345
+#: templates/pyha/skipofficial/admin/requestview.html:364
+#: templates/pyha/skipofficial/handler/requestview.html:334
+#: templates/pyha/skipofficial/handler/requestview.html:353
+#: templates/pyha/skipofficial/requestform.html:241
+#: templates/pyha/skipofficial/requestform.html:344
+#: templates/pyha/skipofficial/requestview.html:410
+#: templates/pyha/skipofficial/requestview.html:429
+msgid "contact_post_office"
+msgstr "contact_post_office"
 
-#: templates/pyha/requestform.html:201 templates/pyha/requestview.html:384
-#: templates/pyha/skipofficial/requestform.html:168
-#: templates/pyha/skipofficial/requestview.html:334
-msgid "reason_enviromental"
-msgstr "reason_enviromental"
+#: templates/pyha/base/ajax/requestformcontact.html:37
+#: templates/pyha/base/ajax/requestformmodalcontact.html:9
+#: templates/pyha/official/admin/requestview.html:390
+#: templates/pyha/official/admin/requestview.html:409
+#: templates/pyha/official/handler/requestview.html:384
+#: templates/pyha/official/handler/requestview.html:403
+#: templates/pyha/official/requestform.html:273
+#: templates/pyha/official/requestform.html:411
+#: templates/pyha/official/requestview.html:493
+#: templates/pyha/official/requestview.html:512
+#: templates/pyha/skipofficial/admin/requestview.html:346
+#: templates/pyha/skipofficial/admin/requestview.html:365
+#: templates/pyha/skipofficial/handler/requestview.html:335
+#: templates/pyha/skipofficial/handler/requestview.html:354
+#: templates/pyha/skipofficial/requestform.html:242
+#: templates/pyha/skipofficial/requestform.html:345
+#: templates/pyha/skipofficial/requestview.html:411
+#: templates/pyha/skipofficial/requestview.html:430
+msgid "contact_country"
+msgstr "contact_country"
 
-#: templates/pyha/requestform.html:202 templates/pyha/requestview.html:386
-#: templates/pyha/skipofficial/requestform.html:169
-#: templates/pyha/skipofficial/requestview.html:336
-msgid "reason_natura"
-msgstr "reason_natura"
+#: templates/pyha/base/ajax/requestformcontact.html:38
+#: templates/pyha/base/ajax/requestformmodalcontact.html:10
+#: templates/pyha/official/admin/requestview.html:391
+#: templates/pyha/official/admin/requestview.html:410
+#: templates/pyha/official/handler/requestview.html:385
+#: templates/pyha/official/handler/requestview.html:404
+#: templates/pyha/official/requestform.html:274
+#: templates/pyha/official/requestform.html:412
+#: templates/pyha/official/requestview.html:494
+#: templates/pyha/official/requestview.html:513
+#: templates/pyha/skipofficial/admin/requestview.html:347
+#: templates/pyha/skipofficial/admin/requestview.html:366
+#: templates/pyha/skipofficial/handler/requestview.html:336
+#: templates/pyha/skipofficial/handler/requestview.html:355
+#: templates/pyha/skipofficial/requestform.html:243
+#: templates/pyha/skipofficial/requestform.html:346
+#: templates/pyha/skipofficial/requestview.html:412
+#: templates/pyha/skipofficial/requestview.html:431
+msgid "contact_email"
+msgstr "contact_email"
 
-#: templates/pyha/requestform.html:203 templates/pyha/requestview.html:388
-#: templates/pyha/skipofficial/requestform.html:170
-#: templates/pyha/skipofficial/requestview.html:338
-msgid "reason_scientific"
-msgstr "reason_scientific"
+#: templates/pyha/base/ajax/requestformcontact.html:39
+#: templates/pyha/base/ajax/requestformmodalcontact.html:11
+#: templates/pyha/official/admin/requestview.html:392
+#: templates/pyha/official/admin/requestview.html:411
+#: templates/pyha/official/handler/requestview.html:386
+#: templates/pyha/official/handler/requestview.html:405
+#: templates/pyha/official/requestform.html:275
+#: templates/pyha/official/requestform.html:413
+#: templates/pyha/official/requestview.html:495
+#: templates/pyha/official/requestview.html:514
+#: templates/pyha/skipofficial/admin/requestview.html:348
+#: templates/pyha/skipofficial/admin/requestview.html:367
+#: templates/pyha/skipofficial/handler/requestview.html:337
+#: templates/pyha/skipofficial/handler/requestview.html:356
+#: templates/pyha/skipofficial/requestform.html:244
+#: templates/pyha/skipofficial/requestform.html:347
+#: templates/pyha/skipofficial/requestview.html:413
+#: templates/pyha/skipofficial/requestview.html:432
+msgid "contact_phone_number"
+msgstr "contact_phone_number"
 
-#: templates/pyha/requestform.html:204 templates/pyha/requestview.html:390
-#: templates/pyha/skipofficial/requestform.html:171
-#: templates/pyha/skipofficial/requestview.html:340
-msgid "reason_forest"
-msgstr "reason_forest"
+#: templates/pyha/base/ajax/requestformcontact.html:40
+#: templates/pyha/base/ajax/requestformmodalcontact.html:12
+#: templates/pyha/official/admin/requestview.html:394
+#: templates/pyha/official/admin/requestview.html:413
+#: templates/pyha/official/handler/requestview.html:388
+#: templates/pyha/official/handler/requestview.html:407
+#: templates/pyha/official/requestform.html:276
+#: templates/pyha/official/requestform.html:414
+#: templates/pyha/official/requestview.html:497
+#: templates/pyha/official/requestview.html:516
+#: templates/pyha/skipofficial/admin/requestview.html:350
+#: templates/pyha/skipofficial/admin/requestview.html:369
+#: templates/pyha/skipofficial/handler/requestview.html:339
+#: templates/pyha/skipofficial/handler/requestview.html:358
+#: templates/pyha/skipofficial/requestform.html:245
+#: templates/pyha/skipofficial/requestform.html:348
+#: templates/pyha/skipofficial/requestview.html:415
+#: templates/pyha/skipofficial/requestview.html:434
+msgid "contact_corporation"
+msgstr "contact_corporation"
 
-#: templates/pyha/requestform.html:205 templates/pyha/requestview.html:392
-#: templates/pyha/skipofficial/requestform.html:172
-#: templates/pyha/skipofficial/requestview.html:342
-msgid "reason_other"
-msgstr "reason_other"
+#: templates/pyha/base/ajax/requestformcontact.html:41
+#: templates/pyha/base/ajax/requestformmodalcontact.html:13
+#: templates/pyha/official/admin/requestview.html:397
+#: templates/pyha/official/admin/requestview.html:416
+#: templates/pyha/official/handler/requestview.html:391
+#: templates/pyha/official/handler/requestview.html:410
+#: templates/pyha/official/requestform.html:277
+#: templates/pyha/official/requestform.html:415
+#: templates/pyha/official/requestview.html:500
+#: templates/pyha/official/requestview.html:519
+#: templates/pyha/skipofficial/admin/requestview.html:353
+#: templates/pyha/skipofficial/admin/requestview.html:372
+#: templates/pyha/skipofficial/handler/requestview.html:342
+#: templates/pyha/skipofficial/handler/requestview.html:361
+#: templates/pyha/skipofficial/requestform.html:246
+#: templates/pyha/skipofficial/requestform.html:349
+#: templates/pyha/skipofficial/requestview.html:418
+#: templates/pyha/skipofficial/requestview.html:437
+msgid "contact_corporation_id"
+msgstr "contact_corporation_id"
 
-#: templates/pyha/requestform.html:209
-#: templates/pyha/skipofficial/requestform.html:176
-msgid "additional_information"
-msgstr "additional_information"
-
-#: templates/pyha/requestform.html:212
-#: templates/pyha/skipofficial/requestform.html:179
-msgid "required_project_name"
-msgstr "required_project_name"
-
-#: templates/pyha/requestform.html:215
-#: templates/pyha/skipofficial/requestform.html:182
-msgid "required_research_name"
-msgstr "required_research_name"
-
-#: templates/pyha/requestform.html:218
-#: templates/pyha/skipofficial/requestform.html:185
-msgid "required_goals"
-msgstr "required_goals"
-
-#: templates/pyha/requestform.html:221
-#: templates/pyha/skipofficial/requestform.html:188
-msgid "required_planning_description"
-msgstr "required_planning_description"
-
-#: templates/pyha/requestform.html:224
-#: templates/pyha/skipofficial/requestform.html:191
-msgid "required_municipality"
-msgstr "required_municipality"
-
-#: templates/pyha/requestform.html:227
-#: templates/pyha/skipofficial/requestform.html:194
-msgid "required_natura_areas"
-msgstr "required_natura_areas"
-
-#: templates/pyha/requestform.html:230
-#: templates/pyha/skipofficial/requestform.html:197
-msgid "required_arguments"
-msgstr "required_arguments"
-
-#: templates/pyha/requestform.html:236 templates/pyha/requestform.html:381
-#: templates/pyha/requestformcustom.html:38
-#: templates/pyha/requestformtaxon.html:44
-#: templates/pyha/skipofficial/requestform.html:203
-#: templates/pyha/skipofficial/requestform.html:313
-#: templates/pyha/skipofficial/requestformcollection.html:41
-msgid "previous"
-msgstr "previous"
-
-#: templates/pyha/requestform.html:237
-#: templates/pyha/skipofficial/requestform.html:204
-msgid "continue_to_step_3"
-msgstr "continue_to_step_3"
-
-#: templates/pyha/requestform.html:249 templates/pyha/requestview.html:467
-msgid "sensitive_terms"
-msgstr "sensitive_terms"
-
-#: templates/pyha/requestform.html:286 templates/pyha/requestform.html:320
-#: templates/pyha/skipofficial/requestform.html:253
-msgid "i_accept_terms"
-msgstr "i_accept_terms"
-
-#: templates/pyha/requestform.html:288 templates/pyha/requestform.html:322
-#: templates/pyha/requestview.html:455 templates/pyha/requestview.html:530
-#: templates/pyha/skipofficial/requestform.html:255
-#: templates/pyha/skipofficial/requestview.html:448
-msgid "exit"
-msgstr "exit"
-
-#: templates/pyha/requestform.html:305 templates/pyha/requestformcustom.html:26
-#: templates/pyha/requestformtaxon.html:43 templates/pyha/requestview.html:423
-#: templates/pyha/requestview.html:428 templates/pyha/requestview.html:434
-#: templates/pyha/skipofficial/requestformcollection.html:40
-#: templates/pyha/skipofficial/requestview.html:373
-#: templates/pyha/skipofficial/requestview.html:377
-msgid "terms"
-msgstr "terms"
-
-#: templates/pyha/requestform.html:331 templates/pyha/requestform.html:400
-#: templates/pyha/skipofficial/requestform.html:263
-#: templates/pyha/skipofficial/requestform.html:332
-msgid "request_summary"
-msgstr "request_summary"
-
-#: templates/pyha/requestform.html:335 templates/pyha/requestform.html:404
-#: templates/pyha/requestview.html:539
-#: templates/pyha/skipofficial/requestform.html:267
-#: templates/pyha/skipofficial/requestform.html:336
-#: templates/pyha/skipofficial/requestview.html:457
-msgid "contacts"
-msgstr "contacts"
-
-#: templates/pyha/requestform.html:338 templates/pyha/requestview.html:542
-#: templates/pyha/skipofficial/requestform.html:270
-#: templates/pyha/skipofficial/requestview.html:460
-msgid "full_name"
-msgstr "full_name"
-
-#: templates/pyha/requestform.html:339 templates/pyha/requestview.html:543
-#: templates/pyha/skipofficial/requestform.html:271
-#: templates/pyha/skipofficial/requestview.html:461
-msgid "street_address"
-msgstr "street_address"
-
-#: templates/pyha/requestform.html:340 templates/pyha/requestview.html:544
-#: templates/pyha/skipofficial/requestform.html:272
-#: templates/pyha/skipofficial/requestview.html:462
-msgid "postal_code"
-msgstr "postal_code"
-
-#: templates/pyha/requestform.html:341 templates/pyha/requestview.html:545
-#: templates/pyha/skipofficial/requestform.html:273
-#: templates/pyha/skipofficial/requestview.html:463
-msgid "post_office_name"
-msgstr "post_office_name"
-
-#: templates/pyha/requestform.html:342 templates/pyha/requestview.html:546
-#: templates/pyha/skipofficial/requestform.html:274
-#: templates/pyha/skipofficial/requestview.html:464
-msgid "country"
-msgstr "country"
-
-#: templates/pyha/requestform.html:343 templates/pyha/requestview.html:547
-#: templates/pyha/skipofficial/requestform.html:275
-#: templates/pyha/skipofficial/requestview.html:465
-msgid "email"
-msgstr "email"
-
-#: templates/pyha/requestform.html:344 templates/pyha/requestview.html:548
-#: templates/pyha/skipofficial/requestform.html:276
-#: templates/pyha/skipofficial/requestview.html:466
-msgid "phone_number"
-msgstr "phone_number"
-
-#: templates/pyha/requestform.html:345 templates/pyha/requestview.html:549
-#: templates/pyha/skipofficial/requestform.html:277
-#: templates/pyha/skipofficial/requestview.html:467
-msgid "corporation/organization_name"
-msgstr "corporation/organization_name"
-
-#: templates/pyha/requestform.html:346 templates/pyha/requestview.html:550
-#: templates/pyha/skipofficial/requestform.html:278
-#: templates/pyha/skipofficial/requestview.html:468
-msgid "corporation_id"
-msgstr "corporation_id"
-
-#: templates/pyha/requestform.html:363 templates/pyha/requestform.html:421
-#: templates/pyha/requestview.html:398
-#: templates/pyha/skipofficial/requestform.html:295
-#: templates/pyha/skipofficial/requestform.html:353
-#: templates/pyha/skipofficial/requestview.html:348
-msgid "argument_project"
-msgstr "argument_project"
-
-#: templates/pyha/requestform.html:365 templates/pyha/requestform.html:423
-#: templates/pyha/requestview.html:401
-#: templates/pyha/skipofficial/requestform.html:297
-#: templates/pyha/skipofficial/requestform.html:355
-#: templates/pyha/skipofficial/requestview.html:351
-msgid "argument_research"
-msgstr "argument_research"
-
-#: templates/pyha/requestform.html:367 templates/pyha/requestform.html:425
-#: templates/pyha/requestview.html:404
-#: templates/pyha/skipofficial/requestform.html:299
-#: templates/pyha/skipofficial/requestform.html:357
-#: templates/pyha/skipofficial/requestview.html:354
-msgid "argument_goals"
-msgstr "argument_goals"
-
-#: templates/pyha/requestform.html:369 templates/pyha/requestform.html:427
-#: templates/pyha/requestview.html:407
-#: templates/pyha/skipofficial/requestform.html:301
-#: templates/pyha/skipofficial/requestform.html:359
-#: templates/pyha/skipofficial/requestview.html:357
-msgid "argument_planning"
-msgstr "argument_planning"
-
-#: templates/pyha/requestform.html:371 templates/pyha/requestform.html:429
-#: templates/pyha/requestview.html:410
-#: templates/pyha/skipofficial/requestform.html:303
-#: templates/pyha/skipofficial/requestform.html:361
-#: templates/pyha/skipofficial/requestview.html:360
-msgid "argument_municipality"
-msgstr "argument_municipality"
-
-#: templates/pyha/requestform.html:373 templates/pyha/requestform.html:431
-#: templates/pyha/requestview.html:413
-#: templates/pyha/skipofficial/requestform.html:305
-#: templates/pyha/skipofficial/requestform.html:363
-#: templates/pyha/skipofficial/requestview.html:363
-msgid "argument_natura_areas"
-msgstr "argument_natura_areas"
-
-#: templates/pyha/requestform.html:375 templates/pyha/requestform.html:433
-#: templates/pyha/requestview.html:416
-#: templates/pyha/skipofficial/requestform.html:307
-#: templates/pyha/skipofficial/requestform.html:365
-#: templates/pyha/skipofficial/requestview.html:366
-msgid "argument_reason"
-msgstr "argument_reason"
-
-#: templates/pyha/requestform.html:383
-#: templates/pyha/skipofficial/requestform.html:315
-msgid "end_request"
-msgstr "end_request"
-
-#: templates/pyha/requestform.html:385
-#: templates/pyha/skipofficial/requestform.html:317
-msgid "send_to_be_accepted"
-msgstr "send_to_be_accepted"
-
-#: templates/pyha/requestform.html:443
-#: templates/pyha/skipofficial/requestform.html:375
-msgid "are_you_sure_you_want_to_remove_collection"
-msgstr "are_you_sure_you_want_to_remove_collection"
-
-#: templates/pyha/requestform.html:446
-#: templates/pyha/skipofficial/requestform.html:378
-msgid "delete"
-msgstr "delete"
-
-#: templates/pyha/requestform.html:447 templates/pyha/requestview.html:127
-#: templates/pyha/skipofficial/requestform.html:379
-#: templates/pyha/skipofficial/requestview.html:115
-msgid "back"
-msgstr "back"
-
-#: templates/pyha/requestform.html:494 templates/pyha/requestform.html:508
-#: templates/pyha/skipofficial/requestform.html:405
-msgid "you_accepted_terms"
-msgstr "you_accepted_terms"
-
-#: templates/pyha/requestform.html:572
-#: templates/pyha/skipofficial/requestform.html:437
-msgid "new_contact"
-msgstr "new_contact"
-
-#: templates/pyha/requestform.html:750
-#: templates/pyha/skipofficial/requestform.html:615
-msgid "hide"
-msgstr "hide"
-
-#: templates/pyha/requestform.html:841
-#: templates/pyha/skipofficial/requestform.html:706
-msgid "request_choose_reason"
-msgstr "request_choose_reason"
-
-#: templates/pyha/requestform.html:842
-#: templates/pyha/skipofficial/requestform.html:707
-msgid "request_chosen_multiple_reasons"
-msgstr "request_chosen_multiple_reasons"
-
-#: templates/pyha/requestform.html:843
-#: templates/pyha/skipofficial/requestform.html:708
-msgid "request_chosen_all_reasons"
-msgstr "request_chosen_all_reasons"
-
-#: templates/pyha/requestformcustom.html:3
-msgid "secured_collections_in_request"
-msgstr "secured_collections_in_request"
-
-#: templates/pyha/requestformcustom.html:7
-#: templates/pyha/requestformsummary.html:10
-#: templates/pyha/requestformtaxon.html:15
-#: templates/pyha/skipofficial/requestformcollection.html:14
-msgid "collection_for_user"
-msgstr "collection_for_user"
-
-#: templates/pyha/requestformcustom.html:9
-#: templates/pyha/skipofficial/requestformcollection.html:16
-msgid "sightings_secured_by_data_provider"
-msgstr "sightings_secured_by_data_provider"
-
-#: templates/pyha/requestformcustom.html:11
-msgid "terms_of_collection_use"
-msgstr "terms_of_collection_use"
-
-#: templates/pyha/requestformcustom.html:23
-#: templates/pyha/requestformtaxon.html:30
-#: templates/pyha/skipofficial/requestformcollection.html:31
-msgid "Delete_these_sightings"
-msgstr "Delete_these_sightings"
-
-#: templates/pyha/requestformcustom.html:34
-msgid "no_custom_sightings_go_to_step_3"
-msgstr "no_custom_sightings_go_to_step_3"
-
-#: templates/pyha/requestformcustom.html:39
-#: templates/pyha/skipofficial/requestformcollection.html:42
-msgid "continue"
-msgstr "continue"
-
-#: templates/pyha/requestformsummary.html:3
+#: templates/pyha/base/ajax/requestformsummary.html:3
 msgid "request_was_empty_and_will_be_closed"
 msgstr "request_was_empty_and_will_be_closed"
 
-#: templates/pyha/requestformsummary.html:5 templates/pyha/requestview.html:204
+#: templates/pyha/base/ajax/requestformsummary.html:5
+#: templates/pyha/official/requestview.html:204
 #: templates/pyha/skipofficial/requestview.html:192
 msgid "collections_in_request"
 msgstr "collections_in_request"
 
-#: templates/pyha/requestformsummary.html:12
-#: templates/pyha/requestview.html:214
+#: templates/pyha/base/ajax/requestformsummary.html:6
+#: templates/pyha/official/admin/requestview.html:184
+#: templates/pyha/official/handler/requestview.html:178
+#: templates/pyha/official/requestview.html:206
+#: templates/pyha/skipofficial/admin/requestview.html:172
+#: templates/pyha/skipofficial/handler/requestview.html:161
+#: templates/pyha/skipofficial/requestview.html:194
+msgid "Collections including sensitive sightings are marked with symbol"
+msgstr "Collections including sensitive sightings are marked with symbol"
+
+#: templates/pyha/base/ajax/requestformsummary.html:10
+#: templates/pyha/official/ajax/requestformcustom.html:7
+#: templates/pyha/official/ajax/requestformtaxon.html:15
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:14
+msgid "collection_for_user"
+msgstr "collection_for_user"
+
+#: templates/pyha/base/ajax/requestformsummary.html:11
+#: templates/pyha/base/ajax/requestheader.html:17
+#: templates/pyha/base/index.html:21
+#: templates/pyha/official/ajax/requestformcustom.html:8
+#: templates/pyha/official/ajax/requestformtaxon.html:16
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:15
+msgid "request_description"
+msgstr "request_description"
+
+#: templates/pyha/base/ajax/requestformsummary.html:12
+#: templates/pyha/official/requestview.html:214
 #: templates/pyha/skipofficial/requestview.html:202
 msgid "secured_by_data_provider"
 msgstr "secured_by_data_provider"
 
-#: templates/pyha/requestformsummary.html:13
-#: templates/pyha/requestview.html:215
+#: templates/pyha/base/ajax/requestformsummary.html:13
+#: templates/pyha/official/requestview.html:215
 #: templates/pyha/skipofficial/requestview.html:203
 msgid "generally_secured"
 msgstr "generally_secured"
 
-#: templates/pyha/requestformtaxon.html:3
-msgid "Request involves collections requiring approval for sensitive terms"
-msgstr "Request involves collections requiring approval for sensitive terms"
-
-#: templates/pyha/requestformtaxon.html:8
-#: templates/pyha/skipofficial/requestformcollection.html:7
-#, fuzzy
-#| msgid "sensitivity"
-msgid "sensitivity_info"
-msgstr "sensitivity"
-
-#: templates/pyha/requestformtaxon.html:17
-#: templates/pyha/skipofficial/requestformcollection.html:17
-msgid "sensitive_sightings"
-msgstr "sensitive_sightings"
-
-#: templates/pyha/requestformtaxon.html:39
-msgid "no_sensitive_sightings_have_to_accept_terms"
-msgstr "no_sensitive_sightings_have_to_accept_terms"
-
-#: templates/pyha/requestformtaxon.html:45
-msgid "continue_to_step_4"
-msgstr "continue_to_step_4"
-
-#: templates/pyha/requestheader.html:2
+#: templates/pyha/base/ajax/requestheader.html:2
 msgid "request_for_user"
 msgstr "request_for_user"
 
-#: templates/pyha/requestheader.html:19
+#: templates/pyha/base/ajax/requestheader.html:19
 #, fuzzy
 #| msgid "request_description"
 msgid "request_description_tooltip"
 msgstr "request_description"
 
-#: templates/pyha/requestheader.html:26
+#: templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"
 msgstr "no_description"
 
-#: templates/pyha/requestheader.html:35
+#: templates/pyha/base/ajax/requestheader.html:35
 msgid "change"
 msgstr "change"
 
-#: templates/pyha/requestview.html:13
+#: templates/pyha/base/base.html:48
+msgid "Toggle_navigation"
+msgstr "Toggle_navigation"
+
+#: templates/pyha/base/base.html:58
+msgid "all_requests"
+msgstr "all_requests"
+
+#: templates/pyha/base/base.html:69 templates/pyha/base/base.html.py:73
+msgid "admin"
+msgstr "admin"
+
+#: templates/pyha/base/base.html:69 templates/pyha/base/base.html.py:71
+#: templates/pyha/official/admin/requestview.html:670
+#: templates/pyha/official/handler/requestview.html:673
+#: templates/pyha/official/requestview.html:621
+#: templates/pyha/skipofficial/admin/requestview.html:557
+#: templates/pyha/skipofficial/handler/requestview.html:565
+#: templates/pyha/skipofficial/requestview.html:539
+msgid "user"
+msgstr "user"
+
+#: templates/pyha/base/base.html:72
+#, fuzzy
+#| msgid "handler_exit"
+msgid "handler"
+msgstr "handler_exit"
+
+#: templates/pyha/base/base.html:81
+msgid "logout"
+msgstr "logout"
+
+#: templates/pyha/base/base.html:96
+msgid "set_lang_fi"
+msgstr "Suomeksi"
+
+#: templates/pyha/base/base.html:98
+msgid "set_lang_sv"
+msgstr "På svenska"
+
+#: templates/pyha/base/base.html:100
+msgid "set_lang_en"
+msgstr "In English"
+
+#: templates/pyha/base/handler/index.html:9
+msgid "handler_welcome"
+msgstr "handler_welcome"
+
+#: templates/pyha/base/handler/index.html:12
+msgid "handler_all_requests"
+msgstr "handler_all_requests"
+
+#: templates/pyha/base/handler/index.html:17
+msgid "handler_new_events"
+msgstr "handler_new_events"
+
+#: templates/pyha/base/handler/index.html:18
+msgid "handler_request_date"
+msgstr "handler_request_date"
+
+#: templates/pyha/base/handler/index.html:19
+msgid "handler_requester"
+msgstr "handler_requester"
+
+#: templates/pyha/base/handler/index.html:20
+msgid "handler_request_hits"
+msgstr "handler_request_hits"
+
+#: templates/pyha/base/handler/index.html:21
+msgid "handler_request_status_for_admin"
+msgstr "handler_request_status_for_admin"
+
+#: templates/pyha/base/handler/index.html:50
+msgid "handler_you_have_not_accepted_terms"
+msgstr "handler_you_have_not_accepted_terms"
+
+#: templates/pyha/base/handler/index.html:55
+msgid "handler_waiting_for_response_on_answer"
+msgstr "handler_waiting_for_response_on_answer"
+
+#: templates/pyha/base/handler/index.html:57
+#: templates/pyha/official/handler/requestview.html:31
+#: templates/pyha/official/handler/requestview.html:72
+#: templates/pyha/official/handler/requestview.html:94
+#: templates/pyha/official/handler/requestview.html:220
+#: templates/pyha/official/handler/requestview.html:483
+#: templates/pyha/official/handler/requestview.html:550
+#: templates/pyha/skipofficial/handler/requestview.html:31
+#: templates/pyha/skipofficial/handler/requestview.html:77
+#: templates/pyha/skipofficial/handler/requestview.html:203
+#: templates/pyha/skipofficial/handler/requestview.html:433
+msgid "handler_waiting_for_others"
+msgstr "handler_waiting_for_others"
+
+#: templates/pyha/base/handler/index.html:59
+#: templates/pyha/official/handler/requestview.html:33
+#: templates/pyha/official/handler/requestview.html:70
+#: templates/pyha/official/handler/requestview.html:92
+#: templates/pyha/official/handler/requestview.html:218
+#: templates/pyha/official/handler/requestview.html:481
+#: templates/pyha/official/handler/requestview.html:548
+#: templates/pyha/skipofficial/handler/requestview.html:33
+#: templates/pyha/skipofficial/handler/requestview.html:75
+#: templates/pyha/skipofficial/handler/requestview.html:201
+#: templates/pyha/skipofficial/handler/requestview.html:431
+msgid "handler_waiting_for_you"
+msgstr "handler_waiting_for_you"
+
+#: templates/pyha/base/handler/index.html:63
+#: templates/pyha/official/handler/requestview.html:36
+#: templates/pyha/official/handler/requestview.html:488
+#: templates/pyha/official/handler/requestview.html:555
+#: templates/pyha/skipofficial/handler/requestview.html:36
+#: templates/pyha/skipofficial/handler/requestview.html:438
+msgid "handler_partially_accepted"
+msgstr "handler_partially_accepted"
+
+#: templates/pyha/base/handler/index.html:66
+#: templates/pyha/official/handler/requestview.html:39
+#: templates/pyha/official/handler/requestview.html:486
+#: templates/pyha/official/handler/requestview.html:553
+#: templates/pyha/skipofficial/handler/requestview.html:39
+#: templates/pyha/skipofficial/handler/requestview.html:436
+msgid "handler_denied"
+msgstr "handler_denied"
+
+#: templates/pyha/base/handler/index.html:69
+#: templates/pyha/official/handler/requestview.html:42
+#: templates/pyha/official/handler/requestview.html:490
+#: templates/pyha/official/handler/requestview.html:557
+#: templates/pyha/skipofficial/handler/requestview.html:42
+#: templates/pyha/skipofficial/handler/requestview.html:440
+msgid "handler_accepted"
+msgstr "handler_accepted"
+
+#: templates/pyha/base/handler/index.html:72
+#: templates/pyha/official/handler/requestview.html:45
+#: templates/pyha/skipofficial/handler/requestview.html:45
+msgid "handler_waiting_for_additional_information"
+msgstr "handler_waiting_for_additional_information"
+
+#: templates/pyha/base/handler/index.html:75
+#: templates/pyha/official/handler/requestview.html:48
+#: templates/pyha/skipofficial/handler/requestview.html:48
+msgid "handler_waiting_for_download"
+msgstr "handler_waiting_for_download"
+
+#: templates/pyha/base/handler/index.html:78
+#: templates/pyha/official/handler/requestview.html:51
+#: templates/pyha/skipofficial/handler/requestview.html:51
+msgid "handler_ready_for_download"
+msgstr "handler_ready_for_download"
+
+#: templates/pyha/base/handler/index.html:81
+#: templates/pyha/official/handler/requestview.html:54
+#: templates/pyha/official/handler/requestview.html:494
+#: templates/pyha/official/handler/requestview.html:559
+#: templates/pyha/skipofficial/handler/requestview.html:54
+#: templates/pyha/skipofficial/handler/requestview.html:442
+msgid "handler_unknown"
+msgstr "handler_unknown"
+
+#: templates/pyha/base/handler/index.html:92
+msgid "handler_no_requests_for_admin"
+msgstr "handler_no_requests_for_admin"
+
+#: templates/pyha/base/index.html:9
+msgid "welcome"
+msgstr "welcome"
+
+#: templates/pyha/base/index.html:12
+msgid "requests_for_user"
+msgstr "requests_for_user"
+
+#: templates/pyha/base/index.html:18
+msgid "request_date"
+msgstr "request_date"
+
+#: templates/pyha/base/index.html:19
+msgid "request_hits"
+msgstr "request_hits"
+
+#: templates/pyha/base/index.html:20
+#: templates/pyha/official/ajax/requestformcustom.html:12
+msgid "request_status_for_user"
+msgstr "request_status_for_user"
+
+#: templates/pyha/base/index.html:50
+#: templates/pyha/official/ajax/requestformcustom.html:27
+#: templates/pyha/official/ajax/requestformtaxon.html:42
+#: templates/pyha/official/requestform.html:508
+#: templates/pyha/official/requestform.html:522
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:39
+#: templates/pyha/skipofficial/requestform.html:420
+msgid "you_have_not_accepted_terms"
+msgstr "you_have_not_accepted_terms"
+
+#: templates/pyha/base/index.html:53
+#: templates/pyha/official/requestview.html:28
+#: templates/pyha/official/requestview.html:64
+#: templates/pyha/official/requestview.html:81
+#: templates/pyha/official/requestview.html:246
+#: templates/pyha/official/requestview.html:279
+#: templates/pyha/official/requestview.html:327
+#: templates/pyha/skipofficial/requestview.html:28
+#: templates/pyha/skipofficial/requestview.html:69
+#: templates/pyha/skipofficial/requestview.html:233
+#: templates/pyha/skipofficial/requestview.html:277
+msgid "waiting_for_data_provider"
+msgstr "waiting_for_data_provider"
+
+#: templates/pyha/base/index.html:56
+#: templates/pyha/official/admin/requestview.html:231
+#: templates/pyha/official/handler/requestview.html:225
+#: templates/pyha/official/requestview.html:31
+#: templates/pyha/official/requestview.html:250
+#: templates/pyha/official/requestview.html:283
+#: templates/pyha/official/requestview.html:331
+#: templates/pyha/skipofficial/admin/requestview.html:219
+#: templates/pyha/skipofficial/handler/requestview.html:208
+#: templates/pyha/skipofficial/requestview.html:31
+#: templates/pyha/skipofficial/requestview.html:237
+#: templates/pyha/skipofficial/requestview.html:281
+msgid "partially_accepted"
+msgstr "partially_accepted"
+
+#: templates/pyha/base/index.html:59
+#: templates/pyha/official/admin/requestview.html:86
+#: templates/pyha/official/admin/requestview.html:103
+#: templates/pyha/official/admin/requestview.html:229
+#: templates/pyha/official/handler/requestview.html:75
+#: templates/pyha/official/handler/requestview.html:97
+#: templates/pyha/official/handler/requestview.html:223
+#: templates/pyha/official/requestview.html:34
+#: templates/pyha/official/requestview.html:66
+#: templates/pyha/official/requestview.html:83
+#: templates/pyha/official/requestview.html:248
+#: templates/pyha/official/requestview.html:281
+#: templates/pyha/official/requestview.html:329
+#: templates/pyha/skipofficial/admin/requestview.html:91
+#: templates/pyha/skipofficial/admin/requestview.html:217
+#: templates/pyha/skipofficial/handler/requestview.html:80
+#: templates/pyha/skipofficial/handler/requestview.html:206
+#: templates/pyha/skipofficial/requestview.html:34
+#: templates/pyha/skipofficial/requestview.html:71
+#: templates/pyha/skipofficial/requestview.html:235
+#: templates/pyha/skipofficial/requestview.html:279
+msgid "denied"
+msgstr "denied"
+
+#: templates/pyha/base/index.html:62
+#: templates/pyha/official/admin/requestview.html:85
+#: templates/pyha/official/admin/requestview.html:102
+#: templates/pyha/official/admin/requestview.html:233
+#: templates/pyha/official/handler/requestview.html:74
+#: templates/pyha/official/handler/requestview.html:96
+#: templates/pyha/official/handler/requestview.html:227
+#: templates/pyha/official/requestview.html:37
+#: templates/pyha/official/requestview.html:65
+#: templates/pyha/official/requestview.html:82
+#: templates/pyha/official/requestview.html:252
+#: templates/pyha/official/requestview.html:285
+#: templates/pyha/official/requestview.html:333
+#: templates/pyha/skipofficial/admin/requestview.html:90
+#: templates/pyha/skipofficial/admin/requestview.html:221
+#: templates/pyha/skipofficial/handler/requestview.html:79
+#: templates/pyha/skipofficial/handler/requestview.html:210
+#: templates/pyha/skipofficial/requestview.html:37
+#: templates/pyha/skipofficial/requestview.html:70
+#: templates/pyha/skipofficial/requestview.html:239
+#: templates/pyha/skipofficial/requestview.html:283
+msgid "accepted"
+msgstr "accepted"
+
+#: templates/pyha/base/index.html:65
+#: templates/pyha/official/requestview.html:40
+#: templates/pyha/skipofficial/requestview.html:40
+msgid "waiting_for_additional_information"
+msgstr "waiting_for_additional_information"
+
+#: templates/pyha/base/index.html:68
+#: templates/pyha/official/requestview.html:44
+#: templates/pyha/skipofficial/requestview.html:44
+msgid "waiting_for_download"
+msgstr "waiting_for_download"
+
+#: templates/pyha/base/index.html:71
+#: templates/pyha/official/requestview.html:47
+#: templates/pyha/skipofficial/requestview.html:47
+msgid "ready_for_download"
+msgstr "ready_for_download"
+
+#: templates/pyha/base/index.html:74
+#: templates/pyha/official/admin/requestview.html:237
+#: templates/pyha/official/handler/requestview.html:231
+#: templates/pyha/official/requestview.html:50
+#: templates/pyha/official/requestview.html:256
+#: templates/pyha/official/requestview.html:287
+#: templates/pyha/official/requestview.html:337
+#: templates/pyha/skipofficial/admin/requestview.html:225
+#: templates/pyha/skipofficial/handler/requestview.html:214
+#: templates/pyha/skipofficial/requestview.html:50
+#: templates/pyha/skipofficial/requestview.html:243
+#: templates/pyha/skipofficial/requestview.html:287
+msgid "unknown"
+msgstr "unknown"
+
+#: templates/pyha/base/index.html:86
+msgid "no_requests_for_user"
+msgstr "no_requests_for_user"
+
+#: templates/pyha/official/admin/requestview.html:8
+#: templates/pyha/skipofficial/admin/requestview.html:8
+#, fuzzy
+#| msgid "handler_request_from_user"
+msgid "admin_request_from_user"
+msgstr "handler_request_from_user"
+
+#: templates/pyha/official/admin/requestview.html:15
+#: templates/pyha/skipofficial/admin/requestview.html:15
+#, fuzzy
+#| msgid "state_of_request"
+msgid "admin_state_of_request"
+msgstr "state_of_request"
+
+#: templates/pyha/official/admin/requestview.html:31
+#: templates/pyha/official/admin/requestview.html:226
+#: templates/pyha/official/admin/requestview.html:488
+#: templates/pyha/official/admin/requestview.html:554
+#: templates/pyha/skipofficial/admin/requestview.html:31
+#: templates/pyha/skipofficial/admin/requestview.html:214
+#: templates/pyha/skipofficial/admin/requestview.html:444
+#, fuzzy
+#| msgid "handler_waiting_for_others"
+msgid "admin_waiting_for_others"
+msgstr "handler_waiting_for_others"
+
+#: templates/pyha/official/admin/requestview.html:33
+#: templates/pyha/official/admin/requestview.html:224
+#: templates/pyha/official/admin/requestview.html:486
+#: templates/pyha/official/admin/requestview.html:552
+#: templates/pyha/skipofficial/admin/requestview.html:33
+#: templates/pyha/skipofficial/admin/requestview.html:212
+#: templates/pyha/skipofficial/admin/requestview.html:442
+#, fuzzy
+#| msgid "handler_waiting_for_you"
+msgid "admin_waiting_for_you"
+msgstr "handler_waiting_for_you"
+
+#: templates/pyha/official/admin/requestview.html:46
+#: templates/pyha/skipofficial/admin/requestview.html:46
+#, fuzzy
+#| msgid "show_additional_information"
+msgid "admin_show_additional_information"
+msgstr "show_additional_information"
+
+#: templates/pyha/official/admin/requestview.html:66
+#: templates/pyha/skipofficial/admin/requestview.html:66
+#, fuzzy
+#| msgid "no_requests_for_user"
+msgid "admin_request_is_frozen"
+msgstr "no_requests_for_user"
+
+#: templates/pyha/official/admin/requestview.html:67
+#: templates/pyha/skipofficial/admin/requestview.html:67
+msgid "admin_unfreeze_request"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:68
+#: templates/pyha/skipofficial/admin/requestview.html:68
+msgid ""
+"admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:70
+#: templates/pyha/skipofficial/admin/requestview.html:70
+msgid "admin_request_is_not_frozen"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:71
+#: templates/pyha/skipofficial/admin/requestview.html:71
+#, fuzzy
+#| msgid "state_of_request"
+msgid "admin_freeze_request"
+msgstr "state_of_request"
+
+#: templates/pyha/official/admin/requestview.html:72
+#: templates/pyha/skipofficial/admin/requestview.html:72
+msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:81
+#, fuzzy
+#| msgid "handler_sensitive"
+msgid "admin_sensitive"
+msgstr "handler_sensitive"
+
+#: templates/pyha/official/admin/requestview.html:93
+#: templates/pyha/skipofficial/admin/requestview.html:81
+#, fuzzy
+#| msgid "restricted"
+msgid "admin_restricted"
+msgstr "restricted"
+
+#: templates/pyha/official/admin/requestview.html:117
+#: templates/pyha/official/admin/requestview.html:643
+#: templates/pyha/skipofficial/admin/requestview.html:105
+#: templates/pyha/skipofficial/admin/requestview.html:530
+#, fuzzy
+#| msgid "changes_history"
+msgid "admin_changes_history"
+msgstr "changes_history"
+
+#: templates/pyha/official/admin/requestview.html:124
+#: templates/pyha/skipofficial/admin/requestview.html:112
+#, fuzzy
+#| msgid "contact_window"
+msgid "admin_contact_window"
+msgstr "contact_window"
+
+#: templates/pyha/official/admin/requestview.html:131
+#: templates/pyha/skipofficial/admin/requestview.html:119
+#, fuzzy
+#| msgid "argument_window"
+msgid "admin_argument_window"
+msgstr "argument_window"
+
+#: templates/pyha/official/admin/requestview.html:138
+#: templates/pyha/skipofficial/admin/requestview.html:126
+#, fuzzy
+#| msgid "request_window"
+msgid "admin_request_window"
+msgstr "request_window"
+
+#: templates/pyha/official/admin/requestview.html:145
+#: templates/pyha/skipofficial/admin/requestview.html:133
+#, fuzzy
+#| msgid "filter_window"
+msgid "admin_filter_window"
+msgstr "filter_window"
+
+#: templates/pyha/official/admin/requestview.html:152
+#: templates/pyha/skipofficial/admin/requestview.html:140
+#, fuzzy
+#| msgid "terms_window"
+msgid "admin_terms_window"
+msgstr "terms_window"
+
+#: templates/pyha/official/admin/requestview.html:159
+#: templates/pyha/skipofficial/admin/requestview.html:147
+#, fuzzy
+#| msgid "decision_window"
+msgid "admin_decision_window"
+msgstr "decision_window"
+
+#: templates/pyha/official/admin/requestview.html:166
+#: templates/pyha/skipofficial/admin/requestview.html:154
+#, fuzzy
+#| msgid "additional_information_window"
+msgid "admin_additional_information_window"
+msgstr "additional_information_window"
+
+#: templates/pyha/official/admin/requestview.html:174
+#: templates/pyha/skipofficial/admin/requestview.html:162
+#, fuzzy
+#| msgid "handler_comments_window"
+msgid "admin_comments_window"
+msgstr "handler_comments_window"
+
+#: templates/pyha/official/admin/requestview.html:182
+#: templates/pyha/skipofficial/admin/requestview.html:170
+#, fuzzy
+#| msgid "collections_in_request"
+msgid "admin_collections_in_request"
+msgstr "collections_in_request"
+
+#: templates/pyha/official/admin/requestview.html:189
+#: templates/pyha/official/admin/requestview.html:532
+#: templates/pyha/skipofficial/admin/requestview.html:177
+#: templates/pyha/skipofficial/admin/requestview.html:422
+#, fuzzy
+#| msgid "collection_name"
+msgid "admin_collection_name"
+msgstr "collection_name"
+
+#: templates/pyha/official/admin/requestview.html:191
+#: templates/pyha/official/admin/requestview.html:533
+#: templates/pyha/skipofficial/admin/requestview.html:179
+#: templates/pyha/skipofficial/admin/requestview.html:423
+#, fuzzy
+#| msgid "collection_description"
+msgid "admin_collection_description"
+msgstr "collection_description"
+
+#: templates/pyha/official/admin/requestview.html:192
+#: templates/pyha/skipofficial/admin/requestview.html:180
+#, fuzzy
+#| msgid "secured_by_data_provider"
+msgid "admin_secured_by_data_provider"
+msgstr "secured_by_data_provider"
+
+#: templates/pyha/official/admin/requestview.html:193
+#: templates/pyha/skipofficial/admin/requestview.html:181
+#, fuzzy
+#| msgid "generally_secured"
+msgid "admin_generally_secured"
+msgstr "generally_secured"
+
+#: templates/pyha/official/admin/requestview.html:194
+#: templates/pyha/skipofficial/admin/requestview.html:182
+#, fuzzy
+#| msgid "all_secured"
+msgid "admin_all_secured"
+msgstr "all_secured"
+
+#: templates/pyha/official/admin/requestview.html:195
+#: templates/pyha/official/admin/requestview.html:472
+#: templates/pyha/official/admin/requestview.html:534
+#: templates/pyha/skipofficial/admin/requestview.html:183
+#: templates/pyha/skipofficial/admin/requestview.html:424
+#, fuzzy
+#| msgid "state_of_processing"
+msgid "admin_state_of_processing"
+msgstr "state_of_processing"
+
+#: templates/pyha/official/admin/requestview.html:235
+#: templates/pyha/official/handler/requestview.html:229
+#: templates/pyha/official/requestview.html:254
+#: templates/pyha/official/requestview.html:335
+#: templates/pyha/skipofficial/admin/requestview.html:223
+#: templates/pyha/skipofficial/handler/requestview.html:212
+#: templates/pyha/skipofficial/requestview.html:241
+#: templates/pyha/skipofficial/requestview.html:285
+msgid "Admission_for_sensitive_data"
+msgstr "Admission_for_sensitive_data"
+
+#: templates/pyha/official/admin/requestview.html:243
+#: templates/pyha/skipofficial/admin/requestview.html:231
+#, fuzzy
+#| msgid "request_filters"
+msgid "admin_request_filters"
+msgstr "request_filters"
+
+#: templates/pyha/official/admin/requestview.html:243
+#: templates/pyha/skipofficial/admin/requestview.html:231
+#, fuzzy
+#| msgid "handler_show_in_officials_portal"
+msgid "admin_show_in_officials_portal"
+msgstr "handler_show_in_officials_portal"
+
+#: templates/pyha/official/admin/requestview.html:243
+#: templates/pyha/skipofficial/admin/requestview.html:231
+#, fuzzy
+#| msgid "show_in_portal"
+msgid "admin_show_in_portal"
+msgstr "show_in_portal"
+
+#: templates/pyha/official/admin/requestview.html:247
+#: templates/pyha/skipofficial/admin/requestview.html:235
+#, fuzzy
+#| msgid "no_filters"
+msgid "admin_filter"
+msgstr "no_filters"
+
+#: templates/pyha/official/admin/requestview.html:248
+#: templates/pyha/skipofficial/admin/requestview.html:236
+#, fuzzy
+#| msgid "handler_values"
+msgid "admin_values"
+msgstr "handler_values"
+
+#: templates/pyha/official/admin/requestview.html:265
+#: templates/pyha/skipofficial/admin/requestview.html:253
+#, fuzzy
+#| msgid "no_filters"
+msgid "admin_no_filters"
+msgstr "no_filters"
+
+#: templates/pyha/official/admin/requestview.html:269
+#: templates/pyha/official/handler/requestview.html:263
+#: templates/pyha/official/requestform.html:361
+#: templates/pyha/official/requestform.html:419
+#: templates/pyha/official/requestview.html:372
+#: templates/pyha/skipofficial/admin/requestview.html:257
+#: templates/pyha/skipofficial/handler/requestview.html:246
+#: templates/pyha/skipofficial/requestform.html:295
+#: templates/pyha/skipofficial/requestform.html:353
+#: templates/pyha/skipofficial/requestview.html:322
+msgid "request_arguments"
+msgstr "request_arguments"
+
+#: templates/pyha/official/admin/requestview.html:271
+#: templates/pyha/skipofficial/admin/requestview.html:259
+#, fuzzy
+#| msgid "argument_goals"
+msgid "admin_argument_choices"
+msgstr "argument_goals"
+
+#: templates/pyha/official/admin/requestview.html:275
+#: templates/pyha/skipofficial/admin/requestview.html:263
+#, fuzzy
+#| msgid "reason_zoning"
+msgid "admin_reason_zoning"
+msgstr "reason_zoning"
+
+#: templates/pyha/official/admin/requestview.html:277
+#: templates/pyha/skipofficial/admin/requestview.html:265
+#, fuzzy
+#| msgid "reason_permission"
+msgid "admin_reason_permission"
+msgstr "reason_permission"
+
+#: templates/pyha/official/admin/requestview.html:279
+#: templates/pyha/skipofficial/admin/requestview.html:267
+#, fuzzy
+#| msgid "reason_enviromental"
+msgid "admin_reason_enviromental"
+msgstr "reason_enviromental"
+
+#: templates/pyha/official/admin/requestview.html:281
+#: templates/pyha/skipofficial/admin/requestview.html:269
+#, fuzzy
+#| msgid "reason_natura"
+msgid "admin_reason_natura"
+msgstr "reason_natura"
+
+#: templates/pyha/official/admin/requestview.html:283
+#: templates/pyha/skipofficial/admin/requestview.html:271
+#, fuzzy
+#| msgid "reason_scientific"
+msgid "admin_reason_scientific"
+msgstr "reason_scientific"
+
+#: templates/pyha/official/admin/requestview.html:285
+#: templates/pyha/skipofficial/admin/requestview.html:273
+#, fuzzy
+#| msgid "reason_forest"
+msgid "admin_reason_forest"
+msgstr "reason_forest"
+
+#: templates/pyha/official/admin/requestview.html:287
+#: templates/pyha/skipofficial/admin/requestview.html:275
+#, fuzzy
+#| msgid "reason_other"
+msgid "admin_reason_other"
+msgstr "reason_other"
+
+#: templates/pyha/official/admin/requestview.html:293
+#: templates/pyha/skipofficial/admin/requestview.html:281
+#, fuzzy
+#| msgid "argument_project"
+msgid "admin_argument_project"
+msgstr "argument_project"
+
+#: templates/pyha/official/admin/requestview.html:296
+#: templates/pyha/skipofficial/admin/requestview.html:284
+#, fuzzy
+#| msgid "argument_research"
+msgid "admin_argument_research"
+msgstr "argument_research"
+
+#: templates/pyha/official/admin/requestview.html:299
+#: templates/pyha/skipofficial/admin/requestview.html:287
+#, fuzzy
+#| msgid "argument_goals"
+msgid "admin_argument_goals"
+msgstr "argument_goals"
+
+#: templates/pyha/official/admin/requestview.html:302
+#: templates/pyha/skipofficial/admin/requestview.html:290
+#, fuzzy
+#| msgid "argument_planning"
+msgid "admin_argument_planning"
+msgstr "argument_planning"
+
+#: templates/pyha/official/admin/requestview.html:305
+#: templates/pyha/skipofficial/admin/requestview.html:293
+#, fuzzy
+#| msgid "argument_municipality"
+msgid "admin_argument_municipality"
+msgstr "argument_municipality"
+
+#: templates/pyha/official/admin/requestview.html:308
+#: templates/pyha/skipofficial/admin/requestview.html:296
+#, fuzzy
+#| msgid "argument_natura_areas"
+msgid "admin_argument_natura_areas"
+msgstr "argument_natura_areas"
+
+#: templates/pyha/official/admin/requestview.html:311
+#: templates/pyha/skipofficial/admin/requestview.html:299
+#, fuzzy
+#| msgid "argument_reason"
+msgid "admin_argument_reason"
+msgstr "argument_reason"
+
+#: templates/pyha/official/admin/requestview.html:318
+#: templates/pyha/official/admin/requestview.html:323
+#: templates/pyha/official/admin/requestview.html:329
+#: templates/pyha/skipofficial/admin/requestview.html:306
+#, fuzzy
+#| msgid "handler_terms"
+msgid "admin_terms"
+msgstr "handler_terms"
+
+#: templates/pyha/official/admin/requestview.html:322
+#, fuzzy
+#| msgid "sensitivity"
+msgid "admin_sensitivity"
+msgstr "sensitivity"
+
+#: templates/pyha/official/admin/requestview.html:337
+#, fuzzy
+#| msgid "terms_of_use_of_the_collections"
+msgid "admin_terms_of_use_of_the_collections"
+msgstr "terms_of_use_of_the_collections"
+
+#: templates/pyha/official/admin/requestview.html:338
+#: templates/pyha/official/handler/requestview.html:332
+#: templates/pyha/official/requestform.html:250
+#: templates/pyha/official/requestform.html:306
+#: templates/pyha/official/requestform.html:379
+#: templates/pyha/official/requestview.html:441
+#: templates/pyha/official/requestview.html:467
+#: templates/pyha/skipofficial/admin/requestview.html:320
+#: templates/pyha/skipofficial/handler/requestview.html:309
+#: templates/pyha/skipofficial/requestform.html:219
+#: templates/pyha/skipofficial/requestform.html:313
+#: templates/pyha/skipofficial/requestview.html:385
+msgid "as_pdf"
+msgstr "as_pdf"
+
+#: templates/pyha/official/admin/requestview.html:350
+#: templates/pyha/official/admin/requestview.html:425
+#, fuzzy
+#| msgid "admin"
+msgid "admin_exit"
+msgstr "admin"
+
+#: templates/pyha/official/admin/requestview.html:362
+#, fuzzy
+#| msgid "sensitive_terms"
+msgid "admin_sensitive_terms"
+msgstr "sensitive_terms"
+
+#: templates/pyha/official/admin/requestview.html:364
+#, fuzzy
+#| msgid "handler_as_pdf"
+msgid "admin_as_pdf"
+msgstr "handler_as_pdf"
+
+#: templates/pyha/official/admin/requestview.html:385
+#: templates/pyha/official/handler/requestview.html:379
+#: templates/pyha/official/requestform.html:268
+#: templates/pyha/official/requestform.html:406
+#: templates/pyha/official/requestview.html:488
+#: templates/pyha/skipofficial/admin/requestview.html:341
+#: templates/pyha/skipofficial/handler/requestview.html:330
+#: templates/pyha/skipofficial/requestform.html:237
+#: templates/pyha/skipofficial/requestform.html:340
+#: templates/pyha/skipofficial/requestview.html:406
+msgid "contact_name"
+msgstr "contact_name"
+
+#: templates/pyha/official/admin/requestview.html:433
+#: templates/pyha/skipofficial/admin/requestview.html:389
+#, fuzzy
+#| msgid "main_contact"
+msgid "admin_contacts"
+msgstr "main_contact"
+
+#: templates/pyha/official/admin/requestview.html:436
+#: templates/pyha/skipofficial/admin/requestview.html:392
+#, fuzzy
+#| msgid "handler_full_name"
+msgid "admin_full_name"
+msgstr "handler_full_name"
+
+#: templates/pyha/official/admin/requestview.html:437
+#: templates/pyha/skipofficial/admin/requestview.html:393
+#, fuzzy
+#| msgid "street_address"
+msgid "admin_street_address"
+msgstr "street_address"
+
+#: templates/pyha/official/admin/requestview.html:438
+#: templates/pyha/skipofficial/admin/requestview.html:394
+#, fuzzy
+#| msgid "postal_code"
+msgid "admin_postal_code"
+msgstr "postal_code"
+
+#: templates/pyha/official/admin/requestview.html:439
+#: templates/pyha/skipofficial/admin/requestview.html:395
+#, fuzzy
+#| msgid "post_office_name"
+msgid "admin_post_office_name"
+msgstr "post_office_name"
+
+#: templates/pyha/official/admin/requestview.html:440
+#: templates/pyha/skipofficial/admin/requestview.html:396
+#, fuzzy
+#| msgid "handler_country"
+msgid "admin_country"
+msgstr "handler_country"
+
+#: templates/pyha/official/admin/requestview.html:441
+#: templates/pyha/skipofficial/admin/requestview.html:397
+#, fuzzy
+#| msgid "handler_email"
+msgid "admin_email"
+msgstr "handler_email"
+
+#: templates/pyha/official/admin/requestview.html:442
+#: templates/pyha/skipofficial/admin/requestview.html:398
+#, fuzzy
+#| msgid "phone_number"
+msgid "admin_phone_number"
+msgstr "phone_number"
+
+#: templates/pyha/official/admin/requestview.html:443
+#: templates/pyha/skipofficial/admin/requestview.html:399
+#, fuzzy
+#| msgid "corporation/organization_name"
+msgid "admin_corporation/organization_name"
+msgstr "corporation/organization_name"
+
+#: templates/pyha/official/admin/requestview.html:444
+#: templates/pyha/skipofficial/admin/requestview.html:400
+#, fuzzy
+#| msgid "corporation_id"
+msgid "admin_corporation_id"
+msgstr "corporation_id"
+
+#: templates/pyha/official/admin/requestview.html:463
+#, fuzzy
+#| msgid "handler_user_no_sensitive_data"
+msgid "admin_user_no_sensitive_data"
+msgstr "handler_user_no_sensitive_data"
+
+#: templates/pyha/official/admin/requestview.html:465
+#, fuzzy
+#| msgid "handler_list_of_collections"
+msgid "admin_list_of_collections"
+msgstr "handler_list_of_collections"
+
+#: templates/pyha/official/admin/requestview.html:473
+#: templates/pyha/official/admin/requestview.html:535
+#: templates/pyha/skipofficial/admin/requestview.html:425
+#, fuzzy
+#| msgid "decision_arguments"
+msgid "admin_decision_arguments"
+msgstr "decision_arguments"
+
+#: templates/pyha/official/admin/requestview.html:497
+#, fuzzy
+#| msgid "handler_asked"
+msgid "admin_skipped"
+msgstr "handler_asked"
+
+#: templates/pyha/official/admin/requestview.html:507
+#: templates/pyha/official/admin/requestview.html:572
+#: templates/pyha/skipofficial/admin/requestview.html:462
+#, fuzzy
+#| msgid "handler_accept"
+msgid "admin_accept"
+msgstr "handler_accept"
+
+#: templates/pyha/official/admin/requestview.html:511
+#: templates/pyha/official/admin/requestview.html:513
+#: templates/pyha/official/admin/requestview.html:574
+#: templates/pyha/skipofficial/admin/requestview.html:464
+#, fuzzy
+#| msgid "handler_refuse"
+msgid "admin_refuse"
+msgstr "handler_refuse"
+
+#: templates/pyha/official/admin/requestview.html:529
+#: templates/pyha/skipofficial/admin/requestview.html:419
+#, fuzzy
+#| msgid "handler_secured_collection_decicions"
+msgid "admin_secured_collection_decicions"
+msgstr "handler_secured_collection_decicions"
+
+#: templates/pyha/official/admin/requestview.html:573
+#: templates/pyha/skipofficial/admin/requestview.html:463
+#, fuzzy
+#| msgid "admin"
+msgid "admin_reset"
+msgstr "admin"
+
+#: templates/pyha/official/admin/requestview.html:585
+#: templates/pyha/skipofficial/admin/requestview.html:475
+#, fuzzy
+#| msgid "additional_questions"
+msgid "admin_additional_questions"
+msgstr "additional_questions"
+
+#: templates/pyha/official/admin/requestview.html:589
+#: templates/pyha/official/admin/requestview.html:594
+#: templates/pyha/official/handler/requestview.html:588
+#: templates/pyha/official/handler/requestview.html:593
+#: templates/pyha/official/requestview.html:425
+#: templates/pyha/official/requestview.html:571
+#: templates/pyha/official/requestview.html:587
+#: templates/pyha/skipofficial/admin/requestview.html:479
+#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/handler/requestview.html:471
+#: templates/pyha/skipofficial/handler/requestview.html:476
+#: templates/pyha/skipofficial/requestview.html:489
+#: templates/pyha/skipofficial/requestview.html:505
+msgid "sensitivity"
+msgstr "sensitivity"
+
+#: templates/pyha/official/admin/requestview.html:589
+#: templates/pyha/official/admin/requestview.html:594
+#: templates/pyha/official/handler/requestview.html:588
+#: templates/pyha/official/handler/requestview.html:593
+#: templates/pyha/official/requestview.html:571
+#: templates/pyha/official/requestview.html:587
+#: templates/pyha/skipofficial/admin/requestview.html:479
+#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/handler/requestview.html:471
+#: templates/pyha/skipofficial/handler/requestview.html:476
+#: templates/pyha/skipofficial/requestview.html:489
+#: templates/pyha/skipofficial/requestview.html:505
+#, fuzzy
+#| msgid "additional_questions"
+msgid "admin_question"
+msgstr "additional_questions"
+
+#: templates/pyha/official/admin/requestview.html:589
+#: templates/pyha/skipofficial/admin/requestview.html:479
+#, fuzzy
+#| msgid "handler_asked"
+msgid "admin_asked"
+msgstr "handler_asked"
+
+#: templates/pyha/official/admin/requestview.html:594
+#: templates/pyha/official/handler/requestview.html:593
+#: templates/pyha/official/requestview.html:587
+#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/handler/requestview.html:476
+#: templates/pyha/skipofficial/requestview.html:505
+msgid "inquiry"
+msgstr "inquiry"
+
+#: templates/pyha/official/admin/requestview.html:594
+#: templates/pyha/skipofficial/admin/requestview.html:484
+#, fuzzy
+#| msgid "handler_answered"
+msgid "admin_answered"
+msgstr "handler_answered"
+
+#: templates/pyha/official/admin/requestview.html:598
+#: templates/pyha/skipofficial/admin/requestview.html:488
+#, fuzzy
+#| msgid "handler_form_to_request_additional_information"
+msgid "admin_form_to_request_additional_information"
+msgstr "handler_form_to_request_additional_information"
+
+#: templates/pyha/official/admin/requestview.html:606
+#: templates/pyha/skipofficial/admin/requestview.html:493
+#, fuzzy
+#| msgid "ask_as_handler_of"
+msgid "ask_as_admin_of"
+msgstr "ask_as_handler_of"
+
+#: templates/pyha/official/admin/requestview.html:608
+#: templates/pyha/skipofficial/admin/requestview.html:495
+#, fuzzy
+#| msgid "admin"
+msgid "as_admin"
+msgstr "admin"
+
+#: templates/pyha/official/admin/requestview.html:612
+#: templates/pyha/skipofficial/admin/requestview.html:498
+#, fuzzy
+#| msgid "handler_request_additional_information"
+msgid "admin_request_additional_information"
+msgstr "handler_request_additional_information"
+
+#: templates/pyha/official/admin/requestview.html:621
+#: templates/pyha/skipofficial/admin/requestview.html:507
+#, fuzzy
+#| msgid "handler_official_comment_area"
+msgid "admin_official_comment_area"
+msgstr "handler_official_comment_area"
+
+#: templates/pyha/official/admin/requestview.html:624
+#: templates/pyha/skipofficial/admin/requestview.html:510
+#, fuzzy
+#| msgid "admin"
+msgid "admin_said"
+msgstr "admin"
+
+#: templates/pyha/official/admin/requestview.html:633
+#: templates/pyha/skipofficial/admin/requestview.html:520
+#, fuzzy
+#| msgid "admin"
+msgid "admin_save"
+msgstr "admin"
+
+#: templates/pyha/official/admin/requestview.html:646
+#: templates/pyha/skipofficial/admin/requestview.html:533
+#, fuzzy
+#| msgid "handler_log_date"
+msgid "admin_log_date"
+msgstr "handler_log_date"
+
+#: templates/pyha/official/admin/requestview.html:647
+#: templates/pyha/skipofficial/admin/requestview.html:534
+#, fuzzy
+#| msgid "handler_log_maker"
+msgid "admin_log_maker"
+msgstr "handler_log_maker"
+
+#: templates/pyha/official/admin/requestview.html:648
+#: templates/pyha/skipofficial/admin/requestview.html:535
+msgid "admin_log_role"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:649
+#: templates/pyha/skipofficial/admin/requestview.html:536
+#, fuzzy
+#| msgid "log_description"
+msgid "admin_log_description"
+msgstr "log_description"
+
+#: templates/pyha/official/admin/requestview.html:656
+#: templates/pyha/official/admin/requestview.html:660
+#: templates/pyha/skipofficial/admin/requestview.html:543
+#: templates/pyha/skipofficial/admin/requestview.html:547
+msgid "admin_log_admin"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:658
+#: templates/pyha/skipofficial/admin/requestview.html:545
+msgid "admin_log_handler"
+msgstr ""
+
+#: templates/pyha/official/admin/requestview.html:662
+#: templates/pyha/skipofficial/admin/requestview.html:549
+#, fuzzy
+#| msgid "log_sensitive_data_handler"
+msgid "admin_log_sensitive_data_handler"
+msgstr "log_sensitive_data_handler"
+
+#: templates/pyha/official/admin/requestview.html:664
+#: templates/pyha/skipofficial/admin/requestview.html:551
+#, fuzzy
+#| msgid "log_collection_provider"
+msgid "admin_log_collection_provider"
+msgstr "log_collection_provider"
+
+#: templates/pyha/official/admin/requestview.html:666
+#: templates/pyha/skipofficial/admin/requestview.html:553
+#, fuzzy
+#| msgid "log_sensitive_and_collections_handler"
+msgid "admin_log_sensitive_and_collections_handler"
+msgstr "log_sensitive_and_collections_handler"
+
+#: templates/pyha/official/admin/requestview.html:673
+#: templates/pyha/skipofficial/admin/requestview.html:560
+#, fuzzy
+#| msgid "log_viewed"
+msgid "admin_log_viewed"
+msgstr "log_viewed"
+
+#: templates/pyha/official/admin/requestview.html:675
+#: templates/pyha/skipofficial/admin/requestview.html:562
+#, fuzzy
+#| msgid "log_terms_accepted"
+msgid "admin_log_terms_accepted"
+msgstr "log_terms_accepted"
+
+#: templates/pyha/official/admin/requestview.html:678
+#: templates/pyha/skipofficial/admin/requestview.html:565
+#, fuzzy
+#| msgid "log_sensitives_accepted"
+msgid "admin_log_sensitives_accepted"
+msgstr "log_sensitives_accepted"
+
+#: templates/pyha/official/admin/requestview.html:680
+#: templates/pyha/skipofficial/admin/requestview.html:567
+#, fuzzy
+#| msgid "log_collection_accepted"
+msgid "admin_log_collection_accepted"
+msgstr "log_collection_accepted"
+
+#: templates/pyha/official/admin/requestview.html:684
+#: templates/pyha/skipofficial/admin/requestview.html:571
+#, fuzzy
+#| msgid "handler_log_sensitives_denied"
+msgid "admin_log_sensitives_reset"
+msgstr "handler_log_sensitives_denied"
+
+#: templates/pyha/official/admin/requestview.html:686
+#: templates/pyha/skipofficial/admin/requestview.html:573
+#, fuzzy
+#| msgid "handler_log_collection_denied"
+msgid "admin_log_collection_reset"
+msgstr "handler_log_collection_denied"
+
+#: templates/pyha/official/admin/requestview.html:690
+#: templates/pyha/skipofficial/admin/requestview.html:577
+#, fuzzy
+#| msgid "log_sensitives_denied"
+msgid "admin_log_sensitives_denied"
+msgstr "log_sensitives_denied"
+
+#: templates/pyha/official/admin/requestview.html:692
+#: templates/pyha/skipofficial/admin/requestview.html:579
+#, fuzzy
+#| msgid "log_collection_denied"
+msgid "admin_log_collection_denied"
+msgstr "log_collection_denied"
+
+#: templates/pyha/official/admin/requestview.html:699
+#: templates/pyha/official/handler/requestview.html:702
+#: templates/pyha/official/requestview.html:650
+#: templates/pyha/skipofficial/admin/requestview.html:586
+#: templates/pyha/skipofficial/handler/requestview.html:594
+#: templates/pyha/skipofficial/requestview.html:568
+msgid "log_no_history"
+msgstr "log_no_history"
+
+#: templates/pyha/official/ajax/requestformcustom.html:3
+msgid "secured_collections_in_request"
+msgstr "secured_collections_in_request"
+
+#: templates/pyha/official/ajax/requestformcustom.html:9
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:16
+msgid "sightings_secured_by_data_provider"
+msgstr "sightings_secured_by_data_provider"
+
+#: templates/pyha/official/ajax/requestformcustom.html:11
+msgid "terms_of_collection_use"
+msgstr "terms_of_collection_use"
+
+#: templates/pyha/official/ajax/requestformcustom.html:23
+#: templates/pyha/official/ajax/requestformtaxon.html:30
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:31
+msgid "Delete_these_sightings"
+msgstr "Delete_these_sightings"
+
+#: templates/pyha/official/ajax/requestformcustom.html:26
+#: templates/pyha/official/ajax/requestformtaxon.html:43
+#: templates/pyha/official/requestform.html:305
+#: templates/pyha/official/requestview.html:421
+#: templates/pyha/official/requestview.html:426
+#: templates/pyha/official/requestview.html:432
+#: templates/pyha/skipofficial/admin/requestview.html:310
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:40
+#: templates/pyha/skipofficial/handler/requestview.html:299
+#: templates/pyha/skipofficial/requestview.html:371
+#: templates/pyha/skipofficial/requestview.html:375
+msgid "terms"
+msgstr "terms"
+
+#: templates/pyha/official/ajax/requestformcustom.html:34
+msgid "no_custom_sightings_go_to_step_3"
+msgstr "no_custom_sightings_go_to_step_3"
+
+#: templates/pyha/official/ajax/requestformcustom.html:38
+#: templates/pyha/official/ajax/requestformtaxon.html:44
+#: templates/pyha/official/requestform.html:236
+#: templates/pyha/official/requestform.html:381
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:41
+#: templates/pyha/skipofficial/requestform.html:205
+#: templates/pyha/skipofficial/requestform.html:315
+msgid "previous"
+msgstr "previous"
+
+#: templates/pyha/official/ajax/requestformcustom.html:39
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:42
+msgid "continue"
+msgstr "continue"
+
+#: templates/pyha/official/ajax/requestformtaxon.html:3
+msgid "Request involves collections requiring approval for sensitive terms"
+msgstr "Request involves collections requiring approval for sensitive terms"
+
+#: templates/pyha/official/ajax/requestformtaxon.html:8
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:7
+#, fuzzy
+#| msgid "sensitivity"
+msgid "sensitivity_info"
+msgstr "sensitivity"
+
+#: templates/pyha/official/ajax/requestformtaxon.html:17
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:17
+msgid "sensitive_sightings"
+msgstr "sensitive_sightings"
+
+#: templates/pyha/official/ajax/requestformtaxon.html:39
+msgid "no_sensitive_sightings_have_to_accept_terms"
+msgstr "no_sensitive_sightings_have_to_accept_terms"
+
+#: templates/pyha/official/ajax/requestformtaxon.html:45
+msgid "continue_to_step_4"
+msgstr "continue_to_step_4"
+
+#: templates/pyha/official/handler/requestview.html:8
+#: templates/pyha/skipofficial/handler/requestview.html:8
+msgid "handler_request_from_user"
+msgstr "handler_request_from_user"
+
+#: templates/pyha/official/handler/requestview.html:15
+#: templates/pyha/skipofficial/handler/requestview.html:15
+msgid "handler_state_of_request"
+msgstr "handler_state_of_request"
+
+#: templates/pyha/official/handler/requestview.html:46
+#: templates/pyha/skipofficial/handler/requestview.html:46
+msgid "handler_show_additional_information"
+msgstr "handler_show_additional_information"
+
+#: templates/pyha/official/handler/requestview.html:65
+msgid "handler_sensitive"
+msgstr "handler_sensitive"
+
+#: templates/pyha/official/handler/requestview.html:82
+#: templates/pyha/skipofficial/handler/requestview.html:65
+msgid "handler_restricted"
+msgstr "handler_restricted"
+
+#: templates/pyha/official/handler/requestview.html:111
+#: templates/pyha/official/handler/requestview.html:646
+#: templates/pyha/skipofficial/handler/requestview.html:94
+#: templates/pyha/skipofficial/handler/requestview.html:538
+msgid "handler_changes_history"
+msgstr "handler_changes_history"
+
+#: templates/pyha/official/handler/requestview.html:118
+#: templates/pyha/skipofficial/handler/requestview.html:101
+msgid "handler_contact_window"
+msgstr "handler_contact_window"
+
+#: templates/pyha/official/handler/requestview.html:125
+#: templates/pyha/skipofficial/handler/requestview.html:108
+msgid "handler_argument_window"
+msgstr "handler_argument_window"
+
+#: templates/pyha/official/handler/requestview.html:132
+#: templates/pyha/skipofficial/handler/requestview.html:115
+msgid "handler_request_window"
+msgstr "handler_request_window"
+
+#: templates/pyha/official/handler/requestview.html:139
+#: templates/pyha/skipofficial/handler/requestview.html:122
+msgid "handler_filter_window"
+msgstr "handler_filter_window"
+
+#: templates/pyha/official/handler/requestview.html:146
+#: templates/pyha/skipofficial/handler/requestview.html:129
+msgid "handler_terms_window"
+msgstr "handler_terms_window"
+
+#: templates/pyha/official/handler/requestview.html:153
+#: templates/pyha/skipofficial/handler/requestview.html:136
+msgid "handler_decision_window"
+msgstr "handler_decision_window"
+
+#: templates/pyha/official/handler/requestview.html:160
+#: templates/pyha/skipofficial/handler/requestview.html:143
+msgid "handler_additional_information_window"
+msgstr "handler_additional_information_window"
+
+#: templates/pyha/official/handler/requestview.html:168
+msgid "handler_comments_window"
+msgstr "handler_comments_window"
+
+#: templates/pyha/official/handler/requestview.html:176
+#: templates/pyha/skipofficial/handler/requestview.html:159
+msgid "handler_collections_in_request"
+msgstr "handler_collections_in_request"
+
+#: templates/pyha/official/handler/requestview.html:183
+#: templates/pyha/official/handler/requestview.html:528
+#: templates/pyha/skipofficial/handler/requestview.html:166
+#: templates/pyha/skipofficial/handler/requestview.html:411
+msgid "handler_collection_name"
+msgstr "handler_collection_name"
+
+#: templates/pyha/official/handler/requestview.html:185
+#: templates/pyha/official/handler/requestview.html:529
+#: templates/pyha/skipofficial/handler/requestview.html:168
+#: templates/pyha/skipofficial/handler/requestview.html:412
+msgid "handler_collection_description"
+msgstr "handler_collection_description"
+
+#: templates/pyha/official/handler/requestview.html:186
+#: templates/pyha/skipofficial/handler/requestview.html:169
+msgid "handler_secured_by_data_provider"
+msgstr "handler_secured_by_data_provider"
+
+#: templates/pyha/official/handler/requestview.html:187
+#: templates/pyha/skipofficial/handler/requestview.html:170
+msgid "handler_generally_secured"
+msgstr "handler_generally_secured"
+
+#: templates/pyha/official/handler/requestview.html:188
+#: templates/pyha/skipofficial/handler/requestview.html:171
+msgid "handler_all_secured"
+msgstr "handler_all_secured"
+
+#: templates/pyha/official/handler/requestview.html:189
+#: templates/pyha/official/handler/requestview.html:467
+#: templates/pyha/official/handler/requestview.html:530
+#: templates/pyha/skipofficial/handler/requestview.html:172
+#: templates/pyha/skipofficial/handler/requestview.html:413
+msgid "handler_state_of_processing"
+msgstr "handler_state_of_processing"
+
+#: templates/pyha/official/handler/requestview.html:237
+#: templates/pyha/skipofficial/handler/requestview.html:220
+msgid "handler_request_filters"
+msgstr "handler_request_filters"
+
+#: templates/pyha/official/handler/requestview.html:237
+#: templates/pyha/skipofficial/handler/requestview.html:220
+msgid "handler_show_in_officials_portal"
+msgstr "handler_show_in_officials_portal"
+
+#: templates/pyha/official/handler/requestview.html:237
+#: templates/pyha/skipofficial/handler/requestview.html:220
+msgid "handler_show_in_portal"
+msgstr "handler_show_in_portal"
+
+#: templates/pyha/official/handler/requestview.html:241
+#: templates/pyha/skipofficial/handler/requestview.html:224
+msgid "handler_filter"
+msgstr "handler_filter"
+
+#: templates/pyha/official/handler/requestview.html:242
+#: templates/pyha/skipofficial/handler/requestview.html:225
+msgid "handler_values"
+msgstr "handler_values"
+
+#: templates/pyha/official/handler/requestview.html:259
+#: templates/pyha/skipofficial/handler/requestview.html:242
+msgid "handler_no_filters"
+msgstr "handler_no_filters"
+
+#: templates/pyha/official/handler/requestview.html:265
+#: templates/pyha/skipofficial/handler/requestview.html:248
+#, fuzzy
+#| msgid "handler_argument_goals"
+msgid "handler_argument_choices"
+msgstr "handler_argument_goals"
+
+#: templates/pyha/official/handler/requestview.html:269
+#: templates/pyha/skipofficial/handler/requestview.html:252
+msgid "handler_reason_zoning"
+msgstr "handler_reason_zoning"
+
+#: templates/pyha/official/handler/requestview.html:271
+#: templates/pyha/skipofficial/handler/requestview.html:254
+msgid "handler_reason_permission"
+msgstr "handler_reason_permission"
+
+#: templates/pyha/official/handler/requestview.html:273
+#: templates/pyha/skipofficial/handler/requestview.html:256
+msgid "handler_reason_enviromental"
+msgstr "handler_reason_enviromental"
+
+#: templates/pyha/official/handler/requestview.html:275
+#: templates/pyha/skipofficial/handler/requestview.html:258
+msgid "handler_reason_natura"
+msgstr "handler_reason_natura"
+
+#: templates/pyha/official/handler/requestview.html:277
+#: templates/pyha/skipofficial/handler/requestview.html:260
+msgid "handler_reason_scientific"
+msgstr "handler_reason_scientific"
+
+#: templates/pyha/official/handler/requestview.html:279
+#: templates/pyha/skipofficial/handler/requestview.html:262
+msgid "handler_reason_forest"
+msgstr "handler_reason_forest"
+
+#: templates/pyha/official/handler/requestview.html:281
+#: templates/pyha/skipofficial/handler/requestview.html:264
+msgid "handler_reason_other"
+msgstr "handler_reason_other"
+
+#: templates/pyha/official/handler/requestview.html:287
+#: templates/pyha/skipofficial/handler/requestview.html:270
+msgid "handler_argument_project"
+msgstr "handler_argument_project"
+
+#: templates/pyha/official/handler/requestview.html:290
+#: templates/pyha/skipofficial/handler/requestview.html:273
+msgid "handler_argument_research"
+msgstr "handler_argument_research"
+
+#: templates/pyha/official/handler/requestview.html:293
+#: templates/pyha/skipofficial/handler/requestview.html:276
+msgid "handler_argument_goals"
+msgstr "handler_argument_goals"
+
+#: templates/pyha/official/handler/requestview.html:296
+#: templates/pyha/skipofficial/handler/requestview.html:279
+msgid "handler_argument_planning"
+msgstr "handler_argument_planning"
+
+#: templates/pyha/official/handler/requestview.html:299
+#: templates/pyha/skipofficial/handler/requestview.html:282
+msgid "handler_argument_municipality"
+msgstr "handler_argument_municipality"
+
+#: templates/pyha/official/handler/requestview.html:302
+#: templates/pyha/skipofficial/handler/requestview.html:285
+msgid "handler_argument_natura_areas"
+msgstr "handler_argument_natura_areas"
+
+#: templates/pyha/official/handler/requestview.html:305
+#: templates/pyha/skipofficial/handler/requestview.html:288
+msgid "handler_argument_reason"
+msgstr "handler_argument_reason"
+
+#: templates/pyha/official/handler/requestview.html:312
+#: templates/pyha/official/handler/requestview.html:317
+#: templates/pyha/official/handler/requestview.html:323
+#: templates/pyha/skipofficial/handler/requestview.html:295
+msgid "handler_terms"
+msgstr "handler_terms"
+
+#: templates/pyha/official/handler/requestview.html:316
+msgid "handler_sensitivity"
+msgstr "handler_sensitivity"
+
+#: templates/pyha/official/handler/requestview.html:331
+msgid "handler_terms_of_use_of_the_collections"
+msgstr "handler_terms_of_use_of_the_collections"
+
+#: templates/pyha/official/handler/requestview.html:344
+#: templates/pyha/official/handler/requestview.html:419
+msgid "handler_exit"
+msgstr "handler_exit"
+
+#: templates/pyha/official/handler/requestview.html:356
+msgid "handler_sensitive_terms"
+msgstr "handler_sensitive_terms"
+
+#: templates/pyha/official/handler/requestview.html:358
+msgid "handler_as_pdf"
+msgstr "handler_as_pdf"
+
+#: templates/pyha/official/handler/requestview.html:427
+#: templates/pyha/skipofficial/handler/requestview.html:378
+msgid "handler_contacts"
+msgstr "handler_contacts"
+
+#: templates/pyha/official/handler/requestview.html:430
+#: templates/pyha/skipofficial/handler/requestview.html:381
+msgid "handler_full_name"
+msgstr "handler_full_name"
+
+#: templates/pyha/official/handler/requestview.html:431
+#: templates/pyha/skipofficial/handler/requestview.html:382
+msgid "handler_street_address"
+msgstr "handler_street_address"
+
+#: templates/pyha/official/handler/requestview.html:432
+#: templates/pyha/skipofficial/handler/requestview.html:383
+msgid "handler_postal_code"
+msgstr "handler_postal_code"
+
+#: templates/pyha/official/handler/requestview.html:433
+#: templates/pyha/skipofficial/handler/requestview.html:384
+msgid "handler_post_office_name"
+msgstr "handler_post_office_name"
+
+#: templates/pyha/official/handler/requestview.html:434
+#: templates/pyha/skipofficial/handler/requestview.html:385
+msgid "handler_country"
+msgstr "handler_country"
+
+#: templates/pyha/official/handler/requestview.html:435
+#: templates/pyha/skipofficial/handler/requestview.html:386
+msgid "handler_email"
+msgstr "handler_email"
+
+#: templates/pyha/official/handler/requestview.html:436
+#: templates/pyha/skipofficial/handler/requestview.html:387
+msgid "handler_phone_number"
+msgstr "handler_phone_number"
+
+#: templates/pyha/official/handler/requestview.html:437
+#: templates/pyha/skipofficial/handler/requestview.html:388
+msgid "handler_corporation/organization_name"
+msgstr "handler_corporation/organization_name"
+
+#: templates/pyha/official/handler/requestview.html:438
+#: templates/pyha/skipofficial/handler/requestview.html:389
+msgid "handler_corporation_id"
+msgstr "handler_corporation_id"
+
+#: templates/pyha/official/handler/requestview.html:458
+msgid "handler_user_no_sensitive_data"
+msgstr "handler_user_no_sensitive_data"
+
+#: templates/pyha/official/handler/requestview.html:460
+msgid "handler_list_of_collections"
+msgstr "handler_list_of_collections"
+
+#: templates/pyha/official/handler/requestview.html:468
+#: templates/pyha/official/handler/requestview.html:531
+#: templates/pyha/skipofficial/handler/requestview.html:414
+msgid "handler_decision_arguments"
+msgstr "handler_decision_arguments"
+
+#: templates/pyha/official/handler/requestview.html:492
+#, fuzzy
+#| msgid "handler_asked"
+msgid "handler_skipped"
+msgstr "handler_asked"
+
+#: templates/pyha/official/handler/requestview.html:502
+#: templates/pyha/official/handler/requestview.html:569
+#: templates/pyha/skipofficial/handler/requestview.html:452
+msgid "handler_accept"
+msgstr "handler_accept"
+
+#: templates/pyha/official/handler/requestview.html:506
+#: templates/pyha/official/handler/requestview.html:508
+#: templates/pyha/official/handler/requestview.html:570
+#: templates/pyha/skipofficial/handler/requestview.html:453
+msgid "handler_refuse"
+msgstr "handler_refuse"
+
+#: templates/pyha/official/handler/requestview.html:525
+#: templates/pyha/skipofficial/handler/requestview.html:408
+msgid "handler_secured_collection_decicions"
+msgstr "handler_secured_collection_decicions"
+
+#: templates/pyha/official/handler/requestview.html:584
+#: templates/pyha/skipofficial/handler/requestview.html:467
+msgid "handler_additional_questions"
+msgstr "handler_additional_questions"
+
+#: templates/pyha/official/handler/requestview.html:588
+#: templates/pyha/skipofficial/handler/requestview.html:471
+msgid "handler_asked"
+msgstr "handler_asked"
+
+#: templates/pyha/official/handler/requestview.html:593
+#: templates/pyha/skipofficial/handler/requestview.html:476
+msgid "handler_answered"
+msgstr "handler_answered"
+
+#: templates/pyha/official/handler/requestview.html:597
+#: templates/pyha/skipofficial/handler/requestview.html:481
+msgid "handler_form_to_request_additional_information"
+msgstr "handler_form_to_request_additional_information"
+
+#: templates/pyha/official/handler/requestview.html:605
+#: templates/pyha/skipofficial/handler/requestview.html:486
+msgid "ask_as_handler_of"
+msgstr "ask_as_handler_of"
+
+#: templates/pyha/official/handler/requestview.html:615
+#: templates/pyha/skipofficial/handler/requestview.html:495
+msgid "handler_request_additional_information"
+msgstr "handler_request_additional_information"
+
+#: templates/pyha/official/handler/requestview.html:624
+msgid "handler_official_comment_area"
+msgstr "handler_official_comment_area"
+
+#: templates/pyha/official/handler/requestview.html:627
+msgid "handler_said"
+msgstr "handler_said"
+
+#: templates/pyha/official/handler/requestview.html:636
+#: templates/pyha/skipofficial/handler/requestview.html:528
+msgid "handler_save"
+msgstr "handler_save"
+
+#: templates/pyha/official/handler/requestview.html:649
+#: templates/pyha/skipofficial/handler/requestview.html:541
+msgid "handler_log_date"
+msgstr "handler_log_date"
+
+#: templates/pyha/official/handler/requestview.html:650
+#: templates/pyha/skipofficial/handler/requestview.html:542
+msgid "handler_log_maker"
+msgstr "handler_log_maker"
+
+#: templates/pyha/official/handler/requestview.html:651
+#: templates/pyha/skipofficial/handler/requestview.html:543
+#, fuzzy
+#| msgid "handler_log_date"
+msgid "handler_log_role"
+msgstr "handler_log_date"
+
+#: templates/pyha/official/handler/requestview.html:652
+#: templates/pyha/skipofficial/handler/requestview.html:544
+msgid "handler_log_description"
+msgstr "handler_log_description"
+
+#: templates/pyha/official/handler/requestview.html:659
+#: templates/pyha/official/handler/requestview.html:663
+#: templates/pyha/skipofficial/handler/requestview.html:551
+#: templates/pyha/skipofficial/handler/requestview.html:555
+#, fuzzy
+#| msgid "handler_log_date"
+msgid "handler_log_admin"
+msgstr "handler_log_date"
+
+#: templates/pyha/official/handler/requestview.html:661
+#: templates/pyha/skipofficial/handler/requestview.html:553
+#, fuzzy
+#| msgid "handler_log_maker"
+msgid "handler_log_handler"
+msgstr "handler_log_maker"
+
+#: templates/pyha/official/handler/requestview.html:665
+#: templates/pyha/skipofficial/handler/requestview.html:557
+#, fuzzy
+#| msgid "log_sensitive_data_handler"
+msgid "handler_log_sensitive_data_handler"
+msgstr "log_sensitive_data_handler"
+
+#: templates/pyha/official/handler/requestview.html:667
+#: templates/pyha/skipofficial/handler/requestview.html:559
+#, fuzzy
+#| msgid "log_collection_provider"
+msgid "handler_log_collection_provider"
+msgstr "log_collection_provider"
+
+#: templates/pyha/official/handler/requestview.html:669
+#: templates/pyha/skipofficial/handler/requestview.html:561
+#, fuzzy
+#| msgid "log_sensitive_and_collections_handler"
+msgid "handler_log_sensitive_and_collections_handler"
+msgstr "log_sensitive_and_collections_handler"
+
+#: templates/pyha/official/handler/requestview.html:676
+#: templates/pyha/skipofficial/handler/requestview.html:568
+msgid "handler_log_viewed"
+msgstr "handler_log_viewed"
+
+#: templates/pyha/official/handler/requestview.html:678
+#: templates/pyha/skipofficial/handler/requestview.html:570
+msgid "handler_log_terms_accepted"
+msgstr "handler_log_terms_accepted"
+
+#: templates/pyha/official/handler/requestview.html:681
+#: templates/pyha/skipofficial/handler/requestview.html:573
+msgid "handler_log_sensitives_accepted"
+msgstr "handler_log_sensitives_accepted"
+
+#: templates/pyha/official/handler/requestview.html:683
+#: templates/pyha/skipofficial/handler/requestview.html:575
+msgid "handler_log_collection_accepted"
+msgstr "handler_log_collection_accepted"
+
+#: templates/pyha/official/handler/requestview.html:687
+#: templates/pyha/skipofficial/handler/requestview.html:579
+#, fuzzy
+#| msgid "handler_log_sensitives_denied"
+msgid "handler_log_sensitives_reset"
+msgstr "handler_log_sensitives_denied"
+
+#: templates/pyha/official/handler/requestview.html:689
+#: templates/pyha/skipofficial/handler/requestview.html:581
+#, fuzzy
+#| msgid "handler_log_collection_denied"
+msgid "handler_log_collection_reset"
+msgstr "handler_log_collection_denied"
+
+#: templates/pyha/official/handler/requestview.html:693
+#: templates/pyha/skipofficial/handler/requestview.html:585
+msgid "handler_log_sensitives_denied"
+msgstr "handler_log_sensitives_denied"
+
+#: templates/pyha/official/handler/requestview.html:695
+#: templates/pyha/skipofficial/handler/requestview.html:587
+msgid "handler_log_collection_denied"
+msgstr "handler_log_collection_denied"
+
+#: templates/pyha/official/requestform.html:14
+#: templates/pyha/official/requestview.html:345
+#: templates/pyha/skipofficial/requestform.html:14
+#: templates/pyha/skipofficial/requestview.html:295
+msgid "request_filters"
+msgstr "request_filters"
+
+#: templates/pyha/official/requestform.html:16
+#: templates/pyha/official/requestform.html:760
+#: templates/pyha/skipofficial/requestform.html:16
+#: templates/pyha/skipofficial/requestform.html:626
+msgid "show"
+msgstr "show"
+
+#: templates/pyha/official/requestform.html:19
+#: templates/pyha/official/requestview.html:347
+#: templates/pyha/skipofficial/requestform.html:19
+#: templates/pyha/skipofficial/requestview.html:297
+msgid "show_in_portal"
+msgstr "show_in_portal"
+
+#: templates/pyha/official/requestform.html:22
+#: templates/pyha/official/requestview.html:350
+#: templates/pyha/skipofficial/requestform.html:22
+#: templates/pyha/skipofficial/requestview.html:300
+msgid "filter"
+msgstr "filter"
+
+#: templates/pyha/official/requestform.html:23
+#: templates/pyha/official/requestview.html:351
+#: templates/pyha/skipofficial/requestform.html:23
+#: templates/pyha/skipofficial/requestview.html:301
+msgid "values"
+msgstr "values"
+
+#: templates/pyha/official/requestform.html:40
+#: templates/pyha/official/requestview.html:368
+#: templates/pyha/skipofficial/requestform.html:40
+#: templates/pyha/skipofficial/requestview.html:318
+msgid "no_filters"
+msgstr "no_filters"
+
+#: templates/pyha/official/requestform.html:54
+#: templates/pyha/skipofficial/requestform.html:53
+msgid "contact_info_tab"
+msgstr "contact_info_tab"
+
+#: templates/pyha/official/requestform.html:62
+#: templates/pyha/skipofficial/requestform.html:61
+msgid "arguments_tab"
+msgstr "arguments_tab"
+
+#: templates/pyha/official/requestform.html:70
+msgid "sensitivity_tab"
+msgstr "sensitivity_tab"
+
+#: templates/pyha/official/requestform.html:78
+#: templates/pyha/official/requestform.html:96
+msgid "collections_tab"
+msgstr "collections_tab"
+
+#: templates/pyha/official/requestform.html:87
+#: templates/pyha/official/requestform.html:105
+#: templates/pyha/skipofficial/requestform.html:75
+msgid "summary_tab"
+msgstr "summary_tab"
+
+#: templates/pyha/official/requestform.html:116
+#: templates/pyha/skipofficial/requestform.html:85
+msgid "contact_list"
+msgstr "contact_list"
+
+#: templates/pyha/official/requestform.html:119
+#: templates/pyha/skipofficial/requestform.html:88
+msgid "main_contact"
+msgstr "main_contact"
+
+#: templates/pyha/official/requestform.html:125
+#: templates/pyha/skipofficial/requestform.html:94
+msgid "additional_contacts"
+msgstr "additional_contacts"
+
+#: templates/pyha/official/requestform.html:129
+#: templates/pyha/skipofficial/requestform.html:98
+msgid "add_new_contact"
+msgstr "add_new_contact"
+
+#: templates/pyha/official/requestform.html:136
+#: templates/pyha/skipofficial/requestform.html:105
+msgid "remove_last_contact"
+msgstr "remove_last_contact"
+
+#: templates/pyha/official/requestform.html:191
+#: templates/pyha/skipofficial/requestform.html:160
+msgid "continue_to_step_2"
+msgstr "continue_to_step_2"
+
+#: templates/pyha/official/requestform.html:196
+#: templates/pyha/skipofficial/requestform.html:165
+msgid "request_arguments_for_user"
+msgstr "request_arguments_for_user"
+
+#: templates/pyha/official/requestform.html:199
+#: templates/pyha/official/requestview.html:378
+#: templates/pyha/skipofficial/requestform.html:168
+#: templates/pyha/skipofficial/requestview.html:328
+msgid "reason_zoning"
+msgstr "reason_zoning"
+
+#: templates/pyha/official/requestform.html:200
+#: templates/pyha/official/requestview.html:380
+#: templates/pyha/skipofficial/requestform.html:169
+#: templates/pyha/skipofficial/requestview.html:330
+msgid "reason_permission"
+msgstr "reason_permission"
+
+#: templates/pyha/official/requestform.html:201
+#: templates/pyha/official/requestview.html:382
+#: templates/pyha/skipofficial/requestform.html:170
+#: templates/pyha/skipofficial/requestview.html:332
+msgid "reason_enviromental"
+msgstr "reason_enviromental"
+
+#: templates/pyha/official/requestform.html:202
+#: templates/pyha/official/requestview.html:384
+#: templates/pyha/skipofficial/requestform.html:171
+#: templates/pyha/skipofficial/requestview.html:334
+msgid "reason_natura"
+msgstr "reason_natura"
+
+#: templates/pyha/official/requestform.html:203
+#: templates/pyha/official/requestview.html:386
+#: templates/pyha/skipofficial/requestform.html:172
+#: templates/pyha/skipofficial/requestview.html:336
+msgid "reason_scientific"
+msgstr "reason_scientific"
+
+#: templates/pyha/official/requestform.html:204
+#: templates/pyha/official/requestview.html:388
+#: templates/pyha/skipofficial/requestform.html:173
+#: templates/pyha/skipofficial/requestview.html:338
+msgid "reason_forest"
+msgstr "reason_forest"
+
+#: templates/pyha/official/requestform.html:205
+#: templates/pyha/official/requestview.html:390
+#: templates/pyha/skipofficial/requestform.html:174
+#: templates/pyha/skipofficial/requestview.html:340
+msgid "reason_other"
+msgstr "reason_other"
+
+#: templates/pyha/official/requestform.html:209
+#: templates/pyha/skipofficial/requestform.html:178
+msgid "additional_information"
+msgstr "additional_information"
+
+#: templates/pyha/official/requestform.html:212
+#: templates/pyha/skipofficial/requestform.html:181
+msgid "required_project_name"
+msgstr "required_project_name"
+
+#: templates/pyha/official/requestform.html:215
+#: templates/pyha/skipofficial/requestform.html:184
+msgid "required_research_name"
+msgstr "required_research_name"
+
+#: templates/pyha/official/requestform.html:218
+#: templates/pyha/skipofficial/requestform.html:187
+msgid "required_goals"
+msgstr "required_goals"
+
+#: templates/pyha/official/requestform.html:221
+#: templates/pyha/skipofficial/requestform.html:190
+msgid "required_planning_description"
+msgstr "required_planning_description"
+
+#: templates/pyha/official/requestform.html:224
+#: templates/pyha/skipofficial/requestform.html:193
+msgid "required_municipality"
+msgstr "required_municipality"
+
+#: templates/pyha/official/requestform.html:227
+#: templates/pyha/skipofficial/requestform.html:196
+msgid "required_natura_areas"
+msgstr "required_natura_areas"
+
+#: templates/pyha/official/requestform.html:230
+#: templates/pyha/skipofficial/requestform.html:199
+msgid "required_arguments"
+msgstr "required_arguments"
+
+#: templates/pyha/official/requestform.html:237
+#: templates/pyha/skipofficial/requestform.html:206
+msgid "continue_to_step_3"
+msgstr "continue_to_step_3"
+
+#: templates/pyha/official/requestform.html:249
+#: templates/pyha/official/requestview.html:465
+msgid "sensitive_terms"
+msgstr "sensitive_terms"
+
+#: templates/pyha/official/requestform.html:286
+#: templates/pyha/official/requestform.html:320
+#: templates/pyha/skipofficial/requestform.html:255
+msgid "i_accept_terms"
+msgstr "i_accept_terms"
+
+#: templates/pyha/official/requestform.html:288
+#: templates/pyha/official/requestform.html:322
+#: templates/pyha/official/requestview.html:453
+#: templates/pyha/official/requestview.html:528
+#: templates/pyha/skipofficial/admin/requestview.html:381
+#: templates/pyha/skipofficial/handler/requestview.html:370
+#: templates/pyha/skipofficial/requestform.html:257
+#: templates/pyha/skipofficial/requestview.html:446
+msgid "exit"
+msgstr "exit"
+
+#: templates/pyha/official/requestform.html:331
+#: templates/pyha/official/requestform.html:400
+#: templates/pyha/skipofficial/requestform.html:265
+#: templates/pyha/skipofficial/requestform.html:334
+msgid "request_summary"
+msgstr "request_summary"
+
+#: templates/pyha/official/requestform.html:335
+#: templates/pyha/official/requestform.html:404
+#: templates/pyha/official/requestview.html:537
+#: templates/pyha/skipofficial/requestform.html:269
+#: templates/pyha/skipofficial/requestform.html:338
+#: templates/pyha/skipofficial/requestview.html:455
+msgid "contacts"
+msgstr "contacts"
+
+#: templates/pyha/official/requestform.html:338
+#: templates/pyha/official/requestview.html:540
+#: templates/pyha/skipofficial/requestform.html:272
+#: templates/pyha/skipofficial/requestview.html:458
+msgid "full_name"
+msgstr "full_name"
+
+#: templates/pyha/official/requestform.html:339
+#: templates/pyha/official/requestview.html:541
+#: templates/pyha/skipofficial/requestform.html:273
+#: templates/pyha/skipofficial/requestview.html:459
+msgid "street_address"
+msgstr "street_address"
+
+#: templates/pyha/official/requestform.html:340
+#: templates/pyha/official/requestview.html:542
+#: templates/pyha/skipofficial/requestform.html:274
+#: templates/pyha/skipofficial/requestview.html:460
+msgid "postal_code"
+msgstr "postal_code"
+
+#: templates/pyha/official/requestform.html:341
+#: templates/pyha/official/requestview.html:543
+#: templates/pyha/skipofficial/requestform.html:275
+#: templates/pyha/skipofficial/requestview.html:461
+msgid "post_office_name"
+msgstr "post_office_name"
+
+#: templates/pyha/official/requestform.html:342
+#: templates/pyha/official/requestview.html:544
+#: templates/pyha/skipofficial/requestform.html:276
+#: templates/pyha/skipofficial/requestview.html:462
+msgid "country"
+msgstr "country"
+
+#: templates/pyha/official/requestform.html:343
+#: templates/pyha/official/requestview.html:545
+#: templates/pyha/skipofficial/requestform.html:277
+#: templates/pyha/skipofficial/requestview.html:463
+msgid "email"
+msgstr "email"
+
+#: templates/pyha/official/requestform.html:344
+#: templates/pyha/official/requestview.html:546
+#: templates/pyha/skipofficial/requestform.html:278
+#: templates/pyha/skipofficial/requestview.html:464
+msgid "phone_number"
+msgstr "phone_number"
+
+#: templates/pyha/official/requestform.html:345
+#: templates/pyha/official/requestview.html:547
+#: templates/pyha/skipofficial/requestform.html:279
+#: templates/pyha/skipofficial/requestview.html:465
+msgid "corporation/organization_name"
+msgstr "corporation/organization_name"
+
+#: templates/pyha/official/requestform.html:346
+#: templates/pyha/official/requestview.html:548
+#: templates/pyha/skipofficial/requestform.html:280
+#: templates/pyha/skipofficial/requestview.html:466
+msgid "corporation_id"
+msgstr "corporation_id"
+
+#: templates/pyha/official/requestform.html:363
+#: templates/pyha/official/requestform.html:421
+#: templates/pyha/official/requestview.html:396
+#: templates/pyha/skipofficial/requestform.html:297
+#: templates/pyha/skipofficial/requestform.html:355
+#: templates/pyha/skipofficial/requestview.html:346
+msgid "argument_project"
+msgstr "argument_project"
+
+#: templates/pyha/official/requestform.html:365
+#: templates/pyha/official/requestform.html:423
+#: templates/pyha/official/requestview.html:399
+#: templates/pyha/skipofficial/requestform.html:299
+#: templates/pyha/skipofficial/requestform.html:357
+#: templates/pyha/skipofficial/requestview.html:349
+msgid "argument_research"
+msgstr "argument_research"
+
+#: templates/pyha/official/requestform.html:367
+#: templates/pyha/official/requestform.html:425
+#: templates/pyha/official/requestview.html:402
+#: templates/pyha/skipofficial/requestform.html:301
+#: templates/pyha/skipofficial/requestform.html:359
+#: templates/pyha/skipofficial/requestview.html:352
+msgid "argument_goals"
+msgstr "argument_goals"
+
+#: templates/pyha/official/requestform.html:369
+#: templates/pyha/official/requestform.html:427
+#: templates/pyha/official/requestview.html:405
+#: templates/pyha/skipofficial/requestform.html:303
+#: templates/pyha/skipofficial/requestform.html:361
+#: templates/pyha/skipofficial/requestview.html:355
+msgid "argument_planning"
+msgstr "argument_planning"
+
+#: templates/pyha/official/requestform.html:371
+#: templates/pyha/official/requestform.html:429
+#: templates/pyha/official/requestview.html:408
+#: templates/pyha/skipofficial/requestform.html:305
+#: templates/pyha/skipofficial/requestform.html:363
+#: templates/pyha/skipofficial/requestview.html:358
+msgid "argument_municipality"
+msgstr "argument_municipality"
+
+#: templates/pyha/official/requestform.html:373
+#: templates/pyha/official/requestform.html:431
+#: templates/pyha/official/requestview.html:411
+#: templates/pyha/skipofficial/requestform.html:307
+#: templates/pyha/skipofficial/requestform.html:365
+#: templates/pyha/skipofficial/requestview.html:361
+msgid "argument_natura_areas"
+msgstr "argument_natura_areas"
+
+#: templates/pyha/official/requestform.html:375
+#: templates/pyha/official/requestform.html:433
+#: templates/pyha/official/requestview.html:414
+#: templates/pyha/skipofficial/requestform.html:309
+#: templates/pyha/skipofficial/requestform.html:367
+#: templates/pyha/skipofficial/requestview.html:364
+msgid "argument_reason"
+msgstr "argument_reason"
+
+#: templates/pyha/official/requestform.html:383
+#: templates/pyha/skipofficial/requestform.html:317
+msgid "end_request"
+msgstr "end_request"
+
+#: templates/pyha/official/requestform.html:385
+#: templates/pyha/skipofficial/requestform.html:319
+msgid "send_to_be_accepted"
+msgstr "send_to_be_accepted"
+
+#: templates/pyha/official/requestform.html:443
+#: templates/pyha/skipofficial/requestform.html:377
+msgid "are_you_sure_you_want_to_remove_collection"
+msgstr "are_you_sure_you_want_to_remove_collection"
+
+#: templates/pyha/official/requestform.html:446
+#: templates/pyha/skipofficial/requestform.html:380
+msgid "delete"
+msgstr "delete"
+
+#: templates/pyha/official/requestform.html:447
+#: templates/pyha/official/requestview.html:127
+#: templates/pyha/skipofficial/requestform.html:381
+#: templates/pyha/skipofficial/requestview.html:115
+msgid "back"
+msgstr "back"
+
+#: templates/pyha/official/requestform.html:507
+#: templates/pyha/official/requestform.html:521
+#: templates/pyha/skipofficial/requestform.html:419
+msgid "you_accepted_terms"
+msgstr "you_accepted_terms"
+
+#: templates/pyha/official/requestform.html:585
+#: templates/pyha/skipofficial/requestform.html:451
+msgid "new_contact"
+msgstr "new_contact"
+
+#: templates/pyha/official/requestform.html:763
+#: templates/pyha/skipofficial/requestform.html:629
+msgid "hide"
+msgstr "hide"
+
+#: templates/pyha/official/requestform.html:854
+#: templates/pyha/skipofficial/requestform.html:720
+msgid "request_choose_reason"
+msgstr "request_choose_reason"
+
+#: templates/pyha/official/requestform.html:855
+#: templates/pyha/skipofficial/requestform.html:721
+msgid "request_chosen_multiple_reasons"
+msgstr "request_chosen_multiple_reasons"
+
+#: templates/pyha/official/requestform.html:856
+#: templates/pyha/skipofficial/requestform.html:722
+msgid "request_chosen_all_reasons"
+msgstr "request_chosen_all_reasons"
+
+#: templates/pyha/official/requestview.html:13
 #: templates/pyha/skipofficial/requestview.html:13
 msgid "state_of_request"
 msgstr "state_of_request"
 
-#: templates/pyha/requestview.html:41
+#: templates/pyha/official/requestview.html:41
 #: templates/pyha/skipofficial/requestview.html:41
 msgid "show_additional_information"
 msgstr "show_additional_information"
 
-#: templates/pyha/requestview.html:61
+#: templates/pyha/official/requestview.html:61
 msgid "sensitive"
 msgstr "sensitive"
 
-#: templates/pyha/requestview.html:73
+#: templates/pyha/official/requestview.html:73
 #: templates/pyha/skipofficial/requestview.html:61
 msgid "restricted"
 msgstr "restricted"
 
-#: templates/pyha/requestview.html:96
+#: templates/pyha/official/requestview.html:96
 #: templates/pyha/skipofficial/requestview.html:84
 msgid "download"
 msgstr "download"
 
-#: templates/pyha/requestview.html:99
+#: templates/pyha/official/requestview.html:99
 #: templates/pyha/skipofficial/requestview.html:87
 msgid "download_has_expired"
 msgstr "download_has_expired"
 
-#: templates/pyha/requestview.html:104
+#: templates/pyha/official/requestview.html:104
 #: templates/pyha/skipofficial/requestview.html:92
 msgid "initialize_download"
 msgstr "initialize_download"
 
-#: templates/pyha/requestview.html:111
+#: templates/pyha/official/requestview.html:111
 #: templates/pyha/skipofficial/requestview.html:99
 msgid "you_will_be_emailed_when_ready"
 msgstr "you_will_be_emailed_when_ready"
 
-#: templates/pyha/requestview.html:114
+#: templates/pyha/official/requestview.html:114
 #: templates/pyha/skipofficial/requestview.html:102
 msgid "stop_wait_initialize_download"
 msgstr "stop_wait_initialize_download"
 
-#: templates/pyha/requestview.html:123
+#: templates/pyha/official/requestview.html:123
 #: templates/pyha/skipofficial/requestview.html:111
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr "are_you_sure_you_want_to_download_only_those_given"
 
-#: templates/pyha/requestview.html:126
+#: templates/pyha/official/requestview.html:126
 #: templates/pyha/skipofficial/requestview.html:114
 msgid "Yes"
 msgstr "Yes"
 
-#: templates/pyha/requestview.html:144 templates/pyha/requestview.html:598
+#: templates/pyha/official/requestview.html:144
+#: templates/pyha/official/requestview.html:596
 #: templates/pyha/skipofficial/requestview.html:132
-#: templates/pyha/skipofficial/requestview.html:516
+#: templates/pyha/skipofficial/requestview.html:514
 msgid "changes_history"
 msgstr "changes_history"
 
-#: templates/pyha/requestview.html:151
+#: templates/pyha/official/requestview.html:151
 #: templates/pyha/skipofficial/requestview.html:139
 msgid "contact_window"
 msgstr "contact_window"
 
-#: templates/pyha/requestview.html:158
+#: templates/pyha/official/requestview.html:158
 #: templates/pyha/skipofficial/requestview.html:146
 msgid "argument_window"
 msgstr "argument_window"
 
-#: templates/pyha/requestview.html:165
+#: templates/pyha/official/requestview.html:165
 #: templates/pyha/skipofficial/requestview.html:153
 msgid "request_window"
 msgstr "request_window"
 
-#: templates/pyha/requestview.html:172
+#: templates/pyha/official/requestview.html:172
 #: templates/pyha/skipofficial/requestview.html:160
 msgid "filter_window"
 msgstr "filter_window"
 
-#: templates/pyha/requestview.html:179
+#: templates/pyha/official/requestview.html:179
 #: templates/pyha/skipofficial/requestview.html:167
 msgid "terms_window"
 msgstr "terms_window"
 
-#: templates/pyha/requestview.html:186
+#: templates/pyha/official/requestview.html:186
 #: templates/pyha/skipofficial/requestview.html:174
 msgid "decision_window"
 msgstr "decision_window"
 
-#: templates/pyha/requestview.html:194
+#: templates/pyha/official/requestview.html:194
 #: templates/pyha/skipofficial/requestview.html:182
 msgid "additional_information_window"
 msgstr "additional_information_window"
 
-#: templates/pyha/requestview.html:211 templates/pyha/requestview.html:304
+#: templates/pyha/official/requestview.html:211
+#: templates/pyha/official/requestview.html:303
 #: templates/pyha/skipofficial/requestview.html:199
-#: templates/pyha/skipofficial/requestview.html:254
+#: templates/pyha/skipofficial/requestview.html:253
 msgid "collection_name"
 msgstr "collection_name"
 
-#: templates/pyha/requestview.html:213
+#: templates/pyha/official/requestview.html:213
 #: templates/pyha/skipofficial/requestview.html:201
 msgid "collection_description"
 msgstr "collection_description"
 
-#: templates/pyha/requestview.html:216
+#: templates/pyha/official/requestview.html:216
 #: templates/pyha/skipofficial/requestview.html:204
 msgid "all_secured"
 msgstr "all_secured"
 
-#: templates/pyha/requestview.html:217 templates/pyha/requestview.html:266
-#: templates/pyha/requestview.html:305
+#: templates/pyha/official/requestview.html:217
+#: templates/pyha/official/requestview.html:266
+#: templates/pyha/official/requestview.html:304
 #: templates/pyha/skipofficial/requestview.html:205
-#: templates/pyha/skipofficial/requestview.html:255
+#: templates/pyha/skipofficial/requestview.html:254
 msgid "state_of_processing"
 msgstr "state_of_processing"
 
-#: templates/pyha/requestview.html:263
+#: templates/pyha/official/requestview.html:263
 msgid "decision_for_admitting_sensitive_data"
 msgstr "decision_for_admitting_sensitive_data"
 
-#: templates/pyha/requestview.html:267
+#: templates/pyha/official/requestview.html:267
 msgid "decision_arguments"
 msgstr "decision_arguments"
 
-#: templates/pyha/requestview.html:301
-#: templates/pyha/skipofficial/requestview.html:251
+#: templates/pyha/official/requestview.html:300
+#: templates/pyha/skipofficial/requestview.html:250
 msgid "decicions_for_admitting_data"
 msgstr "decicions_for_admitting_data"
 
-#: templates/pyha/requestview.html:306
-#: templates/pyha/skipofficial/requestview.html:256
+#: templates/pyha/official/requestview.html:305
+#: templates/pyha/skipofficial/requestview.html:255
 msgid "collection_decision_arguments"
 msgstr "collection_decision_arguments"
 
-#: templates/pyha/requestview.html:376
-#: templates/pyha/skipofficial/requestview.html:326
+#: templates/pyha/official/requestview.html:374
+#: templates/pyha/skipofficial/requestview.html:324
 #, fuzzy
 #| msgid "argument_goals"
 msgid "argument_choices"
 msgstr "argument_goals"
 
-#: templates/pyha/requestview.html:442
+#: templates/pyha/official/requestview.html:440
 msgid "terms_of_use_of_the_collections"
 msgstr "terms_of_use_of_the_collections"
 
-#: templates/pyha/requestview.html:569
-#: templates/pyha/skipofficial/requestview.html:487
+#: templates/pyha/official/requestview.html:567
+#: templates/pyha/skipofficial/requestview.html:485
 msgid "additional_questions"
 msgstr "additional_questions"
 
-#: templates/pyha/requestview.html:573
-#: templates/pyha/skipofficial/requestview.html:491
+#: templates/pyha/official/requestview.html:571
+#: templates/pyha/skipofficial/requestview.html:489
 msgid "asked"
 msgstr "asked"
 
-#: templates/pyha/requestview.html:580
-#: templates/pyha/skipofficial/requestview.html:498
+#: templates/pyha/official/requestview.html:578
+#: templates/pyha/skipofficial/requestview.html:496
 msgid "send_additional_information"
 msgstr "send_additional_information"
 
-#: templates/pyha/requestview.html:584
-#: templates/pyha/skipofficial/requestview.html:502
+#: templates/pyha/official/requestview.html:582
+#: templates/pyha/skipofficial/requestview.html:500
 msgid "answer"
 msgstr "answer"
 
-#: templates/pyha/requestview.html:589
-#: templates/pyha/skipofficial/requestview.html:507
+#: templates/pyha/official/requestview.html:587
+#: templates/pyha/skipofficial/requestview.html:505
 msgid "answered"
 msgstr "answered"
 
-#: templates/pyha/requestview.html:601
-#: templates/pyha/skipofficial/requestview.html:519
+#: templates/pyha/official/requestview.html:599
+#: templates/pyha/skipofficial/requestview.html:517
 msgid "log_date"
 msgstr "log_date"
 
-#: templates/pyha/requestview.html:602
-#: templates/pyha/skipofficial/requestview.html:520
+#: templates/pyha/official/requestview.html:600
+#: templates/pyha/skipofficial/requestview.html:518
 msgid "log_maker"
 msgstr "log_maker"
 
-#: templates/pyha/requestview.html:603
-#: templates/pyha/skipofficial/requestview.html:521
+#: templates/pyha/official/requestview.html:601
+#: templates/pyha/skipofficial/requestview.html:519
 msgid "log_description"
 msgstr "log_description"
 
-#: templates/pyha/requestview.html:611
+#: templates/pyha/official/requestview.html:607
+#: templates/pyha/official/requestview.html:611
+#: templates/pyha/skipofficial/requestview.html:525
 #: templates/pyha/skipofficial/requestview.html:529
+#, fuzzy
+#| msgid "admin"
+msgid "log_admin"
+msgstr "admin"
+
+#: templates/pyha/official/requestview.html:609
+#: templates/pyha/skipofficial/requestview.html:527
+#, fuzzy
+#| msgid "log_maker"
+msgid "log_handler"
+msgstr "log_maker"
+
+#: templates/pyha/official/requestview.html:613
+#: templates/pyha/skipofficial/requestview.html:531
 msgid "log_sensitive_data_handler"
 msgstr "log_sensitive_data_handler"
 
-#: templates/pyha/requestview.html:613
-#: templates/pyha/skipofficial/requestview.html:531
+#: templates/pyha/official/requestview.html:615
+#: templates/pyha/skipofficial/requestview.html:533
 msgid "log_collection_provider"
 msgstr "log_collection_provider"
 
-#: templates/pyha/requestview.html:615
-#: templates/pyha/skipofficial/requestview.html:533
+#: templates/pyha/official/requestview.html:617
+#: templates/pyha/skipofficial/requestview.html:535
 msgid "log_sensitive_and_collections_handler"
 msgstr "log_sensitive_and_collections_handler"
 
-#: templates/pyha/requestview.html:622
-#: templates/pyha/skipofficial/requestview.html:540
+#: templates/pyha/official/requestview.html:624
+#: templates/pyha/skipofficial/requestview.html:542
 msgid "log_viewed"
 msgstr "log_viewed"
 
-#: templates/pyha/requestview.html:624
-#: templates/pyha/skipofficial/requestview.html:542
+#: templates/pyha/official/requestview.html:626
+#: templates/pyha/skipofficial/requestview.html:544
 msgid "log_terms_accepted"
 msgstr "log_terms_accepted"
 
-#: templates/pyha/requestview.html:627
-#: templates/pyha/skipofficial/requestview.html:545
+#: templates/pyha/official/requestview.html:629
+#: templates/pyha/skipofficial/requestview.html:547
 msgid "log_sensitives_accepted"
 msgstr "log_sensitives_accepted"
 
-#: templates/pyha/requestview.html:629
-#: templates/pyha/skipofficial/requestview.html:547
+#: templates/pyha/official/requestview.html:631
+#: templates/pyha/skipofficial/requestview.html:549
 msgid "log_collection_accepted"
 msgstr "log_collection_accepted"
 
-#: templates/pyha/requestview.html:633
-#: templates/pyha/skipofficial/requestview.html:551
+#: templates/pyha/official/requestview.html:635
+#: templates/pyha/skipofficial/requestview.html:553
+#, fuzzy
+#| msgid "log_sensitives_denied"
+msgid "log_sensitives_reset"
+msgstr "log_sensitives_denied"
+
+#: templates/pyha/official/requestview.html:637
+#: templates/pyha/skipofficial/requestview.html:555
+#, fuzzy
+#| msgid "log_collection_denied"
+msgid "log_collection_reset"
+msgstr "log_collection_denied"
+
+#: templates/pyha/official/requestview.html:641
+#: templates/pyha/skipofficial/requestview.html:559
 msgid "log_sensitives_denied"
 msgstr "log_sensitives_denied"
 
-#: templates/pyha/requestview.html:635
-#: templates/pyha/skipofficial/requestview.html:553
+#: templates/pyha/official/requestview.html:643
+#: templates/pyha/skipofficial/requestview.html:561
 msgid "log_collection_denied"
 msgstr "log_collection_denied"
 
-#: templates/pyha/skipofficial/requestform.html:66
-#, fuzzy
-#| msgid "collections_tab"
-msgid "collection_tab"
-msgstr "collections_tab"
-
-#: templates/pyha/skipofficial/requestform.html:216
-#: templates/pyha/skipofficial/requestview.html:385
-msgid "sensitive_and_other_terms"
-msgstr "sensitive_terms"
-
-#: templates/pyha/skipofficial/requestformcollection.html:2
-#, fuzzy
-#| msgid "secured_collections_in_request"
-msgid "restricted_collections_in_request"
-msgstr "secured_collections_in_request"
-
-#: templates/pyha/skipofficial/requestview.html:376
+#: templates/pyha/skipofficial/admin/requestview.html:309
+#: templates/pyha/skipofficial/handler/requestview.html:298
+#: templates/pyha/skipofficial/requestview.html:374
 #, fuzzy
 #| msgid "collections_tab"
 msgid "Collection terms"
 msgstr "collections_tab"
 
-#: templates/pyha/skipofficial/requestview_handler.html:340
-msgid "handler_sensitive_and_other_terms"
-msgstr "handler_sensitive_terms"
+#: templates/pyha/skipofficial/admin/requestview.html:318
+#: templates/pyha/skipofficial/handler/requestview.html:307
+#: templates/pyha/skipofficial/requestform.html:218
+#: templates/pyha/skipofficial/requestview.html:383
+msgid "sensitive_and_other_terms"
+msgstr "sensitive_terms"
 
-#: views/requestform.py:137 views/requestform.py:173
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:2
+#, fuzzy
+#| msgid "secured_collections_in_request"
+msgid "restricted_collections_in_request"
+msgstr "secured_collections_in_request"
+
+#: templates/pyha/skipofficial/handler/requestview.html:151
+#, fuzzy
+#| msgid "handler_comments_window"
+msgid "col_handler_comments_window"
+msgstr "handler_comments_window"
+
+#: templates/pyha/skipofficial/handler/requestview.html:500
+#, fuzzy
+#| msgid "Admission_for_sensitive_data"
+msgid "collection_free_of_sensitive_data"
+msgstr "Admission_for_sensitive_data"
+
+#: templates/pyha/skipofficial/handler/requestview.html:507
+#, fuzzy
+#| msgid "handler_official_comment_area"
+msgid "col_handler_comment_area"
+msgstr "handler_official_comment_area"
+
+#: templates/pyha/skipofficial/handler/requestview.html:508
+msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
+msgstr ""
+
+#: templates/pyha/skipofficial/handler/requestview.html:511
+#, fuzzy
+#| msgid "handler_said"
+msgid "col_handler_said"
+msgstr "handler_said"
+
+#: templates/pyha/skipofficial/handler/requestview.html:519
+#, fuzzy
+#| msgid "ask_as_handler_of"
+msgid "talk_as_handler_of"
+msgstr "ask_as_handler_of"
+
+#: templates/pyha/skipofficial/requestform.html:68
+#, fuzzy
+#| msgid "collections_tab"
+msgid "collection_tab"
+msgstr "collections_tab"
+
+#: views/requestform.py:138 views/requestform.py:174
 msgid "toast_thanks_request_has_been_registered"
 msgstr ""
+
+#~ msgid "handler_sensitive_and_other_terms"
+#~ msgstr "handler_sensitive_terms"
 
 #~ msgid "description"
 #~ msgstr "description"
