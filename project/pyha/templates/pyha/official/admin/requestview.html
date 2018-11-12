@@ -10,7 +10,7 @@
 					{{request_owners_email}}
 				</h1>
 						
-					<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
+				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 				<h2><span style="white-space: nowrap;">
 						{% trans "admin_state_of_request" %}
 						<span
@@ -56,7 +56,24 @@
 						{% endif %}
 						
 						</span>
-					</span></h2>
+					</span>
+				</h2>
+				<form action="{% url 'pyha:freeze' %}" id="requestform" method="post">
+					<div class="form-group stale-form" style>
+						<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+						<input type="hidden" id="next" name="next" value="{{request.path}}">
+						{% if userRequest.frozen %}
+						<h4 style="color:red">{% trans "admin_request_is_frozen" %}</h4>
+						<button type="submit" id="submit" name="freeze" class="btn btn-default btn-sm" >{% trans "admin_unfreeze_request" %}</button>
+						<p>{% trans 'admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin'%}</p>
+						{% else %}
+						<h4 style="color:green">{% trans 'admin_request_is_not_frozen'%}</h4>
+						<button type="submit" id="submit" name="freeze" class="btn btn-default btn-sm" >{% trans "admin_freeze_request" %}</button>
+						<p>{% trans 'admin_freeze_request_to_disable_access_and_actions_by_users_not_admin'%}</p>
+						{% endif %}
+					</div>
+					{% csrf_token %}
+				</form>
 			</div>
 			<div style="padding-left:0px;">
 					{% if taxon %}
@@ -553,6 +570,7 @@
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
 										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "admin_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm">{% trans "admin_reset" %}</button>
 										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm">{% trans "admin_refuse" %}</button>
 									</div>
 									{% csrf_token %}
@@ -568,12 +586,12 @@
 						{% for question in requestInformationChat_list %}
 							{% if question.question %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question}}</p></div>
 							</div>
 							{% endif %}
 							{% if question.question != True %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question}}</p></div>
 							</div>
 							{% endif %}
 						{% endfor %}
@@ -587,15 +605,11 @@
 								{% else %}
 								<span>{% trans 'ask_as_admin_of'%}</span>
 								<select id="target" name="target">
-								{% for collection in customlist %}
-									{% if collection.address in handles %}
-									<option value="{{collection}}">{{collection.result.collectionName}}</option>
-									{% endif %}
-								{% endfor %}
+									<option value="admin">{% trans "as_admin" %}</option>
 								</select>
 								{% endif %}
-								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "admin_request_additional_information" %}</button>
+								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm">{% trans "admin_request_additional_information" %}</button>
 							</div>
 							{% csrf_token %}
 						</form>
@@ -631,12 +645,30 @@
 							<tr>
 								<th>{% trans "admin_log_date" %}</th>
 								<th>{% trans "admin_log_maker" %}</th>
+								<th>{% trans "admin_log_role" %}</th>
 								<th>{% trans "admin_log_description" %}</th>
 							</tr>
 							{% for requestLog in requestLog_list %}
 							<tr>
 								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
 								<td>{{requestLog.name}} ({{requestLog.email}})</td>
+								{% if requestLog.role == 'admin' %}
+								<td>{% trans "admin_log_admin" %}</td>
+								{% elif requestLog.role == 'handler' %}
+								<td>{% trans "admin_log_handler" %}</td>
+								{% elif requestLog.role == 'MA.admin' %}
+								<td>{% trans "admin_log_admin" %}</td>
+								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
+								<td>{% trans "admin_log_sensitive_data_handler" %}</td>
+								{% elif requestLog.role == 'MA.downloadRequestHandler' %}
+								<td>{% trans "admin_log_collection_provider" %}</td>
+								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
+								<td>{% trans "admin_log_sensitive_and_collections_handler" %}</td>
+								{% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
+								<td>{{requestLog.name}}</td>
+								{% else %}
+								<td>{% trans "user" %}</td>
+								{% endif %}
 								{% if requestLog.action == 'VIEW' %}
 								<td>{% trans "admin_log_viewed" %}</td>
 								{% elif requestLog.action == 'ACC' %}
@@ -646,6 +678,12 @@
 									<td>{% trans "admin_log_sensitives_accepted" %}</td>
 									{% else %}
 									<td>{% trans "admin_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
+									{% endif %}
+								{% elif requestLog.action == 'RESET' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "admin_log_sensitives_reset" %}</td>
+									{% else %}
+									<td>{% trans "admin_log_collection_reset" %} ({{ requestLog.collection.result.collectionName }})</td>
 									{% endif %}
 								{% elif requestLog.action == 'NEG' %}
 									{% if requestLog.collection == None %}

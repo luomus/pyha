@@ -30,15 +30,17 @@ def index(request):
 		return _process_auth_response(request,'')
 	userId = request.session["user_id"]
 	hasRole = CAT_HANDLER_SENS in request.session.get("user_roles", [None]) or CAT_HANDLER_COLL in request.session.get("user_roles", [None]) or ADMIN in request.session.get("user_roles", [None]) 
+	toast = None
+	if(request.session.get("toast", None) is not None): 
+		toast = request.session["toast"]
+		request.session["toast"] = None
+		request.session.save()
 	if ADMIN in request.session.get("current_user_role", [None]):
 		request_list = Request.objects.filter(status__gt=0)
 		for r in request_list:
 			r.allSecured = get_all_secured(r)
 			r.email = fetch_email_address(r.user)
-		context = {"role": hasRole, "toast": request.session.get("toast", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		if(request.session.get("toast", None) is not None):
-			request.session["toast"] = None
-			request.session.save()
+		context = {"role": hasRole, "toast": toast, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/base/admin/index.html', context)
 	elif HANDLER_ANY in request.session.get("current_user_role", [None]):
 		request_list = []
@@ -60,17 +62,11 @@ def index(request):
 			handler_information_answered_status(r, request, userId)
 			if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() > 0 or not r.status == StatusEnum.WAITING):
 				r.viewed = True
-		context = {"role": hasRole, "toast": request.session.get("toast", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		if(request.session.get("toast", None) is not None):
-			request.session["toast"] = None
-			request.session.save()
+		context = {"role": hasRole, "toast": toast, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/base/handler/index.html', context)
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
-		context = {"role": hasRole, "toast": request.session.get("toast", None), "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		if(request.session.get("toast", None) is not None): 
-			request.session["toast"] = None
-			request.session.save()
+		context = {"role": hasRole, "toast": toast, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/base/index.html', context)
 
 

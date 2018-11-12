@@ -43,7 +43,7 @@
             >
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
             <td>{{request.email}}</td>
-            <td>{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
+            <td>{{ request.allSecured }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "admin_you_have_not_accepted_terms" %}</td>
             

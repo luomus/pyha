@@ -68,14 +68,7 @@ def log_out(request):
 	'''
     if "user_id" in request.session:     
         del request.session["user_id"]      
-        del request.session["user_name"]
-        del request.session["user_email"]
-        del request.session["_language"]
-        del request.session["user_roles"]
-        del request.session["current_user_role"]
-        if "has_viewed" in request.session:
-            del request.session["has_viewed"]
-            return True
+        request.session.flush()
         return False
 
 def authenticate(request, token, result):
@@ -122,14 +115,18 @@ def is_allowed_to_view(request, requestId):
 
 def is_admin_frozen_and_not_admin(request, userRequest):
     if(userRequest.frozen and not ADMIN in request.session["current_user_role"]):
+        request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
+        request.session.save()
         return True
     else:
-        request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
         return False
 
 def is_request_owner(request, requestId):
     userId = request.session["user_id"]
     return Request.objects.filter(id=requestId, user=userId, status__gte=0).exists()
+
+def is_admin(request):
+    return ADMIN in request.session.get("current_user_role", [None])
 
 def allowed_to_view(request, requestId, userId, role1, role2):
     if ADMIN in request.session.get("current_user_role", [None]):
@@ -153,7 +150,7 @@ def allowed_to_view(request, requestId, userId, role1, role2):
     
 def is_allowed_to_ask_information_as_target(request, target, requestId):
     if target == 'admin':
-        return ADMIN in request.session["user_roles"]
+        return CAT_ADMIN in request.session["user_roles"]
     elif target == 'sens':
         return CAT_HANDLER_SENS in request.session["user_roles"]
     elif Collection.objects.filter(request=requestId, address=target).exists():

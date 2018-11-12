@@ -486,7 +486,7 @@
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
 								<form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
 								<div class="form-group">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -502,7 +502,7 @@
 								{% endif %}
 								{% if question.question != True %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
 								</div>
 								{% endif %}
 							{% endfor %}
@@ -521,8 +521,12 @@
 							{% for requestLog in requestLog_list %}
 							<tr>
 								<td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
-								{% if requestLog.role == 'handler' %}
-								<td>{% trans "admin" %}</td>
+								{% if requestLog.role == 'admin' %}
+								<td>{% trans "log_admin" %}</td>
+								{% elif requestLog.role == 'handler' %}
+								<td>{% trans "log_handler" %}</td>
+								{% elif requestLog.role == 'MA.admin' %}
+								<td>{% trans "log_admin" %}</td>
 								{% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
 								<td>{% trans "log_sensitive_data_handler" %}</td>
 								{% elif requestLog.role == 'MA.downloadRequestHandler' %}
@@ -543,6 +547,12 @@
 									<td>{% trans "log_sensitives_accepted" %}</td>
 									{% else %}
 									<td>{% trans "log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }})</td>
+									{% endif %}
+								{% elif requestLog.action == 'RESET' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "log_sensitives_reset" %}</td>
+									{% else %}
+									<td>{% trans "log_collection_reset" %} ({{ requestLog.collection.result.collectionName }})</td>
 									{% endif %}
 								{% elif requestLog.action == 'NEG' %}
 									{% if requestLog.collection == None %}

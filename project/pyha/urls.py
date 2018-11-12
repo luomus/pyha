@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
     url(r'^api/newcount/?$', api.new_count, name='new_count'),
     url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
-    url(r'^role/?$', logout.change_role, name='change_role')
+    url(r'^role/?$', logout.change_role, name='change_role'),
+    url(r'^freezeRequest/?$', requestview.freeze, name='freeze')
 ]

@@ -809,6 +809,15 @@ h3{
 	}
 }
 
+.stale-form {
+	background-color: #f3f0cc;
+	border-radius: 12px;
+	padding: 10px;
+	line-height: 40px;
+	border: 1px solid #e0e0e0;
+	display: inline-block;
+}
+
 #toastbox {
 	visibility: hidden;
 	min-width: 250px;
@@ -835,7 +844,7 @@ h3{
 }
 
 #toastbox.error {
-	background-color: #dd0000;
+	background-color: #c94e4e;
 }
 
 #toastbox.show {
@@ -864,9 +873,19 @@ h3{
     to {top: 60px; opacity: 0;}
 }
 
-.large-thin-glyphicon {
+.large-thin-glyphicon-positive {
 	font-size: 30px; 
 	-webkit-text-stroke: 2px #51a351;
+}
+
+.large-thin-glyphicon-info {
+	font-size: 30px; 
+	-webkit-text-stroke: 2px #00abfd;
+}
+
+.large-thin-glyphicon-error {
+	font-size: 30px; 
+	-webkit-text-stroke: 2px #c94e4e;
 }
 
 .toast-glyphicon {

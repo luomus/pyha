@@ -143,7 +143,7 @@ def update_contact_preset(request, userRequest):
 	contactPreset.save()
 
 def target_valid(target, requestId):
-	if target == 'sens':
+	if target == 'sens' or target == 'admin':
 		return True
 	elif Collection.objects.filter(request=requestId, address=target).exists():
 		return True
@@ -209,7 +209,7 @@ def update_request_status(userRequest, lang):
 			ignore_official_database_update_request_status(userRequest, lang) 
 		else: 
 			database_update_request_status(userRequest, lang)
-
+			
 def database_update_request_status(wantedRequest, lang):
 
 	statusBeforeUpdate = wantedRequest.status
@@ -404,7 +404,7 @@ def create_request_view_context(requestId, request, userRequest):
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
 		context["requestSensitiveChat_list"] = requestSensitiveChat(userRequest)
-		context["requestHandlerChat_list"] = requestHandlerChat(userRequest)
+		context["requestHandlerChat_list"] = requestHandlerChat(request, userRequest)
 		requestInformationChat_list = requestInformationChat(request, userRequest, role1, role2, userId)
 		context["requestInformationChat_list"] = requestInformationChat_list
 		if(requestInformationChat_list):
@@ -447,7 +447,7 @@ def make_logEntry_view(request, userRequest, userId, role1, role2, role3):
 	if userRequest.id not in request.session.get("has_viewed", [None]):
 		logRole = USER
 		if role3:
-			logRole = ADMIN
+			logRole = CAT_ADMIN
 		elif role1:
 			logRole = CAT_HANDLER_SENS
 			if role2:
@@ -479,10 +479,11 @@ def requestSensitiveChat(userRequest):
 			c.name = fetch_user_name(c.user)
 		return requestSensitiveChat_list
 	
-def requestHandlerChat(userRequest):
+def requestHandlerChat(request, userRequest):
 		requestHandlerChat_list = list(RequestHandlerChatEntry.requestHandlerChat.filter(request=userRequest).order_by('date'))
 		for c in requestHandlerChat_list:
 			c.name = fetch_user_name(c.user)
+			get_result_for_target(request, c)
 		return requestHandlerChat_list
 
 def requestInformationChat(request, userRequest, role1, role2, userId):
