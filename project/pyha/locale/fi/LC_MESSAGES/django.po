@@ -87,7 +87,7 @@ msgstr ""
 #, fuzzy
 #| msgid "partially_accepted"
 msgid "admin_partially_accepted"
-msgstr "Hyväksytty (osittain hylätty)"
+msgstr "Osittain hyväksytty"
 
 #: templates/pyha/base/admin/index.html:57
 #: templates/pyha/official/admin/requestview.html:39
@@ -170,7 +170,7 @@ msgstr ""
 #, fuzzy
 #| msgid "handler_no_requests_for_admin"
 msgid "admin_no_requests_for_admin"
-msgstr "Kannassa ei ole pyyntöjä"
+msgstr "Ei aineistopyyntöjä"
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
@@ -254,7 +254,7 @@ msgstr "Puhelinnumero"
 #: templates/pyha/skipofficial/requestform.html:129
 #: templates/pyha/skipofficial/requestform.html:149
 msgid "enter_corporation/organization"
-msgstr "Yritystiedot"
+msgstr "Yrityksen tiedot"
 
 #: templates/pyha/base/ajax/requestformcontact.html:23
 #: templates/pyha/official/requestform.html:162
@@ -262,7 +262,7 @@ msgstr "Yritystiedot"
 #: templates/pyha/skipofficial/requestform.html:131
 #: templates/pyha/skipofficial/requestform.html:151
 msgid "enter_corporation/organization_name"
-msgstr "Yrityksen/Järjestön nimi"
+msgstr "Yrityksen/organisaation nimi"
 
 #: templates/pyha/base/ajax/requestformcontact.html:24
 #: templates/pyha/official/requestform.html:163
@@ -281,7 +281,7 @@ msgstr "Y-tunnus"
 #: templates/pyha/skipofficial/handler/requestview.html:349
 #: templates/pyha/skipofficial/requestview.html:425
 msgid "additional_contact_name"
-msgstr "Muun hakijan nimi:"
+msgstr "Lisähakijan nimi:"
 
 #: templates/pyha/base/ajax/requestformcontact.html:34
 #: templates/pyha/base/ajax/requestformmodalcontact.html:6
@@ -453,7 +453,7 @@ msgstr "Y-tunnus:"
 
 #: templates/pyha/base/ajax/requestformsummary.html:3
 msgid "request_was_empty_and_will_be_closed"
-msgstr "Pyyntösi oli tyhjä, ja sen käsittely päätetään."
+msgstr "Pyyntösi oli tyhjä ja sen käsittely päätetään."
 
 #: templates/pyha/base/ajax/requestformsummary.html:5
 #: templates/pyha/official/requestview.html:204
@@ -633,7 +633,7 @@ msgstr "Odottaa sinun päätöstäsi"
 #: templates/pyha/skipofficial/handler/requestview.html:36
 #: templates/pyha/skipofficial/handler/requestview.html:438
 msgid "handler_partially_accepted"
-msgstr "Hyväksytty (osittain hylätty)"
+msgstr "Osittain hyväksytty"
 
 #: templates/pyha/base/handler/index.html:66
 #: templates/pyha/official/handler/requestview.html:39
@@ -682,7 +682,7 @@ msgstr "Tuntematon"
 
 #: templates/pyha/base/handler/index.html:92
 msgid "handler_no_requests_for_admin"
-msgstr "Kannassa ei ole pyyntöjä"
+msgstr "Ei aineistopyyntöjä"
 
 #: templates/pyha/base/index.html:9
 msgid "welcome"
@@ -943,7 +943,7 @@ msgstr "Hakijat"
 #, fuzzy
 #| msgid "argument_window"
 msgid "admin_argument_window"
-msgstr "Hakemuksen perustelut"
+msgstr "Aineistopyynnön perustelut"
 
 #: templates/pyha/official/admin/requestview.html:138
 #: templates/pyha/skipofficial/admin/requestview.html:126
@@ -1066,7 +1066,7 @@ msgstr "Aineistopyynnön rajaukset"
 #, fuzzy
 #| msgid "handler_show_in_officials_portal"
 msgid "admin_show_in_officials_portal"
-msgstr "Katso tulokset viranomaisportaalissa"
+msgstr "Näytä tulokset viranomaisportaalissa"
 
 #: templates/pyha/official/admin/requestview.html:243
 #: templates/pyha/skipofficial/admin/requestview.html:231
@@ -1121,7 +1121,7 @@ msgstr "Valitut käyttötarkoitukset"
 #, fuzzy
 #| msgid "reason_zoning"
 msgid "admin_reason_zoning"
-msgstr "Maankäytönsuunnittelu"
+msgstr "Maankäytön suunnittelu"
 
 #: templates/pyha/official/admin/requestview.html:277
 #: templates/pyha/skipofficial/admin/requestview.html:265
@@ -1163,7 +1163,7 @@ msgstr "Metsäsuunnittelu"
 #, fuzzy
 #| msgid "reason_other"
 msgid "admin_reason_other"
-msgstr "Muu (Perustele vapaatekstikenttään)"
+msgstr "Muu (perustele vapaatekstikenttään)"
 
 #: templates/pyha/official/admin/requestview.html:293
 #: templates/pyha/skipofficial/admin/requestview.html:281
@@ -1248,7 +1248,7 @@ msgstr "Käyttöehdot"
 #: templates/pyha/skipofficial/requestform.html:313
 #: templates/pyha/skipofficial/requestview.html:385
 msgid "as_pdf"
-msgstr "PDF muodossa"
+msgstr "PDF-muodossa"
 
 #: templates/pyha/official/admin/requestview.html:350
 #: templates/pyha/official/admin/requestview.html:425
@@ -1267,7 +1267,7 @@ msgstr "Sensitiivisten aineistojen käyttöehdot"
 #, fuzzy
 #| msgid "handler_as_pdf"
 msgid "admin_as_pdf"
-msgstr "PDF muodossa"
+msgstr "PDF-muodossa"
 
 #: templates/pyha/official/admin/requestview.html:385
 #: templates/pyha/official/handler/requestview.html:379
@@ -1280,7 +1280,7 @@ msgstr "PDF muodossa"
 #: templates/pyha/skipofficial/requestform.html:340
 #: templates/pyha/skipofficial/requestview.html:406
 msgid "contact_name"
-msgstr "Aineistopyynnön tekijän nimi:"
+msgstr "Nimi:"
 
 #: templates/pyha/official/admin/requestview.html:433
 #: templates/pyha/skipofficial/admin/requestview.html:389
@@ -1370,7 +1370,7 @@ msgstr "Tee päätös sensitiivisen lajitiedon luovutuksesta"
 #, fuzzy
 #| msgid "decision_arguments"
 msgid "admin_decision_arguments"
-msgstr "Perustelut päätökselle"
+msgstr "Päätöksen perustelut"
 
 #: templates/pyha/official/admin/requestview.html:497
 #, fuzzy
@@ -1648,7 +1648,7 @@ msgstr "Muutoshistoria on tyhjä"
 #: templates/pyha/official/ajax/requestformcustom.html:3
 msgid "secured_collections_in_request"
 msgstr ""
-"Aineistopyyntöösi liittyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
+"Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
 "käyttöehdot"
 
 #: templates/pyha/official/ajax/requestformcustom.html:9
@@ -1704,7 +1704,7 @@ msgstr "Jatka yhteenvetoon"
 #: templates/pyha/official/ajax/requestformtaxon.html:3
 msgid "Request involves collections requiring approval for sensitive terms"
 msgstr ""
-"Aineistopyyntöösi liittyy sensitiivistä tietoa. Lue ja hyväksy käyttöehdot"
+"Aineistopyyntöösi sisältyy sensitiivistä tietoa. Lue ja hyväksy käyttöehdot"
 
 #: templates/pyha/official/ajax/requestformtaxon.html:8
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:7
@@ -1769,7 +1769,7 @@ msgstr "Hakijat"
 #: templates/pyha/official/handler/requestview.html:125
 #: templates/pyha/skipofficial/handler/requestview.html:108
 msgid "handler_argument_window"
-msgstr "Hakemuksen perustelut"
+msgstr "Aineistopyynnön perustelut"
 
 #: templates/pyha/official/handler/requestview.html:132
 #: templates/pyha/skipofficial/handler/requestview.html:115
@@ -1817,7 +1817,7 @@ msgstr "Aineiston nimi"
 #: templates/pyha/skipofficial/handler/requestview.html:168
 #: templates/pyha/skipofficial/handler/requestview.html:412
 msgid "handler_collection_description"
-msgstr "Kokoelman kuvaus"
+msgstr "Kuvaus"
 
 #: templates/pyha/official/handler/requestview.html:186
 #: templates/pyha/skipofficial/handler/requestview.html:169
@@ -1880,7 +1880,7 @@ msgstr "Valitut käyttötarkoitukset"
 #: templates/pyha/official/handler/requestview.html:269
 #: templates/pyha/skipofficial/handler/requestview.html:252
 msgid "handler_reason_zoning"
-msgstr "Maankäytönsuunnittelu"
+msgstr "Maankäytön suunnittelu"
 
 #: templates/pyha/official/handler/requestview.html:271
 #: templates/pyha/skipofficial/handler/requestview.html:254
@@ -2018,7 +2018,7 @@ msgstr "Puhelinnumero"
 #: templates/pyha/official/handler/requestview.html:437
 #: templates/pyha/skipofficial/handler/requestview.html:388
 msgid "handler_corporation/organization_name"
-msgstr "Yritys/Organisaatio"
+msgstr "Yritys/organisaatio"
 
 #: templates/pyha/official/handler/requestview.html:438
 #: templates/pyha/skipofficial/handler/requestview.html:389
@@ -2037,7 +2037,7 @@ msgstr "Tee päätös sensitiivisen lajitiedon luovutuksesta"
 #: templates/pyha/official/handler/requestview.html:531
 #: templates/pyha/skipofficial/handler/requestview.html:414
 msgid "handler_decision_arguments"
-msgstr "Perustelut päätökselle"
+msgstr "Päätöksen perustelut"
 
 #: templates/pyha/official/handler/requestview.html:492
 #, fuzzy
@@ -2358,7 +2358,7 @@ msgstr "Metsäsuunnittelu"
 #: templates/pyha/skipofficial/requestform.html:174
 #: templates/pyha/skipofficial/requestview.html:340
 msgid "reason_other"
-msgstr "Muu (Perustele vapaatekstikenttään)"
+msgstr "Muu (perustele vapaatekstikenttään)"
 
 #: templates/pyha/official/requestform.html:209
 #: templates/pyha/skipofficial/requestform.html:178
@@ -2497,7 +2497,7 @@ msgstr "Puhelinnumero"
 #: templates/pyha/skipofficial/requestform.html:279
 #: templates/pyha/skipofficial/requestview.html:465
 msgid "corporation/organization_name"
-msgstr "Yrityksen/Järjestön nimi"
+msgstr "Yrityksen/organisaation nimi"
 
 #: templates/pyha/official/requestform.html:346
 #: templates/pyha/official/requestview.html:548
@@ -2620,12 +2620,12 @@ msgstr "Valitse aineiston käyttötarkoitus"
 #: templates/pyha/official/requestform.html:855
 #: templates/pyha/skipofficial/requestform.html:721
 msgid "request_chosen_multiple_reasons"
-msgstr "Valittu useampi kohta"
+msgstr "Valittu useampi"
 
 #: templates/pyha/official/requestform.html:856
 #: templates/pyha/skipofficial/requestform.html:722
 msgid "request_chosen_all_reasons"
-msgstr "Valittu kaikki kohdat"
+msgstr "Valittu kaikki"
 
 #: templates/pyha/official/requestview.html:13
 #: templates/pyha/skipofficial/requestview.html:13
@@ -2713,7 +2713,7 @@ msgstr "Aineistorajaukset"
 #: templates/pyha/official/requestview.html:179
 #: templates/pyha/skipofficial/requestview.html:167
 msgid "terms_window"
-msgstr "Ehdot"
+msgstr "Käyttöehdot"
 
 #: templates/pyha/official/requestview.html:186
 #: templates/pyha/skipofficial/requestview.html:174
@@ -2756,7 +2756,7 @@ msgstr "Päätös sensitiivisen tiedon antamisesta"
 
 #: templates/pyha/official/requestview.html:267
 msgid "decision_arguments"
-msgstr "Perustelut päätökselle"
+msgstr "Päätöksen perustelut"
 
 #: templates/pyha/official/requestview.html:300
 #: templates/pyha/skipofficial/requestview.html:250
@@ -2766,7 +2766,7 @@ msgstr "Päätös aineistokohtaisen tiedon antamisesta"
 #: templates/pyha/official/requestview.html:305
 #: templates/pyha/skipofficial/requestview.html:255
 msgid "collection_decision_arguments"
-msgstr "Aineistokohtaiset perustelut päätökselle"
+msgstr "Aineistokohtaiset päätöksen perustelut"
 
 #: templates/pyha/official/requestview.html:374
 #: templates/pyha/skipofficial/requestview.html:324
@@ -2912,7 +2912,7 @@ msgstr ""
 #| msgid "secured_collections_in_request"
 msgid "restricted_collections_in_request"
 msgstr ""
-"Aineistopyyntöösi liittyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
+"Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
 "käyttöehdot"
 
 #: templates/pyha/skipofficial/handler/requestview.html:151
@@ -2968,7 +2968,7 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 #~ msgstr "Kuvaus"
 
 #~ msgid "change_description"
-#~ msgstr "Muuta kuvaus"
+#~ msgstr "Muuta kuvausta"
 
 #, fuzzy
 #~| msgid "collections_tab"
@@ -3014,12 +3014,12 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 #, fuzzy
 #~| msgid "decision_arguments"
 #~ msgid "positional arguments"
-#~ msgstr "Perustelut päätökselle"
+#~ msgstr "Päätöksen perustelut"
 
 #, fuzzy
 #~| msgid "decision_arguments"
 #~ msgid "optional arguments"
-#~ msgstr "Perustelut päätökselle"
+#~ msgstr "Päätöksen perustelut"
 
 #, fuzzy
 #~| msgid "required_arguments"
@@ -3034,7 +3034,7 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 #, fuzzy
 #~| msgid "decision_arguments"
 #~ msgid "expected one argument"
-#~ msgstr "Perustelut päätökselle"
+#~ msgstr "Päätöksen perustelut"
 
 #, fuzzy
 #~| msgid "request_arguments"
@@ -3128,7 +3128,7 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 #~ msgstr "Pyynnön perustelut"
 
 #~ msgid "User doesn't want sensitive data"
-#~ msgstr "Pyytäjä ei halua sensitiivistä tietoa"
+#~ msgstr "Hakija ei halua sensitiivistä tietoa"
 
 #~ msgid "accept"
 #~ msgstr "Hyväksy"
@@ -3152,4 +3152,4 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 #~ msgstr "Olet pyytänyt tietoa seuraavista aineistoista:"
 
 #~ msgid "User wants sensitive data"
-#~ msgstr "Pyytäjä haluaa sensitiivistä tietoa"
+#~ msgstr "Hakija haluaa sensitiivistä tietoa"
