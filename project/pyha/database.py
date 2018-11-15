@@ -288,7 +288,8 @@ def database_update_request_status(wantedRequest, lang):
 			wantedRequest.status = StatusEnum.WAITING
 		else:
 			wantedRequest.status = StatusEnum.UNKNOWN
-		wantedRequest.save()
+		if(wantedRequest.status != statusBeforeUpdate):
+			wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 	
@@ -328,7 +329,8 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
 		wantedRequest.status = StatusEnum.WAITING
 	else:
 		wantedRequest.status = StatusEnum.UNKNOWN
-	wantedRequest.save()
+	if(wantedRequest.status != statusBeforeUpdate):
+		wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 		
