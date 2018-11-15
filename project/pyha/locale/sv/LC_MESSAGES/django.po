@@ -2348,7 +2348,7 @@ msgstr "Skogsplanering"
 #: templates/pyha/skipofficial/requestform.html:174
 #: templates/pyha/skipofficial/requestview.html:340
 msgid "reason_other"
-msgstr ""Annat (vänligen förklara i fri text)""
+msgstr "Annat (vänligen förklara i fri text)"
 
 #: templates/pyha/official/requestform.html:209
 #: templates/pyha/skipofficial/requestform.html:178
@@ -3075,7 +3075,7 @@ msgstr "Tack, din förfrågan har skrivits in."
 #~ "A description is a voluntary way to name your request. Without it the "
 #~ "requests title will be the requests date"
 #~ msgstr ""
-#~ En beskrivning är ett frivilligt sätt att namnge din begäran. Utan "
+#~ "En beskrivning är ett frivilligt sätt att namnge din begäran. Utan "
 #~ "det kommer begärans titeln att vara begärans datum"
 
 #~ msgid "if_you_cannot_see_terms_you_can_load_them"

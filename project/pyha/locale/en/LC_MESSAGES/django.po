@@ -1800,8 +1800,8 @@ msgstr "Collections in request"
 #: templates/pyha/official/handler/requestview.html:528
 #: templates/pyha/skipofficial/handler/requestview.html:166
 #: templates/pyha/skipofficial/handler/requestview.html:411
+msgid "handler_collection_name"
 msgstr "Name of collection"
-msgstr "handler_collection_name"
 
 #: templates/pyha/official/handler/requestview.html:185
 #: templates/pyha/official/handler/requestview.html:529
@@ -2446,8 +2446,7 @@ msgstr "Name"
 #: templates/pyha/skipofficial/requestform.html:273
 #: templates/pyha/skipofficial/requestview.html:459
 msgid "street_address"
-msgstr "
-"
+msgstr "Street Address"
 
 #: templates/pyha/official/requestform.html:340
 #: templates/pyha/official/requestview.html:542
