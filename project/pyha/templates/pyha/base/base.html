@@ -57,6 +57,11 @@
 		        <ul class="nav navbar-nav">
 		          <li><a href="{% url 'pyha:index' %}">{% trans "all_requests" %}</a></li>  
 		        </ul>
+		        {% if 'admin' in request.session.current_user_role %}
+		        <ul class="nav navbar-nav">
+		          <li><a href="{% url 'admin:index' %}">{% trans "admin_site" %}</a></li>  
+		        </ul>
+		        {% endif %}
 		        <ul class="nav navbar-nav navbar-right">
 		        <li><a class="nohover" >{{username}} <span class="glyphicon glyphicon-user"></span></a></li>
 				{% if role %}

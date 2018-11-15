@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.conf import settings
 from pyha.views import api, index, requestform, requestview, logout, ajax
 
@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^api/newcount/?$', api.new_count, name='new_count'),
     url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
     url(r'^role/?$', logout.change_role, name='change_role'),
-    url(r'^freezeRequest/?$', requestview.freeze, name='freeze')
+    url(r'^freezeRequest/?$', requestview.freeze, name='freeze'),
 ]

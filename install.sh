@@ -22,6 +22,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		APILAJIFI_TOKEN 0 \
 		LAJI_AUTH_TARGET "ex. KE.521 for staging / KE.541 for local" \
 		ZABBIX_STATUS_SUB_DIR "Path to subdirectory used by zabbix ex. api/status" \
+		ADMIN_SUB_DIR "Path to subdirectory used by admin views ex. my/secret/45otryend34/admin/site" \
 		PYHA_API_USER 0 \
 		PYHA_API_PASSWORD 0 \
 		OBSERVATION_LINK_PREFIX "ex. https://laji.fi/observation/map?" \

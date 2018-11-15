@@ -7,6 +7,9 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.core import serializers
 from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
 from pyha.roles import CAT_ADMIN, ADMIN, CAT_HANDLER_SENS, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import is_download_handler, get_collections_where_download_handler, is_download_handler_in_collection
@@ -55,7 +58,19 @@ def log_in(request, token, authentication_info):
             request.session["current_user_role"] = HANDLER_ANY
         if CAT_ADMIN in request.session["user_roles"]:
             request.session["user_roles"].append(ADMIN)
-            request.session["current_user_role"] = ADMIN
+            request.session["current_user_role"] = ADMIN         
+            admin, created = User.objects.get_or_create(
+                username = request.session["user_id"],
+                defaults={
+                    'first_name': request.session["user_name"].split()[0],
+                    'last_name': request.session["user_name"].split()[-1],
+                    'email': request.session["user_email"],
+                    'password': token,
+                    'is_staff': True,
+                    'is_active': True,
+                    'is_superuser': True
+                })
+            login(request, admin)
         request.session.set_expiry(3600)
         return True
     return False
