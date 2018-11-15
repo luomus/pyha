@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 05:43+0200\n"
+"POT-Creation-Date: 2018-11-15 04:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: login.py:118
+#: admin.py:23
+msgid "Welcome adventurer to the Den of Evil beneath Pyha"
+msgstr ""
+
+#: admin.py:24
+#, fuzzy
+#| msgid "admin"
+msgid "Pyha admin"
+msgstr "Roll: behandlare"
+
+#: login.py:133
 #, fuzzy
 #| msgid "handler_request_status_for_admin"
 msgid "error_request_has_been_frozen_by_admin"
@@ -162,7 +172,10 @@ msgstr "Okänd"
 #: templates/pyha/skipofficial/requestview.html:195
 #: templates/pyha/skipofficial/requestview.html:198
 msgid "given_values_are_not_absolute"
-msgstr "Eftersom vissa data är inte offentliga är antalet av observationer vägledande. Antalet av observationer i en godkänd begäran kan avvika från sökningen."
+msgstr ""
+"Eftersom vissa data är inte offentliga är antalet av observationer "
+"vägledande. Antalet av observationer i en godkänd begäran kan avvika från "
+"sökningen."
 
 #: templates/pyha/base/admin/index.html:83
 #, fuzzy
@@ -523,11 +536,17 @@ msgstr "Bläddra"
 msgid "all_requests"
 msgstr "Begäran"
 
-#: templates/pyha/base/base.html:69 templates/pyha/base/base.html.py:73
+#: templates/pyha/base/base.html:62
+#, fuzzy
+#| msgid "no_filters"
+msgid "admin_site"
+msgstr "Det finns inga filter för denna begäran"
+
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
 msgid "admin"
 msgstr "Roll: behandlare"
 
-#: templates/pyha/base/base.html:69 templates/pyha/base/base.html.py:71
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
 #: templates/pyha/official/requestview.html:621
@@ -537,25 +556,25 @@ msgstr "Roll: behandlare"
 msgid "user"
 msgstr "Roll: användare"
 
-#: templates/pyha/base/base.html:72
+#: templates/pyha/base/base.html:77
 #, fuzzy
 #| msgid "handler_exit"
 msgid "handler"
 msgstr "Lämna"
 
-#: templates/pyha/base/base.html:81
+#: templates/pyha/base/base.html:86
 msgid "logout"
 msgstr "Logga ut"
 
-#: templates/pyha/base/base.html:96
+#: templates/pyha/base/base.html:101
 msgid "set_lang_fi"
 msgstr "Suomeksi"
 
-#: templates/pyha/base/base.html:98
+#: templates/pyha/base/base.html:103
 msgid "set_lang_sv"
 msgstr "P책 svenska"
 
-#: templates/pyha/base/base.html:100
+#: templates/pyha/base/base.html:105
 msgid "set_lang_en"
 msgstr "In English"
 
@@ -1644,7 +1663,9 @@ msgstr "Ändringslogg är tom"
 
 #: templates/pyha/official/ajax/requestformcustom.html:3
 msgid "secured_collections_in_request"
-msgstr "Din begäran innehåller begränsade material. Vänligen läs och acceptera användarvillkor"
+msgstr ""
+"Din begäran innehåller begränsade material. Vänligen läs och acceptera "
+"användarvillkor"
 
 #: templates/pyha/official/ajax/requestformcustom.html:9
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:16
@@ -1677,7 +1698,8 @@ msgstr "Användarvillkor"
 
 #: templates/pyha/official/ajax/requestformcustom.html:34
 msgid "no_custom_sightings_go_to_step_3"
-msgstr "Begäran innehåller inte andra begränsade material, fortsätt till steg 3"
+msgstr ""
+"Begäran innehåller inte andra begränsade material, fortsätt till steg 3"
 
 #: templates/pyha/official/ajax/requestformcustom.html:38
 #: templates/pyha/official/ajax/requestformtaxon.html:44
@@ -1696,14 +1718,20 @@ msgstr "Fortsätt till sammandrag"
 
 #: templates/pyha/official/ajax/requestformtaxon.html:3
 msgid "Request involves collections requiring approval for sensitive terms"
-msgstr "Din begäran innehåller sensitiva data. Vänligen läs och acceptera användarvillkor"
+msgstr ""
+"Din begäran innehåller sensitiva data. Vänligen läs och acceptera "
+"användarvillkor"
 
 #: templates/pyha/official/ajax/requestformtaxon.html:8
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:7
 #, fuzzy
 #| msgid "sensitivity"
 msgid "sensitivity_info"
-msgstr "FinBIF kontrollerar sensitiva artdata genom att gömma antingen den exakta platsinformationen eller hela observationen. Detta gäller arter vars bevarande skulle äventyras av förföljelse, jakt, trakasserier eller kommersiell eller privat insamling. Hotet ska gälla för de aktuella arterna."
+msgstr ""
+"FinBIF kontrollerar sensitiva artdata genom att gömma antingen den exakta "
+"platsinformationen eller hela observationen. Detta gäller arter vars "
+"bevarande skulle äventyras av förföljelse, jakt, trakasserier eller "
+"kommersiell eller privat insamling. Hotet ska gälla för de aktuella arterna."
 
 #: templates/pyha/official/ajax/requestformtaxon.html:17
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:17
@@ -1712,7 +1740,9 @@ msgstr "Sensitiva observationer"
 
 #: templates/pyha/official/ajax/requestformtaxon.html:39
 msgid "no_sensitive_sightings_have_to_accept_terms"
-msgstr "Begäran innehåller inga sensitiva observationer. Vänligen acceptera användarvillkor för att fortsätta"
+msgstr ""
+"Begäran innehåller inga sensitiva observationer. Vänligen acceptera "
+"användarvillkor för att fortsätta"
 
 #: templates/pyha/official/ajax/requestformtaxon.html:45
 msgid "continue_to_step_4"
@@ -2664,7 +2694,10 @@ msgstr "Avbryta behandling och ladda ner godkända material"
 #: templates/pyha/official/requestview.html:123
 #: templates/pyha/skipofficial/requestview.html:111
 msgid "are_you_sure_you_want_to_download_only_those_given"
-msgstr "Material som inte har godkänts kommer att uteslutas från nedladdningen, och begäran kommer inte att behandlas vidare.  Är du säker på att du vill gå vidare?"
+msgstr ""
+"Material som inte har godkänts kommer att uteslutas från nedladdningen, och "
+"begäran kommer inte att behandlas vidare.  Är du säker på att du vill gå "
+"vidare?"
 
 #: templates/pyha/official/requestview.html:126
 #: templates/pyha/skipofficial/requestview.html:114
@@ -2901,7 +2934,9 @@ msgstr "Sensitiva och annan begränsad artinformation från FinBIF"
 #, fuzzy
 #| msgid "secured_collections_in_request"
 msgid "restricted_collections_in_request"
-msgstr "Din begäran innehåller begränsade material. Vänligen läs och acceptera användarvillkor"
+msgstr ""
+"Din begäran innehåller begränsade material. Vänligen läs och acceptera "
+"användarvillkor"
 
 #: templates/pyha/skipofficial/handler/requestview.html:151
 #, fuzzy
@@ -3075,8 +3110,8 @@ msgstr "Tack, din förfrågan har skrivits in."
 #~ "A description is a voluntary way to name your request. Without it the "
 #~ "requests title will be the requests date"
 #~ msgstr ""
-#~ "En beskrivning är ett frivilligt sätt att namnge din begäran. Utan "
-#~ "det kommer begärans titeln att vara begärans datum"
+#~ "En beskrivning är ett frivilligt sätt att namnge din begäran. Utan det "
+#~ "kommer begärans titeln att vara begärans datum"
 
 #~ msgid "if_you_cannot_see_terms_you_can_load_them"
 #~ msgstr "Om användarvillkor syns inte, du kan ladda ner de"

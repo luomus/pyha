@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 05:43+0200\n"
+"POT-Creation-Date: 2018-11-15 04:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: login.py:118
+#: admin.py:23
+msgid "Welcome adventurer to the Den of Evil beneath Pyha"
+msgstr ""
+
+#: admin.py:24
+#, fuzzy
+#| msgid "admin"
+msgid "Pyha admin"
+msgstr "Rooli: käsittelijä"
+
+#: login.py:133
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Virhe, pyyntö on poissa käytöstä väliaikaisesti."
 
@@ -492,11 +502,17 @@ msgstr "Selaa"
 msgid "all_requests"
 msgstr "Aineistopyynnöt"
 
-#: templates/pyha/base/base.html:69 templates/pyha/base/base.html.py:73
+#: templates/pyha/base/base.html:62
+#, fuzzy
+#| msgid "admin_filter"
+msgid "admin_site"
+msgstr "Suodattimet"
+
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
 msgid "admin"
 msgstr "Rooli: käsittelijä"
 
-#: templates/pyha/base/base.html:69 templates/pyha/base/base.html.py:71
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
 #: templates/pyha/official/requestview.html:621
@@ -506,23 +522,23 @@ msgstr "Rooli: käsittelijä"
 msgid "user"
 msgstr "Rooli: käyttäjä"
 
-#: templates/pyha/base/base.html:72
+#: templates/pyha/base/base.html:77
 msgid "handler"
 msgstr "Poistu"
 
-#: templates/pyha/base/base.html:81
+#: templates/pyha/base/base.html:86
 msgid "logout"
 msgstr "Kirjaudu ulos"
 
-#: templates/pyha/base/base.html:96
+#: templates/pyha/base/base.html:101
 msgid "set_lang_fi"
 msgstr "Suomeksi"
 
-#: templates/pyha/base/base.html:98
+#: templates/pyha/base/base.html:103
 msgid "set_lang_sv"
 msgstr "På svenska"
 
-#: templates/pyha/base/base.html:100
+#: templates/pyha/base/base.html:105
 msgid "set_lang_en"
 msgstr "In English"
 
@@ -2677,7 +2693,9 @@ msgstr "Aineistonkäsittelijöiden kommentit"
 
 #: templates/pyha/skipofficial/handler/requestview.html:508
 msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
-msgstr "Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön eikä siis näy pyynnön tekijälle. Muistakaa käytöstavat."
+msgstr ""
+"Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön eikä siis näy "
+"pyynnön tekijälle. Muistakaa käytöstavat."
 
 #: templates/pyha/skipofficial/handler/requestview.html:511
 msgid "col_handler_said"
