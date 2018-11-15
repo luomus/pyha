@@ -69,7 +69,7 @@ def send_mail_for_missing_handlers(collections_missing_handler, lang):
 		plaintext = get_template('pyha/email/mail_collections_missing_handlers_sv.txt')
 	subject = subject_content	
 	from_email = settings.PYHA_EMAIL
-	to = 'pyhatestaaja@gmail.com'
+	to = settings.ICT_EMAIL
 	text_content = plaintext.render(context)
 	
 	recipients = [to]
