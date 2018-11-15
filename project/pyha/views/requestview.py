@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.translation import ugettext
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language

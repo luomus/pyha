@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
 from django.views.i18n import javascript_catalog
 from django.conf.urls.static import static
 from django.conf import settings
+from pyha import decorator, views
 
 
 urlpatterns = [
@@ -40,3 +40,8 @@ urlpatterns += [
     url(r'^jsi18n/$', javascript_catalog, js_info_dict,
       name='javascript-catalog'),
 ]
+
+urlpatterns += decorator.required( decorator.admin_required_and_force_english, [ 
+    url(r'^{0}/logout/?$'.format(settings.SECRET_ADMIN_SUB_DIR), views.logout.logout),
+    url(r'^{0}/'.format(settings.SECRET_ADMIN_SUB_DIR), include(admin.site.urls))    
+])

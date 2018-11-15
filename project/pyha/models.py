@@ -1,4 +1,5 @@
 ﻿from __future__ import unicode_literals
+from simple_history.models import HistoricalRecords
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
@@ -19,11 +20,12 @@ class Collection(models.Model):
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0)
 	customSecured = models.IntegerField(default=0)
-	downloadRequestHandler = models.CharField(max_length=500,null=True)
-	decisionExplanation = models.CharField(max_length=1000,null=True)
+	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
+	decisionExplanation = models.CharField(max_length=1000,blank=True,null=True)
+	history = HistoricalRecords()
 
 	def __str__(self):
-		return self.address
+		return str(self.address)
 	
 
 @python_2_unicode_compatible
@@ -54,48 +56,50 @@ class Request(models.Model):
 	#status 99: Ohitettu (skippofficial)
 	
 	sensstatus = models.IntegerField()
-	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
-	sensComment = models.CharField(max_length=1000,null=True)
+	sensDecisionExplanation = models.CharField(max_length=1000,blank=True,null=True)
+	sensComment = models.CharField(max_length=1000,blank=True,null=True)
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
 	user = models.CharField(max_length=100)
 	approximateMatches = models.IntegerField()
 	downloadFormat = models.CharField(max_length=40)
 	downloadIncludes = models.CharField(max_length=1000)
-	downloadDate = models.CharField(max_length=400,null=True)
+	downloadDate = models.CharField(max_length=400,blank=True,null=True)
 	filter_list = models.CharField(max_length=2000)
-	personName = models.CharField(max_length=100,null=True)
-	personStreetAddress = models.CharField(max_length=100,null=True)
-	personPostOfficeName = models.CharField(max_length=100,null=True)
-	personPostalCode = models.CharField(max_length=100,null=True)
-	personCountry = models.CharField(max_length=100,null=True)
-	personEmail = models.CharField(max_length=100,null=True)
-	personPhoneNumber = models.CharField(max_length=100,null=True)
-	personOrganizationName = models.CharField(max_length=100,null=True)
-	personCorporationId = models.CharField(max_length=100,null=True)
-	reason = models.CharField(max_length=16000,null=True)
+	personName = models.CharField(max_length=100,blank=True,null=True)
+	personStreetAddress = models.CharField(max_length=100,blank=True,null=True)
+	personPostOfficeName = models.CharField(max_length=100,blank=True,null=True)
+	personPostalCode = models.CharField(max_length=100,blank=True,null=True)
+	personCountry = models.CharField(max_length=100,blank=True,null=True)
+	personEmail = models.CharField(max_length=100,blank=True,null=True)
+	personPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
+	personOrganizationName = models.CharField(max_length=100,blank=True,null=True)
+	personCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	reason = models.CharField(max_length=16000,blank=True,null=True)
 	lang = models.CharField(max_length=10, default='fi') 
 	frozen = models.BooleanField(default=False)
+	history = HistoricalRecords()
 
 	def __str__(self):
-		return self.id
+		return str(self.id)
 
 @python_2_unicode_compatible
 class RequestContact(models.Model):
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
-	personName = models.CharField(max_length=100,null=True)
-	personStreetAddress = models.CharField(max_length=100,null=True)
-	personPostOfficeName = models.CharField(max_length=100,null=True)
-	personPostalCode = models.CharField(max_length=100,null=True)
-	personCountry = models.CharField(max_length=100,null=True)
-	personEmail = models.CharField(max_length=100,null=True)
-	personPhoneNumber = models.CharField(max_length=100,null=True)
-	personOrganizationName = models.CharField(max_length=100,null=True)
-	personCorporationId = models.CharField(max_length=100,null=True)
+	personName = models.CharField(max_length=100,blank=True,null=True)
+	personStreetAddress = models.CharField(max_length=100,blank=True,null=True)
+	personPostOfficeName = models.CharField(max_length=100,blank=True,null=True)
+	personPostalCode = models.CharField(max_length=100,blank=True,null=True)
+	personCountry = models.CharField(max_length=100,blank=True,null=True)
+	personEmail = models.CharField(max_length=100,blank=True,null=True)
+	personPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
+	personOrganizationName = models.CharField(max_length=100,blank=True,null=True)
+	personCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	history = HistoricalRecords()
 	
 	def __str__(self):
-		return self.id
+		return str(self.id)
 
 @python_2_unicode_compatible
 class RequestLogEntry(models.Model):
@@ -119,6 +123,7 @@ class RequestLogEntry(models.Model):
 	role = models.CharField(max_length=100)
 	action = models.CharField(max_length=5, choices=ACTION)
 	requestLog = models.Manager()
+	history = HistoricalRecords()
 	
 	def __str__(self):
 		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
@@ -130,9 +135,10 @@ class RequestSensitiveChatEntry(models.Model):
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
 	requestChat = models.Manager()
+	history = HistoricalRecords()
 	
 	def __str__(self):
-		return self.message
+		return str(self.message)
 	
 @python_2_unicode_compatible		
 class RequestHandlerChatEntry(models.Model):
@@ -142,9 +148,10 @@ class RequestHandlerChatEntry(models.Model):
 	message = models.CharField(max_length=2000)
 	target = models.CharField(max_length=200)
 	requestHandlerChat = models.Manager()
+	history = HistoricalRecords()
 	
 	def __str__(self):
-		return self.message
+		return str(self.message)
 
 @python_2_unicode_compatible
 class RequestInformationChatEntry(models.Model):
@@ -155,25 +162,27 @@ class RequestInformationChatEntry(models.Model):
 	message = models.CharField(max_length=2000)
 	target = models.CharField(max_length=200) #'sens' or apilaji defined collection id
 	requestInformationChat = models.Manager()
+	history = HistoricalRecords()
 	
 	def __str__(self):
-		return self.message
+		return str(self.message)
 
 @python_2_unicode_compatible
 class ContactPreset(models.Model):
 	user = models.CharField(primary_key=True, max_length=100)
-	requestPersonName = models.CharField(max_length=100,null=True)
-	requestPersonStreetAddress = models.CharField(max_length=100,null=True)
-	requestPersonPostOfficeName = models.CharField(max_length=100,null=True)
-	requestPersonPostalCode = models.CharField(max_length=100,null=True)
-	requestPersonCountry = models.CharField(max_length=100,null=True)
-	requestPersonEmail = models.CharField(max_length=100,null=True)
-	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
-	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
-	requestPersonCorporationId = models.CharField(max_length=100,null=True)
-
+	requestPersonName = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonStreetAddress = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonPostOfficeName = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonPostalCode = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonCountry = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonEmail = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonOrganizationName = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	history = HistoricalRecords()
+	
 	def __str__(self):
-		return self.user
+		return str(self.user)
 
 
 

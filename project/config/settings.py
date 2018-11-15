@@ -39,7 +39,8 @@ LAJIFILTERS_URL = LAJIAPI_URL + 'warehouse/filters'
 TUN_URL = 'http://tun.fi/'
 SECRET_TIMEOUT_PERIOD = 5
 TARGET= os.environ["LAJI_AUTH_TARGET"] #'KE.541'
-SECRET_STATUS_SUB_DIR = os.environ["ZABBIX_STATUS_SUB_DIR"]
+SECRET_STATUS_SUB_DIR = os.environ["ZABBIX_STATUS_SUB_DIR"] #path/to
+SECRET_ADMIN_SUB_DIR = os.environ["ADMIN_SUB_DIR"] #path/to
 SECRET_HTTPS_USER = os.environ["PYHA_API_USER"] 
 SECRET_HTTPS_PW = os.environ["PYHA_API_PASSWORD"] 
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
@@ -118,6 +119,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +132,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 CSRF_COOKIE_HTTPONLY = False
