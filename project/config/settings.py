@@ -232,7 +232,6 @@ STATICFILES_FINDERS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/pyha/static/'
 STA_URL = os.environ.get("STATIC_PATH_URL", "") + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")

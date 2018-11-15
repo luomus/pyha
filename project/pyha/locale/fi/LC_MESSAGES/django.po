@@ -23,10 +23,8 @@ msgid "Welcome adventurer to the Den of Evil beneath Pyha"
 msgstr ""
 
 #: admin.py:24
-#, fuzzy
-#| msgid "admin"
 msgid "Pyha admin"
-msgstr "Rooli: käsittelijä"
+msgstr "Pyha admin"
 
 #: login.py:133
 msgid "error_request_has_been_frozen_by_admin"
@@ -503,14 +501,12 @@ msgid "all_requests"
 msgstr "Aineistopyynnöt"
 
 #: templates/pyha/base/base.html:62
-#, fuzzy
-#| msgid "admin_filter"
 msgid "admin_site"
-msgstr "Suodattimet"
+msgstr "Admin sivu"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
 msgid "admin"
-msgstr "Rooli: käsittelijä"
+msgstr "Rooli: Admin"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
@@ -520,11 +516,11 @@ msgstr "Rooli: käsittelijä"
 #: templates/pyha/skipofficial/handler/requestview.html:565
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
-msgstr "Rooli: käyttäjä"
+msgstr "Rooli: Käyttäjä"
 
 #: templates/pyha/base/base.html:77
 msgid "handler"
-msgstr "Poistu"
+msgstr "Rooli: Käsittelijä"
 
 #: templates/pyha/base/base.html:86
 msgid "logout"
@@ -1247,7 +1243,7 @@ msgstr "Tee päätös aineiston tietojen luovutuksesta"
 #: templates/pyha/official/admin/requestview.html:573
 #: templates/pyha/skipofficial/admin/requestview.html:463
 msgid "admin_reset"
-msgstr "Rooli: käsittelijä"
+msgstr "Nollaa"
 
 #: templates/pyha/official/admin/requestview.html:585
 #: templates/pyha/skipofficial/admin/requestview.html:475

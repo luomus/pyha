@@ -544,7 +544,7 @@ msgstr "Det finns inga filter för denna begäran"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
 msgid "admin"
-msgstr "Roll: behandlare"
+msgstr "Roll: Admin"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
@@ -554,13 +554,11 @@ msgstr "Roll: behandlare"
 #: templates/pyha/skipofficial/handler/requestview.html:565
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
-msgstr "Roll: användare"
+msgstr "Roll: Användare"
 
 #: templates/pyha/base/base.html:77
-#, fuzzy
-#| msgid "handler_exit"
 msgid "handler"
-msgstr "Lämna"
+msgstr "Roll: behandlare"
 
 #: templates/pyha/base/base.html:86
 msgid "logout"
@@ -572,7 +570,7 @@ msgstr "Suomeksi"
 
 #: templates/pyha/base/base.html:103
 msgid "set_lang_sv"
-msgstr "P책 svenska"
+msgstr "På svenska"
 
 #: templates/pyha/base/base.html:105
 msgid "set_lang_en"
@@ -1504,10 +1502,8 @@ msgstr "Fråga i roll"
 
 #: templates/pyha/official/admin/requestview.html:608
 #: templates/pyha/skipofficial/admin/requestview.html:495
-#, fuzzy
-#| msgid "admin"
 msgid "as_admin"
-msgstr "Roll: behandlare"
+msgstr "i Admin"
 
 #: templates/pyha/official/admin/requestview.html:612
 #: templates/pyha/skipofficial/admin/requestview.html:498
@@ -1525,17 +1521,13 @@ msgstr "Kommentarer av myndigheterna"
 
 #: templates/pyha/official/admin/requestview.html:624
 #: templates/pyha/skipofficial/admin/requestview.html:510
-#, fuzzy
-#| msgid "admin"
 msgid "admin_said"
-msgstr "Roll: behandlare"
+msgstr "Admin säger"
 
 #: templates/pyha/official/admin/requestview.html:633
 #: templates/pyha/skipofficial/admin/requestview.html:520
-#, fuzzy
-#| msgid "admin"
 msgid "admin_save"
-msgstr "Roll: behandlare"
+msgstr "Save"
 
 #: templates/pyha/official/admin/requestview.html:646
 #: templates/pyha/skipofficial/admin/requestview.html:533
@@ -1640,15 +1632,11 @@ msgstr "Material nekad"
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:577
-#, fuzzy
-#| msgid "log_sensitives_denied"
 msgid "admin_log_sensitives_denied"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/admin/requestview.html:692
 #: templates/pyha/skipofficial/admin/requestview.html:579
-#, fuzzy
-#| msgid "log_collection_denied"
 msgid "admin_log_collection_denied"
 msgstr "Material nekad"
 
@@ -2844,10 +2832,8 @@ msgstr "Beskrivning"
 #: templates/pyha/official/requestview.html:611
 #: templates/pyha/skipofficial/requestview.html:525
 #: templates/pyha/skipofficial/requestview.html:529
-#, fuzzy
-#| msgid "admin"
 msgid "log_admin"
-msgstr "Roll: behandlare"
+msgstr "Admin"
 
 #: templates/pyha/official/requestview.html:609
 #: templates/pyha/skipofficial/requestview.html:527

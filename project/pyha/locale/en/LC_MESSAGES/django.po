@@ -534,14 +534,12 @@ msgid "all_requests"
 msgstr "Requests"
 
 #: templates/pyha/base/base.html:62
-#, fuzzy
-#| msgid "no_filters"
 msgid "admin_site"
-msgstr "There are no filters for this request"
+msgstr "Admin site"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
 msgid "admin"
-msgstr "Request handler"
+msgstr "Role: Admin"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
@@ -551,13 +549,11 @@ msgstr "Request handler"
 #: templates/pyha/skipofficial/handler/requestview.html:565
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
-msgstr "User"
+msgstr "Role: User"
 
 #: templates/pyha/base/base.html:77
-#, fuzzy
-#| msgid "handler_exit"
 msgid "handler"
-msgstr "Exit"
+msgstr "Role: Handler"
 
 #: templates/pyha/base/base.html:86
 msgid "logout"
