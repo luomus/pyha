@@ -20,5 +20,5 @@ admin.site.register(RequestHandlerChatEntry, SimpleHistoryAdmin)
 admin.site.register(RequestInformationChatEntry, SimpleHistoryAdmin)
 admin.site.register(RequestSensitiveChatEntry, SimpleHistoryAdmin)
 
-admin.site.site_header = ugettext_lazy('Welcome adventurer to the Den of Evil beneath Pyha')
+admin.site.site_header = ugettext_lazy('Pyha administration')
 admin.site.site_title = ugettext_lazy('Pyha admin')
