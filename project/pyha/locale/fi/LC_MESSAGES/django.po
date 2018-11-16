@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 04:33+0200\n"
+"POT-Creation-Date: 2018-11-16 03:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:23
-msgid "Welcome adventurer to the Den of Evil beneath Pyha"
-msgstr ""
+#: admin.py:49
+#, fuzzy
+#| msgid "Pyha admin"
+msgid "Pyha administration"
+msgstr "Pyha admin"
 
-#: admin.py:24
+#: admin.py:50
 msgid "Pyha admin"
 msgstr "Pyha admin"
 
@@ -508,6 +510,10 @@ msgstr "Admin sivu"
 msgid "admin"
 msgstr "Rooli: Admin"
 
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:77
+msgid "handler"
+msgstr "Rooli: Käsittelijä"
+
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
@@ -517,10 +523,6 @@ msgstr "Rooli: Admin"
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
 msgstr "Rooli: Käyttäjä"
-
-#: templates/pyha/base/base.html:77
-msgid "handler"
-msgstr "Rooli: Käsittelijä"
 
 #: templates/pyha/base/base.html:86
 msgid "logout"

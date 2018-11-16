@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 04:33+0200\n"
+"POT-Creation-Date: 2018-11-16 03:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:23
-msgid "Welcome adventurer to the Den of Evil beneath Pyha"
-msgstr ""
+#: admin.py:49
+#, fuzzy
+#| msgid "admin"
+msgid "Pyha administration"
+msgstr "Request handler"
 
-#: admin.py:24
+#: admin.py:50
 #, fuzzy
 #| msgid "admin"
 msgid "Pyha admin"
@@ -541,6 +543,10 @@ msgstr "Admin site"
 msgid "admin"
 msgstr "Role: Admin"
 
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:77
+msgid "handler"
+msgstr "Role: Handler"
+
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
@@ -550,10 +556,6 @@ msgstr "Role: Admin"
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
 msgstr "Role: User"
-
-#: templates/pyha/base/base.html:77
-msgid "handler"
-msgstr "Role: Handler"
 
 #: templates/pyha/base/base.html:86
 msgid "logout"
