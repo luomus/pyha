@@ -71,7 +71,7 @@
 		            data-currenturl='{{ request.path }}'
 		            data-currentfullurl='{{ request.get_full_path }}'>
 		
-				<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.current_user_role == 'admin' %}{% trans "admin" %}{% elif request.session.current_user_role == 'handler' %}{% trans "admin" %}{% else %}{% trans "user" %}{% endif %} {% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
+				<button type="button" onclick="roleFunction()" class="dropbtn">{% if request.session.current_user_role == 'admin' %}{% trans "admin" %}{% elif request.session.current_user_role == 'handler' %}{% trans "handler" %}{% else %}{% trans "user" %}{% endif %} {% csrf_token %}<span class="glyphicon glyphicon-eye-open"></span></button>
 				<div id="roleDropdown" class="dropdown-content">
 	              	<a onclick='roleSubmit("user")' name="role" id="role">{% trans "user" %}</a>
 	              	{% if 'handler' in request.session.user_roles %}<a onclick='roleSubmit("handler")' name="role" id="role">{% trans "handler" %}</a>{% endif %}
