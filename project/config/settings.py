@@ -47,7 +47,7 @@ FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/obse
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
 SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == "True"
 ICT_EMAIL = "helpdesk@laji.fi"
-PYHA_EMAIL = "pyha.staging@laji.fi"
+PYHA_EMAIL = "noreply.pyha-staging@laji.fi"
 MOCK_JSON=False
 TESTING=False
 APPEND_SLASH=False

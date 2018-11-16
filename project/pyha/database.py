@@ -6,7 +6,7 @@ from django.core.cache import caches
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, send_mail_for_missing_handlers
+from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
@@ -155,12 +155,6 @@ def handlers_cannot_be_updated():
 def update_collection_handlers():	
 	if 'has expired' in caches['collections'].get('collection_update', 'has expired'):
 		if update_collections():
-			collections_missing_handler = []
-			for co in caches['collections'].get('collections'):
-				if(co.get('downloadRequestHandler', {}) == {}):
-					collections_missing_handler.append(co.get('id'))
-			if(len(collections_missing_handler) > 0):
-				send_mail_for_missing_handlers(collections_missing_handler, "fi")
 			return True
 		else:
 			return False

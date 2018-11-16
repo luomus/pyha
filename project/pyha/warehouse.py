@@ -205,7 +205,8 @@ def update_collections():
 		else:
 			return False
 		for co in data['results']:
-			result.append(co)
+			if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):
+				result.append(co)
 		if payload['page'] < data['lastPage']:
 			payload['page'] += 1	
 		else:
