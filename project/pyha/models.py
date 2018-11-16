@@ -25,7 +25,7 @@ class Collection(models.Model):
 	history = HistoricalRecords()
 
 	def __str__(self):
-		return str(self.address)
+		return 'Collection: %s (in Request: %d)' %(self.address, self.request.id)
 	
 
 @python_2_unicode_compatible
@@ -81,7 +81,7 @@ class Request(models.Model):
 	history = HistoricalRecords()
 
 	def __str__(self):
-		return str(self.id)
+		return 'Request: %d (lajiId: %s) [%s]' %(self.id, self.lajiId, self.date)
 
 @python_2_unicode_compatible
 class RequestContact(models.Model):
@@ -99,7 +99,7 @@ class RequestContact(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return str(self.id)
+		return 'RequestContact: %s (in Request: %d)' %(self.personName, self.request.id)
 
 @python_2_unicode_compatible
 class RequestLogEntry(models.Model):
@@ -112,7 +112,7 @@ class RequestLogEntry(models.Model):
 		(VIEW, 'views request'),
 		(ACCEPT, 'accepts terms of use'),
 		(DECISION_POSITIVE, 'accepts use of data'),
-		(DECISION_RESET, 'resets the decision for a new round'),
+		(DECISION_RESET, 'resets the decision regarding data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
 	)
 	
@@ -126,7 +126,7 @@ class RequestLogEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return '%s (role: %s): %s (request: %d, collection: %s)' %(self.user, self.role, self.get_action_display(), self.request.id, self.collection )
+		return 'RequestLogEntry: %s (role: %s) [%s]: %s (Request: %d, collection: %s)' %(self.user, self.role, self.date, self.get_action_display(), self.request.id, self.collection )
 
 @python_2_unicode_compatible		
 class RequestSensitiveChatEntry(models.Model):
@@ -138,7 +138,7 @@ class RequestSensitiveChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return str(self.message)
+		return 'RequestSensitiveChatEntry: %s (in Request: %d) %s' %(self.user, self.request.id, self.message)
 	
 @python_2_unicode_compatible		
 class RequestHandlerChatEntry(models.Model):
@@ -151,7 +151,7 @@ class RequestHandlerChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return str(self.message)
+		return 'RequestHandlerChatEntry: %s (in Request: %d, as target: %s) %s' %(self.user, self.request.id, self.target, self.message)
 
 @python_2_unicode_compatible
 class RequestInformationChatEntry(models.Model):
@@ -165,7 +165,7 @@ class RequestInformationChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return str(self.message)
+		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question:) %s' %(self.user, self.request.id, self.target, self.question, self.message)
 
 @python_2_unicode_compatible
 class ContactPreset(models.Model):
@@ -182,9 +182,7 @@ class ContactPreset(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return str(self.user)
-
-
+		return 'ContactPreset: %s' %(self.user)
 
 def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)
