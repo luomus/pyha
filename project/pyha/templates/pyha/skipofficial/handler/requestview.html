@@ -487,7 +487,7 @@
 								<select id="target" name="target">
 								{% for collection in customlist %}
 									{% if collection.address in handles %}
-									<option value="{{collection}}">{{collection.result.collectionName}}</option>
+									<option value="{{collection.address}}">{{collection.result.collectionName}}</option>
 									{% endif %}
 								{% endfor %}
 								</select>
@@ -508,7 +508,7 @@
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} ({{requestHandlerChat.result.collectionName}}) {% trans "col_handler_said" %}&#10;&#13;{{ requestHandlerChat}}</p></div>
+								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} ({{requestHandlerChat.result.collectionName}}) {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
@@ -520,7 +520,7 @@
 									<select id="target" name="target">
 									{% for collection in customlist %}
 										{% if collection.address in handles %}
-										<option value="{{collection}}">{{collection.result.collectionName}}</option>
+										<option value="{{collection.address}}">{{collection.result.collectionName}}</option>
 										{% endif %}
 									{% endfor %}
 									</select>

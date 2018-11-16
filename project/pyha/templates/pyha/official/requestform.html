@@ -303,9 +303,9 @@
 														<div class="modal-header">
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 															<h4 class="modal-title" id="myModalLabel">{% trans "terms" %}</h4>
-															<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+															<button style="font-size:10px;" type="button" onclick="post('{% url 'pyha:newpdf' %}',{source: document.getElementById('custom-content-{{collection.address}}').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'})" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 														</div>
-														<div id="custom-content-{{collection}}" class="modal-body" style="padding-left:20px;">
+														<div id="custom-content-{{collection.address}}" class="modal-body" style="padding-left:20px;">
 															<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
 															<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
 															<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  

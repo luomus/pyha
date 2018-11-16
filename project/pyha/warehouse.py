@@ -71,8 +71,8 @@ def makeblob(x):
 	
 def get_values_for_collections(requestId, request, List):
 	for i, c in enumerate(List):
-		if 'has expired' in cache.get(str(c.address)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):
-			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+		if 'has expired' in cache.get(str(c.address)+'collection_values'+request.LANGUAGE_CODE, 'has expired'):			
+			c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
 			cache.set(str(c.address)+'collection_values'+request.LANGUAGE_CODE, c.result)
 			c.result["collectionName"] = c.result.get("collectionName",c.address)
 			c.result["description"] = c.result.get("description","-")

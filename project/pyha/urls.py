@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
     url(r'^role/?$', logout.change_role, name='change_role'),
     url(r'^freezeRequest/?$', requestview.freeze, name='freeze'),
+    url(r'^lang/?$', logout.change_lang, name='set_language'),
 ]

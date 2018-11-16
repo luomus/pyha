@@ -86,10 +86,10 @@
 		        <li><a href="{% url 'pyha:logout' %}">{% trans "logout" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
 		        {% get_current_language as LANGUAGE %}
 				<div class="dropdown">
-				<form id='language_form' action="{% url 'set_language' %}" method="post"
+				<form id='language_form' action="{% url 'pyha:set_language' %}" method="post"
 		            data-currenturl='{{ request.path }}'
 		            data-currentfullurl='{{ request.get_full_path }}'>
-				<button type="button" onclick="showLangDropdown()" class="dropbtn"><span class="glyphicon glyphicon-globe"></span> {% if LANGUAGE == 'sw' %}SV{% else %}{{LANGUAGE|upper}}{% endif %}{% csrf_token %}</button>
+				<button type="button" onclick="showLangDropdown()" class="dropbtn"><span class="glyphicon glyphicon-globe"></span> {{LANGUAGE|upper}}{% csrf_token %}</button>
 					<div id="langDropdown" class="dropdown-content" style="left: -50%;">
 		              {% get_available_languages as LANGUAGES %}
 		              {% get_language_info_list for LANGUAGES as languages %}
@@ -110,7 +110,7 @@
 					  
 					</div>
 				<input id='language_form_select' name="language" type="hidden" value="">
-				<input type="hidden" id="next" name="next" value={{request.path}}>
+				<input type="hidden" id="next" name="next" value={{request.get_full_path}}>
 				</form>
 				</div>
 		        </ul>
