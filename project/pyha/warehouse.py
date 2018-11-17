@@ -37,7 +37,7 @@ def store(jsond):
         req.lang = data.locale
     else:
         req.lang = u'fi'
-    req.changedBy(changed_by("pyha"))
+    req.changedBy = changed_by("pyha")
     req.save()
     
     if hasattr(data, 'collections'):
@@ -55,7 +55,7 @@ def makeCollection(req, i):
     co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler',['none']))
     co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
     co.customSecured = getattr(i, 'customReasonCount', 0)
-    co.changedBy(changed_by("pyha"))
+    co.changedBy = changed_by("pyha")
     co.save()
 
 def checkJson(jsond):

@@ -36,7 +36,7 @@ def download(request, link):
         if(userRequest.status == 7 and userRequest != None):
             userRequest.status = 8
             userRequest.downloadDate = datetime.now()
-            userRequest.changedBy(changed_by("pyha"))
+            userRequest.changedBy = changed_by("pyha")
             userRequest.save()
             send_mail_after_receiving_download(userRequest.id, userRequest.lang)
     return HttpResponse('')

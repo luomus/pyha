@@ -34,7 +34,7 @@ def set_description_ajax(request):
         if is_admin_frozen_and_not_admin(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest.description = request.POST.get('description')
-        userRequest.changedBy(changed_by_session_user(request))
+        userRequest.changedBy = changed_by_session_user(request)
         userRequest.save()
         return HttpResponse(status=200)
     return HttpResponseRedirect(reverse('pyha:root'))
@@ -141,7 +141,7 @@ def remove_collection_ajax(request):
         collection = Collection.objects.get(id = collectionId)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT and collection.status != -1):
             collection.status = -1
-            collection.changedBy(changed_by_session_user(request))
+            collection.changedBy = changed_by_session_user(request)
             collection.save()
             if(check_all_collections_removed(requestId)):
                 return HttpResponse(reverse('pyha:root'), status=310)

@@ -26,11 +26,11 @@ def remove_sensitive_data(request):
 		collectionId = request.POST.get('collectionId')
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0
-		collection.changedBy(changed_by_session_user(request))
+		collection.changedBy = changed_by_session_user(request)
 		collection.save()
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
-			collection.changedBy(changed_by_session_user(request))
+			collection.changedBy = changed_by_session_user(request)
 			collection.save()
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
@@ -48,11 +48,11 @@ def remove_custom_data(request):
 		collectionId = request.POST.get('collectionId')
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0
-		collection.changedBy(changed_by_session_user(request))
+		collection.changedBy = changed_by_session_user(request)
 		collection.save()
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = StatusEnum.DISCARDED
-			collection.changedBy(changed_by_session_user(request))
+			collection.changedBy = changed_by_session_user(request)
 			collection.save()
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
@@ -72,7 +72,7 @@ def removeCollection(request):
 		#avoid work when submitted multiple times
 		if(collection.status != -1):
 			collection.status = -1
-			collection.changedBy(changed_by_session_user(request))
+			collection.changedBy = changed_by_session_user(request)
 			collection.save()
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
@@ -113,7 +113,7 @@ def check_all_collections_removed(requestId):
 	collectionList = userRequest.collection_set.filter(status__gte=0)
 	if not collectionList:
 		userRequest.status = -1
-		userRequest.changedBy(changed_by("pyha"))
+		userRequest.changedBy = changed_by("pyha")
 		userRequest.save()
 		return True
 	return False
@@ -130,7 +130,7 @@ def create_new_contact(request, userRequest, count):
 	contact.personPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
 	contact.personOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
 	contact.personCorporationId = request.POST.get('request_person_corporation_id_'+str(count))
-	contact.changedBy(changed_by_session_user(request))
+	contact.changedBy = changed_by_session_user(request)
 	contact.save()
 
 def update_contact_preset(request, userRequest):
@@ -147,7 +147,7 @@ def update_contact_preset(request, userRequest):
 	contactPreset.requestPersonPhoneNumber = request.POST.get('request_person_phone_number_1')
 	contactPreset.requestPersonOrganizationName = request.POST.get('request_person_organization_name_1')
 	contactPreset.requestPersonCorporationId = request.POST.get('request_person_corporation_id_1')
-	contactPreset.changedBy(changed_by_session_user(request))
+	contactPreset.changedBy = changed_by_session_user(request)
 	contactPreset.save()
 
 def target_valid(target, requestId):
@@ -261,7 +261,7 @@ def database_update_request_status(wantedRequest, lang):
 				wantedRequest.status = StatusEnum.WAITING
 			else:
 				wantedRequest.status = StatusEnum.UNKNOWN
-			wantedRequest.changedBy(changed_by("pyha"))
+			wantedRequest.changedBy = changed_by("pyha")
 			wantedRequest.save()
 	else:
 		for c in requestCollections:
@@ -292,7 +292,7 @@ def database_update_request_status(wantedRequest, lang):
 		else:
 			wantedRequest.status = StatusEnum.UNKNOWN
 		if(wantedRequest.status != statusBeforeUpdate):
-			wantedRequest.changedBy(changed_by("pyha"))
+			wantedRequest.changedBy = changed_by("pyha")
 			wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
@@ -334,7 +334,7 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
 	else:
 		wantedRequest.status = StatusEnum.UNKNOWN
 	if(wantedRequest.status != statusBeforeUpdate):
-		wantedRequest.changedBy(changed_by("pyha"))
+		wantedRequest.changedBy = changed_by("pyha")
 		wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)

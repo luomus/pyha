@@ -68,7 +68,7 @@ def comment_sensitive(request):
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.message = message
-            newChatEntry.changedBy(changed_by_session_user(request))
+            newChatEntry.changedBy = changed_by_session_user(request)
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
 
@@ -92,7 +92,7 @@ def comment_handler(request):
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.message = message
-            newChatEntry.changedBy(changed_by_session_user(request))
+            newChatEntry.changedBy = changed_by_session_user(request)
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
     
@@ -113,7 +113,7 @@ def initialize_download(request):
             if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensStatus in [4,99] and contains_approved_collection(requestId))):
                 send_download_request(requestId)
                 userRequest.status = 7
-                userRequest.changedBy(changed_by_session_user(request))
+                userRequest.changedBy = changed_by_session_user(request)
                 userRequest.save()
     return HttpResponseRedirect(nexturl)
     
@@ -129,7 +129,7 @@ def change_description(request):
         if is_admin_frozen_and_not_admin(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest.description = request.POST.get('description')
-        userRequest.changedBy(changed_by_session_user(request))
+        userRequest.changedBy = changed_by_session_user(request)
         userRequest.save()
         return HttpResponseRedirect(nexturl)
     return HttpResponseRedirect(reverse('pyha:root'))
@@ -145,7 +145,7 @@ def freeze(request):
         userRequest = Request.objects.get(id = requestId)
         if userRequest.frozen: userRequest.frozen = False
         else: userRequest.frozen = True
-        userRequest.changedBy(changed_by_session_user(request))
+        userRequest.changedBy = changed_by_session_user(request)
         userRequest.save()
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
@@ -173,10 +173,10 @@ def answer(request):
             newChatEntry.question = True
             newChatEntry.target = target
             newChatEntry.message = request.POST.get('reason')
-            newChatEntry.changedBy(changed_by_session_user(request))
+            newChatEntry.changedBy = changed_by_session_user(request)
             newChatEntry.save()
             userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
-            userRequest.changedBy(changed_by_session_user(request))
+            userRequest.changedBy = changed_by_session_user(request)
             userRequest.save()
             send_mail_after_additional_information_requested(requestId, request.LANGUAGE_CODE)
         elif ADMIN in request.session["current_user_role"]:
@@ -195,7 +195,7 @@ def answer(request):
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId),collection = collection, user = request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_NEGATIVE)
                 collection.decisionExplanation = request.POST.get('reason')
-                collection.changedBy(changed_by_session_user(request))
+                collection.changedBy = changed_by_session_user(request)
                 collection.save()
                 update_request_status(userRequest, userRequest.lang)
             elif userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
@@ -219,7 +219,7 @@ def answer(request):
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_NEGATIVE)
                 userRequest.sensDecisionExplanation = request.POST.get('reason')
-                userRequest.changedBy(changed_by_session_user(request))
+                userRequest.changedBy = changed_by_session_user(request)
                 userRequest.save()
                 update_request_status(userRequest, userRequest.lang)
         elif HANDLER_ANY == request.session["current_user_role"]:
@@ -236,7 +236,7 @@ def answer(request):
                         #make a log entry
                         RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId),collection = collection, user = request.session["user_id"], role = CAT_HANDLER_COLL, action = RequestLogEntry.DECISION_NEGATIVE)
                     collection.decisionExplanation = request.POST.get('reason')
-                    collection.changedBy(changed_by_session_user(request))
+                    collection.changedBy = changed_by_session_user(request)
                     collection.save()
                     update_request_status(userRequest, userRequest.lang)
             elif CAT_HANDLER_SENS in request.session["user_roles"] and userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
@@ -254,7 +254,7 @@ def answer(request):
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = CAT_HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
                 userRequest.sensDecisionExplanation = request.POST.get('reason')
-                userRequest.changedBy(changed_by_session_user(request))
+                userRequest.changedBy = changed_by_session_user(request)
                 userRequest.save()
                 update_request_status(userRequest, userRequest.lang)
     return HttpResponseRedirect(nexturl)
@@ -282,7 +282,7 @@ def information(request):
             newChatEntry.question = False
             newChatEntry.target = target
             newChatEntry.message = request.POST.get('reason')
-            newChatEntry.changedBy(changed_by_session_user(request))
+            newChatEntry.changedBy = changed_by_session_user(request)
             newChatEntry.save() 
             userRequest.status = StatusEnum.WAITING
             for co in Collection.objects.filter(request = userRequest):
@@ -302,7 +302,7 @@ def information(request):
                     userRequest.status = StatusEnum.WAITING_FOR_INFORMATION           
             except RequestInformationChatEntry.DoesNotExist:
                 pass
-            userRequest.changedBy(changed_by_session_user(request))
+            userRequest.changedBy = changed_by_session_user(request)
             userRequest.save()
             update_request_status(userRequest, userRequest.lang)
     return HttpResponseRedirect(nexturl)
