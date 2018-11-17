@@ -83,7 +83,7 @@ class Request(models.Model):
 	history = HistoricalRecords()
 
 	def __str__(self):
-		return 'Request: %d (lajiId: %s) [%s]' %(self.id, self.lajiId, self.date)
+		return 'Request: %d (lajiId: %s) [%s]' %(self.id, self.lajiId, self.date.strftime('%d.%m.%Y %H:%M:%S'))
 
 @python_2_unicode_compatible
 class RequestContact(models.Model):
@@ -130,7 +130,7 @@ class RequestLogEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'RequestLogEntry: %s (role: %s) [%s]: %s (Request: %d, collection: %s)' %(self.user, self.role, self.date, self.get_action_display(), self.request.id, self.collection )
+		return 'RequestLogEntry: %s (role: %s) [%s]: %s (Request: %d, collection: %s)' %(self.user, self.role, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.get_action_display(), self.request.id, self.collection )
 
 @python_2_unicode_compatible		
 class RequestSensitiveChatEntry(models.Model):
@@ -143,7 +143,7 @@ class RequestSensitiveChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'RequestSensitiveChatEntry: %s (in Request: %d) %s' %(self.user, self.request.id, self.message)
+		return 'RequestSensitiveChatEntry: %s (in Request: %d) [%s]: %s' %(self.user, self.request.id, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 	
 @python_2_unicode_compatible		
 class RequestHandlerChatEntry(models.Model):
@@ -157,7 +157,7 @@ class RequestHandlerChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'RequestHandlerChatEntry: %s (in Request: %d, as target: %s) %s' %(self.user, self.request.id, self.target, self.message)
+		return 'RequestHandlerChatEntry: %s (in Request: %d, as target: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 
 @python_2_unicode_compatible
 class RequestInformationChatEntry(models.Model):
@@ -172,7 +172,7 @@ class RequestInformationChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) %s' %(self.user, self.request.id, self.target, self.question, self.message)
+		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.question, self.date.strftime('%d.%m.%Y %H:%M:%S') self.message)
 
 @python_2_unicode_compatible
 class ContactPreset(models.Model):
