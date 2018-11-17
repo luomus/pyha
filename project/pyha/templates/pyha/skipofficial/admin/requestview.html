@@ -155,15 +155,13 @@
 							</span>
 						</a>
 					</li>
-					{% if role1%}
-					<li id="admin_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
-						<a href="#admin_comments" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="admin_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
+					<li id="handler_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
+						<a href="#handler_comments" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'admin_comments_window' %}
+								{% trans 'col_handler_comments_window' %}
 							</span>
 						</a>
 					</li>
-					{% endif %}
 				</ul>
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
@@ -476,12 +474,12 @@
 						{% for question in requestInformationChat_list %}
 							{% if question.question %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}){% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}){% elif question.target == 'admin' %} ({% trans 'admin' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question.message}}</p></div>
 							</div>
 							{% endif %}
 							{% if question.question != True %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question.message}}</p></div>
 							</div>
 							{% endif %}
 						{% endfor %}
@@ -500,31 +498,35 @@
 							{% csrf_token %}
 						</form>
 					</div>
-					{% if role1 %}
-					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="admin_comments">
+
+					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
 						<div>
 							<div>
-								<h3>{% trans "admin_official_comment_area" %}</h3>
-								{% for requestChat in requestChat_list %}
+								<h3>{% trans "col_handler_comment_area" %}</h3>
+								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
+								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "admin_said" %}&#10;&#13;{{ requestChat }}</p></div>
+								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if question.target == 'admin' %} ({% trans 'admin' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
-								<form action="{% url 'pyha:comment_sensitive' %}" id="commentform" method="post">
+								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
 								<div class="form-group">
 									<input type="hidden" id="collectionid" name="collectionid" value="sens">
 									<input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-									<input type="hidden" id="requestid" name="requestid" value="admin">
-									<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required ></textarea>
-									<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "admin_save" %}</button>
+									<span>{% trans 'talk_as_handler_of' %}</span>
+									<select id="target" name="target">
+										<option value="admin">{% trans "as_admin" %}</option>
+									</select>
+									<textarea class="form-control" rows="5" cols="700" id="commentsForHandlers" name="commentsForHandlers" style="overflow:auto;resize:none" required ></textarea>
+									<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_save" %}</button>
 								</div>
 								{% csrf_token %}
 								</form>
 							</div>
 						</div>
 					</div>
-					{% endif %}
+
 					<div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
 						{% if requestLog_list %}
 						<h3>{% trans "admin_changes_history" %}</h3>

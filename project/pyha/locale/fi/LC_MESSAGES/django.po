@@ -1281,7 +1281,7 @@ msgstr "Sensitiivisen lajitiedon käyttöehdot"
 #: templates/pyha/skipofficial/requestview.html:489
 #: templates/pyha/skipofficial/requestview.html:505
 msgid "admin_question"
-msgstr "Kysymys"
+msgstr "Administraattori"
 
 #: templates/pyha/official/admin/requestview.html:589
 #: templates/pyha/skipofficial/admin/requestview.html:479
