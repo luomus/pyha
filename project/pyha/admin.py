@@ -14,20 +14,28 @@ class Media:
     
 class RequestAdmin(SimpleHistoryAdmin):
     search_fields = ['id', 'lajiId']
+    history_list_display = ["changedBy"]
 class CollectionAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'address']
+    history_list_display = ["changedBy"]
 class RequestContactAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'personName']
+    history_list_display = ["changedBy"]
 class RequestLogEntryAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'collection', 'date', 'user', 'role', 'action']
+    history_list_display = ["changedBy"]
 class ContactPresetAdmin(SimpleHistoryAdmin):
     search_fields = ['user']
+    history_list_display = ["changedBy"]
 class RequestHandlerChatEntryAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'user', 'date', 'target']
+    history_list_display = ["changedBy"]
 class RequestInformationChatEntryAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'user', 'date', 'target']
+    history_list_display = ["changedBy"]
 class RequestSensitiveChatEntryAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'date', 'user']
+    history_list_display = ["changedBy"]
 class LogEntryAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'action_time', 'object_repr', 'action_flag', 'object_id']
     readonly_fields = ('change_message','content_type', 'user', 'action_time', 'object_repr', 'action_flag', 'object_id')
