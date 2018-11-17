@@ -172,7 +172,7 @@ class RequestInformationChatEntry(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.question, self.date.strftime('%d.%m.%Y %H:%M:%S') self.message)
+		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.question, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 
 @python_2_unicode_compatible
 class ContactPreset(models.Model):
