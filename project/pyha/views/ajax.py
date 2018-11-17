@@ -5,6 +5,7 @@ from pyha.database import create_request_view_context, check_all_collections_rem
 from pyha.localization import check_language
 from pyha.login import logged_in, is_allowed_to_view, is_request_owner, is_admin_frozen_and_not_admin
 from pyha.models import Request, Collection, StatusEnum
+from pyha.log_utils import changed_by_session_user
 
 def get_description_ajax(request):
     if request.method == 'POST' and request.POST.get('requestid'):
@@ -33,7 +34,8 @@ def set_description_ajax(request):
         if is_admin_frozen_and_not_admin(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest.description = request.POST.get('description')
-        userRequest.save(update_fields=['description'])
+        userRequest.changedBy(changed_by_session_user(request))
+        userRequest.save()
         return HttpResponse(status=200)
     return HttpResponseRedirect(reverse('pyha:root'))
 
@@ -139,7 +141,8 @@ def remove_collection_ajax(request):
         collection = Collection.objects.get(id = collectionId)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT and collection.status != -1):
             collection.status = -1
-            collection.save(update_fields=['status'])
+            collection.changedBy(changed_by_session_user(request))
+            collection.save()
             if(check_all_collections_removed(requestId)):
                 return HttpResponse(reverse('pyha:root'), status=310)
     return HttpResponseRedirect(reverse('pyha:root'))

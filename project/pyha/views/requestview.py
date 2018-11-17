@@ -12,6 +12,7 @@ from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is
 from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN
 from pyha.warehouse import send_download_request, is_download_handler_in_collection
+from pyha.log_utils import changed_by_session_user
 from pyha import toast
 
 @csrf_exempt
@@ -37,17 +38,17 @@ def show_request(request):
     context = create_request_view_context(requestId, request, userRequest)
     if ADMIN in request.session.get("current_user_role", [None]):
         update_request_status(userRequest, userRequest.lang)
-        return render(request, 'pyha/skipofficial/admin/requestview.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/admin/requestview.html', context)
+        return render(request, 'pyha/skipofficial/admin/requestview.html', context) if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/admin/requestview.html', context)
     else:
         if HANDLER_ANY in request.session.get("current_user_role", [None]):
             update_request_status(userRequest, userRequest.lang)
-            return render(request, 'pyha/skipofficial/handler/requestview.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/handler/requestview.html', context)
+            return render(request, 'pyha/skipofficial/handler/requestview.html', context) if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/handler/requestview.html', context)
         else:
             if(userRequest.status == 0):
-                return render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestform.html', context)
+                return render(request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestform.html', context)
             else:
                 update_request_status(userRequest, userRequest.lang)
-                return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestview.html', context)
+                return render(request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(request, 'pyha/official/requestview.html', context)
     
 def comment_sensitive(request):
     nexturl = request.POST.get('next', '/')
@@ -61,12 +62,13 @@ def comment_sensitive(request):
         userRequest = Request.objects.get(id=requestId) 
         if is_admin_frozen_and_not_admin(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        if CAT_HANDLER_SENS in request.session["user_roles"] and not userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
+        if CAT_HANDLER_SENS in request.session["user_roles"] and not userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL:
             newChatEntry = RequestSensitiveChatEntry()
             newChatEntry.request = userRequest
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.message = message
+            newChatEntry.changedBy(changed_by_session_user(request))
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
 
@@ -90,6 +92,7 @@ def comment_handler(request):
             newChatEntry.date = datetime.now()
             newChatEntry.user = request.session["user_id"]
             newChatEntry.message = message
+            newChatEntry.changedBy(changed_by_session_user(request))
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
     
@@ -107,9 +110,10 @@ def initialize_download(request):
         if is_admin_frozen_and_not_admin(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(not userRequest.frozen or ADMIN in request.session["current_user_role"]):
-            if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensstatus in [4,99] and contains_approved_collection(requestId))):
+            if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensStatus in [4,99] and contains_approved_collection(requestId))):
                 send_download_request(requestId)
                 userRequest.status = 7
+                userRequest.changedBy(changed_by_session_user(request))
                 userRequest.save()
     return HttpResponseRedirect(nexturl)
     
@@ -125,7 +129,8 @@ def change_description(request):
         if is_admin_frozen_and_not_admin(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest.description = request.POST.get('description')
-        userRequest.save(update_fields=['description'])
+        userRequest.changedBy(changed_by_session_user(request))
+        userRequest.save()
         return HttpResponseRedirect(nexturl)
     return HttpResponseRedirect(reverse('pyha:root'))
 
@@ -140,6 +145,7 @@ def freeze(request):
         userRequest = Request.objects.get(id = requestId)
         if userRequest.frozen: userRequest.frozen = False
         else: userRequest.frozen = True
+        userRequest.changedBy(changed_by_session_user(request))
         userRequest.save()
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
@@ -167,8 +173,10 @@ def answer(request):
             newChatEntry.question = True
             newChatEntry.target = target
             newChatEntry.message = request.POST.get('reason')
+            newChatEntry.changedBy(changed_by_session_user(request))
             newChatEntry.save()
             userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
+            userRequest.changedBy(changed_by_session_user(request))
             userRequest.save()
             send_mail_after_additional_information_requested(requestId, request.LANGUAGE_CODE)
         elif ADMIN in request.session["current_user_role"]:
@@ -187,29 +195,31 @@ def answer(request):
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId),collection = collection, user = request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_NEGATIVE)
                 collection.decisionExplanation = request.POST.get('reason')
+                collection.changedBy(changed_by_session_user(request))
                 collection.save()
                 update_request_status(userRequest, userRequest.lang)
-            elif userRequest.sensstatus != Sens_StatusEnum.IGNORE_OFFICIAL:
+            elif userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
                 collections = Collection.objects.filter(request=requestId, customSecured__lte = 0, taxonSecured__gt=0, status__gte = 0)
                 if (int(request.POST.get('answer')) == 1):
-                    userRequest.sensstatus = Sens_StatusEnum.APPROVED
+                    userRequest.sensStatus = Sens_StatusEnum.APPROVED
                     for co in collections:
                         co.status =  Col_StatusEnum.APPROVED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_POSITIVE)
                 elif (int(request.POST.get('answer')) == 3):                    
-                    userRequest.sensstatus = Sens_StatusEnum.WAITING
+                    userRequest.sensStatus = Sens_StatusEnum.WAITING
                     for co in collections:
                         co.status =  Col_StatusEnum.WAITING
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), collection = collection, user = request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_RESET)
                 else:
-                    userRequest.sensstatus = Sens_StatusEnum.REJECTED
+                    userRequest.sensStatus = Sens_StatusEnum.REJECTED
                     for co in collections:
                         co.status =  Col_StatusEnum.REJECTED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_NEGATIVE)
                 userRequest.sensDecisionExplanation = request.POST.get('reason')
+                userRequest.changedBy(changed_by_session_user(request))
                 userRequest.save()
                 update_request_status(userRequest, userRequest.lang)
         elif HANDLER_ANY == request.session["current_user_role"]:
@@ -226,23 +236,25 @@ def answer(request):
                         #make a log entry
                         RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId),collection = collection, user = request.session["user_id"], role = CAT_HANDLER_COLL, action = RequestLogEntry.DECISION_NEGATIVE)
                     collection.decisionExplanation = request.POST.get('reason')
+                    collection.changedBy(changed_by_session_user(request))
                     collection.save()
                     update_request_status(userRequest, userRequest.lang)
-            elif CAT_HANDLER_SENS in request.session["user_roles"] and userRequest.sensstatus != Sens_StatusEnum.IGNORE_OFFICIAL:
+            elif CAT_HANDLER_SENS in request.session["user_roles"] and userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
                 collections = Collection.objects.filter(request=requestId, customSecured__lte = 0, taxonSecured__gt=0, status__gte = 0)
                 if (int(request.POST.get('answer')) == 1):
-                    userRequest.sensstatus = Sens_StatusEnum.APPROVED
+                    userRequest.sensStatus = Sens_StatusEnum.APPROVED
                     for co in collections:
                         co.status =  Col_StatusEnum.APPROVED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = CAT_HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
                 else:
-                    userRequest.sensstatus = Sens_StatusEnum.REJECTED
+                    userRequest.sensStatus = Sens_StatusEnum.REJECTED
                     for co in collections:
                         co.status =  Col_StatusEnum.REJECTED
                     #make a log entry
                     RequestLogEntry.requestLog.create(request = Request.objects.get(id = requestId), user = request.session["user_id"], role = CAT_HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
                 userRequest.sensDecisionExplanation = request.POST.get('reason')
+                userRequest.changedBy(changed_by_session_user(request))
                 userRequest.save()
                 update_request_status(userRequest, userRequest.lang)
     return HttpResponseRedirect(nexturl)
@@ -270,6 +282,7 @@ def information(request):
             newChatEntry.question = False
             newChatEntry.target = target
             newChatEntry.message = request.POST.get('reason')
+            newChatEntry.changedBy(changed_by_session_user(request))
             newChatEntry.save() 
             userRequest.status = StatusEnum.WAITING
             for co in Collection.objects.filter(request = userRequest):
@@ -289,6 +302,7 @@ def information(request):
                     userRequest.status = StatusEnum.WAITING_FOR_INFORMATION           
             except RequestInformationChatEntry.DoesNotExist:
                 pass
+            userRequest.changedBy(changed_by_session_user(request))
             userRequest.save()
             update_request_status(userRequest, userRequest.lang)
     return HttpResponseRedirect(nexturl)

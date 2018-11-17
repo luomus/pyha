@@ -46,12 +46,12 @@ def index(request):
 		request_list = []
 		if CAT_HANDLER_SENS in request.session.get("user_roles", [None]):
 			q = Request.objects.exclude(status__lte=0)
-			request_list += q.filter(id__in=Collection.objects.filter(taxonSecured__gt = 0, status__gt = 0).values("request")).exclude(sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
+			request_list += q.filter(id__in=Collection.objects.filter(taxonSecured__gt = 0, status__gt = 0).values("request")).exclude(sensStatus=Sens_StatusEnum.IGNORE_OFFICIAL)
 		if CAT_HANDLER_COLL in request.session.get("user_roles", [None]):
-			#request_list += Request.objects.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date').filter(id__in=Collection.objects.filter(downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request"),sensstatus=99).order_by('-date')
+			#request_list += Request.objects.exclude(status__lte=0).filter(id__in=Collection.objects.filter(customSecured__gt = 0,downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request")).order_by('-date').filter(id__in=Collection.objects.filter(downloadRequestHandler__contains = str(userId),status__gt = 0 ).values("request"),sensStatus=99).order_by('-date')
 			q = Request.objects.exclude(status__lte=0)
-			c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request")).exclude(sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
-			c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
+			c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request")).exclude(sensStatus=Sens_StatusEnum.IGNORE_OFFICIAL)
+			c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"), sensStatus=Sens_StatusEnum.IGNORE_OFFICIAL)
 			request_list = chain(c0, c1, request_list)
 		#sort by date
 		request_list = sorted(request_list ,key=attrgetter('date'), reverse=True)

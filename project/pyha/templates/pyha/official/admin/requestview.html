@@ -81,9 +81,9 @@
 							<h2 style="text-align:center;">{% trans "admin_sensitive" %}</h2>
 							<div style="text-align:center;">
 								<h3 class="slider-group" style="vertical-align:middle;margin-bottom:20px;margin-top:5px;">
-									<span class="slider slider-lg slider-admin{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
-									<span class="slider slider-lg slider-admin{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-lg slider-admin{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-lg slider-admin{% if userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
+									<span class="slider slider-lg slider-admin{% if userRequest.sensStatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-lg slider-admin{% if userRequest.sensStatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</h3>
 							</div>
 					</div>
@@ -91,15 +91,15 @@
 					{% if collections %}
 					<div class="col-xs-12">
 						<h2 style="text-align:center;top:0%;">{% trans "admin_restricted" %}</h2>
-						<div style= "{% if userRequest.sensstatus == 3%}opacity: 0.5;{% endif %}">
+						<div style= "{% if userRequest.sensStatus == 3%}opacity: 0.5;{% endif %}">
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
-									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
-									<span class="slider slider-admin{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
+									<span class="slider slider-admin{% if collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
 									<span class="slider slider-admin{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
 								</td>
@@ -163,7 +163,7 @@
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
 						<a href="#additional_information" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="additional_information" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% if userRequest.sensstatus == 1 and information %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'admin_additional_information_window' %}
+								{% if userRequest.sensStatus == 1 and information %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'admin_additional_information_window' %}
 							</span>
 						</a>
 					</li>
@@ -202,11 +202,11 @@
 								{% elif collection.status == 4 %}
 								<tr class="success clickable-row">
 								{% elif collection.taxonSecured > 0 %}
-									{% if userRequest.sensstatus == 1 %}
+									{% if userRequest.sensStatus == 1 %}
 									<tr class="info clickable-row">
-									{% elif userRequest.sensstatus == 3 %}
+									{% elif userRequest.sensStatus == 3 %}
 									<tr class="danger clickable-row">
-									{% elif userRequest.sensstatus == 4 %}
+									{% elif userRequest.sensStatus == 4 %}
 									<tr class="success clickable-row">
 									{% endif %}  
 								{% else %}  
@@ -459,7 +459,7 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
-							{% if userRequest.sensstatus == 0 %}
+							{% if userRequest.sensStatus == 0 %}
 							<h3>{% trans "admin_user_no_sensitive_data"%}</h3>
 							{% else %}
 							<h3>{% trans "admin_list_of_collections"%}</h3>
@@ -472,28 +472,28 @@
 								<th>{% trans "admin_state_of_processing" %}</th>
 								<th>{% trans "admin_decision_arguments" %}</th>
 								</tr>
-								{% if userRequest.sensstatus == 1 %}
+								{% if userRequest.sensStatus == 1 %}
 								<tr class="info clickable-row">
-								{% elif userRequest.sensstatus == 3 %}
+								{% elif userRequest.sensStatus == 3 %}
 								<tr class="danger clickable-row">
-								{% elif userRequest.sensstatus == 4 %}
+								{% elif userRequest.sensStatus == 4 %}
 								<tr class="success clickable-row">
 								{% else %}  
 								<tr>	
 								{% endif %}
-								{% if userRequest.sensstatus == 1 %}
+								{% if userRequest.sensStatus == 1 %}
 									{% if role1 %}
 										<td>{% trans "admin_waiting_for_you" %}</td>
 									{% else %}
 										<td>{% trans "admin_waiting_for_others" %}</td>
 									{% endif %}
-								{% elif userRequest.sensstatus == 3 %}
+								{% elif userRequest.sensStatus == 3 %}
 								<td>{% trans "admin_denied" %}</td>
-								{% elif userRequest.sensstatus == 2 %}
+								{% elif userRequest.sensStatus == 2 %}
 								<td>{% trans "admin_partially_accepted" %}</td>
-								{% elif userRequest.sensstatus == 4 %}
+								{% elif userRequest.sensStatus == 4 %}
 								<td>{% trans "admin_accepted" %}</td>
-								{% elif userRequest.sensstatus == 99 %}
+								{% elif userRequest.sensStatus == 99 %}
 								<td>{% trans "admin_skipped" %}</td>
 								{% else %}  
 								<td>{% trans "admin_unknown" %}</td>
@@ -515,7 +515,7 @@
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<div id="sensitive_refuse_form" style="width:100%;display:{% if userRequest.sensstatus == 3 %}block{% else %}none{% endif %};">
+										<div id="sensitive_refuse_form" style="width:100%;display:{% if userRequest.sensStatus == 3 %}block{% else %}none{% endif %};">
 										<textarea class="form-control" rows="10" cols="700" id="reason" name="reason" required >{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
 										</div>
 									</div>

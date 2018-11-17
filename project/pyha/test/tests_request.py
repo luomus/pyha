@@ -72,6 +72,7 @@ class RequestTesting(TestCase):
 		warehouse.store(JSON_MOCK6)
 		wanted = Request.objects.get(id=2)
 		wanted.status = 1
+		wanted.changedBy = "test"
 		wanted.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
@@ -98,6 +99,7 @@ class RequestTesting(TestCase):
 	def test_RequestLogEntry_answer_sens_positive(self):
 		request1 = Request.objects.get(id=1)
 		request1.status = 1
+		request1.changedBy = "test"
 		request1.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
@@ -115,6 +117,7 @@ class RequestTesting(TestCase):
 		warehouse.store(JSON_MOCK6)
 		request2 = Request.objects.get(id=2)
 		request2.status = 1
+		request2.changedBy = "test"
 		request2.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
@@ -134,9 +137,11 @@ class RequestTesting(TestCase):
 	def test_RequestLogEntry_answer_coll_positive(self):
 		request1 = Request.objects.get(id=1)
 		request1.status = 1
+		request1.changedBy = "test"
 		request1.save()
 		col = Collection.objects.all().get(address="HR.39", request=1)
 		col.downloadRequestHandler = ['MA.313']
+		col.changedBy = "test"
 		col.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
@@ -157,9 +162,11 @@ class RequestTesting(TestCase):
 		warehouse.store(JSON_MOCK6)
 		request2 = Request.objects.get(id=2)
 		request2.status = 1
+		request2.changedBy = "test"
 		request2.save()
 		col = Collection.objects.all().get(address="colcustomsec1", request=2)
 		col.downloadRequestHandler = ['MA.313']
+		col.changedBy = "test"
 		col.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'

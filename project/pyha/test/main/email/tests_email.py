@@ -20,6 +20,7 @@ class EmailTesting (TestCase):
 	def test_send_mail_after_receiving_request(self):
 		req = store(JSON_MOCK4)
 		req.description = "Testausta"
+		req.changedBy = "test"
 		req.save()
 		send_mail_after_receiving_request(req.id, "fi")
 		self.assertEqual(len(mail.outbox), 1)
@@ -30,6 +31,7 @@ class EmailTesting (TestCase):
 	
 	def test_mail_send_for_approval(self):
 		req = store(JSON_MOCK4)
+		req.changedBy = "test"
 		req.save()
 		collections = Collection.objects.filter(request = req.id)
 		for c in collections:
@@ -43,6 +45,7 @@ class EmailTesting (TestCase):
 	
 	def test_send_mail_after_request_status_change_to_requester(self):
 		req = store(JSON_MOCK4)
+		req.changedBy = "test"
 		req.save()
 		send_mail_after_request_status_change_to_requester(req.id, "fi")
 		self.assertEqual(len(mail.outbox), 1)
@@ -60,11 +63,13 @@ class EmailTesting (TestCase):
 	
 	def test_mail_is_actually_sent_when_request_status_is_changed(self):
 		req = store(JSON_MOCK6)
+		req.changedBy = "test"
 		req.save()
 		wantedRequest = Request.objects.get(id=req.id)
 		requestCollections = Collection.objects.filter(request=req.id)
 		requestCollections[0].status = 4
-		wantedRequest.sensstatus = Sens_StatusEnum.REJECTED
+		wantedRequest.sensStatus = Sens_StatusEnum.REJECTED
+		wantedRequest.changedBy = "test"
 		wantedRequest.save()
 		update_request_status(req, "fi")
 		self.assertEqual(len(mail.outbox), 1)
@@ -79,7 +84,7 @@ class EmailTesting (TestCase):
 	#	req = store(JSON_MOCK6)
 	#	req.save()
 	#	wantedRequest = Request.objects.get(id=req.id)
-	#	wantedRequest.sensstatus = 4
+	#	wantedRequest.sensStatus = 4
 	#	wantedRequest.save()
 	#	
 	#	requestCollections = Collection.objects.filter(request=req.id)
@@ -103,11 +108,11 @@ class EmailTesting (TestCase):
 	#	for j in range(0,2):
 	#		wantedRequest = Request.objects.get(id=req.id)
 	#		if j == 0:
-	#			wantedRequest.sensstatus = 0
+	#			wantedRequest.sensStatus = 0
 	#		elif j == 1:
-	#			wantedRequest.sensstatus = 3
+	#			wantedRequest.sensStatus = 3
 	#		elif j == 2:
-	#			wantedRequest.sensstatus = 4
+	#			wantedRequest.sensStatus = 4
 	#		wantedRequest.save()
 	#		for k in range(-1,4):
 	#			if k != 1:

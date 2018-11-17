@@ -10,6 +10,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
 from pyha.models import RequestLogEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import USER
+from pyha.log_utils import changed_by_session_user
 from pyha import toast
 
 
@@ -23,10 +24,12 @@ def remove_sensitive_data(request):
         requestId = request.POST.get('requestid')
         collection = Collection.objects.get(id = collectionId)
         collection.taxonSecured = 0
-        collection.save(update_fields=['taxonSecured'])
+        collection.changedBy(changed_by_session_user(request))
+        collection.save()
         if(collection.customSecured == 0) and (collection.status != -1):
             collection.status = -1
-            collection.save(update_fields=['status'])
+            collection.changedBy(changed_by_session_user(request))
+            collection.save()
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(nextRedirect)
     return HttpResponseRedirect(reverse('pyha:root'))
@@ -41,10 +44,12 @@ def remove_custom_data(request):
         requestId = request.POST.get('requestid')
         collection = Collection.objects.get(id = collectionId)
         collection.customSecured = 0
-        collection.save(update_fields=['customSecured'])
+        collection.changedBy(changed_by_session_user(request))
+        collection.save()
         if(collection.taxonSecured == 0) and (collection.status != -1):
             collection.status = -1
-            collection.save(update_fields=['status'])
+            collection.changedBy(changed_by_session_user(request))
+            collection.save()
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('pyha:root'))
@@ -64,7 +69,8 @@ def removeCollection(request):
         #avoid work when submitted multiple times
         if(collection.status != -1):
             collection.status = -1
-            collection.save(update_fields=['status'])
+            collection.save()
+            collection.changedBy(changed_by_session_user(request))
             check_all_collections_removed(requestId)
         return HttpResponseRedirect(redirect_path)
     return HttpResponseRedirect(reverse('pyha:root'))
@@ -96,16 +102,19 @@ def approve_terms(request):
                         userCollection = Collection.objects.get(address = rc, request = requestId)
                         if userCollection.status == 0:
                             userCollection.status = 1
-                            userCollection.save(update_fields=['status'])
+                            userCollection.changedBy(changed_by_session_user(request))
+                            userCollection.save()
                 for c in Collection.objects.filter(request = requestId):
                     if c.status == 0:
                         c.customSecured = 0
                         if userRequest.sensstatus == Sens_StatusEnum.APPROVETERMS_WAIT:
                             c.taxonsecured = 0
-                        c.save(update_fields=['customSecured'])
+                        c.changedBy(changed_by_session_user(request))
+                        c.save()
                         if c.taxonSecured == 0:
                             c.status = -1
-                            c.save(update_fields=['status'])
+                            c.changedBy(changed_by_session_user(request))
+                            c.save()
                     #postia vain niille aineistoille, joilla on aineistokohtaisesti salattuja tietoja
                     #if(c.customSecured > 0):
                     #    send_mail_for_approval(requestId, c, lang)
@@ -129,6 +138,7 @@ def approve_terms(request):
                 userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
                 userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
                 userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
+                userRequest.changedBy(changed_by_session_user(request))
                 userRequest.save()
                 update_contact_preset(request, userRequest)
                 #if userRequest.sensstatus == 1 and taxon:
@@ -139,6 +149,7 @@ def approve_terms(request):
                 request.session.save()
             else:
                 userRequest.status = -1
+                userRequest.changedBy(changed_by_session_user(request))
                 userRequest.save()
                 RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
     return HttpResponseRedirect(reverse('pyha:root'))
@@ -151,7 +162,8 @@ def approve_terms_skip_official(request, userRequest, requestId, lang):
         for c in collectionList:
             if c.status == 0:
                 c.status = 1
-                c.save(update_fields=['status'])
+                c.changedBy(changed_by_session_user(request))
+                c.save()
 
         for count in range(2, count_contacts(request.POST)+1):
             create_new_contact(request, userRequest, count)
@@ -167,6 +179,7 @@ def approve_terms_skip_official(request, userRequest, requestId, lang):
         userRequest.personPhoneNumber = request.POST.get('request_person_phone_number_1')
         userRequest.personOrganizationName = request.POST.get('request_person_organization_name_1')
         userRequest.personCorporationId = request.POST.get('request_person_corporation_id_1')
+        userRequest.changedBy(changed_by_session_user(request))
         userRequest.save()
         update_contact_preset(request, userRequest)
         #make a log entry
@@ -175,6 +188,7 @@ def approve_terms_skip_official(request, userRequest, requestId, lang):
         request.session.save()
     else:
         userRequest.status = -1
+        userRequest.changedBy(changed_by_session_user(request))
         userRequest.save()
         RequestLogEntry.requestLog.create(request=userRequest, user=request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
     return

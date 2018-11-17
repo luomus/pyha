@@ -61,9 +61,9 @@
 							<h2 style="text-align:center;">{% trans "sensitive" %}</h2>
 							<div style="text-align:center;">
 								<h3 class="slider-group" style="vertical-align:middle;margin-bottom:20px;margin-top:5px;">
-									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-lg slider-waiting{% if userRequest.sensstatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-lg slider-waiting{% if userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-lg slider-waiting{% if userRequest.sensStatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-lg slider-waiting{% if userRequest.sensStatus == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</h3>
 							</div>
 					</div>
@@ -71,16 +71,16 @@
 					<div class="col-xs-12">
 						{% if collections %}
 						<h2 style="text-align:center;top:0%;">{% trans "restricted" %}</h2>
-						<div style="{% if userRequest.sensstatus == 3 or  userRequest.sensstatus == 1 %}opacity: 0.5;{% endif %}">
+						<div style="{% if userRequest.sensStatus == 3 or  userRequest.sensStatus == 1 %}opacity: 0.5;{% endif %}">
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
 								<td>{{collection.result.collectionName}}</td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
-									<span class="slider slider-waiting{% if userRequest.sensstatus == 4 and collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
-									<span class="slider slider-waiting{% if userRequest.sensstatus == 4 and collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensstatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-									<span class="slider slider-waiting{% if userRequest.sensstatus == 4 and collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+									<span class="slider slider-waiting{% if userRequest.sensStatus == 4 and collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
+									<span class="slider slider-waiting{% if userRequest.sensStatus == 4 and collection.status == 4 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
+									<span class="slider slider-waiting{% if userRequest.sensStatus == 4 and collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
 								</div>
 								</td>
 							</tr>
@@ -200,7 +200,7 @@
 				<!-- aineistolista -->
 				
 				<div class="tab-content">
-					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
 						<h3>{% trans "collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
@@ -217,18 +217,18 @@
 									<th>{% trans "state_of_processing" %}</th>
 								</tr>
 								{% for collection in collections %}
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 or userRequest.sensStatus != 4 %}
 									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
 									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
 									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
-										{% if userRequest.sensstatus == 1 %}
+										{% if userRequest.sensStatus == 1 %}
 										<tr class="info clickable-row">
-										{% elif userRequest.sensstatus == 3 %}
+										{% elif userRequest.sensStatus == 3 %}
 										<tr class="danger clickable-row">
-										{% elif userRequest.sensstatus == 4 %}
+										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
@@ -242,7 +242,7 @@
 									<td>{{collection.taxonSecured}}</td>
 									<td>{{collection.allSecured}}</td>
 									
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 or userRequest.sensStatus != 4 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
 									<td>{% trans "denied" %}</td>
@@ -266,22 +266,22 @@
 									<th>{% trans "state_of_processing" %}</th>
 									<th>{% trans "decision_arguments" %}</th>
 									</tr>
-									{% if userRequest.sensstatus == 1 %}
+									{% if userRequest.sensStatus == 1 %}
 									<tr class="info clickable-row">
-									{% elif userRequest.sensstatus == 3 %}
+									{% elif userRequest.sensStatus == 3 %}
 									<tr class="danger clickable-row">
-									{% elif userRequest.sensstatus == 4 %}
+									{% elif userRequest.sensStatus == 4 %}
 									<tr class="success clickable-row">
 									{% else %}  
 									<tr>
 									{% endif %}
-									{% if userRequest.sensstatus == 1 %}
+									{% if userRequest.sensStatus == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
-									{% elif userRequest.sensstatus == 3 %}
+									{% elif userRequest.sensStatus == 3 %}
 									<td>{% trans "denied" %}</td>
-									{% elif userRequest.sensstatus == 2 %}
+									{% elif userRequest.sensStatus == 2 %}
 									<td>{% trans "partially_accepted" %}</td>
-									{% elif userRequest.sensstatus == 4 %}
+									{% elif userRequest.sensStatus == 4 %}
 									<td>{% trans "accepted" %}</td>
 									{% else %}  
 									<td>{% trans "unknown" %}</td>
@@ -296,7 +296,7 @@
 									</tr>
 								</table>
 							{% endif %}
-						<div style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+						<div style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
 						<h3>{% trans "decicions_for_admitting_data" %}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
@@ -305,25 +305,25 @@
 									<th>{% trans "collection_decision_arguments" %}</th>
 								</tr>
 								{% for collection in collections %}
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 or userRequest.sensStatus != 4 %}
 									<tr class="info clickable-row">
 									{% elif collection.status == 3 %}
 									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
 									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
-										{% if userRequest.sensstatus == 1 %}
+										{% if userRequest.sensStatus == 1 %}
 										<tr class="info clickable-row">
-										{% elif userRequest.sensstatus == 3 %}
+										{% elif userRequest.sensStatus == 3 %}
 										<tr class="danger clickable-row">
-										{% elif userRequest.sensstatus == 4 %}
+										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
 									<tr>
 									{% endif %}
 									<td>{{collection.result.collectionName}}</td>
-									{% if collection.status == 1 or userRequest.sensstatus != 4 %}
+									{% if collection.status == 1 or userRequest.sensStatus != 4 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
 									<td>{% trans "denied" %}</td>

@@ -11,6 +11,7 @@ from pyha.models import Request
 from pyha.database import count_unhandled_requests
 from pyha.warehouse import store, fetch_pdf
 from pyha.login import basic_auth_required
+from pyha.log_utils import changed_by
 
 
 @csrf_exempt
@@ -35,6 +36,7 @@ def download(request, link):
         if(userRequest.status == 7 and userRequest != None):
             userRequest.status = 8
             userRequest.downloadDate = datetime.now()
+            userRequest.changedBy(changed_by("pyha"))
             userRequest.save()
             send_mail_after_receiving_download(userRequest.id, userRequest.lang)
     return HttpResponse('')

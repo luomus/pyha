@@ -61,14 +61,14 @@ Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liit
 	
 	status = models.IntegerField()
 	
-	#for sensstatus
+	#for sensStatus
 	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa viranomaisen käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
 	#status 99: Ohitettu (skippofficial)
 	
-	sensstatus = models.IntegerField()
+	sensStatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
 	sensComment = models.CharField(max_length=1000,null=True)
 	date = models.DateTimeField()

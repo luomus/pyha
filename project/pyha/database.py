@@ -12,7 +12,7 @@ from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandl
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections
-
+from pyha.log_utils import changed_by_session_user, changed_by
 
 #removes sensitive sightings
 def remove_sensitive_data(request):
@@ -26,10 +26,12 @@ def remove_sensitive_data(request):
 		collectionId = request.POST.get('collectionId')
 		collection = Collection.objects.get(id = collectionId)
 		collection.taxonSecured = 0
-		collection.save(update_fields=['taxonSecured'])
+		collection.changedBy(changed_by_session_user(request))
+		collection.save()
 		if(collection.customSecured == 0) and (collection.status != -1):
 			collection.status = -1
-			collection.save(update_fields=['status'])
+			collection.changedBy(changed_by_session_user(request))
+			collection.save()
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
 	return HttpResponseRedirect(reverse('pyha:root'))
@@ -46,10 +48,12 @@ def remove_custom_data(request):
 		collectionId = request.POST.get('collectionId')
 		collection = Collection.objects.get(id = collectionId)
 		collection.customSecured = 0
-		collection.save(update_fields=['customSecured'])
+		collection.changedBy(changed_by_session_user(request))
+		collection.save()
 		if(collection.taxonSecured == 0) and (collection.status != -1):
 			collection.status = StatusEnum.DISCARDED
-			collection.save(update_fields=['status'])
+			collection.changedBy(changed_by_session_user(request))
+			collection.save()
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
 	return HttpResponseRedirect(reverse('pyha:root'))
@@ -68,7 +72,8 @@ def removeCollection(request):
 		#avoid work when submitted multiple times
 		if(collection.status != -1):
 			collection.status = -1
-			collection.save(update_fields=['status'])
+			collection.changedBy(changed_by_session_user(request))
+			collection.save()
 			check_all_collections_removed(requestId)
 		return HttpResponseRedirect(nextRedirect)
 	return HttpResponseRedirect(reverse('pyha:root'))
@@ -108,7 +113,8 @@ def check_all_collections_removed(requestId):
 	collectionList = userRequest.collection_set.filter(status__gte=0)
 	if not collectionList:
 		userRequest.status = -1
-		userRequest.save(update_fields=['status'])
+		userRequest.changedBy(changed_by("pyha"))
+		userRequest.save()
 		return True
 	return False
 
@@ -124,6 +130,7 @@ def create_new_contact(request, userRequest, count):
 	contact.personPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
 	contact.personOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
 	contact.personCorporationId = request.POST.get('request_person_corporation_id_'+str(count))
+	contact.changedBy(changed_by_session_user(request))
 	contact.save()
 
 def update_contact_preset(request, userRequest):
@@ -140,6 +147,7 @@ def update_contact_preset(request, userRequest):
 	contactPreset.requestPersonPhoneNumber = request.POST.get('request_person_phone_number_1')
 	contactPreset.requestPersonOrganizationName = request.POST.get('request_person_organization_name_1')
 	contactPreset.requestPersonCorporationId = request.POST.get('request_person_corporation_id_1')
+	contactPreset.changedBy(changed_by_session_user(request))
 	contactPreset.save()
 
 def target_valid(target, requestId):
@@ -164,22 +172,22 @@ def count_unhandled_requests(userId):
 	role = fetch_role(userId)
 	unhandled = set()
 	if(settings.TUN_URL+CAT_HANDLER_SENS in role):
-		request_list = Request.objects.exclude(status__lte=0).filter(sensstatus = Sens_StatusEnum.WAITING)
+		request_list = Request.objects.exclude(status__lte=0).filter(sensStatus = Sens_StatusEnum.WAITING)
 		for r in request_list:
 			if (r.status == StatusEnum.WAITING):
 				#if(RequestLogEntry.requestLog.filter(request = r.id, user = userId, action = 'VIEW').count() == 0):
 				#	unhandled.add(r)
 				#else:
 				questioning = False
-				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == Sens_StatusEnum.WAITING:
+				if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensStatus == Sens_StatusEnum.WAITING:
 					chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 					if chat.question:
 						questioning = True
 				if not questioning:
 					unhandled.add(r)
 	q = Request.objects.exclude(status__lte=0)
-	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
-	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensstatus=Sens_StatusEnum.IGNORE_OFFICIAL)
+	c0 = q.filter(id__in=Collection.objects.filter(customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request")).exclude(sensStatus=Sens_StatusEnum.IGNORE_OFFICIAL)
+	c1 = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"), sensStatus=Sens_StatusEnum.IGNORE_OFFICIAL)
 	request_list = chain(c0, c1)
 	for r in request_list:
 		if (r.status == StatusEnum.WAITING):
@@ -199,7 +207,7 @@ def count_unhandled_requests(userId):
 
 def update_request_status(userRequest, lang):
 	if(not userRequest.status in [StatusEnum.WAITING_FOR_DOWNLOAD, StatusEnum.DOWNLOADABLE]):
-		if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
+		if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL:
 			ignore_official_database_update_request_status(userRequest, lang) 
 		else: 
 			database_update_request_status(userRequest, lang)
@@ -219,11 +227,11 @@ def database_update_request_status(wantedRequest, lang):
 	pending = 0
 	if taxon:
 		if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
-			if wantedRequest.sensstatus == Sens_StatusEnum.WAITING:
+			if wantedRequest.sensStatus == Sens_StatusEnum.WAITING:
 				pending += 1
-			elif wantedRequest.sensstatus == Sens_StatusEnum.REJECTED:
+			elif wantedRequest.sensStatus == Sens_StatusEnum.REJECTED:
 				declined += 1
-			elif wantedRequest.sensstatus == Sens_StatusEnum.APPROVED:
+			elif wantedRequest.sensStatus == Sens_StatusEnum.APPROVED:
 				accepted += 1
 			for c in requestCollections:
 				if c.status == StatusEnum.WAITING:
@@ -233,7 +241,7 @@ def database_update_request_status(wantedRequest, lang):
 				elif c.status == StatusEnum.APPROVED:
 					colaccepted += 1
 					accepted += 1
-			if wantedRequest.sensstatus == Sens_StatusEnum.REJECTED:
+			if wantedRequest.sensStatus == Sens_StatusEnum.REJECTED:
 				wantedRequest.status = StatusEnum.REJECTED
 			elif (accepted >= 0 and pending > 0) and declined == 0:
 				wantedRequest.status = StatusEnum.WAITING
@@ -253,6 +261,7 @@ def database_update_request_status(wantedRequest, lang):
 				wantedRequest.status = StatusEnum.WAITING
 			else:
 				wantedRequest.status = StatusEnum.UNKNOWN
+			wantedRequest.changedBy(changed_by("pyha"))
 			wantedRequest.save()
 	else:
 		for c in requestCollections:
@@ -283,6 +292,7 @@ def database_update_request_status(wantedRequest, lang):
 		else:
 			wantedRequest.status = StatusEnum.UNKNOWN
 		if(wantedRequest.status != statusBeforeUpdate):
+			wantedRequest.changedBy(changed_by("pyha"))
 			wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
@@ -324,13 +334,14 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
 	else:
 		wantedRequest.status = StatusEnum.UNKNOWN
 	if(wantedRequest.status != statusBeforeUpdate):
+		wantedRequest.changedBy(changed_by("pyha"))
 		wantedRequest.save()
 			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 		
 def handler_waiting_status(r, request, userId):
 	r.waitingstatus = 0
-	if CAT_HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensstatus == 1:
+	if CAT_HANDLER_SENS in request.session.get("user_roles", [None]) and r.sensStatus == 1:
 		r.waitingstatus = 1
 	elif CAT_HANDLER_COLL in request.session.get("user_roles", [None]):
 		#if Collection.objects.filter(request=r.id, customSecured__gt = 0, downloadRequestHandler__contains = str(userId), status = 1).exists():
@@ -341,7 +352,7 @@ def handler_waiting_status(r, request, userId):
 def handler_information_answered_status(r, request, userId):
 	r.answerstatus = 0
 	if CAT_HANDLER_SENS in request.session.get("user_roles", [None]):
-		if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensstatus == Sens_StatusEnum.WAITING:
+		if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').count() > 0 and r.sensStatus == Sens_StatusEnum.WAITING:
 			chat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target='sens').order_by('-date')[0]
 			if not chat.question:
 				r.answerstatus = 1
@@ -378,7 +389,7 @@ def create_request_view_context(requestId, request, userRequest):
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
-	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL else "pyha/official/terms/sensitivity-"+lang+".html"
+	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else "pyha/official/terms/sensitivity-"+lang+".html"
 	context["username"] = request.session["user_name"]
 	context["allSecured"] = allSecured
 	if role2: context["handles"] = get_collections_where_download_handler(userId)
@@ -386,10 +397,10 @@ def create_request_view_context(requestId, request, userRequest):
 		context["next"] = request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)
 		context["reasonlist"] = get_reasons(userRequest)
-		if(userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL):
+		if(userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL):
 			isEndable = (Collection.objects.filter(request=userRequest.id,status=4).exists())
 		else:
-			isEndable = (Collection.objects.filter(request=userRequest.id, taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensstatus == Sens_StatusEnum.APPROVED)		
+			isEndable = (Collection.objects.filter(request=userRequest.id, taxonSecured__gt=0, customSecured=0).exists() or Collection.objects.filter(request=userRequest.id,status=4).exists()) and (not taxon or userRequest.sensStatus == Sens_StatusEnum.APPROVED)		
 		context["endable"] = isEndable
 		context["user"] = userId
 		handler_waiting_status(userRequest, request, userId)
@@ -489,7 +500,7 @@ def requestInformationChat(request, userRequest, role1, role2, userId):
 				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target='sens').order_by('date'))
 			if role2:
 				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
-				if(userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL):
+				if(userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL):
 					for collection in Collection.objects.filter(request=userRequest, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
 						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
 				else:
@@ -508,7 +519,7 @@ def contains_approved_collection(requestId):
 
 """
 	Send "request has been handled" email 
-	IF request.sensstatus is 0(no sensitive information) OR 3(declined) OR 4(accepted)  
+	IF request.sensStatus is 0(no sensitive information) OR 3(declined) OR 4(accepted)  
 	AND 
 	all it's collections have status != 1(waiting for approval)
 """
@@ -519,7 +530,7 @@ def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
 		if c.status != 1:
 			collectionsNotHandled -=1
 	#check if request is handled
-	if collectionsNotHandled == 0 and (userRequest.sensstatus == 3 or userRequest.sensstatus == 4 or userRequest.sensstatus == 0):
+	if collectionsNotHandled == 0 and (userRequest.sensStatus == 3 or userRequest.sensStatus == 4 or userRequest.sensStatus == 0):
 		send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
 	elif(statusBeforeUpdate!=userRequest.status):
 		#Send email if status changed

@@ -22,6 +22,7 @@ class Collection(models.Model):
 	customSecured = models.IntegerField(default=0)
 	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
 	decisionExplanation = models.CharField(max_length=1000,blank=True,null=True)
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 
 	def __str__(self):
@@ -48,14 +49,14 @@ class Request(models.Model):
 	
 	status = models.IntegerField()
 	
-	#for sensstatus
+	#for sensStatus
 	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa viranomaisen käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
 	#status 99: Ohitettu (skippofficial)
 	
-	sensstatus = models.IntegerField()
+	sensStatus = models.IntegerField()
 	sensDecisionExplanation = models.CharField(max_length=1000,blank=True,null=True)
 	sensComment = models.CharField(max_length=1000,blank=True,null=True)
 	date = models.DateTimeField()
@@ -78,6 +79,7 @@ class Request(models.Model):
 	reason = models.CharField(max_length=16000,blank=True,null=True)
 	lang = models.CharField(max_length=10, default='fi') 
 	frozen = models.BooleanField(default=False)
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 
 	def __str__(self):
@@ -96,6 +98,7 @@ class RequestContact(models.Model):
 	personPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
 	personOrganizationName = models.CharField(max_length=100,blank=True,null=True)
 	personCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):
@@ -123,6 +126,7 @@ class RequestLogEntry(models.Model):
 	role = models.CharField(max_length=100)
 	action = models.CharField(max_length=5, choices=ACTION)
 	requestLog = models.Manager()
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):
@@ -135,6 +139,7 @@ class RequestSensitiveChatEntry(models.Model):
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
 	requestChat = models.Manager()
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):
@@ -148,6 +153,7 @@ class RequestHandlerChatEntry(models.Model):
 	message = models.CharField(max_length=2000)
 	target = models.CharField(max_length=200)
 	requestHandlerChat = models.Manager()
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):
@@ -162,10 +168,11 @@ class RequestInformationChatEntry(models.Model):
 	message = models.CharField(max_length=2000)
 	target = models.CharField(max_length=200) #'sens' or apilaji defined collection id
 	requestInformationChat = models.Manager()
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question:) %s' %(self.user, self.request.id, self.target, self.question, self.message)
+		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) %s' %(self.user, self.request.id, self.target, self.question, self.message)
 
 @python_2_unicode_compatible
 class ContactPreset(models.Model):
@@ -179,6 +186,7 @@ class ContactPreset(models.Model):
 	requestPersonPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
 	requestPersonOrganizationName = models.CharField(max_length=100,blank=True,null=True)
 	requestPersonCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):

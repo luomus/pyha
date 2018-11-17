@@ -27,14 +27,17 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_waiting(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
 		c.status = StatusEnum.APPROVED
+		c.changedBy = "test"
 		c.save()
 		c = requestCollections[1]
 		c.status = StatusEnum.WAITING
+		c.changedBy = "test"
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING)
@@ -44,10 +47,12 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_approved(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.changedBy = "test"
 		req.save()
 		for c in Collection.objects.filter(request=req.id):
 			c.status = StatusEnum.APPROVED
+			c.changedBy = "test"
 			c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
@@ -56,14 +61,17 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_approved_with_discard(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
 		c.status = StatusEnum.DISCARDED
+		c.changedBy = "test"
 		c.save()
 		c = requestCollections[1]
 		c.status = StatusEnum.APPROVED
+		c.changedBy = "test"
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
@@ -72,14 +80,17 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_partially_approved(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
 		c.status = StatusEnum.APPROVED
+		c.changedBy = "test"
 		c.save()
 		c = requestCollections[1]
 		c.status = StatusEnum.REJECTED
+		c.changedBy = "test"
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
@@ -88,14 +99,17 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_rejected(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
 		c.status = StatusEnum.REJECTED
+		c.changedBy = "test"
 		c.save()
 		c = requestCollections[1]
 		c.status = StatusEnum.REJECTED
+		c.changedBy = "test"
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
@@ -104,14 +118,17 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_rejected_with_discard(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensstatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
+		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
 		c = requestCollections[0]
 		c.status = StatusEnum.DISCARDED
+		c.changedBy = "test"
 		c.save()
 		c = requestCollections[1]
 		c.status = StatusEnum.REJECTED
+		c.changedBy = "test"
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)

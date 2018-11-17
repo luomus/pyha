@@ -188,7 +188,7 @@
 				<!-- aineistolista -->
 				
 				<div class="tab-content">
-					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensstatus == 3 %}opacity: 0.5;{% endif %}">
+					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
 						<h3>{% trans "collections_in_request" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
@@ -212,11 +212,11 @@
 									{% elif collection.status == 4 %}
 									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
-										{% if userRequest.sensstatus == 1 %}
+										{% if userRequest.sensStatus == 1 %}
 										<tr class="info clickable-row">
-										{% elif userRequest.sensstatus == 3 %}
+										{% elif userRequest.sensStatus == 3 %}
 										<tr class="danger clickable-row">
-										{% elif userRequest.sensstatus == 4 %}
+										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
@@ -262,11 +262,11 @@
 									{% elif collection.status == 4 %}
 									<tr class="success clickable-row">
 									{% elif collection.taxonSecured > 0 %}
-										{% if userRequest.sensstatus == 1 %}
+										{% if userRequest.sensStatus == 1 %}
 										<tr class="info clickable-row">
-										{% elif userRequest.sensstatus == 3 %}
+										{% elif userRequest.sensStatus == 3 %}
 										<tr class="danger clickable-row">
-										{% elif userRequest.sensstatus == 4 %}
+										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
 										{% endif %}  
 									{% else %}  
