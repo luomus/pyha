@@ -156,7 +156,7 @@
 						</a>
 					</li>
 					<li id="handler_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
-						<a href="#handler_comments" class="request-tab request-handler-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
+						<a href="#handler_comments" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="handler_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
 							<span>
 								{% trans 'col_handler_comments_window' %}
 							</span>
@@ -506,7 +506,7 @@
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if question.target == 'admin' %} ({% trans 'admin' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
+								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if requestHandlerChat.target == 'admin' %} ({% trans 'admin' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
