@@ -3,7 +3,7 @@ import sys
 from argparse import Namespace
 
 def get_callers_function_name():
-    return sys._getframe(1).f_code.co_name
+    return sys._getframe(2).f_code.co_name
 
 def filterlink(userRequest, link):
     filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
