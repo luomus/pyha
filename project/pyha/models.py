@@ -83,7 +83,7 @@ class Request(models.Model):
 	history = HistoricalRecords()
 
 	def __str__(self):
-		return 'Request: %d (lajiId: %s) [%s]' %(self.id, self.lajiId, self.date.strftime('%d.%m.%Y %H:%M:%S'))
+		return 'Request: %d [%s] (lajiId: %s)' %(self.id, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.lajiId)
 
 @python_2_unicode_compatible
 class RequestContact(models.Model):
