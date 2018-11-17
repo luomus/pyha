@@ -85,7 +85,7 @@ def approve_terms(request):
             return HttpResponseRedirect(reverse('pyha:root'))
         lang = 'fi' #ainakin toistaiseksi
         userRequest = Request.objects.get(id = requestId)
-        if userRequest.sensstatus == Sens_StatusEnum.IGNORE_OFFICIAL:
+        if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL:
             approve_terms_skip_official(request, userRequest, requestId, lang)
         else:
             requestedCollections = request.POST.getlist('checkb')
@@ -107,7 +107,7 @@ def approve_terms(request):
                 for c in Collection.objects.filter(request = requestId):
                     if c.status == 0:
                         c.customSecured = 0
-                        if userRequest.sensstatus == Sens_StatusEnum.APPROVETERMS_WAIT:
+                        if userRequest.sensStatus == Sens_StatusEnum.APPROVETERMS_WAIT:
                             c.taxonsecured = 0
                         c.changedBy = changed_by_session_user(request)
                         c.save()
@@ -126,9 +126,9 @@ def approve_terms(request):
                 userRequest.status = 1
                 if senschecked:
                     if not taxon:
-                        userRequest.sensstatus = 4
+                        userRequest.sensStatus = 4
                     else:
-                        userRequest.sensstatus = 1
+                        userRequest.sensStatus = 1
                 userRequest.personName = request.POST.get('request_person_name_1')
                 userRequest.personStreetAddress = request.POST.get('request_person_street_address_1')
                 userRequest.personPostOfficeName = request.POST.get('request_person_post_office_name_1')
