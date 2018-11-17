@@ -2692,7 +2692,7 @@ msgstr "Aineistonkäsittelijöiden kommentit"
 #: templates/pyha/skipofficial/handler/requestview.html:508
 msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
 msgstr ""
-"Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön eikä siis näy "
+"Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön, eikä siis näy "
 "pyynnön tekijälle. Muistakaa käytöstavat."
 
 #: templates/pyha/skipofficial/handler/requestview.html:511

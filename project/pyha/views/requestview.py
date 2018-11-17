@@ -85,7 +85,7 @@ def comment_handler(request):
         userRequest = Request.objects.get(id=requestId) 
         if is_admin_frozen_and_not_admin(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
-        if CAT_HANDLER_COLL in request.session["user_roles"]:
+        if is_allowed_to_ask_information_as_target(request,target,requestId):
             newChatEntry = RequestHandlerChatEntry()
             newChatEntry.request = userRequest
             newChatEntry.target = target
