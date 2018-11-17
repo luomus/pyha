@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-16 03:14+0200\n"
+"POT-Creation-Date: 2018-11-17 02:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2707,7 +2707,7 @@ msgstr "Puhu roolissa"
 msgid "collection_tab"
 msgstr "Aineistot"
 
-#: views/requestform.py:138 views/requestform.py:174
+#: views/requestform.py:148 views/requestform.py:187
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 
