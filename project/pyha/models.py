@@ -34,7 +34,7 @@ class Request(models.Model):
 	#id alkaa ykkösestä ja nousee
 	id = models.AutoField(primary_key=True)
 	lajiId = models.CharField(max_length=200) #id given by laji.api
-	description = models.CharField(max_length=400)  #description given by the requester for his request
+	description = models.CharField(max_length=400,blank=True,null=True)  #description given by the requester for his request
 	
 	#for status
 	#status 0: Odottaa pyytäjän hyväksymistä
