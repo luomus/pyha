@@ -16,7 +16,7 @@
 	
 	function removeAjax(index, on_success) {
 	var xhttp = new XMLHttpRequest();
-	var collectionid = document.getElementById('taxoncollectionId'+index).value;
+	var collectionid = document.getElementById('removecollectionId'+index).value;
 	var requestid = document.getElementById('requestid').value;
 	var data = 'requestid='+requestid+'&collectionId='+collectionid;
 	xhttp.onreadystatechange = function() {
