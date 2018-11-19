@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-17 02:42+0200\n"
+"POT-Creation-Date: 2018-11-19 03:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:49
+#: admin.py:57
 #, fuzzy
 #| msgid "admin"
 msgid "Pyha administration"
 msgstr "Request handler"
 
-#: admin.py:50
+#: admin.py:58
 #, fuzzy
 #| msgid "admin"
 msgid "Pyha admin"
@@ -93,7 +93,7 @@ msgstr ""
 #: templates/pyha/official/admin/requestview.html:493
 #: templates/pyha/official/admin/requestview.html:559
 #: templates/pyha/skipofficial/admin/requestview.html:36
-#: templates/pyha/skipofficial/admin/requestview.html:449
+#: templates/pyha/skipofficial/admin/requestview.html:447
 #, fuzzy
 #| msgid "partially_accepted"
 msgid "admin_partially_accepted"
@@ -104,7 +104,7 @@ msgstr "Partially accepted"
 #: templates/pyha/official/admin/requestview.html:491
 #: templates/pyha/official/admin/requestview.html:557
 #: templates/pyha/skipofficial/admin/requestview.html:39
-#: templates/pyha/skipofficial/admin/requestview.html:447
+#: templates/pyha/skipofficial/admin/requestview.html:445
 #, fuzzy
 #| msgid "handler_denied"
 msgid "admin_denied"
@@ -115,7 +115,7 @@ msgstr "Denied"
 #: templates/pyha/official/admin/requestview.html:495
 #: templates/pyha/official/admin/requestview.html:561
 #: templates/pyha/skipofficial/admin/requestview.html:42
-#: templates/pyha/skipofficial/admin/requestview.html:451
+#: templates/pyha/skipofficial/admin/requestview.html:449
 #, fuzzy
 #| msgid "handler_accepted"
 msgid "admin_accepted"
@@ -150,7 +150,7 @@ msgstr "Ready for download"
 #: templates/pyha/official/admin/requestview.html:499
 #: templates/pyha/official/admin/requestview.html:563
 #: templates/pyha/skipofficial/admin/requestview.html:54
-#: templates/pyha/skipofficial/admin/requestview.html:453
+#: templates/pyha/skipofficial/admin/requestview.html:451
 #, fuzzy
 #| msgid "handler_unknown"
 msgid "admin_unknown"
@@ -166,7 +166,7 @@ msgstr "Unknown"
 #: templates/pyha/official/handler/requestview.html:179
 #: templates/pyha/official/requestview.html:207
 #: templates/pyha/official/requestview.html:210
-#: templates/pyha/skipofficial/admin/requestview.html:173
+#: templates/pyha/skipofficial/admin/requestview.html:171
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:4
 #: templates/pyha/skipofficial/handler/requestview.html:162
 #: templates/pyha/skipofficial/requestview.html:195
@@ -287,7 +287,7 @@ msgstr "Business ID"
 #: templates/pyha/official/admin/requestview.html:404
 #: templates/pyha/official/handler/requestview.html:398
 #: templates/pyha/official/requestview.html:507
-#: templates/pyha/skipofficial/admin/requestview.html:360
+#: templates/pyha/skipofficial/admin/requestview.html:358
 #: templates/pyha/skipofficial/handler/requestview.html:349
 #: templates/pyha/skipofficial/requestview.html:425
 msgid "additional_contact_name"
@@ -303,8 +303,8 @@ msgstr "Additional applicant name"
 #: templates/pyha/official/requestform.html:408
 #: templates/pyha/official/requestview.html:490
 #: templates/pyha/official/requestview.html:509
-#: templates/pyha/skipofficial/admin/requestview.html:343
-#: templates/pyha/skipofficial/admin/requestview.html:362
+#: templates/pyha/skipofficial/admin/requestview.html:341
+#: templates/pyha/skipofficial/admin/requestview.html:360
 #: templates/pyha/skipofficial/handler/requestview.html:332
 #: templates/pyha/skipofficial/handler/requestview.html:351
 #: templates/pyha/skipofficial/requestform.html:239
@@ -324,8 +324,8 @@ msgstr "Address"
 #: templates/pyha/official/requestform.html:409
 #: templates/pyha/official/requestview.html:491
 #: templates/pyha/official/requestview.html:510
-#: templates/pyha/skipofficial/admin/requestview.html:344
-#: templates/pyha/skipofficial/admin/requestview.html:363
+#: templates/pyha/skipofficial/admin/requestview.html:342
+#: templates/pyha/skipofficial/admin/requestview.html:361
 #: templates/pyha/skipofficial/handler/requestview.html:333
 #: templates/pyha/skipofficial/handler/requestview.html:352
 #: templates/pyha/skipofficial/requestform.html:240
@@ -345,8 +345,8 @@ msgstr "Postal code"
 #: templates/pyha/official/requestform.html:410
 #: templates/pyha/official/requestview.html:492
 #: templates/pyha/official/requestview.html:511
-#: templates/pyha/skipofficial/admin/requestview.html:345
-#: templates/pyha/skipofficial/admin/requestview.html:364
+#: templates/pyha/skipofficial/admin/requestview.html:343
+#: templates/pyha/skipofficial/admin/requestview.html:362
 #: templates/pyha/skipofficial/handler/requestview.html:334
 #: templates/pyha/skipofficial/handler/requestview.html:353
 #: templates/pyha/skipofficial/requestform.html:241
@@ -366,8 +366,8 @@ msgstr "City"
 #: templates/pyha/official/requestform.html:411
 #: templates/pyha/official/requestview.html:493
 #: templates/pyha/official/requestview.html:512
-#: templates/pyha/skipofficial/admin/requestview.html:346
-#: templates/pyha/skipofficial/admin/requestview.html:365
+#: templates/pyha/skipofficial/admin/requestview.html:344
+#: templates/pyha/skipofficial/admin/requestview.html:363
 #: templates/pyha/skipofficial/handler/requestview.html:335
 #: templates/pyha/skipofficial/handler/requestview.html:354
 #: templates/pyha/skipofficial/requestform.html:242
@@ -387,8 +387,8 @@ msgstr "Country"
 #: templates/pyha/official/requestform.html:412
 #: templates/pyha/official/requestview.html:494
 #: templates/pyha/official/requestview.html:513
-#: templates/pyha/skipofficial/admin/requestview.html:347
-#: templates/pyha/skipofficial/admin/requestview.html:366
+#: templates/pyha/skipofficial/admin/requestview.html:345
+#: templates/pyha/skipofficial/admin/requestview.html:364
 #: templates/pyha/skipofficial/handler/requestview.html:336
 #: templates/pyha/skipofficial/handler/requestview.html:355
 #: templates/pyha/skipofficial/requestform.html:243
@@ -408,8 +408,8 @@ msgstr "Email"
 #: templates/pyha/official/requestform.html:413
 #: templates/pyha/official/requestview.html:495
 #: templates/pyha/official/requestview.html:514
-#: templates/pyha/skipofficial/admin/requestview.html:348
-#: templates/pyha/skipofficial/admin/requestview.html:367
+#: templates/pyha/skipofficial/admin/requestview.html:346
+#: templates/pyha/skipofficial/admin/requestview.html:365
 #: templates/pyha/skipofficial/handler/requestview.html:337
 #: templates/pyha/skipofficial/handler/requestview.html:356
 #: templates/pyha/skipofficial/requestform.html:244
@@ -429,8 +429,8 @@ msgstr "Phone number"
 #: templates/pyha/official/requestform.html:414
 #: templates/pyha/official/requestview.html:497
 #: templates/pyha/official/requestview.html:516
-#: templates/pyha/skipofficial/admin/requestview.html:350
-#: templates/pyha/skipofficial/admin/requestview.html:369
+#: templates/pyha/skipofficial/admin/requestview.html:348
+#: templates/pyha/skipofficial/admin/requestview.html:367
 #: templates/pyha/skipofficial/handler/requestview.html:339
 #: templates/pyha/skipofficial/handler/requestview.html:358
 #: templates/pyha/skipofficial/requestform.html:245
@@ -450,8 +450,8 @@ msgstr "Company"
 #: templates/pyha/official/requestform.html:415
 #: templates/pyha/official/requestview.html:500
 #: templates/pyha/official/requestview.html:519
-#: templates/pyha/skipofficial/admin/requestview.html:353
-#: templates/pyha/skipofficial/admin/requestview.html:372
+#: templates/pyha/skipofficial/admin/requestview.html:351
+#: templates/pyha/skipofficial/admin/requestview.html:370
 #: templates/pyha/skipofficial/handler/requestview.html:342
 #: templates/pyha/skipofficial/handler/requestview.html:361
 #: templates/pyha/skipofficial/requestform.html:246
@@ -475,7 +475,7 @@ msgstr "Collections in this request"
 #: templates/pyha/official/admin/requestview.html:184
 #: templates/pyha/official/handler/requestview.html:178
 #: templates/pyha/official/requestview.html:206
-#: templates/pyha/skipofficial/admin/requestview.html:172
+#: templates/pyha/skipofficial/admin/requestview.html:170
 #: templates/pyha/skipofficial/handler/requestview.html:161
 #: templates/pyha/skipofficial/requestview.html:194
 msgid "Collections including sensitive sightings are marked with symbol"
@@ -540,6 +540,10 @@ msgid "admin_site"
 msgstr "Admin site"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
+#: templates/pyha/skipofficial/admin/requestview.html:477
+#: templates/pyha/skipofficial/admin/requestview.html:482
+#: templates/pyha/skipofficial/admin/requestview.html:509
+#: templates/pyha/skipofficial/handler/requestview.html:511
 msgid "admin"
 msgstr "Role: Admin"
 
@@ -551,7 +555,7 @@ msgstr "Role: Handler"
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
 #: templates/pyha/official/requestview.html:621
-#: templates/pyha/skipofficial/admin/requestview.html:557
+#: templates/pyha/skipofficial/admin/requestview.html:559
 #: templates/pyha/skipofficial/handler/requestview.html:565
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
@@ -747,7 +751,7 @@ msgstr "Pending the processing of the data provider"
 #: templates/pyha/official/requestview.html:250
 #: templates/pyha/official/requestview.html:283
 #: templates/pyha/official/requestview.html:331
-#: templates/pyha/skipofficial/admin/requestview.html:219
+#: templates/pyha/skipofficial/admin/requestview.html:217
 #: templates/pyha/skipofficial/handler/requestview.html:208
 #: templates/pyha/skipofficial/requestview.html:31
 #: templates/pyha/skipofficial/requestview.html:237
@@ -769,7 +773,7 @@ msgstr "Partially accepted"
 #: templates/pyha/official/requestview.html:281
 #: templates/pyha/official/requestview.html:329
 #: templates/pyha/skipofficial/admin/requestview.html:91
-#: templates/pyha/skipofficial/admin/requestview.html:217
+#: templates/pyha/skipofficial/admin/requestview.html:215
 #: templates/pyha/skipofficial/handler/requestview.html:80
 #: templates/pyha/skipofficial/handler/requestview.html:206
 #: templates/pyha/skipofficial/requestview.html:34
@@ -793,7 +797,7 @@ msgstr "Denied"
 #: templates/pyha/official/requestview.html:285
 #: templates/pyha/official/requestview.html:333
 #: templates/pyha/skipofficial/admin/requestview.html:90
-#: templates/pyha/skipofficial/admin/requestview.html:221
+#: templates/pyha/skipofficial/admin/requestview.html:219
 #: templates/pyha/skipofficial/handler/requestview.html:79
 #: templates/pyha/skipofficial/handler/requestview.html:210
 #: templates/pyha/skipofficial/requestview.html:37
@@ -828,7 +832,7 @@ msgstr "Ready for download"
 #: templates/pyha/official/requestview.html:256
 #: templates/pyha/official/requestview.html:287
 #: templates/pyha/official/requestview.html:337
-#: templates/pyha/skipofficial/admin/requestview.html:225
+#: templates/pyha/skipofficial/admin/requestview.html:223
 #: templates/pyha/skipofficial/handler/requestview.html:214
 #: templates/pyha/skipofficial/requestview.html:50
 #: templates/pyha/skipofficial/requestview.html:243
@@ -859,8 +863,8 @@ msgstr "State of request"
 #: templates/pyha/official/admin/requestview.html:488
 #: templates/pyha/official/admin/requestview.html:554
 #: templates/pyha/skipofficial/admin/requestview.html:31
-#: templates/pyha/skipofficial/admin/requestview.html:214
-#: templates/pyha/skipofficial/admin/requestview.html:444
+#: templates/pyha/skipofficial/admin/requestview.html:212
+#: templates/pyha/skipofficial/admin/requestview.html:442
 #, fuzzy
 #| msgid "handler_waiting_for_others"
 msgid "admin_waiting_for_others"
@@ -871,8 +875,8 @@ msgstr "Pending decision by others"
 #: templates/pyha/official/admin/requestview.html:486
 #: templates/pyha/official/admin/requestview.html:552
 #: templates/pyha/skipofficial/admin/requestview.html:33
-#: templates/pyha/skipofficial/admin/requestview.html:212
-#: templates/pyha/skipofficial/admin/requestview.html:442
+#: templates/pyha/skipofficial/admin/requestview.html:210
+#: templates/pyha/skipofficial/admin/requestview.html:440
 #, fuzzy
 #| msgid "handler_waiting_for_you"
 msgid "admin_waiting_for_you"
@@ -936,7 +940,7 @@ msgstr "Restricted collections"
 #: templates/pyha/official/admin/requestview.html:117
 #: templates/pyha/official/admin/requestview.html:643
 #: templates/pyha/skipofficial/admin/requestview.html:105
-#: templates/pyha/skipofficial/admin/requestview.html:530
+#: templates/pyha/skipofficial/admin/requestview.html:532
 #, fuzzy
 #| msgid "changes_history"
 msgid "admin_changes_history"
@@ -992,14 +996,13 @@ msgid "admin_additional_information_window"
 msgstr "Questions"
 
 #: templates/pyha/official/admin/requestview.html:174
-#: templates/pyha/skipofficial/admin/requestview.html:162
 #, fuzzy
 #| msgid "handler_comments_window"
 msgid "admin_comments_window"
 msgstr "Comments by authorities"
 
 #: templates/pyha/official/admin/requestview.html:182
-#: templates/pyha/skipofficial/admin/requestview.html:170
+#: templates/pyha/skipofficial/admin/requestview.html:168
 #, fuzzy
 #| msgid "collections_in_request"
 msgid "admin_collections_in_request"
@@ -1007,8 +1010,8 @@ msgstr "Collections in this request"
 
 #: templates/pyha/official/admin/requestview.html:189
 #: templates/pyha/official/admin/requestview.html:532
-#: templates/pyha/skipofficial/admin/requestview.html:177
-#: templates/pyha/skipofficial/admin/requestview.html:422
+#: templates/pyha/skipofficial/admin/requestview.html:175
+#: templates/pyha/skipofficial/admin/requestview.html:420
 #, fuzzy
 #| msgid "collection_name"
 msgid "admin_collection_name"
@@ -1016,29 +1019,29 @@ msgstr "Collection name"
 
 #: templates/pyha/official/admin/requestview.html:191
 #: templates/pyha/official/admin/requestview.html:533
-#: templates/pyha/skipofficial/admin/requestview.html:179
-#: templates/pyha/skipofficial/admin/requestview.html:423
+#: templates/pyha/skipofficial/admin/requestview.html:177
+#: templates/pyha/skipofficial/admin/requestview.html:421
 #, fuzzy
 #| msgid "collection_description"
 msgid "admin_collection_description"
 msgstr "Description"
 
 #: templates/pyha/official/admin/requestview.html:192
-#: templates/pyha/skipofficial/admin/requestview.html:180
+#: templates/pyha/skipofficial/admin/requestview.html:178
 #, fuzzy
 #| msgid "secured_by_data_provider"
 msgid "admin_secured_by_data_provider"
 msgstr "Secured by data provider"
 
 #: templates/pyha/official/admin/requestview.html:193
-#: templates/pyha/skipofficial/admin/requestview.html:181
+#: templates/pyha/skipofficial/admin/requestview.html:179
 #, fuzzy
 #| msgid "generally_secured"
 msgid "admin_generally_secured"
 msgstr "Generally secured"
 
 #: templates/pyha/official/admin/requestview.html:194
-#: templates/pyha/skipofficial/admin/requestview.html:182
+#: templates/pyha/skipofficial/admin/requestview.html:180
 #, fuzzy
 #| msgid "all_secured"
 msgid "admin_all_secured"
@@ -1047,8 +1050,8 @@ msgstr "All"
 #: templates/pyha/official/admin/requestview.html:195
 #: templates/pyha/official/admin/requestview.html:472
 #: templates/pyha/official/admin/requestview.html:534
-#: templates/pyha/skipofficial/admin/requestview.html:183
-#: templates/pyha/skipofficial/admin/requestview.html:424
+#: templates/pyha/skipofficial/admin/requestview.html:181
+#: templates/pyha/skipofficial/admin/requestview.html:422
 #, fuzzy
 #| msgid "state_of_processing"
 msgid "admin_state_of_processing"
@@ -1058,7 +1061,7 @@ msgstr "State of processing"
 #: templates/pyha/official/handler/requestview.html:229
 #: templates/pyha/official/requestview.html:254
 #: templates/pyha/official/requestview.html:335
-#: templates/pyha/skipofficial/admin/requestview.html:223
+#: templates/pyha/skipofficial/admin/requestview.html:221
 #: templates/pyha/skipofficial/handler/requestview.html:212
 #: templates/pyha/skipofficial/requestview.html:241
 #: templates/pyha/skipofficial/requestview.html:285
@@ -1066,42 +1069,42 @@ msgid "Admission_for_sensitive_data"
 msgstr "Admission for sensitive data"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:231
+#: templates/pyha/skipofficial/admin/requestview.html:229
 #, fuzzy
 #| msgid "request_filters"
 msgid "admin_request_filters"
 msgstr "Requests filters"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:231
+#: templates/pyha/skipofficial/admin/requestview.html:229
 #, fuzzy
 #| msgid "handler_show_in_officials_portal"
 msgid "admin_show_in_officials_portal"
 msgstr "Show results in government portal"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:231
+#: templates/pyha/skipofficial/admin/requestview.html:229
 #, fuzzy
 #| msgid "show_in_portal"
 msgid "admin_show_in_portal"
 msgstr "Show in Laji.fi"
 
 #: templates/pyha/official/admin/requestview.html:247
-#: templates/pyha/skipofficial/admin/requestview.html:235
+#: templates/pyha/skipofficial/admin/requestview.html:233
 #, fuzzy
 #| msgid "no_filters"
 msgid "admin_filter"
 msgstr "There are no filters for this request"
 
 #: templates/pyha/official/admin/requestview.html:248
-#: templates/pyha/skipofficial/admin/requestview.html:236
+#: templates/pyha/skipofficial/admin/requestview.html:234
 #, fuzzy
 #| msgid "handler_values"
 msgid "admin_values"
 msgstr "Values"
 
 #: templates/pyha/official/admin/requestview.html:265
-#: templates/pyha/skipofficial/admin/requestview.html:253
+#: templates/pyha/skipofficial/admin/requestview.html:251
 #, fuzzy
 #| msgid "no_filters"
 msgid "admin_no_filters"
@@ -1112,7 +1115,7 @@ msgstr "There are no filters for this request"
 #: templates/pyha/official/requestform.html:361
 #: templates/pyha/official/requestform.html:419
 #: templates/pyha/official/requestview.html:372
-#: templates/pyha/skipofficial/admin/requestview.html:257
+#: templates/pyha/skipofficial/admin/requestview.html:255
 #: templates/pyha/skipofficial/handler/requestview.html:246
 #: templates/pyha/skipofficial/requestform.html:295
 #: templates/pyha/skipofficial/requestform.html:353
@@ -1121,105 +1124,105 @@ msgid "request_arguments"
 msgstr "Basis"
 
 #: templates/pyha/official/admin/requestview.html:271
-#: templates/pyha/skipofficial/admin/requestview.html:259
+#: templates/pyha/skipofficial/admin/requestview.html:257
 #, fuzzy
 #| msgid "argument_choices"
 msgid "admin_argument_choices"
 msgstr "Selected usage"
 
 #: templates/pyha/official/admin/requestview.html:275
-#: templates/pyha/skipofficial/admin/requestview.html:263
+#: templates/pyha/skipofficial/admin/requestview.html:261
 #, fuzzy
 #| msgid "reason_zoning"
 msgid "admin_reason_zoning"
 msgstr "Land use planning"
 
 #: templates/pyha/official/admin/requestview.html:277
-#: templates/pyha/skipofficial/admin/requestview.html:265
+#: templates/pyha/skipofficial/admin/requestview.html:263
 #, fuzzy
 #| msgid "reason_permission"
 msgid "admin_reason_permission"
 msgstr "Permit request"
 
 #: templates/pyha/official/admin/requestview.html:279
-#: templates/pyha/skipofficial/admin/requestview.html:267
+#: templates/pyha/skipofficial/admin/requestview.html:265
 #, fuzzy
 #| msgid "reason_enviromental"
 msgid "admin_reason_enviromental"
 msgstr "Environmental impact assessment"
 
 #: templates/pyha/official/admin/requestview.html:281
-#: templates/pyha/skipofficial/admin/requestview.html:269
+#: templates/pyha/skipofficial/admin/requestview.html:267
 #, fuzzy
 #| msgid "reason_natura"
 msgid "admin_reason_natura"
 msgstr "Natura assessment (luonnonsuojelulaki)"
 
 #: templates/pyha/official/admin/requestview.html:283
-#: templates/pyha/skipofficial/admin/requestview.html:271
+#: templates/pyha/skipofficial/admin/requestview.html:269
 #, fuzzy
 #| msgid "reason_scientific"
 msgid "admin_reason_scientific"
 msgstr "Scientific study"
 
 #: templates/pyha/official/admin/requestview.html:285
-#: templates/pyha/skipofficial/admin/requestview.html:273
+#: templates/pyha/skipofficial/admin/requestview.html:271
 #, fuzzy
 #| msgid "reason_forest"
 msgid "admin_reason_forest"
 msgstr "Forest planning"
 
 #: templates/pyha/official/admin/requestview.html:287
-#: templates/pyha/skipofficial/admin/requestview.html:275
+#: templates/pyha/skipofficial/admin/requestview.html:273
 #, fuzzy
 #| msgid "reason_other"
 msgid "admin_reason_other"
 msgstr "Other (please explain in free text)"
 
 #: templates/pyha/official/admin/requestview.html:293
-#: templates/pyha/skipofficial/admin/requestview.html:281
+#: templates/pyha/skipofficial/admin/requestview.html:279
 #, fuzzy
 #| msgid "argument_project"
 msgid "admin_argument_project"
 msgstr "Project name and description"
 
 #: templates/pyha/official/admin/requestview.html:296
-#: templates/pyha/skipofficial/admin/requestview.html:284
+#: templates/pyha/skipofficial/admin/requestview.html:282
 #, fuzzy
 #| msgid "argument_research"
 msgid "admin_argument_research"
 msgstr "Name of study"
 
 #: templates/pyha/official/admin/requestview.html:299
-#: templates/pyha/skipofficial/admin/requestview.html:287
+#: templates/pyha/skipofficial/admin/requestview.html:285
 #, fuzzy
 #| msgid "argument_goals"
 msgid "admin_argument_goals"
 msgstr "Goals of study"
 
 #: templates/pyha/official/admin/requestview.html:302
-#: templates/pyha/skipofficial/admin/requestview.html:290
+#: templates/pyha/skipofficial/admin/requestview.html:288
 #, fuzzy
 #| msgid "argument_planning"
 msgid "admin_argument_planning"
 msgstr "Description of planning project"
 
 #: templates/pyha/official/admin/requestview.html:305
-#: templates/pyha/skipofficial/admin/requestview.html:293
+#: templates/pyha/skipofficial/admin/requestview.html:291
 #, fuzzy
 #| msgid "argument_municipality"
 msgid "admin_argument_municipality"
 msgstr "Municipal location of project"
 
 #: templates/pyha/official/admin/requestview.html:308
-#: templates/pyha/skipofficial/admin/requestview.html:296
+#: templates/pyha/skipofficial/admin/requestview.html:294
 #, fuzzy
 #| msgid "argument_natura_areas"
 msgid "admin_argument_natura_areas"
 msgstr "Natura sites included"
 
 #: templates/pyha/official/admin/requestview.html:311
-#: templates/pyha/skipofficial/admin/requestview.html:299
+#: templates/pyha/skipofficial/admin/requestview.html:297
 #, fuzzy
 #| msgid "argument_reason"
 msgid "admin_argument_reason"
@@ -1228,7 +1231,7 @@ msgstr "Free text field"
 #: templates/pyha/official/admin/requestview.html:318
 #: templates/pyha/official/admin/requestview.html:323
 #: templates/pyha/official/admin/requestview.html:329
-#: templates/pyha/skipofficial/admin/requestview.html:306
+#: templates/pyha/skipofficial/admin/requestview.html:304
 #, fuzzy
 #| msgid "handler_terms"
 msgid "admin_terms"
@@ -1253,7 +1256,7 @@ msgstr "Terms of use of the collections"
 #: templates/pyha/official/requestform.html:379
 #: templates/pyha/official/requestview.html:441
 #: templates/pyha/official/requestview.html:467
-#: templates/pyha/skipofficial/admin/requestview.html:320
+#: templates/pyha/skipofficial/admin/requestview.html:318
 #: templates/pyha/skipofficial/handler/requestview.html:309
 #: templates/pyha/skipofficial/requestform.html:219
 #: templates/pyha/skipofficial/requestform.html:313
@@ -1285,7 +1288,7 @@ msgstr "to PDF"
 #: templates/pyha/official/requestform.html:268
 #: templates/pyha/official/requestform.html:406
 #: templates/pyha/official/requestview.html:488
-#: templates/pyha/skipofficial/admin/requestview.html:341
+#: templates/pyha/skipofficial/admin/requestview.html:339
 #: templates/pyha/skipofficial/handler/requestview.html:330
 #: templates/pyha/skipofficial/requestform.html:237
 #: templates/pyha/skipofficial/requestform.html:340
@@ -1294,70 +1297,70 @@ msgid "contact_name"
 msgstr "Full name"
 
 #: templates/pyha/official/admin/requestview.html:433
-#: templates/pyha/skipofficial/admin/requestview.html:389
+#: templates/pyha/skipofficial/admin/requestview.html:387
 #, fuzzy
 #| msgid "main_contact"
 msgid "admin_contacts"
 msgstr "Main contact"
 
 #: templates/pyha/official/admin/requestview.html:436
-#: templates/pyha/skipofficial/admin/requestview.html:392
+#: templates/pyha/skipofficial/admin/requestview.html:390
 #, fuzzy
 #| msgid "handler_full_name"
 msgid "admin_full_name"
 msgstr "Full name"
 
 #: templates/pyha/official/admin/requestview.html:437
-#: templates/pyha/skipofficial/admin/requestview.html:393
+#: templates/pyha/skipofficial/admin/requestview.html:391
 #, fuzzy
 #| msgid "street_address"
 msgid "admin_street_address"
 msgstr "Address"
 
 #: templates/pyha/official/admin/requestview.html:438
-#: templates/pyha/skipofficial/admin/requestview.html:394
+#: templates/pyha/skipofficial/admin/requestview.html:392
 #, fuzzy
 #| msgid "postal_code"
 msgid "admin_postal_code"
 msgstr "Postal code"
 
 #: templates/pyha/official/admin/requestview.html:439
-#: templates/pyha/skipofficial/admin/requestview.html:395
+#: templates/pyha/skipofficial/admin/requestview.html:393
 #, fuzzy
 #| msgid "post_office_name"
 msgid "admin_post_office_name"
 msgstr "City"
 
 #: templates/pyha/official/admin/requestview.html:440
-#: templates/pyha/skipofficial/admin/requestview.html:396
+#: templates/pyha/skipofficial/admin/requestview.html:394
 #, fuzzy
 #| msgid "handler_country"
 msgid "admin_country"
 msgstr "Country"
 
 #: templates/pyha/official/admin/requestview.html:441
-#: templates/pyha/skipofficial/admin/requestview.html:397
+#: templates/pyha/skipofficial/admin/requestview.html:395
 #, fuzzy
 #| msgid "handler_email"
 msgid "admin_email"
 msgstr "Email"
 
 #: templates/pyha/official/admin/requestview.html:442
-#: templates/pyha/skipofficial/admin/requestview.html:398
+#: templates/pyha/skipofficial/admin/requestview.html:396
 #, fuzzy
 #| msgid "phone_number"
 msgid "admin_phone_number"
 msgstr "Phone number"
 
 #: templates/pyha/official/admin/requestview.html:443
-#: templates/pyha/skipofficial/admin/requestview.html:399
+#: templates/pyha/skipofficial/admin/requestview.html:397
 #, fuzzy
 #| msgid "corporation/organization_name"
 msgid "admin_corporation/organization_name"
 msgstr "Company/Organisation name"
 
 #: templates/pyha/official/admin/requestview.html:444
-#: templates/pyha/skipofficial/admin/requestview.html:400
+#: templates/pyha/skipofficial/admin/requestview.html:398
 #, fuzzy
 #| msgid "corporation_id"
 msgid "admin_corporation_id"
@@ -1377,7 +1380,7 @@ msgstr "Collections including sensitive data:"
 
 #: templates/pyha/official/admin/requestview.html:473
 #: templates/pyha/official/admin/requestview.html:535
-#: templates/pyha/skipofficial/admin/requestview.html:425
+#: templates/pyha/skipofficial/admin/requestview.html:423
 #, fuzzy
 #| msgid "decision_arguments"
 msgid "admin_decision_arguments"
@@ -1391,7 +1394,7 @@ msgstr " asked:"
 
 #: templates/pyha/official/admin/requestview.html:507
 #: templates/pyha/official/admin/requestview.html:572
-#: templates/pyha/skipofficial/admin/requestview.html:462
+#: templates/pyha/skipofficial/admin/requestview.html:460
 #, fuzzy
 #| msgid "handler_accept"
 msgid "admin_accept"
@@ -1400,28 +1403,28 @@ msgstr "Accept"
 #: templates/pyha/official/admin/requestview.html:511
 #: templates/pyha/official/admin/requestview.html:513
 #: templates/pyha/official/admin/requestview.html:574
-#: templates/pyha/skipofficial/admin/requestview.html:464
+#: templates/pyha/skipofficial/admin/requestview.html:462
 #, fuzzy
 #| msgid "handler_refuse"
 msgid "admin_refuse"
 msgstr "Reject"
 
 #: templates/pyha/official/admin/requestview.html:529
-#: templates/pyha/skipofficial/admin/requestview.html:419
+#: templates/pyha/skipofficial/admin/requestview.html:417
 #, fuzzy
 #| msgid "handler_secured_collection_decicions"
 msgid "admin_secured_collection_decicions"
 msgstr "Make a decision concerning giving out collection data"
 
 #: templates/pyha/official/admin/requestview.html:573
-#: templates/pyha/skipofficial/admin/requestview.html:463
+#: templates/pyha/skipofficial/admin/requestview.html:461
 #, fuzzy
 #| msgid "admin"
 msgid "admin_reset"
 msgstr "Request handler"
 
 #: templates/pyha/official/admin/requestview.html:585
-#: templates/pyha/skipofficial/admin/requestview.html:475
+#: templates/pyha/skipofficial/admin/requestview.html:473
 #, fuzzy
 #| msgid "additional_questions"
 msgid "admin_additional_questions"
@@ -1434,8 +1437,8 @@ msgstr "Additional questions"
 #: templates/pyha/official/requestview.html:425
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:479
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:477
+#: templates/pyha/skipofficial/admin/requestview.html:482
 #: templates/pyha/skipofficial/handler/requestview.html:471
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:489
@@ -1449,8 +1452,6 @@ msgstr "Sensitivity"
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:479
-#: templates/pyha/skipofficial/admin/requestview.html:484
 #: templates/pyha/skipofficial/handler/requestview.html:471
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:489
@@ -1461,7 +1462,7 @@ msgid "admin_question"
 msgstr "Additional questions"
 
 #: templates/pyha/official/admin/requestview.html:589
-#: templates/pyha/skipofficial/admin/requestview.html:479
+#: templates/pyha/skipofficial/admin/requestview.html:477
 #, fuzzy
 #| msgid "handler_asked"
 msgid "admin_asked"
@@ -1470,89 +1471,87 @@ msgstr " asked:"
 #: templates/pyha/official/admin/requestview.html:594
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:482
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:505
 msgid "inquiry"
 msgstr "inquiry"
 
 #: templates/pyha/official/admin/requestview.html:594
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:482
 #, fuzzy
 #| msgid "handler_answered"
 msgid "admin_answered"
 msgstr " responded:"
 
 #: templates/pyha/official/admin/requestview.html:598
-#: templates/pyha/skipofficial/admin/requestview.html:488
+#: templates/pyha/skipofficial/admin/requestview.html:486
 #, fuzzy
 #| msgid "handler_form_to_request_additional_information"
 msgid "admin_form_to_request_additional_information"
 msgstr "Form to request additional information"
 
 #: templates/pyha/official/admin/requestview.html:606
-#: templates/pyha/skipofficial/admin/requestview.html:493
+#: templates/pyha/skipofficial/admin/requestview.html:491
 #, fuzzy
 #| msgid "ask_as_handler_of"
 msgid "ask_as_admin_of"
 msgstr "Ask in role"
 
 #: templates/pyha/official/admin/requestview.html:608
-#: templates/pyha/skipofficial/admin/requestview.html:495
+#: templates/pyha/skipofficial/admin/requestview.html:493
+#: templates/pyha/skipofficial/admin/requestview.html:519
 #, fuzzy
 #| msgid "admin"
 msgid "as_admin"
 msgstr "Request handler"
 
 #: templates/pyha/official/admin/requestview.html:612
-#: templates/pyha/skipofficial/admin/requestview.html:498
+#: templates/pyha/skipofficial/admin/requestview.html:496
 #, fuzzy
 #| msgid "handler_request_additional_information"
 msgid "admin_request_additional_information"
 msgstr "Request additional information"
 
 #: templates/pyha/official/admin/requestview.html:621
-#: templates/pyha/skipofficial/admin/requestview.html:507
 #, fuzzy
 #| msgid "handler_official_comment_area"
 msgid "admin_official_comment_area"
 msgstr "Govt. comment area"
 
 #: templates/pyha/official/admin/requestview.html:624
-#: templates/pyha/skipofficial/admin/requestview.html:510
 #, fuzzy
 #| msgid "admin"
 msgid "admin_said"
 msgstr "Request handler"
 
 #: templates/pyha/official/admin/requestview.html:633
-#: templates/pyha/skipofficial/admin/requestview.html:520
 #, fuzzy
 #| msgid "admin"
 msgid "admin_save"
 msgstr "Request handler"
 
 #: templates/pyha/official/admin/requestview.html:646
-#: templates/pyha/skipofficial/admin/requestview.html:533
+#: templates/pyha/skipofficial/admin/requestview.html:535
 #, fuzzy
 #| msgid "handler_log_date"
 msgid "admin_log_date"
 msgstr "Date"
 
 #: templates/pyha/official/admin/requestview.html:647
-#: templates/pyha/skipofficial/admin/requestview.html:534
+#: templates/pyha/skipofficial/admin/requestview.html:536
 #, fuzzy
 #| msgid "handler_log_maker"
 msgid "admin_log_maker"
 msgstr "Author"
 
 #: templates/pyha/official/admin/requestview.html:648
-#: templates/pyha/skipofficial/admin/requestview.html:535
+#: templates/pyha/skipofficial/admin/requestview.html:537
 msgid "admin_log_role"
 msgstr ""
 
 #: templates/pyha/official/admin/requestview.html:649
-#: templates/pyha/skipofficial/admin/requestview.html:536
+#: templates/pyha/skipofficial/admin/requestview.html:538
 #, fuzzy
 #| msgid "log_description"
 msgid "admin_log_description"
@@ -1560,88 +1559,88 @@ msgstr "Description"
 
 #: templates/pyha/official/admin/requestview.html:656
 #: templates/pyha/official/admin/requestview.html:660
-#: templates/pyha/skipofficial/admin/requestview.html:543
-#: templates/pyha/skipofficial/admin/requestview.html:547
+#: templates/pyha/skipofficial/admin/requestview.html:545
+#: templates/pyha/skipofficial/admin/requestview.html:549
 msgid "admin_log_admin"
 msgstr ""
 
 #: templates/pyha/official/admin/requestview.html:658
-#: templates/pyha/skipofficial/admin/requestview.html:545
+#: templates/pyha/skipofficial/admin/requestview.html:547
 msgid "admin_log_handler"
 msgstr ""
 
 #: templates/pyha/official/admin/requestview.html:662
-#: templates/pyha/skipofficial/admin/requestview.html:549
+#: templates/pyha/skipofficial/admin/requestview.html:551
 #, fuzzy
 #| msgid "log_sensitive_data_handler"
 msgid "admin_log_sensitive_data_handler"
 msgstr "Sensitive data removed"
 
 #: templates/pyha/official/admin/requestview.html:664
-#: templates/pyha/skipofficial/admin/requestview.html:551
+#: templates/pyha/skipofficial/admin/requestview.html:553
 #, fuzzy
 #| msgid "log_collection_provider"
 msgid "admin_log_collection_provider"
 msgstr "Request denied"
 
 #: templates/pyha/official/admin/requestview.html:666
-#: templates/pyha/skipofficial/admin/requestview.html:553
+#: templates/pyha/skipofficial/admin/requestview.html:555
 #, fuzzy
 #| msgid "log_sensitive_and_collections_handler"
 msgid "admin_log_sensitive_and_collections_handler"
 msgstr "Sensitive and collections handler"
 
 #: templates/pyha/official/admin/requestview.html:673
-#: templates/pyha/skipofficial/admin/requestview.html:560
+#: templates/pyha/skipofficial/admin/requestview.html:562
 #, fuzzy
 #| msgid "log_viewed"
 msgid "admin_log_viewed"
 msgstr "Viewed"
 
 #: templates/pyha/official/admin/requestview.html:675
-#: templates/pyha/skipofficial/admin/requestview.html:562
+#: templates/pyha/skipofficial/admin/requestview.html:564
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "admin_log_terms_accepted"
 msgstr "Terms accepted"
 
 #: templates/pyha/official/admin/requestview.html:678
-#: templates/pyha/skipofficial/admin/requestview.html:565
+#: templates/pyha/skipofficial/admin/requestview.html:567
 #, fuzzy
 #| msgid "log_sensitives_accepted"
 msgid "admin_log_sensitives_accepted"
 msgstr "Sensitive data accepted"
 
 #: templates/pyha/official/admin/requestview.html:680
-#: templates/pyha/skipofficial/admin/requestview.html:567
+#: templates/pyha/skipofficial/admin/requestview.html:569
 #, fuzzy
 #| msgid "log_collection_accepted"
 msgid "admin_log_collection_accepted"
 msgstr "Request accepted"
 
 #: templates/pyha/official/admin/requestview.html:684
-#: templates/pyha/skipofficial/admin/requestview.html:571
+#: templates/pyha/skipofficial/admin/requestview.html:573
 #, fuzzy
 #| msgid "handler_log_sensitives_denied"
 msgid "admin_log_sensitives_reset"
 msgstr "Sensitive data denied"
 
 #: templates/pyha/official/admin/requestview.html:686
-#: templates/pyha/skipofficial/admin/requestview.html:573
+#: templates/pyha/skipofficial/admin/requestview.html:575
 #, fuzzy
 #| msgid "handler_log_collection_denied"
 msgid "admin_log_collection_reset"
 msgstr "Request denied"
 
 #: templates/pyha/official/admin/requestview.html:690
-#: templates/pyha/skipofficial/admin/requestview.html:577
+#: templates/pyha/skipofficial/admin/requestview.html:579
 #, fuzzy
 #| msgid "log_sensitives_denied"
 msgid "admin_log_sensitives_denied"
 msgstr "Sensitive data denied"
 
 #: templates/pyha/official/admin/requestview.html:692
-#: templates/pyha/skipofficial/admin/requestview.html:579
+#: templates/pyha/skipofficial/admin/requestview.html:581
 #, fuzzy
 #| msgid "log_collection_denied"
 msgid "admin_log_collection_denied"
@@ -1650,7 +1649,7 @@ msgstr "Request denied"
 #: templates/pyha/official/admin/requestview.html:699
 #: templates/pyha/official/handler/requestview.html:702
 #: templates/pyha/official/requestview.html:650
-#: templates/pyha/skipofficial/admin/requestview.html:586
+#: templates/pyha/skipofficial/admin/requestview.html:588
 #: templates/pyha/skipofficial/handler/requestview.html:594
 #: templates/pyha/skipofficial/requestview.html:568
 msgid "log_no_history"
@@ -1682,7 +1681,7 @@ msgstr "Exclude collection"
 #: templates/pyha/official/requestview.html:421
 #: templates/pyha/official/requestview.html:426
 #: templates/pyha/official/requestview.html:432
-#: templates/pyha/skipofficial/admin/requestview.html:310
+#: templates/pyha/skipofficial/admin/requestview.html:308
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:40
 #: templates/pyha/skipofficial/handler/requestview.html:299
 #: templates/pyha/skipofficial/requestview.html:371
@@ -2109,6 +2108,7 @@ msgid "handler_said"
 msgstr " wrote:"
 
 #: templates/pyha/official/handler/requestview.html:636
+#: templates/pyha/skipofficial/admin/requestview.html:522
 #: templates/pyha/skipofficial/handler/requestview.html:528
 msgid "handler_save"
 msgstr "Save"
@@ -2427,7 +2427,7 @@ msgstr "I have read and understood the terms "
 #: templates/pyha/official/requestform.html:322
 #: templates/pyha/official/requestview.html:453
 #: templates/pyha/official/requestview.html:528
-#: templates/pyha/skipofficial/admin/requestview.html:381
+#: templates/pyha/skipofficial/admin/requestview.html:379
 #: templates/pyha/skipofficial/handler/requestview.html:370
 #: templates/pyha/skipofficial/requestform.html:257
 #: templates/pyha/skipofficial/requestview.html:446
@@ -2897,18 +2897,51 @@ msgstr "Sensitive data denied"
 msgid "log_collection_denied"
 msgstr "Request denied"
 
-#: templates/pyha/skipofficial/admin/requestview.html:309
+#: templates/pyha/skipofficial/admin/requestview.html:161
+#: templates/pyha/skipofficial/handler/requestview.html:151
+#, fuzzy
+#| msgid "handler_comments_window"
+msgid "col_handler_comments_window"
+msgstr "Comments by authorities"
+
+#: templates/pyha/skipofficial/admin/requestview.html:307
 #: templates/pyha/skipofficial/handler/requestview.html:298
 #: templates/pyha/skipofficial/requestview.html:374
 msgid "Collection terms"
 msgstr "Collection terms"
 
-#: templates/pyha/skipofficial/admin/requestview.html:318
+#: templates/pyha/skipofficial/admin/requestview.html:316
 #: templates/pyha/skipofficial/handler/requestview.html:307
 #: templates/pyha/skipofficial/requestform.html:218
 #: templates/pyha/skipofficial/requestview.html:383
 msgid "sensitive_and_other_terms"
 msgstr "Sensitive and otherwise restricted species information of FinBIF"
+
+#: templates/pyha/skipofficial/admin/requestview.html:505
+#: templates/pyha/skipofficial/handler/requestview.html:507
+#, fuzzy
+#| msgid "handler_official_comment_area"
+msgid "col_handler_comment_area"
+msgstr "Comments by authorities"
+
+#: templates/pyha/skipofficial/admin/requestview.html:506
+#: templates/pyha/skipofficial/handler/requestview.html:508
+msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
+msgstr ""
+
+#: templates/pyha/skipofficial/admin/requestview.html:509
+#: templates/pyha/skipofficial/handler/requestview.html:511
+#, fuzzy
+#| msgid "handler_said"
+msgid "col_handler_said"
+msgstr " wrote:"
+
+#: templates/pyha/skipofficial/admin/requestview.html:517
+#: templates/pyha/skipofficial/handler/requestview.html:519
+#, fuzzy
+#| msgid "ask_as_handler_of"
+msgid "talk_as_handler_of"
+msgstr "Ask in role"
 
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:2
 #, fuzzy
@@ -2916,39 +2949,11 @@ msgstr "Sensitive and otherwise restricted species information of FinBIF"
 msgid "restricted_collections_in_request"
 msgstr "Request involves collections requiring approval of data owners' terms"
 
-#: templates/pyha/skipofficial/handler/requestview.html:151
-#, fuzzy
-#| msgid "handler_comments_window"
-msgid "col_handler_comments_window"
-msgstr "Comments by authorities"
-
 #: templates/pyha/skipofficial/handler/requestview.html:500
 #, fuzzy
 #| msgid "Admission_for_sensitive_data"
 msgid "collection_free_of_sensitive_data"
 msgstr "Sensitive data"
-
-#: templates/pyha/skipofficial/handler/requestview.html:507
-#, fuzzy
-#| msgid "handler_official_comment_area"
-msgid "col_handler_comment_area"
-msgstr "Comments by authorities"
-
-#: templates/pyha/skipofficial/handler/requestview.html:508
-msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
-msgstr ""
-
-#: templates/pyha/skipofficial/handler/requestview.html:511
-#, fuzzy
-#| msgid "handler_said"
-msgid "col_handler_said"
-msgstr " wrote:"
-
-#: templates/pyha/skipofficial/handler/requestview.html:519
-#, fuzzy
-#| msgid "ask_as_handler_of"
-msgid "talk_as_handler_of"
-msgstr "Ask in role"
 
 #: templates/pyha/skipofficial/requestform.html:68
 #, fuzzy

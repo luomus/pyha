@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-17 02:42+0200\n"
+"POT-Creation-Date: 2018-11-19 03:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:49
+#: admin.py:57
 #, fuzzy
 #| msgid "Pyha admin"
 msgid "Pyha administration"
 msgstr "Pyha admin"
 
-#: admin.py:50
+#: admin.py:58
 msgid "Pyha admin"
 msgstr "Pyha admin"
 
@@ -77,7 +77,7 @@ msgstr "Odottaa päätöstä"
 #: templates/pyha/official/admin/requestview.html:493
 #: templates/pyha/official/admin/requestview.html:559
 #: templates/pyha/skipofficial/admin/requestview.html:36
-#: templates/pyha/skipofficial/admin/requestview.html:449
+#: templates/pyha/skipofficial/admin/requestview.html:447
 msgid "admin_partially_accepted"
 msgstr "Osittain hyväksytty"
 
@@ -86,7 +86,7 @@ msgstr "Osittain hyväksytty"
 #: templates/pyha/official/admin/requestview.html:491
 #: templates/pyha/official/admin/requestview.html:557
 #: templates/pyha/skipofficial/admin/requestview.html:39
-#: templates/pyha/skipofficial/admin/requestview.html:447
+#: templates/pyha/skipofficial/admin/requestview.html:445
 msgid "admin_denied"
 msgstr "Hylätty"
 
@@ -95,7 +95,7 @@ msgstr "Hylätty"
 #: templates/pyha/official/admin/requestview.html:495
 #: templates/pyha/official/admin/requestview.html:561
 #: templates/pyha/skipofficial/admin/requestview.html:42
-#: templates/pyha/skipofficial/admin/requestview.html:451
+#: templates/pyha/skipofficial/admin/requestview.html:449
 msgid "admin_accepted"
 msgstr "Hyväksytty"
 
@@ -122,7 +122,7 @@ msgstr "Valmiina ladattavaksi"
 #: templates/pyha/official/admin/requestview.html:499
 #: templates/pyha/official/admin/requestview.html:563
 #: templates/pyha/skipofficial/admin/requestview.html:54
-#: templates/pyha/skipofficial/admin/requestview.html:453
+#: templates/pyha/skipofficial/admin/requestview.html:451
 msgid "admin_unknown"
 msgstr "Tuntematon"
 
@@ -136,7 +136,7 @@ msgstr "Tuntematon"
 #: templates/pyha/official/handler/requestview.html:179
 #: templates/pyha/official/requestview.html:207
 #: templates/pyha/official/requestview.html:210
-#: templates/pyha/skipofficial/admin/requestview.html:173
+#: templates/pyha/skipofficial/admin/requestview.html:171
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:4
 #: templates/pyha/skipofficial/handler/requestview.html:162
 #: templates/pyha/skipofficial/requestview.html:195
@@ -255,7 +255,7 @@ msgstr "Y-tunnus"
 #: templates/pyha/official/admin/requestview.html:404
 #: templates/pyha/official/handler/requestview.html:398
 #: templates/pyha/official/requestview.html:507
-#: templates/pyha/skipofficial/admin/requestview.html:360
+#: templates/pyha/skipofficial/admin/requestview.html:358
 #: templates/pyha/skipofficial/handler/requestview.html:349
 #: templates/pyha/skipofficial/requestview.html:425
 msgid "additional_contact_name"
@@ -271,8 +271,8 @@ msgstr "Lisähakijan nimi:"
 #: templates/pyha/official/requestform.html:408
 #: templates/pyha/official/requestview.html:490
 #: templates/pyha/official/requestview.html:509
-#: templates/pyha/skipofficial/admin/requestview.html:343
-#: templates/pyha/skipofficial/admin/requestview.html:362
+#: templates/pyha/skipofficial/admin/requestview.html:341
+#: templates/pyha/skipofficial/admin/requestview.html:360
 #: templates/pyha/skipofficial/handler/requestview.html:332
 #: templates/pyha/skipofficial/handler/requestview.html:351
 #: templates/pyha/skipofficial/requestform.html:239
@@ -292,8 +292,8 @@ msgstr "Katuosoite:"
 #: templates/pyha/official/requestform.html:409
 #: templates/pyha/official/requestview.html:491
 #: templates/pyha/official/requestview.html:510
-#: templates/pyha/skipofficial/admin/requestview.html:344
-#: templates/pyha/skipofficial/admin/requestview.html:363
+#: templates/pyha/skipofficial/admin/requestview.html:342
+#: templates/pyha/skipofficial/admin/requestview.html:361
 #: templates/pyha/skipofficial/handler/requestview.html:333
 #: templates/pyha/skipofficial/handler/requestview.html:352
 #: templates/pyha/skipofficial/requestform.html:240
@@ -313,8 +313,8 @@ msgstr "Postinumero:"
 #: templates/pyha/official/requestform.html:410
 #: templates/pyha/official/requestview.html:492
 #: templates/pyha/official/requestview.html:511
-#: templates/pyha/skipofficial/admin/requestview.html:345
-#: templates/pyha/skipofficial/admin/requestview.html:364
+#: templates/pyha/skipofficial/admin/requestview.html:343
+#: templates/pyha/skipofficial/admin/requestview.html:362
 #: templates/pyha/skipofficial/handler/requestview.html:334
 #: templates/pyha/skipofficial/handler/requestview.html:353
 #: templates/pyha/skipofficial/requestform.html:241
@@ -334,8 +334,8 @@ msgstr "Postitoimipaikka:"
 #: templates/pyha/official/requestform.html:411
 #: templates/pyha/official/requestview.html:493
 #: templates/pyha/official/requestview.html:512
-#: templates/pyha/skipofficial/admin/requestview.html:346
-#: templates/pyha/skipofficial/admin/requestview.html:365
+#: templates/pyha/skipofficial/admin/requestview.html:344
+#: templates/pyha/skipofficial/admin/requestview.html:363
 #: templates/pyha/skipofficial/handler/requestview.html:335
 #: templates/pyha/skipofficial/handler/requestview.html:354
 #: templates/pyha/skipofficial/requestform.html:242
@@ -355,8 +355,8 @@ msgstr "Maa:"
 #: templates/pyha/official/requestform.html:412
 #: templates/pyha/official/requestview.html:494
 #: templates/pyha/official/requestview.html:513
-#: templates/pyha/skipofficial/admin/requestview.html:347
-#: templates/pyha/skipofficial/admin/requestview.html:366
+#: templates/pyha/skipofficial/admin/requestview.html:345
+#: templates/pyha/skipofficial/admin/requestview.html:364
 #: templates/pyha/skipofficial/handler/requestview.html:336
 #: templates/pyha/skipofficial/handler/requestview.html:355
 #: templates/pyha/skipofficial/requestform.html:243
@@ -376,8 +376,8 @@ msgstr "Sähköposti:"
 #: templates/pyha/official/requestform.html:413
 #: templates/pyha/official/requestview.html:495
 #: templates/pyha/official/requestview.html:514
-#: templates/pyha/skipofficial/admin/requestview.html:348
-#: templates/pyha/skipofficial/admin/requestview.html:367
+#: templates/pyha/skipofficial/admin/requestview.html:346
+#: templates/pyha/skipofficial/admin/requestview.html:365
 #: templates/pyha/skipofficial/handler/requestview.html:337
 #: templates/pyha/skipofficial/handler/requestview.html:356
 #: templates/pyha/skipofficial/requestform.html:244
@@ -397,8 +397,8 @@ msgstr "Puhelinnumero:"
 #: templates/pyha/official/requestform.html:414
 #: templates/pyha/official/requestview.html:497
 #: templates/pyha/official/requestview.html:516
-#: templates/pyha/skipofficial/admin/requestview.html:350
-#: templates/pyha/skipofficial/admin/requestview.html:369
+#: templates/pyha/skipofficial/admin/requestview.html:348
+#: templates/pyha/skipofficial/admin/requestview.html:367
 #: templates/pyha/skipofficial/handler/requestview.html:339
 #: templates/pyha/skipofficial/handler/requestview.html:358
 #: templates/pyha/skipofficial/requestform.html:245
@@ -418,8 +418,8 @@ msgstr "Yritys/Organisaatio:"
 #: templates/pyha/official/requestform.html:415
 #: templates/pyha/official/requestview.html:500
 #: templates/pyha/official/requestview.html:519
-#: templates/pyha/skipofficial/admin/requestview.html:353
-#: templates/pyha/skipofficial/admin/requestview.html:372
+#: templates/pyha/skipofficial/admin/requestview.html:351
+#: templates/pyha/skipofficial/admin/requestview.html:370
 #: templates/pyha/skipofficial/handler/requestview.html:342
 #: templates/pyha/skipofficial/handler/requestview.html:361
 #: templates/pyha/skipofficial/requestform.html:246
@@ -443,7 +443,7 @@ msgstr "Pyyntöösi sisältyvät aineistot"
 #: templates/pyha/official/admin/requestview.html:184
 #: templates/pyha/official/handler/requestview.html:178
 #: templates/pyha/official/requestview.html:206
-#: templates/pyha/skipofficial/admin/requestview.html:172
+#: templates/pyha/skipofficial/admin/requestview.html:170
 #: templates/pyha/skipofficial/handler/requestview.html:161
 #: templates/pyha/skipofficial/requestview.html:194
 msgid "Collections including sensitive sightings are marked with symbol"
@@ -507,6 +507,10 @@ msgid "admin_site"
 msgstr "Admin sivu"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
+#: templates/pyha/skipofficial/admin/requestview.html:477
+#: templates/pyha/skipofficial/admin/requestview.html:482
+#: templates/pyha/skipofficial/admin/requestview.html:509
+#: templates/pyha/skipofficial/handler/requestview.html:511
 msgid "admin"
 msgstr "Rooli: Admin"
 
@@ -518,7 +522,7 @@ msgstr "Rooli: Käsittelijä"
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
 #: templates/pyha/official/requestview.html:621
-#: templates/pyha/skipofficial/admin/requestview.html:557
+#: templates/pyha/skipofficial/admin/requestview.html:559
 #: templates/pyha/skipofficial/handler/requestview.html:565
 #: templates/pyha/skipofficial/requestview.html:539
 msgid "user"
@@ -714,7 +718,7 @@ msgstr "Odottaa päätöstä"
 #: templates/pyha/official/requestview.html:250
 #: templates/pyha/official/requestview.html:283
 #: templates/pyha/official/requestview.html:331
-#: templates/pyha/skipofficial/admin/requestview.html:219
+#: templates/pyha/skipofficial/admin/requestview.html:217
 #: templates/pyha/skipofficial/handler/requestview.html:208
 #: templates/pyha/skipofficial/requestview.html:31
 #: templates/pyha/skipofficial/requestview.html:237
@@ -736,7 +740,7 @@ msgstr "Hyväksytty (osittain hylätty)"
 #: templates/pyha/official/requestview.html:281
 #: templates/pyha/official/requestview.html:329
 #: templates/pyha/skipofficial/admin/requestview.html:91
-#: templates/pyha/skipofficial/admin/requestview.html:217
+#: templates/pyha/skipofficial/admin/requestview.html:215
 #: templates/pyha/skipofficial/handler/requestview.html:80
 #: templates/pyha/skipofficial/handler/requestview.html:206
 #: templates/pyha/skipofficial/requestview.html:34
@@ -760,7 +764,7 @@ msgstr "Hylätty"
 #: templates/pyha/official/requestview.html:285
 #: templates/pyha/official/requestview.html:333
 #: templates/pyha/skipofficial/admin/requestview.html:90
-#: templates/pyha/skipofficial/admin/requestview.html:221
+#: templates/pyha/skipofficial/admin/requestview.html:219
 #: templates/pyha/skipofficial/handler/requestview.html:79
 #: templates/pyha/skipofficial/handler/requestview.html:210
 #: templates/pyha/skipofficial/requestview.html:37
@@ -795,7 +799,7 @@ msgstr "Valmiina ladattavaksi"
 #: templates/pyha/official/requestview.html:256
 #: templates/pyha/official/requestview.html:287
 #: templates/pyha/official/requestview.html:337
-#: templates/pyha/skipofficial/admin/requestview.html:225
+#: templates/pyha/skipofficial/admin/requestview.html:223
 #: templates/pyha/skipofficial/handler/requestview.html:214
 #: templates/pyha/skipofficial/requestview.html:50
 #: templates/pyha/skipofficial/requestview.html:243
@@ -822,8 +826,8 @@ msgstr "Pyynnön tila:"
 #: templates/pyha/official/admin/requestview.html:488
 #: templates/pyha/official/admin/requestview.html:554
 #: templates/pyha/skipofficial/admin/requestview.html:31
-#: templates/pyha/skipofficial/admin/requestview.html:214
-#: templates/pyha/skipofficial/admin/requestview.html:444
+#: templates/pyha/skipofficial/admin/requestview.html:212
+#: templates/pyha/skipofficial/admin/requestview.html:442
 msgid "admin_waiting_for_others"
 msgstr "Odottaa muiden päätöstä"
 
@@ -832,8 +836,8 @@ msgstr "Odottaa muiden päätöstä"
 #: templates/pyha/official/admin/requestview.html:486
 #: templates/pyha/official/admin/requestview.html:552
 #: templates/pyha/skipofficial/admin/requestview.html:33
-#: templates/pyha/skipofficial/admin/requestview.html:212
-#: templates/pyha/skipofficial/admin/requestview.html:442
+#: templates/pyha/skipofficial/admin/requestview.html:210
+#: templates/pyha/skipofficial/admin/requestview.html:440
 msgid "admin_waiting_for_you"
 msgstr "Odottaa sinun päätöstäsi"
 
@@ -885,7 +889,7 @@ msgstr "Käyttörajoitetut aineistot"
 #: templates/pyha/official/admin/requestview.html:117
 #: templates/pyha/official/admin/requestview.html:643
 #: templates/pyha/skipofficial/admin/requestview.html:105
-#: templates/pyha/skipofficial/admin/requestview.html:530
+#: templates/pyha/skipofficial/admin/requestview.html:532
 msgid "admin_changes_history"
 msgstr "Muutoshistoria"
 
@@ -925,49 +929,48 @@ msgid "admin_additional_information_window"
 msgstr "Lisätietopyynnöt"
 
 #: templates/pyha/official/admin/requestview.html:174
-#: templates/pyha/skipofficial/admin/requestview.html:162
 msgid "admin_comments_window"
 msgstr "Viranomaisten kommentit"
 
 #: templates/pyha/official/admin/requestview.html:182
-#: templates/pyha/skipofficial/admin/requestview.html:170
+#: templates/pyha/skipofficial/admin/requestview.html:168
 msgid "admin_collections_in_request"
 msgstr "Pyyntöösi sisältyvät aineistot"
 
 #: templates/pyha/official/admin/requestview.html:189
 #: templates/pyha/official/admin/requestview.html:532
-#: templates/pyha/skipofficial/admin/requestview.html:177
-#: templates/pyha/skipofficial/admin/requestview.html:422
+#: templates/pyha/skipofficial/admin/requestview.html:175
+#: templates/pyha/skipofficial/admin/requestview.html:420
 msgid "admin_collection_name"
 msgstr "Aineisto"
 
 #: templates/pyha/official/admin/requestview.html:191
 #: templates/pyha/official/admin/requestview.html:533
-#: templates/pyha/skipofficial/admin/requestview.html:179
-#: templates/pyha/skipofficial/admin/requestview.html:423
+#: templates/pyha/skipofficial/admin/requestview.html:177
+#: templates/pyha/skipofficial/admin/requestview.html:421
 msgid "admin_collection_description"
 msgstr "Kuvaus"
 
 #: templates/pyha/official/admin/requestview.html:192
-#: templates/pyha/skipofficial/admin/requestview.html:180
+#: templates/pyha/skipofficial/admin/requestview.html:178
 msgid "admin_secured_by_data_provider"
 msgstr "Käyttörajoitetut havainnot"
 
 #: templates/pyha/official/admin/requestview.html:193
-#: templates/pyha/skipofficial/admin/requestview.html:181
+#: templates/pyha/skipofficial/admin/requestview.html:179
 msgid "admin_generally_secured"
 msgstr "Sensitiiviset havainnot"
 
 #: templates/pyha/official/admin/requestview.html:194
-#: templates/pyha/skipofficial/admin/requestview.html:182
+#: templates/pyha/skipofficial/admin/requestview.html:180
 msgid "admin_all_secured"
 msgstr "Yhteensä"
 
 #: templates/pyha/official/admin/requestview.html:195
 #: templates/pyha/official/admin/requestview.html:472
 #: templates/pyha/official/admin/requestview.html:534
-#: templates/pyha/skipofficial/admin/requestview.html:183
-#: templates/pyha/skipofficial/admin/requestview.html:424
+#: templates/pyha/skipofficial/admin/requestview.html:181
+#: templates/pyha/skipofficial/admin/requestview.html:422
 msgid "admin_state_of_processing"
 msgstr "Käsittelyn tila"
 
@@ -975,7 +978,7 @@ msgstr "Käsittelyn tila"
 #: templates/pyha/official/handler/requestview.html:229
 #: templates/pyha/official/requestview.html:254
 #: templates/pyha/official/requestview.html:335
-#: templates/pyha/skipofficial/admin/requestview.html:223
+#: templates/pyha/skipofficial/admin/requestview.html:221
 #: templates/pyha/skipofficial/handler/requestview.html:212
 #: templates/pyha/skipofficial/requestview.html:241
 #: templates/pyha/skipofficial/requestview.html:285
@@ -983,32 +986,32 @@ msgid "Admission_for_sensitive_data"
 msgstr "Sensitiiviset aineistot"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:231
+#: templates/pyha/skipofficial/admin/requestview.html:229
 msgid "admin_request_filters"
 msgstr "Aineistopyynnön rajaukset"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:231
+#: templates/pyha/skipofficial/admin/requestview.html:229
 msgid "admin_show_in_officials_portal"
 msgstr "Näytä tulokset viranomaisportaalissa"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:231
+#: templates/pyha/skipofficial/admin/requestview.html:229
 msgid "admin_show_in_portal"
 msgstr "Näytä Laji.fi portaalissa"
 
 #: templates/pyha/official/admin/requestview.html:247
-#: templates/pyha/skipofficial/admin/requestview.html:235
+#: templates/pyha/skipofficial/admin/requestview.html:233
 msgid "admin_filter"
 msgstr "Suodattimet"
 
 #: templates/pyha/official/admin/requestview.html:248
-#: templates/pyha/skipofficial/admin/requestview.html:236
+#: templates/pyha/skipofficial/admin/requestview.html:234
 msgid "admin_values"
 msgstr "Arvot"
 
 #: templates/pyha/official/admin/requestview.html:265
-#: templates/pyha/skipofficial/admin/requestview.html:253
+#: templates/pyha/skipofficial/admin/requestview.html:251
 msgid "admin_no_filters"
 msgstr "Kannassa ei ole suodattimia tälle pyynnölle"
 
@@ -1017,7 +1020,7 @@ msgstr "Kannassa ei ole suodattimia tälle pyynnölle"
 #: templates/pyha/official/requestform.html:361
 #: templates/pyha/official/requestform.html:419
 #: templates/pyha/official/requestview.html:372
-#: templates/pyha/skipofficial/admin/requestview.html:257
+#: templates/pyha/skipofficial/admin/requestview.html:255
 #: templates/pyha/skipofficial/handler/requestview.html:246
 #: templates/pyha/skipofficial/requestform.html:295
 #: templates/pyha/skipofficial/requestform.html:353
@@ -1026,84 +1029,84 @@ msgid "request_arguments"
 msgstr "Perustelut"
 
 #: templates/pyha/official/admin/requestview.html:271
-#: templates/pyha/skipofficial/admin/requestview.html:259
+#: templates/pyha/skipofficial/admin/requestview.html:257
 msgid "admin_argument_choices"
 msgstr "Valitut käyttötarkoitukset"
 
 #: templates/pyha/official/admin/requestview.html:275
-#: templates/pyha/skipofficial/admin/requestview.html:263
+#: templates/pyha/skipofficial/admin/requestview.html:261
 msgid "admin_reason_zoning"
 msgstr "Maankäytön suunnittelu"
 
 #: templates/pyha/official/admin/requestview.html:277
-#: templates/pyha/skipofficial/admin/requestview.html:265
+#: templates/pyha/skipofficial/admin/requestview.html:263
 msgid "admin_reason_permission"
 msgstr "Lupahakemus"
 
 #: templates/pyha/official/admin/requestview.html:279
-#: templates/pyha/skipofficial/admin/requestview.html:267
+#: templates/pyha/skipofficial/admin/requestview.html:265
 msgid "admin_reason_enviromental"
 msgstr "Ympäristövaikutusten arviointimenettely"
 
 #: templates/pyha/official/admin/requestview.html:281
-#: templates/pyha/skipofficial/admin/requestview.html:269
+#: templates/pyha/skipofficial/admin/requestview.html:267
 msgid "admin_reason_natura"
 msgstr "Natura-arviointimenettely (luonnonsuojelulaki)"
 
 #: templates/pyha/official/admin/requestview.html:283
-#: templates/pyha/skipofficial/admin/requestview.html:271
+#: templates/pyha/skipofficial/admin/requestview.html:269
 msgid "admin_reason_scientific"
 msgstr "Tieteellinen tutkimus"
 
 #: templates/pyha/official/admin/requestview.html:285
-#: templates/pyha/skipofficial/admin/requestview.html:273
+#: templates/pyha/skipofficial/admin/requestview.html:271
 msgid "admin_reason_forest"
 msgstr "Metsäsuunnittelu"
 
 #: templates/pyha/official/admin/requestview.html:287
-#: templates/pyha/skipofficial/admin/requestview.html:275
+#: templates/pyha/skipofficial/admin/requestview.html:273
 msgid "admin_reason_other"
 msgstr "Muu (perustele vapaatekstikenttään)"
 
 #: templates/pyha/official/admin/requestview.html:293
-#: templates/pyha/skipofficial/admin/requestview.html:281
+#: templates/pyha/skipofficial/admin/requestview.html:279
 msgid "admin_argument_project"
 msgstr "Hankkeen nimi"
 
 #: templates/pyha/official/admin/requestview.html:296
-#: templates/pyha/skipofficial/admin/requestview.html:284
+#: templates/pyha/skipofficial/admin/requestview.html:282
 msgid "admin_argument_research"
 msgstr "Tutkimuksen nimi"
 
 #: templates/pyha/official/admin/requestview.html:299
-#: templates/pyha/skipofficial/admin/requestview.html:287
+#: templates/pyha/skipofficial/admin/requestview.html:285
 msgid "admin_argument_goals"
 msgstr "Tutkimuksen tavoitteet"
 
 #: templates/pyha/official/admin/requestview.html:302
-#: templates/pyha/skipofficial/admin/requestview.html:290
+#: templates/pyha/skipofficial/admin/requestview.html:288
 msgid "admin_argument_planning"
 msgstr "Suunnitteluhankkeen kuvaus"
 
 #: templates/pyha/official/admin/requestview.html:305
-#: templates/pyha/skipofficial/admin/requestview.html:293
+#: templates/pyha/skipofficial/admin/requestview.html:291
 msgid "admin_argument_municipality"
 msgstr "Sijaintikunta"
 
 #: templates/pyha/official/admin/requestview.html:308
-#: templates/pyha/skipofficial/admin/requestview.html:296
+#: templates/pyha/skipofficial/admin/requestview.html:294
 msgid "admin_argument_natura_areas"
 msgstr "Natura-alueet"
 
 #: templates/pyha/official/admin/requestview.html:311
-#: templates/pyha/skipofficial/admin/requestview.html:299
+#: templates/pyha/skipofficial/admin/requestview.html:297
 msgid "admin_argument_reason"
 msgstr "Vapaatekstikenttä"
 
 #: templates/pyha/official/admin/requestview.html:318
 #: templates/pyha/official/admin/requestview.html:323
 #: templates/pyha/official/admin/requestview.html:329
-#: templates/pyha/skipofficial/admin/requestview.html:306
+#: templates/pyha/skipofficial/admin/requestview.html:304
 msgid "admin_terms"
 msgstr "Käyttöehdot"
 
@@ -1122,7 +1125,7 @@ msgstr "Käyttöehdot"
 #: templates/pyha/official/requestform.html:379
 #: templates/pyha/official/requestview.html:441
 #: templates/pyha/official/requestview.html:467
-#: templates/pyha/skipofficial/admin/requestview.html:320
+#: templates/pyha/skipofficial/admin/requestview.html:318
 #: templates/pyha/skipofficial/handler/requestview.html:309
 #: templates/pyha/skipofficial/requestform.html:219
 #: templates/pyha/skipofficial/requestform.html:313
@@ -1148,7 +1151,7 @@ msgstr "PDF-muodossa"
 #: templates/pyha/official/requestform.html:268
 #: templates/pyha/official/requestform.html:406
 #: templates/pyha/official/requestview.html:488
-#: templates/pyha/skipofficial/admin/requestview.html:341
+#: templates/pyha/skipofficial/admin/requestview.html:339
 #: templates/pyha/skipofficial/handler/requestview.html:330
 #: templates/pyha/skipofficial/requestform.html:237
 #: templates/pyha/skipofficial/requestform.html:340
@@ -1157,52 +1160,52 @@ msgid "contact_name"
 msgstr "Nimi:"
 
 #: templates/pyha/official/admin/requestview.html:433
-#: templates/pyha/skipofficial/admin/requestview.html:389
+#: templates/pyha/skipofficial/admin/requestview.html:387
 msgid "admin_contacts"
 msgstr "Yhteystiedot"
 
 #: templates/pyha/official/admin/requestview.html:436
-#: templates/pyha/skipofficial/admin/requestview.html:392
+#: templates/pyha/skipofficial/admin/requestview.html:390
 msgid "admin_full_name"
 msgstr "Nimi"
 
 #: templates/pyha/official/admin/requestview.html:437
-#: templates/pyha/skipofficial/admin/requestview.html:393
+#: templates/pyha/skipofficial/admin/requestview.html:391
 msgid "admin_street_address"
 msgstr "Katuosoite"
 
 #: templates/pyha/official/admin/requestview.html:438
-#: templates/pyha/skipofficial/admin/requestview.html:394
+#: templates/pyha/skipofficial/admin/requestview.html:392
 msgid "admin_postal_code"
 msgstr "Postinumero"
 
 #: templates/pyha/official/admin/requestview.html:439
-#: templates/pyha/skipofficial/admin/requestview.html:395
+#: templates/pyha/skipofficial/admin/requestview.html:393
 msgid "admin_post_office_name"
 msgstr "Postitoimipaikka"
 
 #: templates/pyha/official/admin/requestview.html:440
-#: templates/pyha/skipofficial/admin/requestview.html:396
+#: templates/pyha/skipofficial/admin/requestview.html:394
 msgid "admin_country"
 msgstr "Maa"
 
 #: templates/pyha/official/admin/requestview.html:441
-#: templates/pyha/skipofficial/admin/requestview.html:397
+#: templates/pyha/skipofficial/admin/requestview.html:395
 msgid "admin_email"
 msgstr "Sähköposti"
 
 #: templates/pyha/official/admin/requestview.html:442
-#: templates/pyha/skipofficial/admin/requestview.html:398
+#: templates/pyha/skipofficial/admin/requestview.html:396
 msgid "admin_phone_number"
 msgstr "Puhelinnumero"
 
 #: templates/pyha/official/admin/requestview.html:443
-#: templates/pyha/skipofficial/admin/requestview.html:399
+#: templates/pyha/skipofficial/admin/requestview.html:397
 msgid "admin_corporation/organization_name"
 msgstr "Yrityksen/Järjestön nimi"
 
 #: templates/pyha/official/admin/requestview.html:444
-#: templates/pyha/skipofficial/admin/requestview.html:400
+#: templates/pyha/skipofficial/admin/requestview.html:398
 msgid "admin_corporation_id"
 msgstr "Y-tunnus"
 
@@ -1216,7 +1219,7 @@ msgstr "Tee päätös sensitiivisen lajitiedon luovutuksesta"
 
 #: templates/pyha/official/admin/requestview.html:473
 #: templates/pyha/official/admin/requestview.html:535
-#: templates/pyha/skipofficial/admin/requestview.html:425
+#: templates/pyha/skipofficial/admin/requestview.html:423
 msgid "admin_decision_arguments"
 msgstr "Päätöksen perustelut"
 
@@ -1226,29 +1229,29 @@ msgstr " kysyi:"
 
 #: templates/pyha/official/admin/requestview.html:507
 #: templates/pyha/official/admin/requestview.html:572
-#: templates/pyha/skipofficial/admin/requestview.html:462
+#: templates/pyha/skipofficial/admin/requestview.html:460
 msgid "admin_accept"
 msgstr "Hyväksy"
 
 #: templates/pyha/official/admin/requestview.html:511
 #: templates/pyha/official/admin/requestview.html:513
 #: templates/pyha/official/admin/requestview.html:574
-#: templates/pyha/skipofficial/admin/requestview.html:464
+#: templates/pyha/skipofficial/admin/requestview.html:462
 msgid "admin_refuse"
 msgstr "Hylkää"
 
 #: templates/pyha/official/admin/requestview.html:529
-#: templates/pyha/skipofficial/admin/requestview.html:419
+#: templates/pyha/skipofficial/admin/requestview.html:417
 msgid "admin_secured_collection_decicions"
 msgstr "Tee päätös aineiston tietojen luovutuksesta"
 
 #: templates/pyha/official/admin/requestview.html:573
-#: templates/pyha/skipofficial/admin/requestview.html:463
+#: templates/pyha/skipofficial/admin/requestview.html:461
 msgid "admin_reset"
 msgstr "Nollaa"
 
 #: templates/pyha/official/admin/requestview.html:585
-#: templates/pyha/skipofficial/admin/requestview.html:475
+#: templates/pyha/skipofficial/admin/requestview.html:473
 msgid "admin_additional_questions"
 msgstr "Lisäkysymyksiä"
 
@@ -1259,8 +1262,8 @@ msgstr "Lisäkysymyksiä"
 #: templates/pyha/official/requestview.html:425
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:479
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:477
+#: templates/pyha/skipofficial/admin/requestview.html:482
 #: templates/pyha/skipofficial/handler/requestview.html:471
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:489
@@ -1274,8 +1277,6 @@ msgstr "Sensitiivisen lajitiedon käyttöehdot"
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:479
-#: templates/pyha/skipofficial/admin/requestview.html:484
 #: templates/pyha/skipofficial/handler/requestview.html:471
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:489
@@ -1284,150 +1285,148 @@ msgid "admin_question"
 msgstr "Administraattori"
 
 #: templates/pyha/official/admin/requestview.html:589
-#: templates/pyha/skipofficial/admin/requestview.html:479
+#: templates/pyha/skipofficial/admin/requestview.html:477
 msgid "admin_asked"
 msgstr " kysyi:"
 
 #: templates/pyha/official/admin/requestview.html:594
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:482
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:505
 msgid "inquiry"
 msgstr "kyselyyn"
 
 #: templates/pyha/official/admin/requestview.html:594
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:482
 msgid "admin_answered"
 msgstr " vastasi:"
 
 #: templates/pyha/official/admin/requestview.html:598
-#: templates/pyha/skipofficial/admin/requestview.html:488
+#: templates/pyha/skipofficial/admin/requestview.html:486
 msgid "admin_form_to_request_additional_information"
 msgstr "Lomake lisätietojen pyytämiseen"
 
 #: templates/pyha/official/admin/requestview.html:606
-#: templates/pyha/skipofficial/admin/requestview.html:493
+#: templates/pyha/skipofficial/admin/requestview.html:491
 msgid "ask_as_admin_of"
 msgstr "Kysy roolissa"
 
 #: templates/pyha/official/admin/requestview.html:608
-#: templates/pyha/skipofficial/admin/requestview.html:495
+#: templates/pyha/skipofficial/admin/requestview.html:493
+#: templates/pyha/skipofficial/admin/requestview.html:519
 msgid "as_admin"
 msgstr "Administraattori"
 
 #: templates/pyha/official/admin/requestview.html:612
-#: templates/pyha/skipofficial/admin/requestview.html:498
+#: templates/pyha/skipofficial/admin/requestview.html:496
 msgid "admin_request_additional_information"
 msgstr "Pyydä lisätietoja"
 
 #: templates/pyha/official/admin/requestview.html:621
-#: templates/pyha/skipofficial/admin/requestview.html:507
 msgid "admin_official_comment_area"
 msgstr "Viranomaisten kommentit"
 
 #: templates/pyha/official/admin/requestview.html:624
-#: templates/pyha/skipofficial/admin/requestview.html:510
 msgid "admin_said"
 msgstr "Administraattori sanoi: "
 
 #: templates/pyha/official/admin/requestview.html:633
-#: templates/pyha/skipofficial/admin/requestview.html:520
 msgid "admin_save"
 msgstr "tallenna"
 
 #: templates/pyha/official/admin/requestview.html:646
-#: templates/pyha/skipofficial/admin/requestview.html:533
+#: templates/pyha/skipofficial/admin/requestview.html:535
 msgid "admin_log_date"
 msgstr "Päiväys"
 
 #: templates/pyha/official/admin/requestview.html:647
-#: templates/pyha/skipofficial/admin/requestview.html:534
+#: templates/pyha/skipofficial/admin/requestview.html:536
 msgid "admin_log_maker"
 msgstr "Tekijä"
 
 #: templates/pyha/official/admin/requestview.html:648
-#: templates/pyha/skipofficial/admin/requestview.html:535
+#: templates/pyha/skipofficial/admin/requestview.html:537
 msgid "admin_log_role"
 msgstr "Roolissa"
 
 #: templates/pyha/official/admin/requestview.html:649
-#: templates/pyha/skipofficial/admin/requestview.html:536
+#: templates/pyha/skipofficial/admin/requestview.html:538
 msgid "admin_log_description"
 msgstr "Kuvaus"
 
 #: templates/pyha/official/admin/requestview.html:656
 #: templates/pyha/official/admin/requestview.html:660
-#: templates/pyha/skipofficial/admin/requestview.html:543
-#: templates/pyha/skipofficial/admin/requestview.html:547
+#: templates/pyha/skipofficial/admin/requestview.html:545
+#: templates/pyha/skipofficial/admin/requestview.html:549
 msgid "admin_log_admin"
 msgstr "Administraattori"
 
 #: templates/pyha/official/admin/requestview.html:658
-#: templates/pyha/skipofficial/admin/requestview.html:545
+#: templates/pyha/skipofficial/admin/requestview.html:547
 msgid "admin_log_handler"
 msgstr "Käsittelijä"
 
 #: templates/pyha/official/admin/requestview.html:662
-#: templates/pyha/skipofficial/admin/requestview.html:549
+#: templates/pyha/skipofficial/admin/requestview.html:551
 msgid "admin_log_sensitive_data_handler"
 msgstr "Viranomainen"
 
 #: templates/pyha/official/admin/requestview.html:664
-#: templates/pyha/skipofficial/admin/requestview.html:551
+#: templates/pyha/skipofficial/admin/requestview.html:553
 msgid "admin_log_collection_provider"
 msgstr "Aineiston toimittaja"
 
 #: templates/pyha/official/admin/requestview.html:666
-#: templates/pyha/skipofficial/admin/requestview.html:553
+#: templates/pyha/skipofficial/admin/requestview.html:555
 msgid "admin_log_sensitive_and_collections_handler"
 msgstr "Sensitiivisen ja aineistokohtaisen tiedon käsittelijä"
 
 #: templates/pyha/official/admin/requestview.html:673
-#: templates/pyha/skipofficial/admin/requestview.html:560
+#: templates/pyha/skipofficial/admin/requestview.html:562
 msgid "admin_log_viewed"
 msgstr "Katsottu"
 
 #: templates/pyha/official/admin/requestview.html:675
-#: templates/pyha/skipofficial/admin/requestview.html:562
+#: templates/pyha/skipofficial/admin/requestview.html:564
 msgid "admin_log_terms_accepted"
 msgstr "Ehdot hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:678
-#: templates/pyha/skipofficial/admin/requestview.html:565
+#: templates/pyha/skipofficial/admin/requestview.html:567
 msgid "admin_log_sensitives_accepted"
 msgstr "Sensitiiviset hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:680
-#: templates/pyha/skipofficial/admin/requestview.html:567
+#: templates/pyha/skipofficial/admin/requestview.html:569
 msgid "admin_log_collection_accepted"
 msgstr "Aineisto hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:684
-#: templates/pyha/skipofficial/admin/requestview.html:571
+#: templates/pyha/skipofficial/admin/requestview.html:573
 msgid "admin_log_sensitives_reset"
 msgstr "Sensitiiviset päätös nollattu"
 
 #: templates/pyha/official/admin/requestview.html:686
-#: templates/pyha/skipofficial/admin/requestview.html:573
+#: templates/pyha/skipofficial/admin/requestview.html:575
 msgid "admin_log_collection_reset"
 msgstr "Aineisto päätös nollattu"
 
 #: templates/pyha/official/admin/requestview.html:690
-#: templates/pyha/skipofficial/admin/requestview.html:577
+#: templates/pyha/skipofficial/admin/requestview.html:579
 msgid "admin_log_sensitives_denied"
 msgstr "Sensitiiviset hylätty"
 
 #: templates/pyha/official/admin/requestview.html:692
-#: templates/pyha/skipofficial/admin/requestview.html:579
+#: templates/pyha/skipofficial/admin/requestview.html:581
 msgid "admin_log_collection_denied"
 msgstr "Aineisto hylätty"
 
 #: templates/pyha/official/admin/requestview.html:699
 #: templates/pyha/official/handler/requestview.html:702
 #: templates/pyha/official/requestview.html:650
-#: templates/pyha/skipofficial/admin/requestview.html:586
+#: templates/pyha/skipofficial/admin/requestview.html:588
 #: templates/pyha/skipofficial/handler/requestview.html:594
 #: templates/pyha/skipofficial/requestview.html:568
 msgid "log_no_history"
@@ -1460,7 +1459,7 @@ msgstr "En tarvitse tätä aineistoa"
 #: templates/pyha/official/requestview.html:421
 #: templates/pyha/official/requestview.html:426
 #: templates/pyha/official/requestview.html:432
-#: templates/pyha/skipofficial/admin/requestview.html:310
+#: templates/pyha/skipofficial/admin/requestview.html:308
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:40
 #: templates/pyha/skipofficial/handler/requestview.html:299
 #: templates/pyha/skipofficial/requestview.html:371
@@ -1888,6 +1887,7 @@ msgid "handler_said"
 msgstr " kirjoitti:"
 
 #: templates/pyha/official/handler/requestview.html:636
+#: templates/pyha/skipofficial/admin/requestview.html:522
 #: templates/pyha/skipofficial/handler/requestview.html:528
 msgid "handler_save"
 msgstr "Tallenna"
@@ -2192,7 +2192,7 @@ msgstr "Hyväksyn ehdot"
 #: templates/pyha/official/requestform.html:322
 #: templates/pyha/official/requestview.html:453
 #: templates/pyha/official/requestview.html:528
-#: templates/pyha/skipofficial/admin/requestview.html:381
+#: templates/pyha/skipofficial/admin/requestview.html:379
 #: templates/pyha/skipofficial/handler/requestview.html:370
 #: templates/pyha/skipofficial/requestform.html:257
 #: templates/pyha/skipofficial/requestview.html:446
@@ -2656,13 +2656,18 @@ msgstr "Sensitiiviset hylätty"
 msgid "log_collection_denied"
 msgstr "Aineisto hylätty"
 
-#: templates/pyha/skipofficial/admin/requestview.html:309
+#: templates/pyha/skipofficial/admin/requestview.html:161
+#: templates/pyha/skipofficial/handler/requestview.html:151
+msgid "col_handler_comments_window"
+msgstr "Aineistonkäsittelijöiden kommentit"
+
+#: templates/pyha/skipofficial/admin/requestview.html:307
 #: templates/pyha/skipofficial/handler/requestview.html:298
 #: templates/pyha/skipofficial/requestview.html:374
 msgid "Collection terms"
 msgstr "Käyttöehdot"
 
-#: templates/pyha/skipofficial/admin/requestview.html:318
+#: templates/pyha/skipofficial/admin/requestview.html:316
 #: templates/pyha/skipofficial/handler/requestview.html:307
 #: templates/pyha/skipofficial/requestform.html:218
 #: templates/pyha/skipofficial/requestview.html:383
@@ -2671,37 +2676,37 @@ msgstr ""
 "Suomen Lajitietokeskuksen sensitiivinen ja muusta syystä käyttörajoitettu "
 "lajitieto"
 
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:2
-msgid "restricted_collections_in_request"
-msgstr ""
-"Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
-"käyttöehdot"
-
-#: templates/pyha/skipofficial/handler/requestview.html:151
-msgid "col_handler_comments_window"
-msgstr "Aineistonkäsittelijöiden kommentit"
-
-#: templates/pyha/skipofficial/handler/requestview.html:500
-msgid "collection_free_of_sensitive_data"
-msgstr "Pelkästään käyttörajoitettu"
-
+#: templates/pyha/skipofficial/admin/requestview.html:505
 #: templates/pyha/skipofficial/handler/requestview.html:507
 msgid "col_handler_comment_area"
 msgstr "Aineistonkäsittelijöiden kommentit"
 
+#: templates/pyha/skipofficial/admin/requestview.html:506
 #: templates/pyha/skipofficial/handler/requestview.html:508
 msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
 msgstr ""
 "Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön, eikä siis näy "
 "pyynnön tekijälle. Muistakaa käytöstavat."
 
+#: templates/pyha/skipofficial/admin/requestview.html:509
 #: templates/pyha/skipofficial/handler/requestview.html:511
 msgid "col_handler_said"
 msgstr " kirjoitti:"
 
+#: templates/pyha/skipofficial/admin/requestview.html:517
 #: templates/pyha/skipofficial/handler/requestview.html:519
 msgid "talk_as_handler_of"
 msgstr "Puhu roolissa"
+
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:2
+msgid "restricted_collections_in_request"
+msgstr ""
+"Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
+"käyttöehdot"
+
+#: templates/pyha/skipofficial/handler/requestview.html:500
+msgid "collection_free_of_sensitive_data"
+msgstr "Pelkästään käyttörajoitettu"
 
 #: templates/pyha/skipofficial/requestform.html:68
 msgid "collection_tab"
