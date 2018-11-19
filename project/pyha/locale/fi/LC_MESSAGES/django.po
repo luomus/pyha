@@ -850,18 +850,18 @@ msgstr "Pyynt√∂ on j√§√§dytetty"
 #: templates/pyha/official/admin/requestview.html:67
 #: templates/pyha/skipofficial/admin/requestview.html:67
 msgid "admin_unfreeze_request"
-msgstr "Poista j‰‰dytys"
+msgstr "Poista j√§√§dytys"
 
 #: templates/pyha/official/admin/requestview.html:68
 #: templates/pyha/skipofficial/admin/requestview.html:68
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
-msgstr "Poista j‰‰dytys palauttaaksesi muille k‰ytt‰j‰ryhmille p‰‰sy pyyntˆˆn/muuttaa pyyntˆ‰."
+msgstr "Poista j√§√§dytys palauttaaksesi muille k√§ytt√§j√§ryhmille p√§√§sy pyynt√∂√∂n/muuttamaan pyynt√∂√§."
 
 #: templates/pyha/official/admin/requestview.html:70
 #: templates/pyha/skipofficial/admin/requestview.html:70
 msgid "admin_request_is_not_frozen"
-msgstr "Pyyntˆ ei ole j‰‰dytetty"
+msgstr "Pyynt√∂√§ ei ole j√§√§dytetty"
 
 #: templates/pyha/official/admin/requestview.html:71
 #: templates/pyha/skipofficial/admin/requestview.html:71
@@ -871,7 +871,7 @@ msgstr "J√§√§dyt√§ pyynt√∂"
 #: templates/pyha/official/admin/requestview.html:72
 #: templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
-msgstr "J‰‰dyt‰ pyyntˆ ev‰t‰ksesi muilta k‰ytt‰j‰ryhmilt‰ p‰‰sy pyyntˆˆn/muuttaa pyyntˆ‰."
+msgstr "J√§√§dyt√§ pyynt√∂ ev√§t√§ksesi muilta k√§ytt√§j√§ryhmilt√§ p√§√§sy pyynt√∂√∂n/muuttamaan pyynt√∂√§."
 
 #: templates/pyha/official/admin/requestview.html:81
 msgid "admin_sensitive"
