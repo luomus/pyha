@@ -485,7 +485,7 @@
 								<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
 								<span>{% trans 'ask_as_handler_of'%}</span>
 								<select id="target" name="target">
-								{% for collection in customlist %}
+								{% for collection in collections %}
 									{% if collection.address in handles %}
 									<option value="{{collection.address}}">{{collection.result.collectionName}}</option>
 									{% endif %}
@@ -518,7 +518,7 @@
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 									<span>{% trans 'talk_as_handler_of' %}</span>
 									<select id="target" name="target">
-									{% for collection in customlist %}
+									{% for collection in collections %}
 										{% if collection.address in handles %}
 										<option value="{{collection.address}}">{{collection.result.collectionName}}</option>
 										{% endif %}
