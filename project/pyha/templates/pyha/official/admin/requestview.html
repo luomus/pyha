@@ -586,12 +586,12 @@
 						{% for question in requestInformationChat_list %}
 							{% if question.question %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "admin_asked" %}&#10;&#13;{{question.message}}}</p></div>
 							</div>
 							{% endif %}
 							{% if question.question != True %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question}}</p></div>
+							<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "admin_answered" %}&#10;&#13;{{question.message}}}</p></div>
 							</div>
 							{% endif %}
 						{% endfor %}
@@ -621,7 +621,7 @@
 								<h3>{% trans "admin_official_comment_area" %}</h3>
 								{% for requestChat in requestSensitiveChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "admin_said" %}&#10;&#13;{{ requestChat }}</p></div>
+								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "admin_said" %}&#10;&#13;{{ requestChat.message }}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_sensitive' %}" id="commentform" method="post">
