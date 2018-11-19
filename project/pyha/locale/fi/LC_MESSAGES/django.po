@@ -2572,7 +2572,7 @@ msgstr "Vastaa kysymykseen"
 #: templates/pyha/official/requestview.html:587
 #: templates/pyha/skipofficial/requestview.html:505
 msgid "answered"
-msgstr " vastasi:"
+msgstr " vastasit:"
 
 #: templates/pyha/official/requestview.html:599
 #: templates/pyha/skipofficial/requestview.html:517
