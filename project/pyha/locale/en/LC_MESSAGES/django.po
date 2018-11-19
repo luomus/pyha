@@ -478,10 +478,8 @@ msgid "request_for_user"
 msgstr "Request"
 
 #: templates/pyha/base/ajax/requestheader.html:19
-#, fuzzy
-#| msgid "request_description"
 msgid "request_description_tooltip"
-msgstr "Description"
+msgstr "You may write a small header or a description to help you identify your request."
 
 #: templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"

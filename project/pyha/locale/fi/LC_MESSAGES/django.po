@@ -484,7 +484,7 @@ msgstr "Aineistopyyntösi"
 
 #: templates/pyha/base/ajax/requestheader.html:19
 msgid "request_description_tooltip"
-msgstr "Kuvaus"
+msgstr "Voit kirjoittaa tähän lyhyen kuvauksen/otsakkeen pyynnöstä itsellesi."
 
 #: templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"
