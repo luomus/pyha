@@ -1235,30 +1235,22 @@ msgid "admin_user_no_sensitive_data"
 msgstr "Request contains no sensitive data"
 
 #: templates/pyha/official/admin/requestview.html:465
-#, fuzzy
-#| msgid "handler_list_of_collections"
 msgid "admin_list_of_collections"
 msgstr "Collections including sensitive data:"
 
 #: templates/pyha/official/admin/requestview.html:473
 #: templates/pyha/official/admin/requestview.html:535
 #: templates/pyha/skipofficial/admin/requestview.html:425
-#, fuzzy
-#| msgid "decision_arguments"
 msgid "admin_decision_arguments"
 msgstr "Arguments for decision"
 
 #: templates/pyha/official/admin/requestview.html:497
-#, fuzzy
-#| msgid "handler_asked"
 msgid "admin_skipped"
-msgstr " asked:"
+msgstr "skipped"
 
 #: templates/pyha/official/admin/requestview.html:507
 #: templates/pyha/official/admin/requestview.html:572
 #: templates/pyha/skipofficial/admin/requestview.html:462
-#, fuzzy
-#| msgid "handler_accept"
 msgid "admin_accept"
 msgstr "Accept"
 
@@ -1266,29 +1258,21 @@ msgstr "Accept"
 #: templates/pyha/official/admin/requestview.html:513
 #: templates/pyha/official/admin/requestview.html:574
 #: templates/pyha/skipofficial/admin/requestview.html:464
-#, fuzzy
-#| msgid "handler_refuse"
 msgid "admin_refuse"
 msgstr "Reject"
 
 #: templates/pyha/official/admin/requestview.html:529
 #: templates/pyha/skipofficial/admin/requestview.html:419
-#, fuzzy
-#| msgid "handler_secured_collection_decicions"
 msgid "admin_secured_collection_decicions"
 msgstr "Make a decision concerning giving out collection data"
 
 #: templates/pyha/official/admin/requestview.html:573
 #: templates/pyha/skipofficial/admin/requestview.html:463
-#, fuzzy
-#| msgid "admin"
 msgid "admin_reset"
-msgstr "Request handler"
+msgstr "Reset"
 
 #: templates/pyha/official/admin/requestview.html:585
 #: templates/pyha/skipofficial/admin/requestview.html:475
-#, fuzzy
-#| msgid "additional_questions"
 msgid "admin_additional_questions"
 msgstr "Additional questions"
 
@@ -1320,15 +1304,11 @@ msgstr "Sensitivity"
 #: templates/pyha/skipofficial/handler/requestview.html:476
 #: templates/pyha/skipofficial/requestview.html:489
 #: templates/pyha/skipofficial/requestview.html:505
-#, fuzzy
-#| msgid "additional_questions"
 msgid "admin_question"
 msgstr "Additional questions"
 
 #: templates/pyha/official/admin/requestview.html:589
 #: templates/pyha/skipofficial/admin/requestview.html:479
-#, fuzzy
-#| msgid "handler_asked"
 msgid "admin_asked"
 msgstr " asked:"
 
@@ -1343,83 +1323,61 @@ msgstr "inquiry"
 
 #: templates/pyha/official/admin/requestview.html:594
 #: templates/pyha/skipofficial/admin/requestview.html:484
-#, fuzzy
-#| msgid "handler_answered"
 msgid "admin_answered"
 msgstr " responded:"
 
 #: templates/pyha/official/admin/requestview.html:598
 #: templates/pyha/skipofficial/admin/requestview.html:488
-#, fuzzy
-#| msgid "handler_form_to_request_additional_information"
 msgid "admin_form_to_request_additional_information"
 msgstr "Form to request additional information"
 
 #: templates/pyha/official/admin/requestview.html:606
 #: templates/pyha/skipofficial/admin/requestview.html:493
-#, fuzzy
-#| msgid "ask_as_handler_of"
 msgid "ask_as_admin_of"
 msgstr "Ask in role"
 
 #: templates/pyha/official/admin/requestview.html:608
 #: templates/pyha/skipofficial/admin/requestview.html:495
-#, fuzzy
-#| msgid "admin"
 msgid "as_admin"
-msgstr "Request handler"
+msgstr "Administrator"
 
 #: templates/pyha/official/admin/requestview.html:612
 #: templates/pyha/skipofficial/admin/requestview.html:498
-#, fuzzy
-#| msgid "handler_request_additional_information"
 msgid "admin_request_additional_information"
 msgstr "Request additional information"
 
 #: templates/pyha/official/admin/requestview.html:621
 #: templates/pyha/skipofficial/admin/requestview.html:507
-#, fuzzy
-#| msgid "handler_official_comment_area"
 msgid "admin_official_comment_area"
 msgstr "Govt. comment area"
 
 #: templates/pyha/official/admin/requestview.html:624
 #: templates/pyha/skipofficial/admin/requestview.html:510
-#, fuzzy
-#| msgid "admin"
 msgid "admin_said"
-msgstr "Request handler"
+msgstr " wrote:"
 
 #: templates/pyha/official/admin/requestview.html:633
 #: templates/pyha/skipofficial/admin/requestview.html:520
-#, fuzzy
-#| msgid "admin"
 msgid "admin_save"
-msgstr "Request handler"
+msgstr "Save"
 
 #: templates/pyha/official/admin/requestview.html:646
 #: templates/pyha/skipofficial/admin/requestview.html:533
-#, fuzzy
-#| msgid "handler_log_date"
 msgid "admin_log_date"
 msgstr "Date"
 
 #: templates/pyha/official/admin/requestview.html:647
 #: templates/pyha/skipofficial/admin/requestview.html:534
-#, fuzzy
-#| msgid "handler_log_maker"
 msgid "admin_log_maker"
 msgstr "Author"
 
 #: templates/pyha/official/admin/requestview.html:648
 #: templates/pyha/skipofficial/admin/requestview.html:535
 msgid "admin_log_role"
-msgstr ""
+msgstr "Role"
 
 #: templates/pyha/official/admin/requestview.html:649
 #: templates/pyha/skipofficial/admin/requestview.html:536
-#, fuzzy
-#| msgid "log_description"
 msgid "admin_log_description"
 msgstr "Description"
 
@@ -1428,89 +1386,67 @@ msgstr "Description"
 #: templates/pyha/skipofficial/admin/requestview.html:543
 #: templates/pyha/skipofficial/admin/requestview.html:547
 msgid "admin_log_admin"
-msgstr ""
+msgstr "Administrator"
 
 #: templates/pyha/official/admin/requestview.html:658
 #: templates/pyha/skipofficial/admin/requestview.html:545
 msgid "admin_log_handler"
-msgstr ""
+msgstr "Handler"
 
 #: templates/pyha/official/admin/requestview.html:662
 #: templates/pyha/skipofficial/admin/requestview.html:549
-#, fuzzy
-#| msgid "log_sensitive_data_handler"
 msgid "admin_log_sensitive_data_handler"
-msgstr "Sensitive data removed"
+msgstr "Sensitive data handler"
 
 #: templates/pyha/official/admin/requestview.html:664
 #: templates/pyha/skipofficial/admin/requestview.html:551
-#, fuzzy
-#| msgid "log_collection_provider"
 msgid "admin_log_collection_provider"
-msgstr "Request denied"
+msgstr "Collection provider"
 
 #: templates/pyha/official/admin/requestview.html:666
 #: templates/pyha/skipofficial/admin/requestview.html:553
-#, fuzzy
-#| msgid "log_sensitive_and_collections_handler"
 msgid "admin_log_sensitive_and_collections_handler"
 msgstr "Sensitive and collections handler"
 
 #: templates/pyha/official/admin/requestview.html:673
 #: templates/pyha/skipofficial/admin/requestview.html:560
-#, fuzzy
-#| msgid "log_viewed"
 msgid "admin_log_viewed"
 msgstr "Viewed"
 
 #: templates/pyha/official/admin/requestview.html:675
 #: templates/pyha/skipofficial/admin/requestview.html:562
-#, fuzzy
-#| msgid "log_terms_accepted"
 msgid "admin_log_terms_accepted"
 msgstr "Terms accepted"
 
 #: templates/pyha/official/admin/requestview.html:678
 #: templates/pyha/skipofficial/admin/requestview.html:565
-#, fuzzy
-#| msgid "log_sensitives_accepted"
 msgid "admin_log_sensitives_accepted"
 msgstr "Sensitive data accepted"
 
 #: templates/pyha/official/admin/requestview.html:680
 #: templates/pyha/skipofficial/admin/requestview.html:567
-#, fuzzy
-#| msgid "log_collection_accepted"
 msgid "admin_log_collection_accepted"
-msgstr "Request accepted"
+msgstr "Collection accepted"
 
 #: templates/pyha/official/admin/requestview.html:684
 #: templates/pyha/skipofficial/admin/requestview.html:571
-#, fuzzy
-#| msgid "handler_log_sensitives_denied"
 msgid "admin_log_sensitives_reset"
-msgstr "Sensitive data denied"
+msgstr "Sensitive data reset"
 
 #: templates/pyha/official/admin/requestview.html:686
 #: templates/pyha/skipofficial/admin/requestview.html:573
-#, fuzzy
-#| msgid "handler_log_collection_denied"
 msgid "admin_log_collection_reset"
-msgstr "Request denied"
+msgstr "Collection reset"
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:577
-#, fuzzy
-#| msgid "log_sensitives_denied"
 msgid "admin_log_sensitives_denied"
 msgstr "Sensitive data denied"
 
 #: templates/pyha/official/admin/requestview.html:692
 #: templates/pyha/skipofficial/admin/requestview.html:579
-#, fuzzy
-#| msgid "log_collection_denied"
 msgid "admin_log_collection_denied"
-msgstr "Request denied"
+msgstr "Collection denied"
 
 #: templates/pyha/official/admin/requestview.html:699
 #: templates/pyha/official/handler/requestview.html:702
