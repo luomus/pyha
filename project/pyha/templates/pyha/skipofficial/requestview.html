@@ -502,7 +502,7 @@
 								{% endif %}
 								{% if question.question != True %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question.message}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans 'inquiry' %} {% trans "answered" %}&#10;&#13;{{question.message}}</p></div>
 								</div>
 								{% endif %}
 							{% endfor %}
