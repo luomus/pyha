@@ -500,7 +500,7 @@ def requestInformationChat(request, userRequest, role1, role2, userId):
 				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target='sens').order_by('date'))
 			if role2:
 				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
-				if(userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL):
+				if(userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL):
 					for collection in Collection.objects.filter(request=userRequest, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
 						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
 				else:
