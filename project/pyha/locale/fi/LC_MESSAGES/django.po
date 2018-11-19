@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 03:47+0200\n"
+"POT-Creation-Date: 2018-11-19 16:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -507,10 +507,6 @@ msgid "admin_site"
 msgstr "Admin sivu"
 
 #: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
-#: templates/pyha/skipofficial/admin/requestview.html:477
-#: templates/pyha/skipofficial/admin/requestview.html:482
-#: templates/pyha/skipofficial/admin/requestview.html:509
-#: templates/pyha/skipofficial/handler/requestview.html:511
 msgid "admin"
 msgstr "Rooli: Admin"
 
@@ -860,7 +856,9 @@ msgstr "Poista jäädytys"
 #: templates/pyha/skipofficial/admin/requestview.html:68
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
-msgstr "Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy pyyntöön/muuttamaan pyyntöä."
+msgstr ""
+"Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy pyyntöön/"
+"muuttamaan pyyntöä."
 
 #: templates/pyha/official/admin/requestview.html:70
 #: templates/pyha/skipofficial/admin/requestview.html:70
@@ -875,7 +873,9 @@ msgstr "Jäädytä pyyntö"
 #: templates/pyha/official/admin/requestview.html:72
 #: templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
-msgstr "Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy pyyntöön/muuttamaan pyyntöä."
+msgstr ""
+"Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy pyyntöön/muuttamaan "
+"pyyntöä."
 
 #: templates/pyha/official/admin/requestview.html:81
 msgid "admin_sensitive"
@@ -1277,8 +1277,12 @@ msgstr "Sensitiivisen lajitiedon käyttöehdot"
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
+#: templates/pyha/skipofficial/admin/requestview.html:477
+#: templates/pyha/skipofficial/admin/requestview.html:482
+#: templates/pyha/skipofficial/admin/requestview.html:509
 #: templates/pyha/skipofficial/handler/requestview.html:471
 #: templates/pyha/skipofficial/handler/requestview.html:476
+#: templates/pyha/skipofficial/handler/requestview.html:511
 #: templates/pyha/skipofficial/requestview.html:489
 #: templates/pyha/skipofficial/requestview.html:505
 msgid "admin_question"
