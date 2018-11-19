@@ -142,6 +142,7 @@ RequestHandlerChatEntry: #Sisältää aineistonkäsittelijöiden keskustelut
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
+	target = models.CharField(max_length=200)
 	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
 RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
