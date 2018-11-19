@@ -508,7 +508,7 @@
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }}  {% if question.target == 'admin' %} ({% trans 'admin' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
+								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }}  {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
