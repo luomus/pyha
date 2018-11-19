@@ -20,11 +20,11 @@ class LoggedInTests(TestCase):
 		session.save()
 
 	def test_user_sees_the_index_page(self):
-		response = self.client.get('/index/')
+		response = self.client.get('/')
 		self.assertEqual(response.status_code, 200)
 
 	def test_user_correct_message_when_theres_no_request(self):
-		response = self.client.get('/index/')
+		response = self.client.get('/')
 		self.assertContains(response, "ei ole pyyntöjä")
 
 

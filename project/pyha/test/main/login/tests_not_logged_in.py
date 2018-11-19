@@ -12,6 +12,6 @@ class NotLoggedInTests(TestCase):
 		self.client = Client() 
 
 	def test_not_logged_in_gets_redirected(self):
-		response = self.client.get('/index/')
+		response = self.client.get('/')
 		self.assertEqual(response.status_code, 302)
 		self.assertEqual(response.url, settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next=')

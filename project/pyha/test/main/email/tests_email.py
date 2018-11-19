@@ -28,7 +28,7 @@ class EmailTesting (TestCase):
 		self.assertEqual(msg.subject, 'Aineistopyyntö: Testausta')
 		
 	
-	
+
 	def test_mail_send_for_approval(self):
 		req = store(JSON_MOCK4)
 		req.changedBy = "test"

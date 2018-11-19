@@ -123,7 +123,7 @@ def send_mail_for_approval(requestId, collection, lang):
 	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	req_link = settings.PYHA_URL+"request/"+str(req.id)
-	reqCollection = Collection.objects.get(address = collection, request = requestId)
+	reqCollection = Collection.objects.get(address = collection.address, request = requestId)
 	context = {'req': req, 'time': time, 'req_link': req_link, 'reqCollection': reqCollection}
 	if(lang == 'fi'):
 		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
