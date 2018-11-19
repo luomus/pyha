@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 17:21+0200\n"
+"POT-Creation-Date: 2018-11-19 18:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -479,7 +479,9 @@ msgstr "Request"
 
 #: templates/pyha/base/ajax/requestheader.html:19
 msgid "request_description_tooltip"
-msgstr "You may write a small header or a description to help you identify your request."
+msgstr ""
+"You may write a small header or a description to help you identify your "
+"request."
 
 #: templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"
@@ -1210,7 +1212,7 @@ msgstr "Collections including sensitive data:"
 
 #: templates/pyha/official/admin/requestview.html:473
 #: templates/pyha/official/admin/requestview.html:535
-#: templates/pyha/skipofficial/admin/requestview.html:425
+#: templates/pyha/skipofficial/admin/requestview.html:423
 msgid "admin_decision_arguments"
 msgstr "Arguments for decision"
 
@@ -1220,29 +1222,29 @@ msgstr "skipped"
 
 #: templates/pyha/official/admin/requestview.html:507
 #: templates/pyha/official/admin/requestview.html:572
-#: templates/pyha/skipofficial/admin/requestview.html:462
+#: templates/pyha/skipofficial/admin/requestview.html:460
 msgid "admin_accept"
 msgstr "Accept"
 
 #: templates/pyha/official/admin/requestview.html:511
 #: templates/pyha/official/admin/requestview.html:513
 #: templates/pyha/official/admin/requestview.html:574
-#: templates/pyha/skipofficial/admin/requestview.html:464
+#: templates/pyha/skipofficial/admin/requestview.html:462
 msgid "admin_refuse"
 msgstr "Reject"
 
 #: templates/pyha/official/admin/requestview.html:529
-#: templates/pyha/skipofficial/admin/requestview.html:419
+#: templates/pyha/skipofficial/admin/requestview.html:417
 msgid "admin_secured_collection_decicions"
 msgstr "Make a decision concerning giving out collection data"
 
 #: templates/pyha/official/admin/requestview.html:573
-#: templates/pyha/skipofficial/admin/requestview.html:463
+#: templates/pyha/skipofficial/admin/requestview.html:461
 msgid "admin_reset"
 msgstr "Reset"
 
 #: templates/pyha/official/admin/requestview.html:585
-#: templates/pyha/skipofficial/admin/requestview.html:475
+#: templates/pyha/skipofficial/admin/requestview.html:473
 msgid "admin_additional_questions"
 msgstr "Additional questions"
 
@@ -1280,7 +1282,7 @@ msgid "admin_question"
 msgstr "Additional questions"
 
 #: templates/pyha/official/admin/requestview.html:589
-#: templates/pyha/skipofficial/admin/requestview.html:479
+#: templates/pyha/skipofficial/admin/requestview.html:477
 msgid "admin_asked"
 msgstr " asked:"
 
@@ -1294,52 +1296,50 @@ msgid "inquiry"
 msgstr "inquiry"
 
 #: templates/pyha/official/admin/requestview.html:594
-#: templates/pyha/skipofficial/admin/requestview.html:484
+#: templates/pyha/skipofficial/admin/requestview.html:482
 msgid "admin_answered"
 msgstr " responded:"
 
 #: templates/pyha/official/admin/requestview.html:598
-#: templates/pyha/skipofficial/admin/requestview.html:488
+#: templates/pyha/skipofficial/admin/requestview.html:486
 msgid "admin_form_to_request_additional_information"
 msgstr "Form to request additional information"
 
 #: templates/pyha/official/admin/requestview.html:606
-#: templates/pyha/skipofficial/admin/requestview.html:493
+#: templates/pyha/skipofficial/admin/requestview.html:491
 msgid "ask_as_admin_of"
 msgstr "Ask in role"
 
 #: templates/pyha/official/admin/requestview.html:608
-#: templates/pyha/skipofficial/admin/requestview.html:495
+#: templates/pyha/skipofficial/admin/requestview.html:493
+#: templates/pyha/skipofficial/admin/requestview.html:519
 msgid "as_admin"
 msgstr "Administrator"
 
 #: templates/pyha/official/admin/requestview.html:612
-#: templates/pyha/skipofficial/admin/requestview.html:498
+#: templates/pyha/skipofficial/admin/requestview.html:496
 msgid "admin_request_additional_information"
 msgstr "Request additional information"
 
 #: templates/pyha/official/admin/requestview.html:621
-#: templates/pyha/skipofficial/admin/requestview.html:507
 msgid "admin_official_comment_area"
 msgstr "Govt. comment area"
 
 #: templates/pyha/official/admin/requestview.html:624
-#: templates/pyha/skipofficial/admin/requestview.html:510
 msgid "admin_said"
 msgstr " wrote:"
 
 #: templates/pyha/official/admin/requestview.html:633
-#: templates/pyha/skipofficial/admin/requestview.html:520
 msgid "admin_save"
 msgstr "Save"
 
 #: templates/pyha/official/admin/requestview.html:646
-#: templates/pyha/skipofficial/admin/requestview.html:533
+#: templates/pyha/skipofficial/admin/requestview.html:535
 msgid "admin_log_date"
 msgstr "Date"
 
 #: templates/pyha/official/admin/requestview.html:647
-#: templates/pyha/skipofficial/admin/requestview.html:534
+#: templates/pyha/skipofficial/admin/requestview.html:536
 msgid "admin_log_maker"
 msgstr "Author"
 
@@ -1349,7 +1349,7 @@ msgid "admin_log_role"
 msgstr "Role"
 
 #: templates/pyha/official/admin/requestview.html:649
-#: templates/pyha/skipofficial/admin/requestview.html:536
+#: templates/pyha/skipofficial/admin/requestview.html:538
 msgid "admin_log_description"
 msgstr "Description"
 
@@ -1366,57 +1366,57 @@ msgid "admin_log_handler"
 msgstr "Handler"
 
 #: templates/pyha/official/admin/requestview.html:662
-#: templates/pyha/skipofficial/admin/requestview.html:549
+#: templates/pyha/skipofficial/admin/requestview.html:551
 msgid "admin_log_sensitive_data_handler"
 msgstr "Sensitive data handler"
 
 #: templates/pyha/official/admin/requestview.html:664
-#: templates/pyha/skipofficial/admin/requestview.html:551
+#: templates/pyha/skipofficial/admin/requestview.html:553
 msgid "admin_log_collection_provider"
 msgstr "Collection provider"
 
 #: templates/pyha/official/admin/requestview.html:666
-#: templates/pyha/skipofficial/admin/requestview.html:553
+#: templates/pyha/skipofficial/admin/requestview.html:555
 msgid "admin_log_sensitive_and_collections_handler"
 msgstr "Sensitive and collections handler"
 
 #: templates/pyha/official/admin/requestview.html:673
-#: templates/pyha/skipofficial/admin/requestview.html:560
+#: templates/pyha/skipofficial/admin/requestview.html:562
 msgid "admin_log_viewed"
 msgstr "Viewed"
 
 #: templates/pyha/official/admin/requestview.html:675
-#: templates/pyha/skipofficial/admin/requestview.html:562
+#: templates/pyha/skipofficial/admin/requestview.html:564
 msgid "admin_log_terms_accepted"
 msgstr "Terms accepted"
 
 #: templates/pyha/official/admin/requestview.html:678
-#: templates/pyha/skipofficial/admin/requestview.html:565
+#: templates/pyha/skipofficial/admin/requestview.html:567
 msgid "admin_log_sensitives_accepted"
 msgstr "Sensitive data accepted"
 
 #: templates/pyha/official/admin/requestview.html:680
-#: templates/pyha/skipofficial/admin/requestview.html:567
+#: templates/pyha/skipofficial/admin/requestview.html:569
 msgid "admin_log_collection_accepted"
 msgstr "Collection accepted"
 
 #: templates/pyha/official/admin/requestview.html:684
-#: templates/pyha/skipofficial/admin/requestview.html:571
+#: templates/pyha/skipofficial/admin/requestview.html:573
 msgid "admin_log_sensitives_reset"
 msgstr "Sensitive data reset"
 
 #: templates/pyha/official/admin/requestview.html:686
-#: templates/pyha/skipofficial/admin/requestview.html:573
+#: templates/pyha/skipofficial/admin/requestview.html:575
 msgid "admin_log_collection_reset"
 msgstr "Collection reset"
 
 #: templates/pyha/official/admin/requestview.html:690
-#: templates/pyha/skipofficial/admin/requestview.html:577
+#: templates/pyha/skipofficial/admin/requestview.html:579
 msgid "admin_log_sensitives_denied"
 msgstr "Sensitive data denied"
 
 #: templates/pyha/official/admin/requestview.html:692
-#: templates/pyha/skipofficial/admin/requestview.html:579
+#: templates/pyha/skipofficial/admin/requestview.html:581
 msgid "admin_log_collection_denied"
 msgstr "Collection denied"
 
