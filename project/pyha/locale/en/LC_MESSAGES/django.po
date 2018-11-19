@@ -860,10 +860,8 @@ msgstr "This request is currently unfrozen"
 
 #: templates/pyha/official/admin/requestview.html:71
 #: templates/pyha/skipofficial/admin/requestview.html:71
-#, fuzzy
-#| msgid "state_of_request"
 msgid "admin_freeze_request"
-msgstr "State of request"
+msgstr "Freeze request"
 
 #: templates/pyha/official/admin/requestview.html:72
 #: templates/pyha/skipofficial/admin/requestview.html:72
@@ -1132,14 +1130,10 @@ msgid "admin_exit"
 msgstr "Exit"
 
 #: templates/pyha/official/admin/requestview.html:362
-#, fuzzy
-#| msgid "sensitive_terms"
 msgid "admin_sensitive_terms"
 msgstr "Terms for sensitive data"
 
 #: templates/pyha/official/admin/requestview.html:364
-#, fuzzy
-#| msgid "handler_as_pdf"
 msgid "admin_as_pdf"
 msgstr "to PDF"
 
@@ -1158,77 +1152,55 @@ msgstr "Full name"
 
 #: templates/pyha/official/admin/requestview.html:433
 #: templates/pyha/skipofficial/admin/requestview.html:387
-#, fuzzy
-#| msgid "main_contact"
 msgid "admin_contacts"
 msgstr "Main contact"
 
 #: templates/pyha/official/admin/requestview.html:436
 #: templates/pyha/skipofficial/admin/requestview.html:390
-#, fuzzy
-#| msgid "handler_full_name"
 msgid "admin_full_name"
 msgstr "Full name"
 
 #: templates/pyha/official/admin/requestview.html:437
 #: templates/pyha/skipofficial/admin/requestview.html:391
-#, fuzzy
-#| msgid "street_address"
 msgid "admin_street_address"
 msgstr "Address"
 
 #: templates/pyha/official/admin/requestview.html:438
 #: templates/pyha/skipofficial/admin/requestview.html:392
-#, fuzzy
-#| msgid "postal_code"
 msgid "admin_postal_code"
 msgstr "Postal code"
 
 #: templates/pyha/official/admin/requestview.html:439
 #: templates/pyha/skipofficial/admin/requestview.html:393
-#, fuzzy
-#| msgid "post_office_name"
 msgid "admin_post_office_name"
 msgstr "City"
 
 #: templates/pyha/official/admin/requestview.html:440
 #: templates/pyha/skipofficial/admin/requestview.html:394
-#, fuzzy
-#| msgid "handler_country"
 msgid "admin_country"
 msgstr "Country"
 
 #: templates/pyha/official/admin/requestview.html:441
 #: templates/pyha/skipofficial/admin/requestview.html:395
-#, fuzzy
-#| msgid "handler_email"
 msgid "admin_email"
 msgstr "Email"
 
 #: templates/pyha/official/admin/requestview.html:442
 #: templates/pyha/skipofficial/admin/requestview.html:396
-#, fuzzy
-#| msgid "phone_number"
 msgid "admin_phone_number"
 msgstr "Phone number"
 
 #: templates/pyha/official/admin/requestview.html:443
 #: templates/pyha/skipofficial/admin/requestview.html:397
-#, fuzzy
-#| msgid "corporation/organization_name"
 msgid "admin_corporation/organization_name"
 msgstr "Company/Organisation name"
 
 #: templates/pyha/official/admin/requestview.html:444
 #: templates/pyha/skipofficial/admin/requestview.html:398
-#, fuzzy
-#| msgid "corporation_id"
 msgid "admin_corporation_id"
 msgstr "Business ID"
 
 #: templates/pyha/official/admin/requestview.html:463
-#, fuzzy
-#| msgid "handler_user_no_sensitive_data"
 msgid "admin_user_no_sensitive_data"
 msgstr "Request contains no sensitive data"
 

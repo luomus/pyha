@@ -1970,10 +1970,8 @@ msgstr "Sensitiiviset päätös nollattu"
 
 #: templates/pyha/official/handler/requestview.html:689
 #: templates/pyha/skipofficial/handler/requestview.html:581
-#, fuzzy
-#| msgid "handler_log_collection_denied"
 msgid "handler_log_collection_reset"
-msgstr "Aineisto päätös nollattu"
+msgstr "Aineiston päätös nollattu"
 
 #: templates/pyha/official/handler/requestview.html:693
 #: templates/pyha/skipofficial/handler/requestview.html:585
