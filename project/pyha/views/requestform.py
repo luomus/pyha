@@ -99,7 +99,7 @@ def approve_terms(request):
                         taxon = True
                 if len(requestedCollections) > 0:
                     for rc in requestedCollections:
-                        userCollection = Collection.objects.get(address = rc, request = requestId)
+                        userCollection = Collection.objects.get(address = rc.address, request = requestId)
                         if userCollection.status == 0:
                             userCollection.status = 1
                             userCollection.changedBy = changed_by_session_user(request)
