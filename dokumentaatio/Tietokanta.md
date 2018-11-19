@@ -40,7 +40,8 @@ Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen
 	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen määrä
 	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen määrä
 	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssä hetkellä, kun pyyntö annetaan käsiteltäväksi.
-	decisionExplanation = models.CharField(max_length=1000,null=True) #Päätöksen perustelut tekstinä	
+	decisionExplanation = models.CharField(max_length=1000,null=True) #Päätöksen perustelut tekstinä
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
 Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liittyvän päätöksen ja päätöstekstin
 	
@@ -90,6 +91,7 @@ Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liit
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
 	lang = models.CharField(max_length=10, default='fi')
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
 RequestContact: #Sisältää lisää yhteystietoja, mikäli Request taulun yhdet yhteystiedot eivät riittäneet.
 
@@ -104,6 +106,7 @@ RequestContact: #Sisältää lisää yhteystietoja, mikäli Request taulun yhdet yhtey
 	personPhoneNumber = models.CharField(max_length=100,null=True)
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
 RequestLogEntry: #Sisältää pyyntöihin liittyvien tapahtumien lokin
 
@@ -123,13 +126,23 @@ RequestLogEntry: #Sisältää pyyntöihin liittyvien tapahtumien lokin
 	user = models.CharField(max_length=100)
 	role = models.CharField(max_length=100)
 	action = models.CharField(max_length=5, choices=ACTION)
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-RequestChatEntry: #Sisältää viranomaisten keskustelut
+RequestSensitiveChatEntry: #Sisältää viranomaisten keskustelut
 
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
+
+RequestHandlerChatEntry: #Sisältää aineistonkäsittelijöiden keskustelut
+
+	request = models.ForeignKey(Request, on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=100)
+	message = models.CharField(max_length=2000)
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
 RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
 
@@ -139,6 +152,7 @@ RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
 	question = models.BooleanField()
 	message = models.CharField(max_length=2000)
 	target = models.CharField(max_length=200) #Lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai 'sens' sensitiivisille
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
 ContactPreset: #Sisältää muistissa käyttäjän aikaisemmin täyttämät yhteystiedot.
 
@@ -152,3 +166,4 @@ ContactPreset: #Sisältää muistissa käyttäjän aikaisemmin täyttämät yhteystiedot.
 	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
 	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
 	requestPersonCorporationId = models.CharField(max_length=100,null=True)
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
