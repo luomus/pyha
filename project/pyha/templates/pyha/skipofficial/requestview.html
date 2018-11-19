@@ -486,7 +486,7 @@
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question.message}}</p></div>
 								<form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
 								<div class="form-group">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -502,7 +502,7 @@
 								{% endif %}
 								{% if question.question != True %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question}}</p></div>
+								<div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% trans 'inquiry' %} {% if question.target == 'sens' %} ({% trans 'sensitivity' %}) {% elif question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %}{% trans "answered" %}&#10;&#13;{{question.message}}</p></div>
 								</div>
 								{% endif %}
 							{% endfor %}
