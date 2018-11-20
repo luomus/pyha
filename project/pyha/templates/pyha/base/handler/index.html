@@ -40,7 +40,7 @@
         {% else %}  
             <tr	
         {% endif %}
-            data-href="request/{{request.id}}"
+            data-href="{% url 'pyha:root' %}request/{{request.id}}"
             >
             <td {% if not request.viewed or request.answerstatus == 1%}data-order="1"><span class="glyphicon glyphicon-bell"></span>{% else %}data-order="0"><span></span>{% endif %}</td>
             <td>{{request.date|date:"d.m.Y    H:i"}}</td>
