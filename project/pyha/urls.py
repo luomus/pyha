@@ -4,7 +4,7 @@ from pyha.views import api, index, requestform, requestview, logout, ajax
 
 app_name = 'pyha'
 urlpatterns = [
-    url(r'^pyha/$', index.pyha, name='pyha'),
+    url(r'^pyha/', index.pyha, name='pyha'),
     url(r'^/?$', index.index, name='root'),
     url(r'^index/?$', index.pyha, name='index'),
     url(r'^login/?$', index.index, name='login'),
