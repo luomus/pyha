@@ -1,4 +1,9 @@
-﻿* Templateissa käännökset tyylillä `{% trans "Moikka" %}` 
+﻿Sähköpostiviestien otsikot ja käännökset löytyvät tällä hetkellä project/pyha/email.py tiedoston sisältä.
+Sähköpostiviestien sisältö, ja niiden käännökset löytyvät kansiosta project/pyha/templates/pyha/email UTF-8 formaatin tekstitiedostoina.
+
+Ehdot, ja niiden käännökset löytyvät kansiosta project/pyha/templates/pyha/skipofficial/terms html-tiedostoina.
+
+* Templateissa käännökset tyylillä `{% trans "Moikka" %}` 
     * Jos templatessa on käännettävää, sen alkupuolella pitää aina olla `{% load i18n %}`
 * Python-koodissa käännökset tyylillä:
 ````
