@@ -6,7 +6,7 @@ from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
-from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum
+from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.log_utils import changed_by
 import json
 import os
@@ -177,9 +177,9 @@ def send_download_request(requestId):
     userRequest = Request.objects.get(id=requestId)
     payload["id"] = userRequest.lajiId
     payload["personId"] = userRequest.user
-    collectionlist = Collection.objects.filter(request=userRequest).exclude(status=StatusEnum.APPROVED)
-    if not userRequest.sensStatus in {StatusEnum.APPROVED, Sens_StatusEnum.IGNORE_OFFICIAL}:
-        additionlist = Collection.objects.filter(request=userRequest, customSecured=0, taxonSecured__gt=0)
+    collectionlist = Collection.objects.filter(request=userRequest).exclude(status=Col_StatusEnum.APPROVED)
+    if not userRequest.sensStatus in {Sens_StatusEnum.APPROVED, Sens_StatusEnum.IGNORE_OFFICIAL}:
+        additionlist = Collection.objects.filter(request=userRequest, taxonSecured__gt=0)
         collectionlist = list(chain(collectionlist, additionlist))
     cname = []
     for c in collectionlist:
