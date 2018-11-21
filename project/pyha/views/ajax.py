@@ -4,7 +4,7 @@ from django.shortcuts import render
 from pyha.database import create_request_view_context, check_all_collections_removed
 from pyha.localization import check_language
 from pyha.login import logged_in, is_allowed_to_view, is_request_owner, is_admin_frozen_and_not_admin
-from pyha.models import Request, Collection, StatusEnum
+from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum
 from pyha.log_utils import changed_by_session_user
 
 def get_description_ajax(request):
@@ -104,7 +104,10 @@ def get_summary_ajax(request):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
             context = create_request_view_context(requestId, request, userRequest)
-            return render(request, 'pyha/base/ajax/requestformsummary.html', context)
+            if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL:
+                return render(request, 'pyha/skipofficial/ajax/requestformsummary.html', context)
+            else:
+                return render(request, 'pyha/official/ajax/requestformsummary.html', context)
     return HttpResponseRedirect(reverse('pyha:root'))
 
 def create_contact_ajax(request):
