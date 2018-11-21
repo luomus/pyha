@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-21 15:46+0200\n"
+"POT-Creation-Date: 2018-11-21 17:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -445,7 +445,9 @@ msgstr "Beskrivning"
 
 #: templates/pyha/base/ajax/requestheader.html:19
 msgid "request_description_tooltip"
-msgstr "Du kan skriva en liten rubrik eller en beskrivning som hjälper dig att identifiera din begäran."
+msgstr ""
+"Du kan skriva en liten rubrik eller en beskrivning som hjälper dig att "
+"identifiera din begäran."
 
 #: templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"
@@ -817,7 +819,9 @@ msgstr "Frigöra begäran"
 #: templates/pyha/skipofficial/admin/requestview.html:68
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
-msgstr "Frigöra begäran om att aktivera åtkomst och åtgärder av användare som inte är administratörer"
+msgstr ""
+"Frigöra begäran om att aktivera åtkomst och åtgärder av användare som inte "
+"är administratörer"
 
 #: templates/pyha/official/admin/requestview.html:70
 #: templates/pyha/skipofficial/admin/requestview.html:70
@@ -832,7 +836,9 @@ msgstr "Frys begäran"
 #: templates/pyha/official/admin/requestview.html:72
 #: templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
-msgstr "Frys begäran om att inaktivera åtkomst och åtgärder av icke-administratörsanvändare"
+msgstr ""
+"Frys begäran om att inaktivera åtkomst och åtgärder av icke-"
+"administratörsanvändare"
 
 #: templates/pyha/official/admin/requestview.html:81
 msgid "admin_sensitive"
