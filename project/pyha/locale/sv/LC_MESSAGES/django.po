@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-21 15:28+0200\n"
+"POT-Creation-Date: 2018-11-21 15:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr ""
 #: templates/pyha/official/admin/requestview.html:493
 #: templates/pyha/official/admin/requestview.html:559
 #: templates/pyha/skipofficial/admin/requestview.html:36
-#: templates/pyha/skipofficial/admin/requestview.html:447
+#: templates/pyha/skipofficial/admin/requestview.html:443
 #, fuzzy
 #| msgid "partially_accepted"
 msgid "admin_partially_accepted"
@@ -106,7 +106,7 @@ msgstr "Delvis accepterad"
 #: templates/pyha/official/admin/requestview.html:491
 #: templates/pyha/official/admin/requestview.html:557
 #: templates/pyha/skipofficial/admin/requestview.html:39
-#: templates/pyha/skipofficial/admin/requestview.html:445
+#: templates/pyha/skipofficial/admin/requestview.html:441
 #, fuzzy
 #| msgid "handler_denied"
 msgid "admin_denied"
@@ -117,7 +117,7 @@ msgstr "Nekad"
 #: templates/pyha/official/admin/requestview.html:495
 #: templates/pyha/official/admin/requestview.html:561
 #: templates/pyha/skipofficial/admin/requestview.html:42
-#: templates/pyha/skipofficial/admin/requestview.html:449
+#: templates/pyha/skipofficial/admin/requestview.html:445
 #, fuzzy
 #| msgid "handler_accepted"
 msgid "admin_accepted"
@@ -152,7 +152,7 @@ msgstr "Klar för nedladdning"
 #: templates/pyha/official/admin/requestview.html:499
 #: templates/pyha/official/admin/requestview.html:563
 #: templates/pyha/skipofficial/admin/requestview.html:54
-#: templates/pyha/skipofficial/admin/requestview.html:451
+#: templates/pyha/skipofficial/admin/requestview.html:447
 #, fuzzy
 #| msgid "handler_unknown"
 msgid "admin_unknown"
@@ -291,9 +291,9 @@ msgstr "FO-nummer"
 #: templates/pyha/official/admin/requestview.html:404
 #: templates/pyha/official/handler/requestview.html:398
 #: templates/pyha/official/requestview.html:507
-#: templates/pyha/skipofficial/admin/requestview.html:358
-#: templates/pyha/skipofficial/handler/requestview.html:349
-#: templates/pyha/skipofficial/requestview.html:425
+#: templates/pyha/skipofficial/admin/requestview.html:354
+#: templates/pyha/skipofficial/handler/requestview.html:345
+#: templates/pyha/skipofficial/requestview.html:421
 msgid "additional_contact_name"
 msgstr "Namn på ytterligare sökande"
 
@@ -307,14 +307,14 @@ msgstr "Namn på ytterligare sökande"
 #: templates/pyha/official/requestform.html:408
 #: templates/pyha/official/requestview.html:490
 #: templates/pyha/official/requestview.html:509
-#: templates/pyha/skipofficial/admin/requestview.html:341
-#: templates/pyha/skipofficial/admin/requestview.html:360
-#: templates/pyha/skipofficial/handler/requestview.html:332
-#: templates/pyha/skipofficial/handler/requestview.html:351
+#: templates/pyha/skipofficial/admin/requestview.html:337
+#: templates/pyha/skipofficial/admin/requestview.html:356
+#: templates/pyha/skipofficial/handler/requestview.html:328
+#: templates/pyha/skipofficial/handler/requestview.html:347
 #: templates/pyha/skipofficial/requestform.html:239
 #: templates/pyha/skipofficial/requestform.html:342
-#: templates/pyha/skipofficial/requestview.html:408
-#: templates/pyha/skipofficial/requestview.html:427
+#: templates/pyha/skipofficial/requestview.html:404
+#: templates/pyha/skipofficial/requestview.html:423
 msgid "contact_street_address"
 msgstr "Adress"
 
@@ -328,14 +328,14 @@ msgstr "Adress"
 #: templates/pyha/official/requestform.html:409
 #: templates/pyha/official/requestview.html:491
 #: templates/pyha/official/requestview.html:510
-#: templates/pyha/skipofficial/admin/requestview.html:342
-#: templates/pyha/skipofficial/admin/requestview.html:361
-#: templates/pyha/skipofficial/handler/requestview.html:333
-#: templates/pyha/skipofficial/handler/requestview.html:352
+#: templates/pyha/skipofficial/admin/requestview.html:338
+#: templates/pyha/skipofficial/admin/requestview.html:357
+#: templates/pyha/skipofficial/handler/requestview.html:329
+#: templates/pyha/skipofficial/handler/requestview.html:348
 #: templates/pyha/skipofficial/requestform.html:240
 #: templates/pyha/skipofficial/requestform.html:343
-#: templates/pyha/skipofficial/requestview.html:409
-#: templates/pyha/skipofficial/requestview.html:428
+#: templates/pyha/skipofficial/requestview.html:405
+#: templates/pyha/skipofficial/requestview.html:424
 msgid "contact_postal"
 msgstr "Postnummer"
 
@@ -349,14 +349,14 @@ msgstr "Postnummer"
 #: templates/pyha/official/requestform.html:410
 #: templates/pyha/official/requestview.html:492
 #: templates/pyha/official/requestview.html:511
-#: templates/pyha/skipofficial/admin/requestview.html:343
-#: templates/pyha/skipofficial/admin/requestview.html:362
-#: templates/pyha/skipofficial/handler/requestview.html:334
-#: templates/pyha/skipofficial/handler/requestview.html:353
+#: templates/pyha/skipofficial/admin/requestview.html:339
+#: templates/pyha/skipofficial/admin/requestview.html:358
+#: templates/pyha/skipofficial/handler/requestview.html:330
+#: templates/pyha/skipofficial/handler/requestview.html:349
 #: templates/pyha/skipofficial/requestform.html:241
 #: templates/pyha/skipofficial/requestform.html:344
-#: templates/pyha/skipofficial/requestview.html:410
-#: templates/pyha/skipofficial/requestview.html:429
+#: templates/pyha/skipofficial/requestview.html:406
+#: templates/pyha/skipofficial/requestview.html:425
 msgid "contact_post_office"
 msgstr "Postanstalt"
 
@@ -370,14 +370,14 @@ msgstr "Postanstalt"
 #: templates/pyha/official/requestform.html:411
 #: templates/pyha/official/requestview.html:493
 #: templates/pyha/official/requestview.html:512
-#: templates/pyha/skipofficial/admin/requestview.html:344
-#: templates/pyha/skipofficial/admin/requestview.html:363
-#: templates/pyha/skipofficial/handler/requestview.html:335
-#: templates/pyha/skipofficial/handler/requestview.html:354
+#: templates/pyha/skipofficial/admin/requestview.html:340
+#: templates/pyha/skipofficial/admin/requestview.html:359
+#: templates/pyha/skipofficial/handler/requestview.html:331
+#: templates/pyha/skipofficial/handler/requestview.html:350
 #: templates/pyha/skipofficial/requestform.html:242
 #: templates/pyha/skipofficial/requestform.html:345
-#: templates/pyha/skipofficial/requestview.html:411
-#: templates/pyha/skipofficial/requestview.html:430
+#: templates/pyha/skipofficial/requestview.html:407
+#: templates/pyha/skipofficial/requestview.html:426
 msgid "contact_country"
 msgstr "Land"
 
@@ -391,14 +391,14 @@ msgstr "Land"
 #: templates/pyha/official/requestform.html:412
 #: templates/pyha/official/requestview.html:494
 #: templates/pyha/official/requestview.html:513
-#: templates/pyha/skipofficial/admin/requestview.html:345
-#: templates/pyha/skipofficial/admin/requestview.html:364
-#: templates/pyha/skipofficial/handler/requestview.html:336
-#: templates/pyha/skipofficial/handler/requestview.html:355
+#: templates/pyha/skipofficial/admin/requestview.html:341
+#: templates/pyha/skipofficial/admin/requestview.html:360
+#: templates/pyha/skipofficial/handler/requestview.html:332
+#: templates/pyha/skipofficial/handler/requestview.html:351
 #: templates/pyha/skipofficial/requestform.html:243
 #: templates/pyha/skipofficial/requestform.html:346
-#: templates/pyha/skipofficial/requestview.html:412
-#: templates/pyha/skipofficial/requestview.html:431
+#: templates/pyha/skipofficial/requestview.html:408
+#: templates/pyha/skipofficial/requestview.html:427
 msgid "contact_email"
 msgstr "E-post"
 
@@ -412,14 +412,14 @@ msgstr "E-post"
 #: templates/pyha/official/requestform.html:413
 #: templates/pyha/official/requestview.html:495
 #: templates/pyha/official/requestview.html:514
-#: templates/pyha/skipofficial/admin/requestview.html:346
-#: templates/pyha/skipofficial/admin/requestview.html:365
-#: templates/pyha/skipofficial/handler/requestview.html:337
-#: templates/pyha/skipofficial/handler/requestview.html:356
+#: templates/pyha/skipofficial/admin/requestview.html:342
+#: templates/pyha/skipofficial/admin/requestview.html:361
+#: templates/pyha/skipofficial/handler/requestview.html:333
+#: templates/pyha/skipofficial/handler/requestview.html:352
 #: templates/pyha/skipofficial/requestform.html:244
 #: templates/pyha/skipofficial/requestform.html:347
-#: templates/pyha/skipofficial/requestview.html:413
-#: templates/pyha/skipofficial/requestview.html:432
+#: templates/pyha/skipofficial/requestview.html:409
+#: templates/pyha/skipofficial/requestview.html:428
 msgid "contact_phone_number"
 msgstr "Telefonnummer"
 
@@ -433,14 +433,14 @@ msgstr "Telefonnummer"
 #: templates/pyha/official/requestform.html:414
 #: templates/pyha/official/requestview.html:497
 #: templates/pyha/official/requestview.html:516
-#: templates/pyha/skipofficial/admin/requestview.html:348
-#: templates/pyha/skipofficial/admin/requestview.html:367
-#: templates/pyha/skipofficial/handler/requestview.html:339
-#: templates/pyha/skipofficial/handler/requestview.html:358
+#: templates/pyha/skipofficial/admin/requestview.html:344
+#: templates/pyha/skipofficial/admin/requestview.html:363
+#: templates/pyha/skipofficial/handler/requestview.html:335
+#: templates/pyha/skipofficial/handler/requestview.html:354
 #: templates/pyha/skipofficial/requestform.html:245
 #: templates/pyha/skipofficial/requestform.html:348
-#: templates/pyha/skipofficial/requestview.html:415
-#: templates/pyha/skipofficial/requestview.html:434
+#: templates/pyha/skipofficial/requestview.html:411
+#: templates/pyha/skipofficial/requestview.html:430
 msgid "contact_corporation"
 msgstr "Företag/organisation"
 
@@ -454,14 +454,14 @@ msgstr "Företag/organisation"
 #: templates/pyha/official/requestform.html:415
 #: templates/pyha/official/requestview.html:500
 #: templates/pyha/official/requestview.html:519
-#: templates/pyha/skipofficial/admin/requestview.html:351
-#: templates/pyha/skipofficial/admin/requestview.html:370
-#: templates/pyha/skipofficial/handler/requestview.html:342
-#: templates/pyha/skipofficial/handler/requestview.html:361
+#: templates/pyha/skipofficial/admin/requestview.html:347
+#: templates/pyha/skipofficial/admin/requestview.html:366
+#: templates/pyha/skipofficial/handler/requestview.html:338
+#: templates/pyha/skipofficial/handler/requestview.html:357
 #: templates/pyha/skipofficial/requestform.html:246
 #: templates/pyha/skipofficial/requestform.html:349
-#: templates/pyha/skipofficial/requestview.html:418
-#: templates/pyha/skipofficial/requestview.html:437
+#: templates/pyha/skipofficial/requestview.html:414
+#: templates/pyha/skipofficial/requestview.html:433
 msgid "contact_corporation_id"
 msgstr "FO-nummer:"
 
@@ -519,9 +519,9 @@ msgstr "Roll: behandlare"
 #: templates/pyha/official/admin/requestview.html:670
 #: templates/pyha/official/handler/requestview.html:673
 #: templates/pyha/official/requestview.html:621
-#: templates/pyha/skipofficial/admin/requestview.html:559
-#: templates/pyha/skipofficial/handler/requestview.html:565
-#: templates/pyha/skipofficial/requestview.html:539
+#: templates/pyha/skipofficial/admin/requestview.html:555
+#: templates/pyha/skipofficial/handler/requestview.html:561
+#: templates/pyha/skipofficial/requestview.html:535
 msgid "user"
 msgstr "Roll: Användare"
 
@@ -586,8 +586,8 @@ msgstr "Väntar på beslut"
 #: templates/pyha/official/handler/requestview.html:550
 #: templates/pyha/skipofficial/handler/requestview.html:31
 #: templates/pyha/skipofficial/handler/requestview.html:77
-#: templates/pyha/skipofficial/handler/requestview.html:203
-#: templates/pyha/skipofficial/handler/requestview.html:433
+#: templates/pyha/skipofficial/handler/requestview.html:199
+#: templates/pyha/skipofficial/handler/requestview.html:429
 msgid "handler_waiting_for_others"
 msgstr "Väntar på beslut av andra"
 
@@ -600,8 +600,8 @@ msgstr "Väntar på beslut av andra"
 #: templates/pyha/official/handler/requestview.html:548
 #: templates/pyha/skipofficial/handler/requestview.html:33
 #: templates/pyha/skipofficial/handler/requestview.html:75
-#: templates/pyha/skipofficial/handler/requestview.html:201
-#: templates/pyha/skipofficial/handler/requestview.html:431
+#: templates/pyha/skipofficial/handler/requestview.html:197
+#: templates/pyha/skipofficial/handler/requestview.html:427
 msgid "handler_waiting_for_you"
 msgstr "Väntar på ditt beslut"
 
@@ -610,7 +610,7 @@ msgstr "Väntar på ditt beslut"
 #: templates/pyha/official/handler/requestview.html:488
 #: templates/pyha/official/handler/requestview.html:555
 #: templates/pyha/skipofficial/handler/requestview.html:36
-#: templates/pyha/skipofficial/handler/requestview.html:438
+#: templates/pyha/skipofficial/handler/requestview.html:434
 msgid "handler_partially_accepted"
 msgstr "Delvis accepterad"
 
@@ -619,7 +619,7 @@ msgstr "Delvis accepterad"
 #: templates/pyha/official/handler/requestview.html:486
 #: templates/pyha/official/handler/requestview.html:553
 #: templates/pyha/skipofficial/handler/requestview.html:39
-#: templates/pyha/skipofficial/handler/requestview.html:436
+#: templates/pyha/skipofficial/handler/requestview.html:432
 msgid "handler_denied"
 msgstr "Nekad"
 
@@ -628,7 +628,7 @@ msgstr "Nekad"
 #: templates/pyha/official/handler/requestview.html:490
 #: templates/pyha/official/handler/requestview.html:557
 #: templates/pyha/skipofficial/handler/requestview.html:42
-#: templates/pyha/skipofficial/handler/requestview.html:440
+#: templates/pyha/skipofficial/handler/requestview.html:436
 msgid "handler_accepted"
 msgstr "Accepterad"
 
@@ -655,7 +655,7 @@ msgstr "Klar för nedladdning"
 #: templates/pyha/official/handler/requestview.html:494
 #: templates/pyha/official/handler/requestview.html:559
 #: templates/pyha/skipofficial/handler/requestview.html:54
-#: templates/pyha/skipofficial/handler/requestview.html:442
+#: templates/pyha/skipofficial/handler/requestview.html:438
 msgid "handler_unknown"
 msgstr "Okänd"
 
@@ -703,8 +703,8 @@ msgstr "Vänligen läs och acceptera användarvillkor"
 #: templates/pyha/official/requestview.html:327
 #: templates/pyha/skipofficial/requestview.html:28
 #: templates/pyha/skipofficial/requestview.html:69
-#: templates/pyha/skipofficial/requestview.html:233
-#: templates/pyha/skipofficial/requestview.html:277
+#: templates/pyha/skipofficial/requestview.html:229
+#: templates/pyha/skipofficial/requestview.html:273
 msgid "waiting_for_data_provider"
 msgstr "Väntar på beslutet"
 
@@ -715,11 +715,11 @@ msgstr "Väntar på beslutet"
 #: templates/pyha/official/requestview.html:250
 #: templates/pyha/official/requestview.html:283
 #: templates/pyha/official/requestview.html:331
-#: templates/pyha/skipofficial/admin/requestview.html:217
-#: templates/pyha/skipofficial/handler/requestview.html:208
+#: templates/pyha/skipofficial/admin/requestview.html:213
+#: templates/pyha/skipofficial/handler/requestview.html:204
 #: templates/pyha/skipofficial/requestview.html:31
-#: templates/pyha/skipofficial/requestview.html:237
-#: templates/pyha/skipofficial/requestview.html:281
+#: templates/pyha/skipofficial/requestview.html:233
+#: templates/pyha/skipofficial/requestview.html:277
 msgid "partially_accepted"
 msgstr "Delvis accepterad"
 
@@ -737,13 +737,13 @@ msgstr "Delvis accepterad"
 #: templates/pyha/official/requestview.html:281
 #: templates/pyha/official/requestview.html:329
 #: templates/pyha/skipofficial/admin/requestview.html:91
-#: templates/pyha/skipofficial/admin/requestview.html:215
+#: templates/pyha/skipofficial/admin/requestview.html:211
 #: templates/pyha/skipofficial/handler/requestview.html:80
-#: templates/pyha/skipofficial/handler/requestview.html:206
+#: templates/pyha/skipofficial/handler/requestview.html:202
 #: templates/pyha/skipofficial/requestview.html:34
 #: templates/pyha/skipofficial/requestview.html:71
-#: templates/pyha/skipofficial/requestview.html:235
-#: templates/pyha/skipofficial/requestview.html:279
+#: templates/pyha/skipofficial/requestview.html:231
+#: templates/pyha/skipofficial/requestview.html:275
 msgid "denied"
 msgstr "Nekad"
 
@@ -761,13 +761,13 @@ msgstr "Nekad"
 #: templates/pyha/official/requestview.html:285
 #: templates/pyha/official/requestview.html:333
 #: templates/pyha/skipofficial/admin/requestview.html:90
-#: templates/pyha/skipofficial/admin/requestview.html:219
+#: templates/pyha/skipofficial/admin/requestview.html:215
 #: templates/pyha/skipofficial/handler/requestview.html:79
-#: templates/pyha/skipofficial/handler/requestview.html:210
+#: templates/pyha/skipofficial/handler/requestview.html:206
 #: templates/pyha/skipofficial/requestview.html:37
 #: templates/pyha/skipofficial/requestview.html:70
-#: templates/pyha/skipofficial/requestview.html:239
-#: templates/pyha/skipofficial/requestview.html:283
+#: templates/pyha/skipofficial/requestview.html:235
+#: templates/pyha/skipofficial/requestview.html:279
 msgid "accepted"
 msgstr "Accepterad"
 
@@ -796,11 +796,11 @@ msgstr "Klar för nedladdning"
 #: templates/pyha/official/requestview.html:256
 #: templates/pyha/official/requestview.html:287
 #: templates/pyha/official/requestview.html:337
-#: templates/pyha/skipofficial/admin/requestview.html:223
-#: templates/pyha/skipofficial/handler/requestview.html:214
+#: templates/pyha/skipofficial/admin/requestview.html:219
+#: templates/pyha/skipofficial/handler/requestview.html:210
 #: templates/pyha/skipofficial/requestview.html:50
-#: templates/pyha/skipofficial/requestview.html:243
-#: templates/pyha/skipofficial/requestview.html:287
+#: templates/pyha/skipofficial/requestview.html:239
+#: templates/pyha/skipofficial/requestview.html:283
 msgid "unknown"
 msgstr "Okänd"
 
@@ -827,8 +827,8 @@ msgstr "Status av begäran:"
 #: templates/pyha/official/admin/requestview.html:488
 #: templates/pyha/official/admin/requestview.html:554
 #: templates/pyha/skipofficial/admin/requestview.html:31
-#: templates/pyha/skipofficial/admin/requestview.html:212
-#: templates/pyha/skipofficial/admin/requestview.html:442
+#: templates/pyha/skipofficial/admin/requestview.html:208
+#: templates/pyha/skipofficial/admin/requestview.html:438
 #, fuzzy
 #| msgid "handler_waiting_for_others"
 msgid "admin_waiting_for_others"
@@ -839,8 +839,8 @@ msgstr "Väntar på beslut av andra"
 #: templates/pyha/official/admin/requestview.html:486
 #: templates/pyha/official/admin/requestview.html:552
 #: templates/pyha/skipofficial/admin/requestview.html:33
-#: templates/pyha/skipofficial/admin/requestview.html:210
-#: templates/pyha/skipofficial/admin/requestview.html:440
+#: templates/pyha/skipofficial/admin/requestview.html:206
+#: templates/pyha/skipofficial/admin/requestview.html:436
 #, fuzzy
 #| msgid "handler_waiting_for_you"
 msgid "admin_waiting_for_you"
@@ -904,7 +904,7 @@ msgstr "Material"
 #: templates/pyha/official/admin/requestview.html:117
 #: templates/pyha/official/admin/requestview.html:643
 #: templates/pyha/skipofficial/admin/requestview.html:105
-#: templates/pyha/skipofficial/admin/requestview.html:532
+#: templates/pyha/skipofficial/admin/requestview.html:528
 #, fuzzy
 #| msgid "changes_history"
 msgid "admin_changes_history"
@@ -976,16 +976,13 @@ msgstr "Material som ingår i begäran"
 #: templates/pyha/official/ajax/requestformsummary.html:6
 #: templates/pyha/official/handler/requestview.html:178
 #: templates/pyha/official/requestview.html:206
-#: templates/pyha/skipofficial/admin/requestview.html:170
-#: templates/pyha/skipofficial/handler/requestview.html:161
-#: templates/pyha/skipofficial/requestview.html:194
 msgid "Collections including sensitive sightings are marked with symbol"
 msgstr "Material som innehåller sensitiva data är markerade med en symbol"
 
 #: templates/pyha/official/admin/requestview.html:189
 #: templates/pyha/official/admin/requestview.html:532
 #: templates/pyha/skipofficial/admin/requestview.html:175
-#: templates/pyha/skipofficial/admin/requestview.html:420
+#: templates/pyha/skipofficial/admin/requestview.html:416
 #, fuzzy
 #| msgid "collection_name"
 msgid "admin_collection_name"
@@ -994,7 +991,7 @@ msgstr "Materialnamn"
 #: templates/pyha/official/admin/requestview.html:191
 #: templates/pyha/official/admin/requestview.html:533
 #: templates/pyha/skipofficial/admin/requestview.html:177
-#: templates/pyha/skipofficial/admin/requestview.html:421
+#: templates/pyha/skipofficial/admin/requestview.html:417
 #, fuzzy
 #| msgid "collection_description"
 msgid "admin_collection_description"
@@ -1008,14 +1005,12 @@ msgid "admin_secured_by_data_provider"
 msgstr "Användning begränsad av data ägare"
 
 #: templates/pyha/official/admin/requestview.html:193
-#: templates/pyha/skipofficial/admin/requestview.html:179
 #, fuzzy
 #| msgid "generally_secured"
 msgid "admin_generally_secured"
 msgstr "Sensitiva observationer"
 
 #: templates/pyha/official/admin/requestview.html:194
-#: templates/pyha/skipofficial/admin/requestview.html:180
 #, fuzzy
 #| msgid "all_secured"
 msgid "admin_all_secured"
@@ -1024,8 +1019,8 @@ msgstr "Totalt"
 #: templates/pyha/official/admin/requestview.html:195
 #: templates/pyha/official/admin/requestview.html:472
 #: templates/pyha/official/admin/requestview.html:534
-#: templates/pyha/skipofficial/admin/requestview.html:181
-#: templates/pyha/skipofficial/admin/requestview.html:422
+#: templates/pyha/skipofficial/admin/requestview.html:179
+#: templates/pyha/skipofficial/admin/requestview.html:418
 #, fuzzy
 #| msgid "state_of_processing"
 msgid "admin_state_of_processing"
@@ -1035,50 +1030,50 @@ msgstr "Behandlingsstatus"
 #: templates/pyha/official/handler/requestview.html:229
 #: templates/pyha/official/requestview.html:254
 #: templates/pyha/official/requestview.html:335
-#: templates/pyha/skipofficial/admin/requestview.html:221
-#: templates/pyha/skipofficial/handler/requestview.html:212
-#: templates/pyha/skipofficial/requestview.html:241
-#: templates/pyha/skipofficial/requestview.html:285
+#: templates/pyha/skipofficial/admin/requestview.html:217
+#: templates/pyha/skipofficial/handler/requestview.html:208
+#: templates/pyha/skipofficial/requestview.html:237
+#: templates/pyha/skipofficial/requestview.html:281
 msgid "Admission_for_sensitive_data"
 msgstr "Sensitiva material"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:229
+#: templates/pyha/skipofficial/admin/requestview.html:225
 #, fuzzy
 #| msgid "request_filters"
 msgid "admin_request_filters"
 msgstr "Filter på begäran"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:229
+#: templates/pyha/skipofficial/admin/requestview.html:225
 #, fuzzy
 #| msgid "handler_show_in_officials_portal"
 msgid "admin_show_in_officials_portal"
 msgstr "Visa resultat i myndighetsportalen"
 
 #: templates/pyha/official/admin/requestview.html:243
-#: templates/pyha/skipofficial/admin/requestview.html:229
+#: templates/pyha/skipofficial/admin/requestview.html:225
 #, fuzzy
 #| msgid "show_in_portal"
 msgid "admin_show_in_portal"
 msgstr "Visa i Laji.fi-portalen"
 
 #: templates/pyha/official/admin/requestview.html:247
-#: templates/pyha/skipofficial/admin/requestview.html:233
+#: templates/pyha/skipofficial/admin/requestview.html:229
 #, fuzzy
 #| msgid "no_filters"
 msgid "admin_filter"
 msgstr "Det finns inga filter för denna begäran"
 
 #: templates/pyha/official/admin/requestview.html:248
-#: templates/pyha/skipofficial/admin/requestview.html:234
+#: templates/pyha/skipofficial/admin/requestview.html:230
 #, fuzzy
 #| msgid "handler_values"
 msgid "admin_values"
 msgstr "Värden"
 
 #: templates/pyha/official/admin/requestview.html:265
-#: templates/pyha/skipofficial/admin/requestview.html:251
+#: templates/pyha/skipofficial/admin/requestview.html:247
 #, fuzzy
 #| msgid "no_filters"
 msgid "admin_no_filters"
@@ -1089,114 +1084,114 @@ msgstr "Det finns inga filter för denna begäran"
 #: templates/pyha/official/requestform.html:361
 #: templates/pyha/official/requestform.html:419
 #: templates/pyha/official/requestview.html:372
-#: templates/pyha/skipofficial/admin/requestview.html:255
-#: templates/pyha/skipofficial/handler/requestview.html:246
+#: templates/pyha/skipofficial/admin/requestview.html:251
+#: templates/pyha/skipofficial/handler/requestview.html:242
 #: templates/pyha/skipofficial/requestform.html:295
 #: templates/pyha/skipofficial/requestform.html:353
-#: templates/pyha/skipofficial/requestview.html:322
+#: templates/pyha/skipofficial/requestview.html:318
 msgid "request_arguments"
 msgstr "Motiveringen"
 
 #: templates/pyha/official/admin/requestview.html:271
-#: templates/pyha/skipofficial/admin/requestview.html:257
+#: templates/pyha/skipofficial/admin/requestview.html:253
 #, fuzzy
 #| msgid "argument_goals"
 msgid "admin_argument_choices"
 msgstr "Valda användningsändamål"
 
 #: templates/pyha/official/admin/requestview.html:275
-#: templates/pyha/skipofficial/admin/requestview.html:261
+#: templates/pyha/skipofficial/admin/requestview.html:257
 #, fuzzy
 #| msgid "reason_zoning"
 msgid "admin_reason_zoning"
 msgstr "Markanvändningsplanering"
 
 #: templates/pyha/official/admin/requestview.html:277
-#: templates/pyha/skipofficial/admin/requestview.html:263
+#: templates/pyha/skipofficial/admin/requestview.html:259
 #, fuzzy
 #| msgid "reason_permission"
 msgid "admin_reason_permission"
 msgstr "Tillståndsansökan"
 
 #: templates/pyha/official/admin/requestview.html:279
-#: templates/pyha/skipofficial/admin/requestview.html:265
+#: templates/pyha/skipofficial/admin/requestview.html:261
 #, fuzzy
 #| msgid "reason_enviromental"
 msgid "admin_reason_enviromental"
 msgstr "Miljökonsekvensbedömning"
 
 #: templates/pyha/official/admin/requestview.html:281
-#: templates/pyha/skipofficial/admin/requestview.html:267
+#: templates/pyha/skipofficial/admin/requestview.html:263
 #, fuzzy
 #| msgid "reason_natura"
 msgid "admin_reason_natura"
 msgstr "Natura-bedömning (naturvårdslag)"
 
 #: templates/pyha/official/admin/requestview.html:283
-#: templates/pyha/skipofficial/admin/requestview.html:269
+#: templates/pyha/skipofficial/admin/requestview.html:265
 #, fuzzy
 #| msgid "reason_scientific"
 msgid "admin_reason_scientific"
 msgstr "Vetenskaplig forskning"
 
 #: templates/pyha/official/admin/requestview.html:285
-#: templates/pyha/skipofficial/admin/requestview.html:271
+#: templates/pyha/skipofficial/admin/requestview.html:267
 #, fuzzy
 #| msgid "reason_forest"
 msgid "admin_reason_forest"
 msgstr "Skogsplanering"
 
 #: templates/pyha/official/admin/requestview.html:287
-#: templates/pyha/skipofficial/admin/requestview.html:273
+#: templates/pyha/skipofficial/admin/requestview.html:269
 #, fuzzy
 #| msgid "reason_other"
 msgid "admin_reason_other"
 msgstr "Annat (vänligen förklara i fri text)"
 
 #: templates/pyha/official/admin/requestview.html:293
-#: templates/pyha/skipofficial/admin/requestview.html:279
+#: templates/pyha/skipofficial/admin/requestview.html:275
 #, fuzzy
 #| msgid "argument_project"
 msgid "admin_argument_project"
 msgstr "Projektnamn och beskrivning"
 
 #: templates/pyha/official/admin/requestview.html:296
-#: templates/pyha/skipofficial/admin/requestview.html:282
+#: templates/pyha/skipofficial/admin/requestview.html:278
 #, fuzzy
 #| msgid "argument_research"
 msgid "admin_argument_research"
 msgstr "Forsknings namn"
 
 #: templates/pyha/official/admin/requestview.html:299
-#: templates/pyha/skipofficial/admin/requestview.html:285
+#: templates/pyha/skipofficial/admin/requestview.html:281
 #, fuzzy
 #| msgid "argument_goals"
 msgid "admin_argument_goals"
 msgstr "Forskningsmål"
 
 #: templates/pyha/official/admin/requestview.html:302
-#: templates/pyha/skipofficial/admin/requestview.html:288
+#: templates/pyha/skipofficial/admin/requestview.html:284
 #, fuzzy
 #| msgid "argument_planning"
 msgid "admin_argument_planning"
 msgstr "Beskrivning av planeringsprojekt"
 
 #: templates/pyha/official/admin/requestview.html:305
-#: templates/pyha/skipofficial/admin/requestview.html:291
+#: templates/pyha/skipofficial/admin/requestview.html:287
 #, fuzzy
 #| msgid "argument_municipality"
 msgid "admin_argument_municipality"
 msgstr "Ort där projektet är beläget"
 
 #: templates/pyha/official/admin/requestview.html:308
-#: templates/pyha/skipofficial/admin/requestview.html:294
+#: templates/pyha/skipofficial/admin/requestview.html:290
 #, fuzzy
 #| msgid "argument_natura_areas"
 msgid "admin_argument_natura_areas"
 msgstr "Ingående Natura-områden"
 
 #: templates/pyha/official/admin/requestview.html:311
-#: templates/pyha/skipofficial/admin/requestview.html:297
+#: templates/pyha/skipofficial/admin/requestview.html:293
 #, fuzzy
 #| msgid "argument_reason"
 msgid "admin_argument_reason"
@@ -1205,7 +1200,7 @@ msgstr "Fritextfält"
 #: templates/pyha/official/admin/requestview.html:318
 #: templates/pyha/official/admin/requestview.html:323
 #: templates/pyha/official/admin/requestview.html:329
-#: templates/pyha/skipofficial/admin/requestview.html:304
+#: templates/pyha/skipofficial/admin/requestview.html:300
 #, fuzzy
 #| msgid "handler_terms"
 msgid "admin_terms"
@@ -1230,11 +1225,11 @@ msgstr "Användarvillkor"
 #: templates/pyha/official/requestform.html:379
 #: templates/pyha/official/requestview.html:441
 #: templates/pyha/official/requestview.html:467
-#: templates/pyha/skipofficial/admin/requestview.html:318
-#: templates/pyha/skipofficial/handler/requestview.html:309
+#: templates/pyha/skipofficial/admin/requestview.html:314
+#: templates/pyha/skipofficial/handler/requestview.html:305
 #: templates/pyha/skipofficial/requestform.html:219
 #: templates/pyha/skipofficial/requestform.html:313
-#: templates/pyha/skipofficial/requestview.html:385
+#: templates/pyha/skipofficial/requestview.html:381
 msgid "as_pdf"
 msgstr "i PDF-form"
 
@@ -1262,79 +1257,79 @@ msgstr "i PDF-form"
 #: templates/pyha/official/requestform.html:268
 #: templates/pyha/official/requestform.html:406
 #: templates/pyha/official/requestview.html:488
-#: templates/pyha/skipofficial/admin/requestview.html:339
-#: templates/pyha/skipofficial/handler/requestview.html:330
+#: templates/pyha/skipofficial/admin/requestview.html:335
+#: templates/pyha/skipofficial/handler/requestview.html:326
 #: templates/pyha/skipofficial/requestform.html:237
 #: templates/pyha/skipofficial/requestform.html:340
-#: templates/pyha/skipofficial/requestview.html:406
+#: templates/pyha/skipofficial/requestview.html:402
 msgid "contact_name"
 msgstr "Namn"
 
 #: templates/pyha/official/admin/requestview.html:433
-#: templates/pyha/skipofficial/admin/requestview.html:387
+#: templates/pyha/skipofficial/admin/requestview.html:383
 #, fuzzy
 #| msgid "main_contact"
 msgid "admin_contacts"
 msgstr "Huvudsökande"
 
 #: templates/pyha/official/admin/requestview.html:436
-#: templates/pyha/skipofficial/admin/requestview.html:390
+#: templates/pyha/skipofficial/admin/requestview.html:386
 #, fuzzy
 #| msgid "handler_full_name"
 msgid "admin_full_name"
 msgstr "Namn"
 
 #: templates/pyha/official/admin/requestview.html:437
-#: templates/pyha/skipofficial/admin/requestview.html:391
+#: templates/pyha/skipofficial/admin/requestview.html:387
 #, fuzzy
 #| msgid "street_address"
 msgid "admin_street_address"
 msgstr "Adress"
 
 #: templates/pyha/official/admin/requestview.html:438
-#: templates/pyha/skipofficial/admin/requestview.html:392
+#: templates/pyha/skipofficial/admin/requestview.html:388
 #, fuzzy
 #| msgid "postal_code"
 msgid "admin_postal_code"
 msgstr "Postnummer"
 
 #: templates/pyha/official/admin/requestview.html:439
-#: templates/pyha/skipofficial/admin/requestview.html:393
+#: templates/pyha/skipofficial/admin/requestview.html:389
 #, fuzzy
 #| msgid "post_office_name"
 msgid "admin_post_office_name"
 msgstr "Postanstalt"
 
 #: templates/pyha/official/admin/requestview.html:440
-#: templates/pyha/skipofficial/admin/requestview.html:394
+#: templates/pyha/skipofficial/admin/requestview.html:390
 #, fuzzy
 #| msgid "handler_country"
 msgid "admin_country"
 msgstr "Land"
 
 #: templates/pyha/official/admin/requestview.html:441
-#: templates/pyha/skipofficial/admin/requestview.html:395
+#: templates/pyha/skipofficial/admin/requestview.html:391
 #, fuzzy
 #| msgid "handler_email"
 msgid "admin_email"
 msgstr "E-post"
 
 #: templates/pyha/official/admin/requestview.html:442
-#: templates/pyha/skipofficial/admin/requestview.html:396
+#: templates/pyha/skipofficial/admin/requestview.html:392
 #, fuzzy
 #| msgid "phone_number"
 msgid "admin_phone_number"
 msgstr "Telefonnummer"
 
 #: templates/pyha/official/admin/requestview.html:443
-#: templates/pyha/skipofficial/admin/requestview.html:397
+#: templates/pyha/skipofficial/admin/requestview.html:393
 #, fuzzy
 #| msgid "corporation/organization_name"
 msgid "admin_corporation/organization_name"
 msgstr "Företag/organisation"
 
 #: templates/pyha/official/admin/requestview.html:444
-#: templates/pyha/skipofficial/admin/requestview.html:398
+#: templates/pyha/skipofficial/admin/requestview.html:394
 #, fuzzy
 #| msgid "corporation_id"
 msgid "admin_corporation_id"
@@ -1354,7 +1349,7 @@ msgstr "Ta beslut om att ge ut sensitiva artdata"
 
 #: templates/pyha/official/admin/requestview.html:473
 #: templates/pyha/official/admin/requestview.html:535
-#: templates/pyha/skipofficial/admin/requestview.html:423
+#: templates/pyha/skipofficial/admin/requestview.html:419
 #, fuzzy
 #| msgid "decision_arguments"
 msgid "admin_decision_arguments"
@@ -1368,7 +1363,7 @@ msgstr " frågade"
 
 #: templates/pyha/official/admin/requestview.html:507
 #: templates/pyha/official/admin/requestview.html:572
-#: templates/pyha/skipofficial/admin/requestview.html:460
+#: templates/pyha/skipofficial/admin/requestview.html:456
 #, fuzzy
 #| msgid "handler_accept"
 msgid "admin_accept"
@@ -1377,28 +1372,28 @@ msgstr "Acceptera"
 #: templates/pyha/official/admin/requestview.html:511
 #: templates/pyha/official/admin/requestview.html:513
 #: templates/pyha/official/admin/requestview.html:574
-#: templates/pyha/skipofficial/admin/requestview.html:462
+#: templates/pyha/skipofficial/admin/requestview.html:458
 #, fuzzy
 #| msgid "handler_refuse"
 msgid "admin_refuse"
 msgstr "Neka"
 
 #: templates/pyha/official/admin/requestview.html:529
-#: templates/pyha/skipofficial/admin/requestview.html:417
+#: templates/pyha/skipofficial/admin/requestview.html:413
 #, fuzzy
 #| msgid "handler_secured_collection_decicions"
 msgid "admin_secured_collection_decicions"
 msgstr "Ta beslut om att ge ut material"
 
 #: templates/pyha/official/admin/requestview.html:573
-#: templates/pyha/skipofficial/admin/requestview.html:461
+#: templates/pyha/skipofficial/admin/requestview.html:457
 #, fuzzy
 #| msgid "admin"
 msgid "admin_reset"
 msgstr "Roll: behandlare"
 
 #: templates/pyha/official/admin/requestview.html:585
-#: templates/pyha/skipofficial/admin/requestview.html:473
+#: templates/pyha/skipofficial/admin/requestview.html:469
 #, fuzzy
 #| msgid "additional_questions"
 msgid "admin_additional_questions"
@@ -1411,12 +1406,12 @@ msgstr "Tilläggsfrågor"
 #: templates/pyha/official/requestview.html:425
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:477
-#: templates/pyha/skipofficial/admin/requestview.html:482
-#: templates/pyha/skipofficial/handler/requestview.html:471
-#: templates/pyha/skipofficial/handler/requestview.html:476
-#: templates/pyha/skipofficial/requestview.html:489
-#: templates/pyha/skipofficial/requestview.html:505
+#: templates/pyha/skipofficial/admin/requestview.html:473
+#: templates/pyha/skipofficial/admin/requestview.html:478
+#: templates/pyha/skipofficial/handler/requestview.html:467
+#: templates/pyha/skipofficial/handler/requestview.html:472
+#: templates/pyha/skipofficial/requestview.html:485
+#: templates/pyha/skipofficial/requestview.html:501
 msgid "sensitivity"
 msgstr "Användarvillkor för sensitiva artdata"
 
@@ -1426,21 +1421,21 @@ msgstr "Användarvillkor för sensitiva artdata"
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:571
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:477
-#: templates/pyha/skipofficial/admin/requestview.html:482
-#: templates/pyha/skipofficial/admin/requestview.html:509
-#: templates/pyha/skipofficial/handler/requestview.html:471
-#: templates/pyha/skipofficial/handler/requestview.html:476
-#: templates/pyha/skipofficial/handler/requestview.html:511
-#: templates/pyha/skipofficial/requestview.html:489
-#: templates/pyha/skipofficial/requestview.html:505
+#: templates/pyha/skipofficial/admin/requestview.html:473
+#: templates/pyha/skipofficial/admin/requestview.html:478
+#: templates/pyha/skipofficial/admin/requestview.html:505
+#: templates/pyha/skipofficial/handler/requestview.html:467
+#: templates/pyha/skipofficial/handler/requestview.html:472
+#: templates/pyha/skipofficial/handler/requestview.html:507
+#: templates/pyha/skipofficial/requestview.html:485
+#: templates/pyha/skipofficial/requestview.html:501
 #, fuzzy
 #| msgid "additional_questions"
 msgid "admin_question"
 msgstr "Tilläggsfrågor"
 
 #: templates/pyha/official/admin/requestview.html:589
-#: templates/pyha/skipofficial/admin/requestview.html:477
+#: templates/pyha/skipofficial/admin/requestview.html:473
 #, fuzzy
 #| msgid "handler_asked"
 msgid "admin_asked"
@@ -1449,41 +1444,41 @@ msgstr " frågade"
 #: templates/pyha/official/admin/requestview.html:594
 #: templates/pyha/official/handler/requestview.html:593
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/admin/requestview.html:482
-#: templates/pyha/skipofficial/handler/requestview.html:476
-#: templates/pyha/skipofficial/requestview.html:505
+#: templates/pyha/skipofficial/admin/requestview.html:478
+#: templates/pyha/skipofficial/handler/requestview.html:472
+#: templates/pyha/skipofficial/requestview.html:501
 msgid "inquiry"
 msgstr "förfrågan"
 
 #: templates/pyha/official/admin/requestview.html:594
-#: templates/pyha/skipofficial/admin/requestview.html:482
+#: templates/pyha/skipofficial/admin/requestview.html:478
 #, fuzzy
 #| msgid "handler_answered"
 msgid "admin_answered"
 msgstr " svarade"
 
 #: templates/pyha/official/admin/requestview.html:598
-#: templates/pyha/skipofficial/admin/requestview.html:486
+#: templates/pyha/skipofficial/admin/requestview.html:482
 #, fuzzy
 #| msgid "handler_form_to_request_additional_information"
 msgid "admin_form_to_request_additional_information"
 msgstr "Formulär för att begära tilläggsuppgifter"
 
 #: templates/pyha/official/admin/requestview.html:606
-#: templates/pyha/skipofficial/admin/requestview.html:491
+#: templates/pyha/skipofficial/admin/requestview.html:487
 #, fuzzy
 #| msgid "ask_as_handler_of"
 msgid "ask_as_admin_of"
 msgstr "Fråga i roll"
 
 #: templates/pyha/official/admin/requestview.html:608
-#: templates/pyha/skipofficial/admin/requestview.html:493
-#: templates/pyha/skipofficial/admin/requestview.html:519
+#: templates/pyha/skipofficial/admin/requestview.html:489
+#: templates/pyha/skipofficial/admin/requestview.html:515
 msgid "as_admin"
 msgstr "i Admin"
 
 #: templates/pyha/official/admin/requestview.html:612
-#: templates/pyha/skipofficial/admin/requestview.html:496
+#: templates/pyha/skipofficial/admin/requestview.html:492
 #, fuzzy
 #| msgid "handler_request_additional_information"
 msgid "admin_request_additional_information"
@@ -1504,26 +1499,26 @@ msgid "admin_save"
 msgstr "Save"
 
 #: templates/pyha/official/admin/requestview.html:646
-#: templates/pyha/skipofficial/admin/requestview.html:535
+#: templates/pyha/skipofficial/admin/requestview.html:531
 #, fuzzy
 #| msgid "handler_log_date"
 msgid "admin_log_date"
 msgstr "Datum"
 
 #: templates/pyha/official/admin/requestview.html:647
-#: templates/pyha/skipofficial/admin/requestview.html:536
+#: templates/pyha/skipofficial/admin/requestview.html:532
 #, fuzzy
 #| msgid "handler_log_maker"
 msgid "admin_log_maker"
 msgstr "Auktor"
 
 #: templates/pyha/official/admin/requestview.html:648
-#: templates/pyha/skipofficial/admin/requestview.html:537
+#: templates/pyha/skipofficial/admin/requestview.html:533
 msgid "admin_log_role"
 msgstr ""
 
 #: templates/pyha/official/admin/requestview.html:649
-#: templates/pyha/skipofficial/admin/requestview.html:538
+#: templates/pyha/skipofficial/admin/requestview.html:534
 #, fuzzy
 #| msgid "log_description"
 msgid "admin_log_description"
@@ -1531,95 +1526,95 @@ msgstr "Beskrivning"
 
 #: templates/pyha/official/admin/requestview.html:656
 #: templates/pyha/official/admin/requestview.html:660
+#: templates/pyha/skipofficial/admin/requestview.html:541
 #: templates/pyha/skipofficial/admin/requestview.html:545
-#: templates/pyha/skipofficial/admin/requestview.html:549
 msgid "admin_log_admin"
 msgstr ""
 
 #: templates/pyha/official/admin/requestview.html:658
-#: templates/pyha/skipofficial/admin/requestview.html:547
+#: templates/pyha/skipofficial/admin/requestview.html:543
 msgid "admin_log_handler"
 msgstr ""
 
 #: templates/pyha/official/admin/requestview.html:662
-#: templates/pyha/skipofficial/admin/requestview.html:551
+#: templates/pyha/skipofficial/admin/requestview.html:547
 #, fuzzy
 #| msgid "log_sensitive_data_handler"
 msgid "admin_log_sensitive_data_handler"
 msgstr "Myndighet"
 
 #: templates/pyha/official/admin/requestview.html:664
-#: templates/pyha/skipofficial/admin/requestview.html:553
+#: templates/pyha/skipofficial/admin/requestview.html:549
 #, fuzzy
 #| msgid "log_collection_provider"
 msgid "admin_log_collection_provider"
 msgstr "Ägaren av material"
 
 #: templates/pyha/official/admin/requestview.html:666
-#: templates/pyha/skipofficial/admin/requestview.html:555
+#: templates/pyha/skipofficial/admin/requestview.html:551
 #, fuzzy
 #| msgid "log_sensitive_and_collections_handler"
 msgid "admin_log_sensitive_and_collections_handler"
 msgstr "Sensitiv och materialspecifik databehandlare"
 
 #: templates/pyha/official/admin/requestview.html:673
-#: templates/pyha/skipofficial/admin/requestview.html:562
+#: templates/pyha/skipofficial/admin/requestview.html:558
 #, fuzzy
 #| msgid "log_viewed"
 msgid "admin_log_viewed"
 msgstr "Granskad"
 
 #: templates/pyha/official/admin/requestview.html:675
-#: templates/pyha/skipofficial/admin/requestview.html:564
+#: templates/pyha/skipofficial/admin/requestview.html:560
 #, fuzzy
 #| msgid "log_terms_accepted"
 msgid "admin_log_terms_accepted"
 msgstr "Användarvillkor accepterad"
 
 #: templates/pyha/official/admin/requestview.html:678
-#: templates/pyha/skipofficial/admin/requestview.html:567
+#: templates/pyha/skipofficial/admin/requestview.html:563
 #, fuzzy
 #| msgid "log_sensitives_accepted"
 msgid "admin_log_sensitives_accepted"
 msgstr "Sensitiva data godkänt"
 
 #: templates/pyha/official/admin/requestview.html:680
-#: templates/pyha/skipofficial/admin/requestview.html:569
+#: templates/pyha/skipofficial/admin/requestview.html:565
 #, fuzzy
 #| msgid "log_collection_accepted"
 msgid "admin_log_collection_accepted"
 msgstr "Material godkänt"
 
 #: templates/pyha/official/admin/requestview.html:684
-#: templates/pyha/skipofficial/admin/requestview.html:573
+#: templates/pyha/skipofficial/admin/requestview.html:569
 #, fuzzy
 #| msgid "handler_log_sensitives_denied"
 msgid "admin_log_sensitives_reset"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/admin/requestview.html:686
-#: templates/pyha/skipofficial/admin/requestview.html:575
+#: templates/pyha/skipofficial/admin/requestview.html:571
 #, fuzzy
 #| msgid "handler_log_collection_denied"
 msgid "admin_log_collection_reset"
 msgstr "Material nekad"
 
 #: templates/pyha/official/admin/requestview.html:690
-#: templates/pyha/skipofficial/admin/requestview.html:579
+#: templates/pyha/skipofficial/admin/requestview.html:575
 msgid "admin_log_sensitives_denied"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/admin/requestview.html:692
-#: templates/pyha/skipofficial/admin/requestview.html:581
+#: templates/pyha/skipofficial/admin/requestview.html:577
 msgid "admin_log_collection_denied"
 msgstr "Material nekad"
 
 #: templates/pyha/official/admin/requestview.html:699
 #: templates/pyha/official/handler/requestview.html:702
 #: templates/pyha/official/requestview.html:650
-#: templates/pyha/skipofficial/admin/requestview.html:588
-#: templates/pyha/skipofficial/handler/requestview.html:594
-#: templates/pyha/skipofficial/requestview.html:568
+#: templates/pyha/skipofficial/admin/requestview.html:584
+#: templates/pyha/skipofficial/handler/requestview.html:590
+#: templates/pyha/skipofficial/requestview.html:564
 msgid "log_no_history"
 msgstr "Ändringslogg är tom"
 
@@ -1658,11 +1653,11 @@ msgstr "Jag behöver inte detta material"
 #: templates/pyha/official/requestview.html:421
 #: templates/pyha/official/requestview.html:426
 #: templates/pyha/official/requestview.html:432
-#: templates/pyha/skipofficial/admin/requestview.html:308
+#: templates/pyha/skipofficial/admin/requestview.html:304
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:38
-#: templates/pyha/skipofficial/handler/requestview.html:299
+#: templates/pyha/skipofficial/handler/requestview.html:295
+#: templates/pyha/skipofficial/requestview.html:367
 #: templates/pyha/skipofficial/requestview.html:371
-#: templates/pyha/skipofficial/requestview.html:375
 msgid "terms"
 msgstr "Användarvillkor"
 
@@ -1707,7 +1702,6 @@ msgstr "Begränsade observationer"
 
 #: templates/pyha/official/ajax/requestformsummary.html:13
 #: templates/pyha/official/requestview.html:215
-#: templates/pyha/skipofficial/requestview.html:203
 msgid "generally_secured"
 msgstr "Sensitiva observationer"
 
@@ -1769,7 +1763,7 @@ msgstr "Material"
 #: templates/pyha/official/handler/requestview.html:111
 #: templates/pyha/official/handler/requestview.html:646
 #: templates/pyha/skipofficial/handler/requestview.html:94
-#: templates/pyha/skipofficial/handler/requestview.html:538
+#: templates/pyha/skipofficial/handler/requestview.html:534
 msgid "handler_changes_history"
 msgstr "Ändringslogg"
 
@@ -1820,14 +1814,14 @@ msgstr "Material som ingår i begäran"
 #: templates/pyha/official/handler/requestview.html:183
 #: templates/pyha/official/handler/requestview.html:528
 #: templates/pyha/skipofficial/handler/requestview.html:166
-#: templates/pyha/skipofficial/handler/requestview.html:411
+#: templates/pyha/skipofficial/handler/requestview.html:407
 msgid "handler_collection_name"
 msgstr "Materialnamn"
 
 #: templates/pyha/official/handler/requestview.html:185
 #: templates/pyha/official/handler/requestview.html:529
 #: templates/pyha/skipofficial/handler/requestview.html:168
-#: templates/pyha/skipofficial/handler/requestview.html:412
+#: templates/pyha/skipofficial/handler/requestview.html:408
 msgid "handler_collection_description"
 msgstr "Beskrivning"
 
@@ -1837,134 +1831,132 @@ msgid "handler_secured_by_data_provider"
 msgstr "Användning begränsad av data ägare"
 
 #: templates/pyha/official/handler/requestview.html:187
-#: templates/pyha/skipofficial/handler/requestview.html:170
 msgid "handler_generally_secured"
 msgstr "Sensitiva observationer"
 
 #: templates/pyha/official/handler/requestview.html:188
-#: templates/pyha/skipofficial/handler/requestview.html:171
 msgid "handler_all_secured"
 msgstr "Totalt"
 
 #: templates/pyha/official/handler/requestview.html:189
 #: templates/pyha/official/handler/requestview.html:467
 #: templates/pyha/official/handler/requestview.html:530
-#: templates/pyha/skipofficial/handler/requestview.html:172
-#: templates/pyha/skipofficial/handler/requestview.html:413
+#: templates/pyha/skipofficial/handler/requestview.html:170
+#: templates/pyha/skipofficial/handler/requestview.html:409
 msgid "handler_state_of_processing"
 msgstr "Behandlingsstatus"
 
 #: templates/pyha/official/handler/requestview.html:237
-#: templates/pyha/skipofficial/handler/requestview.html:220
+#: templates/pyha/skipofficial/handler/requestview.html:216
 msgid "handler_request_filters"
 msgstr "Filter på begäran"
 
 #: templates/pyha/official/handler/requestview.html:237
-#: templates/pyha/skipofficial/handler/requestview.html:220
+#: templates/pyha/skipofficial/handler/requestview.html:216
 msgid "handler_show_in_officials_portal"
 msgstr "Visa resultat i myndighetsportalen"
 
 #: templates/pyha/official/handler/requestview.html:237
-#: templates/pyha/skipofficial/handler/requestview.html:220
+#: templates/pyha/skipofficial/handler/requestview.html:216
 msgid "handler_show_in_portal"
 msgstr "Visa i Laji.fi-portalen"
 
 #: templates/pyha/official/handler/requestview.html:241
-#: templates/pyha/skipofficial/handler/requestview.html:224
+#: templates/pyha/skipofficial/handler/requestview.html:220
 msgid "handler_filter"
 msgstr "Filter"
 
 #: templates/pyha/official/handler/requestview.html:242
-#: templates/pyha/skipofficial/handler/requestview.html:225
+#: templates/pyha/skipofficial/handler/requestview.html:221
 msgid "handler_values"
 msgstr "Värden"
 
 #: templates/pyha/official/handler/requestview.html:259
-#: templates/pyha/skipofficial/handler/requestview.html:242
+#: templates/pyha/skipofficial/handler/requestview.html:238
 msgid "handler_no_filters"
 msgstr "Det finns inga filter för denna begäran"
 
 #: templates/pyha/official/handler/requestview.html:265
-#: templates/pyha/skipofficial/handler/requestview.html:248
+#: templates/pyha/skipofficial/handler/requestview.html:244
 #, fuzzy
 #| msgid "handler_argument_goals"
 msgid "handler_argument_choices"
 msgstr "Valda användningsändamål"
 
 #: templates/pyha/official/handler/requestview.html:269
-#: templates/pyha/skipofficial/handler/requestview.html:252
+#: templates/pyha/skipofficial/handler/requestview.html:248
 msgid "handler_reason_zoning"
 msgstr "Markanvändningsplanering"
 
 #: templates/pyha/official/handler/requestview.html:271
-#: templates/pyha/skipofficial/handler/requestview.html:254
+#: templates/pyha/skipofficial/handler/requestview.html:250
 msgid "handler_reason_permission"
 msgstr "Tillståndsansökan"
 
 #: templates/pyha/official/handler/requestview.html:273
-#: templates/pyha/skipofficial/handler/requestview.html:256
+#: templates/pyha/skipofficial/handler/requestview.html:252
 msgid "handler_reason_enviromental"
 msgstr "Miljökonsekvensbedömning"
 
 #: templates/pyha/official/handler/requestview.html:275
-#: templates/pyha/skipofficial/handler/requestview.html:258
+#: templates/pyha/skipofficial/handler/requestview.html:254
 msgid "handler_reason_natura"
 msgstr "Natura-bedömning (naturvårdslag)"
 
 #: templates/pyha/official/handler/requestview.html:277
-#: templates/pyha/skipofficial/handler/requestview.html:260
+#: templates/pyha/skipofficial/handler/requestview.html:256
 msgid "handler_reason_scientific"
 msgstr "Vetenskaplig forskning"
 
 #: templates/pyha/official/handler/requestview.html:279
-#: templates/pyha/skipofficial/handler/requestview.html:262
+#: templates/pyha/skipofficial/handler/requestview.html:258
 msgid "handler_reason_forest"
 msgstr "Skogsplanering"
 
 #: templates/pyha/official/handler/requestview.html:281
-#: templates/pyha/skipofficial/handler/requestview.html:264
+#: templates/pyha/skipofficial/handler/requestview.html:260
 msgid "handler_reason_other"
 msgstr "Annat (vänligen förklara i fri text)"
 
 #: templates/pyha/official/handler/requestview.html:287
-#: templates/pyha/skipofficial/handler/requestview.html:270
+#: templates/pyha/skipofficial/handler/requestview.html:266
 msgid "handler_argument_project"
 msgstr "Projektnamn och beskrivning"
 
 #: templates/pyha/official/handler/requestview.html:290
-#: templates/pyha/skipofficial/handler/requestview.html:273
+#: templates/pyha/skipofficial/handler/requestview.html:269
 msgid "handler_argument_research"
 msgstr "Forsknings namn"
 
 #: templates/pyha/official/handler/requestview.html:293
-#: templates/pyha/skipofficial/handler/requestview.html:276
+#: templates/pyha/skipofficial/handler/requestview.html:272
 msgid "handler_argument_goals"
 msgstr "Forskningsmål"
 
 #: templates/pyha/official/handler/requestview.html:296
-#: templates/pyha/skipofficial/handler/requestview.html:279
+#: templates/pyha/skipofficial/handler/requestview.html:275
 msgid "handler_argument_planning"
 msgstr "Beskrivning av planeringsprojekt"
 
 #: templates/pyha/official/handler/requestview.html:299
-#: templates/pyha/skipofficial/handler/requestview.html:282
+#: templates/pyha/skipofficial/handler/requestview.html:278
 msgid "handler_argument_municipality"
 msgstr "Ort där projektet är beläget"
 
 #: templates/pyha/official/handler/requestview.html:302
-#: templates/pyha/skipofficial/handler/requestview.html:285
+#: templates/pyha/skipofficial/handler/requestview.html:281
 msgid "handler_argument_natura_areas"
 msgstr "Ingående Natura-områden"
 
 #: templates/pyha/official/handler/requestview.html:305
-#: templates/pyha/skipofficial/handler/requestview.html:288
+#: templates/pyha/skipofficial/handler/requestview.html:284
 msgid "handler_argument_reason"
 msgstr "Fritextfält"
 
 #: templates/pyha/official/handler/requestview.html:312
 #: templates/pyha/official/handler/requestview.html:317
 #: templates/pyha/official/handler/requestview.html:323
-#: templates/pyha/skipofficial/handler/requestview.html:295
+#: templates/pyha/skipofficial/handler/requestview.html:291
 msgid "handler_terms"
 msgstr "Användarvillkor"
 
@@ -1990,52 +1982,52 @@ msgid "handler_as_pdf"
 msgstr "i PDF-form"
 
 #: templates/pyha/official/handler/requestview.html:427
-#: templates/pyha/skipofficial/handler/requestview.html:378
+#: templates/pyha/skipofficial/handler/requestview.html:374
 msgid "handler_contacts"
 msgstr "Sökande"
 
 #: templates/pyha/official/handler/requestview.html:430
-#: templates/pyha/skipofficial/handler/requestview.html:381
+#: templates/pyha/skipofficial/handler/requestview.html:377
 msgid "handler_full_name"
 msgstr "Namn"
 
 #: templates/pyha/official/handler/requestview.html:431
-#: templates/pyha/skipofficial/handler/requestview.html:382
+#: templates/pyha/skipofficial/handler/requestview.html:378
 msgid "handler_street_address"
 msgstr "Adress"
 
 #: templates/pyha/official/handler/requestview.html:432
-#: templates/pyha/skipofficial/handler/requestview.html:383
+#: templates/pyha/skipofficial/handler/requestview.html:379
 msgid "handler_postal_code"
 msgstr "Postnummer"
 
 #: templates/pyha/official/handler/requestview.html:433
-#: templates/pyha/skipofficial/handler/requestview.html:384
+#: templates/pyha/skipofficial/handler/requestview.html:380
 msgid "handler_post_office_name"
 msgstr "Postanstalt"
 
 #: templates/pyha/official/handler/requestview.html:434
-#: templates/pyha/skipofficial/handler/requestview.html:385
+#: templates/pyha/skipofficial/handler/requestview.html:381
 msgid "handler_country"
 msgstr "Land"
 
 #: templates/pyha/official/handler/requestview.html:435
-#: templates/pyha/skipofficial/handler/requestview.html:386
+#: templates/pyha/skipofficial/handler/requestview.html:382
 msgid "handler_email"
 msgstr "E-post"
 
 #: templates/pyha/official/handler/requestview.html:436
-#: templates/pyha/skipofficial/handler/requestview.html:387
+#: templates/pyha/skipofficial/handler/requestview.html:383
 msgid "handler_phone_number"
 msgstr "Telefonnummer"
 
 #: templates/pyha/official/handler/requestview.html:437
-#: templates/pyha/skipofficial/handler/requestview.html:388
+#: templates/pyha/skipofficial/handler/requestview.html:384
 msgid "handler_corporation/organization_name"
 msgstr "Företag/organisation"
 
 #: templates/pyha/official/handler/requestview.html:438
-#: templates/pyha/skipofficial/handler/requestview.html:389
+#: templates/pyha/skipofficial/handler/requestview.html:385
 msgid "handler_corporation_id"
 msgstr "FO-nummer"
 
@@ -2049,7 +2041,7 @@ msgstr "Ta beslut om att ge ut sensitiva artdata"
 
 #: templates/pyha/official/handler/requestview.html:468
 #: templates/pyha/official/handler/requestview.html:531
-#: templates/pyha/skipofficial/handler/requestview.html:414
+#: templates/pyha/skipofficial/handler/requestview.html:410
 msgid "handler_decision_arguments"
 msgstr "Motivering av beslut"
 
@@ -2061,49 +2053,49 @@ msgstr " frågade"
 
 #: templates/pyha/official/handler/requestview.html:502
 #: templates/pyha/official/handler/requestview.html:569
-#: templates/pyha/skipofficial/handler/requestview.html:452
+#: templates/pyha/skipofficial/handler/requestview.html:448
 msgid "handler_accept"
 msgstr "Acceptera"
 
 #: templates/pyha/official/handler/requestview.html:506
 #: templates/pyha/official/handler/requestview.html:508
 #: templates/pyha/official/handler/requestview.html:570
-#: templates/pyha/skipofficial/handler/requestview.html:453
+#: templates/pyha/skipofficial/handler/requestview.html:449
 msgid "handler_refuse"
 msgstr "Neka"
 
 #: templates/pyha/official/handler/requestview.html:525
-#: templates/pyha/skipofficial/handler/requestview.html:408
+#: templates/pyha/skipofficial/handler/requestview.html:404
 msgid "handler_secured_collection_decicions"
 msgstr "Ta beslut om att ge ut material"
 
 #: templates/pyha/official/handler/requestview.html:584
-#: templates/pyha/skipofficial/handler/requestview.html:467
+#: templates/pyha/skipofficial/handler/requestview.html:463
 msgid "handler_additional_questions"
 msgstr "Tilläggsfrågor"
 
 #: templates/pyha/official/handler/requestview.html:588
-#: templates/pyha/skipofficial/handler/requestview.html:471
+#: templates/pyha/skipofficial/handler/requestview.html:467
 msgid "handler_asked"
 msgstr " frågade"
 
 #: templates/pyha/official/handler/requestview.html:593
-#: templates/pyha/skipofficial/handler/requestview.html:476
+#: templates/pyha/skipofficial/handler/requestview.html:472
 msgid "handler_answered"
 msgstr " svarade"
 
 #: templates/pyha/official/handler/requestview.html:597
-#: templates/pyha/skipofficial/handler/requestview.html:481
+#: templates/pyha/skipofficial/handler/requestview.html:477
 msgid "handler_form_to_request_additional_information"
 msgstr "Formulär för att begära tilläggsuppgifter"
 
 #: templates/pyha/official/handler/requestview.html:605
-#: templates/pyha/skipofficial/handler/requestview.html:486
+#: templates/pyha/skipofficial/handler/requestview.html:482
 msgid "ask_as_handler_of"
 msgstr "Fråga i roll"
 
 #: templates/pyha/official/handler/requestview.html:615
-#: templates/pyha/skipofficial/handler/requestview.html:495
+#: templates/pyha/skipofficial/handler/requestview.html:491
 msgid "handler_request_additional_information"
 msgstr "Begära tilläggsuppgifter"
 
@@ -2116,118 +2108,118 @@ msgid "handler_said"
 msgstr " skrev"
 
 #: templates/pyha/official/handler/requestview.html:636
-#: templates/pyha/skipofficial/admin/requestview.html:522
-#: templates/pyha/skipofficial/handler/requestview.html:528
+#: templates/pyha/skipofficial/admin/requestview.html:518
+#: templates/pyha/skipofficial/handler/requestview.html:524
 msgid "handler_save"
 msgstr "Spara"
 
 #: templates/pyha/official/handler/requestview.html:649
-#: templates/pyha/skipofficial/handler/requestview.html:541
+#: templates/pyha/skipofficial/handler/requestview.html:537
 msgid "handler_log_date"
 msgstr "Datum"
 
 #: templates/pyha/official/handler/requestview.html:650
-#: templates/pyha/skipofficial/handler/requestview.html:542
+#: templates/pyha/skipofficial/handler/requestview.html:538
 msgid "handler_log_maker"
 msgstr "Auktor"
 
 #: templates/pyha/official/handler/requestview.html:651
-#: templates/pyha/skipofficial/handler/requestview.html:543
+#: templates/pyha/skipofficial/handler/requestview.html:539
 #, fuzzy
 #| msgid "handler_log_date"
 msgid "handler_log_role"
 msgstr "Datum"
 
 #: templates/pyha/official/handler/requestview.html:652
-#: templates/pyha/skipofficial/handler/requestview.html:544
+#: templates/pyha/skipofficial/handler/requestview.html:540
 msgid "handler_log_description"
 msgstr "Beskrivning"
 
 #: templates/pyha/official/handler/requestview.html:659
 #: templates/pyha/official/handler/requestview.html:663
+#: templates/pyha/skipofficial/handler/requestview.html:547
 #: templates/pyha/skipofficial/handler/requestview.html:551
-#: templates/pyha/skipofficial/handler/requestview.html:555
 #, fuzzy
 #| msgid "handler_log_date"
 msgid "handler_log_admin"
 msgstr "Datum"
 
 #: templates/pyha/official/handler/requestview.html:661
-#: templates/pyha/skipofficial/handler/requestview.html:553
+#: templates/pyha/skipofficial/handler/requestview.html:549
 #, fuzzy
 #| msgid "handler_log_maker"
 msgid "handler_log_handler"
 msgstr "Auktor"
 
 #: templates/pyha/official/handler/requestview.html:665
-#: templates/pyha/skipofficial/handler/requestview.html:557
+#: templates/pyha/skipofficial/handler/requestview.html:553
 #, fuzzy
 #| msgid "log_sensitive_data_handler"
 msgid "handler_log_sensitive_data_handler"
 msgstr "Myndighet"
 
 #: templates/pyha/official/handler/requestview.html:667
-#: templates/pyha/skipofficial/handler/requestview.html:559
+#: templates/pyha/skipofficial/handler/requestview.html:555
 #, fuzzy
 #| msgid "log_collection_provider"
 msgid "handler_log_collection_provider"
 msgstr "Ägaren av material"
 
 #: templates/pyha/official/handler/requestview.html:669
-#: templates/pyha/skipofficial/handler/requestview.html:561
+#: templates/pyha/skipofficial/handler/requestview.html:557
 #, fuzzy
 #| msgid "log_sensitive_and_collections_handler"
 msgid "handler_log_sensitive_and_collections_handler"
 msgstr "Sensitiv och materialspecifik databehandlare"
 
 #: templates/pyha/official/handler/requestview.html:676
-#: templates/pyha/skipofficial/handler/requestview.html:568
+#: templates/pyha/skipofficial/handler/requestview.html:564
 msgid "handler_log_viewed"
 msgstr "Granskad"
 
 #: templates/pyha/official/handler/requestview.html:678
-#: templates/pyha/skipofficial/handler/requestview.html:570
+#: templates/pyha/skipofficial/handler/requestview.html:566
 msgid "handler_log_terms_accepted"
 msgstr "Användarvillkor accepterad"
 
 #: templates/pyha/official/handler/requestview.html:681
-#: templates/pyha/skipofficial/handler/requestview.html:573
+#: templates/pyha/skipofficial/handler/requestview.html:569
 msgid "handler_log_sensitives_accepted"
 msgstr "Sensitiva data godkänt"
 
 #: templates/pyha/official/handler/requestview.html:683
-#: templates/pyha/skipofficial/handler/requestview.html:575
+#: templates/pyha/skipofficial/handler/requestview.html:571
 msgid "handler_log_collection_accepted"
 msgstr "Material godkänt"
 
 #: templates/pyha/official/handler/requestview.html:687
-#: templates/pyha/skipofficial/handler/requestview.html:579
+#: templates/pyha/skipofficial/handler/requestview.html:575
 #, fuzzy
 #| msgid "handler_log_sensitives_denied"
 msgid "handler_log_sensitives_reset"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/handler/requestview.html:689
-#: templates/pyha/skipofficial/handler/requestview.html:581
+#: templates/pyha/skipofficial/handler/requestview.html:577
 #, fuzzy
 #| msgid "handler_log_collection_denied"
 msgid "handler_log_collection_reset"
 msgstr "Material nekad"
 
 #: templates/pyha/official/handler/requestview.html:693
-#: templates/pyha/skipofficial/handler/requestview.html:585
+#: templates/pyha/skipofficial/handler/requestview.html:581
 msgid "handler_log_sensitives_denied"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/handler/requestview.html:695
-#: templates/pyha/skipofficial/handler/requestview.html:587
+#: templates/pyha/skipofficial/handler/requestview.html:583
 msgid "handler_log_collection_denied"
 msgstr "Material nekad"
 
 #: templates/pyha/official/requestform.html:14
 #: templates/pyha/official/requestview.html:345
 #: templates/pyha/skipofficial/requestform.html:14
-#: templates/pyha/skipofficial/requestview.html:295
+#: templates/pyha/skipofficial/requestview.html:291
 msgid "request_filters"
 msgstr "Filter"
 
@@ -2241,28 +2233,28 @@ msgstr "Visa"
 #: templates/pyha/official/requestform.html:19
 #: templates/pyha/official/requestview.html:347
 #: templates/pyha/skipofficial/requestform.html:19
-#: templates/pyha/skipofficial/requestview.html:297
+#: templates/pyha/skipofficial/requestview.html:293
 msgid "show_in_portal"
 msgstr "Visa i Laji.fi-portalen"
 
 #: templates/pyha/official/requestform.html:22
 #: templates/pyha/official/requestview.html:350
 #: templates/pyha/skipofficial/requestform.html:22
-#: templates/pyha/skipofficial/requestview.html:300
+#: templates/pyha/skipofficial/requestview.html:296
 msgid "filter"
 msgstr "Filter"
 
 #: templates/pyha/official/requestform.html:23
 #: templates/pyha/official/requestview.html:351
 #: templates/pyha/skipofficial/requestform.html:23
-#: templates/pyha/skipofficial/requestview.html:301
+#: templates/pyha/skipofficial/requestview.html:297
 msgid "values"
 msgstr "Värden"
 
 #: templates/pyha/official/requestform.html:40
 #: templates/pyha/official/requestview.html:368
 #: templates/pyha/skipofficial/requestform.html:40
-#: templates/pyha/skipofficial/requestview.html:318
+#: templates/pyha/skipofficial/requestview.html:314
 msgid "no_filters"
 msgstr "Det finns inga filter för denna begäran"
 
@@ -2329,49 +2321,49 @@ msgstr "Vänligen förklara användningsändamål för din begäran"
 #: templates/pyha/official/requestform.html:199
 #: templates/pyha/official/requestview.html:378
 #: templates/pyha/skipofficial/requestform.html:168
-#: templates/pyha/skipofficial/requestview.html:328
+#: templates/pyha/skipofficial/requestview.html:324
 msgid "reason_zoning"
 msgstr "Markanvändningsplanering"
 
 #: templates/pyha/official/requestform.html:200
 #: templates/pyha/official/requestview.html:380
 #: templates/pyha/skipofficial/requestform.html:169
-#: templates/pyha/skipofficial/requestview.html:330
+#: templates/pyha/skipofficial/requestview.html:326
 msgid "reason_permission"
 msgstr "Tillståndsansökan"
 
 #: templates/pyha/official/requestform.html:201
 #: templates/pyha/official/requestview.html:382
 #: templates/pyha/skipofficial/requestform.html:170
-#: templates/pyha/skipofficial/requestview.html:332
+#: templates/pyha/skipofficial/requestview.html:328
 msgid "reason_enviromental"
 msgstr "Miljökonsekvensbedömning"
 
 #: templates/pyha/official/requestform.html:202
 #: templates/pyha/official/requestview.html:384
 #: templates/pyha/skipofficial/requestform.html:171
-#: templates/pyha/skipofficial/requestview.html:334
+#: templates/pyha/skipofficial/requestview.html:330
 msgid "reason_natura"
 msgstr "Natura-bedömning (naturvårdslag)"
 
 #: templates/pyha/official/requestform.html:203
 #: templates/pyha/official/requestview.html:386
 #: templates/pyha/skipofficial/requestform.html:172
-#: templates/pyha/skipofficial/requestview.html:336
+#: templates/pyha/skipofficial/requestview.html:332
 msgid "reason_scientific"
 msgstr "Vetenskaplig forskning"
 
 #: templates/pyha/official/requestform.html:204
 #: templates/pyha/official/requestview.html:388
 #: templates/pyha/skipofficial/requestform.html:173
-#: templates/pyha/skipofficial/requestview.html:338
+#: templates/pyha/skipofficial/requestview.html:334
 msgid "reason_forest"
 msgstr "Skogsplanering"
 
 #: templates/pyha/official/requestform.html:205
 #: templates/pyha/official/requestview.html:390
 #: templates/pyha/skipofficial/requestform.html:174
-#: templates/pyha/skipofficial/requestview.html:340
+#: templates/pyha/skipofficial/requestview.html:336
 msgid "reason_other"
 msgstr "Annat (vänligen förklara i fri text)"
 
@@ -2435,10 +2427,10 @@ msgstr "Jag har läst och förstått användarvillkoren"
 #: templates/pyha/official/requestform.html:322
 #: templates/pyha/official/requestview.html:453
 #: templates/pyha/official/requestview.html:528
-#: templates/pyha/skipofficial/admin/requestview.html:379
-#: templates/pyha/skipofficial/handler/requestview.html:370
+#: templates/pyha/skipofficial/admin/requestview.html:375
+#: templates/pyha/skipofficial/handler/requestview.html:366
 #: templates/pyha/skipofficial/requestform.html:257
-#: templates/pyha/skipofficial/requestview.html:446
+#: templates/pyha/skipofficial/requestview.html:442
 msgid "exit"
 msgstr "Stäng"
 
@@ -2454,70 +2446,70 @@ msgstr "Sammandrag"
 #: templates/pyha/official/requestview.html:537
 #: templates/pyha/skipofficial/requestform.html:269
 #: templates/pyha/skipofficial/requestform.html:338
-#: templates/pyha/skipofficial/requestview.html:455
+#: templates/pyha/skipofficial/requestview.html:451
 msgid "contacts"
 msgstr "Sökande"
 
 #: templates/pyha/official/requestform.html:338
 #: templates/pyha/official/requestview.html:540
 #: templates/pyha/skipofficial/requestform.html:272
-#: templates/pyha/skipofficial/requestview.html:458
+#: templates/pyha/skipofficial/requestview.html:454
 msgid "full_name"
 msgstr "Namn"
 
 #: templates/pyha/official/requestform.html:339
 #: templates/pyha/official/requestview.html:541
 #: templates/pyha/skipofficial/requestform.html:273
-#: templates/pyha/skipofficial/requestview.html:459
+#: templates/pyha/skipofficial/requestview.html:455
 msgid "street_address"
 msgstr "Adress"
 
 #: templates/pyha/official/requestform.html:340
 #: templates/pyha/official/requestview.html:542
 #: templates/pyha/skipofficial/requestform.html:274
-#: templates/pyha/skipofficial/requestview.html:460
+#: templates/pyha/skipofficial/requestview.html:456
 msgid "postal_code"
 msgstr "Postnummer"
 
 #: templates/pyha/official/requestform.html:341
 #: templates/pyha/official/requestview.html:543
 #: templates/pyha/skipofficial/requestform.html:275
-#: templates/pyha/skipofficial/requestview.html:461
+#: templates/pyha/skipofficial/requestview.html:457
 msgid "post_office_name"
 msgstr "Postanstalt"
 
 #: templates/pyha/official/requestform.html:342
 #: templates/pyha/official/requestview.html:544
 #: templates/pyha/skipofficial/requestform.html:276
-#: templates/pyha/skipofficial/requestview.html:462
+#: templates/pyha/skipofficial/requestview.html:458
 msgid "country"
 msgstr "Land"
 
 #: templates/pyha/official/requestform.html:343
 #: templates/pyha/official/requestview.html:545
 #: templates/pyha/skipofficial/requestform.html:277
-#: templates/pyha/skipofficial/requestview.html:463
+#: templates/pyha/skipofficial/requestview.html:459
 msgid "email"
 msgstr "E-post"
 
 #: templates/pyha/official/requestform.html:344
 #: templates/pyha/official/requestview.html:546
 #: templates/pyha/skipofficial/requestform.html:278
-#: templates/pyha/skipofficial/requestview.html:464
+#: templates/pyha/skipofficial/requestview.html:460
 msgid "phone_number"
 msgstr "Telefonnummer"
 
 #: templates/pyha/official/requestform.html:345
 #: templates/pyha/official/requestview.html:547
 #: templates/pyha/skipofficial/requestform.html:279
-#: templates/pyha/skipofficial/requestview.html:465
+#: templates/pyha/skipofficial/requestview.html:461
 msgid "corporation/organization_name"
 msgstr "Namn på företag/organisation"
 
 #: templates/pyha/official/requestform.html:346
 #: templates/pyha/official/requestview.html:548
 #: templates/pyha/skipofficial/requestform.html:280
-#: templates/pyha/skipofficial/requestview.html:466
+#: templates/pyha/skipofficial/requestview.html:462
 msgid "corporation_id"
 msgstr "FO-nummer"
 
@@ -2526,7 +2518,7 @@ msgstr "FO-nummer"
 #: templates/pyha/official/requestview.html:396
 #: templates/pyha/skipofficial/requestform.html:297
 #: templates/pyha/skipofficial/requestform.html:355
-#: templates/pyha/skipofficial/requestview.html:346
+#: templates/pyha/skipofficial/requestview.html:342
 msgid "argument_project"
 msgstr "Projektnamn"
 
@@ -2535,7 +2527,7 @@ msgstr "Projektnamn"
 #: templates/pyha/official/requestview.html:399
 #: templates/pyha/skipofficial/requestform.html:299
 #: templates/pyha/skipofficial/requestform.html:357
-#: templates/pyha/skipofficial/requestview.html:349
+#: templates/pyha/skipofficial/requestview.html:345
 msgid "argument_research"
 msgstr "Forsknings namn"
 
@@ -2544,7 +2536,7 @@ msgstr "Forsknings namn"
 #: templates/pyha/official/requestview.html:402
 #: templates/pyha/skipofficial/requestform.html:301
 #: templates/pyha/skipofficial/requestform.html:359
-#: templates/pyha/skipofficial/requestview.html:352
+#: templates/pyha/skipofficial/requestview.html:348
 msgid "argument_goals"
 msgstr "Forskningsmål"
 
@@ -2553,7 +2545,7 @@ msgstr "Forskningsmål"
 #: templates/pyha/official/requestview.html:405
 #: templates/pyha/skipofficial/requestform.html:303
 #: templates/pyha/skipofficial/requestform.html:361
-#: templates/pyha/skipofficial/requestview.html:355
+#: templates/pyha/skipofficial/requestview.html:351
 msgid "argument_planning"
 msgstr "Beskrivning av planeringsprojekt"
 
@@ -2562,7 +2554,7 @@ msgstr "Beskrivning av planeringsprojekt"
 #: templates/pyha/official/requestview.html:408
 #: templates/pyha/skipofficial/requestform.html:305
 #: templates/pyha/skipofficial/requestform.html:363
-#: templates/pyha/skipofficial/requestview.html:358
+#: templates/pyha/skipofficial/requestview.html:354
 msgid "argument_municipality"
 msgstr "Ort där projektet är beläget"
 
@@ -2571,7 +2563,7 @@ msgstr "Ort där projektet är beläget"
 #: templates/pyha/official/requestview.html:411
 #: templates/pyha/skipofficial/requestform.html:307
 #: templates/pyha/skipofficial/requestform.html:365
-#: templates/pyha/skipofficial/requestview.html:361
+#: templates/pyha/skipofficial/requestview.html:357
 msgid "argument_natura_areas"
 msgstr "Natura-områden"
 
@@ -2580,7 +2572,7 @@ msgstr "Natura-områden"
 #: templates/pyha/official/requestview.html:414
 #: templates/pyha/skipofficial/requestform.html:309
 #: templates/pyha/skipofficial/requestform.html:367
-#: templates/pyha/skipofficial/requestview.html:364
+#: templates/pyha/skipofficial/requestview.html:360
 msgid "argument_reason"
 msgstr "Fritextfält"
 
@@ -2702,7 +2694,7 @@ msgstr "Ja"
 #: templates/pyha/official/requestview.html:144
 #: templates/pyha/official/requestview.html:596
 #: templates/pyha/skipofficial/requestview.html:132
-#: templates/pyha/skipofficial/requestview.html:514
+#: templates/pyha/skipofficial/requestview.html:510
 msgid "changes_history"
 msgstr "Ändringslogg"
 
@@ -2744,7 +2736,7 @@ msgstr "Begäran för tilläggsuppgifter"
 #: templates/pyha/official/requestview.html:211
 #: templates/pyha/official/requestview.html:303
 #: templates/pyha/skipofficial/requestview.html:199
-#: templates/pyha/skipofficial/requestview.html:253
+#: templates/pyha/skipofficial/requestview.html:249
 msgid "collection_name"
 msgstr "Material"
 
@@ -2754,15 +2746,14 @@ msgid "collection_description"
 msgstr "Beskrivning"
 
 #: templates/pyha/official/requestview.html:216
-#: templates/pyha/skipofficial/requestview.html:204
 msgid "all_secured"
 msgstr "Totalt"
 
 #: templates/pyha/official/requestview.html:217
 #: templates/pyha/official/requestview.html:266
 #: templates/pyha/official/requestview.html:304
-#: templates/pyha/skipofficial/requestview.html:205
-#: templates/pyha/skipofficial/requestview.html:254
+#: templates/pyha/skipofficial/requestview.html:203
+#: templates/pyha/skipofficial/requestview.html:250
 msgid "state_of_processing"
 msgstr "Status"
 
@@ -2775,17 +2766,17 @@ msgid "decision_arguments"
 msgstr "Motivering av beslut"
 
 #: templates/pyha/official/requestview.html:300
-#: templates/pyha/skipofficial/requestview.html:250
+#: templates/pyha/skipofficial/requestview.html:246
 msgid "decicions_for_admitting_data"
 msgstr "Beslut om att ge ut data"
 
 #: templates/pyha/official/requestview.html:305
-#: templates/pyha/skipofficial/requestview.html:255
+#: templates/pyha/skipofficial/requestview.html:251
 msgid "collection_decision_arguments"
 msgstr "Motivering av beslut per material"
 
 #: templates/pyha/official/requestview.html:374
-#: templates/pyha/skipofficial/requestview.html:324
+#: templates/pyha/skipofficial/requestview.html:320
 #, fuzzy
 #| msgid "argument_goals"
 msgid "argument_choices"
@@ -2796,115 +2787,115 @@ msgid "terms_of_use_of_the_collections"
 msgstr "Användarvillkor"
 
 #: templates/pyha/official/requestview.html:567
-#: templates/pyha/skipofficial/requestview.html:485
+#: templates/pyha/skipofficial/requestview.html:481
 msgid "additional_questions"
 msgstr "Tilläggsfrågor"
 
 #: templates/pyha/official/requestview.html:571
-#: templates/pyha/skipofficial/requestview.html:489
+#: templates/pyha/skipofficial/requestview.html:485
 msgid "asked"
 msgstr " frågade:"
 
 #: templates/pyha/official/requestview.html:578
-#: templates/pyha/skipofficial/requestview.html:496
+#: templates/pyha/skipofficial/requestview.html:492
 msgid "send_additional_information"
 msgstr "Skick svar"
 
 #: templates/pyha/official/requestview.html:582
-#: templates/pyha/skipofficial/requestview.html:500
+#: templates/pyha/skipofficial/requestview.html:496
 msgid "answer"
 msgstr "Svara på frågan"
 
 #: templates/pyha/official/requestview.html:587
-#: templates/pyha/skipofficial/requestview.html:505
+#: templates/pyha/skipofficial/requestview.html:501
 msgid "answered"
 msgstr " svarade:"
 
 #: templates/pyha/official/requestview.html:599
-#: templates/pyha/skipofficial/requestview.html:517
+#: templates/pyha/skipofficial/requestview.html:513
 msgid "log_date"
 msgstr "Datum"
 
 #: templates/pyha/official/requestview.html:600
-#: templates/pyha/skipofficial/requestview.html:518
+#: templates/pyha/skipofficial/requestview.html:514
 msgid "log_maker"
 msgstr "Auktor"
 
 #: templates/pyha/official/requestview.html:601
-#: templates/pyha/skipofficial/requestview.html:519
+#: templates/pyha/skipofficial/requestview.html:515
 msgid "log_description"
 msgstr "Beskrivning"
 
 #: templates/pyha/official/requestview.html:607
 #: templates/pyha/official/requestview.html:611
+#: templates/pyha/skipofficial/requestview.html:521
 #: templates/pyha/skipofficial/requestview.html:525
-#: templates/pyha/skipofficial/requestview.html:529
 msgid "log_admin"
 msgstr "Admin"
 
 #: templates/pyha/official/requestview.html:609
-#: templates/pyha/skipofficial/requestview.html:527
+#: templates/pyha/skipofficial/requestview.html:523
 #, fuzzy
 #| msgid "log_maker"
 msgid "log_handler"
 msgstr "Auktor"
 
 #: templates/pyha/official/requestview.html:613
-#: templates/pyha/skipofficial/requestview.html:531
+#: templates/pyha/skipofficial/requestview.html:527
 msgid "log_sensitive_data_handler"
 msgstr "Myndighet"
 
 #: templates/pyha/official/requestview.html:615
-#: templates/pyha/skipofficial/requestview.html:533
+#: templates/pyha/skipofficial/requestview.html:529
 msgid "log_collection_provider"
 msgstr "Ägaren av material"
 
 #: templates/pyha/official/requestview.html:617
-#: templates/pyha/skipofficial/requestview.html:535
+#: templates/pyha/skipofficial/requestview.html:531
 msgid "log_sensitive_and_collections_handler"
 msgstr "Sensitiv och materialspecifik databehandlare"
 
 #: templates/pyha/official/requestview.html:624
-#: templates/pyha/skipofficial/requestview.html:542
+#: templates/pyha/skipofficial/requestview.html:538
 msgid "log_viewed"
 msgstr "Granskad"
 
 #: templates/pyha/official/requestview.html:626
-#: templates/pyha/skipofficial/requestview.html:544
+#: templates/pyha/skipofficial/requestview.html:540
 msgid "log_terms_accepted"
 msgstr "Användarvillkor accepterad"
 
 #: templates/pyha/official/requestview.html:629
-#: templates/pyha/skipofficial/requestview.html:547
+#: templates/pyha/skipofficial/requestview.html:543
 msgid "log_sensitives_accepted"
 msgstr "Sensitiva data godkänt"
 
 #: templates/pyha/official/requestview.html:631
-#: templates/pyha/skipofficial/requestview.html:549
+#: templates/pyha/skipofficial/requestview.html:545
 msgid "log_collection_accepted"
 msgstr "Material godkänt"
 
 #: templates/pyha/official/requestview.html:635
-#: templates/pyha/skipofficial/requestview.html:553
+#: templates/pyha/skipofficial/requestview.html:549
 #, fuzzy
 #| msgid "log_sensitives_denied"
 msgid "log_sensitives_reset"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/requestview.html:637
-#: templates/pyha/skipofficial/requestview.html:555
+#: templates/pyha/skipofficial/requestview.html:551
 #, fuzzy
 #| msgid "log_collection_denied"
 msgid "log_collection_reset"
 msgstr "Material nekad"
 
 #: templates/pyha/official/requestview.html:641
-#: templates/pyha/skipofficial/requestview.html:559
+#: templates/pyha/skipofficial/requestview.html:555
 msgid "log_sensitives_denied"
 msgstr "Sensitiva data nekad"
 
 #: templates/pyha/official/requestview.html:643
-#: templates/pyha/skipofficial/requestview.html:561
+#: templates/pyha/skipofficial/requestview.html:557
 msgid "log_collection_denied"
 msgstr "Material nekad"
 
@@ -2915,42 +2906,53 @@ msgstr "Material nekad"
 msgid "col_handler_comments_window"
 msgstr "Kommentarer från myndigheterna"
 
-#: templates/pyha/skipofficial/admin/requestview.html:307
-#: templates/pyha/skipofficial/handler/requestview.html:298
-#: templates/pyha/skipofficial/requestview.html:374
+#: templates/pyha/skipofficial/admin/requestview.html:170
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:6
+#: templates/pyha/skipofficial/handler/requestview.html:161
+#: templates/pyha/skipofficial/requestview.html:194
+#, fuzzy
+#| msgid "Collections including sensitive sightings are marked with symbol"
+msgid ""
+"Collections including sightings secured by data provider are marked with "
+"symbol"
+msgstr "Material som innehåller begränsad data är markerade med en symbol"
+
+#: templates/pyha/skipofficial/admin/requestview.html:303
+#: templates/pyha/skipofficial/handler/requestview.html:294
+#: templates/pyha/skipofficial/requestview.html:370
 #, fuzzy
 #| msgid "collections_tab"
 msgid "Collection terms"
 msgstr "Andra begränsade material"
 
-#: templates/pyha/skipofficial/admin/requestview.html:316
-#: templates/pyha/skipofficial/handler/requestview.html:307
+#: templates/pyha/skipofficial/admin/requestview.html:312
+#: templates/pyha/skipofficial/handler/requestview.html:303
 #: templates/pyha/skipofficial/requestform.html:218
-#: templates/pyha/skipofficial/requestview.html:383
+#: templates/pyha/skipofficial/requestview.html:379
 msgid "sensitive_and_other_terms"
 msgstr "Sensitiva och annan begränsad artinformation från FinBIF"
 
-#: templates/pyha/skipofficial/admin/requestview.html:505
-#: templates/pyha/skipofficial/handler/requestview.html:507
+#: templates/pyha/skipofficial/admin/requestview.html:501
+#: templates/pyha/skipofficial/handler/requestview.html:503
 #, fuzzy
 #| msgid "handler_official_comment_area"
 msgid "col_handler_comment_area"
 msgstr "Kommentarer av myndigheterna"
 
-#: templates/pyha/skipofficial/admin/requestview.html:506
-#: templates/pyha/skipofficial/handler/requestview.html:508
+#: templates/pyha/skipofficial/admin/requestview.html:502
+#: templates/pyha/skipofficial/handler/requestview.html:504
 msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
 msgstr ""
 
-#: templates/pyha/skipofficial/admin/requestview.html:509
-#: templates/pyha/skipofficial/handler/requestview.html:511
+#: templates/pyha/skipofficial/admin/requestview.html:505
+#: templates/pyha/skipofficial/handler/requestview.html:507
 #, fuzzy
 #| msgid "handler_said"
 msgid "col_handler_said"
 msgstr " skrev:"
 
-#: templates/pyha/skipofficial/admin/requestview.html:517
-#: templates/pyha/skipofficial/handler/requestview.html:519
+#: templates/pyha/skipofficial/admin/requestview.html:513
+#: templates/pyha/skipofficial/handler/requestview.html:515
 #, fuzzy
 #| msgid "ask_as_handler_of"
 msgid "talk_as_handler_of"
@@ -2964,15 +2966,7 @@ msgstr ""
 "Din begäran innehåller begränsade material. Vänligen läs och acceptera "
 "användarvillkor"
 
-#: templates/pyha/skipofficial/ajax/requestformsummary.html:6
-#, fuzzy
-#| msgid "Collections including sensitive sightings are marked with symbol"
-msgid ""
-"Collections including sightings secured by data provider are marked with "
-"symbol"
-msgstr "Material som innehåller begränsad data är markerade med en symbol"
-
-#: templates/pyha/skipofficial/handler/requestview.html:500
+#: templates/pyha/skipofficial/handler/requestview.html:496
 #, fuzzy
 #| msgid "Admission_for_sensitive_data"
 msgid "collection_free_of_sensitive_data"
