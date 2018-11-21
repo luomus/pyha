@@ -2696,9 +2696,9 @@ msgstr "Request involves collections requiring approval of data owners' terms"
 #, fuzzy
 #| msgid "Collections including sensitive sightings are marked with symbol"
 msgid ""
-"Collections including sightings secured_by_data_provider are marked with "
+"Collections including sightings secured by data provider are marked with "
 "symbol"
-msgstr "Collections including sensitive sightings are marked with symbol"
+msgstr "Collections including sightings secured by data provider are marked with symbol"
 
 #: templates/pyha/skipofficial/handler/requestview.html:500
 msgid "collection_free_of_sensitive_data"

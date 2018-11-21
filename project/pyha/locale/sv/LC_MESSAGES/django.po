@@ -2968,9 +2968,9 @@ msgstr ""
 #, fuzzy
 #| msgid "Collections including sensitive sightings are marked with symbol"
 msgid ""
-"Collections including sightings secured_by_data_provider are marked with "
+"Collections including sightings secured by data provider are marked with "
 "symbol"
-msgstr "Material som innehåller sensitiva data är markerade med en symbol"
+msgstr "Material som innehåller begränsad data är markerade med en symbol"
 
 #: templates/pyha/skipofficial/handler/requestview.html:500
 #, fuzzy

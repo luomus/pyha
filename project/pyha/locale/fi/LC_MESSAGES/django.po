@@ -2712,13 +2712,11 @@ msgstr ""
 "käyttöehdot"
 
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:6
-#, fuzzy
-#| msgid "Collections including sensitive sightings are marked with symbol"
 msgid ""
-"Collections including sightings secured_by_data_provider are marked with "
+"Collections including sightings secured by data provider are marked with "
 "symbol"
 msgstr ""
-"Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkitty kuvakkeella."
+"Aineistot, jotka sisältävät käyttörajoitettua tietoa ovat merkitty kuvakkeella."
 
 #: templates/pyha/skipofficial/handler/requestview.html:500
 msgid "collection_free_of_sensitive_data"

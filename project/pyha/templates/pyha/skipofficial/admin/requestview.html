@@ -167,7 +167,7 @@
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "admin_collections_in_request" %}</h3>
 						{% if taxon %}
-						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
+						<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
 							<table class="table" style="width:100%">
@@ -176,8 +176,6 @@
 									<th></th>
 									<th>{% trans "admin_collection_description" %}</th>
 									<th>{% trans "admin_secured_by_data_provider" %}</th>
-									<th>{% trans "admin_generally_secured" %}</th>
-									<th>{% trans "admin_all_secured" %}</th>
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -199,10 +197,8 @@
 								<tr>	
 								{% endif %}
 								<td>{{collection.result.collectionName}}</td>
-								{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
+								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
 								<td>{{collection.result.description}}</td>
-								<td>{{collection.customSecured}}</td>
-								<td>{{collection.taxonSecured}}</td>
 								<td>{{collection.allSecured}}</td>
 								
 								{% if collection.status == 1 %}
