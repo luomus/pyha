@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 18:13+0200\n"
+"POT-Creation-Date: 2018-11-21 15:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,17 +127,18 @@ msgid "admin_unknown"
 msgstr "Tuntematon"
 
 #: templates/pyha/base/admin/index.html:81
-#: templates/pyha/base/ajax/requestformsummary.html:7
 #: templates/pyha/base/handler/index.html:90 templates/pyha/base/index.html:19
 #: templates/pyha/base/index.html.py:48 templates/pyha/base/index.html:84
 #: templates/pyha/official/admin/requestview.html:185
 #: templates/pyha/official/ajax/requestformcustom.html:4
+#: templates/pyha/official/ajax/requestformsummary.html:7
 #: templates/pyha/official/ajax/requestformtaxon.html:5
 #: templates/pyha/official/handler/requestview.html:179
 #: templates/pyha/official/requestview.html:207
 #: templates/pyha/official/requestview.html:210
 #: templates/pyha/skipofficial/admin/requestview.html:171
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:4
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:7
 #: templates/pyha/skipofficial/handler/requestview.html:162
 #: templates/pyha/skipofficial/requestview.html:195
 #: templates/pyha/skipofficial/requestview.html:198
@@ -429,58 +430,19 @@ msgstr "Yritys/Organisaatio:"
 msgid "contact_corporation_id"
 msgstr "Y-tunnus:"
 
-#: templates/pyha/base/ajax/requestformsummary.html:3
-msgid "request_was_empty_and_will_be_closed"
-msgstr "Pyyntösi oli tyhjä ja sen käsittely päätetään."
-
-#: templates/pyha/base/ajax/requestformsummary.html:5
-#: templates/pyha/official/requestview.html:204
-#: templates/pyha/skipofficial/requestview.html:192
-msgid "collections_in_request"
-msgstr "Pyyntöösi sisältyvät aineistot"
-
-#: templates/pyha/base/ajax/requestformsummary.html:6
-#: templates/pyha/official/admin/requestview.html:184
-#: templates/pyha/official/handler/requestview.html:178
-#: templates/pyha/official/requestview.html:206
-#: templates/pyha/skipofficial/admin/requestview.html:170
-#: templates/pyha/skipofficial/handler/requestview.html:161
-#: templates/pyha/skipofficial/requestview.html:194
-msgid "Collections including sensitive sightings are marked with symbol"
-msgstr ""
-"Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkitty kuvakkeella."
-
-#: templates/pyha/base/ajax/requestformsummary.html:10
-#: templates/pyha/official/ajax/requestformcustom.html:7
-#: templates/pyha/official/ajax/requestformtaxon.html:15
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:14
-msgid "collection_for_user"
-msgstr "Aineisto"
-
-#: templates/pyha/base/ajax/requestformsummary.html:11
-#: templates/pyha/base/ajax/requestheader.html:17
-#: templates/pyha/base/index.html:21
-#: templates/pyha/official/ajax/requestformcustom.html:8
-#: templates/pyha/official/ajax/requestformtaxon.html:16
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:15
-msgid "request_description"
-msgstr "Kuvaus"
-
-#: templates/pyha/base/ajax/requestformsummary.html:12
-#: templates/pyha/official/requestview.html:214
-#: templates/pyha/skipofficial/requestview.html:202
-msgid "secured_by_data_provider"
-msgstr "Käyttörajoitetut havainnot"
-
-#: templates/pyha/base/ajax/requestformsummary.html:13
-#: templates/pyha/official/requestview.html:215
-#: templates/pyha/skipofficial/requestview.html:203
-msgid "generally_secured"
-msgstr "Sensitiiviset havainnot"
-
 #: templates/pyha/base/ajax/requestheader.html:2
 msgid "request_for_user"
 msgstr "Aineistopyyntösi"
+
+#: templates/pyha/base/ajax/requestheader.html:17
+#: templates/pyha/base/index.html:21
+#: templates/pyha/official/ajax/requestformcustom.html:8
+#: templates/pyha/official/ajax/requestformsummary.html:11
+#: templates/pyha/official/ajax/requestformtaxon.html:16
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:15
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:11
+msgid "request_description"
+msgstr "Kuvaus"
 
 #: templates/pyha/base/ajax/requestheader.html:19
 msgid "request_description_tooltip"
@@ -688,7 +650,7 @@ msgstr "Pyynnön tila"
 #: templates/pyha/official/ajax/requestformtaxon.html:42
 #: templates/pyha/official/requestform.html:508
 #: templates/pyha/official/requestform.html:522
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:39
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:37
 #: templates/pyha/skipofficial/requestform.html:420
 msgid "you_have_not_accepted_terms"
 msgstr "Lue ja hyväksy ehdot"
@@ -936,6 +898,17 @@ msgstr "Viranomaisten kommentit"
 #: templates/pyha/skipofficial/admin/requestview.html:168
 msgid "admin_collections_in_request"
 msgstr "Pyyntöösi sisältyvät aineistot"
+
+#: templates/pyha/official/admin/requestview.html:184
+#: templates/pyha/official/ajax/requestformsummary.html:6
+#: templates/pyha/official/handler/requestview.html:178
+#: templates/pyha/official/requestview.html:206
+#: templates/pyha/skipofficial/admin/requestview.html:170
+#: templates/pyha/skipofficial/handler/requestview.html:161
+#: templates/pyha/skipofficial/requestview.html:194
+msgid "Collections including sensitive sightings are marked with symbol"
+msgstr ""
+"Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkitty kuvakkeella."
 
 #: templates/pyha/official/admin/requestview.html:189
 #: templates/pyha/official/admin/requestview.html:532
@@ -1442,6 +1415,14 @@ msgstr ""
 "Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
 "käyttöehdot"
 
+#: templates/pyha/official/ajax/requestformcustom.html:7
+#: templates/pyha/official/ajax/requestformsummary.html:10
+#: templates/pyha/official/ajax/requestformtaxon.html:15
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:14
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:10
+msgid "collection_for_user"
+msgstr "Aineisto"
+
 #: templates/pyha/official/ajax/requestformcustom.html:9
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:16
 msgid "sightings_secured_by_data_provider"
@@ -1453,7 +1434,7 @@ msgstr "Aineistokohtaiset käyttöehdot"
 
 #: templates/pyha/official/ajax/requestformcustom.html:23
 #: templates/pyha/official/ajax/requestformtaxon.html:30
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:31
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:29
 msgid "Delete_these_sightings"
 msgstr "En tarvitse tätä aineistoa"
 
@@ -1464,7 +1445,7 @@ msgstr "En tarvitse tätä aineistoa"
 #: templates/pyha/official/requestview.html:426
 #: templates/pyha/official/requestview.html:432
 #: templates/pyha/skipofficial/admin/requestview.html:308
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:40
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:38
 #: templates/pyha/skipofficial/handler/requestview.html:299
 #: templates/pyha/skipofficial/requestview.html:371
 #: templates/pyha/skipofficial/requestview.html:375
@@ -1481,16 +1462,41 @@ msgstr ""
 #: templates/pyha/official/ajax/requestformtaxon.html:44
 #: templates/pyha/official/requestform.html:236
 #: templates/pyha/official/requestform.html:381
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:41
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:39
 #: templates/pyha/skipofficial/requestform.html:205
 #: templates/pyha/skipofficial/requestform.html:315
 msgid "previous"
 msgstr "Edellinen"
 
 #: templates/pyha/official/ajax/requestformcustom.html:39
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:42
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:40
 msgid "continue"
 msgstr "Jatka yhteenvetoon"
+
+#: templates/pyha/official/ajax/requestformsummary.html:3
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:3
+msgid "request_was_empty_and_will_be_closed"
+msgstr "Pyyntösi oli tyhjä ja sen käsittely päätetään."
+
+#: templates/pyha/official/ajax/requestformsummary.html:5
+#: templates/pyha/official/requestview.html:204
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:5
+#: templates/pyha/skipofficial/requestview.html:192
+msgid "collections_in_request"
+msgstr "Pyyntöösi sisältyvät aineistot"
+
+#: templates/pyha/official/ajax/requestformsummary.html:12
+#: templates/pyha/official/requestview.html:214
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:12
+#: templates/pyha/skipofficial/requestview.html:202
+msgid "secured_by_data_provider"
+msgstr "Käyttörajoitetut havainnot"
+
+#: templates/pyha/official/ajax/requestformsummary.html:13
+#: templates/pyha/official/requestview.html:215
+#: templates/pyha/skipofficial/requestview.html:203
+msgid "generally_secured"
+msgstr "Sensitiiviset havainnot"
 
 #: templates/pyha/official/ajax/requestformtaxon.html:3
 msgid "Request involves collections requiring approval for sensitive terms"
@@ -1508,7 +1514,6 @@ msgstr ""
 "tulee kohdistua juuri kyseiseen lajiin."
 
 #: templates/pyha/official/ajax/requestformtaxon.html:17
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:17
 msgid "sensitive_sightings"
 msgstr "Sensitiivisiä havaintoja"
 
@@ -2705,6 +2710,15 @@ msgid "restricted_collections_in_request"
 msgstr ""
 "Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
 "käyttöehdot"
+
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:6
+#, fuzzy
+#| msgid "Collections including sensitive sightings are marked with symbol"
+msgid ""
+"Collections including sightings secured_by_data_provider are marked with "
+"symbol"
+msgstr ""
+"Aineistot, jotka sisältävät sensitiivistä tietoa ovat merkitty kuvakkeella."
 
 #: templates/pyha/skipofficial/handler/requestview.html:500
 msgid "collection_free_of_sensitive_data"
