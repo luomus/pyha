@@ -11,7 +11,7 @@ then
 
     cd project
 
-    python manage.py handlermail
+    python manage.py timed_email
 
     cd ..
 

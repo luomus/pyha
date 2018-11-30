@@ -4,7 +4,7 @@ from pyha.database import count_unhandled_requests, update_collection_handlers
 from django.core.cache import caches
 
 class Command(BaseCommand):
-    help = 'Sends reminder emails to all collection handlers for unhandled requests. Also checks collections missing handlers.'
+    help = 'Sends reminder emails to all collection handlers for unhandled requests. Also sends email for collections missing handlers.'
 
     #def add_arguments(self, parser):
     

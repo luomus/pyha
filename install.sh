@@ -5,8 +5,8 @@ deactivate
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
-		EMAIL_ERROR_RATE_LIMIT "Throttle timer for same errormail in seconds. Default 1800" \
-		EMAIL_ERROR_RATE_KEY_LIMIT "Maximum size of different errormail cache. Default 100" \
+		EMAIL_ERROR_RATE_LIMIT "Throttle timer for same content errormail in seconds. Default 1800" \
+		EMAIL_ERROR_RATE_KEY_LIMIT "Maximum size of the throttle cache for different errormail. Default 100" \
 		DJANGO_SECRET_KEY "Hash salt used by django" \
 		PYHA_LISTEN_PORT "Port listened by django" \
 		PYHA_LINK_URL "Path included in emails linking to pyyntojenhallinta ex. https://fmnh-ws-test.it.helsinki.fi/pyha/" \
@@ -37,7 +37,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		DOMAIN_PATH_PREFIX "Path to this service incase not in domain root. Staging ex. /pyha" \
 		ADMIN_NAME 0 \
 		ADMIN_EMAIL "Email to send errormail" \
-		SERVER_EMAIL "Name for the errormail sender address ex. django@pyha.fi" \
+		SERVER_EMAIL "Name for the errormail server address ex. pyha-staging@laji.fi" \
 		
 		)
 		
@@ -134,11 +134,12 @@ echo -e "$APACHECONTENT" > services/pyha.conf
 echo "Created services/pyha.conf file"
 
 CRONCONTENT=$CRONCONTENT\
-'22 11 * * 2 cd '$DIR' && bash runmail.sh > '$DIR'/cronlogs/pyha_runemail.log'
+'22 11 * * 2 cd '$DIR' && bash cron_timed_email.sh > '$DIR'/cronlogs/pyha_timed_email.log\n'\
+'22 9 * * 1 cd '$DIR' && bash cron_accept_overdue_collections.sh > '$DIR'/cronlogs/pyha_accept_overdue_collections.log'
 
 echo -e $CRONCONTENT > services/pyha.cron
 echo "Created services/pyha.cron file"
 
 echo "Installation has finished."
-echo "Please run updateserver.sh after you have set the correct values to env_variables.sh file"
+echo "Please run bash updateserver.sh after you have set the correct values to env_variables.sh file"
 echo "Also remember to put files in the /services folder to their correct locations."

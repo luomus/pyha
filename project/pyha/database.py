@@ -8,7 +8,8 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
-from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum
+from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum,\
+	Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections
@@ -513,9 +514,15 @@ def requestInformationChat(request, userRequest, role1, role2, userId):
 		for l in requestInformationChat_list:
 			l.name = fetch_user_name(l.user)
 		return requestInformationChat_list
+	
+def get_collections_waiting_atleast_days(days_to_subtract):
+	return Collection.objects.filter(request__in=Request.objects.filter(date__lt = datetime.today() - timedelta(days=days_to_subtract), status=StatusEnum.WAITING), status = Col_StatusEnum.WAITING)
+
+def is_collection_waiting(collection):	
+	return Request.objects.filter(id=collection.request.id, status=StatusEnum.WAITING).count() > 0 and Collection.objects.filter(id = collection.id, status = Col_StatusEnum.WAITING).count() > 0
 
 def contains_approved_collection(requestId):
-	return Collection.objects.filter(request=requestId, status = 4).count() > 0
+	return Collection.objects.filter(request=requestId, status = Col_StatusEnum.APPROVED).count() > 0
 
 """
 	Send "request has been handled" email 
