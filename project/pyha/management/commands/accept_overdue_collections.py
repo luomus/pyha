@@ -8,6 +8,7 @@ from random import randint
 
 
 class Command(BaseCommand):
+    help = 'Accepts Collections in Requests with Status.WAITING which are overdue by %days% at random times within %interval% seconds.'    
     #def add_arguments(self, parser):
 
     
