@@ -7,10 +7,32 @@ from time import sleep
 from random import randint
 
 
+class Command(BaseCommand):
+    #def add_arguments(self, parser):
+
+    
+    def handle(self, *args, **options):
+        days = 21
+        interval = 32400
+        overdue = list(get_collections_waiting_atleast_days(days))
+                
+        for collection in overdue:
+            collection.performtime = randint(0, interval)
+            
+        overdue.sort(key=lambda x: x.performtime)
+        
+        last = 0
+        for collection in overdue:
+            accept_in_delay(collection, collection.performtime - last)
+            last = collection.performtime
+
+
+def accept_in_delay(collection, interval):
         sleep(randint(0, interval))
         if(is_collection_waiting(collection)):
             collection.status = Col_StatusEnum.APPROVED
             collection.changedBy = changed_by("pyha")
             collection.save()
+            RequestLogEntry.requestLog.create(request = Request.objects.get(id = collection.request), collection = collection, user = "Laji.fi ICT-team", role = CAT_ADMIN, action = RequestLogEntry.DECISION_POSITIVE)
             update_request_status(collection.request.id, collection.request.lang)
         
