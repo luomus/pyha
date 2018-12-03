@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-21 17:42+0200\n"
+"POT-Creation-Date: 2018-12-03 12:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr "Pyha admin"
 msgid "Pyha admin"
 msgstr "Pyha admin"
 
-#: login.py:133
+#: login.py:133 login.py:141
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Virhe, pyyntö on poissa käytöstä."
 
@@ -819,8 +819,8 @@ msgstr "Poista jäädytys"
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr ""
-"Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy "
-"muuttamaan pyyntöä."
+"Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy muuttamaan "
+"pyyntöä."
 
 #: templates/pyha/official/admin/requestview.html:70
 #: templates/pyha/skipofficial/admin/requestview.html:70
@@ -836,8 +836,7 @@ msgstr "Jäädytä pyyntö"
 #: templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
 msgstr ""
-"Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy muuttamaan "
-"pyyntöä."
+"Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy muuttamaan pyyntöä."
 
 #: templates/pyha/official/admin/requestview.html:81
 msgid "admin_sensitive"
@@ -1377,28 +1376,42 @@ msgstr "Aineisto hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:684
 #: templates/pyha/skipofficial/admin/requestview.html:569
-msgid "admin_log_sensitives_reset"
-msgstr "Sensitiiviset päätös nollattu"
+#, fuzzy
+#| msgid "admin_log_sensitives_accepted"
+msgid "admin_log_sensitives_accepted_because_overdue"
+msgstr "Sensitiiviset hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:686
 #: templates/pyha/skipofficial/admin/requestview.html:571
-msgid "admin_log_collection_reset"
-msgstr "Aineisto päätös nollattu"
+#, fuzzy
+#| msgid "admin_log_collection_accepted"
+msgid "admin_log_collection_accepted_because_overdue"
+msgstr "Aineisto hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:575
-msgid "admin_log_sensitives_denied"
-msgstr "Sensitiiviset hylätty"
+msgid "admin_log_sensitives_reset"
+msgstr "Sensitiiviset päätös nollattu"
 
 #: templates/pyha/official/admin/requestview.html:692
 #: templates/pyha/skipofficial/admin/requestview.html:577
+msgid "admin_log_collection_reset"
+msgstr "Aineisto päätös nollattu"
+
+#: templates/pyha/official/admin/requestview.html:696
+#: templates/pyha/skipofficial/admin/requestview.html:581
+msgid "admin_log_sensitives_denied"
+msgstr "Sensitiiviset hylätty"
+
+#: templates/pyha/official/admin/requestview.html:698
+#: templates/pyha/skipofficial/admin/requestview.html:583
 msgid "admin_log_collection_denied"
 msgstr "Aineisto hylätty"
 
-#: templates/pyha/official/admin/requestview.html:699
+#: templates/pyha/official/admin/requestview.html:705
 #: templates/pyha/official/handler/requestview.html:702
 #: templates/pyha/official/requestview.html:650
-#: templates/pyha/skipofficial/admin/requestview.html:584
+#: templates/pyha/skipofficial/admin/requestview.html:590
 #: templates/pyha/skipofficial/handler/requestview.html:590
 #: templates/pyha/skipofficial/requestview.html:564
 msgid "log_no_history"

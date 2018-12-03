@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-21 17:42+0200\n"
+"POT-Creation-Date: 2018-12-03 12:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr "Pyha administratione"
 msgid "Pyha admin"
 msgstr "Pyha admin"
 
-#: login.py:133
+#: login.py:133 login.py:141
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Fel, förfrågan är för närvarande inte tillgänglig"
 
@@ -1377,28 +1377,42 @@ msgstr "Material godkänt"
 
 #: templates/pyha/official/admin/requestview.html:684
 #: templates/pyha/skipofficial/admin/requestview.html:569
-msgid "admin_log_sensitives_reset"
-msgstr "Sensitiva data återställde"
+#, fuzzy
+#| msgid "admin_log_sensitives_accepted"
+msgid "admin_log_sensitives_accepted_because_overdue"
+msgstr "Sensitiva data godkänt"
 
 #: templates/pyha/official/admin/requestview.html:686
 #: templates/pyha/skipofficial/admin/requestview.html:571
-msgid "admin_log_collection_reset"
-msgstr "Material återställde"
+#, fuzzy
+#| msgid "admin_log_collection_accepted"
+msgid "admin_log_collection_accepted_because_overdue"
+msgstr "Material godkänt"
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:575
-msgid "admin_log_sensitives_denied"
-msgstr "Sensitiva data nekad"
+msgid "admin_log_sensitives_reset"
+msgstr "Sensitiva data återställde"
 
 #: templates/pyha/official/admin/requestview.html:692
 #: templates/pyha/skipofficial/admin/requestview.html:577
+msgid "admin_log_collection_reset"
+msgstr "Material återställde"
+
+#: templates/pyha/official/admin/requestview.html:696
+#: templates/pyha/skipofficial/admin/requestview.html:581
+msgid "admin_log_sensitives_denied"
+msgstr "Sensitiva data nekad"
+
+#: templates/pyha/official/admin/requestview.html:698
+#: templates/pyha/skipofficial/admin/requestview.html:583
 msgid "admin_log_collection_denied"
 msgstr "Material nekad"
 
-#: templates/pyha/official/admin/requestview.html:699
+#: templates/pyha/official/admin/requestview.html:705
 #: templates/pyha/official/handler/requestview.html:702
 #: templates/pyha/official/requestview.html:650
-#: templates/pyha/skipofficial/admin/requestview.html:584
+#: templates/pyha/skipofficial/admin/requestview.html:590
 #: templates/pyha/skipofficial/handler/requestview.html:590
 #: templates/pyha/skipofficial/requestview.html:564
 msgid "log_no_history"
