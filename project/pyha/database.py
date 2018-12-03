@@ -423,7 +423,7 @@ def download_ended(request, userRequest):
 	if(datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60)):
 		if(not userRequest.frozen):
 			userRequest.frozen = True
-			userRequest.changedBy(changed_by_session_user(request))
+			userRequest.changedBy = changed_by_session_user(request)
 			userRequest.save()
 		return True
 	return False
