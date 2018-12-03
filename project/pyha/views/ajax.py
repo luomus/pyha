@@ -146,4 +146,5 @@ def remove_collection_ajax(request):
             collection.save()
             if(check_all_collections_removed(requestId)):
                 return HttpResponse(reverse('pyha:root'), status=310)
+            return HttpResponse(status=200)
     return HttpResponse(reverse('pyha:root'), status=310)
