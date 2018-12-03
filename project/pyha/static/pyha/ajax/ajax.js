@@ -4,9 +4,13 @@
 	var description = document.getElementById('description').value;
 	var data = 'requestid='+requestid+'&description='+description;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			get_request_header();
-			}
+			if (this.readyState == 4) {
+				if (this.status == 200) {
+					get_request_header();
+				} else if(this.status == 310){
+					window.location = this.responseText;
+				}
+			} 
 		};
 	xhttp.open("POST", document.getElementById("setDescriptionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
@@ -39,10 +43,14 @@
 	var requestid = document.getElementById('requestid').value;
 	var data = 'requestid='+requestid;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("senstable").innerHTML = this.responseText;
-			checksens();
-			}
+		if (this.readyState == 4) {
+				if (this.status == 200) {
+					document.getElementById("senstable").innerHTML = this.responseText;
+					checksens();
+				} else if(this.status == 310){
+					window.location = this.responseText;
+				}
+			} 
 		};
 	xhttp.open("POST", document.getElementById("getTaxonURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
@@ -55,11 +63,15 @@
 	var requestid = document.getElementById('requestid').value;
 	var data = 'requestid='+requestid;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("customtable").innerHTML = this.responseText;
-			refreshCheck();
+		if (this.readyState == 4) {
+			if (this.status == 200) {
+				document.getElementById("customtable").innerHTML = this.responseText;
+				refreshCheck();
+			} else if(this.status == 310){
+				window.location = this.responseText;
 			}
-		};
+		} 
+	};
 	xhttp.open("POST", document.getElementById("getCustomURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -71,11 +83,15 @@
 		var requestid = document.getElementById('requestid').value;
 		var data = 'requestid='+requestid;
 		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("collectiontable").innerHTML = this.responseText;
-				checksens();
+			if (this.readyState == 4) {
+				if (this.status == 200) {
+					document.getElementById("collectiontable").innerHTML = this.responseText;
+					checksens();
+				} else if(this.status == 310){
+					window.location = this.responseText;
 				}
-			};
+			} 
+		};
 		xhttp.open("POST", document.getElementById("getCollectionURL").value, true);
 		xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -87,11 +103,15 @@
 	var requestid = document.getElementById('requestid').value;
 	var data = 'requestid='+requestid;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("request_header").innerHTML = this.responseText;
-			checkHasDescription();
+		if (this.readyState == 4) {
+			if (this.status == 200) {
+				document.getElementById("request_header").innerHTML = this.responseText;
+				checkHasDescription();
+			} else if(this.status == 310){
+				window.location = this.responseText;
 			}
-		};
+		} 
+	};
 	xhttp.open("POST", document.getElementById("getDescriptionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -103,12 +123,16 @@
 	var requestid = document.getElementById('requestid').value;
 	var data = 'requestid='+requestid;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			for (i = 0; i < document.getElementsByName("summarytable").length; i++){
-				document.getElementsByName("summarytable")[i].innerHTML = this.responseText;
+		if (this.readyState == 4) {
+			if (this.status == 200) {
+				for (i = 0; i < document.getElementsByName("summarytable").length; i++){
+					document.getElementsByName("summarytable")[i].innerHTML = this.responseText;
+				}
+			} else if(this.status == 310){
+				window.location = this.responseText;
 			}
-			}
-		};
+		} 
+	};
 	xhttp.open("POST", document.getElementById("getSummaryURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -120,41 +144,46 @@
 	var requestid = document.getElementById('requestid').value;
 	var data = 'requestid='+requestid+'&id='+id;
 	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var contacthtml = sessionStorage.getItem("contacts"+requestid);
-			var xmlcontent = this.responseXML;
-			if(contacthtml != null){
-				contacthtml += this.responseText;
-			}else{
-				contacthtml = this.responseText;
-			}
-			//sessionStorage.setItem("contacts"+requestid, contacthtml);
-			var end = document.getElementById("contacts_content_end");
-			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("contact")[0].getElementsByTagName("div")[0]));
-			end = document.getElementById("modal_contacts_end");
-			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
-			end = document.getElementById("pdf_contacts_end");
-			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
-			end = document.getElementById("summary_contacts_end");
-			end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("summary")[0].getElementsByTagName("tr")[0]));
-			contactsFilled();
-			var fields = ["request_person_name_"+id,"request_person_street_address_"+id,"request_person_postal_code_"+id,"request_person_post_office_name_"+id,"request_person_country_"+id,"request_person_email_"+id,"request_person_phone_number_"+id,"request_person_organization_name_"+id,"request_person_corporation_id_"+id];
-			var fills = ["contact_name_"+id,"contact_street_address_"+id,"contact_postal_"+id,"contact_post_office_"+id,"contact_country_"+id,"contact_email_"+id,"contact_phone_number_"+id,"contact_corporation/organization_"+id,"contact_corporation_id_"+id];
-			for (i = 0; i < fields.length; i++){
-				var namefield = document.getElementById(fields[i]);
-				var fillfield = document.getElementsByName(fills[i]);
-				if(i == 0){
-					namefield.onkeyup = updateTabField(namefield, fillfield, id);
-					namefield.onchange = updateTabField(namefield, fillfield, id);
+		if (this.readyState == 4) {
+			if (this.status == 200) {
+				var contacthtml = sessionStorage.getItem("contacts"+requestid);
+				var xmlcontent = this.responseXML;
+				if(contacthtml != null){
+					contacthtml += this.responseText;
 				}else{
-					namefield.onkeyup = updateField(namefield, fillfield);
-					namefield.onchange = updateField(namefield, fillfield);
-					updateField(namefield, fillfield)();
+					contacthtml = this.responseText;
 				}
+				//sessionStorage.setItem("contacts"+requestid, contacthtml);
+				var end = document.getElementById("contacts_content_end");
+				end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("contact")[0].getElementsByTagName("div")[0]));
+				end = document.getElementById("modal_contacts_end");
+				end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
+				end = document.getElementById("pdf_contacts_end");
+				end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("modal")[0].getElementsByTagName("div")[0]));
+				end = document.getElementById("summary_contacts_end");
+				end.insertAdjacentHTML('beforebegin', new XMLSerializer().serializeToString(xmlcontent.getElementsByTagName("summary")[0].getElementsByTagName("tr")[0]));
+				contactsFilled();
+				var fields = ["request_person_name_"+id,"request_person_street_address_"+id,"request_person_postal_code_"+id,"request_person_post_office_name_"+id,"request_person_country_"+id,"request_person_email_"+id,"request_person_phone_number_"+id,"request_person_organization_name_"+id,"request_person_corporation_id_"+id];
+				var fills = ["contact_name_"+id,"contact_street_address_"+id,"contact_postal_"+id,"contact_post_office_"+id,"contact_country_"+id,"contact_email_"+id,"contact_phone_number_"+id,"contact_corporation/organization_"+id,"contact_corporation_id_"+id];
+				for (i = 0; i < fields.length; i++){
+					var namefield = document.getElementById(fields[i]);
+					var fillfield = document.getElementsByName(fills[i]);
+					if(i == 0){
+						namefield.onkeyup = updateTabField(namefield, fillfield, id);
+						namefield.onchange = updateTabField(namefield, fillfield, id);
+					}else{
+						namefield.onkeyup = updateField(namefield, fillfield);
+						namefield.onchange = updateField(namefield, fillfield);
+						updateField(namefield, fillfield)();
+					}
+				}
+				document.getElementById("contact_tab_button_"+id).click();
+			} else if(this.status == 310){
+				window.location = this.responseText;
 			}
-			document.getElementById("contact_tab_button_"+id).click();
-			}
-		};
+		} 
+	};
+
 	xhttp.overrideMimeType('text/xml');
 	xhttp.open("POST", document.getElementById("createContactURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
