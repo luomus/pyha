@@ -17,8 +17,6 @@ def get_description_ajax(request):
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id=requestId)
-        if is_admin_frozen(request, userRequest):
-            return HttpResponseRedirect(reverse('pyha:root'))
         context = create_request_view_context(requestId, request, userRequest)
         return render(request, 'pyha/base/ajax/requestheader.html', context)
     return HttpResponseRedirect(reverse('pyha:root'))
