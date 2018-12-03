@@ -564,7 +564,7 @@
 								<td>{% trans "handler_log_viewed" %}</td>
 								{% elif requestLog.action == 'ACC' %}
 								<td>{% trans "handler_log_terms_accepted" %}</td>
-								{% elif requestLog.action == 'POS' or requestLog.action == 'POSOVER' %}
+								{% elif requestLog.action == 'POS' or requestLog.action == 'POSOV' %}
 									{% if requestLog.collection == None %}
 									<td>{% trans "handler_log_sensitives_accepted" %}</td>
 									{% else %}

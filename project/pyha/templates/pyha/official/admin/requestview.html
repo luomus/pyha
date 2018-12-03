@@ -679,7 +679,7 @@
 									{% else %}
 									<td>{% trans "admin_log_collection_accepted" %} ({{ requestLog.collection.result.collectionName }}) </td>
 									{% endif %}
-								{% elif requestLog.action == 'POSOVER' %}
+								{% elif requestLog.action == 'POSOV' %}
 									{% if requestLog.collection == None %}
 									<td>{% trans "admin_log_sensitives_accepted_because_overdue" %}</td>
 									{% else %}
