@@ -816,7 +816,7 @@ msgstr "Unfreeze request"
 #: templates/pyha/skipofficial/admin/requestview.html:68
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
-msgstr "Unfreeze request to re-enable access and actions by users not admin"
+msgstr "Unfreeze request to re-enable actions by users not admin"
 
 #: templates/pyha/official/admin/requestview.html:70
 #: templates/pyha/skipofficial/admin/requestview.html:70
@@ -831,7 +831,7 @@ msgstr "Freeze request"
 #: templates/pyha/official/admin/requestview.html:72
 #: templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
-msgstr "Freeze request to disable access and actions by users not admin"
+msgstr "Freeze request to disable actions by users not admin"
 
 #: templates/pyha/official/admin/requestview.html:81
 msgid "admin_sensitive"

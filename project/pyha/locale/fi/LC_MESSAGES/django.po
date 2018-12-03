@@ -30,7 +30,7 @@ msgstr "Pyha admin"
 
 #: login.py:133
 msgid "error_request_has_been_frozen_by_admin"
-msgstr "Virhe, pyyntö on poissa käytöstä väliaikaisesti."
+msgstr "Virhe, pyyntö on poissa käytöstä."
 
 #: templates/pyha/base/admin/index.html:9
 msgid "admin_welcome"
@@ -819,7 +819,7 @@ msgstr "Poista jäädytys"
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr ""
-"Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy pyyntöön/"
+"Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy "
 "muuttamaan pyyntöä."
 
 #: templates/pyha/official/admin/requestview.html:70
@@ -836,7 +836,7 @@ msgstr "Jäädytä pyyntö"
 #: templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
 msgstr ""
-"Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy pyyntöön/muuttamaan "
+"Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy muuttamaan "
 "pyyntöä."
 
 #: templates/pyha/official/admin/requestview.html:81
