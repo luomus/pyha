@@ -15,7 +15,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         days = 21
         interval = 32400
-        
         overdue = list(get_collections_waiting_atleast_days(days))
                 
         for collection in overdue:

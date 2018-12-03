@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen_and_not_admin, is_allowed_to_ask_information_as_target, is_admin
+from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin
 from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN
 from pyha.warehouse import send_download_request, is_download_handler_in_collection
@@ -26,8 +26,6 @@ def show_request(request):
     if not is_allowed_to_view(request, requestId):
         return HttpResponseRedirect(reverse('pyha:root'))
     userRequest = Request.objects.get(id=requestId)
-    if is_admin_frozen_and_not_admin(request, userRequest):
-        return HttpResponseRedirect(reverse('pyha:root'))
     userId = request.session["user_id"]
     if userRequest.user != userId:
         role1 = CAT_HANDLER_SENS in request.session.get("user_roles", [None])
@@ -60,7 +58,7 @@ def comment_sensitive(request):
             return HttpResponseRedirect(reverse('pyha:root'))
         message = request.POST.get('commentsForAuthorities')
         userRequest = Request.objects.get(id=requestId) 
-        if is_admin_frozen_and_not_admin(request, requestId):
+        if is_admin_frozen(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         if CAT_HANDLER_SENS in request.session["user_roles"] and not userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL:
             newChatEntry = RequestSensitiveChatEntry()
@@ -83,7 +81,7 @@ def comment_handler(request):
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id=requestId) 
-        if is_admin_frozen_and_not_admin(request, userRequest):
+        if is_admin_frozen(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if is_allowed_to_ask_information_as_target(request,target,requestId):
             newChatEntry = RequestHandlerChatEntry()
@@ -107,7 +105,7 @@ def initialize_download(request):
         if not is_request_owner(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id=requestId) 
-        if is_admin_frozen_and_not_admin(request, userRequest):
+        if is_admin_frozen(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(not userRequest.frozen or ADMIN in request.session["current_user_role"]):
             if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensStatus in [4,99] and contains_approved_collection(requestId))):
@@ -126,7 +124,7 @@ def change_description(request):
         if not is_request_owner(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id = requestId)
-        if is_admin_frozen_and_not_admin(request, userRequest):
+        if is_admin_frozen(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest.description = request.POST.get('description')
         userRequest.changedBy = changed_by_session_user(request)
@@ -161,7 +159,7 @@ def answer(request):
             return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = request.POST.get('collectionid')
         userRequest = Request.objects.get(id = requestId)
-        if is_admin_frozen_and_not_admin(request, userRequest):
+        if is_admin_frozen(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(int(request.POST.get('answer')) == 2):
             if not is_allowed_to_ask_information_as_target(request, target, requestId):
@@ -270,7 +268,7 @@ def information(request):
         if not is_allowed_to_view(request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id = requestId)
-        if is_admin_frozen_and_not_admin(request, userRequest):
+        if is_admin_frozen(request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(int(request.POST.get('information')) == 2):
             if not target_valid(target, requestId):

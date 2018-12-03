@@ -109,12 +109,14 @@ class RequestLogEntry(models.Model):
 	VIEW = 'VIEW'
 	ACCEPT = 'ACC'
 	DECISION_POSITIVE = 'POS'
-	DECISION_RESET ='RESET'
+	DECISION_POSITIVE_OVERDUE = 'POSOVER'
+	DECISION_RESET = 'RESET'
 	DECISION_NEGATIVE = 'NEG'
 	ACTION = (
 		(VIEW, 'views request'),
 		(ACCEPT, 'accepts terms of use'),
 		(DECISION_POSITIVE, 'accepts use of data'),
+		(DECISION_POSITIVE_OVERDUE, 'accepted use of data, because decision has been overdue'),
 		(DECISION_RESET, 'resets the decision regarding data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
 	)

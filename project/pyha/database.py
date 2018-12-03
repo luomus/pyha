@@ -516,10 +516,10 @@ def requestInformationChat(request, userRequest, role1, role2, userId):
 		return requestInformationChat_list
 	
 def get_collections_waiting_atleast_days(days_to_subtract):
-	return Collection.objects.filter(request__in=Request.objects.filter(id__in=RequestLogEntry.requestLog.filter(action=RequestLogEntry.ACCEPT, date__lt = datetime.today() - timedelta(days=days_to_subtract)).values("request"), status=StatusEnum.WAITING), status = Col_StatusEnum.WAITING)
+	return Collection.objects.filter(request__in=Request.objects.filter(id__in=RequestLogEntry.requestLog.filter(action=RequestLogEntry.ACCEPT, date__lt = datetime.today() - timedelta(days=days_to_subtract)).values("request"), status=StatusEnum.WAITING, frozen=False), status = Col_StatusEnum.WAITING)
 
 def is_collection_waiting_atleast_days(days_to_subtract, collection):
-	return Request.objects.filter(id=collection.request.id, status=StatusEnum.WAITING).count() > 0 and Collection.objects.filter(id = collection.id, status = Col_StatusEnum.WAITING).count() > 0 and RequestLogEntry.requestLog.filter(request=collection.request, action=RequestLogEntry.ACCEPT, date__lt = datetime.today() - timedelta(days=days_to_subtract)).count() > 0
+	return Request.objects.filter(id=collection.request.id, status=StatusEnum.WAITING, frozen=True).count() > 0 and Collection.objects.filter(id = collection.id, status = Col_StatusEnum.WAITING).count() > 0 and RequestLogEntry.requestLog.filter(request=collection.request, action=RequestLogEntry.ACCEPT, date__lt = datetime.today() - timedelta(days=days_to_subtract)).count() > 0
 
 def contains_approved_collection(requestId):
 	return Collection.objects.filter(request=requestId, status = Col_StatusEnum.APPROVED).count() > 0

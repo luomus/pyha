@@ -136,6 +136,14 @@ def is_admin_frozen_and_not_admin(request, userRequest):
     else:
         return False
 
+def is_admin_frozen(request, userRequest):
+    if(userRequest.frozen):
+        request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
+        request.session.save()
+        return True
+    else:
+        return False
+
 def is_request_owner(request, requestId):
     userId = request.session["user_id"]
     return Request.objects.filter(id=requestId, user=userId, status__gte=0).exists()

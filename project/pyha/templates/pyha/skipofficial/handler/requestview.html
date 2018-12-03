@@ -444,9 +444,9 @@
 												<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 												<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 												<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-												<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-												<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_accept" %}</button>
-												<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
+												<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+												<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "handler_accept" %}</button>
+												<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
 											</div>
 											{% csrf_token %}
 										</form>
@@ -487,8 +487,8 @@
 									{% endif %}
 								{% endfor %}
 								</select>
-								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 %} disabled {% endif %}>{% trans "handler_request_additional_information" %}</button>
+								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}></textarea>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "handler_request_additional_information" %}</button>
 							</div>
 							{% csrf_token %}
 						</form>
@@ -520,8 +520,8 @@
 										{% endif %}
 									{% endfor %}
 									</select>
-									<textarea class="form-control" rows="5" cols="700" id="commentsForHandlers" name="commentsForHandlers" style="overflow:auto;resize:none" required ></textarea>
-									<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm">{% trans "handler_save" %}</button>
+									<textarea class="form-control" rows="5" cols="700" id="commentsForHandlers" name="commentsForHandlers" style="overflow:auto;resize:none" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %} ></textarea>
+									<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "handler_save" %}</button>
 								</div>
 								{% csrf_token %}
 								</form>
@@ -564,7 +564,7 @@
 								<td>{% trans "handler_log_viewed" %}</td>
 								{% elif requestLog.action == 'ACC' %}
 								<td>{% trans "handler_log_terms_accepted" %}</td>
-								{% elif requestLog.action == 'POS' %}
+								{% elif requestLog.action == 'POS' or requestLog.action == 'POSOVER' %}
 									{% if requestLog.collection == None %}
 									<td>{% trans "handler_log_sensitives_accepted" %}</td>
 									{% else %}
