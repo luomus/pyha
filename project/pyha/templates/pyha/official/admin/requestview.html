@@ -508,7 +508,7 @@
 									</div>
 									{% csrf_token %}
 									</form>
-									<label for="submit-decline" class="btn btn-default btn-sm">{% trans "admin_refuse" %}</label>
+									<label for="submit-decline" class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</label>
 									<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post" style="padding-top:20px;">
 									<button type="hidden" id="submit-decline" onclick="showDecline()" type="submit" name="answer" value=0 style="display:none;" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
 									<div class="form-group" style="position: relative;top:-30px;">
