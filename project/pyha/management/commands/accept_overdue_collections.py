@@ -35,6 +35,7 @@ def accept_in_delay(days, collection, interval):
             collection.status = Col_StatusEnum.APPROVED
             collection.changedBy = changed_by("pyha")
             collection.save()
-            RequestLogEntry.requestLog.create(request = Request.objects.get(id = collection.request), collection = collection, user = "Laji.fi ICT-team", role = CAT_ADMIN, action = RequestLogEntry.DECISION_POSITIVE)
-            update_request_status(collection.request.id, collection.request.lang)
+            RequestLogEntry.requestLog.create(request = Request.objects.get(id = collection.request.id), collection = collection, user = "Laji.fi ICT-team", role = CAT_ADMIN, action = RequestLogEntry.DECISION_POSITIVE)
+            userRequest = Request.objects.get(id = collection.request.id)
+            update_request_status(userRequest, userRequest.lang)
         
