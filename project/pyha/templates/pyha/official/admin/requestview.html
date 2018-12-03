@@ -504,19 +504,19 @@
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
 									</div>
 									{% csrf_token %}
 									</form>
 									<label for="submit-decline" class="btn btn-default btn-sm">{% trans "admin_refuse" %}</label>
 									<form action="{% url 'pyha:answer' %}" id="sensitiveform" method="post" style="padding-top:20px;">
-									<button type="hidden" id="submit-decline" onclick="showDecline()" type="submit" name="answer" value=0 style="display:none;" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
+									<button type="hidden" id="submit-decline" onclick="showDecline()" type="submit" name="answer" value=0 style="display:none;" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
 									<div class="form-group" style="position: relative;top:-30px;">
 										<input type="hidden" id="collectionid" name="collectionid" value="sens">
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<div id="sensitive_refuse_form" style="width:100%;display:{% if userRequest.sensStatus == 3 %}block{% else %}none{% endif %};">
-										<textarea class="form-control" rows="10" cols="700" id="reason" name="reason" required {% userRequest.frozen %} disabled {% endif %}>{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
+										<textarea class="form-control" rows="10" cols="700" id="reason" name="reason" required {% if userRequest.frozen %} disabled {% endif %}>{% if userRequest.sensDecisionExplanation %}{{userRequest.sensDecisionExplanation}}{% else %}{% endif %}</textarea>
 										</div>
 									</div>
 									{% csrf_token %}
@@ -569,9 +569,9 @@
 										<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 										<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 										<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
-										<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
-										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
+										<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
+										<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
+										<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
 									</div>
 									{% csrf_token %}
 								</form>
@@ -608,8 +608,8 @@
 									<option value="admin">{% trans "as_admin" %}</option>
 								</select>
 								{% endif %}
-								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% userRequest.frozen %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_request_additional_information" %}</button>
+								<textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.frozen %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+								<button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_request_additional_information" %}</button>
 							</div>
 							{% csrf_token %}
 						</form>
@@ -629,8 +629,8 @@
 									<input type="hidden" id="collectionid" name="collectionid" value="sens">
 									<input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
 									<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-									<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required {% userRequest.frozen %} disabled {% endif %}></textarea>
-									<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% userRequest.frozen %} disabled {% endif %}>{% trans "admin_save" %}</button>
+									<textarea class="form-control" rows="5" cols="700" id="commentsForAuthorities" name="commentsForAuthorities" style="overflow:auto;resize:none" required {% if userRequest.frozen %} disabled {% endif %}></textarea>
+									<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_save" %}</button>
 								</div>
 								{% csrf_token %}
 								</form>
