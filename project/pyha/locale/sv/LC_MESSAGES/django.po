@@ -1377,17 +1377,14 @@ msgstr "Material godkänt"
 
 #: templates/pyha/official/admin/requestview.html:684
 #: templates/pyha/skipofficial/admin/requestview.html:569
-#, fuzzy
 #| msgid "admin_log_sensitives_accepted"
 msgid "admin_log_sensitives_accepted_because_overdue"
-msgstr "Sensitiva data godkänt"
+msgstr "DECISION_POSITIVE_OVERDUE"
 
 #: templates/pyha/official/admin/requestview.html:686
 #: templates/pyha/skipofficial/admin/requestview.html:571
-#, fuzzy
-#| msgid "admin_log_collection_accepted"
 msgid "admin_log_collection_accepted_because_overdue"
-msgstr "Material godkänt"
+msgstr "Material godkänt eftersom beslutet var försenad"
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:575

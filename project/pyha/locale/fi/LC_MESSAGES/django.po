@@ -1376,17 +1376,13 @@ msgstr "Aineisto hyväksytty"
 
 #: templates/pyha/official/admin/requestview.html:684
 #: templates/pyha/skipofficial/admin/requestview.html:569
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted"
 msgid "admin_log_sensitives_accepted_because_overdue"
-msgstr "Sensitiiviset hyväksytty"
+msgstr "DECISION_POSITIVE_OVERDUE"
 
 #: templates/pyha/official/admin/requestview.html:686
 #: templates/pyha/skipofficial/admin/requestview.html:571
-#, fuzzy
-#| msgid "admin_log_collection_accepted"
 msgid "admin_log_collection_accepted_because_overdue"
-msgstr "Aineisto hyväksytty"
+msgstr "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi nopeasti."
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:575
