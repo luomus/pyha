@@ -5,6 +5,7 @@ dev_settings.py
 *secrets.py
 services/
 env/
+cronlogs/
 .project
 .pydevproject
 .settings
