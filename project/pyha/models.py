@@ -33,8 +33,8 @@ class TruncatingReasonJsonCharField(models.CharField):
 						t = getattr(fields, f)
 						setattr(fields, f, t[:m[1]])
 						break
-			reasonlist.fields = fields
-			value = json.dumps(reasonlist)
+			reasonlist.fields = vars(fields)
+			value = json.dumps(vars(reasonlist))
 			return value
 		return value
 
