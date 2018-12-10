@@ -1,7 +1,42 @@
 ﻿from __future__ import unicode_literals
+import json
+from argparse import Namespace
 from simple_history.models import HistoricalRecords
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
+
+
+class TruncatingCharField(models.CharField):
+	def get_prep_value(self, value):
+		value = super(TruncatingCharField,self).get_prep_value(value)
+		if value:
+			return value[:self.max_length]
+		return value
+	
+class TruncatingReasonJsonCharField(models.CharField):
+	def get_prep_value(self, value):
+		max_lengths = [("argument_project", 500),
+		("argument_research", 500),
+		("argument_goals", 2000),
+		("argument_planning", 2000),
+		("argument_municipality", 2000),
+		("argument_natura_areas", 2000),
+		("argument_reason", 4000)]
+		
+		value = super(TruncatingReasonJsonCharField,self).get_prep_value(value)
+		if value:
+			reasonlist = json.loads(value, object_hook=lambda d: Namespace(**d))
+			fields = reasonlist.fields
+			for f in fields.__dict__:
+				for	m in max_lengths:
+					if(m[0] == f):
+						t = getattr(fields, f)
+						setattr(fields, f, t[:m[1]])
+						break
+			reasonlist.fields = fields
+			value = json.dumps(reasonlist)
+			return value
+		return value
 
 
 @python_2_unicode_compatible
@@ -21,7 +56,7 @@ class Collection(models.Model):
 	taxonSecured = models.IntegerField(default=0)
 	customSecured = models.IntegerField(default=0)
 	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
-	decisionExplanation = models.CharField(max_length=1000,blank=True,null=True)
+	decisionExplanation = TruncatingCharField(max_length=1000,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 
@@ -34,7 +69,7 @@ class Request(models.Model):
 	#id alkaa ykkösestä ja nousee
 	id = models.AutoField(primary_key=True)
 	lajiId = models.CharField(max_length=200) #id given by laji.api
-	description = models.CharField(max_length=400,blank=True,null=True)  #description given by the requester for his request
+	description = TruncatingCharField(max_length=400,blank=True,null=True)  #description given by the requester for his request
 	
 	#for status
 	#status 0: Odottaa pyytäjän hyväksymistä
@@ -57,8 +92,8 @@ class Request(models.Model):
 	#status 99: Ohitettu (skippofficial)
 	
 	sensStatus = models.IntegerField()
-	sensDecisionExplanation = models.CharField(max_length=1000,blank=True,null=True)
-	sensComment = models.CharField(max_length=1000,blank=True,null=True)
+	sensDecisionExplanation = TruncatingCharField(max_length=1000,blank=True,null=True)
+	sensComment = TruncatingCharField(max_length=1000,blank=True,null=True)
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
 	user = models.CharField(max_length=100)
@@ -67,16 +102,16 @@ class Request(models.Model):
 	downloadIncludes = models.CharField(max_length=1000)
 	downloadDate = models.CharField(max_length=400,blank=True,null=True)
 	filter_list = models.CharField(max_length=2000)
-	personName = models.CharField(max_length=100,blank=True,null=True)
-	personStreetAddress = models.CharField(max_length=100,blank=True,null=True)
-	personPostOfficeName = models.CharField(max_length=100,blank=True,null=True)
-	personPostalCode = models.CharField(max_length=100,blank=True,null=True)
-	personCountry = models.CharField(max_length=100,blank=True,null=True)
-	personEmail = models.CharField(max_length=100,blank=True,null=True)
-	personPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
-	personOrganizationName = models.CharField(max_length=100,blank=True,null=True)
-	personCorporationId = models.CharField(max_length=100,blank=True,null=True)
-	reason = models.CharField(max_length=16000,blank=True,null=True)
+	personName = TruncatingCharField(max_length=100,blank=True,null=True)
+	personStreetAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	personPostOfficeName = TruncatingCharField(max_length=100,blank=True,null=True)
+	personPostalCode = TruncatingCharField(max_length=100,blank=True,null=True)
+	personCountry = TruncatingCharField(max_length=100,blank=True,null=True)
+	personEmail = TruncatingCharField(max_length=100,blank=True,null=True)
+	personPhoneNumber = TruncatingCharField(max_length=100,blank=True,null=True)
+	personOrganizationName = TruncatingCharField(max_length=100,blank=True,null=True)
+	personCorporationId = TruncatingCharField(max_length=100,blank=True,null=True)
+	reason = TruncatingReasonJsonCharField(max_length=16000,blank=True,null=True)
 	lang = models.CharField(max_length=10, default='fi') 
 	frozen = models.BooleanField(default=False)
 	changedBy = models.CharField(max_length=100)
@@ -89,15 +124,15 @@ class Request(models.Model):
 class RequestContact(models.Model):
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
-	personName = models.CharField(max_length=100,blank=True,null=True)
-	personStreetAddress = models.CharField(max_length=100,blank=True,null=True)
-	personPostOfficeName = models.CharField(max_length=100,blank=True,null=True)
-	personPostalCode = models.CharField(max_length=100,blank=True,null=True)
-	personCountry = models.CharField(max_length=100,blank=True,null=True)
-	personEmail = models.CharField(max_length=100,blank=True,null=True)
-	personPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
-	personOrganizationName = models.CharField(max_length=100,blank=True,null=True)
-	personCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	personName = TruncatingCharField(max_length=100,blank=True,null=True)
+	personStreetAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	personPostOfficeName = TruncatingCharField(max_length=100,blank=True,null=True)
+	personPostalCode = TruncatingCharField(max_length=100,blank=True,null=True)
+	personCountry = TruncatingCharField(max_length=100,blank=True,null=True)
+	personEmail = TruncatingCharField(max_length=100,blank=True,null=True)
+	personPhoneNumber = TruncatingCharField(max_length=100,blank=True,null=True)
+	personOrganizationName = TruncatingCharField(max_length=100,blank=True,null=True)
+	personCorporationId = TruncatingCharField(max_length=100,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
@@ -139,7 +174,7 @@ class RequestSensitiveChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
-	message = models.CharField(max_length=2000)
+	message = TruncatingCharField(max_length=2000)
 	requestChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
@@ -152,7 +187,7 @@ class RequestHandlerChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
-	message = models.CharField(max_length=2000)
+	message = TruncatingCharField(max_length=2000)
 	target = models.CharField(max_length=200)
 	requestHandlerChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
@@ -167,7 +202,7 @@ class RequestInformationChatEntry(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
-	message = models.CharField(max_length=2000)
+	message = TruncatingCharField(max_length=2000)
 	target = models.CharField(max_length=200) #'sens' or apilaji defined collection id
 	requestInformationChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
@@ -179,15 +214,15 @@ class RequestInformationChatEntry(models.Model):
 @python_2_unicode_compatible
 class ContactPreset(models.Model):
 	user = models.CharField(primary_key=True, max_length=100)
-	requestPersonName = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonStreetAddress = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonPostOfficeName = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonPostalCode = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonCountry = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonEmail = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonPhoneNumber = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonOrganizationName = models.CharField(max_length=100,blank=True,null=True)
-	requestPersonCorporationId = models.CharField(max_length=100,blank=True,null=True)
+	requestPersonName = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonStreetAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonPostOfficeName = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonPostalCode = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonCountry = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonEmail = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonPhoneNumber = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonOrganizationName = TruncatingCharField(max_length=100,blank=True,null=True)
+	requestPersonCorporationId = TruncatingCharField(max_length=100,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
