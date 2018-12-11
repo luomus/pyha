@@ -11,6 +11,7 @@ from django.db import models
 
 #WARNING
 #It is definitely recommended to turn the pyha service down for the duration of the git pull and migrate command.
+#Older version of the app may cause unexpected behavior to the database if left running with users in it.
 
 class TruncatingCharField(models.CharField):
 	def get_prep_value(self, value):
