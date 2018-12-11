@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 12:08+0200\n"
+"POT-Creation-Date: 2018-12-11 15:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1382,7 +1382,9 @@ msgstr "DECISION_POSITIVE_OVERDUE"
 #: templates/pyha/official/admin/requestview.html:686
 #: templates/pyha/skipofficial/admin/requestview.html:571
 msgid "admin_log_collection_accepted_because_overdue"
-msgstr "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi nopeasti."
+msgstr ""
+"Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
+"nopeasti."
 
 #: templates/pyha/official/admin/requestview.html:690
 #: templates/pyha/skipofficial/admin/requestview.html:575
@@ -1404,10 +1406,26 @@ msgstr "Sensitiiviset hylätty"
 msgid "admin_log_collection_denied"
 msgstr "Aineisto hylätty"
 
-#: templates/pyha/official/admin/requestview.html:705
+#: templates/pyha/official/admin/requestview.html:702
+#: templates/pyha/skipofficial/admin/requestview.html:587
+#, fuzzy
+#| msgid "admin_log_sensitives_accepted_because_overdue"
+msgid "admin_log_sensitives_denied_because_overdue"
+msgstr "DECISION_POSITIVE_OVERDUE"
+
+#: templates/pyha/official/admin/requestview.html:704
+#: templates/pyha/skipofficial/admin/requestview.html:589
+#, fuzzy
+#| msgid "admin_log_collection_accepted_because_overdue"
+msgid "admin_log_collection_denied_because_overdue"
+msgstr ""
+"Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
+"nopeasti."
+
+#: templates/pyha/official/admin/requestview.html:711
 #: templates/pyha/official/handler/requestview.html:702
 #: templates/pyha/official/requestview.html:650
-#: templates/pyha/skipofficial/admin/requestview.html:590
+#: templates/pyha/skipofficial/admin/requestview.html:596
 #: templates/pyha/skipofficial/handler/requestview.html:590
 #: templates/pyha/skipofficial/requestview.html:564
 msgid "log_no_history"
