@@ -6,7 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 #Use "python manage.py makemigrations pyha" to update the changes to model classes used by the app.
-#Also do "bash updateserver.sh" or "python manage.py migrate" in the deployment and staging 
+#Also do "bash updateserver.sh" or "python manage.py migrate" in deployment and staging 
 #to update these changes to the corresponding database.
 
 #WARNING
