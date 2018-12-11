@@ -636,7 +636,7 @@
 									{% else %}
 									<td>{% trans "log_collection_reset" %} ({{ requestLog.collection.result.collectionName }})</td>
 									{% endif %}
-							{% elif requestLog.action == 'NEG' %}
+							{% elif requestLog.action == 'NEG' or requestLog.action == 'NEGOV' %}
 								{% if requestLog.collection == None %}
 								<td>{% trans "log_sensitives_denied" %}</td>
 								{% else %}

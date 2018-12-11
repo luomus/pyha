@@ -11,7 +11,7 @@ then
 	
     cd project
 
-    python manage.py accept_overdue_collections
+    python manage.py decline_overdue_collections
 
     cd ..
 

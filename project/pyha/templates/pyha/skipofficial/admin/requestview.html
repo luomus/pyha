@@ -582,6 +582,12 @@
 									{% else %}
 									<td>{% trans "admin_log_collection_denied" %} ({{ requestLog.collection.result.collectionName }})</td>
 									{% endif %}
+								{% elif requestLog.action == 'NEGOV' %}
+									{% if requestLog.collection == None %}
+									<td>{% trans "admin_log_sensitives_denied_because_overdue" %}</td>
+									{% else %}
+									<td>{% trans "admin_log_collection_denied_because_overdue" %} ({{ requestLog.collection.result.collectionName }}) </td>
+									{% endif %}
 								{% endif %}
 								</tr>
 							{% endfor %}

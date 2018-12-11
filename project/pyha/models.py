@@ -147,6 +147,7 @@ class RequestLogEntry(models.Model):
 	DECISION_POSITIVE_OVERDUE = 'POSOV'
 	DECISION_RESET = 'RESET'
 	DECISION_NEGATIVE = 'NEG'
+	DECISION_NEGATIVE_OVERDUE = 'NEGOV'
 	ACTION = (
 		(VIEW, 'views request'),
 		(ACCEPT, 'accepts terms of use'),
@@ -154,6 +155,7 @@ class RequestLogEntry(models.Model):
 		(DECISION_POSITIVE_OVERDUE, 'accepted use of data, because decision has been overdue'),
 		(DECISION_RESET, 'resets the decision regarding data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
+		(DECISION_NEGATIVE_OVERDUE, 'declines use of data, because decision has been overdue'),
 	)
 	
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
