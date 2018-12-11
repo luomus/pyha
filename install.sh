@@ -135,7 +135,7 @@ echo "Created services/pyha.conf file"
 
 CRONCONTENT=$CRONCONTENT\
 '22 11 * * 2 cd '$DIR' && bash cron_timed_email.sh > '$DIR'/cronlogs/pyha_timed_email.log\n'\
-'33 8 * * 1,2,3,4,5 cd '$DIR' && bash cron_decline_overdue_collections.sh > '$DIR'/cronlogs/pyha_accept_overdue_collections.log'
+'33 8 * * 1,2,3,4,5 cd '$DIR' && bash cron_decline_overdue_collections.sh > '$DIR'/cronlogs/pyha_decline_overdue_collections.log'
 
 echo -e $CRONCONTENT > services/pyha.cron
 echo "Created services/pyha.cron file"

@@ -1408,18 +1408,14 @@ msgstr "Aineisto hylätty"
 
 #: templates/pyha/official/admin/requestview.html:702
 #: templates/pyha/skipofficial/admin/requestview.html:587
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "admin_log_sensitives_denied_because_overdue"
-msgstr "DECISION_POSITIVE_OVERDUE"
+msgstr "DECISION_NEGATIVE_OVERDUE"
 
 #: templates/pyha/official/admin/requestview.html:704
 #: templates/pyha/skipofficial/admin/requestview.html:589
-#, fuzzy
-#| msgid "admin_log_collection_accepted_because_overdue"
 msgid "admin_log_collection_denied_because_overdue"
 msgstr ""
-"Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
+"Aineisto hylätty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
 "nopeasti."
 
 #: templates/pyha/official/admin/requestview.html:711

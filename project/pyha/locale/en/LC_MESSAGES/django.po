@@ -1410,7 +1410,7 @@ msgstr "DECISION_POSITIVE_OVERDUE"
 #, fuzzy
 #| msgid "admin_log_collection_accepted_because_overdue"
 msgid "admin_log_collection_denied_because_overdue"
-msgstr "Collection was accepted because the decision was overdue"
+msgstr "Collection was denied because the decision was overdue"
 
 #: templates/pyha/official/admin/requestview.html:711
 #: templates/pyha/official/handler/requestview.html:702

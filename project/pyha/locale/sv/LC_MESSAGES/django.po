@@ -1417,7 +1417,7 @@ msgstr "DECISION_POSITIVE_OVERDUE"
 #, fuzzy
 #| msgid "admin_log_collection_accepted_because_overdue"
 msgid "admin_log_collection_denied_because_overdue"
-msgstr "Material godkänt eftersom beslutet var försenad"
+msgstr "Material nekad eftersom beslutet var försenad"
 
 #: templates/pyha/official/admin/requestview.html:711
 #: templates/pyha/official/handler/requestview.html:702
