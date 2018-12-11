@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -1407,15 +1406,11 @@ msgstr "Material nekad"
 
 #: templates/pyha/official/admin/requestview.html:702
 #: templates/pyha/skipofficial/admin/requestview.html:587
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "admin_log_sensitives_denied_because_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
 #: templates/pyha/official/admin/requestview.html:704
 #: templates/pyha/skipofficial/admin/requestview.html:589
-#, fuzzy
-#| msgid "admin_log_collection_accepted_because_overdue"
 msgid "admin_log_collection_denied_because_overdue"
 msgstr "Material nekad eftersom beslutet var försenad"
 
