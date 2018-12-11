@@ -10,7 +10,7 @@ from django.db import models
 #to update these changes to the corresponding database.
 
 #WARNING
-#It is definitely recommended to turn the pyha service down for the duration of git pull and migrate command.
+#It is definitely recommended to turn the pyha service down for the duration of the git pull and migrate command.
 
 class TruncatingCharField(models.CharField):
 	def get_prep_value(self, value):
