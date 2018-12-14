@@ -407,7 +407,7 @@ def create_request_view_context(requestId, request, userRequest):
 		handler_waiting_status(userRequest, request, userId)
 	if userRequest.status == 8:
 		context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+request.session["token"]
-		context["downloadable"] = download_ended(request, userRequest)
+		context["downloadable"] = is_downloadable(request, userRequest)
 	if userRequest.status == 0 and Request.objects.filter(user=userId,status__gte=1).count() > 0:
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
@@ -419,13 +419,13 @@ def create_request_view_context(requestId, request, userRequest):
 			context["information"] = not requestInformationChat_list[-1].question
 	return context
 
-def download_ended(request, userRequest):
-	if(datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60)):
-		if(not userRequest.frozen):
-			userRequest.frozen = True
-			userRequest.changedBy = changed_by_session_user(request)
-			userRequest.save()
+def is_downloadable(request, userRequest):
+	if(datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60) and not userRequest.frozen):
 		return True
+	if(not userRequest.frozen):
+		userRequest.frozen = True
+		userRequest.changedBy = changed_by_session_user(request)
+		userRequest.save()
 	return False
 
 def get_request_contacts(userRequest):
