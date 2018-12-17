@@ -2430,7 +2430,7 @@ msgstr "All selected"
 #: templates/pyha/official/requestview.html:13
 #: templates/pyha/skipofficial/requestview.html:13
 msgid "state_of_request"
-msgstr "State of request"
+msgstr "State of request:"
 
 #: templates/pyha/official/requestview.html:41
 #: templates/pyha/skipofficial/requestview.html:41
