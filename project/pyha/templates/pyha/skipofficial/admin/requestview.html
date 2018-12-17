@@ -48,7 +48,11 @@
 						{% trans "admin_waiting_for_download" %} 
 						
 						{% elif userRequest.status == 8 %}
-						{% trans "admin_ready_for_download" %}
+							{% if downloadable %}
+								{% trans "admin_ready_for_download" %}
+							{% else %}
+								{% trans "admin_download_has_expired" %}
+							{% endif %}
 						
 						{% else %}  
 						{% trans "admin_unknown" %}

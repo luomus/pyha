@@ -420,7 +420,7 @@ def create_request_view_context(requestId, request, userRequest):
 	return context
 
 def is_downloadable(request, userRequest):
-	if(datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=60) and not userRequest.frozen):
+	if(datetime.strptime(userRequest.downloadDate, "%Y-%m-%d %H:%M:%S.%f") > datetime.now()-timedelta(days=settings.DOWNLOAD_PERIOD_DAYS) and not userRequest.frozen):
 		return True
 	if(not userRequest.frozen):
 		userRequest.frozen = True

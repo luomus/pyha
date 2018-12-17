@@ -2447,6 +2447,12 @@ msgstr "Lataa"
 msgid "download_has_expired"
 msgstr "Lataus on vanhentunut"
 
+msgid "handler_download_has_expired"
+msgstr "Lataus on vanhentunut"
+
+msgid "admin_download_has_expired"
+msgstr "Lataus on vanhentunut"
+
 #: templates/pyha/official/requestview.html:104
 #: templates/pyha/skipofficial/requestview.html:92
 msgid "initialize_download"

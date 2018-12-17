@@ -75,7 +75,11 @@
                 <td>{% trans "handler_waiting_for_download" %}</td>  
             
             {% elif request.status == 8 %}
-                <td>{% trans "handler_ready_for_download" %}</td>  
+                {% if request.downloadable %}
+                <td>{% trans "handler_ready_for_download" %}</td>
+                {% else %} 
+                <td>{% trans "handler_download_has_expired" %}</td>
+                {% endif %}
 				
             {% else %}  
                 <td>{% trans "handler_unknown" %}</td>

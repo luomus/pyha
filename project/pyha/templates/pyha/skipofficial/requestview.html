@@ -44,7 +44,11 @@
 					{% trans "waiting_for_download" %} 
 					
 					{% elif userRequest.status == 8 %}
-					{% trans "ready_for_download" %}
+						{% if downloadable %}
+							{% trans "ready_for_download" %}
+						{% else %}
+							{% trans "download_has_expired" %}
+						{% endif %}
 					
 					{% else %}  
 					{% trans "unknown" %}

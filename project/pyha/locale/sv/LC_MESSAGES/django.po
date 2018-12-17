@@ -2446,6 +2446,12 @@ msgstr "Ladda ner"
 msgid "download_has_expired"
 msgstr "Nedladdningen har löpt ut"
 
+msgid "handler_download_has_expired"
+msgstr "Nedladdningen har löpt ut"
+
+msgid "admin_download_has_expired"
+msgstr "Nedladdningen har löpt ut"
+
 #: templates/pyha/official/requestview.html:104
 #: templates/pyha/skipofficial/requestview.html:92
 msgid "initialize_download"

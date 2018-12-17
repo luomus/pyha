@@ -48,6 +48,7 @@ OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https:/
 SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == "True"
 ICT_EMAIL = "helpdesk@laji.fi"
 PYHA_EMAIL = "noreply.pyha-staging@laji.fi"
+DOWNLOAD_PERIOD_DAYS = 60
 MOCK_JSON=False
 TESTING=False
 APPEND_SLASH=False

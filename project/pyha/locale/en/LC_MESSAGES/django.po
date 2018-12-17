@@ -2436,6 +2436,12 @@ msgstr "Download"
 msgid "download_has_expired"
 msgstr "Download has expired"
 
+msgid "handler_download_has_expired"
+msgstr "Download has expired"
+
+msgid "admin_download_has_expired"
+msgstr "Download has expired"
+
 #: templates/pyha/official/requestview.html:104
 #: templates/pyha/skipofficial/requestview.html:92
 msgid "initialize_download"

@@ -48,7 +48,11 @@
 						{% trans "handler_waiting_for_download" %} 
 						
 						{% elif userRequest.status == 8 %}
-						{% trans "handler_ready_for_download" %}
+							{% if downloadable %}
+								{% trans "handler_ready_for_download" %}
+							{% else %}
+								{% trans "handler_download_has_expired" %}
+							{% endif %}
 						
 						{% else %}  
 						{% trans "handler_unknown" %}

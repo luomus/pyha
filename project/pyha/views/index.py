@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_waiting_status, handler_information_answered_status, get_all_secured, handlers_cannot_be_updated
+from pyha.database import handler_waiting_status, handler_information_answered_status, get_all_secured, handlers_cannot_be_updated, is_downloadable
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Sens_StatusEnum
@@ -38,6 +38,8 @@ def index(request):
 	if ADMIN in request.session.get("current_user_role", [None]):
 		request_list = Request.objects.filter(status__gt=0)
 		for r in request_list:
+			if(r.status == StatusEnum.DOWNLOADABLE):
+				r.downloadable = is_downloadable(request, r)
 			r.allSecured = get_all_secured(r)
 			r.email = fetch_email_address(r.user)
 		context = {"role": hasRole, "toast": toast, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
@@ -56,6 +58,8 @@ def index(request):
 		#sort by date
 		request_list = sorted(request_list ,key=attrgetter('date'), reverse=True)
 		for r in request_list:
+			if(r.status == StatusEnum.DOWNLOADABLE):
+				r.downloadable = is_downloadable(request, r)
 			r.allSecured = get_all_secured(r)
 			r.email = fetch_email_address(r.user)
 			handler_waiting_status(r, request, userId)
@@ -66,6 +70,9 @@ def index(request):
 		return render(request, 'pyha/base/handler/index.html', context)
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
+		for r in request_list:
+			if(r.status == StatusEnum.DOWNLOADABLE):
+				r.downloadable = is_downloadable(request, r)
 		context = {"role": hasRole, "toast": toast, "username": request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 		return render(request, 'pyha/base/index.html', context)
 

@@ -66,8 +66,12 @@
                 <td>{% trans "admin_waiting_for_download" %}</td>  
             
             {% elif request.status == 8 %}
-                <td>{% trans "admin_ready_for_download" %}</td>  
-				
+                {% if request.downloadable %}
+                <td>{% trans "admin_ready_for_download" %}</td>
+                {% else %} 
+                <td>{% trans "admin_download_has_expired" %}</td>
+                {% endif %}
+                
             {% else %}  
                 <td>{% trans "admin_unknown" %}</td>
             {% endif %}

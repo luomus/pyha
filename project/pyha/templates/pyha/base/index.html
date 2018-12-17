@@ -59,20 +59,23 @@
                 <td>{% trans "denied" %}</td>
 
             {% elif request.status == 4 %}
-                <td>{% trans "accepted" %}</td>  
+                <td>{% trans "accepted" %}</td>
             
             {% elif request.status == 6 %}
                 <td>{% trans "waiting_for_additional_information" %}</td>
 
             {% elif request.status == 7 %}
-                <td>{% trans "waiting_for_download" %}</td>  
+                <td>{% trans "waiting_for_download" %}</td>
             
             {% elif request.status == 8 %}
-                <td>{% trans "ready_for_download" %}</td>  
-
+            	{% if request.downloadable %}
+                <td>{% trans "ready_for_download" %}</td>
+                {% else %} 
+                <td>{% trans "download_has_expired" %}</td>
+                {% endif %}
+                
             {% else %}  
                 <td>{% trans "unknown" %}</td>
-                
             {% endif %}
         
 		<td>{{request.description|linebreaks}}</td>            
