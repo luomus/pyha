@@ -677,7 +677,7 @@ msgstr "You haven't accepted the conditions"
 #: templates/pyha/skipofficial/requestview.html:233
 #: templates/pyha/skipofficial/requestview.html:277
 msgid "waiting_for_data_provider"
-msgstr "Pending the processing of the data provider"
+msgstr "Pending decision"
 
 #: templates/pyha/base/index.html:56
 #: templates/pyha/official/admin/requestview.html:235
@@ -795,7 +795,7 @@ msgstr "Request from user"
 #: templates/pyha/official/admin/requestview.html:15
 #: templates/pyha/skipofficial/admin/requestview.html:15
 msgid "admin_state_of_request"
-msgstr "State of request"
+msgstr "State of request:"
 
 #: templates/pyha/official/admin/requestview.html:31
 #: templates/pyha/official/admin/requestview.html:230

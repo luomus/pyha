@@ -67,7 +67,7 @@ msgstr "Vänligen läs och acceptera användarvillkoren"
 #: templates/pyha/official/admin/requestview.html:105
 #: templates/pyha/skipofficial/admin/requestview.html:93
 msgid "admin_waiting"
-msgstr ""
+msgstr "Väntar på beslutet"
 
 #: templates/pyha/base/admin/index.html:54
 #: templates/pyha/official/admin/requestview.html:36
@@ -2440,7 +2440,7 @@ msgstr "Alla valda"
 #: templates/pyha/official/requestview.html:13
 #: templates/pyha/skipofficial/requestview.html:13
 msgid "state_of_request"
-msgstr "Status"
+msgstr "Status av begäran:"
 
 #: templates/pyha/official/requestview.html:41
 #: templates/pyha/skipofficial/requestview.html:41
