@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-17 08:33+0200\n"
+"POT-Creation-Date: 2019-02-08 10:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr "Okänd"
 
 #: templates/pyha/base/admin/index.html:85
 #: templates/pyha/base/handler/index.html:94 templates/pyha/base/index.html:19
-#: templates/pyha/base/index.html.py:48 templates/pyha/base/index.html:87
+#: templates/pyha/base/index.html:48 templates/pyha/base/index.html:87
 #: templates/pyha/official/admin/requestview.html:189
 #: templates/pyha/official/ajax/requestformcustom.html:4
 #: templates/pyha/official/ajax/requestformsummary.html:7
@@ -474,15 +474,15 @@ msgstr "Begäran"
 msgid "admin_site"
 msgstr "Admin site"
 
-#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:78
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html:78
 msgid "admin"
 msgstr "Roll: Admin"
 
-#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:77
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html:77
 msgid "handler"
 msgstr "Roll: behandlare"
 
-#: templates/pyha/base/base.html:74 templates/pyha/base/base.html.py:76
+#: templates/pyha/base/base.html:74 templates/pyha/base/base.html:76
 #: templates/pyha/official/admin/requestview.html:674
 #: templates/pyha/official/handler/requestview.html:677
 #: templates/pyha/official/requestview.html:625
