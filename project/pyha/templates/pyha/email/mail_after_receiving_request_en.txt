@@ -1,4 +1,5 @@
-﻿You have made a request to download secure FinBIF data on {{ time }}.
-You are required to agree to the terms of use.
+﻿You have made an application to download secure FinBIF data on {{ time }}.
 
-Address to your request: {{ req_link }}?lang=en
+Please, follow the link below to complete your application.
+
+Address to the application: {{ req_link }}?lang=en

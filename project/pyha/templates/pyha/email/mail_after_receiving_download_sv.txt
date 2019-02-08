@@ -1,3 +1,5 @@
-﻿På svenska: Aineisto on valmiina ladattavaksi.
+﻿Du har gjort en ansökan om att ladda ner säkra FinBIF-data på {{ time }}.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=sv
+Vänligen följ länken nedan för att slutföra din ansökan.
+
+Adress till ansökan: {{ req_link }}?lang=sv
