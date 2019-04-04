@@ -178,8 +178,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'pyha_cache_table',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'TIMEOUT': 86400
     },
     'collections': {
