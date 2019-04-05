@@ -1,5 +1,4 @@
 ﻿import json
-import time
 from argparse import Namespace
 from datetime import timedelta, datetime
 from itertools import chain
