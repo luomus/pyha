@@ -4,6 +4,6 @@ from django.utils import translation
 
 class ForceDefaultLanguageMiddleware(MiddlewareMixin):
 
-	def process_request(self, request):
-		if 'HTTP_ACCEPT_LANGUAGE' in request.META:
-			del request.META['HTTP_ACCEPT_LANGUAGE']
+	def process_request(self, http_request):
+		if 'HTTP_ACCEPT_LANGUAGE' in http_request.META:
+			del http_request.META['HTTP_ACCEPT_LANGUAGE']
