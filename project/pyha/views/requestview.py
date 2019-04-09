@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection
+from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated
 from pyha.email import send_mail_after_additional_information_requested
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin
@@ -21,6 +21,8 @@ def show_request(http_request):
         return HttpResponseRedirect(http_request.get_full_path())
     #Has Access
     requestId = os.path.basename(os.path.normpath(http_request.path))
+    if handlers_cannot_be_updated():
+        return HttpResponse(status=503)
     if not logged_in(http_request):
         return _process_auth_response(http_request, "request/"+requestId)
     if not is_allowed_to_view(http_request, requestId):

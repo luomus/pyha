@@ -79,7 +79,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-waiting{% if userRequest.sensStatus == 4 and collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
@@ -239,7 +239,7 @@
 									<tr>
 									{% endif %}
 									
-									<td>{{collection.result.collectionName}}</td>
+									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 									<td>{{collection.result.description}}</td>
 									<td>{{collection.customSecured}}</td>

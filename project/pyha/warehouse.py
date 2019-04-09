@@ -8,6 +8,7 @@ from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
 from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.log_utils import changed_by
+from pyha.utilities import Container
 import json
 import os
 import requests
@@ -104,7 +105,11 @@ def fetch_user_name(personId):
     password = settings.LAJIPERSONAPI_PW 
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('name'+cacheKeyPersonId, 'has expired'):
-        response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+        try:
+            response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+        except:
+            response = Container()
+            response.status_code = 500
         if(response.status_code == 200):
             data = response.json()
             name = data['rdf:RDF']['MA.person']['MA.fullName']
@@ -150,7 +155,11 @@ def fetch_email_address(personId):
     password = settings.LAJIPERSONAPI_PW 
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('email'+cacheKeyPersonId, 'has expired'):
-        response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+        try:
+            response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+        except:
+            response = Container()
+            response.status_code = 500
         if(response.status_code == 200):
             data = response.json()
             email = data['rdf:RDF']['MA.person']['MA.emailAddress']
@@ -224,7 +233,7 @@ def update_collections():
 def get_download_handlers_where_collection(collectionId):
     result = {}
     collections = caches['collections'].get('collections')
-    for    co in collections:
+    for co in collections:
         if co['id'] == collectionId:
             result = co.get('downloadRequestHandler', {})
             break
@@ -233,17 +242,41 @@ def get_download_handlers_where_collection(collectionId):
 def get_collections_where_download_handler(userId):
     resultlist = []
     collections = caches['collections'].get('collections')
-    for    co in collections:
-            if userId in co.get('downloadRequestHandler', {}):
-                resultlist.append(co['id'])
+    for co in collections:
+        if userId in co.get('downloadRequestHandler', {}):
+            resultlist.append(co['id'])
     return resultlist
+
+def get_download_handlers_with_collections_listed_for_collections(collectionsList):
+    resultlist = []
+    collections = caches['collections'].get('collections')
+    collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
+    repeatedhandlers = [co.get('downloadRequestHandler', ['None']) for co in collections]
+    handlers = set(chain(*repeatedhandlers))
+    handlerswithcollections = []
+    for ha in handlers:
+        handlerswithcollections.append({"handlernames": [ha], "collections":[co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
+    #Groups handlers with identical collections    
+    while(True):
+        grouped = False
+        for i in range(0, len(handlerswithcollections)):
+            for j in range(i+1, len(handlerswithcollections)):
+                if handlerswithcollections[i]['collections'] == handlerswithcollections[j]['collections']:
+                    handlerswithcollections[i]["handlernames"] = handlerswithcollections[i]["handlernames"] + (handlerswithcollections[j]["handlernames"])
+                    handlerswithcollections.remove(handlerswithcollections[j])
+                    grouped = True
+                    break
+            if grouped: break
+        if not grouped: break
+    return handlerswithcollections
+
 
 def is_download_handler(userId):
     return len(get_collections_where_download_handler(userId)) > 0
 
 def is_download_handler_in_collection(userId, collectionId):
     collections = caches['collections'].get('collections')
-    for    co in collections:
+    for co in collections:
         if co['id'] == collectionId:
             if userId in co.get('downloadRequestHandler', {}):
                 return True
@@ -263,7 +296,11 @@ def show_filters(http_request, userRequest):
     filterResultList = list(range(len(vars(filterList).keys())))
     lang = http_request.LANGUAGE_CODE
     if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):
-        filters = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
+        try:
+            filters = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
+        except:
+            filters = Container()
+            filters.status_code = 500
         if(filters.status_code == 200):
             filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
             for i, b in enumerate(vars(filterList).keys()):

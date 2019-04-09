@@ -719,7 +719,11 @@
 		$('#reason_selector').multiselect({
 		nonSelectedText: '{% trans "request_choose_reason" %}',
 		nSelectedText: '{% trans "request_chosen_multiple_reasons" %}',
-		allSelectedText: '{% trans "request_chosen_all_reasons" %}'
+		allSelectedText: '{% trans "request_chosen_all_reasons" %}',
+        onChange: function(option, checked, select) {
+        	this.$button.click();
+        }
+			
 		});
 	});
 	</script>

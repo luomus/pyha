@@ -64,7 +64,8 @@ def index(http_request):
 				r.viewed = True
 			
 		context = {"role": hasRoleHeader, "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		return render(http_request, 'pyha/base/handler/index.html', context)
+		rend = render(http_request, 'pyha/base/handler/index.html', context)
+		return rend
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
 		for r in request_list:

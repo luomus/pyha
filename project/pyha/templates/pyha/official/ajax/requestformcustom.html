@@ -1,4 +1,4 @@
-﻿										{% load i18n %}
+										{% load i18n %}
 												{% if customlist %}
 												<h3>{% trans "secured_collections_in_request" %}</h3>
 												<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -13,7 +13,7 @@
 													</tr>
 													{% for collection in customlist %}
 													<tr>
-														<td>{{collection.result.collectionName}}
+														<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 														<td>{{collection.result.description}}</td>
 														<td>{{collection.customSecured}}</td>
 														<td>
@@ -24,7 +24,7 @@
 															</div>
 														</td>
 														<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ collection.id }}">{% trans "terms" %}</button></td>
-														<td><span id ="statustext{{ collection.id }}">{% trans "you_have_not_accepted_terms" %}</span></td> 
+														<td><span id ="statustext{{ collection.id }}">{% trans "you_have_not_accepted_terms" %}</span></td>�
 														
 														
 													</tr>

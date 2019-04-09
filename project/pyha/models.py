@@ -237,6 +237,26 @@ class ContactPreset(models.Model):
 	
 	def __str__(self):
 		return 'ContactPreset: %s' %(self.user)
+	
+
+@python_2_unicode_compatible
+class AdminUserSettings(models.Model):
+	ALL = 'ALL'
+	MISSING = 'MISSING'
+	NONE = 'NONE'
+	EMAIL_NEW_REQUESTS_SETTING = (
+		(ALL, 'all requests'),
+		(MISSING, 'requests missing handlers'),
+		(NONE, 'none requests'),
+	)
+	
+	user = models.CharField(primary_key=True, max_length=100)
+	emailNewRequests = models.CharField(max_length=5, choices=EMAIL_NEW_REQUESTS_SETTING)
+	enableCustomEmailAddress = models.BooleanField()
+	customEmailAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	
+	def __str__(self):
+		return 'AdminSettings: %s ' %(self.user)
 
 def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)

@@ -67,7 +67,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-waiting{% if collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
@@ -224,7 +224,7 @@
 									{% else %}  
 									<tr>	
 									{% endif %}
-									<td>{{collection.result.collectionName}}</td>
+									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
 									<td>{{collection.result.description}}</td>
 									<td>{{collection.allSecured}}</td>
@@ -272,7 +272,7 @@
 									{% else %}  
 									<tr>
 									{% endif %}
-									<td>{{collection.result.collectionName}}</td>
+									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}

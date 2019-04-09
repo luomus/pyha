@@ -87,7 +87,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
@@ -166,6 +166,13 @@
 							</span>
 						</a>
 					</li>
+					<li id="handler_communications-tab" role="presentation" {% if next == "communications" %} class="active" {% endif %} >
+						<a href="#handler_communications" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="handler_communications" role="tab" {% if next == "communications" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'col_handler_communications_window' %}
+							</span>
+						</a>
+					</li>
 				</ul>
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
@@ -200,7 +207,7 @@
 								{% else %}  
 								<tr>	
 								{% endif %}
-								<td>{{collection.result.collectionName}}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.allSecured}}</td>
@@ -432,7 +439,7 @@
 								{% else %}  
 								<tr>
 								{% endif %}
-									<td>{{collection.result.collectionName}}</td>
+									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									<td>{{collection.result.description}}</td>
 									
 									{% if collection.status == 1 %}
@@ -596,6 +603,27 @@
 								</tr>
 							{% endfor %}
 						</table>
+						{% else %}
+						<strong>{% trans "log_no_history" %}.</strong>
+						{% endif %}
+					</div>
+					
+					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
+						{% if handler_groups %}
+						<h3>{% trans "col_handler_communications_window" %}</h3>
+						<table class="table" style="width:100%">
+								<tr>
+									<th>{% trans "admin_communications_collections" %}</th>
+									<th>{% trans "admin_communications_handlers" %}</th>
+									<th>{% trans "admin_communications_state" %}</th>
+									<th>{% trans "admin_communications_email" %}</th>
+								</tr>
+						</table>
+							{% for group in handler_groups %}
+								<p>{% for name in group.handlernames %}{{ name }} {% endfor %}
+								</p>
+								
+							{% endfor %}
 						{% else %}
 						<strong>{% trans "log_no_history" %}.</strong>
 						{% endif %}

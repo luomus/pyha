@@ -12,7 +12,7 @@ from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandl
 	Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections
 from pyha.log_utils import changed_by_session_user, changed_by
 
 def remove_sensitive_data(http_request):
@@ -425,11 +425,13 @@ def create_request_view_context(requestId, http_request, userRequest):
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
+	context["tun_link"] = settings.TUN_URL
 	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else "pyha/official/terms/sensitivity-"+lang+".html"
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
 	if role2: context["handles"] = get_collections_where_download_handler(userId)
-	if userRequest.status > 0:
+	if hasRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(collectionList)
+	if userRequest.status > StatusEnum.APPROVETERMS_WAIT:
 		context["next"] = http_request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)
 		context["reasonlist"] = get_reasons(userRequest)
@@ -440,10 +442,10 @@ def create_request_view_context(requestId, http_request, userRequest):
 		context["endable"] = isEndable
 		context["user"] = userId
 		handler_req_waiting_for_me_status(userRequest, http_request, userId)
-	if userRequest.status == 8:
+	if userRequest.status == StatusEnum.DOWNLOADABLE:
 		context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+http_request.session["token"]
 		context["downloadable"] = is_downloadable(http_request, userRequest)
-	if userRequest.status == 0 and Request.objects.filter(user=userId,status__gte=1).count() > 0:
+	if userRequest.status == StatusEnum.APPROVETERMS_WAIT and Request.objects.filter(user=userId,status__gte=1).count() > 0:
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
 		context["requestSensitiveChat_list"] = requestSensitiveChat(userRequest)

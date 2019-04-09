@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.conf import settings
-from pyha.views import api, index, requestform, requestview, logout, ajax
+from pyha.views import api, index, requestform, requestview, logout, ajax, usersettings
 
 app_name = 'pyha'
 urlpatterns = [
@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^index/?$', index.pyha, name='index'),
     url(r'^login/?$', index.index, name='login'),
     url(r'^logout/?$', logout.logout, name='logout'),
+    url(r'^settings/?$', usersettings.usersettings, name='usersettings'),
     url(r'^ajax/getTaxon/?$', ajax.get_taxon_ajax, name='get_taxon_ajax'),
     url(r'^ajax/getCustom/?$', ajax.get_custom_ajax, name='get_custom_ajax'),
     url(r'^ajax/getCollection/?$', ajax.get_collection_ajax, name='get_collection_ajax'),
