@@ -1,4 +1,4 @@
-﻿import json
+import json
 from argparse import Namespace
 from datetime import timedelta, datetime
 from itertools import chain
@@ -6,7 +6,8 @@ from django.core.cache import caches
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester
+from django.template.loader import get_template
+from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum,\
 	Col_StatusEnum
@@ -14,6 +15,7 @@ from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HAND
 from pyha.utilities import filterlink
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections
 from pyha.log_utils import changed_by_session_user, changed_by
+
 
 def remove_sensitive_data(http_request):
 	if http_request.method == 'POST':
@@ -409,28 +411,37 @@ def create_request_view_context(requestId, http_request, userRequest):
 	role1 = CAT_HANDLER_SENS in http_request.session.get("user_roles", [None])
 	role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
 	role3 = CAT_ADMIN in http_request.session.get("user_roles", [None])
+	hasServiceRole = role1 or role2 or role3
 	lang = http_request.LANGUAGE_CODE
 	create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId, role1, role2)
 	taxon = False
 	allSecured = 0
+	allQuarantined = 0
 	for collection in collectionList:
 		collection.allSecured = collection.customSecured + collection.taxonSecured
 		allSecured += collection.allSecured
+		allQuarantined += collection.quarantineSecured
 		if(collection.taxonSecured > 0):
 			taxon = True
-	hasRole = role1 or role2 or role3
 	request_owner = fetch_user_name(userRequest.user)
 	request_owners_email = fetch_email_address(userRequest.user)
-	context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasRole, "role1": role1, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(http_request, requestId), "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+	context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasServiceRole, "role1": role1, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(http_request, requestId), "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
 	context["tun_link"] = settings.TUN_URL
+	context["has_quarantine"] = allQuarantined > 0
 	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else "pyha/official/terms/sensitivity-"+lang+".html"
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
 	if role2: context["handles"] = get_collections_where_download_handler(userId)
-	if hasRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(collectionList)
+	if role3: 
+		emails = {}
+		for (lang, name) in settings.LANGUAGES:
+			emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
+		context["com_email_templates"] = emails
+		context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, lang)
+	if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(collectionList)
 	if userRequest.status > StatusEnum.APPROVETERMS_WAIT:
 		context["next"] = http_request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)

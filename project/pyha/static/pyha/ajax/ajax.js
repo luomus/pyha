@@ -213,6 +213,7 @@
 	return function() { for(var e in fillfield){
 							fillfield[e].textContent = namefield.value;
 						}
+						argumentsFilled();
 						}
 	}
 

@@ -147,6 +147,32 @@ def send_mail_for_approval(requestId, collection, lang):
 				recipients.append(email)
 	text_content = plaintext.render(context)
 	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
+	
+def get_template_of_mail_for_approval(requestId, lang):
+	'''
+	Sends mail to collection download request handler(s) for request approval.
+	Also saves their ids to database.
+	:param requestId: request identifier 
+	:param collection: collection address
+	:param lang: language code
+	'''	
+	req = Request.objects.get(id = requestId)
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
+	if(lang == 'fi'):
+		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+		plaintext = get_template('pyha/email/mail_for_approval_fi.txt')
+	elif(lang == 'en'):
+		subject = u"Download request from FinBIF waits for approval decision"
+		plaintext = get_template('pyha/email/mail_for_approval_en.txt')
+	else:
+		subject = u"På svenska: Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+		plaintext = get_template('pyha/email/mail_for_approval_sv.txt')
+	from_email = settings.ICT_EMAIL
+	text_content = plaintext.render(context)
+	template = {'header':subject, 'content': text_content, 'sender': from_email}
+	return template
 
 	
 def send_mail_for_approval_sens(requestId, lang):

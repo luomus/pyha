@@ -56,6 +56,7 @@ def makeCollection(req, i):
     co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler',['none']))
     co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
     co.customSecured = getattr(i, 'customReasonCount', 0)
+    co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
     co.changedBy = changed_by("pyha")
     co.save()
 
@@ -255,14 +256,23 @@ def get_download_handlers_with_collections_listed_for_collections(collectionsLis
     handlers = set(chain(*repeatedhandlers))
     handlerswithcollections = []
     for ha in handlers:
-        handlerswithcollections.append({"handlernames": [ha], "collections":[co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
+        handlerswithcollections.append({"handlers": [{"name":ha,"id":ha,"email":'undefined'}], "collections":[co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
+    noneindex = -1
+    for index, hanco in enumerate(handlerswithcollections):
+        if(hanco["handlers"][0]["id"] != 'None'):
+            hanco["handlers"][0]["name"] = fetch_user_name(hanco["handlers"][0]["id"])
+            hanco["handlers"][0]["email"] = fetch_email_address(hanco["handlers"][0]["id"])
+        else:
+            noneindex = index
+    if noneindex > -1:
+        handlerswithcollections.insert(0, handlerswithcollections.pop(noneindex))
     #Groups handlers with identical collections    
     while(True):
         grouped = False
         for i in range(0, len(handlerswithcollections)):
             for j in range(i+1, len(handlerswithcollections)):
                 if handlerswithcollections[i]['collections'] == handlerswithcollections[j]['collections']:
-                    handlerswithcollections[i]["handlernames"] = handlerswithcollections[i]["handlernames"] + (handlerswithcollections[j]["handlernames"])
+                    handlerswithcollections[i]["handlers"] = handlerswithcollections[i]["handlers"] + (handlerswithcollections[j]["handlers"])
                     handlerswithcollections.remove(handlerswithcollections[j])
                     grouped = True
                     break

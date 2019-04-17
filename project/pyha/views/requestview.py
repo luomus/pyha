@@ -150,6 +150,22 @@ def freeze(http_request):
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
 
+def send_invite_handler_email(http_request):
+    if http_request.method == 'POST':
+        nexturl = http_request.POST.get('next', '/')
+        requestId = http_request.POST.get('requestid')
+        if not logged_in(http_request):
+            return _process_auth_response(http_request, "pyha")
+        if not is_admin(http_request):
+            return HttpResponse(status=404)
+        userRequest = Request.objects.get(id = requestId)
+        if userRequest.frozen: userRequest.frozen = False
+        else: userRequest.frozen = True
+        userRequest.changedBy = changed_by_session_user(http_request)
+        userRequest.save()
+        return HttpResponseRedirect(nexturl)
+    return HttpResponse(status=404)
+
 def answer(http_request):
     nexturl = http_request.POST.get('next', '/')
     if http_request.method == 'POST':

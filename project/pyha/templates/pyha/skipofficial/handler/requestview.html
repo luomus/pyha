@@ -171,6 +171,9 @@
 									<th></th>
 									<th>{% trans "handler_collection_description" %}</th>
 									<th>{% trans "handler_secured_by_data_provider" %}</th>
+									{% if has_quarantine %}
+										<th>{% trans "handler_secured_by_quarantine" %}</th>
+									{% endif %}
 									<th>{% trans "handler_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -195,7 +198,9 @@
 								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.allSecured}}</td>
-								
+								{% if has_quarantine %}
+									<td>{{collection.quarantineSecured}}</td>
+								{% endif %}
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
 									<td>{% trans "handler_waiting_for_you" %}</td>
@@ -271,6 +276,9 @@
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_research' %}
 							<tr style=color:black><th>{% trans "handler_argument_research" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_research_address' %}
+							<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_goals' %}
 							<tr style=color:black><th>{% trans "handler_argument_goals" %}</th></tr>

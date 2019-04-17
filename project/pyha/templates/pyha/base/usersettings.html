@@ -31,6 +31,7 @@
 				<div class="form-group col-sm-4">
 				    <label class="sr-only" for="InputEmail">Email address</label>
 				    <input type="email" class="form-control " id="exampleInputEmail3" placeholder="Email" disabled>
+				    <button style="margin-top:10px;" type="submit" id="submit" name="save" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_save" %}</button>
 				</div>
 		   	</div>
 	   		<h3>{% trans "admin_pyha_settings" %}</h3>

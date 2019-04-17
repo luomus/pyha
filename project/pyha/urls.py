@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^information/?$', requestview.information, name='information'),
     url(r'^commentSensitive/?$', requestview.comment_sensitive, name='comment_sensitive'),    
     url(r'^commentHandler/?$', requestview.comment_handler, name='comment_handler'),    
+    url(r'^inviteHandler/?$', requestview.send_invite_handler_email, name='send_invite_handler_email'),    
     url(r'^initializeDownload/?$', requestview.initialize_download, name='initializeDownload'),
     url(r'^newpdf/?$', api.new_pdf, name='newpdf'),
     url(r'^api/request/?$', api.receiver, name='receiver'),

@@ -24,6 +24,7 @@ class TruncatingReasonJsonCharField(models.CharField):
 	def get_prep_value(self, value):
 		max_lengths = [("argument_project", 500),
 		("argument_research", 500),
+		("argument_research_address", 500),
 		("argument_goals", 2000),
 		("argument_planning", 2000),
 		("argument_municipality", 2000),
@@ -62,6 +63,7 @@ class Collection(models.Model):
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0)
 	customSecured = models.IntegerField(default=0)
+	quarantineSecured = models.IntegerField(default=0)
 	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
 	decisionExplanation = TruncatingCharField(max_length=1000,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
@@ -69,6 +71,16 @@ class Collection(models.Model):
 
 	def __str__(self):
 		return 'Collection: %s (in Request: %d)' %(self.address, self.request.id)
+	
+@python_2_unicode_compatible
+class HandlerInRequest(models.Model): #Used currently for the admin email gatekeeper, on who has been emailed per request 
+	address = models.CharField(max_length=500)
+	request = models.ForeignKey('Request', on_delete=models.CASCADE)
+	emailed = models.BooleanField(default=False)
+	history = HistoricalRecords()
+
+	def __str__(self):
+		return 'Handler: %s (in Request: %d)' %(self.address, self.request.id)
 	
 
 @python_2_unicode_compatible
@@ -254,6 +266,7 @@ class AdminUserSettings(models.Model):
 	emailNewRequests = models.CharField(max_length=5, choices=EMAIL_NEW_REQUESTS_SETTING)
 	enableCustomEmailAddress = models.BooleanField()
 	customEmailAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	history = HistoricalRecords()
 	
 	def __str__(self):
 		return 'AdminSettings: %s ' %(self.user)

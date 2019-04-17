@@ -169,7 +169,7 @@
 					<li id="handler_communications-tab" role="presentation" {% if next == "communications" %} class="active" {% endif %} >
 						<a href="#handler_communications" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="handler_communications" role="tab" {% if next == "communications" %} aria-expanded="true" {% endif %}>
 							<span>
-								{% trans 'col_handler_communications_window' %}
+								{% trans 'admin_communications_window' %}
 							</span>
 						</a>
 					</li>
@@ -187,6 +187,9 @@
 									<th></th>
 									<th>{% trans "admin_collection_description" %}</th>
 									<th>{% trans "admin_secured_by_data_provider" %}</th>
+									{% if has_quarantine %}
+										<th>{% trans "admin_secured_by_quarantine" %}</th>
+									{% endif %}
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -211,7 +214,9 @@
 								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.allSecured}}</td>
-								
+								{% if has_quarantine %}
+									<td>{{collection.quarantineSecured}}</td>
+								{% endif %}
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
 									<td>{% trans "admin_waiting_for_you" %}</td>
@@ -287,6 +292,9 @@
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_research' %}
 							<tr style=color:black><th>{% trans "admin_argument_research" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_research_address' %}
+							<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_goals' %}
 							<tr style=color:black><th>{% trans "admin_argument_goals" %}</th></tr>
@@ -610,22 +618,148 @@
 					
 					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
 						{% if handler_groups %}
-						<h3>{% trans "col_handler_communications_window" %}</h3>
-						<table class="table" style="width:100%">
+						<h3 id="communications_header">{% trans "admin_communications_window" %}</h3>
+						<form action="{% url 'pyha:send_invite_handler_email' %}" id="requestform" method="post">
+							<table id="communications_table" class="table" style="width:100%;">
 								<tr>
 									<th>{% trans "admin_communications_collections" %}</th>
-									<th>{% trans "admin_communications_handlers" %}</th>
+									<th style="text-align:right;">{% trans "admin_communications_handlers" %}</th>
 									<th>{% trans "admin_communications_state" %}</th>
+									<th>{% trans "admin_send_email" %}</th>
 									<th>{% trans "admin_communications_email" %}</th>
 								</tr>
-						</table>
-							{% for group in handler_groups %}
-								<p>{% for name in group.handlernames %}{{ name }} {% endfor %}
-								</p>
-								
-							{% endfor %}
+								{% for group in handler_groups %}
+									{% if group.handlers.0.id == 'None' %}
+										<tr>
+											<td colspan=2 style="vertical-align: middle;">
+												<table class="collection-group-error" style="width:100%">
+													<tr>
+														<td style="border-bottom:0; width:100%">
+														{% for collection in group.collections %} 
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% endfor %}
+														</td>
+														<td style="border-bottom:0;">
+														{% for handler in group.handlers %}
+															<p style="white-space: nowrap;">{% trans 'admin_name_is_none' %}</p>
+														{% endfor %}
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												<p style="margin-bottom: 16px; color:red;">{% trans "admin_collections_missing_handler" %}</p>
+											</td>
+											<td></td>
+											{% if forloop.first %}
+											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
+													<div class="form-group">
+														<input type="hidden" id="requestid" name="requestid" value=0>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+														<table style="width:100%;">
+														<tr>
+															<td style="border:0px;">{% trans "email_sender" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_sender" name="com_email_sender" value="{{ com_email_template.sender }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_header" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_lang" %}</td>
+															<td style="width:100%; border:0px;">
+																<select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
+																	{% for code in com_email_templates %}
+																		<option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
+														            {% endfor %}
+														            	<option value="all">{% trans "admin_email_lang_all" %}</option>
+																</select>
+																{% for code, values in com_email_templates.items %}
+																<p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
+																<p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
+																{% endfor %}
+															</td>
+														</tr>
+														</table>
+														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
+														<button type="submit" id="submit" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+													</div>
+											</td>
+											{% endif %}
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan=2 style="vertical-align: middle;">
+												<table class="collection-group" style="width:100%">
+													<tr>
+														<td style="border-bottom:0; width:100%">
+														{% for collection in group.collections %} 
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% endfor %}
+														</td>
+														<td style="border-bottom:0;">
+														{% for handler in group.handlers %}
+															<p style="white-space: nowrap; text-align:right;">[{{ handler.id }}] {{ handler.name }} ({{ handler.email }})</p>
+														{% endfor %}
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												{% for handler in group.handlers %}
+													<p style="margin-bottom: 10px;">{% trans "not_emailed" %}</p>
+												{% endfor %}
+													<div style="margin-bottom: 16px;"></div>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												{% for handler in group.handlers %}
+													<p style="white-space: nowrap;"><input type="checkbox" name="email_{{ handler.id }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
+												{% endfor %}
+													<div style="margin-bottom: 16px;"></div>
+											</td>
+											{% if forloop.first %}
+											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
+													<div class="form-group">
+														<input type="hidden" id="requestid" name="requestid" value=0>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+														<table style="width:100%;">
+														<tr>
+															<td style="border:0px;">{% trans "email_sender" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_sender" name="com_email_sender" value="{{ com_email_template.sender }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_header" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_lang" %}</td>
+															<td style="width:100%; border:0px;">
+																<select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
+																	{% for code in com_email_templates %}
+																		<option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
+														            {% endfor %}
+														            	<option value="all">{% trans "admin_email_lang_all" %}</option>
+																</select>
+																{% for code, values in com_email_templates.items %}
+																<p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
+																<p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
+																{% endfor %}
+															</td>
+														</tr>
+														</table>
+														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
+														<button type="submit" id="submit" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+													</div>
+											</td>
+											{% endif %}
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</table>
+							{% csrf_token %}
+						</form>
 						{% else %}
-						<strong>{% trans "log_no_history" %}.</strong>
+						<strong>{% trans "no_communications" %}</strong>
 						{% endif %}
 					</div>
 			</div>
@@ -663,6 +797,28 @@
 			}
 		}
 	</script>
+	<script>
+		function refreshCommunicationsEmailByLang() {
+			var x = document.getElementById('admin_com_email_lang');
+			var strLang = x.options[x.selectedIndex].value;
+			
+			if (strLang == 'all'){
+				document.getElementById('com_email_header').value = document.getElementById('com_email_header_fi').innerHTML;
+				document.getElementById('com_email_content').value = '{%trans "in_other_languages_below"%}\n\n\n\n';
+				{% for lang in languages %}
+				document.getElementById('com_email_content').value += document.getElementById('com_email_content_{{ lang.code }}').innerHTML;
+				document.getElementById('com_email_content').value += '\n\n------------------------------------';
+					{% if not forloop.last %}
+						document.getElementById('com_email_content').value += '\n\n\n';
+					{% endif %}
+				{% endfor %}
+			} else {
+				document.getElementById('com_email_header').value = document.getElementById('com_email_header_'+strLang).innerHTML;
+				document.getElementById('com_email_content').value = document.getElementById('com_email_content_'+strLang).innerHTML;
+			}
+			
+		}
+	</script>
 	{% if next == 'information' %}
 	<script>
 		$(document).ready(function(){
@@ -671,6 +827,18 @@
 		});
 	</script>
 	{% endif %}
+	{% if next == 'communications' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('handler_communications-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	<script>
+		$(document).ready(function(){
+			refreshCommunicationsEmailByLang();
+		});
+	</script>
 {% endblock %}
 
 {% block modal %}

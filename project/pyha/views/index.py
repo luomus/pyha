@@ -33,7 +33,7 @@ def index(http_request):
 		http_request.session["toast"] = None
 		http_request.session.save()
 	if ADMIN in http_request.session.get("current_user_role", [None]):
-		request_list = Request.objects.filter(status__gt=0)
+		request_list = Request.objects.filter(status__gt=0).order_by('-date')
 		get_mul_all_secured(request_list)
 		for r in request_list:
 			if(r.status == StatusEnum.DOWNLOADABLE):
