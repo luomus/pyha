@@ -155,63 +155,45 @@ msgid "admin_no_requests_for_admin"
 msgstr "Ei aineistopyyntöjä"
 
 #: templates/pyha/base/admin/usersettings.html:9
-#, fuzzy
-#| msgid "admin_log_handler"
 msgid "admin_settings_header"
-msgstr "Käsittelijä"
+msgstr "Asetukset"
 
 #: templates/pyha/base/admin/usersettings.html:11
-#, fuzzy
-#| msgid "admin_question"
 msgid "admin_user_settings"
-msgstr "Administraattori"
+msgstr "Käyttäjäasetukset"
 
 #: templates/pyha/base/admin/usersettings.html:14
-#, fuzzy
-#| msgid "admin_all_requests"
 msgid "admin_send_me_email_for_new_requests"
-msgstr "Aineistopyynnöt"
+msgstr "Lähetä sähköpostia pyynnöistä"
 
 #: templates/pyha/base/admin/usersettings.html:18
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_email_for_none"
-msgstr "Sähköposti"
+msgstr "ei mistään"
 
 #: templates/pyha/base/admin/usersettings.html:19
-#, fuzzy
-#| msgid "admin_log_handler"
 msgid "admin_email_for_missing_handlers"
-msgstr "Käsittelijä"
+msgstr "puuttuu käsittelijöitä"
 
 #: templates/pyha/base/admin/usersettings.html:20
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_email_for_all"
-msgstr "Sähköposti"
+msgstr "kaikista"
 
 #: templates/pyha/base/admin/usersettings.html:27
-#, fuzzy
-#| msgid "admin_street_address"
 msgid "admin_use_custom_email_address"
-msgstr "Katuosoite"
+msgstr "Käytä vaihtoehtoista sähköpostiosoitetta"
 
 #: templates/pyha/base/admin/usersettings.html:35
 #: templates/pyha/official/admin/requestview.html:650
 msgid "admin_save"
-msgstr "tallenna"
+msgstr "Tallenna"
 
 #: templates/pyha/base/admin/usersettings.html:38
-#, fuzzy
-#| msgid "admin_waiting"
 msgid "admin_pyha_settings"
-msgstr "Odottaa päätöstä"
+msgstr "Pyha asetukset"
 
 #: templates/pyha/base/admin/usersettings.html:39
-#, fuzzy
-#| msgid "admin_ready_for_download"
 msgid "admin_empty_for_now"
-msgstr "Valmiina ladattavaksi"
+msgstr "Väliaikaisesti tyhjä"
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
@@ -531,10 +513,8 @@ msgid "admin_site"
 msgstr "Admin sivu"
 
 #: templates/pyha/base/base.html:65
-#, fuzzy
-#| msgid "admin_waiting"
 msgid "admin_settings"
-msgstr "Odottaa päätöstä"
+msgstr "Asetukset"
 
 #: templates/pyha/base/base.html:77 templates/pyha/base/base.html.py:81
 msgid "admin"
@@ -979,10 +959,8 @@ msgstr "Viranomaisten kommentit"
 #: templates/pyha/official/admin/requestview.html:736
 #: templates/pyha/skipofficial/admin/requestview.html:172
 #: templates/pyha/skipofficial/admin/requestview.html:623
-#, fuzzy
-#| msgid "admin_comments_window"
 msgid "admin_communications_window"
-msgstr "Viranomaisten kommentit"
+msgstr "Viestintä"
 
 #: templates/pyha/official/admin/requestview.html:191
 #: templates/pyha/skipofficial/admin/requestview.html:179
@@ -1026,10 +1004,8 @@ msgstr "Yhteensä"
 
 #: templates/pyha/official/admin/requestview.html:205
 #: templates/pyha/skipofficial/admin/requestview.html:191
-#, fuzzy
-#| msgid "admin_secured_by_data_provider"
 msgid "admin_secured_by_quarantine"
-msgstr "Käyttörajoitetut havainnot"
+msgstr "admin_secured_by_quarantine"
 
 #: templates/pyha/official/admin/requestview.html:207
 #: templates/pyha/official/admin/requestview.html:489
@@ -1152,10 +1128,8 @@ msgstr "Tutkimuksen nimi"
 #: templates/pyha/skipofficial/requestform.html:304
 #: templates/pyha/skipofficial/requestform.html:364
 #: templates/pyha/skipofficial/requestview.html:352
-#, fuzzy
-#| msgid "argument_research"
 msgid "argument_research_address"
-msgstr "Tutkimuksen nimi"
+msgstr "Tutkimusorganisaatio ja tutkimusryhmä (jos on) ja yhteyshenkilön yhteystiedot"
 
 #: templates/pyha/official/admin/requestview.html:316
 #: templates/pyha/skipofficial/admin/requestview.html:300
@@ -1180,7 +1154,7 @@ msgstr "Natura-alueet"
 #: templates/pyha/official/admin/requestview.html:328
 #: templates/pyha/skipofficial/admin/requestview.html:312
 msgid "admin_argument_reason"
-msgstr "Vapaatekstikenttä"
+msgstr "Lisätietoa"
 
 #: templates/pyha/official/admin/requestview.html:335
 #: templates/pyha/official/admin/requestview.html:340
@@ -1537,124 +1511,98 @@ msgstr "Muutoshistoria on tyhjä"
 
 #: templates/pyha/official/admin/requestview.html:738
 #: templates/pyha/skipofficial/admin/requestview.html:625
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_refresh_collections_cache"
-msgstr "Aineisto"
+msgstr "Päivitä kokoelmat"
 
 #: templates/pyha/official/admin/requestview.html:745
 #: templates/pyha/skipofficial/admin/requestview.html:632
-#, fuzzy
-#| msgid "admin_list_of_collections"
 msgid "admin_communications_collections"
-msgstr "Tee päätös sensitiivisen lajitiedon luovutuksesta"
+msgstr "Kokoelmat ryhmittäin"
 
 #: templates/pyha/official/admin/requestview.html:746
 #: templates/pyha/skipofficial/admin/requestview.html:633
-#, fuzzy
-#| msgid "admin_log_handler"
 msgid "admin_communications_handlers"
-msgstr "Käsittelijä"
+msgstr "Käsittelijät"
 
 #: templates/pyha/official/admin/requestview.html:747
 #: templates/pyha/skipofficial/admin/requestview.html:634
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_communications_state"
-msgstr "Aineisto"
+msgstr "Tila"
 
 #: templates/pyha/official/admin/requestview.html:748
 #: templates/pyha/skipofficial/admin/requestview.html:635
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_send_email"
-msgstr "Sähköposti"
+msgstr "Lähetä"
 
 #: templates/pyha/official/admin/requestview.html:749
 #: templates/pyha/skipofficial/admin/requestview.html:636
-#, fuzzy
-#| msgid "admin_corporation_id"
 msgid "admin_communications_email"
-msgstr "Y-tunnus"
+msgstr "Sähköposti"
 
 #: templates/pyha/official/admin/requestview.html:764
 #: templates/pyha/skipofficial/admin/requestview.html:651
-#, fuzzy
-#| msgid "admin_argument_window"
 msgid "admin_name_is_none"
-msgstr "Aineistopyynnön perustelut"
+msgstr "tyhjä"
 
 #: templates/pyha/official/admin/requestview.html:771
 #: templates/pyha/skipofficial/admin/requestview.html:658
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_collections_missing_handler"
-msgstr "Aineisto"
+msgstr "Aineistoista puuttuu käsittelijöitä"
 
 #: templates/pyha/official/admin/requestview.html:781
 #: templates/pyha/official/admin/requestview.html:851
 #: templates/pyha/skipofficial/admin/requestview.html:668
 #: templates/pyha/skipofficial/admin/requestview.html:738
 msgid "email_sender"
-msgstr ""
+msgstr "Lähettäjä"
 
 #: templates/pyha/official/admin/requestview.html:785
 #: templates/pyha/official/admin/requestview.html:855
 #: templates/pyha/skipofficial/admin/requestview.html:672
 #: templates/pyha/skipofficial/admin/requestview.html:742
 msgid "email_header"
-msgstr ""
+msgstr "Aihe"
 
 #: templates/pyha/official/admin/requestview.html:789
 #: templates/pyha/official/admin/requestview.html:859
 #: templates/pyha/skipofficial/admin/requestview.html:676
 #: templates/pyha/skipofficial/admin/requestview.html:746
-#, fuzzy
-#| msgid "email"
 msgid "email_lang"
-msgstr "Sähköposti"
+msgstr "Kieli"
 
 #: templates/pyha/official/admin/requestview.html:795
 #: templates/pyha/official/admin/requestview.html:865
 #: templates/pyha/skipofficial/admin/requestview.html:682
 #: templates/pyha/skipofficial/admin/requestview.html:752
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_email_lang_all"
-msgstr "Sähköposti"
+msgstr "kaikki"
 
 #: templates/pyha/official/admin/requestview.html:805
 #: templates/pyha/official/admin/requestview.html:875
 #: templates/pyha/skipofficial/admin/requestview.html:692
 #: templates/pyha/skipofficial/admin/requestview.html:762
-#, fuzzy
-#| msgid "admin_asked"
 msgid "admin_send"
-msgstr " kysyi:"
+msgstr "Lähetä"
 
 #: templates/pyha/official/admin/requestview.html:831
 #: templates/pyha/skipofficial/admin/requestview.html:718
-#, fuzzy
-#| msgid "email"
 msgid "emailed"
-msgstr "Sähköposti"
+msgstr "Lähetetty"
 
 #: templates/pyha/official/admin/requestview.html:833
 #: templates/pyha/skipofficial/admin/requestview.html:720
-#, fuzzy
-#| msgid "enter_email"
 msgid "not_emailed"
-msgstr "Sähköposti"
+msgstr "Lähettämättä"
 
 #: templates/pyha/official/admin/requestview.html:886
 #: templates/pyha/skipofficial/admin/requestview.html:773
 msgid "no_communications"
-msgstr ""
+msgstr "Viestintä on tyhjä"
 
 #: templates/pyha/official/admin/requestview.html:932
 #: templates/pyha/skipofficial/admin/requestview.html:818
 msgid "in_other_languages_below"
-msgstr ""
+msgstr "(På svenska se nedan, in English see below)"
 
 #: templates/pyha/official/ajax/requestformcustom.html:3
 msgid "secured_collections_in_request"
@@ -1876,10 +1824,8 @@ msgstr "Yhteensä"
 
 #: templates/pyha/official/handler/requestview.html:194
 #: templates/pyha/skipofficial/handler/requestview.html:175
-#, fuzzy
-#| msgid "handler_secured_by_data_provider"
 msgid "handler_secured_by_quarantine"
-msgstr "Käyttörajoitetut havainnot"
+msgstr "handler_secured_by_quarantine"
 
 #: templates/pyha/official/handler/requestview.html:196
 #: templates/pyha/official/handler/requestview.html:479
@@ -1957,7 +1903,7 @@ msgstr "Metsäsuunnittelu"
 #: templates/pyha/official/handler/requestview.html:290
 #: templates/pyha/skipofficial/handler/requestview.html:269
 msgid "handler_reason_other"
-msgstr "Muu (Perustele vapaatekstikenttään)"
+msgstr "Muu (perustele vapaatekstikenttään)"
 
 #: templates/pyha/official/handler/requestview.html:296
 #: templates/pyha/skipofficial/handler/requestview.html:275
@@ -1992,7 +1938,7 @@ msgstr "Mukana olevat Natura-alueet"
 #: templates/pyha/official/handler/requestview.html:317
 #: templates/pyha/skipofficial/handler/requestview.html:296
 msgid "handler_argument_reason"
-msgstr "Vapaatekstikenttä"
+msgstr "Lisätietoa"
 
 #: templates/pyha/official/handler/requestview.html:324
 #: templates/pyha/official/handler/requestview.html:329
@@ -2407,10 +2353,8 @@ msgstr "Tutkimuksen nimi"
 
 #: templates/pyha/official/requestform.html:218
 #: templates/pyha/skipofficial/requestform.html:187
-#, fuzzy
-#| msgid "required_research_name"
 msgid "required_research_address"
-msgstr "Tutkimuksen nimi"
+msgstr "Tutkimusorganisaatio ja tutkimusryhmä (jos on) ja yhteyshenkilön yhteystiedot"
 
 #: templates/pyha/official/requestform.html:221
 #: templates/pyha/skipofficial/requestform.html:190
@@ -2604,7 +2548,7 @@ msgstr "Natura-alueet"
 #: templates/pyha/skipofficial/requestform.html:374
 #: templates/pyha/skipofficial/requestview.html:367
 msgid "argument_reason"
-msgstr "Vapaatekstikenttä"
+msgstr "Lisätietoa"
 
 #: templates/pyha/official/requestform.html:388
 #: templates/pyha/skipofficial/requestform.html:322
@@ -2988,11 +2932,11 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 
 #: views/requestview.py:199
 msgid "toast_mails_sent_succesfully"
-msgstr ""
+msgstr "Viestit lähetetty onnistuneesti."
 
 #: views/usersettings.py:58
 msgid "toast_settings_saved_succesfully"
-msgstr ""
+msgstr "Asetukset tallennettu onnistuneesti."
 
 #~ msgid "handler_sensitive_and_other_terms"
 #~ msgstr ""

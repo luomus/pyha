@@ -1653,7 +1653,7 @@ msgstr ""
 #: templates/pyha/official/admin/requestview.html:932
 #: templates/pyha/skipofficial/admin/requestview.html:818
 msgid "in_other_languages_below"
-msgstr ""
+msgstr "(På svenska se nedan, in English see below)"
 
 #: templates/pyha/official/ajax/requestformcustom.html:3
 msgid "secured_collections_in_request"
