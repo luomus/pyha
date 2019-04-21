@@ -10,7 +10,8 @@ from django.utils.translation import ugettext
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.core import serializers
-from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
+from pyha.log_utils import changed_by_session_user
+from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum, AdminUserSettings
 from pyha.roles import CAT_ADMIN, ADMIN, CAT_HANDLER_SENS, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import is_download_handler, get_collections_where_download_handler, is_download_handler_in_collection
 from pyha import toast
@@ -70,6 +71,11 @@ def log_in(http_request, token, authentication_info):
                     'is_active': True,
                     'is_superuser': True
                 })
+            if not AdminUserSettings.objects.filter(user=http_request.session["user_id"]).exists():
+                user_settings = AdminUserSettings()
+                user_settings.user = http_request.session["user_id"]
+                user_settings.changedBy = changed_by_session_user(http_request)
+                user_settings.save()
             login(http_request, admin)
         http_request.session.set_expiry(3600)
         return True

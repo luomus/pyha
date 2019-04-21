@@ -6,7 +6,7 @@ from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
-from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
+from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum, HandlerInRequest
 from pyha.log_utils import changed_by
 from pyha.utilities import Container
 import json
@@ -74,8 +74,8 @@ def makeblob(x):
     blob = json.dumps(data)
     return blob
     
-def get_values_for_collections(requestId, http_request, List):
-    for i, c in enumerate(List):
+def get_values_for_collections(requestId, http_request, list):
+    for i, c in enumerate(list):
         if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):            
             c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
             cache.set(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, c.result)
@@ -226,7 +226,7 @@ def update_collections():
         if payload['page'] < data['lastPage']:
             payload['page'] += 1    
         else:
-            notFinished    = False
+            notFinished = False
     caches['collections'].set('collections',result)
     caches['collections'].set('collection_update','updated', 7200)
     return True
@@ -248,7 +248,7 @@ def get_collections_where_download_handler(userId):
             resultlist.append(co['id'])
     return resultlist
 
-def get_download_handlers_with_collections_listed_for_collections(collectionsList):
+def get_download_handlers_with_collections_listed_for_collections(requestId, collectionsList):
     resultlist = []
     collections = caches['collections'].get('collections')
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
@@ -257,6 +257,15 @@ def get_download_handlers_with_collections_listed_for_collections(collectionsLis
     handlerswithcollections = []
     for ha in handlers:
         handlerswithcollections.append({"handlers": [{"name":ha,"id":ha,"email":'undefined'}], "collections":[co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
+        
+    emailed_handlers = HandlerInRequest.objects.filter(request=requestId)
+    for hanco in handlerswithcollections:
+        hanco["handlers"][0]["mailed"] = False
+        for handler in emailed_handlers:
+            if hanco["handlers"][0]["id"] == handler.user:
+                if handler.emailed: hanco["handlers"][0]["mailed"] = True
+                break
+    
     noneindex = -1
     for index, hanco in enumerate(handlerswithcollections):
         if(hanco["handlers"][0]["id"] != 'None'):
@@ -266,6 +275,7 @@ def get_download_handlers_with_collections_listed_for_collections(collectionsLis
             noneindex = index
     if noneindex > -1:
         handlerswithcollections.insert(0, handlerswithcollections.pop(noneindex))
+    
     #Groups handlers with identical collections    
     while(True):
         grouped = False
@@ -279,6 +289,16 @@ def get_download_handlers_with_collections_listed_for_collections(collectionsLis
             if grouped: break
         if not grouped: break
     return handlerswithcollections
+
+def is_collections_missing_download_handler(collectionsList):
+    collections = caches['collections'].get('collections')
+    collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
+    missing = False;
+    for co in collections:       
+        if 'None' == co.get('downloadRequestHandler', ['None'])[0]:
+            missing = True
+            break
+    return missing
 
 
 def is_download_handler(userId):

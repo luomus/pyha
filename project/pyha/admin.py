@@ -5,7 +5,7 @@ from django.contrib.admin.models import LogEntry
 from simple_history.admin import SimpleHistoryAdmin
 # Register your models here.
 
-from pyha.models import Request, Collection, RequestContact, RequestLogEntry, ContactPreset, RequestHandlerChatEntry, RequestInformationChatEntry, RequestSensitiveChatEntry
+from pyha.models import Request, Collection, HandlerInRequest, RequestContact, RequestLogEntry, ContactPreset, RequestHandlerChatEntry, RequestInformationChatEntry, AdminUserSettings, RequestSensitiveChatEntry
 
 class Media:
     css = {
@@ -36,6 +36,13 @@ class RequestInformationChatEntryAdmin(SimpleHistoryAdmin):
 class RequestSensitiveChatEntryAdmin(SimpleHistoryAdmin):
     search_fields = ['request__id', 'date', 'user']
     history_list_display = ["changedBy"]
+class AdminUserSettingsAdmin(SimpleHistoryAdmin):
+    search_fields = ['user', 'customEmailAddress']
+    history_list_display = ["changedBy"]
+class HandlerInRequestAdmin(SimpleHistoryAdmin):
+    search_fields = ['user', 'request__id']
+    history_list_display = ["changedBy"]
+    
 class LogEntryAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'action_time', 'object_repr', 'action_flag', 'object_id']
     readonly_fields = ('change_message','content_type', 'user', 'action_time', 'object_repr', 'action_flag', 'object_id')
@@ -47,12 +54,14 @@ class LogEntryAdmin(admin.ModelAdmin):
         return False
 admin.site.register(Request, RequestAdmin)
 admin.site.register(Collection, CollectionAdmin)
+admin.site.register(HandlerInRequest, HandlerInRequestAdmin)
 admin.site.register(RequestContact, RequestContactAdmin)
 admin.site.register(RequestLogEntry, RequestLogEntryAdmin)
 admin.site.register(ContactPreset, ContactPresetAdmin)
 admin.site.register(RequestHandlerChatEntry, RequestHandlerChatEntryAdmin)
 admin.site.register(RequestInformationChatEntry, RequestInformationChatEntryAdmin)
 admin.site.register(RequestSensitiveChatEntry, RequestSensitiveChatEntryAdmin)
+admin.site.register(AdminUserSettings, AdminUserSettingsAdmin)
 admin.site.register(LogEntry, LogEntryAdmin)
 admin.site.site_header = ugettext_lazy('Pyha administration')
 admin.site.site_title = ugettext_lazy('Pyha admin')

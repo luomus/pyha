@@ -2,16 +2,17 @@ from datetime import datetime
 import os
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.translation import ugettext
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated
-from pyha.email import send_mail_after_additional_information_requested
+from pyha.email import send_mail_after_additional_information_requested, send_raw_mail
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin
-from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
+from pyha.models import HandlerInRequest, RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
-from pyha.warehouse import send_download_request, is_download_handler_in_collection
+from pyha.warehouse import send_download_request, is_download_handler_in_collection, update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 
@@ -150,7 +151,18 @@ def freeze(http_request):
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
 
-def send_invite_handler_email(http_request):
+def refresh_collections_cache(http_request):
+    if http_request.method == 'POST':
+        nexturl = http_request.POST.get('next', '/')
+        if not logged_in(http_request):
+            return _process_auth_response(http_request, "pyha")
+        if not is_admin(http_request):
+            return HttpResponse(status=404)
+        update_collections()
+        return HttpResponseRedirect(nexturl)
+    return HttpResponse(status=404)
+
+def send_email(http_request):
     if http_request.method == 'POST':
         nexturl = http_request.POST.get('next', '/')
         requestId = http_request.POST.get('requestid')
@@ -158,11 +170,33 @@ def send_invite_handler_email(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_admin(http_request):
             return HttpResponse(status=404)
-        userRequest = Request.objects.get(id = requestId)
-        if userRequest.frozen: userRequest.frozen = False
-        else: userRequest.frozen = True
-        userRequest.changedBy = changed_by_session_user(http_request)
-        userRequest.save()
+        id_list = [{'id':userid.replace('email_id_',''),'email':email} for userid, email in http_request.POST.items() if 'email_id_' in userid]   
+        sender = http_request.POST.get('com_email_sender')
+        recipients = [userid['email'] for userid in id_list]
+        subject = http_request.POST.get('com_email_header')
+        content = http_request.POST.get('com_email_content').replace(u'\ufeff', '')
+        handlers = HandlerInRequest.objects.filter(request=requestId)
+        ids = [userid['id'] for userid in id_list]
+        for userid in ids:
+            found_in_db = False
+            for handler in handlers:
+                if userid in handler.user:
+                    found_in_db = True
+                    handler.request = Request.objects.get(id=requestId)
+                    handler.emailed = True
+                    handler.changedBy = changed_by_session_user(http_request)
+                    handler.save()
+                    break
+            if not found_in_db:  
+                handler = HandlerInRequest()
+                handler.user = userid
+                handler.request = Request.objects.get(id=requestId)
+                handler.emailed = True
+                handler.changedBy = changed_by_session_user(http_request)
+                handler.save()
+        for recipient in recipients:
+            send_raw_mail(subject, sender, [recipient], content)
+        http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_mails_sent_succesfully')}
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
 

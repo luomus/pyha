@@ -74,13 +74,14 @@ class Collection(models.Model):
 	
 @python_2_unicode_compatible
 class HandlerInRequest(models.Model): #Used currently for the admin email gatekeeper, on who has been emailed per request 
-	address = models.CharField(max_length=500)
+	user = models.CharField(max_length=500)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	emailed = models.BooleanField(default=False)
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 
 	def __str__(self):
-		return 'Handler: %s (in Request: %d)' %(self.address, self.request.id)
+		return 'Handler: %s (in Request: %d) is emailed %s' %(self.user, self.request.id, self.emailed)
 	
 
 @python_2_unicode_compatible
@@ -263,9 +264,10 @@ class AdminUserSettings(models.Model):
 	)
 	
 	user = models.CharField(primary_key=True, max_length=100)
-	emailNewRequests = models.CharField(max_length=5, choices=EMAIL_NEW_REQUESTS_SETTING)
-	enableCustomEmailAddress = models.BooleanField()
+	emailNewRequests = models.CharField(max_length=10, choices=EMAIL_NEW_REQUESTS_SETTING, default=NONE)
+	enableCustomEmailAddress = models.BooleanField(default=False)
 	customEmailAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 	
 	def __str__(self):

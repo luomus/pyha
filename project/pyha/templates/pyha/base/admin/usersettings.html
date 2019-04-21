@@ -1,0 +1,64 @@
+{% extends "pyha/base/base.html" %}
+{% block content %}
+{% load i18n %}
+
+
+<div class="container-fluid">
+	 <div class="col-xs-12">
+		<div class="page-header">
+		  	<h2>{% trans "admin_settings_header" %}</h2>
+		</div>
+ 		<h3 style="margin-top:50px">{% trans "admin_user_settings" %}<small> ({{ email }}) </small></h3>
+ 		<form action="{% url 'pyha:save_settings' %}" id="settingsform" method="post">
+ 			<input type="hidden" id="next" name="next" value="{{request.path}}">
+ 			<p>{% trans "admin_send_me_email_for_new_requests" %}</p>
+ 			<div class="row">
+ 				<div class="col-sm-3">
+					<select class="form-control" id="email_new_requests" name="email_new_requests">
+						<option value="{{email_new_requests_setting.2.0}}" {% if user_settings.emailNewRequests == email_new_requests_setting.2.0 %} selected {% endif %}>{% trans "admin_email_for_none" %}</option>
+						<option value="{{email_new_requests_setting.1.0}}" {% if user_settings.emailNewRequests == email_new_requests_setting.1.0 %} selected {% endif %}>{% trans "admin_email_for_missing_handlers" %}</option>
+						<option value="{{email_new_requests_setting.0.0}}" {% if user_settings.emailNewRequests == email_new_requests_setting.0.0 %} selected {% endif %}>{% trans "admin_email_for_all" %}</option>
+					</select>
+				</div>
+			</div>
+ 			<div class="row">
+		 		<div class="checkbox col-sm-2">
+				    <label>
+				      	<input onChange="refreshCustomEmail()" {% if user_settings.customEmailAddress %} checked {% endif %} type="checkbox" id="use_custom_email" name="use_custom_email" value="True"> {% trans "admin_use_custom_email_address" %}
+				    </label>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="form-group col-sm-4">
+				    <label class="sr-only" for="InputEmail">Email address</label>
+				    <input type="email" class="form-control " id="email_address" name="email_address" placeholder="Email" value="{{ user_settings.customEmailAddress }}">
+				    <button style="margin-top:10px;" type="submit" id="submit" name="save" value=1 class="btn btn-default btn-sm" >{% trans "admin_save" %}</button>
+				</div>
+		   	</div>
+	   		<h3 hidden="true">{% trans "admin_pyha_settings" %}</h3>
+	   		<p hidden="true">{% trans "admin_empty_for_now" %}</p>
+	   		{% csrf_token %}
+	   </form>
+	 </div>
+
+</div>
+{% endblock %}
+
+{% block end_script %}
+	<script>
+		function refreshCustomEmail() {
+			var x = document.getElementById('use_custom_email');
+			var y = document.getElementById('email_address');
+			y.disabled = !x.checked;
+			if(!x.checked){
+				y.value = "";
+			}
+			
+		}
+	</script>
+	<script>
+		$(document).ready(function(){
+			refreshCustomEmail();
+		});
+	</script>
+{% endblock %}

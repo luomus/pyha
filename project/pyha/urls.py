@@ -25,8 +25,9 @@ urlpatterns = [
     url(r'^information/?$', requestview.information, name='information'),
     url(r'^commentSensitive/?$', requestview.comment_sensitive, name='comment_sensitive'),    
     url(r'^commentHandler/?$', requestview.comment_handler, name='comment_handler'),    
-    url(r'^inviteHandler/?$', requestview.send_invite_handler_email, name='send_invite_handler_email'),    
+    url(r'^sendEmail/?$', requestview.send_email, name='send_email'),    
     url(r'^initializeDownload/?$', requestview.initialize_download, name='initializeDownload'),
+    url(r'^saveSettings/?$', usersettings.save_settings, name='save_settings'),
     url(r'^newpdf/?$', api.new_pdf, name='newpdf'),
     url(r'^api/request/?$', api.receiver, name='receiver'),
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
@@ -34,5 +35,6 @@ urlpatterns = [
     url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
     url(r'^role/?$', logout.change_role, name='change_role'),
     url(r'^freezeRequest/?$', requestview.freeze, name='freeze'),
+    url(r'^refreshCollectionsCache/?$', requestview.refresh_collections_cache, name='refresh_collections_cache'),
     url(r'^lang/?$', logout.change_lang, name='set_language'),
 ]

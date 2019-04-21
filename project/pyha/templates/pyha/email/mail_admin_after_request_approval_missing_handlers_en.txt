@@ -1,0 +1,3 @@
+﻿A new application to download secure FinBIF data has been made on {{ time }}.
+
+Address to the application: {{ req_link }}?lang=en&next=communications

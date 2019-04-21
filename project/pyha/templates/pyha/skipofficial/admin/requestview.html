@@ -618,8 +618,15 @@
 					
 					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
 						{% if handler_groups %}
-						<h3 id="communications_header">{% trans "admin_communications_window" %}</h3>
-						<form action="{% url 'pyha:send_invite_handler_email' %}" id="requestform" method="post">
+						<form action="{% url 'pyha:refresh_collections_cache' %}" id="refreshform" method="post">
+							<h3 id="communications_header">
+								{% trans "admin_communications_window" %}
+								<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+								<button type="submit" id="submit_refresh" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_refresh_collections_cache" %}</button>
+								{% csrf_token %}
+							</h3>
+						</form>
+						<form action="{% url 'pyha:send_email' %}" id="requestform" method="post">
 							<table id="communications_table" class="table" style="width:100%;">
 								<tr>
 									<th>{% trans "admin_communications_collections" %}</th>
@@ -654,8 +661,8 @@
 											{% if forloop.first %}
 											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
 													<div class="form-group">
-														<input type="hidden" id="requestid" name="requestid" value=0>
-														<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+														<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
 														<table style="width:100%;">
 														<tr>
 															<td style="border:0px;">{% trans "email_sender" %}</td>
@@ -682,7 +689,7 @@
 														</tr>
 														</table>
 														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
-														<button type="submit" id="submit" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+														<button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
 													</div>
 											</td>
 											{% endif %}
@@ -707,21 +714,25 @@
 											</td>
 											<td style="vertical-align: middle; line-height: 40px;">
 												{% for handler in group.handlers %}
-													<p style="margin-bottom: 10px;">{% trans "not_emailed" %}</p>
+													{% if handler.mailed %}
+														<p style="margin-bottom: 10px;">{% trans "emailed" %}</p>
+													{% else %}
+														<p style="margin-bottom: 10px;">{% trans "not_emailed" %}</p>
+													{% endif %}
 												{% endfor %}
 													<div style="margin-bottom: 16px;"></div>
 											</td>
 											<td style="vertical-align: middle; line-height: 40px;">
 												{% for handler in group.handlers %}
-													<p style="white-space: nowrap;"><input type="checkbox" name="email_{{ handler.id }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
+													<p style="white-space: nowrap;"><input {% if handler.mailed or frozen %} disabled {% endif %} onChange="enableCommunicationsEmail()" type="checkbox" name="email_id_{{ handler.id }}" value="{{ handler.email }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
 												{% endfor %}
 													<div style="margin-bottom: 16px;"></div>
 											</td>
 											{% if forloop.first %}
 											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
 													<div class="form-group">
-														<input type="hidden" id="requestid" name="requestid" value=0>
-														<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+														<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
 														<table style="width:100%;">
 														<tr>
 															<td style="border:0px;">{% trans "email_sender" %}</td>
@@ -748,7 +759,7 @@
 														</tr>
 														</table>
 														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
-														<button type="submit" id="submit" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+														<button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
 													</div>
 											</td>
 											{% endif %}
@@ -819,6 +830,22 @@
 			
 		}
 	</script>
+	<script>
+		function enableCommunicationsEmail() {
+			var x = document.querySelectorAll('[name^=email_id_]');
+			var b = false;
+			for (i = 0; i < x.length; i++){
+				if(x[i].checked){
+					b = true;
+					break;
+				}
+			}
+			{% if not userRequest.frozen %}
+			document.getElementById('submit_email').disabled = !b;
+			{% endif %}
+			
+		}
+	</script>
 	{% if next == 'information' %}
 	<script>
 		$(document).ready(function(){
@@ -837,6 +864,7 @@
 	<script>
 		$(document).ready(function(){
 			refreshCommunicationsEmailByLang();
+			enableCommunicationsEmail();
 		});
 	</script>
 {% endblock %}

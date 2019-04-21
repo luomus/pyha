@@ -7,14 +7,15 @@ from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.template.loader import get_template
-from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
+from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval, send_admin_mail_after_approved_request, send_admin_mail_after_approved_request_missing_handlers
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum, Sens_StatusEnum,\
-	Col_StatusEnum
+	Col_StatusEnum, AdminUserSettings
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_collections_missing_download_handler
 from pyha.log_utils import changed_by_session_user, changed_by
+from pyha import toast
 
 
 def remove_sensitive_data(http_request):
@@ -125,19 +126,19 @@ def check_all_collections_removed(requestId):
 		return True
 	return False
 
-def create_new_contact(request, userRequest, count):
+def create_new_contact(http_request, userRequest, count):
 	contact = RequestContact()
 	contact.request = userRequest
-	contact.personName = request.POST.get('request_person_name_'+str(count))
-	contact.personStreetAddress = request.POST.get('request_person_street_address_'+str(count))
-	contact.personPostOfficeName = request.POST.get('request_person_post_office_name_'+str(count))
-	contact.personPostalCode = request.POST.get('request_person_postal_code_'+str(count))
-	contact.personCountry = request.POST.get('request_person_country_'+str(count))
-	contact.personEmail = request.POST.get('request_person_email_'+str(count))
-	contact.personPhoneNumber = request.POST.get('request_person_phone_number_'+str(count))
-	contact.personOrganizationName = request.POST.get('request_person_organization_name_'+str(count))
-	contact.personCorporationId = request.POST.get('request_person_corporation_id_'+str(count))
-	contact.changedBy = changed_by_session_user(request)
+	contact.personName = http_request.POST.get('request_person_name_'+str(count))
+	contact.personStreetAddress = http_request.POST.get('request_person_street_address_'+str(count))
+	contact.personPostOfficeName = http_request.POST.get('request_person_post_office_name_'+str(count))
+	contact.personPostalCode = http_request.POST.get('request_person_postal_code_'+str(count))
+	contact.personCountry = http_request.POST.get('request_person_country_'+str(count))
+	contact.personEmail = http_request.POST.get('request_person_email_'+str(count))
+	contact.personPhoneNumber = http_request.POST.get('request_person_phone_number_'+str(count))
+	contact.personOrganizationName = http_request.POST.get('request_person_organization_name_'+str(count))
+	contact.personCorporationId = http_request.POST.get('request_person_corporation_id_'+str(count))
+	contact.changedBy = changed_by_session_user(http_request)
 	contact.save()
 
 def update_contact_preset(http_request, userRequest):
@@ -404,6 +405,11 @@ def handler_information_chat_answered_status(r, http_request, userId):
 					break
 
 def create_request_view_context(requestId, http_request, userRequest):
+	toast = None
+	if(http_request.session.get("toast", None) is not None): 
+		toast = http_request.session["toast"]
+		http_request.session["toast"] = None
+		http_request.session.save()
 	taxonList = []
 	customList = []
 	collectionList = []
@@ -425,7 +431,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 			taxon = True
 	request_owner = fetch_user_name(userRequest.user)
 	request_owners_email = fetch_email_address(userRequest.user)
-	context = {"taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasServiceRole, "role1": role1, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(http_request, requestId), "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+	context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasServiceRole, "role1": role1, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(http_request, requestId), "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
@@ -441,7 +447,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 			emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
 		context["com_email_templates"] = emails
 		context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, lang)
-	if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(collectionList)
+	if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(userRequest.id, collectionList)
 	if userRequest.status > StatusEnum.APPROVETERMS_WAIT:
 		context["next"] = http_request.GET.get('next', 'history')
 		context["contactlist"] = get_request_contacts(userRequest)

@@ -1,0 +1,3 @@
+﻿På svenska: Lajitietokeskuksessa on täytetty uusi sähköinen aineistopyyntöhakemus {{ time }}.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=sv&next=communications

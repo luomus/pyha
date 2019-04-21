@@ -1,0 +1,3 @@
+﻿Lajitietokeskuksessa on täytetty uusi sähköinen aineistopyyntöhakemus {{ time }}.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=communications
