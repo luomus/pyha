@@ -81,10 +81,14 @@ def get_values_for_collections(requestId, http_request, list):
             cache.set(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, c.result)
             c.result["collectionName"] = c.result.get("collectionName",c.address)
             c.result["description"] = c.result.get("description","-")
+            c.result["qualityDescription"] = c.result.get("qualityDescription","-")
+            c.result["collectionTerms"] = c.result.get("collectionTerms","-")
         else:
             c.result = cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE)
             c.result["collectionName"] = c.result.get("collectionName",c.address)
             c.result["description"] = c.result.get("description","-")
+            c.result["qualityDescription"] = c.result.get("qualityDescription","-")
+            c.result["collectionTerms"] = c.result.get("collectionTerms","-")
 
 def get_result_for_target(http_request, l):
     if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):

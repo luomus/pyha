@@ -15,7 +15,7 @@
 												</tr>
 												{% for collection in collections %}
 												<tr id="taxon{{ collection.address }}" style="border-bottom:2px solid #456789">
-													<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
+													<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 													<td>{{collection.result.description}}</td>
 													<td>{{collection.allSecured}}</td>
 													<td>

@@ -3,7 +3,6 @@
 				<h3>{% trans "request_was_empty_and_will_be_closed" %}</h3>
 				{% else %}
 				<h4>{% trans "collections_in_request" %}</h4>
-				<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 				<p>{% trans 'given_values_are_not_absolute' %}</p>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
@@ -13,7 +12,7 @@
 							</tr>
 							{% for collection in collections %}
 							<tr>
-								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a> <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
+								<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.allSecured}}</td>
 							</tr>

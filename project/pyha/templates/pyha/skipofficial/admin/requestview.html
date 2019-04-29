@@ -87,7 +87,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
+								<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
@@ -178,7 +178,6 @@
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "admin_collections_in_request" %}</h3>
 						{% if taxon %}
-						<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
 							<table class="table" style="width:100%">
@@ -186,10 +185,11 @@
 									<th>{% trans "admin_collection_name" %}</th>
 									<th></th>
 									<th>{% trans "admin_collection_description" %}</th>
+									<th>{% trans "admin_collection_quality_description" %}</th>
+									<th>{% trans "admin_collection_terms" %}</th>
+									<th>{% trans "admin_secured_by_quarantine" %}</th>
+									<th>{% trans "admin_secured_by_sensitivity" %}</th>
 									<th>{% trans "admin_secured_by_data_provider" %}</th>
-									{% if has_quarantine %}
-										<th>{% trans "admin_secured_by_quarantine" %}</th>
-									{% endif %}
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -210,13 +210,14 @@
 								{% else %}  
 								<tr>	
 								{% endif %}
-								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
-								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
+								<td>{{collection.result.collectionName}}</td>
+								<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>								
 								<td>{{collection.result.description}}</td>
-								<td>{{collection.allSecured}}</td>
-								{% if has_quarantine %}
-									<td>{{collection.quarantineSecured}}</td>
-								{% endif %}
+								<td>{{collection.result.qualityDescription}}</td>
+								<td>{{collection.result.collectionTerms}}</td>
+								<td>{{collection.quarantineSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+								<td>{{collection.customSecured}}</td>
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
 									<td>{% trans "admin_waiting_for_you" %}</td>
