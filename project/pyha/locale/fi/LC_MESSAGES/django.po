@@ -1005,7 +1005,7 @@ msgstr "Yhteensä"
 #: templates/pyha/official/admin/requestview.html:205
 #: templates/pyha/skipofficial/admin/requestview.html:190
 msgid "admin_secured_by_quarantine"
-msgstr "admin_secured_by_quarantine"
+msgstr "Karanteenissa"
 
 #: templates/pyha/official/admin/requestview.html:207
 #: templates/pyha/official/admin/requestview.html:489
@@ -1826,7 +1826,7 @@ msgstr "Yhteensä"
 #: templates/pyha/official/handler/requestview.html:194
 #: templates/pyha/skipofficial/handler/requestview.html:174
 msgid "handler_secured_by_quarantine"
-msgstr "handler_secured_by_quarantine"
+msgstr "Karanteenissa"
 
 #: templates/pyha/official/handler/requestview.html:196
 #: templates/pyha/official/handler/requestview.html:479
@@ -2870,7 +2870,7 @@ msgstr "Aineisto hylätty"
 #: templates/pyha/skipofficial/requestview.html:70
 #: templates/pyha/skipofficial/requestview.html:231
 msgid "to_metadata"
-msgstr ""
+msgstr "metatiedot"
 
 #: templates/pyha/skipofficial/admin/requestview.html:165
 #: templates/pyha/skipofficial/handler/requestview.html:155
@@ -2878,22 +2878,17 @@ msgid "col_handler_comments_window"
 msgstr "Aineistonkäsittelijöiden kommentit"
 
 #: templates/pyha/skipofficial/admin/requestview.html:188
-#, fuzzy
 #| msgid "admin_collection_description"
 msgid "admin_collection_quality_description"
-msgstr "Kuvaus"
+msgstr "Laadun kuvaus"
 
 #: templates/pyha/skipofficial/admin/requestview.html:189
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_collection_terms"
-msgstr "Aineisto"
+msgstr "Erityisehdot"
 
 #: templates/pyha/skipofficial/admin/requestview.html:191
-#, fuzzy
-#| msgid "admin_sensitivity"
 msgid "admin_secured_by_sensitivity"
-msgstr "Sensitiivisen lajitiedon käyttöehdot"
+msgstr "Sensitiiviset"
 
 #: templates/pyha/skipofficial/admin/requestview.html:323
 #: templates/pyha/skipofficial/handler/requestview.html:307
@@ -2939,22 +2934,16 @@ msgstr ""
 "käyttöehdot"
 
 #: templates/pyha/skipofficial/handler/requestview.html:172
-#, fuzzy
-#| msgid "handler_collection_description"
 msgid "handler_collection_quality_description"
-msgstr "Kuvaus"
+msgstr "Laadun kuvaus"
 
 #: templates/pyha/skipofficial/handler/requestview.html:173
-#, fuzzy
-#| msgid "handler_collection_name"
 msgid "handler_collection_terms"
-msgstr "Aineiston nimi"
+msgstr "Erityisehdot"
 
 #: templates/pyha/skipofficial/handler/requestview.html:175
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "handler_secured_by_sensitivity"
-msgstr "Sensitiivisyys"
+msgstr "Sensitiiviset"
 
 #: templates/pyha/skipofficial/handler/requestview.html:509
 msgid "collection_free_of_sensitive_data"
@@ -2965,28 +2954,20 @@ msgid "collection_tab"
 msgstr "Aineistot"
 
 #: templates/pyha/skipofficial/requestview.html:205
-#, fuzzy
-#| msgid "collection_description"
 msgid "collection_quality_description"
-msgstr "Kuvaus"
+msgstr "Laadun kuvaus"
 
 #: templates/pyha/skipofficial/requestview.html:206
-#, fuzzy
-#| msgid "Collection terms"
 msgid "collection_terms"
-msgstr "Käyttöehdot"
+msgstr "Erityisehdot"
 
 #: templates/pyha/skipofficial/requestview.html:207
-#, fuzzy
-#| msgid "admin_secured_by_quarantine"
 msgid "secured_by_quarantine"
-msgstr "admin_secured_by_quarantine"
+msgstr "Karanteenissa"
 
 #: templates/pyha/skipofficial/requestview.html:208
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "secured_by_sensitivity"
-msgstr "Sensitiivisyys"
+msgstr "Sensitiiviset"
 
 #: views/requestform.py:149 views/requestform.py:188
 msgid "toast_thanks_request_has_been_registered"

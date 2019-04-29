@@ -2855,7 +2855,7 @@ msgstr "Request denied"
 #: templates/pyha/skipofficial/requestview.html:70
 #: templates/pyha/skipofficial/requestview.html:231
 msgid "to_metadata"
-msgstr ""
+msgstr "metadata"
 
 #: templates/pyha/skipofficial/admin/requestview.html:165
 #: templates/pyha/skipofficial/handler/requestview.html:155
@@ -2863,16 +2863,12 @@ msgid "col_handler_comments_window"
 msgstr "Comments by collection handlers"
 
 #: templates/pyha/skipofficial/admin/requestview.html:188
-#, fuzzy
-#| msgid "admin_collection_description"
 msgid "admin_collection_quality_description"
-msgstr "Description"
+msgstr "Quality description"
 
 #: templates/pyha/skipofficial/admin/requestview.html:189
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_collection_terms"
-msgstr "Collection name"
+msgstr "Terms"
 
 #: templates/pyha/skipofficial/admin/requestview.html:191
 #, fuzzy
@@ -2918,16 +2914,12 @@ msgid "restricted_collections_in_request"
 msgstr "Request involves collections requiring approval of data owners' terms"
 
 #: templates/pyha/skipofficial/handler/requestview.html:172
-#, fuzzy
-#| msgid "handler_collection_description"
 msgid "handler_collection_quality_description"
-msgstr "Description of collection"
+msgstr "Quality description"
 
 #: templates/pyha/skipofficial/handler/requestview.html:173
-#, fuzzy
-#| msgid "handler_collection_name"
 msgid "handler_collection_terms"
-msgstr "Name of collection"
+msgstr "Terms"
 
 #: templates/pyha/skipofficial/handler/requestview.html:175
 #, fuzzy
@@ -2944,16 +2936,12 @@ msgid "collection_tab"
 msgstr "Collections"
 
 #: templates/pyha/skipofficial/requestview.html:205
-#, fuzzy
-#| msgid "collection_description"
 msgid "collection_quality_description"
-msgstr "Description"
+msgstr "Quality description"
 
 #: templates/pyha/skipofficial/requestview.html:206
-#, fuzzy
-#| msgid "Collection terms"
 msgid "collection_terms"
-msgstr "Collection terms"
+msgstr "Terms"
 
 #: templates/pyha/skipofficial/requestview.html:207
 #, fuzzy
