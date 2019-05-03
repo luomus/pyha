@@ -25,7 +25,12 @@ def run_threaded(job_func):
 def scheduler():   
     
     # set the events here
-    schedule.every().day.at("11:22").do(run_threaded, timed_email) 
+    schedule.every().monday.at("11:22").do(run_threaded, timed_email) 
+    schedule.every().tuesday.at("11:22").do(run_threaded, timed_email) 
+    schedule.every().wednesday.at("11:22").do(run_threaded, timed_email) 
+    schedule.every().thursday.at("11:22").do(run_threaded, timed_email) 
+    schedule.every().friday.at("11:22").do(run_threaded, timed_email) 
+    
     schedule.every().tuesday.at("11:22").do(run_threaded, missing_handlers_email)
     # For schedule function usage:
     # ---- https://schedule.readthedocs.io/en/stable/index.html ----
