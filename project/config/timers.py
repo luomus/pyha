@@ -1,19 +1,20 @@
 import schedule
 from threading import Thread
 from time import sleep
-from pyha.management.commands import missing_handlers_email, timed_email, decline_overdue_collections
-
+from pyha.management.commands.timed_email import Command as TimedEmailCommand
+from pyha.management.commands.missing_handlers_email import Command as MissingHandlersCommand
+from pyha.management.commands.decline_overdue_collections import Command as DeclineOverDueCollectionsCommand
 
 def timed_email():
-    c = timed_email.Command()
+    c = TimedEmailCommand()
     c.handle()
     
 def missing_handlers_email():
-    c = missing_handlers_email.Command()
+    c = MissingHandlersCommand()
     c.handle()
     
 def decline_overdue_collections():
-    c = decline_overdue_collections.Command()
+    c = DeclineOverDueCollectionsCommand()
     c.handle()
             
 def run_threaded(job_func):
