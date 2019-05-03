@@ -6,6 +6,8 @@ then
 
     echo "Updating server..."
     rm -r project/static
+	env/bin/pip install -r Requirements.txt
+	env/bin/pip3 install -r Requirements.txt
     env/bin/python project/manage.py collectstatic
     env/bin/python project/manage.py makemigrations
     env/bin/python project/manage.py migrate
