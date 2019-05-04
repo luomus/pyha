@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-29 12:59+0300\n"
+"POT-Creation-Date: 2019-05-04 16:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,101 +197,101 @@ msgstr "Väliaikaisesti tyhjä"
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
-#: templates/pyha/skipofficial/requestform.html:112
+#: templates/pyha/skipofficial/requestform.html:111
 msgid "required_fields_indicated_with_sign"
 msgstr "Tähdellä merkityt kentät ovat pakollisia."
 
 #: templates/pyha/base/ajax/requestformcontact.html:6
 #: templates/pyha/official/requestform.html:144
-#: templates/pyha/skipofficial/requestform.html:113
+#: templates/pyha/skipofficial/requestform.html:112
 msgid "enter_name_and_address"
 msgstr "Nimi ja osoitetiedot"
 
 #: templates/pyha/base/ajax/requestformcontact.html:8
 #: templates/pyha/official/requestform.html:147
 #: templates/pyha/official/requestform.html:167
-#: templates/pyha/skipofficial/requestform.html:116
-#: templates/pyha/skipofficial/requestform.html:136
+#: templates/pyha/skipofficial/requestform.html:115
+#: templates/pyha/skipofficial/requestform.html:135
 msgid "enter_full_name"
 msgstr "Etunimet ja Sukunimi"
 
 #: templates/pyha/base/ajax/requestformcontact.html:9
 #: templates/pyha/official/requestform.html:148
 #: templates/pyha/official/requestform.html:168
-#: templates/pyha/skipofficial/requestform.html:117
-#: templates/pyha/skipofficial/requestform.html:137
+#: templates/pyha/skipofficial/requestform.html:116
+#: templates/pyha/skipofficial/requestform.html:136
 msgid "enter_street_address"
 msgstr "Katuosoite"
 
 #: templates/pyha/base/ajax/requestformcontact.html:10
 #: templates/pyha/official/requestform.html:149
 #: templates/pyha/official/requestform.html:169
-#: templates/pyha/skipofficial/requestform.html:118
-#: templates/pyha/skipofficial/requestform.html:138
+#: templates/pyha/skipofficial/requestform.html:117
+#: templates/pyha/skipofficial/requestform.html:137
 msgid "enter_postal_code"
 msgstr "Postinumero"
 
 #: templates/pyha/base/ajax/requestformcontact.html:11
 #: templates/pyha/official/requestform.html:150
 #: templates/pyha/official/requestform.html:170
-#: templates/pyha/skipofficial/requestform.html:119
-#: templates/pyha/skipofficial/requestform.html:139
+#: templates/pyha/skipofficial/requestform.html:118
+#: templates/pyha/skipofficial/requestform.html:138
 msgid "enter_post_office_name"
 msgstr "Postitoimipaikka"
 
 #: templates/pyha/base/ajax/requestformcontact.html:12
 #: templates/pyha/official/requestform.html:151
 #: templates/pyha/official/requestform.html:171
-#: templates/pyha/skipofficial/requestform.html:120
-#: templates/pyha/skipofficial/requestform.html:140
+#: templates/pyha/skipofficial/requestform.html:119
+#: templates/pyha/skipofficial/requestform.html:139
 msgid "enter_country"
 msgstr "Maa"
 
 #: templates/pyha/base/ajax/requestformcontact.html:15
 #: templates/pyha/official/requestform.html:154
 #: templates/pyha/official/requestform.html:174
-#: templates/pyha/skipofficial/requestform.html:123
-#: templates/pyha/skipofficial/requestform.html:143
+#: templates/pyha/skipofficial/requestform.html:122
+#: templates/pyha/skipofficial/requestform.html:142
 msgid "enter_email_and_phone"
 msgstr "Sähköposti ja puhelinnumero"
 
 #: templates/pyha/base/ajax/requestformcontact.html:17
 #: templates/pyha/official/requestform.html:156
 #: templates/pyha/official/requestform.html:176
-#: templates/pyha/skipofficial/requestform.html:125
-#: templates/pyha/skipofficial/requestform.html:145
+#: templates/pyha/skipofficial/requestform.html:124
+#: templates/pyha/skipofficial/requestform.html:144
 msgid "enter_email"
 msgstr "Sähköposti"
 
 #: templates/pyha/base/ajax/requestformcontact.html:18
 #: templates/pyha/official/requestform.html:157
 #: templates/pyha/official/requestform.html:177
-#: templates/pyha/skipofficial/requestform.html:126
-#: templates/pyha/skipofficial/requestform.html:146
+#: templates/pyha/skipofficial/requestform.html:125
+#: templates/pyha/skipofficial/requestform.html:145
 msgid "enter_phone_number"
 msgstr "Puhelinnumero"
 
 #: templates/pyha/base/ajax/requestformcontact.html:21
 #: templates/pyha/official/requestform.html:160
 #: templates/pyha/official/requestform.html:180
-#: templates/pyha/skipofficial/requestform.html:129
-#: templates/pyha/skipofficial/requestform.html:149
+#: templates/pyha/skipofficial/requestform.html:128
+#: templates/pyha/skipofficial/requestform.html:148
 msgid "enter_corporation/organization"
 msgstr "Yrityksen tiedot"
 
 #: templates/pyha/base/ajax/requestformcontact.html:23
 #: templates/pyha/official/requestform.html:162
 #: templates/pyha/official/requestform.html:182
-#: templates/pyha/skipofficial/requestform.html:131
-#: templates/pyha/skipofficial/requestform.html:151
+#: templates/pyha/skipofficial/requestform.html:130
+#: templates/pyha/skipofficial/requestform.html:150
 msgid "enter_corporation/organization_name"
 msgstr "Yrityksen/organisaation nimi"
 
 #: templates/pyha/base/ajax/requestformcontact.html:24
 #: templates/pyha/official/requestform.html:163
 #: templates/pyha/official/requestform.html:183
-#: templates/pyha/skipofficial/requestform.html:132
-#: templates/pyha/skipofficial/requestform.html:152
+#: templates/pyha/skipofficial/requestform.html:131
+#: templates/pyha/skipofficial/requestform.html:151
 msgid "enter_corporation_id"
 msgstr "Y-tunnus"
 
@@ -320,8 +320,8 @@ msgstr "Lisähakijan nimi:"
 #: templates/pyha/skipofficial/admin/requestview.html:376
 #: templates/pyha/skipofficial/handler/requestview.html:341
 #: templates/pyha/skipofficial/handler/requestview.html:360
-#: templates/pyha/skipofficial/requestform.html:242
-#: templates/pyha/skipofficial/requestform.html:347
+#: templates/pyha/skipofficial/requestform.html:241
+#: templates/pyha/skipofficial/requestform.html:346
 #: templates/pyha/skipofficial/requestview.html:418
 #: templates/pyha/skipofficial/requestview.html:437
 msgid "contact_street_address"
@@ -341,8 +341,8 @@ msgstr "Katuosoite:"
 #: templates/pyha/skipofficial/admin/requestview.html:377
 #: templates/pyha/skipofficial/handler/requestview.html:342
 #: templates/pyha/skipofficial/handler/requestview.html:361
-#: templates/pyha/skipofficial/requestform.html:243
-#: templates/pyha/skipofficial/requestform.html:348
+#: templates/pyha/skipofficial/requestform.html:242
+#: templates/pyha/skipofficial/requestform.html:347
 #: templates/pyha/skipofficial/requestview.html:419
 #: templates/pyha/skipofficial/requestview.html:438
 msgid "contact_postal"
@@ -362,8 +362,8 @@ msgstr "Postinumero:"
 #: templates/pyha/skipofficial/admin/requestview.html:378
 #: templates/pyha/skipofficial/handler/requestview.html:343
 #: templates/pyha/skipofficial/handler/requestview.html:362
-#: templates/pyha/skipofficial/requestform.html:244
-#: templates/pyha/skipofficial/requestform.html:349
+#: templates/pyha/skipofficial/requestform.html:243
+#: templates/pyha/skipofficial/requestform.html:348
 #: templates/pyha/skipofficial/requestview.html:420
 #: templates/pyha/skipofficial/requestview.html:439
 msgid "contact_post_office"
@@ -383,8 +383,8 @@ msgstr "Postitoimipaikka:"
 #: templates/pyha/skipofficial/admin/requestview.html:379
 #: templates/pyha/skipofficial/handler/requestview.html:344
 #: templates/pyha/skipofficial/handler/requestview.html:363
-#: templates/pyha/skipofficial/requestform.html:245
-#: templates/pyha/skipofficial/requestform.html:350
+#: templates/pyha/skipofficial/requestform.html:244
+#: templates/pyha/skipofficial/requestform.html:349
 #: templates/pyha/skipofficial/requestview.html:421
 #: templates/pyha/skipofficial/requestview.html:440
 msgid "contact_country"
@@ -404,8 +404,8 @@ msgstr "Maa:"
 #: templates/pyha/skipofficial/admin/requestview.html:380
 #: templates/pyha/skipofficial/handler/requestview.html:345
 #: templates/pyha/skipofficial/handler/requestview.html:364
-#: templates/pyha/skipofficial/requestform.html:246
-#: templates/pyha/skipofficial/requestform.html:351
+#: templates/pyha/skipofficial/requestform.html:245
+#: templates/pyha/skipofficial/requestform.html:350
 #: templates/pyha/skipofficial/requestview.html:422
 #: templates/pyha/skipofficial/requestview.html:441
 msgid "contact_email"
@@ -425,8 +425,8 @@ msgstr "Sähköposti:"
 #: templates/pyha/skipofficial/admin/requestview.html:381
 #: templates/pyha/skipofficial/handler/requestview.html:346
 #: templates/pyha/skipofficial/handler/requestview.html:365
-#: templates/pyha/skipofficial/requestform.html:247
-#: templates/pyha/skipofficial/requestform.html:352
+#: templates/pyha/skipofficial/requestform.html:246
+#: templates/pyha/skipofficial/requestform.html:351
 #: templates/pyha/skipofficial/requestview.html:423
 #: templates/pyha/skipofficial/requestview.html:442
 msgid "contact_phone_number"
@@ -446,8 +446,8 @@ msgstr "Puhelinnumero:"
 #: templates/pyha/skipofficial/admin/requestview.html:383
 #: templates/pyha/skipofficial/handler/requestview.html:348
 #: templates/pyha/skipofficial/handler/requestview.html:367
-#: templates/pyha/skipofficial/requestform.html:248
-#: templates/pyha/skipofficial/requestform.html:353
+#: templates/pyha/skipofficial/requestform.html:247
+#: templates/pyha/skipofficial/requestform.html:352
 #: templates/pyha/skipofficial/requestview.html:425
 #: templates/pyha/skipofficial/requestview.html:444
 msgid "contact_corporation"
@@ -467,8 +467,8 @@ msgstr "Yritys/Organisaatio:"
 #: templates/pyha/skipofficial/admin/requestview.html:386
 #: templates/pyha/skipofficial/handler/requestview.html:351
 #: templates/pyha/skipofficial/handler/requestview.html:370
-#: templates/pyha/skipofficial/requestform.html:249
-#: templates/pyha/skipofficial/requestform.html:354
+#: templates/pyha/skipofficial/requestform.html:248
+#: templates/pyha/skipofficial/requestform.html:353
 #: templates/pyha/skipofficial/requestview.html:428
 #: templates/pyha/skipofficial/requestview.html:447
 msgid "contact_corporation_id"
@@ -483,8 +483,6 @@ msgstr "Aineistopyyntösi"
 #: templates/pyha/official/ajax/requestformcustom.html:8
 #: templates/pyha/official/ajax/requestformsummary.html:11
 #: templates/pyha/official/ajax/requestformtaxon.html:12
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:11
-#: templates/pyha/skipofficial/ajax/requestformsummary.html:10
 msgid "request_description"
 msgstr "Kuvaus"
 
@@ -704,8 +702,8 @@ msgstr "Pyynnön tila"
 #: templates/pyha/official/ajax/requestformtaxon.html:38
 #: templates/pyha/official/requestform.html:513
 #: templates/pyha/official/requestform.html:527
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:33
-#: templates/pyha/skipofficial/requestform.html:427
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:41
+#: templates/pyha/skipofficial/requestform.html:426
 msgid "you_have_not_accepted_terms"
 msgstr "Lue ja hyväksy ehdot"
 
@@ -1063,8 +1061,8 @@ msgstr "Kannassa ei ole suodattimia tälle pyynnölle"
 #: templates/pyha/official/requestview.html:376
 #: templates/pyha/skipofficial/admin/requestview.html:268
 #: templates/pyha/skipofficial/handler/requestview.html:252
-#: templates/pyha/skipofficial/requestform.html:298
-#: templates/pyha/skipofficial/requestform.html:358
+#: templates/pyha/skipofficial/requestform.html:297
+#: templates/pyha/skipofficial/requestform.html:357
 #: templates/pyha/skipofficial/requestview.html:329
 msgid "request_arguments"
 msgstr "Perustelut"
@@ -1125,8 +1123,8 @@ msgstr "Tutkimuksen nimi"
 #: templates/pyha/official/requestview.html:406
 #: templates/pyha/skipofficial/admin/requestview.html:298
 #: templates/pyha/skipofficial/handler/requestview.html:282
-#: templates/pyha/skipofficial/requestform.html:304
-#: templates/pyha/skipofficial/requestform.html:364
+#: templates/pyha/skipofficial/requestform.html:303
+#: templates/pyha/skipofficial/requestform.html:363
 #: templates/pyha/skipofficial/requestview.html:359
 msgid "argument_research_address"
 msgstr ""
@@ -1181,8 +1179,8 @@ msgstr "Käyttöehdot"
 #: templates/pyha/official/requestview.html:474
 #: templates/pyha/skipofficial/admin/requestview.html:334
 #: templates/pyha/skipofficial/handler/requestview.html:318
-#: templates/pyha/skipofficial/requestform.html:222
-#: templates/pyha/skipofficial/requestform.html:318
+#: templates/pyha/skipofficial/requestform.html:221
+#: templates/pyha/skipofficial/requestform.html:317
 #: templates/pyha/skipofficial/requestview.html:395
 msgid "as_pdf"
 msgstr "PDF-muodossa"
@@ -1207,8 +1205,8 @@ msgstr "PDF-muodossa"
 #: templates/pyha/official/requestview.html:495
 #: templates/pyha/skipofficial/admin/requestview.html:355
 #: templates/pyha/skipofficial/handler/requestview.html:339
-#: templates/pyha/skipofficial/requestform.html:240
-#: templates/pyha/skipofficial/requestform.html:345
+#: templates/pyha/skipofficial/requestform.html:239
+#: templates/pyha/skipofficial/requestform.html:344
 #: templates/pyha/skipofficial/requestview.html:416
 msgid "contact_name"
 msgstr "Nimi:"
@@ -1614,13 +1612,10 @@ msgstr ""
 #: templates/pyha/official/ajax/requestformcustom.html:7
 #: templates/pyha/official/ajax/requestformsummary.html:10
 #: templates/pyha/official/ajax/requestformtaxon.html:11
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:10
-#: templates/pyha/skipofficial/ajax/requestformsummary.html:9
 msgid "collection_for_user"
 msgstr "Aineisto"
 
 #: templates/pyha/official/ajax/requestformcustom.html:9
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:12
 msgid "sightings_secured_by_data_provider"
 msgstr "Käyttörajoittettuja havaintoja"
 
@@ -1630,7 +1625,7 @@ msgstr "Aineistokohtaiset käyttöehdot"
 
 #: templates/pyha/official/ajax/requestformcustom.html:23
 #: templates/pyha/official/ajax/requestformtaxon.html:26
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:25
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:33
 msgid "Delete_these_sightings"
 msgstr "En tarvitse tätä aineistoa"
 
@@ -1641,7 +1636,7 @@ msgstr "En tarvitse tätä aineistoa"
 #: templates/pyha/official/requestview.html:433
 #: templates/pyha/official/requestview.html:439
 #: templates/pyha/skipofficial/admin/requestview.html:324
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:34
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:42
 #: templates/pyha/skipofficial/handler/requestview.html:308
 #: templates/pyha/skipofficial/requestview.html:381
 #: templates/pyha/skipofficial/requestview.html:385
@@ -1658,14 +1653,14 @@ msgstr ""
 #: templates/pyha/official/ajax/requestformtaxon.html:40
 #: templates/pyha/official/requestform.html:239
 #: templates/pyha/official/requestform.html:386
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:35
-#: templates/pyha/skipofficial/requestform.html:208
-#: templates/pyha/skipofficial/requestform.html:320
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:43
+#: templates/pyha/skipofficial/requestform.html:207
+#: templates/pyha/skipofficial/requestform.html:319
 msgid "previous"
 msgstr "Edellinen"
 
 #: templates/pyha/official/ajax/requestformcustom.html:39
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:36
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:44
 msgid "continue"
 msgstr "Jatka yhteenvetoon"
 
@@ -1683,7 +1678,8 @@ msgstr "Pyyntöösi sisältyvät aineistot"
 
 #: templates/pyha/official/ajax/requestformsummary.html:12
 #: templates/pyha/official/requestview.html:218
-#: templates/pyha/skipofficial/ajax/requestformsummary.html:11
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:16
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:15
 #: templates/pyha/skipofficial/requestview.html:209
 msgid "secured_by_data_provider"
 msgstr "Käyttörajoitetut havainnot"
@@ -2188,53 +2184,53 @@ msgstr "Aineisto hylätty"
 
 #: templates/pyha/official/requestform.html:14
 #: templates/pyha/official/requestview.html:349
-#: templates/pyha/skipofficial/requestform.html:14
+#: templates/pyha/skipofficial/requestform.html:13
 #: templates/pyha/skipofficial/requestview.html:302
 msgid "request_filters"
 msgstr "Aineistopyynnön rajaukset"
 
 #: templates/pyha/official/requestform.html:16
 #: templates/pyha/official/requestform.html:809
-#: templates/pyha/skipofficial/requestform.html:16
-#: templates/pyha/skipofficial/requestform.html:678
+#: templates/pyha/skipofficial/requestform.html:15
+#: templates/pyha/skipofficial/requestform.html:677
 msgid "show"
 msgstr "Näytä"
 
 #: templates/pyha/official/requestform.html:19
 #: templates/pyha/official/requestview.html:351
-#: templates/pyha/skipofficial/requestform.html:19
+#: templates/pyha/skipofficial/requestform.html:18
 #: templates/pyha/skipofficial/requestview.html:304
 msgid "show_in_portal"
 msgstr "Näytä Laji.fi portaalissa"
 
 #: templates/pyha/official/requestform.html:22
 #: templates/pyha/official/requestview.html:354
-#: templates/pyha/skipofficial/requestform.html:22
+#: templates/pyha/skipofficial/requestform.html:21
 #: templates/pyha/skipofficial/requestview.html:307
 msgid "filter"
 msgstr "Rajaus"
 
 #: templates/pyha/official/requestform.html:23
 #: templates/pyha/official/requestview.html:355
-#: templates/pyha/skipofficial/requestform.html:23
+#: templates/pyha/skipofficial/requestform.html:22
 #: templates/pyha/skipofficial/requestview.html:308
 msgid "values"
 msgstr "Arvot"
 
 #: templates/pyha/official/requestform.html:40
 #: templates/pyha/official/requestview.html:372
-#: templates/pyha/skipofficial/requestform.html:40
+#: templates/pyha/skipofficial/requestform.html:39
 #: templates/pyha/skipofficial/requestview.html:325
 msgid "no_filters"
 msgstr "Kannassa ei ole suodattimia tälle pyynnölle"
 
 #: templates/pyha/official/requestform.html:54
-#: templates/pyha/skipofficial/requestform.html:53
+#: templates/pyha/skipofficial/requestform.html:52
 msgid "contact_info_tab"
 msgstr "Hakijat"
 
 #: templates/pyha/official/requestform.html:62
-#: templates/pyha/skipofficial/requestform.html:61
+#: templates/pyha/skipofficial/requestform.html:60
 msgid "arguments_tab"
 msgstr "Perustelut"
 
@@ -2249,142 +2245,142 @@ msgstr "Muut käyttörajoitetut aineistot"
 
 #: templates/pyha/official/requestform.html:87
 #: templates/pyha/official/requestform.html:105
-#: templates/pyha/skipofficial/requestform.html:75
+#: templates/pyha/skipofficial/requestform.html:74
 msgid "summary_tab"
 msgstr "Yhteenveto"
 
 #: templates/pyha/official/requestform.html:116
-#: templates/pyha/skipofficial/requestform.html:85
+#: templates/pyha/skipofficial/requestform.html:84
 msgid "contact_list"
 msgstr "Hakijat"
 
 #: templates/pyha/official/requestform.html:119
-#: templates/pyha/skipofficial/requestform.html:88
+#: templates/pyha/skipofficial/requestform.html:87
 msgid "main_contact"
 msgstr "Vastuullinen hakija"
 
 #: templates/pyha/official/requestform.html:125
-#: templates/pyha/skipofficial/requestform.html:94
+#: templates/pyha/skipofficial/requestform.html:93
 msgid "additional_contacts"
 msgstr "Muut hakijat"
 
 #: templates/pyha/official/requestform.html:129
-#: templates/pyha/skipofficial/requestform.html:98
+#: templates/pyha/skipofficial/requestform.html:97
 msgid "add_new_contact"
 msgstr "Lisää hakija "
 
 #: templates/pyha/official/requestform.html:136
-#: templates/pyha/skipofficial/requestform.html:105
+#: templates/pyha/skipofficial/requestform.html:104
 msgid "remove_last_contact"
 msgstr "Poista viimeisin hakija"
 
 #: templates/pyha/official/requestform.html:191
-#: templates/pyha/skipofficial/requestform.html:160
+#: templates/pyha/skipofficial/requestform.html:159
 msgid "continue_to_step_2"
 msgstr "Jatka kohtaan 2"
 
 #: templates/pyha/official/requestform.html:196
-#: templates/pyha/skipofficial/requestform.html:165
+#: templates/pyha/skipofficial/requestform.html:164
 msgid "request_arguments_for_user"
 msgstr "Perustele aineistopyyntösi käyttötarkoitus"
 
 #: templates/pyha/official/requestform.html:199
 #: templates/pyha/official/requestview.html:382
-#: templates/pyha/skipofficial/requestform.html:168
+#: templates/pyha/skipofficial/requestform.html:167
 #: templates/pyha/skipofficial/requestview.html:335
 msgid "reason_zoning"
 msgstr "Maankäytönsuunnittelu"
 
 #: templates/pyha/official/requestform.html:200
 #: templates/pyha/official/requestview.html:384
-#: templates/pyha/skipofficial/requestform.html:169
+#: templates/pyha/skipofficial/requestform.html:168
 #: templates/pyha/skipofficial/requestview.html:337
 msgid "reason_permission"
 msgstr "Lupahakemus"
 
 #: templates/pyha/official/requestform.html:201
 #: templates/pyha/official/requestview.html:386
-#: templates/pyha/skipofficial/requestform.html:170
+#: templates/pyha/skipofficial/requestform.html:169
 #: templates/pyha/skipofficial/requestview.html:339
 msgid "reason_enviromental"
 msgstr "Ympäristövaikutusten arviointimenettely"
 
 #: templates/pyha/official/requestform.html:202
 #: templates/pyha/official/requestview.html:388
-#: templates/pyha/skipofficial/requestform.html:171
+#: templates/pyha/skipofficial/requestform.html:170
 #: templates/pyha/skipofficial/requestview.html:341
 msgid "reason_natura"
 msgstr "Natura-arviointimenettely (luonnonsuojelulaki)"
 
 #: templates/pyha/official/requestform.html:203
 #: templates/pyha/official/requestview.html:390
-#: templates/pyha/skipofficial/requestform.html:172
+#: templates/pyha/skipofficial/requestform.html:171
 #: templates/pyha/skipofficial/requestview.html:343
 msgid "reason_scientific"
 msgstr "Tieteellinen tutkimus"
 
 #: templates/pyha/official/requestform.html:204
 #: templates/pyha/official/requestview.html:392
-#: templates/pyha/skipofficial/requestform.html:173
+#: templates/pyha/skipofficial/requestform.html:172
 #: templates/pyha/skipofficial/requestview.html:345
 msgid "reason_forest"
 msgstr "Metsäsuunnittelu"
 
 #: templates/pyha/official/requestform.html:205
 #: templates/pyha/official/requestview.html:394
-#: templates/pyha/skipofficial/requestform.html:174
+#: templates/pyha/skipofficial/requestform.html:173
 #: templates/pyha/skipofficial/requestview.html:347
 msgid "reason_other"
 msgstr "Muu (perustele vapaatekstikenttään)"
 
 #: templates/pyha/official/requestform.html:209
-#: templates/pyha/skipofficial/requestform.html:178
+#: templates/pyha/skipofficial/requestform.html:177
 msgid "additional_information"
 msgstr "Vastaa lisäkysymyksiin"
 
 #: templates/pyha/official/requestform.html:212
-#: templates/pyha/skipofficial/requestform.html:181
+#: templates/pyha/skipofficial/requestform.html:180
 msgid "required_project_name"
 msgstr "Hankkeen nimi"
 
 #: templates/pyha/official/requestform.html:215
-#: templates/pyha/skipofficial/requestform.html:184
+#: templates/pyha/skipofficial/requestform.html:183
 msgid "required_research_name"
 msgstr "Tutkimuksen nimi"
 
 #: templates/pyha/official/requestform.html:218
-#: templates/pyha/skipofficial/requestform.html:187
+#: templates/pyha/skipofficial/requestform.html:186
 msgid "required_research_address"
 msgstr ""
 "Tutkimusorganisaatio ja tutkimusryhmä (jos on) ja yhteyshenkilön yhteystiedot"
 
 #: templates/pyha/official/requestform.html:221
-#: templates/pyha/skipofficial/requestform.html:190
+#: templates/pyha/skipofficial/requestform.html:189
 msgid "required_goals"
 msgstr "Tutkimuksen tavoitteet"
 
 #: templates/pyha/official/requestform.html:224
-#: templates/pyha/skipofficial/requestform.html:193
+#: templates/pyha/skipofficial/requestform.html:192
 msgid "required_planning_description"
 msgstr "Suunnitteluhankkeen kuvaus"
 
 #: templates/pyha/official/requestform.html:227
-#: templates/pyha/skipofficial/requestform.html:196
+#: templates/pyha/skipofficial/requestform.html:195
 msgid "required_municipality"
 msgstr "Sijaintikunta"
 
 #: templates/pyha/official/requestform.html:230
-#: templates/pyha/skipofficial/requestform.html:199
+#: templates/pyha/skipofficial/requestform.html:198
 msgid "required_natura_areas"
 msgstr "Natura-alueet"
 
 #: templates/pyha/official/requestform.html:233
-#: templates/pyha/skipofficial/requestform.html:202
+#: templates/pyha/skipofficial/requestform.html:201
 msgid "required_arguments"
 msgstr "Vapaatekstikenttä"
 
 #: templates/pyha/official/requestform.html:240
-#: templates/pyha/skipofficial/requestform.html:209
+#: templates/pyha/skipofficial/requestform.html:208
 msgid "continue_to_step_3"
 msgstr "Jatka kohtaan 3"
 
@@ -2395,7 +2391,7 @@ msgstr "Sensitiivisten aineistojen käyttöehdot"
 
 #: templates/pyha/official/requestform.html:289
 #: templates/pyha/official/requestform.html:323
-#: templates/pyha/skipofficial/requestform.html:258
+#: templates/pyha/skipofficial/requestform.html:257
 msgid "i_accept_terms"
 msgstr "Hyväksyn ehdot"
 
@@ -2405,86 +2401,86 @@ msgstr "Hyväksyn ehdot"
 #: templates/pyha/official/requestview.html:535
 #: templates/pyha/skipofficial/admin/requestview.html:395
 #: templates/pyha/skipofficial/handler/requestview.html:379
-#: templates/pyha/skipofficial/requestform.html:260
+#: templates/pyha/skipofficial/requestform.html:259
 #: templates/pyha/skipofficial/requestview.html:456
 msgid "exit"
 msgstr "Sulje"
 
 #: templates/pyha/official/requestform.html:334
 #: templates/pyha/official/requestform.html:405
-#: templates/pyha/skipofficial/requestform.html:268
-#: templates/pyha/skipofficial/requestform.html:339
+#: templates/pyha/skipofficial/requestform.html:267
+#: templates/pyha/skipofficial/requestform.html:338
 msgid "request_summary"
 msgstr "Yhteenveto"
 
 #: templates/pyha/official/requestform.html:338
 #: templates/pyha/official/requestform.html:409
 #: templates/pyha/official/requestview.html:544
-#: templates/pyha/skipofficial/requestform.html:272
-#: templates/pyha/skipofficial/requestform.html:343
+#: templates/pyha/skipofficial/requestform.html:271
+#: templates/pyha/skipofficial/requestform.html:342
 #: templates/pyha/skipofficial/requestview.html:465
 msgid "contacts"
 msgstr "Hakijat"
 
 #: templates/pyha/official/requestform.html:341
 #: templates/pyha/official/requestview.html:547
-#: templates/pyha/skipofficial/requestform.html:275
+#: templates/pyha/skipofficial/requestform.html:274
 #: templates/pyha/skipofficial/requestview.html:468
 msgid "full_name"
 msgstr "Nimi"
 
 #: templates/pyha/official/requestform.html:342
 #: templates/pyha/official/requestview.html:548
-#: templates/pyha/skipofficial/requestform.html:276
+#: templates/pyha/skipofficial/requestform.html:275
 #: templates/pyha/skipofficial/requestview.html:469
 msgid "street_address"
 msgstr "Katuosoite"
 
 #: templates/pyha/official/requestform.html:343
 #: templates/pyha/official/requestview.html:549
-#: templates/pyha/skipofficial/requestform.html:277
+#: templates/pyha/skipofficial/requestform.html:276
 #: templates/pyha/skipofficial/requestview.html:470
 msgid "postal_code"
 msgstr "Postinumero"
 
 #: templates/pyha/official/requestform.html:344
 #: templates/pyha/official/requestview.html:550
-#: templates/pyha/skipofficial/requestform.html:278
+#: templates/pyha/skipofficial/requestform.html:277
 #: templates/pyha/skipofficial/requestview.html:471
 msgid "post_office_name"
 msgstr "Postitoimipaikka"
 
 #: templates/pyha/official/requestform.html:345
 #: templates/pyha/official/requestview.html:551
-#: templates/pyha/skipofficial/requestform.html:279
+#: templates/pyha/skipofficial/requestform.html:278
 #: templates/pyha/skipofficial/requestview.html:472
 msgid "country"
 msgstr "Maa"
 
 #: templates/pyha/official/requestform.html:346
 #: templates/pyha/official/requestview.html:552
-#: templates/pyha/skipofficial/requestform.html:280
+#: templates/pyha/skipofficial/requestform.html:279
 #: templates/pyha/skipofficial/requestview.html:473
 msgid "email"
 msgstr "Sähköposti"
 
 #: templates/pyha/official/requestform.html:347
 #: templates/pyha/official/requestview.html:553
-#: templates/pyha/skipofficial/requestform.html:281
+#: templates/pyha/skipofficial/requestform.html:280
 #: templates/pyha/skipofficial/requestview.html:474
 msgid "phone_number"
 msgstr "Puhelinnumero"
 
 #: templates/pyha/official/requestform.html:348
 #: templates/pyha/official/requestview.html:554
-#: templates/pyha/skipofficial/requestform.html:282
+#: templates/pyha/skipofficial/requestform.html:281
 #: templates/pyha/skipofficial/requestview.html:475
 msgid "corporation/organization_name"
 msgstr "Yrityksen/organisaation nimi"
 
 #: templates/pyha/official/requestform.html:349
 #: templates/pyha/official/requestview.html:555
-#: templates/pyha/skipofficial/requestform.html:283
+#: templates/pyha/skipofficial/requestform.html:282
 #: templates/pyha/skipofficial/requestview.html:476
 msgid "corporation_id"
 msgstr "Y-tunnus"
@@ -2492,8 +2488,8 @@ msgstr "Y-tunnus"
 #: templates/pyha/official/requestform.html:366
 #: templates/pyha/official/requestform.html:426
 #: templates/pyha/official/requestview.html:400
-#: templates/pyha/skipofficial/requestform.html:300
-#: templates/pyha/skipofficial/requestform.html:360
+#: templates/pyha/skipofficial/requestform.html:299
+#: templates/pyha/skipofficial/requestform.html:359
 #: templates/pyha/skipofficial/requestview.html:353
 msgid "argument_project"
 msgstr "Hankkeen nimi"
@@ -2501,8 +2497,8 @@ msgstr "Hankkeen nimi"
 #: templates/pyha/official/requestform.html:368
 #: templates/pyha/official/requestform.html:428
 #: templates/pyha/official/requestview.html:403
-#: templates/pyha/skipofficial/requestform.html:302
-#: templates/pyha/skipofficial/requestform.html:362
+#: templates/pyha/skipofficial/requestform.html:301
+#: templates/pyha/skipofficial/requestform.html:361
 #: templates/pyha/skipofficial/requestview.html:356
 msgid "argument_research"
 msgstr "Tutkimuksen nimi"
@@ -2510,8 +2506,8 @@ msgstr "Tutkimuksen nimi"
 #: templates/pyha/official/requestform.html:372
 #: templates/pyha/official/requestform.html:430
 #: templates/pyha/official/requestview.html:409
-#: templates/pyha/skipofficial/requestform.html:306
-#: templates/pyha/skipofficial/requestform.html:366
+#: templates/pyha/skipofficial/requestform.html:305
+#: templates/pyha/skipofficial/requestform.html:365
 #: templates/pyha/skipofficial/requestview.html:362
 msgid "argument_goals"
 msgstr "Tutkimuksen tavoitteet"
@@ -2519,8 +2515,8 @@ msgstr "Tutkimuksen tavoitteet"
 #: templates/pyha/official/requestform.html:374
 #: templates/pyha/official/requestform.html:432
 #: templates/pyha/official/requestview.html:412
-#: templates/pyha/skipofficial/requestform.html:308
-#: templates/pyha/skipofficial/requestform.html:368
+#: templates/pyha/skipofficial/requestform.html:307
+#: templates/pyha/skipofficial/requestform.html:367
 #: templates/pyha/skipofficial/requestview.html:365
 msgid "argument_planning"
 msgstr "Suunnitteluhankkeen kuvaus"
@@ -2528,8 +2524,8 @@ msgstr "Suunnitteluhankkeen kuvaus"
 #: templates/pyha/official/requestform.html:376
 #: templates/pyha/official/requestform.html:434
 #: templates/pyha/official/requestview.html:415
-#: templates/pyha/skipofficial/requestform.html:310
-#: templates/pyha/skipofficial/requestform.html:370
+#: templates/pyha/skipofficial/requestform.html:309
+#: templates/pyha/skipofficial/requestform.html:369
 #: templates/pyha/skipofficial/requestview.html:368
 msgid "argument_municipality"
 msgstr "Sijaintikunta"
@@ -2537,8 +2533,8 @@ msgstr "Sijaintikunta"
 #: templates/pyha/official/requestform.html:378
 #: templates/pyha/official/requestform.html:436
 #: templates/pyha/official/requestview.html:418
-#: templates/pyha/skipofficial/requestform.html:312
-#: templates/pyha/skipofficial/requestform.html:372
+#: templates/pyha/skipofficial/requestform.html:311
+#: templates/pyha/skipofficial/requestform.html:371
 #: templates/pyha/skipofficial/requestview.html:371
 msgid "argument_natura_areas"
 msgstr "Natura-alueet"
@@ -2546,67 +2542,67 @@ msgstr "Natura-alueet"
 #: templates/pyha/official/requestform.html:380
 #: templates/pyha/official/requestform.html:438
 #: templates/pyha/official/requestview.html:421
-#: templates/pyha/skipofficial/requestform.html:314
-#: templates/pyha/skipofficial/requestform.html:374
+#: templates/pyha/skipofficial/requestform.html:313
+#: templates/pyha/skipofficial/requestform.html:373
 #: templates/pyha/skipofficial/requestview.html:374
 msgid "argument_reason"
 msgstr "Lisätietoa"
 
 #: templates/pyha/official/requestform.html:388
-#: templates/pyha/skipofficial/requestform.html:322
+#: templates/pyha/skipofficial/requestform.html:321
 msgid "end_request"
 msgstr "Päätä pyyntö"
 
 #: templates/pyha/official/requestform.html:390
-#: templates/pyha/skipofficial/requestform.html:324
+#: templates/pyha/skipofficial/requestform.html:323
 msgid "send_to_be_accepted"
 msgstr "Lähetä hyväksyttäväksi"
 
 #: templates/pyha/official/requestform.html:448
-#: templates/pyha/skipofficial/requestform.html:384
+#: templates/pyha/skipofficial/requestform.html:383
 msgid "are_you_sure_you_want_to_remove_collection"
 msgstr "Oletko varma, että haluat poistaa tämän aineiston pyynnöstäsi?"
 
 #: templates/pyha/official/requestform.html:451
-#: templates/pyha/skipofficial/requestform.html:387
+#: templates/pyha/skipofficial/requestform.html:386
 msgid "delete"
 msgstr "Poista"
 
 #: templates/pyha/official/requestform.html:452
 #: templates/pyha/official/requestview.html:131
-#: templates/pyha/skipofficial/requestform.html:388
+#: templates/pyha/skipofficial/requestform.html:387
 #: templates/pyha/skipofficial/requestview.html:119
 msgid "back"
 msgstr "Peruuta"
 
 #: templates/pyha/official/requestform.html:512
 #: templates/pyha/official/requestform.html:526
-#: templates/pyha/skipofficial/requestform.html:426
+#: templates/pyha/skipofficial/requestform.html:425
 msgid "you_accepted_terms"
 msgstr "Hyväksyit ehdot"
 
 #: templates/pyha/official/requestform.html:590
-#: templates/pyha/skipofficial/requestform.html:458
+#: templates/pyha/skipofficial/requestform.html:457
 msgid "new_contact"
 msgstr "Uusi hakija"
 
 #: templates/pyha/official/requestform.html:812
-#: templates/pyha/skipofficial/requestform.html:681
+#: templates/pyha/skipofficial/requestform.html:680
 msgid "hide"
 msgstr "Piilota"
 
 #: templates/pyha/official/requestform.html:903
-#: templates/pyha/skipofficial/requestform.html:772
+#: templates/pyha/skipofficial/requestform.html:771
 msgid "request_choose_reason"
 msgstr "Valitse aineiston käyttötarkoitus"
 
 #: templates/pyha/official/requestform.html:904
-#: templates/pyha/skipofficial/requestform.html:773
+#: templates/pyha/skipofficial/requestform.html:772
 msgid "request_chosen_multiple_reasons"
 msgstr "Valittu useampi"
 
 #: templates/pyha/official/requestform.html:905
-#: templates/pyha/skipofficial/requestform.html:774
+#: templates/pyha/skipofficial/requestform.html:773
 msgid "request_chosen_all_reasons"
 msgstr "Valittu kaikki"
 
@@ -2705,12 +2701,16 @@ msgstr "Lisätietopyynnöt"
 
 #: templates/pyha/official/requestview.html:215
 #: templates/pyha/official/requestview.html:307
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:10
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:9
 #: templates/pyha/skipofficial/requestview.html:202
 #: templates/pyha/skipofficial/requestview.html:260
 msgid "collection_name"
 msgstr "Aineisto"
 
 #: templates/pyha/official/requestview.html:217
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:11
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:10
 #: templates/pyha/skipofficial/requestview.html:204
 msgid "collection_description"
 msgstr "Kuvaus"
@@ -2863,8 +2863,8 @@ msgstr "Aineisto hylätty"
 
 #: templates/pyha/skipofficial/admin/requestview.html:90
 #: templates/pyha/skipofficial/admin/requestview.html:214
-#: templates/pyha/skipofficial/ajax/requestformcollection.html:18
-#: templates/pyha/skipofficial/ajax/requestformsummary.html:15
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:22
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:19
 #: templates/pyha/skipofficial/handler/requestview.html:74
 #: templates/pyha/skipofficial/handler/requestview.html:198
 #: templates/pyha/skipofficial/requestview.html:70
@@ -2885,9 +2885,39 @@ msgstr "Laadun kuvaus"
 msgid "admin_collection_terms"
 msgstr "Erityisehdot"
 
+#: templates/pyha/skipofficial/admin/requestview.html:190
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:14
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:13
+#: templates/pyha/skipofficial/handler/requestview.html:174
+#: templates/pyha/skipofficial/requestview.html:207
+#, fuzzy
+#| msgid "secured_by_quarantine"
+msgid "secured_by_quarantine_explanation"
+msgstr "Karanteenissa"
+
 #: templates/pyha/skipofficial/admin/requestview.html:191
 msgid "admin_secured_by_sensitivity"
 msgstr "Sensitiiviset"
+
+#: templates/pyha/skipofficial/admin/requestview.html:191
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:15
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:14
+#: templates/pyha/skipofficial/handler/requestview.html:175
+#: templates/pyha/skipofficial/requestview.html:208
+#, fuzzy
+#| msgid "secured_by_sensitivity"
+msgid "secured_by_sensitivity_explanation"
+msgstr "Sensitiiviset"
+
+#: templates/pyha/skipofficial/admin/requestview.html:192
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:16
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:15
+#: templates/pyha/skipofficial/handler/requestview.html:176
+#: templates/pyha/skipofficial/requestview.html:209
+#, fuzzy
+#| msgid "secured_by_data_provider"
+msgid "secured_by_dataprovider_explanation"
+msgstr "Käyttörajoitetut havainnot"
 
 #: templates/pyha/skipofficial/admin/requestview.html:323
 #: templates/pyha/skipofficial/handler/requestview.html:307
@@ -2897,7 +2927,7 @@ msgstr "Käyttöehdot"
 
 #: templates/pyha/skipofficial/admin/requestview.html:332
 #: templates/pyha/skipofficial/handler/requestview.html:316
-#: templates/pyha/skipofficial/requestform.html:221
+#: templates/pyha/skipofficial/requestform.html:220
 #: templates/pyha/skipofficial/requestview.html:393
 msgid "sensitive_and_other_terms"
 msgstr ""
@@ -2932,6 +2962,30 @@ msgstr ""
 "Aineistopyyntöösi sisältyy käyttörajoitettuja aineistoja. Lue ja hyväksy "
 "käyttöehdot"
 
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:12
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:11
+#: templates/pyha/skipofficial/requestview.html:205
+msgid "collection_quality_description"
+msgstr "Laadun kuvaus"
+
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:13
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:12
+#: templates/pyha/skipofficial/requestview.html:206
+msgid "collection_terms"
+msgstr "Erityisehdot"
+
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:14
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:13
+#: templates/pyha/skipofficial/requestview.html:207
+msgid "secured_by_quarantine"
+msgstr "Karanteenissa"
+
+#: templates/pyha/skipofficial/ajax/requestformcollection.html:15
+#: templates/pyha/skipofficial/ajax/requestformsummary.html:14
+#: templates/pyha/skipofficial/requestview.html:208
+msgid "secured_by_sensitivity"
+msgstr "Sensitiiviset"
+
 #: templates/pyha/skipofficial/handler/requestview.html:172
 msgid "handler_collection_quality_description"
 msgstr "Laadun kuvaus"
@@ -2948,25 +3002,9 @@ msgstr "Sensitiiviset"
 msgid "collection_free_of_sensitive_data"
 msgstr "Pelkästään käyttörajoitettu"
 
-#: templates/pyha/skipofficial/requestform.html:68
+#: templates/pyha/skipofficial/requestform.html:67
 msgid "collection_tab"
 msgstr "Aineistot"
-
-#: templates/pyha/skipofficial/requestview.html:205
-msgid "collection_quality_description"
-msgstr "Laadun kuvaus"
-
-#: templates/pyha/skipofficial/requestview.html:206
-msgid "collection_terms"
-msgstr "Erityisehdot"
-
-#: templates/pyha/skipofficial/requestview.html:207
-msgid "secured_by_quarantine"
-msgstr "Karanteenissa"
-
-#: templates/pyha/skipofficial/requestview.html:208
-msgid "secured_by_sensitivity"
-msgstr "Sensitiiviset"
 
 #: views/requestform.py:149 views/requestform.py:188
 msgid "toast_thanks_request_has_been_registered"
