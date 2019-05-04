@@ -2875,14 +2875,10 @@ msgstr "Terms"
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:13
 #: templates/pyha/skipofficial/handler/requestview.html:174
 #: templates/pyha/skipofficial/requestview.html:207
-#, fuzzy
-#| msgid "admin_secured_by_quarantine"
 msgid "secured_by_quarantine_explanation"
-msgstr "admin_secured_by_quarantine"
+msgstr "Scientific protection period (location, time)"
 
 #: templates/pyha/skipofficial/admin/requestview.html:191
-#, fuzzy
-#| msgid "admin_sensitivity"
 msgid "admin_secured_by_sensitivity"
 msgstr "Sensitivity"
 
@@ -2891,20 +2887,16 @@ msgstr "Sensitivity"
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:14
 #: templates/pyha/skipofficial/handler/requestview.html:175
 #: templates/pyha/skipofficial/requestview.html:208
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "secured_by_sensitivity_explanation"
-msgstr "Sensitiviy"
+msgstr "Automatically coarcened sensitive data"
 
 #: templates/pyha/skipofficial/admin/requestview.html:192
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:16
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:15
 #: templates/pyha/skipofficial/handler/requestview.html:176
 #: templates/pyha/skipofficial/requestview.html:209
-#, fuzzy
-#| msgid "secured_by_data_provider"
 msgid "secured_by_dataprovider_explanation"
-msgstr "Secured by data provider"
+msgstr "User/Owner coarcened observation data"
 
 #: templates/pyha/skipofficial/admin/requestview.html:323
 #: templates/pyha/skipofficial/handler/requestview.html:307
@@ -2966,10 +2958,8 @@ msgstr "admin_secured_by_quarantine"
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:15
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:14
 #: templates/pyha/skipofficial/requestview.html:208
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "secured_by_sensitivity"
-msgstr "Sensitiviy"
+msgstr "Sensitivity"
 
 #: templates/pyha/skipofficial/handler/requestview.html:172
 msgid "handler_collection_quality_description"
@@ -2980,10 +2970,8 @@ msgid "handler_collection_terms"
 msgstr "Terms"
 
 #: templates/pyha/skipofficial/handler/requestview.html:175
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "handler_secured_by_sensitivity"
-msgstr "Sensitiviy"
+msgstr "Sensitivity"
 
 #: templates/pyha/skipofficial/handler/requestview.html:509
 msgid "collection_free_of_sensitive_data"

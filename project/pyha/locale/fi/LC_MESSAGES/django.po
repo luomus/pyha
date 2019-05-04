@@ -2890,10 +2890,8 @@ msgstr "Erityisehdot"
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:13
 #: templates/pyha/skipofficial/handler/requestview.html:174
 #: templates/pyha/skipofficial/requestview.html:207
-#, fuzzy
-#| msgid "secured_by_quarantine"
 msgid "secured_by_quarantine_explanation"
-msgstr "Karanteenissa"
+msgstr "Tutkimus suoja-aika (paikkatieto, aikatieto)"
 
 #: templates/pyha/skipofficial/admin/requestview.html:191
 msgid "admin_secured_by_sensitivity"
@@ -2904,20 +2902,16 @@ msgstr "Sensitiiviset"
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:14
 #: templates/pyha/skipofficial/handler/requestview.html:175
 #: templates/pyha/skipofficial/requestview.html:208
-#, fuzzy
-#| msgid "secured_by_sensitivity"
 msgid "secured_by_sensitivity_explanation"
-msgstr "Sensitiiviset"
+msgstr "Automaattisesti karkeistettu sensitiivinen tieto (paikkatieto, aikatieto)"
 
 #: templates/pyha/skipofficial/admin/requestview.html:192
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:16
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:15
 #: templates/pyha/skipofficial/handler/requestview.html:176
 #: templates/pyha/skipofficial/requestview.html:209
-#, fuzzy
-#| msgid "secured_by_data_provider"
 msgid "secured_by_dataprovider_explanation"
-msgstr "K√§ytt√∂rajoitetut havainnot"
+msgstr "K‰ytt‰j‰n/Omistajan havainnolleen tekem‰ karkeistus"
 
 #: templates/pyha/skipofficial/admin/requestview.html:323
 #: templates/pyha/skipofficial/handler/requestview.html:307
