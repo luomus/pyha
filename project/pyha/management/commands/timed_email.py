@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from pyha.email import send_mail_for_unchecked_requests, send_mail_for_missing_handlers
-from pyha.database import count_unhandled_requests, update_collection_handlers
+from pyha.database import count_unhandled_requests, update_collection_handlers, update_collection_handlers_autom_email_sent_time
 from django.core.cache import caches
 
 class Command(BaseCommand):
@@ -20,3 +20,4 @@ class Command(BaseCommand):
             count = count_unhandled_requests(handler)
             if(count > 0):
                 send_mail_for_unchecked_requests(handler, count, lang)
+        update_collection_handlers_autom_email_sent_time()

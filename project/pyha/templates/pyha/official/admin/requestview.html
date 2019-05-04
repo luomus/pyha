@@ -975,6 +975,13 @@
 		});
 	</script>
 	{% endif %}
+	{% if next == 'decision' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('decision-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
 	<script>
 		$(document).ready(function(){
 			refreshCommunicationsEmailByLang();

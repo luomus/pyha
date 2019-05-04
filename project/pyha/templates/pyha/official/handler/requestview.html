@@ -757,6 +757,13 @@
 		});
 	</script>
 	{% endif %}
+	{% if next == 'decision' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('decision-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
 {% endblock %}
 
 {% block modal %}

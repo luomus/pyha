@@ -187,9 +187,9 @@
 									<th>{% trans "admin_collection_description" %}</th>
 									<th>{% trans "admin_collection_quality_description" %}</th>
 									<th>{% trans "admin_collection_terms" %}</th>
-									<th>{% trans "admin_secured_by_quarantine" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
-									<th>{% trans "admin_secured_by_sensitivity" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
-									<th>{% trans "admin_secured_by_data_provider" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -431,58 +431,65 @@
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 						{% if collections %}
 						<h3>{% trans "admin_secured_collection_decicions" %}</h3>
-						<table class="table" style="width:100%">
-							<tr style=color:black>
-								<th>{% trans "admin_collection_name" %}</th>
-								<th>{% trans "admin_collection_description" %}</th>
-								<th>{% trans "admin_state_of_processing" %}</th>
-								<th>{% trans "admin_decision_arguments" %}</th>
-							</tr>
-							{% for collection in collections %}
-								{% if collection.status == 1 %}
-								<tr class="info clickable-row">
-								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row">
-								{% elif collection.status == 4 %}
-								<tr class="success clickable-row">
-								{% else %}  
-								<tr>
-								{% endif %}
-									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
-									<td>{{collection.result.description}}</td>
-									
-									{% if collection.status == 1 %}
-										{% if collection.address in handles %}
-										<td>{% trans "admin_waiting_for_you" %}</td>
-										{% else %}
-										<td>{% trans "admin_waiting_for_others" %}</td>
-										{% endif %}
-									{% elif collection.status == 3 %}
-									<td>{% trans "admin_denied" %}</td>
-									{% elif collection.status == 2 %}
-									<td>{% trans "admin_partially_accepted" %}</td>
-									{% elif collection.status == 4 %}
-									<td>{% trans "admin_accepted" %}</td>
-									{% else %}  
-									<td>{% trans "admin_unknown" %}</td>	
-									{% endif %}
-									<td>
-										<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-										<div class="form-group">
-												<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-												<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-												<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-												<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-												<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
-												<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
-												<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
-											</div>
-											{% csrf_token %}
-										</form>
-									</td>
+						<form action="{% url 'pyha:group_answer' %}" id="requestform" method="post">
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+									<th>{% trans "admin_collection_name" %}</th>
+									<th>{% trans "admin_collection_description" %}</th>
+									<th>{% trans "admin_state_of_processing" %}</th>
+									<th>{% trans "admin_select" %}</th>
+									<th>{% trans "admin_decision_arguments" %}</th>
 								</tr>
-							{% endfor %}
-						</table>
+								{% for collection in collections %}
+									{% if collection.status == 1 %}
+									<tr class="info clickable-row">
+									{% elif collection.status == 3 %}
+									<tr class="danger clickable-row">
+									{% elif collection.status == 4 %}
+									<tr class="success clickable-row">
+									{% else %}  
+									<tr>
+									{% endif %}
+										<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
+										<td>{{collection.result.description}}</td>
+										
+										{% if collection.status == 1 %}
+											{% if collection.address in handles %}
+											<td>{% trans "admin_waiting_for_you" %}</td>
+											{% else %}
+											<td>{% trans "admin_waiting_for_others" %}</td>
+											{% endif %}
+										{% elif collection.status == 3 %}
+										<td>{% trans "admin_denied" %}</td>
+										{% elif collection.status == 2 %}
+										<td>{% trans "admin_partially_accepted" %}</td>
+										{% elif collection.status == 4 %}
+										<td>{% trans "admin_accepted" %}</td>
+										{% else %}  
+										<td>{% trans "admin_unknown" %}</td>	
+										{% endif %}
+										<td>
+											<p style="white-space: nowrap;"><input {% if frozen %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
+											<div style="margin-bottom: 16px;"></div>
+										</td>
+										{% if forloop.first %}
+											<td rowspan="{{collections|length}}" style="background-color:white;">
+												<div class="form-group">
+													<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
+													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+													<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
+													<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
+													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
+												</div>
+											</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+							</table>
+							{% csrf_token %}
+						</form>
 						{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
@@ -627,6 +634,11 @@
 								{% csrf_token %}
 							</h3>
 						</form>
+							{% if com_last_automated_send_email %}
+								<div class="form-group stale-form">
+									<h>{% trans "admin_automated_emails_sent_last_time" %}: {{ com_last_automated_send_email|date:"d.m.Y    H:i"}}</h>
+								</div>
+							{% endif %}
 						<form action="{% url 'pyha:send_email' %}" id="requestform" method="post">
 							<table id="communications_table" class="table" style="width:100%;">
 								<tr>
@@ -859,6 +871,13 @@
 	<script>
 		$(document).ready(function(){
 			document.getElementById('handler_communications-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	{% if next == 'decision' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('decision-tab').scrollIntoView();
 		});
 	</script>
 	{% endif %}

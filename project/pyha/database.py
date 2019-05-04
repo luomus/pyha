@@ -431,7 +431,8 @@ def create_request_view_context(requestId, http_request, userRequest):
 			taxon = True
 	request_owner = fetch_user_name(userRequest.user)
 	request_owners_email = fetch_email_address(userRequest.user)
-	context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasServiceRole, "role1": role1, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": requestLog(http_request, requestId), "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+	request_log = requestLog(http_request, requestId)
+	context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasServiceRole, "role1": role1, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": request_log, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
@@ -445,6 +446,8 @@ def create_request_view_context(requestId, http_request, userRequest):
 		emails = {}
 		for (lang, name) in settings.LANGUAGES:
 			emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
+		sent_time = get_collection_handlers_autom_email_sent_time()
+		if sent_time > get_log_terms_accepted_date_time(request_log): context["com_last_automated_send_email"] = sent_time
 		context["com_email_templates"] = emails
 		context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, lang)
 	if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(userRequest.id, collectionList)
@@ -586,6 +589,19 @@ def is_collection_waiting_atleast_days(days_to_subtract, collection):
 
 def contains_approved_collection(requestId):
 	return Collection.objects.filter(request=requestId, status = Col_StatusEnum.APPROVED).count() > 0
+
+def get_log_terms_accepted_date_time(request_log):
+	for log_entry in request_log:
+		if log_entry.action == RequestLogEntry().ACCEPT:
+			return log_entry.date
+	return None
+
+def update_collection_handlers_autom_email_sent_time():    
+	caches['collections'].set('last_timed_email', datetime.now())
+	return True
+
+def get_collection_handlers_autom_email_sent_time():    
+	return caches['collections'].get('last_timed_email', None)
 
 """
 	Send "request has been handled" email 
