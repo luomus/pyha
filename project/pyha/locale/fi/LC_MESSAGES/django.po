@@ -2911,7 +2911,7 @@ msgstr "Automaattisesti karkeistettu sensitiivinen tieto (paikkatieto, aikatieto
 #: templates/pyha/skipofficial/handler/requestview.html:176
 #: templates/pyha/skipofficial/requestview.html:209
 msgid "secured_by_dataprovider_explanation"
-msgstr "K‰ytt‰j‰n/Omistajan havainnolleen tekem‰ karkeistus"
+msgstr "K√§ytt√§j√§n/Omistajan havainnolleen tekem√§ karkeistus"
 
 #: templates/pyha/skipofficial/admin/requestview.html:323
 #: templates/pyha/skipofficial/handler/requestview.html:307
