@@ -187,9 +187,9 @@
 									<th>{% trans "admin_collection_description" %}</th>
 									<th>{% trans "admin_collection_quality_description" %}</th>
 									<th>{% trans "admin_collection_terms" %}</th>
-									<th>{% trans "admin_secured_by_quarantine" %}</th>
-									<th>{% trans "admin_secured_by_sensitivity" %}</th>
-									<th>{% trans "admin_secured_by_data_provider" %}</th>
+									<th>{% trans "admin_secured_by_quarantine" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_sensitivity" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_data_provider" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}

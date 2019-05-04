@@ -171,9 +171,9 @@
 									<th>{% trans "handler_collection_description" %}</th>
 									<th>{% trans "handler_collection_quality_description" %}</th>
 									<th>{% trans "handler_collection_terms" %}</th>
-									<th>{% trans "handler_secured_by_quarantine" %}</th>
-									<th>{% trans "handler_secured_by_sensitivity" %}</th>
-									<th>{% trans "handler_secured_by_data_provider" %}</th>
+									<th>{% trans "handler_secured_by_quarantine" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+									<th>{% trans "handler_secured_by_sensitivity" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+									<th>{% trans "handler_secured_by_data_provider" %}<small><a class="normaltooltip">[?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 									<th>{% trans "handler_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}

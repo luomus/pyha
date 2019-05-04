@@ -9,7 +9,6 @@
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
 			</div>
-			
 			<!-- suodatinlista -->
 			<h3>{% trans "request_filters" %}</h3>
 
@@ -794,7 +793,6 @@
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
 			initializeMap();
 			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filterlist').style.display = 'block';
