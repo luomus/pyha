@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-04 16:17+0300\n"
+"POT-Creation-Date: 2019-05-04 16:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2903,7 +2903,8 @@ msgstr "Sensitiiviset"
 #: templates/pyha/skipofficial/handler/requestview.html:175
 #: templates/pyha/skipofficial/requestview.html:208
 msgid "secured_by_sensitivity_explanation"
-msgstr "Automaattisesti karkeistettu sensitiivinen tieto (paikkatieto, aikatieto)"
+msgstr ""
+"Automaattisesti karkeistettu sensitiivinen tieto (paikkatieto, aikatieto)"
 
 #: templates/pyha/skipofficial/admin/requestview.html:192
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:16
