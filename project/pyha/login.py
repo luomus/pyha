@@ -134,6 +134,12 @@ def is_allowed_to_view(http_request, requestId):
     role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
     return allowed_to_view(http_request, requestId, userId, role1, role2)
 
+def is_allowed_to_handle(http_request, requestId):
+    userId = http_request.session["user_id"]
+    role1 = CAT_HANDLER_SENS in http_request.session.get("user_roles", [None])
+    role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
+    return allowed_to_handle(http_request, requestId, userId, role1, role2)
+
 def is_admin_frozen_and_not_admin(http_request, userRequest):
     if(userRequest.frozen and not ADMIN in http_request.session["current_user_role"]):
         http_request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
@@ -175,6 +181,25 @@ def allowed_to_view(http_request, requestId, userId, role1, role2):
     else:
         if not Request.objects.filter(id=requestId, user=userId, status__gte=0).exists():
             return False
+    return True
+
+def allowed_to_handle(http_request, requestId, userId, role1, role2):
+    if ADMIN in http_request.session.get("current_user_role", [None]):
+        if not Request.objects.filter(id=requestId, status__gt=0).exists():
+            return False
+    elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
+        if not Request.objects.filter(id=requestId, status__gt=0).exists():
+            return False
+        currentRequest = Request.objects.get(id=requestId, status__gt=0)
+        if role2 and not role1:            
+            if(currentRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL):
+                if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+                    return False
+            else:
+                if not Collection.objects.filter(request=requestId, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+                    return False
+    else:
+        return False
     return True
     
 def is_allowed_to_ask_information_as_target(http_request, target, requestId):

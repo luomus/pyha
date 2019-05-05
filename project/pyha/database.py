@@ -13,7 +13,7 @@ from pyha.models import RequestLogEntry, RequestSensitiveChatEntry, RequestHandl
 	Col_StatusEnum, AdminUserSettings
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, CAT_HANDLER_BOTH, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_collections_missing_download_handler
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection
 from pyha.log_utils import changed_by_session_user, changed_by
 from pyha import toast
 
@@ -215,7 +215,6 @@ def update_request_status(userRequest, lang):
 			database_update_request_status(userRequest, lang)
 			
 def database_update_request_status(wantedRequest, lang):
-
 	statusBeforeUpdate = wantedRequest.status
 	requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
 	taxon = False
@@ -260,11 +259,10 @@ def database_update_request_status(wantedRequest, lang):
 					send_download_request(wantedRequest.id)
 					wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
 			elif pending > 0:
-				wantedRequest.status = StatusEnum.WAITING
+				if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+					wantedRequest.status = StatusEnum.WAITING
 			else:
 				wantedRequest.status = StatusEnum.UNKNOWN
-			wantedRequest.changedBy = changed_by("pyha")
-			wantedRequest.save()
 	else:
 		for c in requestCollections:
 			if c.status == StatusEnum.WAITING:
@@ -290,18 +288,17 @@ def database_update_request_status(wantedRequest, lang):
 				send_download_request(wantedRequest.id)
 				wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
 		elif pending > 0:
-			wantedRequest.status = StatusEnum.WAITING
+			if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+				wantedRequest.status = StatusEnum.WAITING
 		else:
 			wantedRequest.status = StatusEnum.UNKNOWN
-		if(wantedRequest.status != statusBeforeUpdate):
-			wantedRequest.changedBy = changed_by("pyha")
-			wantedRequest.save()
-			
+	if(wantedRequest.status != statusBeforeUpdate):
+		wantedRequest.changedBy = changed_by("pyha")
+		wantedRequest.save()
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 	
 	
 def ignore_official_database_update_request_status(wantedRequest, lang):
-
 	statusBeforeUpdate = wantedRequest.status
 	requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
 	accepted = 0
@@ -332,13 +329,13 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
 			send_download_request(wantedRequest.id)
 			wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
 	elif pending > 0:
-		wantedRequest.status = StatusEnum.WAITING
+		if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+			wantedRequest.status = StatusEnum.WAITING
 	else:
 		wantedRequest.status = StatusEnum.UNKNOWN
 	if(wantedRequest.status != statusBeforeUpdate):
 		wantedRequest.changedBy = changed_by("pyha")
 		wantedRequest.save()
-			
 	emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 		
 def handler_mul_req_waiting_for_me_status(request_list, http_request, userId):
@@ -356,6 +353,7 @@ def handler_mul_req_waiting_for_me_status(request_list, http_request, userId):
 	return
 
 def handler_req_waiting_for_me_status(r, http_request, userId):
+	r.waitingstatus = 0
 	if CAT_HANDLER_SENS in http_request.session.get("user_roles", [None]) and r.sensStatus == 1:
 		r.waitingstatus = 1
 	elif CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
@@ -441,7 +439,10 @@ def create_request_view_context(requestId, http_request, userRequest):
 	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html" if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else "pyha/official/terms/sensitivity-"+lang+".html"
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
-	if role2: context["handles"] = get_collections_where_download_handler(userId)
+	if role2:
+		handles = get_collections_where_download_handler(userId)
+		context["collections"] = sort_collections_by_download_handler(collectionList, handles)
+		context["handles"] = handles
 	if role3: 
 		emails = {}
 		for (lang, name) in settings.LANGUAGES:
@@ -567,12 +568,12 @@ def requestInformationChat(http_request, userRequest, role1, role2, userId):
 				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target='sens').order_by('date'))
 			if role2:
 				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
-				if(userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL):
+				if userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
 					for collection in Collection.objects.filter(request=userRequest, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
-						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
+						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
 				else:
 					for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
-						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection)).order_by('date'))
+						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
 		else:
 			requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
 		for l in requestInformationChat_list:
@@ -580,6 +581,84 @@ def requestInformationChat(http_request, userRequest, role1, role2, userId):
 		for l in requestInformationChat_list:
 			l.name = fetch_user_name(l.user)
 		return requestInformationChat_list
+	
+def update_sens_status(http_request, userRequest):
+	if userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
+		if ADMIN in http_request.session["current_user_role"]:
+			collections = Collection.objects.filter(request=userRequest.id, customSecured__lte = 0, taxonSecured__gt=0, status__gte = 0)
+			if (int(http_request.POST.get('answer')) == 1):
+				userRequest.sensStatus = Sens_StatusEnum.APPROVED
+				for co in collections:
+					co.status =  Col_StatusEnum.APPROVED
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, user = http_request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_POSITIVE)
+			elif (int(http_request.POST.get('answer')) == 3):                    
+				userRequest.sensStatus = Sens_StatusEnum.WAITING
+				for co in collections:
+					co.status =  Col_StatusEnum.WAITING
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, user = http_request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_RESET)
+			else:
+				userRequest.sensStatus = Sens_StatusEnum.REJECTED
+				for co in collections:
+					co.status =  Col_StatusEnum.REJECTED
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, user = http_request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_NEGATIVE)
+			userRequest.sensDecisionExplanation = http_request.POST.get('reason')
+			userRequest.changedBy = changed_by_session_user(http_request)
+			userRequest.save()
+			update_request_status(userRequest, userRequest.lang)
+		elif CAT_HANDLER_SENS in http_request.session["user_roles"]:
+			collections = Collection.objects.filter(request=userRequest.id, customSecured__lte = 0, taxonSecured__gt=0, status__gte = 0)
+			if (int(http_request.POST.get('answer')) == 1):
+				userRequest.sensStatus = Sens_StatusEnum.APPROVED
+				for co in collections:
+					co.status =  Col_StatusEnum.APPROVED
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, user = http_request.session["user_id"], role = CAT_HANDLER_SENS, action = RequestLogEntry.DECISION_POSITIVE)
+			else:
+				userRequest.sensStatus = Sens_StatusEnum.REJECTED
+				for co in collections:
+					co.status =  Col_StatusEnum.REJECTED
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, user = http_request.session["user_id"], role = CAT_HANDLER_SENS, action = RequestLogEntry.DECISION_NEGATIVE)
+			userRequest.sensDecisionExplanation = http_request.POST.get('reason')
+			userRequest.changedBy = changed_by_session_user(http_request)
+			userRequest.save()
+			update_request_status(userRequest, userRequest.lang)
+	
+def update_collection_status(http_request, userRequest, collection):
+	if ADMIN in http_request.session["current_user_role"]:
+		if (int(http_request.POST.get('answer')) == 1):
+			collection.status = Col_StatusEnum.APPROVED
+			#make a log entry
+			RequestLogEntry.requestLog.create(request = userRequest, collection = collection, user = http_request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_POSITIVE)
+		elif (int(http_request.POST.get('answer')) == 3):                    
+			collection.status = Col_StatusEnum.WAITING
+			#make a log entry
+			RequestLogEntry.requestLog.create(request = userRequest, collection = collection, user = http_request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_RESET)
+		else:
+			collection.status = Col_StatusEnum.REJECTED
+			#make a log entry
+			RequestLogEntry.requestLog.create(request = userRequest,collection = collection, user = http_request.session["user_id"], role = CAT_ADMIN, action = RequestLogEntry.DECISION_NEGATIVE)
+		collection.decisionExplanation = http_request.POST.get('reason')
+		collection.changedBy = changed_by_session_user(http_request)
+		collection.save()
+		update_request_status(userRequest, userRequest.lang)
+	elif HANDLER_ANY == http_request.session["current_user_role"]:
+		if is_download_handler_in_collection(http_request.session["user_id"], collection.address) and userRequest.status != StatusEnum.WAITING_FOR_DOWNLOAD and userRequest.status != StatusEnum.DOWNLOADABLE and userRequest.status != StatusEnum.REJECTED:
+			if (int(http_request.POST.get('answer')) == 1):
+				collection.status = Col_StatusEnum.APPROVED
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, collection = collection, user = http_request.session["user_id"], role = CAT_HANDLER_COLL, action = RequestLogEntry.DECISION_POSITIVE)
+			else:
+				collection.status = Col_StatusEnum.REJECTED
+				#make a log entry
+				RequestLogEntry.requestLog.create(request = userRequest, collection = collection, user = http_request.session["user_id"], role = CAT_HANDLER_COLL, action = RequestLogEntry.DECISION_NEGATIVE)
+			collection.decisionExplanation = http_request.POST.get('reason')
+			collection.changedBy = changed_by_session_user(http_request)
+			collection.save()
+			update_request_status(userRequest, userRequest.lang)
 	
 def get_collections_waiting_atleast_days(days_to_subtract):
 	return Collection.objects.filter(request__in=Request.objects.filter(id__in=RequestLogEntry.requestLog.filter(action=RequestLogEntry.ACCEPT, date__lt = datetime.today() - timedelta(days=days_to_subtract)).values("request"), status=StatusEnum.WAITING, frozen=False), status = Col_StatusEnum.WAITING)
@@ -589,6 +668,17 @@ def is_collection_waiting_atleast_days(days_to_subtract, collection):
 
 def contains_approved_collection(requestId):
 	return Collection.objects.filter(request=requestId, status = Col_StatusEnum.APPROVED).count() > 0
+
+def sort_collections_by_download_handler(collectionList, handles):
+    not_handle = []
+    handle = []
+    for collection in collectionList:
+        if collection.address in handles:
+            handle.append(collection)
+        else:
+            not_handle.append(collection)
+    handle.extend(not_handle)
+    return handle
 
 def get_log_terms_accepted_date_time(request_log):
 	for log_entry in request_log:
@@ -613,10 +703,10 @@ def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
 	#count collections that are still waiting for approval
 	collectionsNotHandled = len(requestCollections)
 	for c in requestCollections:
-		if c.status != 1:
+		if c.status != Col_StatusEnum.WAITING:
 			collectionsNotHandled -=1
 	#check if request is handled
-	if collectionsNotHandled == 0 and (userRequest.sensStatus == 3 or userRequest.sensStatus == 4 or userRequest.sensStatus == 0):
+	if collectionsNotHandled == 0 and (userRequest.sensStatus == Sens_StatusEnum.REJECTED or userRequest.sensStatus == Sens_StatusEnum.APPROVED or userRequest.sensStatus == Sens_StatusEnum.APPROVETERMS_WAIT or userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL):
 		send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
 	elif(statusBeforeUpdate!=userRequest.status):
 		#Send email if status changed

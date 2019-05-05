@@ -268,13 +268,13 @@ def send_mail_after_additional_information_requested(requestId, lang):
 	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		subject = u"Pyyntösi tarvitsee lisätietoja"
-		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_fi.txt')
+		plaintext = get_template('pyha/email/mail_after_additional_information_requested_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Your download request requires additional information"
-		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_en.txt')
+		plaintext = get_template('pyha/email/mail_after_additional_information_requested_en.txt')
 	else:
 		subject = u"På svenska: Pyyntösi tarvitsee lisätietoja"
-		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_sv.txt')
+		plaintext = get_template('pyha/email/mail_after_additional_information_requested_sv.txt')
 	from_email = settings.ICT_EMAIL
 	to = fetch_email_address(req.user)
 	recipients = [to]

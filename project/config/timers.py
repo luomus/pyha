@@ -1,4 +1,5 @@
 import schedule
+from django.db import connection
 from threading import Thread
 from time import sleep
 from pyha.management.commands.timed_email import Command as TimedEmailCommand
@@ -8,14 +9,17 @@ from pyha.management.commands.decline_overdue_collections import Command as Decl
 def timed_email():
     c = TimedEmailCommand()
     c.handle()
+    connection.close()
     
 def missing_handlers_email():
     c = MissingHandlersCommand()
     c.handle()
+    connection.close()
     
 def decline_overdue_collections():
     c = DeclineOverDueCollectionsCommand()
     c.handle()
+    connection.close()
             
 def run_threaded(job_func):
     job_thread = Thread(target=job_func)
@@ -25,7 +29,7 @@ def run_threaded(job_func):
 def scheduler():   
     
     # set the events here   
-    #Poistakaa nama kommenteista ja laittakaa sopivat kellonajat, niin lahtee arkipaivina viestit
+    #Poistakaa nama kommenteista, niin lahtee arkipaivina kasittelijoiden viestit
     #schedule.every().monday.at("11:22").do(run_threaded, timed_email) 
     #schedule.every().tuesday.at("11:22").do(run_threaded, timed_email) 
     #schedule.every().wednesday.at("11:22").do(run_threaded, timed_email) 
@@ -43,4 +47,5 @@ def scheduler():
 
 
 schedule_thread = Thread(target=scheduler)
+schedule_thread.daemon = True
 schedule_thread.start()

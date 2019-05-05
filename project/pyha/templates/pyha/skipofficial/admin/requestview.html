@@ -435,10 +435,12 @@
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 									<th>{% trans "admin_collection_name" %}</th>
+									<th></th>
 									<th>{% trans "admin_collection_description" %}</th>
 									<th>{% trans "admin_state_of_processing" %}</th>
-									<th>{% trans "admin_select" %}</th>
 									<th>{% trans "admin_decision_arguments" %}</th>
+									<th>{% trans "admin_select" %}</th>
+									<th>{% trans "admin_make_decision" %}</th>
 								</tr>
 								{% for collection in collections %}
 									{% if collection.status == 1 %}
@@ -450,7 +452,8 @@
 									{% else %}  
 									<tr>
 									{% endif %}
-										<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
+										<td>{{collection.result.collectionName}}</td>
+										<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 										<td>{{collection.result.description}}</td>
 										
 										{% if collection.status == 1 %}
@@ -468,17 +471,19 @@
 										{% else %}  
 										<td>{% trans "admin_unknown" %}</td>	
 										{% endif %}
+										<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</td>
 										<td>
-											<p style="white-space: nowrap;"><input {% if frozen %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
-											<div style="margin-bottom: 16px;"></div>
+											<p style="text-align: center;"><input {% if frozen %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
 										</td>
 										{% if forloop.first %}
-											<td rowspan="{{collections|length}}" style="background-color:white;">
+											<td rowspan="{{collections|length}}" style="background-color:white; border-bottom:0px;">
+												<h4>{% trans "admin_decision_arguments" %}</h4>
+												<span>{% trans "admin_select_checksboxes_to_apply_this_decision_to" %}</span>
 												<div class="form-group">
-													<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
 													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 													<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
+													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason"></textarea>
+													<p style="margin:2px;">{% trans "admin_arguments_will_be_applied_to_all_selected" %}</p>
 													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
 													<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
 													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
@@ -507,7 +512,7 @@
 							{% endif %}
 						{% endfor %}
 						<h3>{% trans "admin_form_to_request_additional_information" %}</h3>
-						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+						<form action="{% url 'pyha:question' %}" id="requestform" method="post">
 							<div class="form-group">
 								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 								<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
@@ -529,7 +534,7 @@
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if requestHandlerChat.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
+								<div class="panel-body" {% if requestHandlerChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if requestHandlerChat.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
