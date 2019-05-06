@@ -193,33 +193,27 @@ msgstr "Pyha settings"
 
 #: templates/pyha/base/admin/usersettings.html:40
 msgid "settings_affect_pyha_not_you_as_as_user"
-msgstr ""
+msgstr "Settings affect Pyha globally"
 
 #: templates/pyha/base/admin/usersettings.html:44
 msgid "admin_pyha_periodical_event_automation"
-msgstr ""
+msgstr "Periodical event automation"
 
 #: templates/pyha/base/admin/usersettings.html:45
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr ""
+msgstr "Periodical event automation settings work only on in built scheduling. (not cron)"
 
 #: templates/pyha/base/admin/usersettings.html:49
-#, fuzzy
-#| msgid "admin_log_sensitive_data_handler"
 msgid "admin_enable_daily_handler_email"
-msgstr "Sensitive data handler"
+msgstr "Enable periodical handler email"
 
 #: templates/pyha/base/admin/usersettings.html:56
-#, fuzzy
-#| msgid "admin_email_for_missing_handlers"
 msgid "admin_enable_weekly_missing_handlers_email"
-msgstr "missing handlers"
+msgstr "Enable periodical missing handlers email"
 
 #: templates/pyha/base/admin/usersettings.html:63
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "admin_enable_auto_decline_overdue"
-msgstr "DECISION_POSITIVE_OVERDUE"
+msgstr "Enable periodical decline overdue collections"
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
@@ -2943,10 +2937,8 @@ msgid "sensitive_and_other_terms"
 msgstr "Sensitive and otherwise restricted species information of FinBIF"
 
 #: templates/pyha/skipofficial/admin/requestview.html:442
-#, fuzzy
-#| msgid "admin_reset"
 msgid "admin_select"
-msgstr "Reset"
+msgstr "Select"
 
 #: templates/pyha/skipofficial/admin/requestview.html:443
 #, fuzzy
@@ -2956,11 +2948,11 @@ msgstr "Empty"
 
 #: templates/pyha/skipofficial/admin/requestview.html:481
 msgid "admin_select_checksboxes_to_apply_this_decision_to"
-msgstr ""
+msgstr "Select checksboxes to apply this decision to"
 
 #: templates/pyha/skipofficial/admin/requestview.html:486
 msgid "admin_arguments_will_be_applied_to_all_selected"
-msgstr ""
+msgstr "Decision arguments will be applied to all selected"
 
 #: templates/pyha/skipofficial/admin/requestview.html:533
 #: templates/pyha/skipofficial/handler/requestview.html:528
@@ -2984,7 +2976,7 @@ msgstr "Present in role"
 
 #: templates/pyha/skipofficial/admin/requestview.html:644
 msgid "admin_automated_emails_sent_last_time"
-msgstr ""
+msgstr "Automated emails were sent to handlers last:"
 
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:2
 msgid "restricted_collections_in_request"
@@ -3005,10 +2997,8 @@ msgstr "Terms"
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:14
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:13
 #: templates/pyha/skipofficial/requestview.html:207
-#, fuzzy
-#| msgid "admin_secured_by_quarantine"
 msgid "secured_by_quarantine"
-msgstr "admin_secured_by_quarantine"
+msgstr "Secured by quarantine"
 
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:15
 #: templates/pyha/skipofficial/ajax/requestformsummary.html:14
@@ -3029,32 +3019,24 @@ msgid "handler_secured_by_sensitivity"
 msgstr "Sensitivity"
 
 #: templates/pyha/skipofficial/handler/requestview.html:426
-#, fuzzy
-#| msgid "handler_save"
 msgid "handler_select"
-msgstr "Save"
+msgstr "Select"
 
 #: templates/pyha/skipofficial/handler/requestview.html:427
-#, fuzzy
-#| msgid "handler_decision_window"
 msgid "handler_make_decision"
-msgstr "Decision"
+msgstr "Make decision"
 
 #: templates/pyha/skipofficial/handler/requestview.html:463
-#, fuzzy
-#| msgid "handler_log_handler"
 msgid "handler_not_handling"
-msgstr "Collection handler"
+msgstr "not handling"
 
 #: templates/pyha/skipofficial/handler/requestview.html:469
 msgid "handler_select_checksboxes_to_apply_this_decision_to"
-msgstr ""
+msgstr "Select checksboxes to apply this decision to."
 
 #: templates/pyha/skipofficial/handler/requestview.html:474
-#, fuzzy
-#| msgid "handler_argument_project"
 msgid "handler_arguments_will_be_applied_to_all_selected"
-msgstr "Project name and description"
+msgstr "Arguments will be applied to all selected"
 
 #: templates/pyha/skipofficial/handler/requestview.html:521
 msgid "collection_free_of_sensitive_data"
@@ -3073,16 +3055,12 @@ msgid "toast_mails_sent_succesfully"
 msgstr "Mails sent succesfully"
 
 #: views/usersettings.py:66
-#, fuzzy
-#| msgid "toast_settings_saved_succesfully"
 msgid "toast_user_settings_saved_succesfully"
-msgstr "Settings updated succesfully"
+msgstr "User settings updated succesfully"
 
 #: views/usersettings.py:86
-#, fuzzy
-#| msgid "toast_settings_saved_succesfully"
 msgid "toast_pyha_settings_saved_succesfully"
-msgstr "Settings updated succesfully"
+msgstr "Pyha settings updated succesfully"
 
 #~ msgid "admin_empty_for_now"
 #~ msgstr "empty"

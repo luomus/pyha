@@ -194,33 +194,27 @@ msgstr "Pyha asetukset"
 
 #: templates/pyha/base/admin/usersettings.html:40
 msgid "settings_affect_pyha_not_you_as_as_user"
-msgstr ""
+msgstr "Seuraavat asetukset vaikuttavat järjestelmään"
 
 #: templates/pyha/base/admin/usersettings.html:44
 msgid "admin_pyha_periodical_event_automation"
-msgstr ""
+msgstr "Ajoitettujen tapahtumien automatisointi"
 
 #: templates/pyha/base/admin/usersettings.html:45
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr ""
+msgstr "Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäisesti ajastettuun suoritukseen. (ei estä cronia)"
 
 #: templates/pyha/base/admin/usersettings.html:49
-#, fuzzy
-#| msgid "admin_log_sensitive_data_handler"
 msgid "admin_enable_daily_handler_email"
-msgstr "Viranomainen"
+msgstr "Aktivoi ajoittaiset käsittelijöiden sähköpostit"
 
 #: templates/pyha/base/admin/usersettings.html:56
-#, fuzzy
-#| msgid "admin_email_for_missing_handlers"
 msgid "admin_enable_weekly_missing_handlers_email"
-msgstr "puuttuu käsittelijöitä"
+msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden sähköposti"
 
 #: templates/pyha/base/admin/usersettings.html:63
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "admin_enable_auto_decline_overdue"
-msgstr "DECISION_POSITIVE_OVERDUE"
+msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
@@ -2961,24 +2955,20 @@ msgstr ""
 "lajitieto"
 
 #: templates/pyha/skipofficial/admin/requestview.html:442
-#, fuzzy
-#| msgid "admin_reset"
 msgid "admin_select"
-msgstr "Nollaa"
+msgstr "Valitse"
 
 #: templates/pyha/skipofficial/admin/requestview.html:443
-#, fuzzy
-#| msgid "admin_name_is_none"
 msgid "admin_make_decision"
-msgstr "tyhjä"
+msgstr "Tee päätös"
 
 #: templates/pyha/skipofficial/admin/requestview.html:481
 msgid "admin_select_checksboxes_to_apply_this_decision_to"
-msgstr ""
+msgstr "Valitse aineistot, joihin haluat asettaa päätöksen."
 
 #: templates/pyha/skipofficial/admin/requestview.html:486
 msgid "admin_arguments_will_be_applied_to_all_selected"
-msgstr ""
+msgstr "Päätöksen perustelut laitetaan kaikkiin valittuihin aineistoihin."
 
 #: templates/pyha/skipofficial/admin/requestview.html:533
 #: templates/pyha/skipofficial/handler/requestview.html:528
@@ -3004,7 +2994,7 @@ msgstr "Puhu roolissa"
 
 #: templates/pyha/skipofficial/admin/requestview.html:644
 msgid "admin_automated_emails_sent_last_time"
-msgstr ""
+msgstr "Pyyntöä koskevat sähköpostit on jaettu käsittelijöille viimeksi:"
 
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:2
 msgid "restricted_collections_in_request"
@@ -3049,32 +3039,24 @@ msgid "handler_secured_by_sensitivity"
 msgstr "Sensitiiviset"
 
 #: templates/pyha/skipofficial/handler/requestview.html:426
-#, fuzzy
-#| msgid "handler_save"
 msgid "handler_select"
-msgstr "Tallenna"
+msgstr "Valitse"
 
 #: templates/pyha/skipofficial/handler/requestview.html:427
-#, fuzzy
-#| msgid "handler_decision_window"
 msgid "handler_make_decision"
 msgstr "Tee päätös"
 
 #: templates/pyha/skipofficial/handler/requestview.html:463
-#, fuzzy
-#| msgid "handler_log_handler"
 msgid "handler_not_handling"
-msgstr "Käsittelijä"
+msgstr "Et käsittele"
 
 #: templates/pyha/skipofficial/handler/requestview.html:469
 msgid "handler_select_checksboxes_to_apply_this_decision_to"
-msgstr ""
+msgstr "Valitse aineistot, joihin haluat asettaa päätöksen."
 
 #: templates/pyha/skipofficial/handler/requestview.html:474
-#, fuzzy
-#| msgid "handler_argument_project"
 msgid "handler_arguments_will_be_applied_to_all_selected"
-msgstr "Hankkeen nimi ja kuvaus"
+msgstr "Päätöksen perustelut laitetaan kaikkiin valittuihin aineistoihin."
 
 #: templates/pyha/skipofficial/handler/requestview.html:521
 msgid "collection_free_of_sensitive_data"
@@ -3093,16 +3075,12 @@ msgid "toast_mails_sent_succesfully"
 msgstr "Viestit lähetetty onnistuneesti."
 
 #: views/usersettings.py:66
-#, fuzzy
-#| msgid "toast_settings_saved_succesfully"
 msgid "toast_user_settings_saved_succesfully"
-msgstr "Asetukset tallennettu onnistuneesti."
+msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 
 #: views/usersettings.py:86
-#, fuzzy
-#| msgid "toast_settings_saved_succesfully"
 msgid "toast_pyha_settings_saved_succesfully"
-msgstr "Asetukset tallennettu onnistuneesti."
+msgstr "Pyha:n asetukset tallennettu onnistuneesti."
 
 #~ msgid "admin_empty_for_now"
 #~ msgstr "Väliaikaisesti tyhjä"
