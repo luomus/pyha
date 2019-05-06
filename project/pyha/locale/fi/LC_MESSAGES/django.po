@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-06 13:44+0300\n"
+"POT-Creation-Date: 2019-05-06 14:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,7 +202,9 @@ msgstr "Ajoitettujen tapahtumien automatisointi"
 
 #: templates/pyha/base/admin/usersettings.html:45
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr "Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäisesti ajastettuun suoritukseen. (ei estä cronia)"
+msgstr ""
+"Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäisesti "
+"ajastettuun suoritukseen. (ei estä cronia)"
 
 #: templates/pyha/base/admin/usersettings.html:49
 msgid "admin_enable_daily_handler_email"
