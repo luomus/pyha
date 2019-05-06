@@ -5,24 +5,32 @@ from time import sleep
 from pyha.management.commands.timed_email import Command as TimedEmailCommand
 from pyha.management.commands.missing_handlers_email import Command as MissingHandlersCommand
 from pyha.management.commands.decline_overdue_collections import Command as DeclineOverDueCollectionsCommand
-from pyha.log_utils import changed_by
 from pyha.models import AdminPyhaSettings
 
 
 def timed_email():
-    c = TimedEmailCommand()
-    c.handle()
-    connection.close()
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
+    if pyha_settings.exists():
+        if pyha_settings.first().enableDailyHandlerEmail:
+            c = TimedEmailCommand()
+            c.handle()
+            connection.close()
     
 def missing_handlers_email():
-    c = MissingHandlersCommand()
-    c.handle()
-    connection.close()
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
+    if pyha_settings.exists():
+        if pyha_settings.first().enableWeeklyMissingHandlersEmail:
+            c = MissingHandlersCommand()
+            c.handle()
+            connection.close()
     
 def decline_overdue_collections():
-    c = DeclineOverDueCollectionsCommand()
-    c.handle()
-    connection.close()
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
+    if pyha_settings.exists():
+        if pyha_settings.first().enableDeclineOverdueCollections:
+            c = DeclineOverDueCollectionsCommand()
+            c.handle()
+            connection.close()
             
 def run_threaded(job_func):
     job_thread = Thread(target=job_func)

@@ -37,29 +37,38 @@
 		   	</div>
 	   		{% csrf_token %}
 	   </form>
-	   <h3 style="margin-top:50px">{% trans "admin_pyha_settings" %}</h3>
+	   <h3 style="margin-top:50px">{% trans "admin_pyha_settings" %} <small style="color:red">{% trans "settings_affect_pyha_not_you_as_as_user" %}</small></h3>
+	   
 	   <form action="{% url 'pyha:save_pyha_settings' %}" id="settingsform" method="post">
  			<input type="hidden" id="next" name="next" value="{{request.path}}">
  			<p>{% trans "admin_pyha_periodical_event_automation" %}</p>
+ 			<small style="color:orange">{% trans "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron" %}</small>
  			<div class="row">
 		 		<div class="checkbox col-sm-2">
 				    <label>
-				      	<input {% if settings.enableDailyHandlerEmail %} checked {% endif %} type="checkbox" id="enable_daily_handler_email" name="enable_daily_handler_email" value="True"> {% trans "admin_enable_daily_handler_email" %}
+				      	<input {% if pyha_settings.enableDailyHandlerEmail %} checked {% endif %} type="checkbox" id="enable_daily_handler_email" name="enable_daily_handler_email" value="True"> {% trans "admin_enable_daily_handler_email" %}
 				    </label>
 				</div>
 			</div>
 			<div class="row">
 		 		<div class="checkbox col-sm-2">
 				    <label>
-				      	<input {% if settings.enableWeeklyMissingHandlersEmail %} checked {% endif %} type="checkbox" id="enable_weekly_missing_handlers_email" name="enable_weekly_missing_handlers_email" value="True"> {% trans "admin_enable_weekly_missing_handlers_email" %}
+				      	<input {% if pyha_settings.enableWeeklyMissingHandlersEmail %} checked {% endif %} type="checkbox" id="enable_weekly_missing_handlers_email" name="enable_weekly_missing_handlers_email" value="True"> {% trans "admin_enable_weekly_missing_handlers_email" %}
 				    </label>
 				</div>
 			</div>
-			<div type="hidden" class="row">
+			<div class="row">
 		 		<div class="checkbox col-sm-2">
 				    <label>
-				      	<input {% if settings.enableDeclineOverdueCollections %} checked {% endif %} type="checkbox" id="enable_auto_decline_overdue" name="enable_auto_decline_overdue" value="True"> {% trans "admin_enable_auto_decline_overdue" %}
+				      	<input {% if pyha_settings.enableDeclineOverdueCollections %} checked {% endif %} type="checkbox" id="enable_auto_decline_overdue" name="enable_auto_decline_overdue" value="True"> {% trans "admin_enable_auto_decline_overdue" %}
 				    </label>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="form-group col-sm-4">
+				    <label>
+						<button style="margin-top:10px;" type="submit" id="submit" name="save" value=1 class="btn btn-default btn-sm" >{% trans "admin_save" %}</button>
+					</label>
 				</div>
 			</div>	
 	   		{% csrf_token %}

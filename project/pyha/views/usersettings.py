@@ -32,7 +32,7 @@ def usersettings(http_request):
 		http_request.session["toast"] = None
 		http_request.session.save()
 	user_settings = AdminUserSettings.objects.filter(user=http_request.session["user_id"])
-	settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
+	pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
 	if not user_settings.exists():
 		user_settings = AdminUserSettings()
 		user_settings.user = http_request.session["user_id"]
@@ -41,10 +41,13 @@ def usersettings(http_request):
 	else:
 		user_settings = user_settings.first()
 	if not AdminPyhaSettings.objects.filter(settingsName = 'default').exists():
-		settings = AdminPyhaSettings()
-		settings.changedBy = changed_by("pyha")
-		settings.save()
-	context = {"pyha_settings":settings, "email_new_requests_setting":AdminUserSettings.EMAIL_NEW_REQUESTS_SETTING, "user_settings":user_settings, "toast": toast,"username": http_request.session["user_name"], "email": http_request.session["user_email"], "role": hasRoleHeader, "static": settings.STA_URL}
+		pyha_settings = AdminPyhaSettings()
+		pyha_settings.settingsName = 'default'
+		pyha_settings.changedBy = changed_by("pyha")
+		pyha_settings.save()
+	else:
+		pyha_settings = pyha_settings.first()
+	context = {"pyha_settings":pyha_settings, "email_new_requests_setting":AdminUserSettings.EMAIL_NEW_REQUESTS_SETTING, "user_settings":user_settings, "toast": toast,"username": http_request.session["user_name"], "email": http_request.session["user_email"], "role": hasRoleHeader, "static": settings.STA_URL}
 	return render(http_request, 'pyha/base/admin/usersettings.html', context)
 
 def save_user_settings(http_request):
@@ -72,14 +75,15 @@ def save_pyha_settings(http_request):
 			return _process_auth_response(http_request, "pyha")
 		if not is_admin(http_request):
 			return HttpResponse(status=404)
-		settings = AdminPyhaSettings.objects.get(settingsName='default')
-		settings.enableDailyHandlerEmail = http_request.POST.get('enable_daily_handler_email', False)
-		settings.enableWeeklyMissingHandlersEmail = http_request.POST.get('enable_weekly_missing_handlers_email', False)
-		settings.enableDeclineOverdueCollections = http_request.POST.get('enable_auto_decline_overdue', False)
-		settings.changedBy = changed_by_session_user(http_request)
-		settings.save()
-		http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_pyha_settings_saved_succesfully')}
-		
+		pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
+		if pyha_settings.exists():
+			pyha_settings = pyha_settings.first()
+			pyha_settings.enableDailyHandlerEmail = http_request.POST.get('enable_daily_handler_email', False)
+			pyha_settings.enableWeeklyMissingHandlersEmail = http_request.POST.get('enable_weekly_missing_handlers_email', False)
+			pyha_settings.enableDeclineOverdueCollections = http_request.POST.get('enable_auto_decline_overdue', False)
+			pyha_settings.changedBy = changed_by_session_user(http_request)
+			pyha_settings.save()
+			http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_pyha_settings_saved_succesfully')}
 		return HttpResponseRedirect(nexturl)
 	return HttpResponseRedirect(reverse('pyha:root'))
 

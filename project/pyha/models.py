@@ -283,7 +283,7 @@ class AdminPyhaSettings(models.Model):
 	history = HistoricalRecords()
 	
 	def __str__(self):
-		return 'AdminSettings: %s ' %(self.user)
+		return 'AdminSettings: %s ' %(self.settingsName)
 
 def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)
