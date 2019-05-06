@@ -2976,7 +2976,7 @@ msgstr "Present in role"
 
 #: templates/pyha/skipofficial/admin/requestview.html:644
 msgid "admin_automated_emails_sent_last_time"
-msgstr "Automated emails were sent to handlers last:"
+msgstr "Automated emails were sent to handlers last"
 
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:2
 msgid "restricted_collections_in_request"

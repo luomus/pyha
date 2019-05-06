@@ -2994,7 +2994,7 @@ msgstr "Puhu roolissa"
 
 #: templates/pyha/skipofficial/admin/requestview.html:644
 msgid "admin_automated_emails_sent_last_time"
-msgstr "Pyyntöä koskevat sähköpostit on jaettu käsittelijöille viimeksi:"
+msgstr "Pyyntöä koskevat sähköpostit on jaettu käsittelijöille viimeksi"
 
 #: templates/pyha/skipofficial/ajax/requestformcollection.html:2
 msgid "restricted_collections_in_request"
