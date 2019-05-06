@@ -5,7 +5,7 @@ from pyha.roles import CAT_HANDLER_COLL
 from pyha.log_utils import changed_by
 from time import sleep
 from random import randint
-
+from pyha.models import AdminPyhaSettings
 
 class Command(BaseCommand):
     help = 'Declines Collections in Requests with Status.WAITING which are overdue by %days% at random times within %interval% seconds.'    
@@ -13,19 +13,22 @@ class Command(BaseCommand):
 
     
     def handle(self, *args, **options):
-        days = 28
-        interval = 32400
-        overdue = list(get_collections_waiting_atleast_days(days))
+        settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
+        if settings.exists():
+            if settings.first().enableDeclineOverdueCollections:
+                days = 28
+                interval = 32400
+                overdue = list(get_collections_waiting_atleast_days(days))
+                        
+                for collection in overdue:
+                    collection.performtime = randint(0, interval)
+                    
+                overdue.sort(key=lambda x: x.performtime)
                 
-        for collection in overdue:
-            collection.performtime = randint(0, interval)
-            
-        overdue.sort(key=lambda x: x.performtime)
-        
-        last = 0
-        for collection in overdue:
-            decline_in_delay(days, collection, collection.performtime - last)
-            last = collection.performtime
+                last = 0
+                for collection in overdue:
+                    decline_in_delay(days, collection, collection.performtime - last)
+                    last = collection.performtime
 
 
 def decline_in_delay(days, collection, interval):

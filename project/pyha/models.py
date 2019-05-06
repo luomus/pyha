@@ -272,6 +272,18 @@ class AdminUserSettings(models.Model):
 	
 	def __str__(self):
 		return 'AdminSettings: %s ' %(self.user)
+	
+@python_2_unicode_compatible
+class AdminPyhaSettings(models.Model):
+	settingsName = TruncatingCharField(max_length=100,blank=False,null=False)
+	enableDailyHandlerEmail = models.BooleanField(default=False)
+	enableWeeklyMissingHandlersEmail = models.BooleanField(default=False)
+	enableDeclineOverdueCollections = models.BooleanField(default=False)
+	changedBy = models.CharField(max_length=100)
+	history = HistoricalRecords()
+	
+	def __str__(self):
+		return 'AdminSettings: %s ' %(self.user)
 
 def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)

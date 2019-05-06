@@ -219,10 +219,15 @@ def update_collections():
     notFinished = True
     result = []
     while notFinished:
-        response = requests.get(settings.LAJIAPI_URL+"collections", params=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+        try:
+            response = requests.get(settings.LAJIAPI_URL+"collections", params=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+        except:
+            response = Container()
+            response.status_code = 500
         if(response.status_code == 200):
             data = response.json()
         else:
+            caches['collections'].set('collection_update','updated', 7200)
             return False
         for co in data['results']:
             if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):

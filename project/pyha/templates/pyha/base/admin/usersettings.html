@@ -9,7 +9,7 @@
 		  	<h2>{% trans "admin_settings_header" %}</h2>
 		</div>
  		<h3 style="margin-top:50px">{% trans "admin_user_settings" %}<small> ({{ email }}) </small></h3>
- 		<form action="{% url 'pyha:save_settings' %}" id="settingsform" method="post">
+ 		<form action="{% url 'pyha:save_user_settings' %}" id="settingsform" method="post">
  			<input type="hidden" id="next" name="next" value="{{request.path}}">
  			<p>{% trans "admin_send_me_email_for_new_requests" %}</p>
  			<div class="row">
@@ -35,10 +35,36 @@
 				    <button style="margin-top:10px;" type="submit" id="submit" name="save" value=1 class="btn btn-default btn-sm" >{% trans "admin_save" %}</button>
 				</div>
 		   	</div>
-	   		<h3 hidden="true">{% trans "admin_pyha_settings" %}</h3>
-	   		<p hidden="true">{% trans "admin_empty_for_now" %}</p>
 	   		{% csrf_token %}
 	   </form>
+	   <h3 style="margin-top:50px">{% trans "admin_pyha_settings" %}</h3>
+	   <form action="{% url 'pyha:save_pyha_settings' %}" id="settingsform" method="post">
+ 			<input type="hidden" id="next" name="next" value="{{request.path}}">
+ 			<p>{% trans "admin_pyha_periodical_event_automation" %}</p>
+ 			<div class="row">
+		 		<div class="checkbox col-sm-2">
+				    <label>
+				      	<input {% if settings.enableDailyHandlerEmail %} checked {% endif %} type="checkbox" id="enable_daily_handler_email" name="enable_daily_handler_email" value="True"> {% trans "admin_enable_daily_handler_email" %}
+				    </label>
+				</div>
+			</div>
+			<div class="row">
+		 		<div class="checkbox col-sm-2">
+				    <label>
+				      	<input {% if settings.enableWeeklyMissingHandlersEmail %} checked {% endif %} type="checkbox" id="enable_weekly_missing_handlers_email" name="enable_weekly_missing_handlers_email" value="True"> {% trans "admin_enable_weekly_missing_handlers_email" %}
+				    </label>
+				</div>
+			</div>
+			<div type="hidden" class="row">
+		 		<div class="checkbox col-sm-2">
+				    <label>
+				      	<input {% if settings.enableDeclineOverdueCollections %} checked {% endif %} type="checkbox" id="enable_auto_decline_overdue" name="enable_auto_decline_overdue" value="True"> {% trans "admin_enable_auto_decline_overdue" %}
+				    </label>
+				</div>
+			</div>	
+	   		{% csrf_token %}
+	   </form>
+	   
 	 </div>
 
 </div>
