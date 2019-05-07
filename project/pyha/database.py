@@ -567,12 +567,12 @@ def requestInformationChat(http_request, userRequest, role1, role2, userId):
 			if role1:
 				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target='sens').order_by('date'))
 			if role2:
-				#for collection in Collection.objects.filter(request=requestId, customSecured__gt = 0, downloadRequestHandler__contains = str(userId)):
 				if userRequest.sensStatus != Sens_StatusEnum.IGNORE_OFFICIAL:
 					for collection in Collection.objects.filter(request=userRequest, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId)):
 						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
 				else:
-					for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
+					#for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
+					for collection in Collection.objects.filter(request=userRequest):
 						requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
 		else:
 			requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
