@@ -76,8 +76,16 @@ def makeblob(x):
     
 def get_values_for_collections(requestId, http_request, list):
     for i, c in enumerate(list):
-        if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):            
-            c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+        if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):     
+            try:
+                c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+            except:
+                c.result = cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE)
+                c.result["collectionName"] = c.result.get("collectionName",c.address)
+                c.result["description"] = c.result.get("description","-")
+                c.result["qualityDescription"] = c.result.get("qualityDescription","-")
+                c.result["collectionTerms"] = c.result.get("usageTerms","-")
+                return
             cache.set(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, c.result)
             c.result["collectionName"] = c.result.get("collectionName",c.address)
             c.result["description"] = c.result.get("description","-")
@@ -91,8 +99,13 @@ def get_values_for_collections(requestId, http_request, list):
             c.result["collectionTerms"] = c.result.get("usageTerms","-")
 
 def get_result_for_target(http_request, l):
-    if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
-        l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+    if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):        
+        try:
+            l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+        except:
+            l.result = cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE)
+            l.result["collectionName"] = l.result.get("collectionName",l.target)
+            return
         cache.set(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, l.result)
         l.result["collectionName"] = l.result.get("collectionName",l.target)
     else:
