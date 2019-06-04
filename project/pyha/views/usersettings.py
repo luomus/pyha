@@ -5,15 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pyha.log_utils import changed_by_session_user, changed_by
-from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, get_mul_all_secured, handlers_cannot_be_updated, is_downloadable
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import AdminUserSettings, AdminPyhaSettings
-from pyha.roles import ADMIN, CAT_HANDLER_SENS, HANDLER_ANY, CAT_HANDLER_COLL, ROLES_SHOWN_ROLE_IN_HEADER
-from pyha.warehouse import fetch_email_address, get_collections_where_download_handler, is_collections_missing_download_handler
+from pyha.roles import ADMIN, ROLES_SHOWN_ROLE_IN_HEADER
 from pyha import toast
-from operator import attrgetter
-from itertools import chain
 
 
 @csrf_exempt
