@@ -25,7 +25,7 @@ Aja terminaalissa:
 	
 Käynnistä palvelu uudestaan.
 	
-### Mikäli kohta 1. onnistui loppuun asti, olet valmis
+### Mikäli kohta 1. onnistui loppuun asti, olet valmis.
 
 ## 2 - Manuaalinen päivittäminen
 
