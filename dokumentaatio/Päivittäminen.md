@@ -3,6 +3,7 @@ Ohjeet edellyttävät että kaikki käyttäjäkohtaiset (ei sudo) komennot suoritetaan
 Esim. pyha käyttäjä ja pyha ryhmä.
 
 (12.6.2019) Merkittävimmät päivityskomentoja vaativat muutokset ovat:
+
 	- Tietokantamuutokset.
 	- EI ympäristömuuttuja muutoksia.
 	- Uusi asennettava python kirjasto (schedule)
