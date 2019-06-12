@@ -16,6 +16,10 @@ Esim. pyha käyttäjä ja pyha ryhmä.
 
 Siirry terminaalissa pyha git-projektin juurihakemistoon.
 
+Lataa uusin versio gitistä:
+
+	git pull
+
 
 ## 1 - Automatisoitu päivittäminen
 
