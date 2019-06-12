@@ -178,7 +178,7 @@ sisällöllä:
 	ProxyPassReverse        /pyha http://localhost:portti
 	Alias /pyha/static     path/to/project/static
 	
-Pyha ei tarvitse cron ajastusta, joten crontabin ei tarvitse ajaa.
+Ajastukset toimivat sisäisinä säikeinä, joten crontabia ei tarvitse käyttää.
 
 ## 6 - Lopuksi
 
