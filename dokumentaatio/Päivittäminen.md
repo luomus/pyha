@@ -3,14 +3,16 @@ Ohjeet edellyttävät että kaikki käyttäjäkohtaiset (ei sudo) komennot suoritetaan
 Esim. pyha käyttäjä ja pyha ryhmä.
 
 (12.6.2019) Merkittävimmät päivityskomentoja vaativat muutokset ovat:
-- Tietokantamuutokset.
-- EI ympäristömuuttuja muutoksia.
-- Uusi asennettava python kirjasto (schedule)
-- Kielimuutokset.
-- Staattiset verkko elementit.
+	- Tietokantamuutokset.
+	- EI ympäristömuuttuja muutoksia.
+	- Uusi asennettava python kirjasto (schedule)
+	- Kielimuutokset.
+	- Staattiset verkko elementit.
 
 
 ## 0 - Alku
+
+### Tietokantapäivitykset saattavat aiheuttaa anomalioita, mikäli käyttäjät voivat käyttää palvelua päivityksen aikana.
 
 Siirry terminaalissa pyha git-projektin juurihakemistoon.
 
@@ -21,16 +23,19 @@ Aja terminaalissa:
 
 	bash updateserver.sh
 	
+Käynnistä palvelu uudestaan.
+	
+### Mikäli kohta 1. onnistui loppuun asti, olet valmis
 
 ## 2 - Manuaalinen päivittäminen
 
-Tutki updateserver.sh:n sisällä olevat komennot /tai
+Tutki updateserver.sh:n sisällä olevat komennot.
 
 Avaa python virtuaaliympäristö:
 
 	source env/bin/activate
 	
-Aseta ympäristömuuttujat ympäristöön.
+Aseta ympäristömuuttujat virtuaaliympäristöön.
 	
 Aja seuraavat komennot:
 
@@ -54,7 +59,7 @@ Aja seuraavat komennot:
 	
     python project/manage.py compilemessages (Kielimuutokset)
 	
-	
+Käynnistä palvelu uudestaan.
 
 
 
