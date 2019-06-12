@@ -1,4 +1,4 @@
-N‰m‰ p‰ivitys ohjeet on kirjoitettu Ubuntulle, ja et‰n‰ k‰ytett‰v‰lle Oracle tietokantapalvelimelle.
+N‰m‰ p‰ivitysohjeet on kirjoitettu Ubuntulle, ja et‰n‰ k‰ytett‰v‰lle Oracle tietokantapalvelimelle.
 Ohjeet edellytt‰v‰t ett‰ kaikki k‰ytt‰j‰kohtaiset (ei sudo) komennot suoritetaan pyha-j‰rjestelm‰‰ varten luodulla omalla k‰ytt‰j‰ll‰. 
 Esim. pyha k‰ytt‰j‰ ja pyha ryhm‰.
 
