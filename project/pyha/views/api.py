@@ -16,13 +16,13 @@ from pyha.log_utils import changed_by
 
 @csrf_exempt
 @basic_auth_required
-def receiver(request):
-    if 'JSON' in request.POST:
-        text = request.POST['JSON']
+def receiver(http_request):
+    if 'JSON' in http_request.POST:
+        text = http_request.POST['JSON']
         jsond = text
         userRequest = store(jsond)
     else:
-        jsond = request.body.decode("utf-8")
+        jsond = http_request.body.decode("utf-8")
         userRequest = store(jsond)
     if(userRequest):
         send_mail_after_receiving_request(userRequest.id, userRequest.lang)
@@ -30,8 +30,8 @@ def receiver(request):
 
 @csrf_exempt
 @basic_auth_required
-def download(request, link):
-    if request.method == 'POST':
+def download(http_request, link):
+    if http_request.method == 'POST':
         userRequest = get_object_or_404(Request, lajiId=link)
         if(userRequest.status == 7 and userRequest != None):
             userRequest.status = 8
@@ -43,23 +43,23 @@ def download(request, link):
     
 @csrf_exempt
 @basic_auth_required
-def new_count(request):
-    if request.method == 'GET':
-        if 'none' != request.GET.get('person', 'none'):
-            userId = request.GET.get('person')
+def new_count(http_request):
+    if http_request.method == 'GET':
+        if 'none' != http_request.GET.get('person', 'none'):
+            userId = http_request.GET.get('person')
             return JsonResponse({'count':count_unhandled_requests(userId)})
     return HttpResponse('')
 
-def new_pdf(request):
-    if request.method == 'POST':
-        response = HttpResponse(fetch_pdf(request.POST.get('source'),request.POST.get('style')),content_type='application/pdf')
+def new_pdf(http_request):
+    if http_request.method == 'POST':
+        response = HttpResponse(fetch_pdf(http_request.POST.get('source'),http_request.POST.get('style')),content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename=pyha.pdf'
         return response
     return HttpResponse('')
 
 @csrf_exempt
-def status(request):
-    if request.method == 'GET':
+def status(http_request):
+    if http_request.method == 'GET':
         try:
             response = requests.get(settings.LAJIAPI_URL+"collections?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
             if not response.status_code == 200:

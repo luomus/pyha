@@ -87,7 +87,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
@@ -166,12 +166,18 @@
 							</span>
 						</a>
 					</li>
+					<li id="handler_communications-tab" role="presentation" {% if next == "communications" %} class="active" {% endif %} >
+						<a href="#handler_communications" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="handler_communications" role="tab" {% if next == "communications" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'admin_communications_window' %}
+							</span>
+						</a>
+					</li>
 				</ul>
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "admin_collections_in_request" %}</h3>
 						{% if taxon %}
-						<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
 							<table class="table" style="width:100%">
@@ -179,7 +185,11 @@
 									<th>{% trans "admin_collection_name" %}</th>
 									<th></th>
 									<th>{% trans "admin_collection_description" %}</th>
-									<th>{% trans "admin_secured_by_data_provider" %}</th>
+									<th>{% trans "admin_collection_quality_description" %}</th>
+									<th>{% trans "admin_collection_terms" %}</th>
+									<th>{% trans "admin_secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+									<th>{% trans "admin_secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -201,10 +211,13 @@
 								<tr>	
 								{% endif %}
 								<td>{{collection.result.collectionName}}</td>
-								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
+								<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>								
 								<td>{{collection.result.description}}</td>
-								<td>{{collection.allSecured}}</td>
-								
+								<td>{{collection.result.qualityDescription}}</td>
+								<td>{{collection.result.collectionTerms}}</td>
+								<td>{{collection.quarantineSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+								<td>{{collection.customSecured}}</td>
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
 									<td>{% trans "admin_waiting_for_you" %}</td>
@@ -280,6 +293,9 @@
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_research' %}
 							<tr style=color:black><th>{% trans "admin_argument_research" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_research_address' %}
+							<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_goals' %}
 							<tr style=color:black><th>{% trans "admin_argument_goals" %}</th></tr>
@@ -415,58 +431,70 @@
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 						{% if collections %}
 						<h3>{% trans "admin_secured_collection_decicions" %}</h3>
-						<table class="table" style="width:100%">
-							<tr style=color:black>
-								<th>{% trans "admin_collection_name" %}</th>
-								<th>{% trans "admin_collection_description" %}</th>
-								<th>{% trans "admin_state_of_processing" %}</th>
-								<th>{% trans "admin_decision_arguments" %}</th>
-							</tr>
-							{% for collection in collections %}
-								{% if collection.status == 1 %}
-								<tr class="info clickable-row">
-								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row">
-								{% elif collection.status == 4 %}
-								<tr class="success clickable-row">
-								{% else %}  
-								<tr>
-								{% endif %}
-									<td>{{collection.result.collectionName}}</td>
-									<td>{{collection.result.description}}</td>
-									
-									{% if collection.status == 1 %}
-										{% if collection.address in handles %}
-										<td>{% trans "admin_waiting_for_you" %}</td>
-										{% else %}
-										<td>{% trans "admin_waiting_for_others" %}</td>
-										{% endif %}
-									{% elif collection.status == 3 %}
-									<td>{% trans "admin_denied" %}</td>
-									{% elif collection.status == 2 %}
-									<td>{% trans "admin_partially_accepted" %}</td>
-									{% elif collection.status == 4 %}
-									<td>{% trans "admin_accepted" %}</td>
-									{% else %}  
-									<td>{% trans "admin_unknown" %}</td>	
-									{% endif %}
-									<td>
-										<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-										<div class="form-group">
-												<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-												<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-												<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-												<textarea class="form-control" rows="5" cols="700" id="reason" name="reason">{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-												<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
-												<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
-												<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
-											</div>
-											{% csrf_token %}
-										</form>
-									</td>
+						<form action="{% url 'pyha:group_answer' %}" id="requestform" method="post">
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+									<th>{% trans "admin_collection_name" %}</th>
+									<th></th>
+									<th>{% trans "admin_collection_description" %}</th>
+									<th>{% trans "admin_state_of_processing" %}</th>
+									<th>{% trans "admin_decision_arguments" %}</th>
+									<th>{% trans "admin_select" %}</th>
+									<th>{% trans "admin_make_decision" %}</th>
 								</tr>
-							{% endfor %}
-						</table>
+								{% for collection in collections %}
+									{% if collection.status == 1 %}
+									<tr class="info clickable-row">
+									{% elif collection.status == 3 %}
+									<tr class="danger clickable-row">
+									{% elif collection.status == 4 %}
+									<tr class="success clickable-row">
+									{% else %}  
+									<tr>
+									{% endif %}
+										<td>{{collection.result.collectionName}}</td>
+										<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
+										<td>{{collection.result.description}}</td>
+										
+										{% if collection.status == 1 %}
+											{% if collection.address in handles %}
+											<td>{% trans "admin_waiting_for_you" %}</td>
+											{% else %}
+											<td>{% trans "admin_waiting_for_others" %}</td>
+											{% endif %}
+										{% elif collection.status == 3 %}
+										<td>{% trans "admin_denied" %}</td>
+										{% elif collection.status == 2 %}
+										<td>{% trans "admin_partially_accepted" %}</td>
+										{% elif collection.status == 4 %}
+										<td>{% trans "admin_accepted" %}</td>
+										{% else %}  
+										<td>{% trans "admin_unknown" %}</td>	
+										{% endif %}
+										<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</td>
+										<td>
+											<p style="text-align: center;"><input {% if frozen %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
+										</td>
+										{% if forloop.first %}
+											<td rowspan="{{collections|length}}" style="background-color:white; border-bottom:0px;">
+												<h4>{% trans "admin_decision_arguments" %}</h4>
+												<span>{% trans "admin_select_checksboxes_to_apply_this_decision_to" %}</span>
+												<div class="form-group">
+													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+													<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason"></textarea>
+													<p style="margin:2px;">{% trans "admin_arguments_will_be_applied_to_all_selected" %}</p>
+													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
+													<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
+													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
+												</div>
+											</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+							</table>
+							{% csrf_token %}
+						</form>
 						{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
@@ -484,7 +512,7 @@
 							{% endif %}
 						{% endfor %}
 						<h3>{% trans "admin_form_to_request_additional_information" %}</h3>
-						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+						<form action="{% url 'pyha:question' %}" id="requestform" method="post">
 							<div class="form-group">
 								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 								<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
@@ -506,7 +534,7 @@
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if requestHandlerChat.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
+								<div class="panel-body" {% if requestHandlerChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }} {% if requestHandlerChat.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
@@ -600,6 +628,169 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 						{% endif %}
 					</div>
+					
+					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
+						{% if handler_groups %}
+						<form action="{% url 'pyha:refresh_collections_cache' %}" id="refreshform" method="post">
+							<h3 id="communications_header">
+								{% trans "admin_communications_window" %}
+								<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+								<button type="submit" id="submit_refresh" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_refresh_collections_cache" %}</button>
+								{% csrf_token %}
+							</h3>
+						</form>
+							{% if com_last_automated_send_email %}
+								<div class="form-group stale-form">
+									<h>{% trans "admin_automated_emails_sent_last_time" %}: {{ com_last_automated_send_email|date:"d.m.Y    H:i"}}</h>
+								</div>
+							{% endif %}
+						<form action="{% url 'pyha:send_email' %}" id="requestform" method="post">
+							<table id="communications_table" class="table" style="width:100%;">
+								<tr>
+									<th>{% trans "admin_communications_collections" %}</th>
+									<th style="text-align:right;">{% trans "admin_communications_handlers" %}</th>
+									<th>{% trans "admin_communications_state" %}</th>
+									<th>{% trans "admin_send_email" %}</th>
+									<th>{% trans "admin_communications_email" %}</th>
+								</tr>
+								{% for group in handler_groups %}
+									{% if group.handlers.0.id == 'None' %}
+										<tr>
+											<td colspan=2 style="vertical-align: middle;">
+												<table class="collection-group-error" style="width:100%">
+													<tr>
+														<td style="border-bottom:0; width:100%">
+														{% for collection in group.collections %} 
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% endfor %}
+														</td>
+														<td style="border-bottom:0;">
+														{% for handler in group.handlers %}
+															<p style="white-space: nowrap;">{% trans 'admin_name_is_none' %}</p>
+														{% endfor %}
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												<p style="margin-bottom: 16px; color:red;">{% trans "admin_collections_missing_handler" %}</p>
+											</td>
+											<td></td>
+											{% if forloop.first %}
+											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
+													<div class="form-group">
+														<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+														<table style="width:100%;">
+														<tr>
+															<td style="border:0px;">{% trans "email_sender" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_sender" name="com_email_sender" value="{{ com_email_template.sender }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_header" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_lang" %}</td>
+															<td style="width:100%; border:0px;">
+																<select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
+																	{% for code in com_email_templates %}
+																		<option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
+														            {% endfor %}
+														            	<option value="all">{% trans "admin_email_lang_all" %}</option>
+																</select>
+																{% for code, values in com_email_templates.items %}
+																<p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
+																<p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
+																{% endfor %}
+															</td>
+														</tr>
+														</table>
+														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
+														<button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+													</div>
+											</td>
+											{% endif %}
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan=2 style="vertical-align: middle;">
+												<table class="collection-group" style="width:100%">
+													<tr>
+														<td style="border-bottom:0; width:100%">
+														{% for collection in group.collections %} 
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% endfor %}
+														</td>
+														<td style="border-bottom:0;">
+														{% for handler in group.handlers %}
+															<p style="white-space: nowrap; text-align:right;">[{{ handler.id }}] {{ handler.name }} ({{ handler.email }})</p>
+														{% endfor %}
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												{% for handler in group.handlers %}
+													{% if handler.mailed %}
+														<p style="margin-bottom: 10px;">{% trans "emailed" %}</p>
+													{% else %}
+														<p style="margin-bottom: 10px;">{% trans "not_emailed" %}</p>
+													{% endif %}
+												{% endfor %}
+													<div style="margin-bottom: 16px;"></div>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												{% for handler in group.handlers %}
+													<p style="white-space: nowrap;"><input {% if handler.mailed or frozen %} disabled {% endif %} onChange="enableCommunicationsEmail()" type="checkbox" name="email_id_{{ handler.id }}" value="{{ handler.email }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
+												{% endfor %}
+													<div style="margin-bottom: 16px;"></div>
+											</td>
+											{% if forloop.first %}
+											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
+													<div class="form-group">
+														<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+														<table style="width:100%;">
+														<tr>
+															<td style="border:0px;">{% trans "email_sender" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_sender" name="com_email_sender" value="{{ com_email_template.sender }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_header" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_lang" %}</td>
+															<td style="width:100%; border:0px;">
+																<select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
+																	{% for code in com_email_templates %}
+																		<option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
+														            {% endfor %}
+														            	<option value="all">{% trans "admin_email_lang_all" %}</option>
+																</select>
+																{% for code, values in com_email_templates.items %}
+																<p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
+																<p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
+																{% endfor %}
+															</td>
+														</tr>
+														</table>
+														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
+														<button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+													</div>
+											</td>
+											{% endif %}
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</table>
+							{% csrf_token %}
+						</form>
+						{% else %}
+						<strong>{% trans "no_communications" %}</strong>
+						{% endif %}
+					</div>
 			</div>
 		</div>
 	</div>
@@ -635,6 +826,44 @@
 			}
 		}
 	</script>
+	<script>
+		function refreshCommunicationsEmailByLang() {
+			var x = document.getElementById('admin_com_email_lang');
+			var strLang = x.options[x.selectedIndex].value;
+			
+			if (strLang == 'all'){
+				document.getElementById('com_email_header').value = document.getElementById('com_email_header_fi').innerHTML;
+				document.getElementById('com_email_content').value = '{%trans "in_other_languages_below"%}\n\n\n\n';
+				{% for lang in languages %}
+				document.getElementById('com_email_content').value += document.getElementById('com_email_content_{{ lang.code }}').innerHTML;
+				document.getElementById('com_email_content').value += '\n\n------------------------------------';
+					{% if not forloop.last %}
+						document.getElementById('com_email_content').value += '\n\n\n';
+					{% endif %}
+				{% endfor %}
+			} else {
+				document.getElementById('com_email_header').value = document.getElementById('com_email_header_'+strLang).innerHTML;
+				document.getElementById('com_email_content').value = document.getElementById('com_email_content_'+strLang).innerHTML;
+			}
+			
+		}
+	</script>
+	<script>
+		function enableCommunicationsEmail() {
+			var x = document.querySelectorAll('[name^=email_id_]');
+			var b = false;
+			for (i = 0; i < x.length; i++){
+				if(x[i].checked){
+					b = true;
+					break;
+				}
+			}
+			{% if not userRequest.frozen %}
+			document.getElementById('submit_email').disabled = !b;
+			{% endif %}
+			
+		}
+	</script>
 	{% if next == 'information' %}
 	<script>
 		$(document).ready(function(){
@@ -643,6 +872,26 @@
 		});
 	</script>
 	{% endif %}
+	{% if next == 'communications' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('handler_communications-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	{% if next == 'decision' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('decision-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	<script>
+		$(document).ready(function(){
+			refreshCommunicationsEmailByLang();
+			enableCommunicationsEmail();
+		});
+	</script>
 {% endblock %}
 
 {% block modal %}

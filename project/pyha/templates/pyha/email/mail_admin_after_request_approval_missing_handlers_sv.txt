@@ -1,0 +1,5 @@
+﻿På svenska: Lajitietokeskuksessa on täytetty uusi sähköinen aineistopyyntöhakemus {{ time }}.
+
+Hakemuksen aineistoista puuttuu käsittelijöitä.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=sv&next=communications

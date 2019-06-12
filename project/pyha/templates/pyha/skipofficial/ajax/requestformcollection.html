@@ -1,27 +1,31 @@
 											{% load i18n %}
 												<h3>{% trans "restricted_collections_in_request" %}</h3>
-												<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
 												<p>{% trans 'given_values_are_not_absolute' %}</p>
-
-												<div id="sensitiveInfo" class="collapse">
-													<p>{% trans "sensitivity_info" %}</p>
-												</div>
+												<p>{% trans "sensitivity_info" %}</p>
 
 												<p></p>
 												<table class="table" style="width:100%">
 												<tr style=color:black>
 
-												<th>{% trans "collection_for_user" %}</th>
-												<th>{% trans "request_description" %}</th>
-												<th>{% trans "sightings_secured_by_data_provider" %}</th>
+												<th>{% trans "collection_name" %}</th>
+												<th>{% trans "collection_description" %}</th>
+												<th>{% trans "collection_quality_description" %}</th>
+												<th>{% trans "collection_terms" %}</th>
+												<th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+												<th>{% trans "secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+												<th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 												<th></th>
 
 												</tr>
 												{% for collection in collections %}
 												<tr id="taxon{{ collection.address }}" style="border-bottom:2px solid #456789">
-													<td>{{collection.result.collectionName}}</td>
+													<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 													<td>{{collection.result.description}}</td>
-													<td>{{collection.allSecured}}</td>
+													<td>{{collection.result.qualityDescription}}</td>
+													<td>{{collection.result.collectionTerms}}</td>
+													<td>{{collection.quarantineSecured}}</td>
+													<td>{{collection.taxonSecured}}</td>
+													<td>{{collection.customSecured}}</td>
 													<td>
 
 														<div class="deleteContainer">

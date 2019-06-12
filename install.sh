@@ -38,7 +38,6 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		ADMIN_NAME 0 \
 		ADMIN_EMAIL "Email to send errormail" \
 		SERVER_EMAIL "Name for the errormail server address ex. pyha-staging@laji.fi" \
-		
 		)
 		
 # get length of an array
@@ -134,7 +133,8 @@ echo -e "$APACHECONTENT" > services/pyha.conf
 echo "Created services/pyha.conf file"
 
 CRONCONTENT=$CRONCONTENT\
-'22 11 * * 2 cd '$DIR' && bash cron_timed_email.sh > '$DIR'/cronlogs/pyha_timed_email.log\n'\
+'22 11 * * 1,2,3,4,5 cd '$DIR' && bash cron_timed_email.sh > '$DIR'/cronlogs/pyha_timed_email.log\n'\
+'22 11 * * 2 cd '$DIR' && bash cron_missing_handlers_email.sh > '$DIR'/cronlogs/pyha_missing_handlers_email.log\n'\
 '33 8 * * 1,2,3,4,5 cd '$DIR' && bash cron_decline_overdue_collections.sh > '$DIR'/cronlogs/pyha_decline_overdue_collections.log'
 
 echo -e $CRONCONTENT > services/pyha.cron
@@ -143,3 +143,4 @@ echo "Created services/pyha.cron file"
 echo "Installation has finished."
 echo "Please run bash updateserver.sh after you have set the correct values to env_variables.sh file"
 echo "Also remember to put files in the /services folder to their correct locations."
+echo "( .socket /.service to systemd, .cron contents to crontab, .conf to Apache )"

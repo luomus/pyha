@@ -3,8 +3,8 @@
 {% load i18n %}
 
 
-    <div class="container-fluid">
-    <div class="col-xs-12">
+<div class="container-fluid">
+ 	<div class="col-xs-12">
       <div class="page-header">
         <h2>{% trans "welcome" %}</h2>
       </div>
@@ -84,17 +84,17 @@
 	{% endfor %}
 	</tbody>
   </table>
-    <p>{% trans 'given_values_are_not_absolute' %}</p>
-	{% else %}
-		<strong>{% trans "no_requests_for_user" %}.</strong>
-	{% endif %}
-    </div>
-  <!--
-    <div class="col-sm-3 col-lg-2 side-bar">
-  
-    </div>
-  -->
+   <p>{% trans 'given_values_are_not_absolute' %}</p>
+{% else %}
+	<strong>{% trans "no_requests_for_user" %}.</strong>
+{% endif %}
+   </div>
+ <!--
+  <div class="col-sm-3 col-lg-2 side-bar">
+
   </div>
+-->
+</div>
 {% endblock %}
 
 {% block end_script %}

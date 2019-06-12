@@ -1,12 +1,8 @@
-﻿											{% load i18n %}
+											{% load i18n %}
 												{% if taxon %}
-												<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}</h3>
-												<button type="button" class="btn btn-default btn-s" data-toggle="collapse" data-target="#sensitiveInfo"><span class="glyphicon glyphicon-info-sign"></span></button>
+												<h3>{% trans "Request involves collections requiring approval for sensitive terms" %}</h3>												
 												<p>{% trans 'given_values_are_not_absolute' %}</p>
-
-												<div id="sensitiveInfo" class="collapse">
-													<p>{% trans "sensitivity_info" %}</p>
-												</div>
+												<p>{% trans "sensitivity_info" %}</p>
 
 												<p></p>
 												<table class="table" style="width:100%">
@@ -20,7 +16,7 @@
 												</tr>
 												{% for collection in taxonlist %}
 												<tr id="taxon{{ collection.address }}" style="border-bottom:2px solid #456789">
-													<td>{{collection.result.collectionName}}</td>
+													<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 													<td>{{collection.result.description}}</td>
 													<td>{{collection.taxonSecured}}</td>
 													<td>

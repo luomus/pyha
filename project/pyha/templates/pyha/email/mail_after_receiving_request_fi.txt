@@ -1,5 +1,3 @@
 ﻿Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa {{ time }}.
 
-Siirry alla olevasta linkistä täyttämään sähköinen hakemus, jonka täyttämisen jälkeen aineistopyyntösi otetaan käsittelyyn.
-
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi
+Pyyntö otetaan käsittelyyn sen jälkeen kun perustelette aineistopyynnön ja hyväksytte käyttöehdot osoitteessa. {{ req_link }}?lang=fi

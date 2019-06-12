@@ -24,6 +24,7 @@ class TruncatingReasonJsonCharField(models.CharField):
 	def get_prep_value(self, value):
 		max_lengths = [("argument_project", 500),
 		("argument_research", 500),
+		("argument_research_address", 500),
 		("argument_goals", 2000),
 		("argument_planning", 2000),
 		("argument_municipality", 2000),
@@ -62,6 +63,7 @@ class Collection(models.Model):
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0)
 	customSecured = models.IntegerField(default=0)
+	quarantineSecured = models.IntegerField(default=0)
 	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
 	decisionExplanation = TruncatingCharField(max_length=1000,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
@@ -69,6 +71,17 @@ class Collection(models.Model):
 
 	def __str__(self):
 		return 'Collection: %s (in Request: %d)' %(self.address, self.request.id)
+	
+@python_2_unicode_compatible
+class HandlerInRequest(models.Model): #Used currently for the admin email gatekeeper, on who has been emailed per request 
+	user = models.CharField(max_length=500)
+	request = models.ForeignKey('Request', on_delete=models.CASCADE)
+	emailed = models.BooleanField(default=False)
+	changedBy = models.CharField(max_length=100)
+	history = HistoricalRecords()
+
+	def __str__(self):
+		return 'Handler: %s (in Request: %d) is emailed %s' %(self.user, self.request.id, self.emailed)
 	
 
 @python_2_unicode_compatible
@@ -237,6 +250,40 @@ class ContactPreset(models.Model):
 	
 	def __str__(self):
 		return 'ContactPreset: %s' %(self.user)
+	
+
+@python_2_unicode_compatible
+class AdminUserSettings(models.Model):
+	ALL = 'ALL'
+	MISSING = 'MISSING'
+	NONE = 'NONE'
+	EMAIL_NEW_REQUESTS_SETTING = (
+		(ALL, 'all requests'),
+		(MISSING, 'requests missing handlers'),
+		(NONE, 'none requests'),
+	)
+	
+	user = models.CharField(primary_key=True, max_length=100)
+	emailNewRequests = models.CharField(max_length=10, choices=EMAIL_NEW_REQUESTS_SETTING, default=NONE)
+	enableCustomEmailAddress = models.BooleanField(default=False)
+	customEmailAddress = TruncatingCharField(max_length=100,blank=True,null=True)
+	changedBy = models.CharField(max_length=100)
+	history = HistoricalRecords()
+	
+	def __str__(self):
+		return 'AdminSettings: %s ' %(self.user)
+	
+@python_2_unicode_compatible
+class AdminPyhaSettings(models.Model):
+	settingsName = TruncatingCharField(max_length=100,blank=False,null=False)
+	enableDailyHandlerEmail = models.BooleanField(default=False)
+	enableWeeklyMissingHandlersEmail = models.BooleanField(default=False)
+	enableDeclineOverdueCollections = models.BooleanField(default=False)
+	changedBy = models.CharField(max_length=100)
+	history = HistoricalRecords()
+	
+	def __str__(self):
+		return 'AdminSettings: %s ' %(self.settingsName)
 
 def enum(*sequential, **named):
 	enums = dict(zip(sequential, range(len(sequential))), **named)

@@ -71,7 +71,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-accepted{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 1 %}-light{% endif %}">
@@ -162,7 +162,6 @@
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "handler_collections_in_request" %}</h3>
 						{% if taxon %}
-						<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
 							<table class="table" style="width:100%">
@@ -170,7 +169,11 @@
 									<th>{% trans "handler_collection_name" %}</th>
 									<th></th>
 									<th>{% trans "handler_collection_description" %}</th>
-									<th>{% trans "handler_secured_by_data_provider" %}</th>
+									<th>{% trans "handler_collection_quality_description" %}</th>
+									<th>{% trans "handler_collection_terms" %}</th>
+									<th>{% trans "handler_secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+									<th>{% trans "handler_secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+									<th>{% trans "handler_secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 									<th>{% trans "handler_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -192,10 +195,13 @@
 								<tr>
 								{% endif %}
 								<td>{{collection.result.collectionName}}</td>
-								<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
+								<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>{{collection.result.description}}</td>
-								<td>{{collection.allSecured}}</td>
-								
+								<td>{{collection.result.qualityDescription}}</td>
+								<td>{{collection.result.collectionTerms}}</td>
+								<td>{{collection.quarantineSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+								<td>{{collection.customSecured}}</td>
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
 									<td>{% trans "handler_waiting_for_you" %}</td>
@@ -271,6 +277,9 @@
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_research' %}
 							<tr style=color:black><th>{% trans "handler_argument_research" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_research_address' %}
+							<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_goals' %}
 							<tr style=color:black><th>{% trans "handler_argument_goals" %}</th></tr>
@@ -406,61 +415,73 @@
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 						{% if collections %}
 						<h3>{% trans "handler_secured_collection_decicions" %}</h3>
-						<table class="table" style="width:100%">
-							<tr style=color:black>
-								<th>{% trans "handler_collection_name" %}</th>
-								<th>{% trans "handler_collection_description" %}</th>
-								<th>{% trans "handler_state_of_processing" %}</th>
-								<th>{% trans "handler_decision_arguments" %}</th>
-							</tr>
-							{% for collection in collections %}
-								{% if collection.status == 1 %}
-								<tr class="info clickable-row">
-								{% elif collection.status == 3 %}
-								<tr class="danger clickable-row">
-								{% elif collection.status == 4 %}
-								<tr class="success clickable-row">
-								{% else %}  
-								<tr>
-								{% endif %}
-									<td>{{collection.result.collectionName}}</td>
-									<td>{{collection.result.description}}</td>
-									
-									{% if collection.status == 1 %}
-										{% if collection.address in handles %}
-										<td>{% trans "handler_waiting_for_you" %}</td>
-										{% else %}
-										<td>{% trans "handler_waiting_for_others" %}</td>
-										{% endif %}
-									{% elif collection.status == 3 %}
-									<td>{% trans "handler_denied" %}</td>
-									{% elif collection.status == 2 %}
-									<td>{% trans "handler_partially_accepted" %}</td>
-									{% elif collection.status == 4 %}
-									<td>{% trans "handler_accepted" %}</td>
-									{% else %}  
-									<td>{% trans "handler_unknown" %}</td>	
-									{% endif %}
-									<td>
-										{% if collection.address in handles %}
-										<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
-											<div class="form-group">
-												<input type="hidden" id="collectionid" name="collectionid" value={{collection.address}}>
-												<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-												<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-												<textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</textarea>
-												<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "handler_accept" %}</button>
-												<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm"{% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
-											</div>
-											{% csrf_token %}
-										</form>
-										{% else %}
-										{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}
-										{% endif %}
-									</td>
+						<form action="{% url 'pyha:group_answer' %}" id="requestform" method="post">
+							<table class="table" style="width:100%">
+								<tr style=color:black>
+									<th>{% trans "handler_collection_name" %}</th>
+									<th></th>
+									<th>{% trans "handler_collection_description" %}</th>
+									<th>{% trans "handler_state_of_processing" %}</th>
+									<th>{% trans "handler_decision_arguments" %}</th>
+									<th style="text-align: center;">{% trans "handler_select" %}</th>
+									<th>{% trans "handler_make_decision" %}</th>
 								</tr>
-							{% endfor %}
-						</table>
+								{% for collection in collections %}
+									{% if collection.status == 1 %}
+									<tr class="info clickable-row">
+									{% elif collection.status == 3 %}
+									<tr class="danger clickable-row">
+									{% elif collection.status == 4 %}
+									<tr class="success clickable-row">
+									{% else %}  
+									<tr>
+									{% endif %}
+										<td>{{collection.result.collectionName}}</td>
+										<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
+										<td>{{collection.result.description}}</td>
+										
+										{% if collection.status == 1 %}
+											{% if collection.address in handles %}
+											<td>{% trans "handler_waiting_for_you" %}</td>
+											{% else %}
+											<td>{% trans "handler_waiting_for_others" %}</td>
+											{% endif %}
+										{% elif collection.status == 3 %}
+										<td>{% trans "handler_denied" %}</td>
+										{% elif collection.status == 2 %}
+										<td>{% trans "handler_partially_accepted" %}</td>
+										{% elif collection.status == 4 %}
+										<td>{% trans "handler_accepted" %}</td>
+										{% else %}  
+										<td>{% trans "handler_unknown" %}</td>	
+										{% endif %}
+										<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</td>
+										<td>
+											{% if collection.address in handles %}
+											<p style="text-align: center;"><input {% if frozen or collection.status != 1 %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
+											{% else %}
+											<p style="text-align: center;">{% trans "handler_not_handling" %}</p>
+											{% endif %}
+										</td>
+										{% if forloop.first %}
+											<td rowspan="{{collections|length}}" style="background-color:white; border-bottom:0px;">
+												<h4>{% trans "handler_decision_arguments" %}</h4>
+												<span>{% trans "handler_select_checksboxes_to_apply_this_decision_to" %}</span>
+												<div class="form-group">
+													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+													<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason"></textarea>
+													<p style="margin:2px;">{% trans "handler_arguments_will_be_applied_to_all_selected" %}</p>
+													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "handler_accept" %}</button>
+													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "handler_refuse" %}</button>
+												</div>
+											</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+							</table>
+							{% csrf_token %}
+						</form>
 						{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
@@ -479,7 +500,7 @@
 						{% endfor %}
 						{% if role2 %}
 						<h3>{% trans "handler_form_to_request_additional_information" %}</h3>
-						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+						<form action="{% url 'pyha:question' %}" id="requestform" method="post">
 							<div class="form-group">
 								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 								<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
@@ -508,7 +529,7 @@
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
-								<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }}  {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
+								<div class="panel-body" {% if requestHandlerChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }}  {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
 								</div>
 								{% endfor %}
 								<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
@@ -627,6 +648,13 @@
 		$(document).ready(function(){
 			document.getElementById('additional_information').scrollIntoView();
 			document.getElementById('requestform').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	{% if next == 'decision' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('decision-tab').scrollIntoView();
 		});
 	</script>
 	{% endif %}

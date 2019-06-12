@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,8 +34,8 @@ PDFAPI_PW = os.environ["PDF_API_PASSWORD"]
 LAJIAPI_URL = os.environ["APILAJIFI_URL"] #'https://apitest.laji.fi/v0/'
 LAJIAPI_TOKEN = os.environ["APILAJIFI_TOKEN"]
 LAJIFILTERS_URL = LAJIAPI_URL + 'warehouse/filters'
-TUN_URL = 'http://tun.fi/'
-SECRET_TIMEOUT_PERIOD = 10
+TUN_URL = 'https://tun.fi/'
+SECRET_TIMEOUT_PERIOD = 1
 TARGET= os.environ["LAJI_AUTH_TARGET"] #'KE.541'
 SECRET_STATUS_SUB_DIR = os.environ["ZABBIX_STATUS_SUB_DIR"] #path/to
 SECRET_ADMIN_SUB_DIR = os.environ["ADMIN_SUB_DIR"] #path/to
@@ -240,3 +238,4 @@ STA_URL = os.environ.get("STATIC_PATH_URL", "") + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")
+

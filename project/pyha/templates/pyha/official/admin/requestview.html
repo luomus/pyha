@@ -99,7 +99,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-admin{% if collection.status == 1 %}-light{% elif collection.customSecured == 0 and userRequest.sensStatus == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
@@ -171,7 +171,6 @@
 							</span>
 						</a>
 					</li>
-					{% if role1%}
 					<li id="admin_comments-tab" role="presentation" {% if next == "comments" %} class="active" {% endif %} >
 						<a href="#admin_comments" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="admin_comments" role="tab" {% if next == "comments" %} aria-expanded="true" {% endif %}>
 							<span>
@@ -179,7 +178,13 @@
 							</span>
 						</a>
 					</li>
-					{% endif %}
+					<li id="handler_communications-tab" role="presentation" {% if next == "communications" %} class="active" {% endif %} >
+						<a href="#handler_communications" class="request-tab request-admin-action-tab" data-toggle="tab" aria-controls="handler_communications" role="tab" {% if next == "communications" %} aria-expanded="true" {% endif %}>
+							<span>
+								{% trans 'admin_communications_window' %}
+							</span>
+						</a>
+					</li>
 				</ul>
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
@@ -196,6 +201,9 @@
 									<th>{% trans "admin_secured_by_data_provider" %}</th>
 									<th>{% trans "admin_generally_secured" %}</th>
 									<th>{% trans "admin_all_secured" %}</th>
+									{% if has_quarantine %}
+										<th>{% trans "admin_secured_by_quarantine" %}</th>
+									{% endif %}
 									<th>{% trans "admin_state_of_processing" %}</th>
 								</tr>
 							{% for collection in collections %}
@@ -216,13 +224,15 @@
 								{% else %}  
 								<tr>	
 								{% endif %}
-								<td>{{collection.result.collectionName}}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.customSecured}}</td>
 								<td>{{collection.taxonSecured}}</td>
 								<td>{{collection.allSecured}}</td>
-								
+								{% if has_quarantine %}
+									<td>{{collection.quarantineSecured}}</td>
+								{% endif %}
 								{% if collection.status == 1 %}
 									{% if collection.address in handles %}
 									<td>{% trans "admin_waiting_for_you" %}</td>
@@ -299,6 +309,9 @@
 						{% elif field.0 == 'argument_research' %}
 							<tr style=color:black><th>{% trans "admin_argument_research" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
+						{% elif field.0 == 'argument_research_address' %}
+							<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
+							<tr><td><p>{{field.1}}</p></td></tr>
 						{% elif field.0 == 'argument_goals' %}
 							<tr style=color:black><th>{% trans "admin_argument_goals" %}</th></tr>
 							<tr><td><p>{{field.1}}</p></td></tr>
@@ -329,7 +342,7 @@
 								{% endif %}
 								{% for collection in customlist %}
 									<tr>
-									<td>{{collection.result.collectionName}}</td>
+									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									<td><button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModal{{ forloop.counter0 }}">{% trans "admin_terms" %}</button></td>
 									</tr>
 									<!-- Modal -->
@@ -600,7 +613,7 @@
 							{% endif %}
 						{% endfor %}
 						<h3>{% trans "admin_form_to_request_additional_information" %}</h3>
-						<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
+						<form action="{% url 'pyha:question' %}" id="requestform" method="post">
 							<div class="form-group">
 								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
 								<input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
@@ -715,6 +728,164 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 						{% endif %}
 					</div>
+					
+					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
+						{% if handler_groups %}
+						<form action="{% url 'pyha:refresh_collections_cache' %}" id="refreshform" method="post">
+							<h3 id="communications_header">
+								{% trans "admin_communications_window" %}
+								<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+								<button type="submit" id="submit_refresh" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_refresh_collections_cache" %}</button>
+								{% csrf_token %}
+							</h3>
+						</form>
+						<form action="{% url 'pyha:send_email' %}" id="requestform" method="post">
+							<table id="communications_table" class="table" style="width:100%;">
+								<tr>
+									<th>{% trans "admin_communications_collections" %}</th>
+									<th style="text-align:right;">{% trans "admin_communications_handlers" %}</th>
+									<th>{% trans "admin_communications_state" %}</th>
+									<th>{% trans "admin_send_email" %}</th>
+									<th>{% trans "admin_communications_email" %}</th>
+								</tr>
+								{% for group in handler_groups %}
+									{% if group.handlers.0.id == 'None' %}
+										<tr>
+											<td colspan=2 style="vertical-align: middle;">
+												<table class="collection-group-error" style="width:100%">
+													<tr>
+														<td style="border-bottom:0; width:100%">
+														{% for collection in group.collections %} 
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% endfor %}
+														</td>
+														<td style="border-bottom:0;">
+														{% for handler in group.handlers %}
+															<p style="white-space: nowrap;">{% trans 'admin_name_is_none' %}</p>
+														{% endfor %}
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												<p style="margin-bottom: 16px; color:red;">{% trans "admin_collections_missing_handler" %}</p>
+											</td>
+											<td></td>
+											{% if forloop.first %}
+											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
+													<div class="form-group">
+														<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+														<table style="width:100%;">
+														<tr>
+															<td style="border:0px;">{% trans "email_sender" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_sender" name="com_email_sender" value="{{ com_email_template.sender }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_header" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_lang" %}</td>
+															<td style="width:100%; border:0px;">
+																<select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
+																	{% for code in com_email_templates %}
+																		<option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
+														            {% endfor %}
+														            	<option value="all">{% trans "admin_email_lang_all" %}</option>
+																</select>
+																{% for code, values in com_email_templates.items %}
+																<p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
+																<p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
+																{% endfor %}
+															</td>
+														</tr>
+														</table>
+														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
+														<button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+													</div>
+											</td>
+											{% endif %}
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan=2 style="vertical-align: middle;">
+												<table class="collection-group" style="width:100%">
+													<tr>
+														<td style="border-bottom:0; width:100%">
+														{% for collection in group.collections %} 
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% endfor %}
+														</td>
+														<td style="border-bottom:0;">
+														{% for handler in group.handlers %}
+															<p style="white-space: nowrap; text-align:right;">[{{ handler.id }}] {{ handler.name }} ({{ handler.email }})</p>
+														{% endfor %}
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												{% for handler in group.handlers %}
+													{% if handler.mailed %}
+														<p style="margin-bottom: 10px;">{% trans "emailed" %}</p>
+													{% else %}
+														<p style="margin-bottom: 10px;">{% trans "not_emailed" %}</p>
+													{% endif %}
+												{% endfor %}
+													<div style="margin-bottom: 16px;"></div>
+											</td>
+											<td style="vertical-align: middle; line-height: 40px;">
+												{% for handler in group.handlers %}
+													<p style="white-space: nowrap;"><input {% if handler.mailed or frozen %} disabled {% endif %} onChange="enableCommunicationsEmail()" type="checkbox" name="email_id_{{ handler.id }}" value="{{ handler.email }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
+												{% endfor %}
+													<div style="margin-bottom: 16px;"></div>
+											</td>
+											{% if forloop.first %}
+											<td rowspan="{{handler_groups|length}}"  style="border:0px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;">
+													<div class="form-group">
+														<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+														<input type="hidden" id="next" name="next" value="{{request.path}}?next=communications">
+														<table style="width:100%;">
+														<tr>
+															<td style="border:0px;">{% trans "email_sender" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_sender" name="com_email_sender" value="{{ com_email_template.sender }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_header" %}</td>
+															<td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
+														</tr>
+														<tr>
+															<td style="border:0px;">{% trans "email_lang" %}</td>
+															<td style="width:100%; border:0px;">
+																<select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
+																	{% for code in com_email_templates %}
+																		<option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
+														            {% endfor %}
+														            	<option value="all">{% trans "admin_email_lang_all" %}</option>
+																</select>
+																{% for code, values in com_email_templates.items %}
+																<p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
+																<p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
+																{% endfor %}
+															</td>
+														</tr>
+														</table>
+														<textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
+														<button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+													</div>
+											</td>
+											{% endif %}
+										</tr>
+									{% endif %}
+								{% endfor %}
+							</table>
+							{% csrf_token %}
+						</form>
+						{% else %}
+						<strong>{% trans "no_communications" %}</strong>
+						{% endif %}
+					</div>
 			</div>
 		</div>
 	</div>
@@ -751,6 +922,44 @@
 			}
 		}
 	</script>
+	<script>
+		function refreshCommunicationsEmailByLang() {
+			var x = document.getElementById('admin_com_email_lang');
+			var strLang = x.options[x.selectedIndex].value;
+			
+			if (strLang == 'all'){
+				document.getElementById('com_email_header').value = document.getElementById('com_email_header_fi').innerHTML;
+				document.getElementById('com_email_content').value = '{%trans "in_other_languages_below"%}\n\n\n\n';
+				{% for lang in languages %}
+				document.getElementById('com_email_content').value += document.getElementById('com_email_content_{{ lang.code }}').innerHTML;
+				document.getElementById('com_email_content').value += '\n\n------------------------------------';
+					{% if not forloop.last %}
+						document.getElementById('com_email_content').value += '\n\n\n';
+					{% endif %}
+				{% endfor %}
+			} else {
+				document.getElementById('com_email_header').value = document.getElementById('com_email_header_'+strLang).innerHTML;
+				document.getElementById('com_email_content').value = document.getElementById('com_email_content_'+strLang).innerHTML;
+			}
+			
+		}
+	</script>
+	<script>
+	function enableCommunicationsEmail() {
+		var x = document.querySelectorAll('[name^=email_id_]');
+		var b = false;
+		for (i = 0; i < x.length; i++){
+			if(x[i].checked){
+				b = true;
+				break;
+			}
+		}
+		{% if not userRequest.frozen %}
+		document.getElementById('submit_email').disabled = !b;
+		{% endif %}
+		
+	}
+	</script>
 	{% if next == 'information' %}
 	<script>
 		$(document).ready(function(){
@@ -759,6 +968,26 @@
 		});
 	</script>
 	{% endif %}
+	{% if next == 'communications' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('handler_communications-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	{% if next == 'decision' %}
+	<script>
+		$(document).ready(function(){
+			document.getElementById('decision-tab').scrollIntoView();
+		});
+	</script>
+	{% endif %}
+	<script>
+		$(document).ready(function(){
+			refreshCommunicationsEmailByLang();
+			enableCommunicationsEmail();
+		});
+	</script>
 {% endblock %}
 
 {% block modal %}

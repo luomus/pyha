@@ -1,4 +1,4 @@
-﻿{% load i18n %}
+{% load i18n %}
 				{% if not collections and not taxon %}
 				<h3>{% trans "request_was_empty_and_will_be_closed" %}</h3>
 				{% else %}
@@ -14,7 +14,7 @@
 							</tr>
 							{% for collection in collections %}
 							<tr>
-								<td>{{collection.result.collectionName}}{% if collection.taxonSecured > 0 %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
+								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a>{% if collection.taxonSecured > 0 %} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span> {% endif %}</td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.customSecured}}</td>
 								<td>{{collection.taxonSecured}}</td>

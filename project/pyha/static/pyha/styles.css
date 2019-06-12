@@ -21,6 +21,31 @@ p {
     word-break: normal;
 }
 
+
+.normaltooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.normaltooltip .normaltooltiptext {
+	visibility: hidden;
+	background-color: #ebefd1;
+	color: #000000;
+	text-align: center;
+	padding: 4px;
+
+  /* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.normaltooltip:hover .normaltooltiptext {
+	visibility: visible;
+}
+
 .slider_group{
 	position: relative;
 	display: inline-block;
@@ -322,10 +347,6 @@ div.contact-form{
     margin-top: 10px;
     text-align: right;
 }
-
-.tooltip {
-  z-index: 0;
- }
 
  .page-header {
   padding-bottom: 0px;
@@ -733,9 +754,6 @@ h2{
 h3{
 	font-size: 16px;
 	}
-body{
-	font-size: 10px;
-	}
 .form-style-10{
 	width:100%;
 	margin:0px;
@@ -751,12 +769,7 @@ body{
 	word-wrap: break-word;
 	white-space: normal;
 	}
-.tooltip{
-	opacity:0 !important;
-	}
-li:hover > .tooltip{
-	opacity:1 !important;
-	}
+
 .slider-lg{
 	font-size: 17px;
 	}
@@ -786,14 +799,8 @@ h3{
 	background-image: none;
 	border: 1px solid transparent;
 	}
-.tooltip-inner{
-	font-size: 10px;
-	}
 }
 @media (max-width: 500px) {
-.tooltip-inner{
-	font-size: 7px;
-	}
 .nav-tabs{
 	margin-left:0px;
 	margin-right:0px;
@@ -811,6 +818,24 @@ h3{
 
 .stale-form {
 	background-color: #f3f0cc;
+	border-radius: 12px;
+	padding: 10px;
+	line-height: 40px;
+	border: 1px solid #e0e0e0;
+	display: inline-block;
+}
+
+.collection-group-error {
+	background-color: #ffcab6;
+	border-radius: 12px;
+	padding: 10px;
+	line-height: 40px;
+	border: 1px solid #e0e0e0;
+	display: inline-block;
+}
+
+.collection-group {
+	background-color: #daefff;
 	border-radius: 12px;
 	padding: 10px;
 	line-height: 40px;

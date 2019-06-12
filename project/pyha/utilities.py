@@ -2,6 +2,9 @@
 import sys
 from argparse import Namespace
 
+class Container(object):
+    pass 
+
 def get_callers_function_name():
     return sys._getframe(2).f_code.co_name
 

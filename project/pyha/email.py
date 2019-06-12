@@ -11,6 +11,9 @@ from pyha.warehouse import fetch_email_address
 import requests
 from requests.auth import HTTPBasicAuth
 
+def send_raw_mail(subject, sender, recipients, content):
+	mail = send_mail(subject, content, sender, recipients, fail_silently=False)
+
 
 def send_mail_after_receiving_request(requestId, lang):
 	'''
@@ -126,7 +129,7 @@ def send_mail_for_approval(requestId, collection, lang):
 	reqCollection = Collection.objects.get(address = collection.address, request = requestId)
 	context = {'req': req, 'time': time, 'req_link': req_link, 'reqCollection': reqCollection}
 	if(lang == 'fi'):
-		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+		subject = u"Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 		plaintext = get_template('pyha/email/mail_for_approval_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Download request from FinBIF waits for approval decision"
@@ -147,6 +150,32 @@ def send_mail_for_approval(requestId, collection, lang):
 				recipients.append(email)
 	text_content = plaintext.render(context)
 	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
+	
+def get_template_of_mail_for_approval(requestId, lang):
+	'''
+	Sends mail to collection download request handler(s) for request approval.
+	Also saves their ids to database.
+	:param requestId: request identifier 
+	:param collection: collection address
+	:param lang: language code
+	'''	
+	req = Request.objects.get(id = requestId)
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
+	if(lang == 'fi'):
+		subject = u"Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+		plaintext = get_template('pyha/email/mail_for_approval_fi.txt')
+	elif(lang == 'en'):
+		subject = u"Download request from FinBIF waits for approval decision"
+		plaintext = get_template('pyha/email/mail_for_approval_en.txt')
+	else:
+		subject = u"På svenska: Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+		plaintext = get_template('pyha/email/mail_for_approval_sv.txt')
+	from_email = settings.ICT_EMAIL
+	text_content = plaintext.render(context)
+	template = {'header':subject, 'content': text_content, 'sender': from_email}
+	return template
 
 	
 def send_mail_for_approval_sens(requestId, lang):
@@ -162,7 +191,7 @@ def send_mail_for_approval_sens(requestId, lang):
 	req_link = settings.PYHA_URL+"request/"+str(req.id)	
 	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
-		subject = "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+		subject = u"Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 		plaintext = get_template('pyha/email/mail_for_approval_sens_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Download request from FinBIF waits for approval decision"
@@ -239,13 +268,13 @@ def send_mail_after_additional_information_requested(requestId, lang):
 	context = {'req': req, 'time': time, 'req_link': req_link}
 	if(lang == 'fi'):
 		subject = u"Pyyntösi tarvitsee lisätietoja"
-		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_fi.txt')
+		plaintext = get_template('pyha/email/mail_after_additional_information_requested_fi.txt')
 	elif(lang == 'en'):
 		subject = u"Your download request requires additional information"
-		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_en.txt')
+		plaintext = get_template('pyha/email/mail_after_additional_information_requested_en.txt')
 	else:
 		subject = u"På svenska: Pyyntösi tarvitsee lisätietoja"
-		plaintext = get_template('pyha/email/mail_after_request_has_been_handled_to_requester_sv.txt')
+		plaintext = get_template('pyha/email/mail_after_additional_information_requested_sv.txt')
 	from_email = settings.ICT_EMAIL
 	to = fetch_email_address(req.user)
 	recipients = [to]
@@ -278,6 +307,62 @@ def send_mail_for_unchecked_requests(userId, count, lang):
 	recipients = [to]
 	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
+def send_admin_mail_after_approved_request(requestId, lang, mailto):
+	'''
+	Sends email to admin after approved by the person who made the request.
+	:param requestId: request identifier
+	:param lang: language code
+	'''	
+	req = Request.objects.get(id=requestId)	
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
+	
+	if(lang == 'fi'):
+		subject_content = u"Tullut uusi aineistopyyntö: " + time	
+		plaintext = get_template('pyha/email/mail_admin_after_request_approval_fi.txt')
+	elif(lang == 'en'):
+		subject_content = u"Arrived new download request: " + time
+		plaintext = get_template('pyha/email/mail_admin_after_request_approval_en.txt')
+	else:
+		subject_content = u"På svenska: Tullut uusi aineistopyyntö: " + time
+		plaintext = get_template('pyha/email/mail_admin_after_request_approval_sv.txt')
+	subject = subject_content	
+	from_email = settings.PYHA_EMAIL
+	to = mailto	
+	text_content = plaintext.render(context)
+	
+	recipients = [to]
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
+	
+
+def send_admin_mail_after_approved_request_missing_handlers(requestId, lang, mailto):
+	'''
+	Sends email to admin after approved by the person who made the request.
+	:param requestId: request identifier
+	:param lang: language code
+	'''	
+	req = Request.objects.get(id=requestId)	
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'time': time, 'req_link': req_link}
+	
+	if(lang == 'fi'):
+		subject_content = u"Uudesta aineistopyynnöstä puuttuu käsittelijöitä: " + time	
+		plaintext = get_template('pyha/email/mail_admin_after_request_approval_missing_handlers_fi.txt')
+	elif(lang == 'en'):
+		subject_content = u"New download request missing handlers: " + time
+		plaintext = get_template('pyha/email/mail_admin_after_request_approval_missing_handlers_en.txt')
+	else:
+		subject_content = u"På svenska: Uudesta aineistopyynnöstä puuttuu käsittelijöitä: " + time
+		plaintext = get_template('pyha/email/mail_admin_after_request_approval_missing_handlers_sv.txt')
+	subject = subject_content	
+	from_email = settings.PYHA_EMAIL
+	to = mailto	
+	text_content = plaintext.render(context)
+	
+	recipients = [to]
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
 
 

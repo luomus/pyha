@@ -214,6 +214,9 @@
 														<div hidden=true id="argument_research">
 														<label id="argument_details_label">{% trans 'required_research_name' %} <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
+														<div hidden=true id="argument_research_address">
+														<label id="argument_details_label">{% trans 'required_research_address' %} <textarea id="research_address" name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														</div>
 														<div hidden=true id="argument_goals">
 														<label id="argument_details_label">{% trans 'required_goals' %} <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
@@ -364,6 +367,8 @@
 												<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
 												<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
 												<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
+												<tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
+												<tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
 												<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
 												<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
 												<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
@@ -625,8 +630,8 @@
 	function updateReason() { 
 	var select = document.getElementById('reason_selector');
 	var result = getSelectValues(select);
-	var arguments = ['argument_reason','argument_municipality','argument_natura_areas','argument_project','argument_research','argument_goals','argument_planning']
-	var inputs = ['reason','municipality','natura_areas','project','research','goals','planning']
+	var arguments = ['argument_reason','argument_municipality','argument_natura_areas','argument_project','argument_research','argument_research_address','argument_goals','argument_planning']
+	var inputs = ['reason','municipality','natura_areas','project','research','research_address','goals','planning']
 	for (var i=0; i<arguments.length; i++) {
 		document.getElementById(arguments[i]).hidden = true;
 	}
@@ -661,8 +666,8 @@
 				reasoninputs = ['reason','municipality','project','natura_areas'];
 				break;
 			case "reason_scientific":
-				reasonarguments = ['argument_reason','argument_research','argument_goals'];
-				reasoninputs = ['reason','research','goals'];
+				reasonarguments = ['argument_reason','argument_research','argument_research_address','argument_goals'];
+				reasoninputs = ['reason','research','research_address','goals'];
 				break;
 			case "reason_forest":
 				reasonarguments = ['argument_reason','argument_municipality','argument_project'];
@@ -686,15 +691,7 @@
 			document.getElementById(reasoninputs[j]).disabled = false;
 		}
 	}
-	if (result.length > 0) {
-		document.getElementById("to_step_3").disabled = false;      
-		 
-	} else {
-		document.getElementById("to_step_3").disabled = true;         
-		var $tabs = $('.wizard .nav-tabs li')
-		var $summary_tab = $tabs[$tabs.length - 1]
-		$summary_tab.className = 'disabled'
-		}
+	argumentsFilled();
 	}
 	
 	function contactsFilled() {
@@ -736,6 +733,58 @@
 					}
 				}
 			}
+		}
+	}
+	
+	function argumentsFilled() {
+		var select = document.getElementById('reason_selector');
+		var result = getSelectValues(select);
+		var fills = [];
+		var state = false;
+		
+		if(result.length > 0) {
+			for (var i=0; i<result.length; i++) {
+				switch (result[i]) {
+					case "reason_zoning":
+						fills = fills.concat(['municipality','project','planning']);
+						break;
+					case "reason_permission":
+						fills = fills.concat(['municipality','project']);
+						break;
+					case "reason_enviromental":
+						fills = fills.concat(['municipality','project']);
+						break;
+					case "reason_natura":
+						fills = fills.concat(['municipality','project','natura_areas']);
+						break;
+					case "reason_scientific":
+						fills = fills.concat(['research','research_address','goals']);
+						break;
+					case "reason_forest":
+						fills = fills.concat(['municipality','project']);
+						break;
+					case "reason_other":
+						fills = fills.concat(['municipality']);
+						break;
+				}
+			}
+			for (var i=0; i<fills.length; i++){
+				if (document.getElementById(fills[i]).value == ''){
+					state = true;
+					break;
+				}
+			}
+		} else {
+			state = true;
+		}
+		if (!state) {
+			document.getElementById("to_step_3").disabled = false;      
+			 
+		} else {
+			document.getElementById("to_step_3").disabled = true;         
+			var $tabs = $('.wizard .nav-tabs li')
+			var $summary_tab = $tabs[$tabs.length - 1]
+			$summary_tab.className = 'disabled'
 		}
 	}
 	
@@ -790,8 +839,8 @@
 				updateField(namefield, fillfield)();
 			}
 		}
-		fields = ['reason','municipality','natura_areas','project','research','goals','planning'];
-		fills = ['argument_reason_fill','argument_municipality_fill','argument_natura_areas_fill','argument_project_fill','argument_research_fill','argument_goals_fill','argument_planning_fill'];
+		fields = ['reason','municipality','natura_areas','project','research','research_address','goals','planning'];
+		fills = ['argument_reason_fill','argument_municipality_fill','argument_natura_areas_fill','argument_project_fill','argument_research_fill','argument_research_address_fill','argument_goals_fill','argument_planning_fill'];
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
 			var fillfield = document.getElementsByName(fills[i]);
@@ -853,7 +902,10 @@
 		$('#reason_selector').multiselect({
 		nonSelectedText: '{% trans "request_choose_reason" %}',
 		nSelectedText: '{% trans "request_chosen_multiple_reasons" %}',
-		allSelectedText: '{% trans "request_chosen_all_reasons" %}'
+		allSelectedText: '{% trans "request_chosen_all_reasons" %}',
+        onChange: function(option, checked, select) {
+        	this.$button.click();
+        }
 		});
 	});
 	</script>
@@ -865,6 +917,7 @@
 	get_request_header();
 	updateReason();
 	contactsFilled();
+	argumentsFilled();
 	});
 	</script>
 	{% if coordinates %}

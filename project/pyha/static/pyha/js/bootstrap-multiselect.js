@@ -324,7 +324,7 @@
              * @param {Boolean} checked
              */
             onChange : function(option, checked) {
-
+            	
             },
             /**
              * Triggered when the dropdown is shown.

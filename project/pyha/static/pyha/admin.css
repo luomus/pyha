@@ -5,8 +5,8 @@
   }
 
   .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
-    background-color: #8080c0 !important;
-    border-color: #8080c0!important;
+    background-color: #6767a5 !important;
+    border-color: #6767a5 !important;
   }
 
   .navbar-custom .navbar-nav>.active>a:not(.nohover), .navbar-custom .navbar-nav>.active>a:focus:not(.nohover),
@@ -20,7 +20,7 @@
   }
 
   .navbar-custom .navbar-toggle, .navbar-custom .navbar-collapse, .navbar-custom .navbar-form {
-    border-color: #8080c0!important;
+    border-color: #6767a5!important;
   }
    .dropbtn {
     background-color: #8080c0 ;

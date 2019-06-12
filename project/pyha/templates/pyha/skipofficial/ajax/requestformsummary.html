@@ -3,19 +3,26 @@
 				<h3>{% trans "request_was_empty_and_will_be_closed" %}</h3>
 				{% else %}
 				<h4>{% trans "collections_in_request" %}</h4>
-				<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 				<p>{% trans 'given_values_are_not_absolute' %}</p>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
-								<th>{% trans "collection_for_user" %}</th>
-								<th>{% trans "request_description" %}</th>
-								<th>{% trans "secured_by_data_provider" %}</th>
+								<th>{% trans "collection_name" %}</th>
+								<th>{% trans "collection_description" %}</th>
+								<th>{% trans "collection_quality_description" %}</th>
+								<th>{% trans "collection_terms" %}</th>
+								<th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+								<th>{% trans "secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+								<th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 							</tr>
 							{% for collection in collections %}
 							<tr>
-								<td>{{collection.result.collectionName}} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
+								<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>{{collection.result.description}}</td>
-								<td>{{collection.allSecured}}</td>
+								<td>{{collection.result.qualityDescription}}</td>
+								<td>{{collection.result.collectionTerms}}</td>
+								<td>{{collection.quarantineSecured}}</td>
+								<td>{{collection.taxonSecured}}</td>
+								<td>{{collection.customSecured}}</td>
 							</tr>
 							{% endfor %}
 						</table>

@@ -67,7 +67,7 @@
 						<table class="table">
 							{% for collection in collections %}
 								<tr>
-								<td>{{collection.result.collectionName}}</td>
+								<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>
 								<div class="slider-group" style="text-align:center;">
 									<span class="slider slider-waiting{% if collection.status == 1 %}-light{% endif %}">{% trans "waiting_for_data_provider" %}</span>
@@ -195,7 +195,6 @@
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
 						<h3>{% trans "collections_in_request" %}</h3>
 						{% if taxon %}
-						<p>{% trans "Collections including sightings secured by data provider are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
 							<table class="table" style="width:100%">
@@ -203,7 +202,11 @@
 									<th>{% trans "collection_name" %}</th>
 									<th></th>
 									<th>{% trans "collection_description" %}</th>
-									<th>{% trans "secured_by_data_provider" %}</th>
+									<th>{% trans "collection_quality_description" %}</th>
+									<th>{% trans "collection_terms" %}</th>
+									<th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+									<th>{% trans "secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
+									<th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
 									<th>{% trans "state_of_processing" %}</th>
 								</tr>
 								{% for collection in collections %}
@@ -225,9 +228,13 @@
 									<tr>	
 									{% endif %}
 									<td>{{collection.result.collectionName}}</td>
-									<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>
+									<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 									<td>{{collection.result.description}}</td>
-									<td>{{collection.allSecured}}</td>
+									<td>{{collection.result.qualityDescription}}</td>
+									<td>{{collection.result.collectionTerms}}</td>
+									<td>{{collection.quarantineSecured}}</td>
+									<td>{{collection.taxonSecured}}</td>
+									<td>{{collection.customSecured}}</td>
 									
 									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
@@ -272,7 +279,7 @@
 									{% else %}  
 									<tr>
 									{% endif %}
-									<td>{{collection.result.collectionName}}</td>
+									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
@@ -347,6 +354,9 @@
 								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_research' %}
 								<tr style=color:black><th>{% trans "argument_research" %}</th></tr>
+								<tr><td><p>{{field.1}}</p></td></tr>
+							{% elif field.0 == 'argument_research_address' %}
+								<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
 								<tr><td><p>{{field.1}}</p></td></tr>
 							{% elif field.0 == 'argument_goals' %}
 								<tr style=color:black><th>{% trans "argument_goals" %}</th></tr>

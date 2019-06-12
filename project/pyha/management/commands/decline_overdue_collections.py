@@ -6,7 +6,6 @@ from pyha.log_utils import changed_by
 from time import sleep
 from random import randint
 
-
 class Command(BaseCommand):
     help = 'Declines Collections in Requests with Status.WAITING which are overdue by %days% at random times within %interval% seconds.'    
     #def add_arguments(self, parser):
