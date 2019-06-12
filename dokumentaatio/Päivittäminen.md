@@ -8,11 +8,10 @@ Esim. pyha k‰ytt‰j‰ ja pyha ryhm‰.
 	- Uusi asennettava python kirjasto (schedule)
 	- Kielimuutokset.
 	- Staattiset verkko elementit.
-
+	
+#### Tietokantap‰ivitykset saattavat aiheuttaa anomalioita, mik‰li k‰ytt‰j‰t voivat k‰ytt‰‰ palvelua p‰ivityksen aikana.
 
 ## 0 - Alku
-
-### Tietokantap‰ivitykset saattavat aiheuttaa anomalioita, mik‰li k‰ytt‰j‰t voivat k‰ytt‰‰ palvelua p‰ivityksen aikana.
 
 Siirry terminaalissa pyha git-projektin juurihakemistoon.
 
