@@ -445,10 +445,10 @@ def create_request_view_context(requestId, http_request, userRequest):
 		context["handles"] = handles
 	if role3: 
 		emails = {}
-		for (lang, name) in settings.LANGUAGES:
-			emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
 		sent_time = get_collection_handlers_autom_email_sent_time()
 		if sent_time > get_log_terms_accepted_date_time(request_log): context["com_last_automated_send_email"] = sent_time
+		for (lang, name) in settings.LANGUAGES:
+			emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
 		context["com_email_templates"] = emails
 		context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, lang)
 	if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(userRequest.id, collectionList)
@@ -691,7 +691,7 @@ def update_collection_handlers_autom_email_sent_time():
 	return True
 
 def get_collection_handlers_autom_email_sent_time():    
-	return caches['collections'].get('last_timed_email', None)
+	return caches['collections'].get('last_timed_email', datetime(1999, 1, 1))
 
 """
 	Send "request has been handled" email 
