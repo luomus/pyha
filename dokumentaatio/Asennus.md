@@ -68,6 +68,10 @@ Avaa python virtuaaliympäristö:
 Asenna python virtuaaliympäristöön järjestelmän vaatimat ohjelmat:
 
 	pip install -r Requirements.txt
+	
+	ja/tai
+	
+	pip3 install -r Requirements.txt
 
 Luo tiedosto:
 
@@ -82,7 +86,7 @@ Sekä laita sen sisälle:
 	export ENVARx-1='contentx-1'
 	export ENVARx='contentx'
 
-	#ENVAR Nimet on lueteltu KEYS muuttujassa, sekä toivotuntyyppiset content arvot ENVAR muuttujan nimeä kommentoivassa stringissä.#
+	#ENVAR Nimet on lueteltu KEYS muuttujassa, sekä oikean tyyppiset content arvot ENVAR muuttujan nimeä kommentoivassa stringissä.#
 
 ## 5 - Palvelun aloittaminen
 
@@ -173,12 +177,8 @@ sisällöllä:
 	ProxyPass               /pyha http://localhost:portti
 	ProxyPassReverse        /pyha http://localhost:portti
 	Alias /pyha/static     path/to/project/static
-
-Luo uusi crontab ajastus skriptille runmail.sh
-
-	crontab -e
-
-	22 11 * * 2 cd path/to/runmail-root-folder && bash runmail.sh > path/to/runmail-root/cronlogs/pyha_runemail.log
+	
+Pyha ei tarvitse cron ajastusta, joten crontabin ei tarvitse ajaa.
 
 ## 6 - Lopuksi
 
