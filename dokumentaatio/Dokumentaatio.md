@@ -42,7 +42,9 @@ Tarjoaa rajapinnan toisille applikaatioille. ([Api-dokumentaatio](Api.md))
 
 Tarjoaa rajapinnan ajax-kyselyille.
 
+### Asetukset (/settings)
 
+Tarjoaa administraattoreille asetuksia ohjelmiston automaattisen toiminnallisuuden muokkaamiseen.
 
 ## Arkkitehtuuri
 
