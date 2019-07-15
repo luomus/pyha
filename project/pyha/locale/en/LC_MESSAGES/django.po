@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-06 14:20+0300\n"
+"POT-Creation-Date: 2019-07-15 16:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,7 +182,7 @@ msgid "admin_use_custom_email_address"
 msgstr "Use custom email address"
 
 #: templates/pyha/base/admin/usersettings.html:35
-#: templates/pyha/base/admin/usersettings.html:70
+#: templates/pyha/base/admin/usersettings.html:82
 #: templates/pyha/official/admin/requestview.html:650
 msgid "admin_save"
 msgstr "Save"
@@ -209,12 +209,38 @@ msgstr ""
 msgid "admin_enable_daily_handler_email"
 msgstr "Enable periodical handler email"
 
-#: templates/pyha/base/admin/usersettings.html:56
+#: templates/pyha/base/admin/usersettings.html:52
+#: templates/pyha/base/admin/usersettings.html:63
+#: templates/pyha/base/admin/usersettings.html:74
+#, fuzzy
+#| msgid "admin_show_additional_information"
+msgid "admin_setting_additional_information"
+msgstr "show_additional_information"
+
+#: templates/pyha/base/admin/usersettings.html:55
+#, fuzzy
+#| msgid "handler_show_additional_information"
+msgid "daily_handler_email_information"
+msgstr "Show request for additional information"
+
+#: templates/pyha/base/admin/usersettings.html:60
 msgid "admin_enable_weekly_missing_handlers_email"
 msgstr "Enable periodical missing handlers email"
 
-#: templates/pyha/base/admin/usersettings.html:63
+#: templates/pyha/base/admin/usersettings.html:66
+#, fuzzy
+#| msgid "admin_enable_weekly_missing_handlers_email"
+msgid "weekly_missing_handlers_email_information"
+msgstr "Enable periodical missing handlers email"
+
+#: templates/pyha/base/admin/usersettings.html:71
 msgid "admin_enable_auto_decline_overdue"
+msgstr "Enable periodical decline overdue collections"
+
+#: templates/pyha/base/admin/usersettings.html:77
+#, fuzzy
+#| msgid "admin_enable_auto_decline_overdue"
+msgid "auto_decline_overdue_information"
 msgstr "Enable periodical decline overdue collections"
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
@@ -3056,11 +3082,11 @@ msgstr "Thank you, request has been registered."
 msgid "toast_mails_sent_succesfully"
 msgstr "Mails sent succesfully"
 
-#: views/usersettings.py:66
+#: views/usersettings.py:62
 msgid "toast_user_settings_saved_succesfully"
 msgstr "User settings updated succesfully"
 
-#: views/usersettings.py:86
+#: views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
 
