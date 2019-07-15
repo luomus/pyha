@@ -446,7 +446,8 @@ def create_request_view_context(requestId, http_request, userRequest):
 	if role3: 
 		emails = {}
 		sent_time = get_collection_handlers_autom_email_sent_time()
-		if sent_time > get_log_terms_accepted_date_time(request_log): context["com_last_automated_send_email"] = sent_time
+		accepted_time = get_log_terms_accepted_date_time(request_log)
+		if accepted_time != None and sent_time > accepted_time: context["com_last_automated_send_email"] = sent_time
 		for (lang, name) in settings.LANGUAGES:
 			emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
 		context["com_email_templates"] = emails
