@@ -203,8 +203,8 @@ msgstr "Ajoitettujen tapahtumien automatisointi"
 #: templates/pyha/base/admin/usersettings.html:45
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
 msgstr ""
-"Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäisesti "
-"ajastettuun suoritukseen. (ei estä cronia)"
+"Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäiseen "
+"ajastettuun suoritukseen."
 
 #: templates/pyha/base/admin/usersettings.html:49
 msgid "admin_enable_daily_handler_email"
@@ -219,18 +219,19 @@ msgstr "Lisätietoja asetuksesta"
 #: templates/pyha/base/admin/usersettings.html:55
 msgid "daily_handler_email_information"
 msgstr ""
-"Lähettää viestin viitenä arkipäivänä kaikille aineistonkäsittelijöille,"
-"joilla on käsittelemättömiä pyyntöjä."
+"Lähettää viestin käsittelemättömistä pyynnöistä viitenä arkipäivänä kaikille aineistonkäsittelijöille"
+", joilla on käsittelemättömiä pyyntöjä."
 
 #: templates/pyha/base/admin/usersettings.html:60
 msgid "admin_enable_weekly_missing_handlers_email"
-msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden sähköposti"
+msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden tarkistus"
 
 #: templates/pyha/base/admin/usersettings.html:66
 msgid "weekly_missing_handlers_email_information"
 msgstr ""
-"Lähettää viestin viikottain helpdesk@laji.fi:llepyyntöjen kokoelmista, "
-"joilla ei ole käsittelijöitä."
+"Tarkistaa Pyhaan tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin"
+"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä."
+"Ei lähetä mitään, mikäli käsittelijät löytyvät kaikille aineistoille."
 
 #: templates/pyha/base/admin/usersettings.html:71
 msgid "admin_enable_auto_decline_overdue"
@@ -239,9 +240,8 @@ msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 #: templates/pyha/base/admin/usersettings.html:77
 msgid "auto_decline_overdue_information"
 msgstr ""
-"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole "
-"muodostettu päätöstä 28 päivän aikana.Laskenta alkaa hetkestä, kun pyytäjä "
-"on hyväksynyt aineistonsa ehdot."
+"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. "
+"Laskenta alkaa hetkestä, kun pyytäjä on hyväksynyt aineistonsa ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
