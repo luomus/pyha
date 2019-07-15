@@ -225,7 +225,7 @@ msgstr "Enable periodical missing handlers email"
 #: templates/pyha/base/admin/usersettings.html:66
 msgid "weekly_missing_handlers_email_information"
 msgstr "Does weekly checks on requests being handled for collections with missing "
-"handlers. Sends a notification email about those missing to ICT email.&#10; Doesn't "
+"handlers.&#10; Sends a notification email about those missing to ICT email.&#10; Doesn't "
 "send anything if handlers are found for all collections."
 
 #: templates/pyha/base/admin/usersettings.html:71
