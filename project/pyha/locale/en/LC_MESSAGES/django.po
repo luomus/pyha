@@ -215,8 +215,7 @@ msgstr "Additional setting information"
 
 #: templates/pyha/base/admin/usersettings.html:55
 msgid "daily_handler_email_information"
-msgstr ""
-"Sends emails every weekday to collection handlers for collections requiring "
+msgstr "Sends emails every weekday to collection handlers for collections requiring "
 "their attention."
 
 #: templates/pyha/base/admin/usersettings.html:60
@@ -225,9 +224,8 @@ msgstr "Enable periodical missing handlers email"
 
 #: templates/pyha/base/admin/usersettings.html:66
 msgid "weekly_missing_handlers_email_information"
-msgstr ""
-"Does weekly checks on requests being handled for collections with missing "
-"handlers.Sends a notification email about those missing to ICT email.Doesn't "
+msgstr "Does weekly checks on requests being handled for collections with missing "
+"handlers. Sends a notification email about those missing to ICT email. Doesn't "
 "send anything if handlers are found for all collections."
 
 #: templates/pyha/base/admin/usersettings.html:71
@@ -236,8 +234,7 @@ msgstr "Enable periodical decline overdue collections"
 
 #: templates/pyha/base/admin/usersettings.html:77
 msgid "auto_decline_overdue_information"
-msgstr ""
-"Declines overdue collections automatically after a period of 28 days.Days "
+msgstr "Declines overdue collections automatically after a period of 28 days. Days "
 "are counted starting from the approval of terms by the requester."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5

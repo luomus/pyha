@@ -236,7 +236,7 @@ msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 
 #: templates/pyha/base/admin/usersettings.html:77
 msgid "auto_decline_overdue_information"
-msgstr "Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. "
+msgstr "Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. &#10;"
 "Päivien laskenta alkaa hetkestä, jolloin pyytäjä on hyväksynyt pyyntönsä ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
