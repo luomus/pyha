@@ -230,7 +230,7 @@ msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden tarkistus"
 msgid "weekly_missing_handlers_email_information"
 msgstr ""
 "Tarkistaa Pyhaan tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin"
-"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä. "
+"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä. \n"
 "Ei lähetä mitään, mikäli käsittelijät löytyvät kaikille aineistoille."
 
 #: templates/pyha/base/admin/usersettings.html:71
@@ -241,7 +241,7 @@ msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 msgid "auto_decline_overdue_information"
 msgstr ""
 "Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. "
-"Laskenta alkaa hetkestä, kun pyytäjä on hyväksynyt aineistonsa ehdot."
+"Päivien laskenta alkaa hetkestä, jolloin pyytäjä on hyväksynyt pyyntönsä ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
