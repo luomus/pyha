@@ -229,8 +229,8 @@ msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden tarkistus"
 #: templates/pyha/base/admin/usersettings.html:66
 msgid "weekly_missing_handlers_email_information"
 msgstr ""
-"Tarkistaa Pyhaan tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin"
-"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä. \n"
+"Tarkistaa Pyha:an tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin"
+"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä. &#10;"
 "Ei lähetä mitään, mikäli käsittelijät löytyvät kaikille aineistoille."
 
 #: templates/pyha/base/admin/usersettings.html:71
