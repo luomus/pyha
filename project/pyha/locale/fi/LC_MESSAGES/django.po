@@ -213,36 +213,34 @@ msgstr "Aktivoi ajoittaiset käsittelijöiden sähköpostit"
 #: templates/pyha/base/admin/usersettings.html:52
 #: templates/pyha/base/admin/usersettings.html:63
 #: templates/pyha/base/admin/usersettings.html:74
-#, fuzzy
-#| msgid "admin_show_additional_information"
 msgid "admin_setting_additional_information"
-msgstr "Näytä lisätietopyyntö"
+msgstr "Lisätietoja asetuksesta"
 
 #: templates/pyha/base/admin/usersettings.html:55
-#, fuzzy
-#| msgid "handler_show_additional_information"
 msgid "daily_handler_email_information"
-msgstr "Näytä lisätietopyyntö"
+msgstr ""
+"Lähettää viestin viitenä arkipäivänä kaikille aineistonkäsittelijöille,"
+"joilla on käsittelemättömiä pyyntöjä."
 
 #: templates/pyha/base/admin/usersettings.html:60
 msgid "admin_enable_weekly_missing_handlers_email"
 msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden sähköposti"
 
 #: templates/pyha/base/admin/usersettings.html:66
-#, fuzzy
-#| msgid "admin_enable_weekly_missing_handlers_email"
 msgid "weekly_missing_handlers_email_information"
-msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden sähköposti"
+msgstr ""
+"Lähettää viestin viikottain helpdesk@laji.fi:lle"
+"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä."
 
 #: templates/pyha/base/admin/usersettings.html:71
 msgid "admin_enable_auto_decline_overdue"
 msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 
 #: templates/pyha/base/admin/usersettings.html:77
-#, fuzzy
-#| msgid "enter_client_information"
 msgid "auto_decline_overdue_information"
-msgstr "Lisää hakija"
+msgstr ""
+"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana."
+"Laskenta alkaa hetkestä, kun pyytäjä on hyväksynyt aineistonsa ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
