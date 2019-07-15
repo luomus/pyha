@@ -202,8 +202,7 @@ msgstr "Ajoitettujen tapahtumien automatisointi"
 
 #: templates/pyha/base/admin/usersettings.html:45
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr ""
-"Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäiseen "
+msgstr "Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäiseen "
 "ajastettuun suoritukseen."
 
 #: templates/pyha/base/admin/usersettings.html:49
@@ -218,8 +217,7 @@ msgstr "Lisätietoja asetuksesta"
 
 #: templates/pyha/base/admin/usersettings.html:55
 msgid "daily_handler_email_information"
-msgstr ""
-"Lähettää viestin käsittelemättömistä pyynnöistä viitenä arkipäivänä kaikille aineistonkäsittelijöille"
+msgstr "Lähettää viestin käsittelemättömistä pyynnöistä viitenä arkipäivänä kaikille aineistonkäsittelijöille"
 ", joilla on käsittelemättömiä pyyntöjä."
 
 #: templates/pyha/base/admin/usersettings.html:60
@@ -228,8 +226,7 @@ msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden tarkistus"
 
 #: templates/pyha/base/admin/usersettings.html:66
 msgid "weekly_missing_handlers_email_information"
-msgstr ""
-"Tarkistaa Pyha:an tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin"
+msgstr "Tarkistaa Pyha:an tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin "
 "pyyntöjen kokoelmista, joilla ei ole käsittelijöitä. &#10;"
 "Ei lähetä mitään, mikäli käsittelijät löytyvät kaikille aineistoille."
 
@@ -239,8 +236,7 @@ msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 
 #: templates/pyha/base/admin/usersettings.html:77
 msgid "auto_decline_overdue_information"
-msgstr ""
-"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. "
+msgstr "Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. "
 "Päivien laskenta alkaa hetkestä, jolloin pyytäjä on hyväksynyt pyyntönsä ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
