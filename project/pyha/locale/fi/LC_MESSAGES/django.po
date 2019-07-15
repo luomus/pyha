@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-15 16:22+0300\n"
+"POT-Creation-Date: 2019-07-15 16:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,8 +229,8 @@ msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden sähköposti"
 #: templates/pyha/base/admin/usersettings.html:66
 msgid "weekly_missing_handlers_email_information"
 msgstr ""
-"Lähettää viestin viikottain helpdesk@laji.fi:lle"
-"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä."
+"Lähettää viestin viikottain helpdesk@laji.fi:llepyyntöjen kokoelmista, "
+"joilla ei ole käsittelijöitä."
 
 #: templates/pyha/base/admin/usersettings.html:71
 msgid "admin_enable_auto_decline_overdue"
@@ -239,8 +239,9 @@ msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 #: templates/pyha/base/admin/usersettings.html:77
 msgid "auto_decline_overdue_information"
 msgstr ""
-"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana."
-"Laskenta alkaa hetkestä, kun pyytäjä on hyväksynyt aineistonsa ehdot."
+"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole "
+"muodostettu päätöstä 28 päivän aikana.Laskenta alkaa hetkestä, kun pyytäjä "
+"on hyväksynyt aineistonsa ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143
