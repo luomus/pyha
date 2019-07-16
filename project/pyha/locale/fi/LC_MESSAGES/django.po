@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-15 16:49+0300\n"
+"POT-Creation-Date: 2019-07-16 17:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,7 +183,7 @@ msgid "admin_use_custom_email_address"
 msgstr "Käytä vaihtoehtoista sähköpostiosoitetta"
 
 #: templates/pyha/base/admin/usersettings.html:35
-#: templates/pyha/base/admin/usersettings.html:82
+#: templates/pyha/base/admin/usersettings.html:88
 #: templates/pyha/official/admin/requestview.html:650
 msgid "admin_save"
 msgstr "Tallenna"
@@ -202,42 +202,48 @@ msgstr "Ajoitettujen tapahtumien automatisointi"
 
 #: templates/pyha/base/admin/usersettings.html:45
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr "Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäiseen "
-"ajastettuun suoritukseen."
+msgstr ""
+"Seuraavat asetukset vaikuttavat pelkästään ohjelmiston sisäiseen ajastettuun "
+"suoritukseen."
 
 #: templates/pyha/base/admin/usersettings.html:49
 msgid "admin_enable_daily_handler_email"
 msgstr "Aktivoi ajoittaiset käsittelijöiden sähköpostit"
 
 #: templates/pyha/base/admin/usersettings.html:52
-#: templates/pyha/base/admin/usersettings.html:63
-#: templates/pyha/base/admin/usersettings.html:74
+#: templates/pyha/base/admin/usersettings.html:65
+#: templates/pyha/base/admin/usersettings.html:78
 msgid "admin_setting_additional_information"
 msgstr "Lisätietoja asetuksesta"
 
-#: templates/pyha/base/admin/usersettings.html:55
+#: templates/pyha/base/admin/usersettings.html:56
 msgid "daily_handler_email_information"
-msgstr "Lähettää viestin käsittelemättömistä pyynnöistä viitenä arkipäivänä kaikille aineistonkäsittelijöille"
-", joilla on käsittelemättömiä pyyntöjä."
+msgstr ""
+"Lähettää viestin käsittelemättömistä pyynnöistä viitenä arkipäivänä kaikille "
+"aineistonkäsittelijöille, joilla on käsittelemättömiä pyyntöjä."
 
-#: templates/pyha/base/admin/usersettings.html:60
+#: templates/pyha/base/admin/usersettings.html:62
 msgid "admin_enable_weekly_missing_handlers_email"
 msgstr "Aktivoi ajoittainen puuttuvien käsittelijöiden tarkistus"
 
-#: templates/pyha/base/admin/usersettings.html:66
+#: templates/pyha/base/admin/usersettings.html:69
 msgid "weekly_missing_handlers_email_information"
-msgstr "Tarkistaa Pyha:an tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää viestin ICT-sähköpostiin "
-"pyyntöjen kokoelmista, joilla ei ole käsittelijöitä. &#10;"
-"Ei lähetä mitään, mikäli käsittelijät löytyvät kaikille aineistoille."
+msgstr ""
+"Tarkistaa Pyha:an tehdyt käsittelyssä olevat pyynnöt viikottain ja lähettää "
+"viestin ICT-sähköpostiin pyyntöjen kokoelmista, joilla ei ole "
+"käsittelijöitä. &#10;Ei lähetä mitään, mikäli käsittelijät löytyvät kaikille "
+"aineistoille."
 
-#: templates/pyha/base/admin/usersettings.html:71
+#: templates/pyha/base/admin/usersettings.html:75
 msgid "admin_enable_auto_decline_overdue"
 msgstr "Aktivoi ajoittainen vanhentuvien päätösten hylkäys"
 
-#: templates/pyha/base/admin/usersettings.html:77
+#: templates/pyha/base/admin/usersettings.html:82
 msgid "auto_decline_overdue_information"
-msgstr "Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole muodostettu päätöstä 28 päivän aikana. &#10;"
-"Päivien laskenta alkaa hetkestä, jolloin pyytäjä on hyväksynyt pyyntönsä ehdot."
+msgstr ""
+"Hylkää pyyntöjen aineistoja automaattisesti, mikäli niihin ei ole "
+"muodostettu päätöstä 28 päivän aikana. &#10;Päivien laskenta alkaa hetkestä, "
+"jolloin pyytäjä on hyväksynyt pyyntönsä ehdot."
 
 #: templates/pyha/base/ajax/requestformcontact.html:5
 #: templates/pyha/official/requestform.html:143

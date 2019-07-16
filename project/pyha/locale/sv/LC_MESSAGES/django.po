@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-15 16:49+0300\n"
+"POT-Creation-Date: 2019-07-16 17:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,7 +198,7 @@ msgid "admin_use_custom_email_address"
 msgstr "Adress"
 
 #: templates/pyha/base/admin/usersettings.html:35
-#: templates/pyha/base/admin/usersettings.html:82
+#: templates/pyha/base/admin/usersettings.html:88
 #: templates/pyha/official/admin/requestview.html:650
 msgid "admin_save"
 msgstr "Save"
@@ -228,38 +228,38 @@ msgid "admin_enable_daily_handler_email"
 msgstr "Myndighet"
 
 #: templates/pyha/base/admin/usersettings.html:52
-#: templates/pyha/base/admin/usersettings.html:63
-#: templates/pyha/base/admin/usersettings.html:74
+#: templates/pyha/base/admin/usersettings.html:65
+#: templates/pyha/base/admin/usersettings.html:78
 #, fuzzy
 #| msgid "admin_show_additional_information"
 msgid "admin_setting_additional_information"
 msgstr "Visa begäran för tilläggsuppgifter"
 
-#: templates/pyha/base/admin/usersettings.html:55
+#: templates/pyha/base/admin/usersettings.html:56
 #, fuzzy
 #| msgid "handler_show_additional_information"
 msgid "daily_handler_email_information"
 msgstr "Visa begäran för tilläggsuppgifter"
 
-#: templates/pyha/base/admin/usersettings.html:60
+#: templates/pyha/base/admin/usersettings.html:62
 #, fuzzy
 #| msgid "admin_log_sensitive_data_handler"
 msgid "admin_enable_weekly_missing_handlers_email"
 msgstr "Myndighet"
 
-#: templates/pyha/base/admin/usersettings.html:66
+#: templates/pyha/base/admin/usersettings.html:69
 #, fuzzy
 #| msgid "admin_log_sensitive_data_handler"
 msgid "weekly_missing_handlers_email_information"
 msgstr "Myndighet"
 
-#: templates/pyha/base/admin/usersettings.html:71
+#: templates/pyha/base/admin/usersettings.html:75
 #, fuzzy
 #| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "admin_enable_auto_decline_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
-#: templates/pyha/base/admin/usersettings.html:77
+#: templates/pyha/base/admin/usersettings.html:82
 #, fuzzy
 #| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "auto_decline_overdue_information"
