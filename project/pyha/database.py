@@ -370,7 +370,8 @@ def handler_mul_information_chat_answered_status(request_list, http_request, use
 		for r in request_list:
 			reqsenschat = [x for x in reqSensChatList if x.request_id==r.id]
 			if len(reqsenschat) > 0 and r.sensStatus == Sens_StatusEnum.WAITING:
-				chat = reqsenschat.sort(key=lambda x:x.date, reverse=True)[0]
+				reqsenschat.sort(key=lambda x: x.date, reverse=True)
+				chat = reqsenschat[0]
 				if not chat.question:
 					r.answerstatus = 1
 	if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
@@ -381,7 +382,8 @@ def handler_mul_information_chat_answered_status(request_list, http_request, use
 			for co in colist:
 				colbasedchatlist = [x for x in reqFilteredColChatList if x.target == co.address and x.request_id==r.id]
 				if len(colbasedchatlist) > 0 and co.status == StatusEnum.WAITING:
-					latestchat = colbasedchatlist.sort(key=lambda x:x.date, reverse=True)[0]
+					colbasedchatlist.sort(key=lambda x: x.date, reverse=True)
+					latestchat = colbasedchatlist[0]
 					if not latestchat.question:
 						r.answerstatus = 1
 						break
