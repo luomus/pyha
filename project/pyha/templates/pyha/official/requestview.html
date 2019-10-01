@@ -4,7 +4,7 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-		  <div class="page-header"> 
+		  <div class="page-header">
 
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
@@ -21,40 +21,40 @@
 					{% elif userRequest.status == 2 %}
 						 style="color:#BBBB77;"
 					{% else %}
-						
+
 					{% endif %}
-					> 
+					>
 					{% if userRequest.status == 1 %}
 					{% trans "waiting_for_data_provider" %}
-					
+
 					{% elif userRequest.status == 2 %}
 					{% trans "partially_accepted" %}
-					
+
 					{% elif userRequest.status == 3 %}
 					{% trans "denied" %}
-					
+
 					{% elif userRequest.status == 4 %}
 					{% trans "accepted" %}
-					
+
 					{% elif userRequest.status == 6 %}
 					{% trans "waiting_for_additional_information" %}
 					<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "show_additional_information" %}</a>
-					
+
 					{% elif userRequest.status == 7 %}
-					{% trans "waiting_for_download" %} 
-					
+					{% trans "waiting_for_download" %}
+
 					{% elif userRequest.status == 8 %}
 						{% if downloadable %}
 							{% trans "ready_for_download" %}
 						{% else %}
 							{% trans "download_has_expired" %}
 						{% endif %}
-						
-					{% else %}  
+
+					{% else %}
 					{% trans "unknown" %}
-					
+
 					{% endif %}
-					
+
 					</span>
 				</span></h2>
 			</div>
@@ -190,11 +190,11 @@
 								{% trans 'decision_window' %}
 							</span>
 						</a>
-					</li>  
+					</li>
 					{% if requestInformationChat_list %}
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
 						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="contact" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
-							<span> 
+							<span>
 								{% if userRequest.status == 6 %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'additional_information_window' %}
 							</span>
 						</a>
@@ -202,10 +202,10 @@
 					{% endif %}
 				</ul>
 				<!-- aineistolista -->
-				
+
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
-						<h3>{% trans "collections_in_request" %}</h3>
+						<h3>{% trans "request_window" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -234,18 +234,18 @@
 										<tr class="danger clickable-row">
 										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
-										{% endif %}  
-									{% else %}  
+										{% endif %}
+									{% else %}
 									<tr>
 									{% endif %}
-									
+
 									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 									{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
 									<td>{{collection.result.description}}</td>
 									<td>{{collection.customSecured}}</td>
 									<td>{{collection.taxonSecured}}</td>
 									<td>{{collection.allSecured}}</td>
-									
+
 									{% if collection.status == 1 or userRequest.sensStatus != 4 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
@@ -256,7 +256,7 @@
 									<td>{% trans "accepted" %}</td>
 									{% elif collection.taxonSecured > 0 %}
 									<td>{% trans "Admission_for_sensitive_data" %}</td>
-									{% else %}  
+									{% else %}
 									<td>{% trans "unknown" %}</td>
 									{% endif %}
 								{% endfor %}
@@ -264,7 +264,7 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 							{% if taxon %}
-								<h3>{% trans "decision_for_admitting_sensitive_data"%}</h3>
+								<h3>{% trans "decision_window"%}</h3>
 								<table class="table" style="width:100%">
 									<tr style=color:black>
 									<th>{% trans "state_of_processing" %}</th>
@@ -276,7 +276,7 @@
 									<tr class="danger clickable-row">
 									{% elif userRequest.sensStatus == 4 %}
 									<tr class="success clickable-row">
-									{% else %}  
+									{% else %}
 									<tr>
 									{% endif %}
 									{% if userRequest.sensStatus == 1 %}
@@ -287,7 +287,7 @@
 									<td>{% trans "partially_accepted" %}</td>
 									{% elif userRequest.sensStatus == 4 %}
 									<td>{% trans "accepted" %}</td>
-									{% else %}  
+									{% else %}
 									<td>{% trans "unknown" %}</td>
 									{% endif %}
 									<td>
@@ -301,7 +301,7 @@
 								</table>
 							{% endif %}
 						<div style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
-						<h3>{% trans "decicions_for_admitting_data" %}</h3>
+						<h3>{% trans "decision_window" %}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 									<th>{% trans "collection_name" %}</th>
@@ -322,8 +322,8 @@
 										<tr class="danger clickable-row">
 										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
-										{% endif %}  
-									{% else %}  
+										{% endif %}
+									{% else %}
 									<tr>
 									{% endif %}
 									<td>{{collection.result.collectionName}}</td>
@@ -337,7 +337,7 @@
 									<td>{% trans "accepted" %}</td>
 									{% elif collection.taxonSecured > 0 %}
 									<td>{% trans "Admission_for_sensitive_data" %}</td>
-									{% else %}  
+									{% else %}
 									<td>{% trans "unknown" %}</td>
 									{% endif %}
 									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
@@ -346,7 +346,7 @@
 						</div>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-							<h3>{% trans "request_filters" %}</h3>
+							<h3>{% trans "filter_window" %}</h3>
 								{% if filters %}
 									<a style="padding-left:8px;" href="{{ filter_link }}" target="_blank">{% trans "show_in_portal" %}</a>
 									<table class="table" style="width:100%">
@@ -373,7 +373,7 @@
 								{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-						<h3>{% trans "request_arguments" %}</h3>
+						<h3>{% trans "argument_window" %}</h3>
 						<table class="table" style="width:100%">
 						<tr style=color:black><th>{% trans "argument_choices" %}</th></tr>
 						<tr><td>
@@ -425,7 +425,7 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
-							<h3>{% trans "terms" %}</h3>
+							<h3>{% trans "terms_window" %}</h3>
 								<table class="table" style="width:100%">
 									{% if taxon %}
 									<tr>
@@ -449,12 +449,12 @@
 												</div>
 												<div id="custom-content-{{collection.address}}" class="modal-body" style="padding-left:20px;">
 													<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
-													<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
-													<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
-													<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
-													<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
-													<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
-													<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
+													<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>
+													<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>
+													<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p>
+													<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>
+													<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>
+													<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "exit" %}</button>
@@ -538,10 +538,10 @@
 										  </div>
 										</div>
 								</table>
-							
+
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-						<h3>{% trans "contacts" %}</h3>
+						<h3>{% trans "contact_window" %}</h3>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "full_name" %}</th>
@@ -571,7 +571,7 @@
 					</div>
 					{% if requestInformationChat_list %}
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-							<h3>{% trans "additional_questions" %}</h3>
+							<h3>{% trans "additional_information_window" %}</h3>
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
@@ -676,7 +676,7 @@
 				.one('click', '#yes', function(){
 					$(name).submit();
 			});
-			
+
 		});
 		$(document).ready(function(){
 			get_request_header();
@@ -696,7 +696,7 @@
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
+			$('[data-toggle="tooltip"]').tooltip();
 			initializeMap();
 			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filters').style.display = 'block';

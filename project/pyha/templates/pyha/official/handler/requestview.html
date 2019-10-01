@@ -4,12 +4,12 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-			<div class="page-header"> 
+			<div class="page-header">
 				<h1>{% trans "handler_request_from_user" %}
 					{{request_owner}},
 					{{request_owners_email}}
 				</h1>
-						
+
 					<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 				<h2><span style="white-space: nowrap;">
 						{% trans "handler_state_of_request" %}
@@ -23,9 +23,9 @@
 						{% elif userRequest.status == 4 %}
 							 style="color:#99DD99;"
 						{% else %}
-							
+
 						{% endif %}
-						> 
+						>
 						{% if userRequest.status == 1 %}
 							{% if userRequest.waitingstatus == 0 %}
 							{% trans "handler_waiting_for_others" %}
@@ -34,31 +34,31 @@
 							{% endif %}
 						{% elif userRequest.status == 2 %}
 						{% trans "handler_partially_accepted" %}
-						
+
 						{% elif userRequest.status == 3 %}
 						{% trans "handler_denied" %}
-						
+
 						{% elif userRequest.status == 4 %}
 						{% trans "handler_accepted" %}
-						
+
 						{% elif userRequest.status == 6 %}
 						{% trans "handler_waiting_for_additional_information" %}
-						<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "handler_show_additional_information" %}</a>
+						<a href="{{request.path}}?next=information" style="font-size:12px;white-space:normal;">{% trans "handler_show_additional_information" %}</a>
 						{% elif userRequest.status == 7 %}
-						{% trans "handler_waiting_for_download" %} 
-						
+						{% trans "handler_waiting_for_download" %}
+
 						{% elif userRequest.status == 8 %}
 							{% if downloadable %}
 								{% trans "handler_ready_for_download" %}
 							{% else %}
 								{% trans "handler_download_has_expired" %}
 							{% endif %}
-						
-						{% else %}  
+
+						{% else %}
 						{% trans "handler_unknown" %}
-						
+
 						{% endif %}
-						
+
 						</span>
 					</span></h2>
 			</div>
@@ -177,7 +177,7 @@
 				</ul>
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
-						<h3>{% trans "handler_collections_in_request" %}</h3>
+						<h3>{% trans "handler_request_window" %}</h3>
 						{% if taxon %}
 						<p>{% trans "Collections including sensitive sightings are marked with symbol"%} <span class="glyphicon glyphicon-eye-open" style="color:red;"></span></p>
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -209,8 +209,8 @@
 									<tr class="danger clickable-row">
 									{% elif userRequest.sensStatus == 4 %}
 									<tr class="success clickable-row">
-									{% endif %}  
-								{% else %}  
+									{% endif %}
+								{% else %}
 								<tr>
 								{% endif %}
 								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
@@ -236,22 +236,22 @@
 								<td>{% trans "accepted" %}</td>
 								{% elif collection.taxonSecured > 0 %}
 								<td>{% trans "Admission_for_sensitive_data" %}</td>
-								{% else %}  
+								{% else %}
 								<td>{% trans "unknown" %}</td>
 								{% endif %}
 							{% endfor %}
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-						<h3>{% trans "handler_request_filters" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}" target="_blank">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
+						<h3>{% trans "handler_filter_window" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}" target="_blank">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "handler_show_in_portal" %}{% endif %}</a>
 							{% if filters %}
 								<table class = "table" style="width:100%">
 									<tr style=color:black>
 										<th>{% trans "handler_filter" %}</th>
-										<th>{% trans "handler_values" %}</th>	
-									</tr>	
+										<th>{% trans "handler_values" %}</th>
+									</tr>
 									{% for filter in filters %}
-									<tr>	
+									<tr>
 										<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 										{% for f in filter.1 %}
 										<td>{{ f }}</td>
@@ -269,7 +269,7 @@
 							{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-						<h3>{% trans "request_arguments" %}</h3>
+						<h3>{% trans "handler_argument_window" %}</h3>
 					<table class="table" style="width:100%">
 					<tr style=color:black><th>{% trans "handler_argument_choices" %}</th></tr>
 					<tr><td>
@@ -321,7 +321,7 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
-							<h3>{% trans "handler_terms" %}</h3>
+							<h3>{% trans "handler_terms_window" %}</h3>
 							<table class="table" style="width:100%">
 								{% if taxon %}
 								<tr>
@@ -345,12 +345,12 @@
 										</div>
 										<div id="custom-content-{{collection.address}}" class="modal-body" style="padding-left:20px;">
 											<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
-											<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
-											<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
-											<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
-											<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
-											<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
-											<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
+											<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>
+											<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>
+											<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p>
+											<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>
+											<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>
+											<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p>
 										</div>
 										  <div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "handler_exit" %}</button>
@@ -436,7 +436,7 @@
 							</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-						<h3>{% trans "handler_contacts" %}</h3>
+						<h3>{% trans "handler_contact_window" %}</h3>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "handler_full_name" %}</th>
@@ -485,7 +485,7 @@
 								<tr class="danger clickable-row">
 								{% elif userRequest.sensStatus == 4 %}
 								<tr class="success clickable-row">
-								{% else %}  
+								{% else %}
 								<tr>
 								{% endif %}
 								{% if userRequest.sensStatus == 1 %}
@@ -502,7 +502,7 @@
 								<td>{% trans "handler_accepted" %}</td>
 								{% elif userRequest.sensStatus == 99 %}
 								<td>{% trans "handler_skipped" %}</td>
-								{% else %}  
+								{% else %}
 								<td>{% trans "handler_unknown" %}</td>
 								{% endif %}
 								<td style="width:100%;">
@@ -549,12 +549,12 @@
 										<tr class="danger clickable-row">
 										{% elif collection.status == 4 %}
 										<tr class="success clickable-row">
-										{% else %}  
+										{% else %}
 										<tr>
 										{% endif %}
 										<td>{{collection.result.collectionName}}</td>
 										<td>{{collection.result.description}}</td>
-										
+
 										{% if collection.status == 1 %}
 											{% if collection.address in handles %}
 											<td>{% trans "handler_waiting_for_you" %}</td>
@@ -567,8 +567,8 @@
 										<td>{% trans "handler_partially_accepted" %}</td>
 										{% elif collection.status == 4 %}
 										<td>{% trans "handler_accepted" %}</td>
-										{% else %}  
-										<td>{% trans "handler_unknown" %}</td>	
+										{% else %}
+										<td>{% trans "handler_unknown" %}</td>
 										{% endif %}
 									<td>
 								{% if collection.address in handles %}
@@ -593,7 +593,7 @@
 						{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-						<h3>{% trans "handler_additional_questions" %}</h3>
+						<h3>{% trans "handler_additional_information_window" %}</h3>
 						{% for question in requestInformationChat_list %}
 							{% if question.question %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
@@ -633,7 +633,7 @@
 					<div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
 							<div>
 								<div>
-									<h3>{% trans "handler_official_comment_area" %}</h3>
+									<h3>{% trans "handler_comments_window" %}</h3>
 									{% for requestChat in requestSensitiveChat_list %}
 									<div class="panel panel-default">
 									<div class="panel-body" {% if requestChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestChat.date|date:"d.m.Y H:i"}} {{ requestChat.name }}{% trans "handler_said" %}&#10;&#13;{{ requestChat.message }}</p></div>
@@ -723,7 +723,7 @@
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
+			$('[data-toggle="tooltip"]').tooltip();
 			initializeMap();
 			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filters').style.display = 'block';

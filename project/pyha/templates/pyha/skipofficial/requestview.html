@@ -4,7 +4,7 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-		  <div class="page-header"> 
+		  <div class="page-header">
 
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
@@ -21,40 +21,40 @@
 					{% elif userRequest.status == 2 %}
 						 style="color:#BBBB77;"
 					{% else %}
-						
+
 					{% endif %}
-					> 
+					>
 					{% if userRequest.status == 1 %}
 					{% trans "waiting_for_data_provider" %}
-					
+
 					{% elif userRequest.status == 2 %}
 					{% trans "partially_accepted" %}
-					
+
 					{% elif userRequest.status == 3 %}
 					{% trans "denied" %}
-					
+
 					{% elif userRequest.status == 4 %}
 					{% trans "accepted" %}
-					
+
 					{% elif userRequest.status == 6 %}
 					{% trans "waiting_for_additional_information" %}
 					<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "show_additional_information" %}</a>
-					
+
 					{% elif userRequest.status == 7 %}
-					{% trans "waiting_for_download" %} 
-					
+					{% trans "waiting_for_download" %}
+
 					{% elif userRequest.status == 8 %}
 						{% if downloadable %}
 							{% trans "ready_for_download" %}
 						{% else %}
 							{% trans "download_has_expired" %}
 						{% endif %}
-					
-					{% else %}  
+
+					{% else %}
 					{% trans "unknown" %}
-					
+
 					{% endif %}
-					
+
 					</span>
 				</span></h2>
 			</div>
@@ -178,11 +178,11 @@
 								{% trans 'decision_window' %}
 							</span>
 						</a>
-					</li>  
+					</li>
 					{% if requestInformationChat_list %}
 					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
 						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="contact" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
-							<span> 
+							<span>
 								{% if userRequest.status == 6 %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'additional_information_window' %}
 							</span>
 						</a>
@@ -190,10 +190,10 @@
 					{% endif %}
 				</ul>
 				<!-- aineistolista -->
-				
+
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request" style="{% if userRequest.sensStatus == 3 %}opacity: 0.5;{% endif %}">
-						<h3>{% trans "collections_in_request" %}</h3>
+						<h3>{% trans "request_window" %}</h3>
 						{% if taxon %}
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
@@ -223,9 +223,9 @@
 										<tr class="danger clickable-row">
 										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
-										{% endif %}  
-									{% else %}  
-									<tr>	
+										{% endif %}
+									{% else %}
+									<tr>
 									{% endif %}
 									<td>{{collection.result.collectionName}}</td>
 									<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
@@ -235,7 +235,7 @@
 									<td>{{collection.quarantineSecured}}</td>
 									<td>{{collection.taxonSecured}}</td>
 									<td>{{collection.customSecured}}</td>
-									
+
 									{% if collection.status == 1 %}
 									<td>{% trans "waiting_for_data_provider" %}</td>
 									{% elif collection.status == 3 %}
@@ -246,15 +246,15 @@
 									<td>{% trans "accepted" %}</td>
 									{% elif collection.taxonSecured > 0 %}
 									<td>{% trans "Admission_for_sensitive_data" %}</td>
-									{% else %}  
+									{% else %}
 									<td>{% trans "unknown" %}</td>
 									{% endif %}
 								{% endfor %}
 							</table>
 					</div>
-					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">							
+					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 						<div>
-						<h3>{% trans "decicions_for_admitting_data" %}</h3>
+						<h3>{% trans "decision_window" %}</h3>
 							<table class="table" style="width:100%">
 								<tr style=color:black>
 									<th>{% trans "collection_name" %}</th>
@@ -275,8 +275,8 @@
 										<tr class="danger clickable-row">
 										{% elif userRequest.sensStatus == 4 %}
 										<tr class="success clickable-row">
-										{% endif %}  
-									{% else %}  
+										{% endif %}
+									{% else %}
 									<tr>
 									{% endif %}
 									<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
@@ -290,7 +290,7 @@
 									<td>{% trans "accepted" %}</td>
 									{% elif collection.taxonSecured > 0 %}
 									<td>{% trans "Admission_for_sensitive_data" %}</td>
-									{% else %}  
+									{% else %}
 									<td>{% trans "unknown" %}</td>
 									{% endif %}
 									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
@@ -299,7 +299,7 @@
 						</div>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-							<h3>{% trans "request_filters" %}</h3>
+							<h3>{% trans "filter_window" %}</h3>
 								{% if filters %}
 									<a style="padding-left:8px;" href="{{ filter_link }}" target="_blank">{% trans "show_in_portal" %}</a>
 									<table class="table" style="width:100%">
@@ -326,7 +326,7 @@
 								{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-						<h3>{% trans "request_arguments" %}</h3>
+						<h3>{% trans "argument_window" %}</h3>
 						<table class="table" style="width:100%">
 						<tr style=color:black><th>{% trans "argument_choices" %}</th></tr>
 						<tr><td>
@@ -378,7 +378,7 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
-							<h3>{% trans "terms" %}</h3>
+							<h3>{% trans "terms_window" %}</h3>
 								<table class="table" style="width:100%">
 									<tr>
 									<td>{% trans "Collection terms" %}</td>
@@ -459,10 +459,10 @@
 										  </div>
 										</div>
 								</table>
-							
+
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-						<h3>{% trans "contacts" %}</h3>
+						<h3>{% trans "contact_window" %}</h3>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "full_name" %}</th>
@@ -492,7 +492,7 @@
 					</div>
 					{% if requestInformationChat_list %}
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
-							<h3>{% trans "additional_questions" %}</h3>
+							<h3>{% trans "additional_information_window" %}</h3>
 							{% for question in requestInformationChat_list %}
 								{% if question.question %}
 								<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
@@ -597,7 +597,7 @@
 				.one('click', '#yes', function(){
 					$(name).submit();
 			});
-			
+
 		});
 		$(document).ready(function(){
 			get_request_header();
@@ -617,7 +617,7 @@
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
+			$('[data-toggle="tooltip"]').tooltip();
 			initializeMap();
 			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filters').style.display = 'block';
