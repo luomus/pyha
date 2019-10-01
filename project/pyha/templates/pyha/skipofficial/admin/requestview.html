@@ -4,12 +4,12 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-			<div class="page-header"> 
+			<div class="page-header">
 				<h1>{% trans "admin_request_from_user" %}
 					{{request_owner}},
 					{{request_owners_email}}
 				</h1>
-						
+
 				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 				<h2><span style="white-space: nowrap;">
 						{% trans "admin_state_of_request" %}
@@ -23,9 +23,9 @@
 						{% elif userRequest.status == 4 %}
 							 style="color:#99DD99;"
 						{% else %}
-							
+
 						{% endif %}
-						> 
+						>
 						{% if userRequest.status == 1 %}
 							{% if userRequest.waitingstatus == 0 %}
 							{% trans "admin_waiting_for_others" %}
@@ -34,31 +34,31 @@
 							{% endif %}
 						{% elif userRequest.status == 2 %}
 						{% trans "admin_partially_accepted" %}
-						
+
 						{% elif userRequest.status == 3 %}
 						{% trans "admin_denied" %}
-						
+
 						{% elif userRequest.status == 4 %}
 						{% trans "admin_accepted" %}
-						
+
 						{% elif userRequest.status == 6 %}
 						{% trans "admin_waiting_for_additional_information" %}
-						<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "admin_show_additional_information" %}</a>
+						<a href="{{request.path}}?next=information" style="font-size:12px;white-space:normal;">{% trans "admin_show_additional_information" %}</a>
 						{% elif userRequest.status == 7 %}
-						{% trans "admin_waiting_for_download" %} 
-						
+						{% trans "admin_waiting_for_download" %}
+
 						{% elif userRequest.status == 8 %}
 							{% if downloadable %}
 								{% trans "admin_ready_for_download" %}
 							{% else %}
 								{% trans "admin_download_has_expired" %}
 							{% endif %}
-						
-						{% else %}  
+
+						{% else %}
 						{% trans "admin_unknown" %}
-						
+
 						{% endif %}
-						
+
 						</span>
 					</span>
 				</h2>
@@ -206,12 +206,12 @@
 									<tr class="danger clickable-row">
 									{% elif userRequest.sensStatus == 4 %}
 									<tr class="success clickable-row">
-									{% endif %}  
-								{% else %}  
-								<tr>	
+									{% endif %}
+								{% else %}
+								<tr>
 								{% endif %}
 								<td>{{collection.result.collectionName}}</td>
-								<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>								
+								<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.result.qualityDescription}}</td>
 								<td>{{collection.result.collectionTerms}}</td>
@@ -232,7 +232,7 @@
 								<td>{% trans "accepted" %}</td>
 								{% elif collection.taxonSecured > 0 %}
 								<td>{% trans "Admission_for_sensitive_data" %}</td>
-								{% else %}  
+								{% else %}
 								<td>{% trans "unknown" %}</td>
 								{% endif %}
 							{% endfor %}
@@ -244,10 +244,10 @@
 								<table class = "table" style="width:100%">
 									<tr style=color:black>
 										<th>{% trans "admin_filter" %}</th>
-										<th>{% trans "admin_values" %}</th>	
-									</tr>	
+										<th>{% trans "admin_values" %}</th>
+									</tr>
 									{% for filter in filters %}
-									<tr>	
+									<tr>
 										<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 										{% for f in filter.1 %}
 										<td>{{ f }}</td>
@@ -449,13 +449,13 @@
 									<tr class="danger clickable-row">
 									{% elif collection.status == 4 %}
 									<tr class="success clickable-row">
-									{% else %}  
+									{% else %}
 									<tr>
 									{% endif %}
 										<td>{{collection.result.collectionName}}</td>
 										<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
 										<td>{{collection.result.description}}</td>
-										
+
 										{% if collection.status == 1 %}
 											{% if collection.address in handles %}
 											<td>{% trans "admin_waiting_for_you" %}</td>
@@ -468,8 +468,8 @@
 										<td>{% trans "admin_partially_accepted" %}</td>
 										{% elif collection.status == 4 %}
 										<td>{% trans "admin_accepted" %}</td>
-										{% else %}  
-										<td>{% trans "admin_unknown" %}</td>	
+										{% else %}
+										<td>{% trans "admin_unknown" %}</td>
 										{% endif %}
 										<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</td>
 										<td>
@@ -628,7 +628,7 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 						{% endif %}
 					</div>
-					
+
 					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
 						{% if handler_groups %}
 						<form action="{% url 'pyha:refresh_collections_cache' %}" id="refreshform" method="post">
@@ -660,8 +660,8 @@
 												<table class="collection-group-error" style="width:100%">
 													<tr>
 														<td style="border-bottom:0; width:100%">
-														{% for collection in group.collections %} 
-															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% for collection in group.collections %}
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p>
 														{% endfor %}
 														</td>
 														<td style="border-bottom:0;">
@@ -718,8 +718,8 @@
 												<table class="collection-group" style="width:100%">
 													<tr>
 														<td style="border-bottom:0; width:100%">
-														{% for collection in group.collections %} 
-															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% for collection in group.collections %}
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p>
 														{% endfor %}
 														</td>
 														<td style="border-bottom:0;">
@@ -800,7 +800,7 @@
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
+			$('[data-toggle="tooltip"]').tooltip();
 			initializeMap();
 			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filters').style.display = 'block';
@@ -830,7 +830,7 @@
 		function refreshCommunicationsEmailByLang() {
 			var x = document.getElementById('admin_com_email_lang');
 			var strLang = x.options[x.selectedIndex].value;
-			
+
 			if (strLang == 'all'){
 				document.getElementById('com_email_header').value = document.getElementById('com_email_header_fi').innerHTML;
 				document.getElementById('com_email_content').value = '{%trans "in_other_languages_below"%}\n\n\n\n';
@@ -845,7 +845,7 @@
 				document.getElementById('com_email_header').value = document.getElementById('com_email_header_'+strLang).innerHTML;
 				document.getElementById('com_email_content').value = document.getElementById('com_email_content_'+strLang).innerHTML;
 			}
-			
+
 		}
 	</script>
 	<script>
@@ -861,7 +861,7 @@
 			{% if not userRequest.frozen %}
 			document.getElementById('submit_email').disabled = !b;
 			{% endif %}
-			
+
 		}
 	</script>
 	{% if next == 'information' %}

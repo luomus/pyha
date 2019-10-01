@@ -4,12 +4,12 @@
 
 	<div class="container-fluid">
 		<div class="col-xs-12">
-			<div class="page-header"> 
+			<div class="page-header">
 				<h1>{% trans "admin_request_from_user" %}
 					{{request_owner}},
 					{{request_owners_email}}
 				</h1>
-						
+
 				<h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
 				<h2><span style="white-space: nowrap;">
 						{% trans "admin_state_of_request" %}
@@ -23,9 +23,9 @@
 						{% elif userRequest.status == 4 %}
 							 style="color:#99DD99;"
 						{% else %}
-							
+
 						{% endif %}
-						> 
+						>
 						{% if userRequest.status == 1 %}
 							{% if userRequest.waitingstatus == 0 %}
 							{% trans "admin_waiting_for_others" %}
@@ -34,31 +34,31 @@
 							{% endif %}
 						{% elif userRequest.status == 2 %}
 						{% trans "admin_partially_accepted" %}
-						
+
 						{% elif userRequest.status == 3 %}
 						{% trans "admin_denied" %}
-						
+
 						{% elif userRequest.status == 4 %}
 						{% trans "admin_accepted" %}
-						
+
 						{% elif userRequest.status == 6 %}
 						{% trans "admin_waiting_for_additional_information" %}
-						<a href="{{request.path}}?next=information" style="font-size:12px;color:black;text-decoration:none;white-space:normal;">{% trans "admin_show_additional_information" %}</a>
+						<a href="{{request.path}}?next=information" style="font-size:12px;white-space:normal;">{% trans "admin_show_additional_information" %}</a>
 						{% elif userRequest.status == 7 %}
-						{% trans "admin_waiting_for_download" %} 
-						
+						{% trans "admin_waiting_for_download" %}
+
 						{% elif userRequest.status == 8 %}
 							{% if downloadable %}
 								{% trans "admin_ready_for_download" %}
 							{% else %}
 								{% trans "admin_download_has_expired" %}
 							{% endif %}
-						
-						{% else %}  
+
+						{% else %}
 						{% trans "admin_unknown" %}
-						
+
 						{% endif %}
-						
+
 						</span>
 					</span>
 				</h2>
@@ -220,9 +220,9 @@
 									<tr class="danger clickable-row">
 									{% elif userRequest.sensStatus == 4 %}
 									<tr class="success clickable-row">
-									{% endif %}  
-								{% else %}  
-								<tr>	
+									{% endif %}
+								{% else %}
+								<tr>
 								{% endif %}
 								<td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
 								{% if collection.taxonSecured > 0 %}<td><span class="glyphicon glyphicon-eye-open" style="color:red;"></span></td>{% else %}<td></td>{% endif %}
@@ -247,7 +247,7 @@
 								<td>{% trans "accepted" %}</td>
 								{% elif collection.taxonSecured > 0 %}
 								<td>{% trans "Admission_for_sensitive_data" %}</td>
-								{% else %}  
+								{% else %}
 								<td>{% trans "unknown" %}</td>
 								{% endif %}
 							{% endfor %}
@@ -259,10 +259,10 @@
 								<table class = "table" style="width:100%">
 									<tr style=color:black>
 										<th>{% trans "admin_filter" %}</th>
-										<th>{% trans "admin_values" %}</th>	
-									</tr>	
+										<th>{% trans "admin_values" %}</th>
+									</tr>
 									{% for filter in filters %}
-									<tr>	
+									<tr>
 										<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 										{% for f in filter.1 %}
 										<td>{{ f }}</td>
@@ -356,12 +356,12 @@
 										</div>
 										<div id="custom-content-{{collection.address}}" class="modal-body" style="padding-left:20px;">
 											<p>Curabitur in gravida felis. Sed non consequat ante. Phasellus eros turpis, maximus non tellus quis, egestas imperdiet mi. Nulla facilisi. Ut pulvinar vitae libero quis posuere. Vivamus hendrerit quam lacus, et consequat leo tincidunt vel. Sed quis tristique erat.</p>
-											<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>  
-											<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>  
-											<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p> 
-											<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>  
-											<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>  
-											<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p> 
+											<p>Vivamus sit amet massa enim. Sed egestas, libero vitae rhoncus vehicula, odio eros feugiat ipsum, vitae euismod ligula eros non velit. Fusce in augue eu magna feugiat volutpat. Nunc pulvinar, velit eu sodales euismod, purus mauris sodales arcu, at commodo nisl nulla vitae nisl. Suspendisse hendrerit ex sem, in rutrum orci interdum quis. Aliquam rutrum aliquam mi, non consequat augue ultricies sed. Integer fringilla in sem sed feugiat. Nullam non nisi ultrices, mollis lacus vel, venenatis nunc. Integer at lorem sed turpis euismod efficitur eget at sapien. Nullam nec diam purus.</p>
+											<p>Sed leo nulla, porta vel ligula eu, fringilla pharetra felis. Phasellus lorem sem, mollis non elementum vitae, varius nec ex. Proin vulputate malesuada nulla, in aliquam lacus. Aliquam sit ametplacerat elit. Mauris elementum porta est, feugiat molestie purus laoreet nec.</p>
+											<p>Duis eleifend justo tortor, eget sollicitudin ipsum elementum fringilla. Donec sit amet lorem at urna auctor consectetur et vitae mi. Nulla facilisi. Nunc finibus enim vel leo consequat, mollis dapibus odio molestie. Curabitur non neque eleifend, aliquam felis et, pharetra massa. In hac habitasse platea dictumst. Nam id fermentum ipsum. Maecenas felis est, aliquet sit amet nisl in, vulputate varius est.</p>
+											<p>Etiam feugiat mauris quam, sed facilisis enim fermentum at. In finibus at augue eu pulvinar. Nulla dapibus elementum erat, luctus vulputate tortor vulputate et. Nam mi arcu, dignissim id lorem sed, consectetur euismod justo. Curabitur vitae nunc tortor. Maecenas vestibulum consequat tellus nec dictum. In luctus nisi metus, in pharetra nulla fringilla eget. Vestibulum ac urna non arcu tincidunt vestibulum. Curabitur ut neque urna. Phasellus eu turpis mi. Duis mollis sem eu elit suscipit maximus. Donec eu bibendum ipsum. Maecenas cursus ex erat.</p>
+											<p>Morbi nec vestibulum sem. Nam at augue at sapien dapibus rutrum quis et mauris. Nunc fermentumnibh risus, id volutpat quam fringilla et. Pellentesque porta, risus eget mattis vestibulum, orci diam elementum leo, quis viverra ligula felis tristique odio. Donec pellentesque odio non nulla fringilla condimentum. Nulla facilisi. Nam rhoncus ex quis aliquam tristique. Morbi aliquet pulvinar tincidunt. Sed vulputate accumsan eros eu semper. Nunc mollis tristique mattis. Donec et porta ex.</p>
+											<p>In nisi leo, elementum et quam vitae, elementum placerat erat. Vestibulum eleifend, mauris at feugiat vulputate, purus lorem pellentesque purus, ac efficitur arcu dui id velit. In ultricies dapibus magna quis maximus. Vestibulum vulputate felis nec finibus ultrices. Nam ultricies rhoncus semper.</p>
 										</div>
 										  <div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal" id=>{% trans "admin_exit" %}</button>
@@ -495,8 +495,8 @@
 								<tr class="danger clickable-row">
 								{% elif userRequest.sensStatus == 4 %}
 								<tr class="success clickable-row">
-								{% else %}  
-								<tr>	
+								{% else %}
+								<tr>
 								{% endif %}
 								{% if userRequest.sensStatus == 1 %}
 									{% if role1 %}
@@ -512,7 +512,7 @@
 								<td>{% trans "admin_accepted" %}</td>
 								{% elif userRequest.sensStatus == 99 %}
 								<td>{% trans "admin_skipped" %}</td>
-								{% else %}  
+								{% else %}
 								<td>{% trans "admin_unknown" %}</td>
 								{% endif %}
 								<td style="width:100%;">
@@ -558,12 +558,12 @@
 										<tr class="danger clickable-row">
 										{% elif collection.status == 4 %}
 										<tr class="success clickable-row">
-										{% else %}  
+										{% else %}
 										<tr>
 										{% endif %}
 										<td>{{collection.result.collectionName}}</td>
 										<td>{{collection.result.description}}</td>
-										
+
 										{% if collection.status == 1 %}
 											{% if collection.address in handles %}
 											<td>{% trans "admin_waiting_for_you" %}</td>
@@ -576,8 +576,8 @@
 										<td>{% trans "admin_partially_accepted" %}</td>
 										{% elif collection.status == 4 %}
 										<td>{% trans "admin_accepted" %}</td>
-										{% else %}  
-										<td>{% trans "admin_unknown" %}</td>	
+										{% else %}
+										<td>{% trans "admin_unknown" %}</td>
 										{% endif %}
 									<td>
 								<form action="{% url 'pyha:answer' %}" id="requestform" method="post">
@@ -728,7 +728,7 @@
 						<strong>{% trans "log_no_history" %}.</strong>
 						{% endif %}
 					</div>
-					
+
 					<div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="handler_communications">
 						{% if handler_groups %}
 						<form action="{% url 'pyha:refresh_collections_cache' %}" id="refreshform" method="post">
@@ -755,8 +755,8 @@
 												<table class="collection-group-error" style="width:100%">
 													<tr>
 														<td style="border-bottom:0; width:100%">
-														{% for collection in group.collections %} 
-															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% for collection in group.collections %}
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p>
 														{% endfor %}
 														</td>
 														<td style="border-bottom:0;">
@@ -813,8 +813,8 @@
 												<table class="collection-group" style="width:100%">
 													<tr>
 														<td style="border-bottom:0; width:100%">
-														{% for collection in group.collections %} 
-															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p> 
+														{% for collection in group.collections %}
+															<p style="white-space: nowrap;"><a href="{{tun_link}}{{collection.id}}" target="_blank">{{ collection.collectionName }}</a></p>
 														{% endfor %}
 														</td>
 														<td style="border-bottom:0;">
@@ -896,7 +896,7 @@
 	{% if coordinates %}
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
+			$('[data-toggle="tooltip"]').tooltip();
 			initializeMap();
 			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
 			document.getElementById('filters').style.display = 'block';
@@ -926,7 +926,7 @@
 		function refreshCommunicationsEmailByLang() {
 			var x = document.getElementById('admin_com_email_lang');
 			var strLang = x.options[x.selectedIndex].value;
-			
+
 			if (strLang == 'all'){
 				document.getElementById('com_email_header').value = document.getElementById('com_email_header_fi').innerHTML;
 				document.getElementById('com_email_content').value = '{%trans "in_other_languages_below"%}\n\n\n\n';
@@ -941,7 +941,7 @@
 				document.getElementById('com_email_header').value = document.getElementById('com_email_header_'+strLang).innerHTML;
 				document.getElementById('com_email_content').value = document.getElementById('com_email_content_'+strLang).innerHTML;
 			}
-			
+
 		}
 	</script>
 	<script>
@@ -957,7 +957,7 @@
 		{% if not userRequest.frozen %}
 		document.getElementById('submit_email').disabled = !b;
 		{% endif %}
-		
+
 	}
 	</script>
 	{% if next == 'information' %}
