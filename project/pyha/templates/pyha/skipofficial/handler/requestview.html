@@ -462,7 +462,7 @@
 										{% else %}
 										<td>{% trans "handler_unknown" %}</td>
 										{% endif %}
-										<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% else %}{% endif %}</td>
+										<td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
 										<td>
 											{% if collection.address in handles %}
 											<p style="text-align: center;"><input {% if frozen or collection.status != 1 %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>

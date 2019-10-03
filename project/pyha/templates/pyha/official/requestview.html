@@ -343,7 +343,7 @@
 									{% else %}
 									<td>{% trans "unknown" %}</td>
 									{% endif %}
-									<td>{% if collection.decisionExplanation %}{{collection.decisionExplanation}}{% endif %}</td>
+									<td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% endif %}</td>
 								{% endfor %}
 							</table>
 						</div>
