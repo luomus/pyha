@@ -177,6 +177,7 @@
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "admin_request_window" %}</h3>
+						<p>{% trans "admin_request_window_description" %}</p>
 						{% if taxon %}
 						<p>{% trans 'given_values_are_not_absolute' %}</p>
 						{% endif %}
@@ -240,6 +241,7 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
 						<h3>{% trans "admin_filter_window" %} </h3> <a style="padding-left:8px;" {% if role1 %}href="{{ official_filter_link }}" target="_blank">{% trans "admin_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "admin_show_in_portal" %}{% endif %}</a>
+						<p>{% trans "admin_filter_window_description" %}</p>
 							{% if filters %}
 								<table class = "table" style="width:100%">
 									<tr style=color:black>
@@ -266,6 +268,7 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
 						<h3>{% trans "admin_argument_window" %}</h3>
+						<p>{% trans "admin_argument_window_description" %}</p>
 					<table class="table" style="width:100%">
 					<tr style=color:black><th>{% trans "admin_argument_choices" %}</th></tr>
 					<tr><td>
@@ -318,6 +321,7 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 							<h3>{% trans "admin_terms_window" %}</h3>
+							<p>{% trans "admin_terms_window_description" %}</p>
 							<table class="table" style="width:100%">
 								<tr>
 									<td>{% trans "Collection terms" %}</td>
@@ -401,6 +405,7 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
 						<h3>{% trans "admin_contact_window" %}</h3>
+						<p>{% trans "admin_contact_window_description" %}</p>
 						<table class="table" style="width:100%">
 							<tr style=color:black>
 								<th>{% trans "admin_full_name" %}</th>
@@ -429,8 +434,10 @@
 						</table>
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
-						{% if collections %}
 						<h3>{% trans "admin_decision_window" %}</h3>
+						<p>{% trans "admin_decision_window_description" %}</p>
+						{% if collections %}
+						<h4>{% trans "admin_secured_collection_decicions" %}</h4>
 						<form action="{% url 'pyha:group_answer' %}" id="requestform" method="post">
 							<table class="table" style="width:100%">
 								<tr style=color:black>
@@ -477,7 +484,7 @@
 										</td>
 										{% if forloop.first %}
 											<td rowspan="{{collections|length}}" style="background-color:white; border-bottom:0px;">
-												<h4>{% trans "admin_decision_arguments" %}</h4>
+												<h5>{% trans "admin_decision_arguments" %}</h5>
 												<span>{% trans "admin_select_checksboxes_to_apply_this_decision_to" %}</span>
 												<div class="form-group">
 													<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -499,6 +506,7 @@
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
 						<h3>{% trans "admin_additional_information_window" %}</h3>
+						<p>{% trans "admin_additional_information_window_description" %}</p>
 						{% for question in requestInformationChat_list %}
 							{% if question.question %}
 							<div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
@@ -511,7 +519,7 @@
 							</div>
 							{% endif %}
 						{% endfor %}
-						<h3>{% trans "admin_form_to_request_additional_information" %}</h3>
+						<h4>{% trans "admin_form_to_request_additional_information" %}</h4>
 						<form action="{% url 'pyha:question' %}" id="requestform" method="post">
 							<div class="form-group">
 								<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -531,6 +539,7 @@
 						<div>
 							<div>
 								<h3>{% trans "col_handler_comments_window" %}</h3>
+								<p>{% trans "col_handler_comments_window_description" %}</p>
 								<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
 								{% for requestHandlerChat in requestHandlerChat_list %}
 								<div class="panel panel-default">
@@ -556,8 +565,9 @@
 					</div>
 
 					<div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
-						{% if requestLog_list %}
 						<h3>{% trans "admin_changes_history" %}</h3>
+						<p>{% trans "admin_changes_history_description" %}</p>
+						{% if requestLog_list %}
 						<table class="table" style="width:100%">
 								<tr>
 									<th>{% trans "admin_log_date" %}</th>
@@ -638,6 +648,7 @@
 								<button type="submit" id="submit_refresh" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_refresh_collections_cache" %}</button>
 								{% csrf_token %}
 							</h3>
+							<p>{% trans "admin_communications_window_description" %}</p>
 						</form>
 							{% if com_last_automated_send_email %}
 								<div class="form-group stale-form">
@@ -788,6 +799,8 @@
 							{% csrf_token %}
 						</form>
 						{% else %}
+						<h3>{% trans "admin_communications_window" %}</h3>
+						<p>{% trans "admin_communications_window_description" %}</p>
 						<strong>{% trans "no_communications" %}</strong>
 						{% endif %}
 					</div>
