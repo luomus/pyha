@@ -491,9 +491,9 @@
 													<input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
 													<textarea class="form-control" rows="5" cols="700" id="reason" name="reason"></textarea>
 													<p style="margin:2px;">{% trans "admin_arguments_will_be_applied_to_all_selected" %}</p>
-													<button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
+													<button type="submit" id="submit" name="answer" value=1 class="btn btn-success btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_accept" %}</button>
 													<button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_reset" %}</button>
-													<button type="submit" id="submit" name="answer" value=0 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
+													<button type="submit" id="submit" name="answer" value=0 class="btn btn-danger btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_refuse" %}</button>
 												</div>
 											</td>
 										{% endif %}
