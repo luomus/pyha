@@ -51,6 +51,7 @@ class RequestTesting(TestCase):
 	def test_requests_filters_labels_and_values_comes_from_apitest(self):
 		warehouse.store(JSON_MOCK7)
 		response = self.client.get('/request/2')
+		print(response)
 		self.assertContains(response, "Vain salatut")
 		self.assertContains(response, "true")
 		self.assertContains(response, "Lajin hallinnollinen rajaus")
@@ -76,14 +77,14 @@ class RequestTesting(TestCase):
 		wanted.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		session["user_roles"] = [CAT_HANDLER_SENS, CAT_HANDLER_COLL]
+		session["user_roles"] = [CAT_HANDLER_COLL]
 		session["current_user_role"] = HANDLER_ANY
 		session.save()
 
 		response = self.client.get('/request/2')
 		logEntry = RequestLogEntry.requestLog.get(request = wanted)
 		self.assertEqual(logEntry.user, "MA.313")
-		#self.assertEqual(logEntry.role, CAT_HANDLER_BOTH)
+		self.assertEqual(logEntry.role, CAT_HANDLER_COLL)
 		self.assertEqual(logEntry.collection, None)
 		self.assertEqual(logEntry.action, "VIEW")
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
@@ -95,43 +96,6 @@ class RequestTesting(TestCase):
 		self.assertEqual(logEntry.user, "MA.309")
 		self.assertEqual(logEntry.role, USER)
 		self.assertEqual(logEntry.action, "ACC")
-		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
-
-	def test_RequestLogEntry_answer_sens_positive(self):
-		request1 = Request.objects.get(id=1)
-		request1.status = 1
-		request1.changedBy = "test"
-		request1.save()
-		session = self.client.session
-		session['user_id'] = 'MA.313'
-		session["user_roles"] = CAT_HANDLER_SENS
-		session["current_user_role"] = HANDLER_ANY
-		session.save()
-
-		self.client.post(reverse('pyha:answer'), {'requestid': 1,'answer' : 1, 'collectionid':'sens' , 'reason': 'joo' })
-		logEntry = RequestLogEntry.requestLog.get(request = request1)
-		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, CAT_HANDLER_SENS)
-		self.assertEqual(logEntry.action, 'POS')
-		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
-
-	def test_RequestLogEntry_answer_sens_negative(self):
-		warehouse.store(JSON_MOCK6)
-		request2 = Request.objects.get(id=2)
-		request2.status = 1
-		request2.changedBy = "test"
-		request2.save()
-		session = self.client.session
-		session['user_id'] = 'MA.313'
-		session["user_roles"] = CAT_HANDLER_SENS
-		session["current_user_role"] = HANDLER_ANY
-		session.save()
-
-		self.client.post(reverse('pyha:answer'), {'requestid': 2,'answer' : 0,'collectionid': 'sens', 'reason': 'ei sovi' })
-		logEntry = RequestLogEntry.requestLog.get(request = request2)
-		self.assertEqual(logEntry.user, "MA.313")
-		self.assertEqual(logEntry.role, CAT_HANDLER_SENS)
-		self.assertEqual(logEntry.action, 'NEG')
 		self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
 
 	@mock.patch("pyha.views.requestview.is_allowed_to_view", fake_is_allowed_to_view)
@@ -150,7 +114,7 @@ class RequestTesting(TestCase):
 		session["user_roles"] = CAT_HANDLER_COLL
 		session["current_user_role"] = HANDLER_ANY
 		session.save()
-
+		
 		self.client.post(reverse('pyha:answer'), {'requestid': 1,'answer' : 1, 'collectionid':"HR.39"})
 		logEntry = RequestLogEntry.requestLog.get(request = request1, collection = col)
 		self.assertEqual(logEntry.user, "MA.313")
@@ -172,7 +136,7 @@ class RequestTesting(TestCase):
 		col.save()
 		session = self.client.session
 		session['user_id'] = 'MA.313'
-		#session["user_roles"] = CAT_HANDLER_BOTH
+		session["user_roles"] = CAT_HANDLER_COLL
 		session["current_user_role"] = HANDLER_ANY
 		session.save()
 
