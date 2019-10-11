@@ -6,12 +6,12 @@ from django.utils.translation import ugettext
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status, update_sens_status
+from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status
 from pyha.email import send_mail_after_additional_information_requested, send_raw_mail
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
-from pyha.models import HandlerInRequest, RequestLogEntry, RequestSensitiveChatEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum
-from pyha.roles import HANDLER_ANY, CAT_HANDLER_SENS, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
+from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum
+from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
 from pyha.warehouse import send_download_request, is_download_handler_in_collection, update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
@@ -31,47 +31,24 @@ def show_request(http_request):
     userRequest = Request.objects.get(id=requestId)
     userId = http_request.session["user_id"]
     if (userRequest.user == userId and not USER in http_request.session.get("current_user_role", [None])) or userRequest.user != userId:
-        role1 = CAT_HANDLER_SENS in http_request.session.get("user_roles", [None])
         role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
         role3 = CAT_ADMIN in http_request.session.get("user_roles", [None])
         #make a log entry
-        make_logEntry_view(http_request, userRequest, userId, role1, role2, role3)
+        make_logEntry_view(http_request, userRequest, userId, role2, role3)
     context = create_request_view_context(requestId, http_request, userRequest)
     if ADMIN in http_request.session.get("current_user_role", [None]):
         update_request_status(userRequest, userRequest.lang)
-        return render(http_request, 'pyha/skipofficial/admin/requestview.html', context) if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(http_request, 'pyha/official/admin/requestview.html', context)
+        return render(http_request, 'pyha/skipofficial/admin/requestview.html', context)
     else:
         if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
             update_request_status(userRequest, userRequest.lang)
-            return render(http_request, 'pyha/skipofficial/handler/requestview.html', context) if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(http_request, 'pyha/official/handler/requestview.html', context)
+            return render(http_request, 'pyha/skipofficial/handler/requestview.html', context)
         else:
             if(userRequest.status == 0):
-                return render(http_request, 'pyha/skipofficial/requestform.html', context) if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(http_request, 'pyha/official/requestform.html', context)
+                return render(http_request, 'pyha/skipofficial/requestform.html', context)
             else:
                 update_request_status(userRequest, userRequest.lang)
-                return render(http_request, 'pyha/skipofficial/requestview.html', context)  if userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL else render(http_request, 'pyha/official/requestview.html', context)
-    
-def comment_sensitive(http_request):
-    nexturl = http_request.POST.get('next', '/')
-    if http_request.method == 'POST':
-        if not logged_in(http_request):
-            return _process_auth_response(http_request, "pyha")
-        requestId = http_request.POST.get('requestid', '?')
-        if not is_allowed_to_view(http_request, requestId):
-            return HttpResponseRedirect(reverse('pyha:root'))
-        message = http_request.POST.get('commentsForAuthorities')
-        userRequest = Request.objects.get(id=requestId) 
-        if is_admin_frozen(http_request, requestId):
-            return HttpResponseRedirect(reverse('pyha:root'))
-        if CAT_HANDLER_SENS in http_request.session["user_roles"] and not userRequest.sensStatus == Sens_StatusEnum.IGNORE_OFFICIAL:
-            newChatEntry = RequestSensitiveChatEntry()
-            newChatEntry.request = userRequest
-            newChatEntry.date = datetime.now()
-            newChatEntry.user = http_request.session["user_id"]
-            newChatEntry.message = message
-            newChatEntry.changedBy = changed_by_session_user(http_request)
-            newChatEntry.save()
-    return HttpResponseRedirect(nexturl)
+                return render(http_request, 'pyha/skipofficial/requestview.html', context)
 
 def comment_handler(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -83,7 +60,7 @@ def comment_handler(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id=requestId) 
+        userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if is_allowed_to_ask_information_as_target(http_request,target,requestId):
@@ -96,7 +73,7 @@ def comment_handler(http_request):
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
-    
+
 def initialize_download(http_request):
     nexturl = http_request.POST.get('next', '/')
     if http_request.method == 'POST':
@@ -107,17 +84,17 @@ def initialize_download(http_request):
             return HttpResponseRedirect(reverse('pyha:root'))
         if not is_request_owner(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id=requestId) 
+        userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(not userRequest.frozen or ADMIN in http_request.session["current_user_role"]):
-            if (userRequest.status == 4 or userRequest.status == 2 or (userRequest.sensStatus in [4,99] and contains_approved_collection(requestId))):
+            if (userRequest.status == 4 or userRequest.status == 2 or contains_approved_collection(requestId)):
                 send_download_request(requestId)
                 userRequest.status = 7
                 userRequest.changedBy = changed_by_session_user(http_request)
                 userRequest.save()
     return HttpResponseRedirect(nexturl)
-    
+
 def change_description(http_request):
     if http_request.method == 'POST':
         nexturl = http_request.POST.get('next', '/')
@@ -170,7 +147,7 @@ def send_email(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_admin(http_request):
             return HttpResponse(status=404)
-        id_list = [{'id':userid.replace('email_id_',''),'email':email} for userid, email in http_request.POST.items() if 'email_id_' in userid]   
+        id_list = [{'id':userid.replace('email_id_',''),'email':email} for userid, email in http_request.POST.items() if 'email_id_' in userid]
         sender = http_request.POST.get('com_email_sender')
         recipients = [userid['email'] for userid in id_list]
         subject = http_request.POST.get('com_email_header')
@@ -187,7 +164,7 @@ def send_email(http_request):
                     handler.changedBy = changed_by_session_user(http_request)
                     handler.save()
                     break
-            if not found_in_db:  
+            if not found_in_db:
                 handler = HandlerInRequest()
                 handler.user = userid
                 handler.request = Request.objects.get(id=requestId)
@@ -213,11 +190,8 @@ def answer(http_request):
         userRequest = Request.objects.get(id = requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
-        if "sens" not in collectionId:
-            collection = Collection.objects.get(request=requestId, address=collectionId)
-            update_collection_status(http_request, userRequest, collection)
-        else:
-            update_sens_status(http_request, userRequest)
+        collection = Collection.objects.get(request=requestId, address=collectionId)
+        update_collection_status(http_request, userRequest, collection)
     return HttpResponseRedirect(nexturl)
 
 def group_answer(http_request):
@@ -291,23 +265,18 @@ def information(http_request):
             newChatEntry.target = target
             newChatEntry.message = http_request.POST.get('reason')
             newChatEntry.changedBy = changed_by_session_user(http_request)
-            newChatEntry.save() 
+            newChatEntry.save()
             userRequest.status = StatusEnum.WAITING
             for co in Collection.objects.filter(request = userRequest):
                 try:
-                    if RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=co.address).latest('date').question: 
+                    if RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=co.address).latest('date').question:
                         userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
                         break
                 except RequestInformationChatEntry.DoesNotExist:
                     pass
             try:
-                if RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target="sens").latest('date').question:
-                    userRequest.status = StatusEnum.WAITING_FOR_INFORMATION           
-            except RequestInformationChatEntry.DoesNotExist:
-                pass
-            try:
                 if RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target="admin").latest('date').question:
-                    userRequest.status = StatusEnum.WAITING_FOR_INFORMATION           
+                    userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
             except RequestInformationChatEntry.DoesNotExist:
                 pass
             userRequest.changedBy = changed_by_session_user(http_request)

@@ -10,14 +10,14 @@
 				} else if(this.status == 310){
 					window.location = this.responseText;
 				}
-			} 
+			}
 		};
 	xhttp.open("POST", document.getElementById("setDescriptionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
 	}
-	
+
 	function removeAjax(index, on_success) {
 	var xhttp = new XMLHttpRequest();
 	var collectionid = document.getElementById('removecollectionId'+index).value;
@@ -37,47 +37,7 @@
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
 	}
-	
-	function get_taxon_tab() {
-	var xhttp = new XMLHttpRequest();
-	var requestid = document.getElementById('requestid').value;
-	var data = 'requestid='+requestid;
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4) {
-				if (this.status == 200) {
-					document.getElementById("senstable").innerHTML = this.responseText;
-					checksens();
-				} else if(this.status == 310){
-					window.location = this.responseText;
-				}
-			} 
-		};
-	xhttp.open("POST", document.getElementById("getTaxonURL").value, true);
-	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
-	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhttp.send(data);
-	}
-	
-	function get_custom_tab() {
-	var xhttp = new XMLHttpRequest();
-	var requestid = document.getElementById('requestid').value;
-	var data = 'requestid='+requestid;
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4) {
-			if (this.status == 200) {
-				document.getElementById("customtable").innerHTML = this.responseText;
-				refreshCheck();
-			} else if(this.status == 310){
-				window.location = this.responseText;
-			}
-		} 
-	};
-	xhttp.open("POST", document.getElementById("getCustomURL").value, true);
-	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
-	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	xhttp.send(data);
-	}
-	
+
 	function get_collection_tab() {
 		var xhttp = new XMLHttpRequest();
 		var requestid = document.getElementById('requestid').value;
@@ -86,18 +46,17 @@
 			if (this.readyState == 4) {
 				if (this.status == 200) {
 					document.getElementById("collectiontable").innerHTML = this.responseText;
-					checksens();
 				} else if(this.status == 310){
 					window.location = this.responseText;
 				}
-			} 
+			}
 		};
 		xhttp.open("POST", document.getElementById("getCollectionURL").value, true);
 		xhttp.setRequestHeader('X-CSRFToken', csrftoken);
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send(data);
 		}
-	
+
 	function get_request_header() {
 	var xhttp = new XMLHttpRequest();
 	var requestid = document.getElementById('requestid').value;
@@ -110,7 +69,7 @@
 			} else if(this.status == 310){
 				window.location = this.responseText;
 			}
-		} 
+		}
 	};
 	xhttp.open("POST", document.getElementById("getDescriptionURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
@@ -131,7 +90,7 @@
 			} else if(this.status == 310){
 				window.location = this.responseText;
 			}
-		} 
+		}
 	};
 	xhttp.open("POST", document.getElementById("getSummaryURL").value, true);
 	xhttp.setRequestHeader('X-CSRFToken', csrftoken);
@@ -181,7 +140,7 @@
 			} else if(this.status == 310){
 				window.location = this.responseText;
 			}
-		} 
+		}
 	};
 
 	xhttp.overrideMimeType('text/xml');
@@ -190,8 +149,8 @@
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	xhttp.send(data);
 	}
-	
-	
+
+
 	function updateTabField(namefield, fillfield, id){
 	return function() { document.getElementById("contact_tab_text_"+id).textContent = namefield.value;
 						for(var e in fillfield){
@@ -200,7 +159,7 @@
 						contactsFilled();
 						}
 	}
-	
+
 	function updateField(namefield, fillfield){
 	return function() { for(var e in fillfield){
 							fillfield[e].textContent = namefield.value;
@@ -217,34 +176,11 @@
 						}
 	}
 
-	var complete = [0,0,0];
-	
-	function refresh(){
-	complete = [0,0,0];
-	get_taxon_tab();
-	get_custom_tab();
-	get_summary_tab();
-	}
-	
-	function ready(id){
-	complete[id] = 1;
-	for (var i = 0; i < complete.length; i++){
-			if(complete[i] == 0){
-				return;
-			}
-	allReady();
-	}
-	}
-	
-	function allReady() {
-		checkForApproval();
-	}
-	
 	function refresh_skip_official(){
 	get_collection_tab()
 	get_summary_tab();
 	}
-	
+
 	function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.
 
@@ -267,7 +203,7 @@
     document.body.appendChild(form);
     form.submit();
 	}
-	
+
 	function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

@@ -1,3 +1,0 @@
-﻿Download request sent from Finnish Biodiversity Info Faculty at {{ time }} concerning sensitive data waits for your approval decision.
-
-Address to the request: {{ req_link }}?lang=en

@@ -2,37 +2,35 @@
 
 ## Yleisesti
 
-Pyha on aineistopyyntöjen teko- , hallinnointi- ja seurantajärjestelmä. 
+Pyha on aineistopyyntï¿½jen teko- , hallinnointi- ja seurantajï¿½rjestelmï¿½.
 
-Pyha:an on toteutettu neljä käyttäjäryhmää: ylläpitäjät, viranomaiset, aineistojen omistajat ja maallikot. 
+Pyha:an on toteutettu neljï¿½ kï¿½yttï¿½jï¿½ryhmï¿½ï¿½: yllï¿½pitï¿½jï¿½t, viranomaiset, aineistojen omistajat ja maallikot.
 
-Kirjautumalla järjestelmään maallikot voivat luoda järjestelmään uusia aineistopyyntöjä. He voivat myös ladata hyväksyttyjen aineistopyyntöjen aineistoja, sekä seurata aineistopyyntöjensä käsittelyä. Viranomaisilta vaaditaan kirjautuminen, jonka jälkeen he voivat käydä läpi aineistopyyntöjä, hallita niiden tilaa, ja lähettää aineistonpyytäjille kysymyksiä.
+Kirjautumalla jï¿½rjestelmï¿½ï¿½n maallikot voivat luoda jï¿½rjestelmï¿½ï¿½n uusia aineistopyyntï¿½jï¿½. He voivat myï¿½s ladata hyvï¿½ksyttyjen aineistopyyntï¿½jen aineistoja, sekï¿½ seurata aineistopyyntï¿½jensï¿½ kï¿½sittelyï¿½. Viranomaisilta vaaditaan kirjautuminen, jonka jï¿½lkeen he voivat kï¿½ydï¿½ lï¿½pi aineistopyyntï¿½jï¿½, hallita niiden tilaa, ja lï¿½hettï¿½ï¿½ aineistonpyytï¿½jille kysymyksiï¿½.
 
-Tyypillinen workflow menee siten, että maallikko luo aineistopyynnön valitsemillaan rajauksilla, käyttötarkoituksella sekä yhteystiedoillaan järjestelmään (hyväksyen tietosuojaehdot). Viranomaisille, sekä mahdollisesti aineiston haltijoille, lähetetään riittävän lyhyin väliajoin ilmoitus (sähköpostitse) aineistopyynnöistä, jotka vaativat heiltä toimenpiteitä. Mikäli kaikki aineistopyyntöä hallitsevat osapuolet (viranomaiset ja aineiston haltijat) ovat tehneet päätöksen (hyväksy/hylkää) koskien aineistopyyntöä, lähetetään aineistopyynnön tekijälle tästä ilmoitus (sähköpostitse). Hyväksytyssä tapauksessa ilmoitus sisältää linkin, jonka kautta maallikko voi (kirjautumisen jälkeen) ladata aineistopyyntöä vastaavan aineiston itselleen.
+Tyypillinen workflow menee siten, ettï¿½ maallikko luo aineistopyynnï¿½n valitsemillaan rajauksilla, kï¿½yttï¿½tarkoituksella sekï¿½ yhteystiedoillaan jï¿½rjestelmï¿½ï¿½n (hyvï¿½ksyen tietosuojaehdot). Viranomaisille, sekï¿½ mahdollisesti aineiston haltijoille, lï¿½hetetï¿½ï¿½n riittï¿½vï¿½n lyhyin vï¿½liajoin ilmoitus (sï¿½hkï¿½postitse) aineistopyynnï¿½istï¿½, jotka vaativat heiltï¿½ toimenpiteitï¿½. Mikï¿½li kaikki aineistopyyntï¿½ï¿½ hallitsevat osapuolet (viranomaiset ja aineiston haltijat) ovat tehneet pï¿½ï¿½tï¿½ksen (hyvï¿½ksy/hylkï¿½ï¿½) koskien aineistopyyntï¿½ï¿½, lï¿½hetetï¿½ï¿½n aineistopyynnï¿½n tekijï¿½lle tï¿½stï¿½ ilmoitus (sï¿½hkï¿½postitse). Hyvï¿½ksytyssï¿½ tapauksessa ilmoitus sisï¿½ltï¿½ï¿½ linkin, jonka kautta maallikko voi (kirjautumisen jï¿½lkeen) ladata aineistopyyntï¿½ï¿½ vastaavan aineiston itselleen.
 
-Järjestelmä tarjoaa vaihtoehtoisen toiminnon (ympäristömuuttuja), jolloin uudet pyynnöt voidaan käsitellä pelkästään aineistonhoitajien toimesta. Tällöin aineistonhoitajat vastaavat myös aineistopyyntöjen omien aineistojen sensitiivisen sisällön hallinnoinnista.
+Jï¿½rjestelmï¿½ tarjoaa vaihtoehtoisen toiminnon (ympï¿½ristï¿½muuttuja), jolloin uudet pyynnï¿½t voidaan kï¿½sitellï¿½ pelkï¿½stï¿½ï¿½n aineistonhoitajien toimesta. Tï¿½llï¿½in aineistonhoitajat vastaavat myï¿½s aineistopyyntï¿½jen omien aineistojen sensitiivisen sisï¿½llï¿½n hallinnoinnista.
 
-## Järjestelmän osat
+## Jï¿½rjestelmï¿½n osat
 
-### Pyynnön valintanäkymä (/index)
+### Pyynnï¿½n valintanï¿½kymï¿½ (/index)
 
-Pyynnön valintanäkymässä luetellaan kaikki maallikon tekemät aineistopyynnöt, sekä kerrotaan niiden yleistiedot ja tila.
-Aineistojen omistajille luetellaan kaikki aineistopyynnöt, jotka sisältävät aineistonomistajan aineistoja.
-Viranomaisille luetellaan kaikki aineistopyynnöt, jotka sisältävät sensitiivisiä havaintoja.
+Pyynnï¿½n valintanï¿½kymï¿½ssï¿½ luetellaan kaikki maallikon tekemï¿½t aineistopyynnï¿½t, sekï¿½ kerrotaan niiden yleistiedot ja tila.
+Aineistojen omistajille luetellaan kaikki aineistopyynnï¿½t, jotka sisï¿½ltï¿½vï¿½t aineistonomistajan aineistoja.
 
-### Pyynnön tilanäkymä (/requestview/id)
+### Pyynnï¿½n tilanï¿½kymï¿½ (/requestview/id)
 
-Pyynnön tilanäkymässä näytetään maallikolle kaikki pyyntöön, ja sen tilaan liittyvät tiedot.
-Aineistojen omistaja voi yllämainitun lisäksi tehdä päätöksen oman aineistonsa hyväksymisestä aineiston pyytäjälle.
-Viranomainen voi tehdä päätöksen koskien sensitiivisten havaintojen antoa.
+Pyynnï¿½n tilanï¿½kymï¿½ssï¿½ nï¿½ytetï¿½ï¿½n maallikolle kaikki pyyntï¿½ï¿½n, ja sen tilaan liittyvï¿½t tiedot.
+Aineistojen omistaja voi yllï¿½mainitun lisï¿½ksi tehdï¿½ pï¿½ï¿½tï¿½ksen oman aineistonsa hyvï¿½ksymisestï¿½ aineiston pyytï¿½jï¿½lle.
 
-### Pyyntölomakkeen täyttönäkymä (/requestform/id)
+### Pyyntï¿½lomakkeen tï¿½yttï¿½nï¿½kymï¿½ (/requestform/id)
 
-Täyttönäkymässä maallikko täyttää aineistopyynnön valitsemillaan rajauksilla, käyttötarkoituksella sekä yhteystiedoillaan järjestelmään (hyväksyen tietosuojaehdot).
+Tï¿½yttï¿½nï¿½kymï¿½ssï¿½ maallikko tï¿½yttï¿½ï¿½ aineistopyynnï¿½n valitsemillaan rajauksilla, kï¿½yttï¿½tarkoituksella sekï¿½ yhteystiedoillaan jï¿½rjestelmï¿½ï¿½n (hyvï¿½ksyen tietosuojaehdot).
 
 ### Uloskirjautuminen (/logout)
 
-Tekee sen mitä alaotsikossa mainitaan.
+Tekee sen mitï¿½ alaotsikossa mainitaan.
 
 ### Rajapinta (/api/)
 
@@ -50,12 +48,12 @@ Tarjoaa administraattoreille asetuksia ohjelmiston automaattisen toiminnallisuud
 
 ### Tietokanta
 
-Tietokannan tiedot löytyvät täältä: [Tietokanta](Tietokanta.md)
+Tietokannan tiedot lï¿½ytyvï¿½t tï¿½ï¿½ltï¿½: [Tietokanta](Tietokanta.md)
 
-### Käännökset
+### Kï¿½ï¿½nnï¿½kset
 
-Kääntämisen tiedot löytyvät täältä: [Kääntäminen](Kääntäminen.md)
+Kï¿½ï¿½ntï¿½misen tiedot lï¿½ytyvï¿½t tï¿½ï¿½ltï¿½: [Kï¿½ï¿½ntï¿½minen](Kï¿½ï¿½ntï¿½minen.md)
 
 ### Tunnukset
 
-Piilotettavat tunnisteet määritetään ympäristömuuttujiin.
+Piilotettavat tunnisteet mï¿½ï¿½ritetï¿½ï¿½n ympï¿½ristï¿½muuttujiin.

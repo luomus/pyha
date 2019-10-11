@@ -39,11 +39,10 @@ SECRET_TIMEOUT_PERIOD = 4
 TARGET= os.environ["LAJI_AUTH_TARGET"] #'KE.541'
 SECRET_STATUS_SUB_DIR = os.environ["ZABBIX_STATUS_SUB_DIR"] #path/to
 SECRET_ADMIN_SUB_DIR = os.environ["ADMIN_SUB_DIR"] #path/to
-SECRET_HTTPS_USER = os.environ["PYHA_API_USER"] 
-SECRET_HTTPS_PW = os.environ["PYHA_API_PASSWORD"] 
+SECRET_HTTPS_USER = os.environ["PYHA_API_USER"]
+SECRET_HTTPS_PW = os.environ["PYHA_API_PASSWORD"]
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomainen.laji.fi/observation/map?'
-SKIP_OFFICIAL = os.environ["SKIP_OFFICIAL"] == "True"
 ICT_EMAIL = "helpdesk@laji.fi"
 PYHA_EMAIL = "noreply.pyha-staging@laji.fi"
 DOWNLOAD_PERIOD_DAYS = 60
@@ -238,4 +237,3 @@ STA_URL = os.environ.get("STATIC_PATH_URL", "") + STATIC_URL
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")
-

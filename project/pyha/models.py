@@ -6,7 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 #Use "python manage.py makemigrations pyha" to update the changes to model classes used by the app.
-#After that, also do "bash updateserver.sh" or "python manage.py migrate" in development, deployment and staging 
+#After that, also do "bash updateserver.sh" or "python manage.py migrate" in development, deployment and staging
 #to update these changes to the corresponding databases.
 
 #WARNING
@@ -19,7 +19,7 @@ class TruncatingCharField(models.CharField):
 		if value:
 			return value[:self.max_length]
 		return value
-	
+
 class TruncatingReasonJsonCharField(models.CharField):
 	def get_prep_value(self, value):
 		max_lengths = [("argument_project", 500),
@@ -30,7 +30,7 @@ class TruncatingReasonJsonCharField(models.CharField):
 		("argument_municipality", 2000),
 		("argument_natura_areas", 2000),
 		("argument_reason", 4000)]
-		
+
 		value = super(TruncatingReasonJsonCharField,self).get_prep_value(value)
 		if value:
 			reasonlist = json.loads(value, object_hook=lambda d: Namespace(**d))
@@ -51,14 +51,14 @@ class TruncatingReasonJsonCharField(models.CharField):
 class Collection(models.Model):
 	address = models.CharField(max_length=500)
 	count = models.IntegerField()
-	
+
 	#for collection.status
 	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa aineiston toimittajan käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
 	#status 6: Odottaa vastausta lisäkysymyksiin
-	
+
 	status = models.IntegerField()
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	taxonSecured = models.IntegerField(default=0)
@@ -71,9 +71,9 @@ class Collection(models.Model):
 
 	def __str__(self):
 		return 'Collection: %s (in Request: %d)' %(self.address, self.request.id)
-	
+
 @python_2_unicode_compatible
-class HandlerInRequest(models.Model): #Used currently for the admin email gatekeeper, on who has been emailed per request 
+class HandlerInRequest(models.Model): #Used currently for the admin email gatekeeper, on who has been emailed per request
 	user = models.CharField(max_length=500)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
 	emailed = models.BooleanField(default=False)
@@ -82,7 +82,7 @@ class HandlerInRequest(models.Model): #Used currently for the admin email gateke
 
 	def __str__(self):
 		return 'Handler: %s (in Request: %d) is emailed %s' %(self.user, self.request.id, self.emailed)
-	
+
 
 @python_2_unicode_compatible
 class Request(models.Model):
@@ -90,7 +90,7 @@ class Request(models.Model):
 	id = models.AutoField(primary_key=True)
 	lajiId = models.CharField(max_length=200) #id given by laji.api
 	description = TruncatingCharField(max_length=400,blank=True,null=True)  #description given by the requester for his request
-	
+
 	#for status
 	#status 0: Odottaa pyytäjän hyväksymistä
 	#status 1: Odottaa aineiston toimittajan käsittelyä
@@ -101,19 +101,9 @@ class Request(models.Model):
 	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
 	#status 8: Ladattavissa
-	
+
 	status = models.IntegerField()
-	
-	#for sensStatus
-	#status 0: Odottaa pyytäjän hyväksymistä
-	#status 1: Odottaa viranomaisen käsittelyä
-	#status 3: Hylätty
-	#status 4: Hyväksytty
-	#status 99: Ohitettu (skippofficial)
-	
-	sensStatus = models.IntegerField()
-	sensDecisionExplanation = TruncatingCharField(max_length=1000,blank=True,null=True)
-	sensComment = TruncatingCharField(max_length=1000,blank=True,null=True)
+
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
 	user = models.CharField(max_length=100)
@@ -132,7 +122,7 @@ class Request(models.Model):
 	personOrganizationName = TruncatingCharField(max_length=100,blank=True,null=True)
 	personCorporationId = TruncatingCharField(max_length=100,blank=True,null=True)
 	reason = TruncatingReasonJsonCharField(max_length=16000,blank=True,null=True)
-	lang = models.CharField(max_length=10, default='fi') 
+	lang = models.CharField(max_length=10, default='fi')
 	frozen = models.BooleanField(default=False)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
@@ -155,7 +145,7 @@ class RequestContact(models.Model):
 	personCorporationId = TruncatingCharField(max_length=100,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'RequestContact: %s (in Request: %d)' %(self.personName, self.request.id)
 
@@ -177,7 +167,7 @@ class RequestLogEntry(models.Model):
 		(DECISION_NEGATIVE, 'declines use of data'),
 		(DECISION_NEGATIVE_OVERDUE, 'declines use of data, because decision has been overdue'),
 	)
-	
+
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, blank=True, null=True)
 	date = models.DateTimeField(auto_now_add=True)
@@ -187,24 +177,11 @@ class RequestLogEntry(models.Model):
 	requestLog = models.Manager()
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'RequestLogEntry: %s (role: %s) [%s]: %s (Request: %d, collection: %s)' %(self.user, self.role, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.get_action_display(), self.request.id, self.collection )
 
-@python_2_unicode_compatible		
-class RequestSensitiveChatEntry(models.Model):
-	request = models.ForeignKey(Request, on_delete=models.CASCADE)
-	date = models.DateTimeField(auto_now_add=True)
-	user = models.CharField(max_length=100)
-	message = TruncatingCharField(max_length=2000)
-	requestChat = models.Manager()
-	changedBy = models.CharField(max_length=100)
-	history = HistoricalRecords()
-	
-	def __str__(self):
-		return 'RequestSensitiveChatEntry: %s (in Request: %d) [%s]: %s' %(self.user, self.request.id, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
-	
-@python_2_unicode_compatible		
+@python_2_unicode_compatible
 class RequestHandlerChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
@@ -214,7 +191,7 @@ class RequestHandlerChatEntry(models.Model):
 	requestHandlerChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'RequestHandlerChatEntry: %s (in Request: %d, as target: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 
@@ -225,11 +202,11 @@ class RequestInformationChatEntry(models.Model):
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = TruncatingCharField(max_length=2000)
-	target = models.CharField(max_length=200) #'sens' or apilaji defined collection id
+	target = models.CharField(max_length=200) #apilaji defined collection id
 	requestInformationChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.question, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 
@@ -247,10 +224,10 @@ class ContactPreset(models.Model):
 	requestPersonCorporationId = TruncatingCharField(max_length=100,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'ContactPreset: %s' %(self.user)
-	
+
 
 @python_2_unicode_compatible
 class AdminUserSettings(models.Model):
@@ -262,17 +239,17 @@ class AdminUserSettings(models.Model):
 		(MISSING, 'requests missing handlers'),
 		(NONE, 'none requests'),
 	)
-	
+
 	user = models.CharField(primary_key=True, max_length=100)
 	emailNewRequests = models.CharField(max_length=10, choices=EMAIL_NEW_REQUESTS_SETTING, default=NONE)
 	enableCustomEmailAddress = models.BooleanField(default=False)
 	customEmailAddress = TruncatingCharField(max_length=100,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'AdminSettings: %s ' %(self.user)
-	
+
 @python_2_unicode_compatible
 class AdminPyhaSettings(models.Model):
 	settingsName = TruncatingCharField(max_length=100,blank=False,null=False)
@@ -281,7 +258,7 @@ class AdminPyhaSettings(models.Model):
 	enableDeclineOverdueCollections = models.BooleanField(default=False)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
-	
+
 	def __str__(self):
 		return 'AdminSettings: %s ' %(self.settingsName)
 
@@ -300,13 +277,6 @@ StatusEnum = enum(
 				WAITING_FOR_INFORMATION=6,
 				WAITING_FOR_DOWNLOAD=7,
 				DOWNLOADABLE=8)
-
-Sens_StatusEnum = enum(
-				APPROVETERMS_WAIT=0,
-				WAITING=1,
-				REJECTED=3,
-				APPROVED=4,
-				IGNORE_OFFICIAL=99)
 
 Col_StatusEnum = enum(
 				APPROVETERMS_WAIT=0,

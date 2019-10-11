@@ -32,14 +32,13 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		DB_PASSWORD 0 \
 		TEST_DB_USER "Can be left empty" \
 		TEST_DB_PASSWORD "Can be left empty" \
-		SKIP_OFFICIAL "Boolean to skip requirement for decision-making by officials. Insert: True/False" \
 		STATIC_PATH_URL "Path to static files in URL ex. /pyha" \
 		DOMAIN_PATH_PREFIX "Path to this service incase not in domain root. Staging ex. /pyha" \
 		ADMIN_NAME 0 \
 		ADMIN_EMAIL "Email to send errormail" \
 		SERVER_EMAIL "Name for the errormail server address ex. pyha-staging@laji.fi" \
 		)
-		
+
 # get length of an array
 arraylength=${#KEYS[@]}
 
@@ -48,8 +47,8 @@ echo "Environmental variables will be stored in the services/pyha.service file"
 # use for loop to read all values and indexes
 for (( i=1; i<${arraylength}+1; i+=2 ));
 do
-  if [[ 0 != ${KEYS[$i]} ]] 
-  then 
+  if [[ 0 != ${KEYS[$i]} ]]
+  then
 	echo
 	echo ${KEYS[$i]}
   fi

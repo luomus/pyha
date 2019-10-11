@@ -6,7 +6,7 @@ from django.core.cache import cache, caches
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
-from pyha.models import Request, Collection, StatusEnum, Sens_StatusEnum, Col_StatusEnum, HandlerInRequest
+from pyha.models import Request, Collection, StatusEnum, Col_StatusEnum, HandlerInRequest
 from pyha.log_utils import changed_by
 from pyha.utilities import Container
 import json
@@ -21,12 +21,11 @@ def store(jsond):
         return
     status = getattr(data,'status', 0)
     time = datetime.now()
-    
+
     req = Request()
     req.description=''
     req.lajiId = os.path.basename(str(data.id))
     req.status = status
-    req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL if settings.SKIP_OFFICIAL else 0
     req.date = time
     req.source = data.source
     req.user = data.personId
@@ -40,11 +39,11 @@ def store(jsond):
         req.lang = u'fi'
     req.changedBy = changed_by("pyha")
     req.save()
-    
+
     if hasattr(data, 'collections'):
         for i in data.collections:
                 makeCollection(req, i)
-        
+
     return req
 
 def makeCollection(req, i):
@@ -61,11 +60,11 @@ def makeCollection(req, i):
     co.save()
 
 def checkJson(jsond):
-    wantedFields = ['"id":','"source":','"personId":','"approximateMatches":','"filters":'] 
+    wantedFields = ['"id":','"source":','"personId":','"approximateMatches":','"filters":']
     if all(x in jsond for x in wantedFields):
         return True
     return False
-        
+
 def makeblob(x):
     data = {}
     for i in x:
@@ -73,10 +72,10 @@ def makeblob(x):
             data[j] = getattr(i, j)
     blob = json.dumps(data)
     return blob
-    
+
 def get_values_for_collections(requestId, http_request, list):
     for i, c in enumerate(list):
-        if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):     
+        if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
             try:
                 c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
             except:
@@ -99,7 +98,7 @@ def get_values_for_collections(requestId, http_request, list):
             c.result["collectionTerms"] = c.result.get("dataUseTerms","-")
 
 def get_result_for_target(http_request, l):
-    if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):        
+    if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
         try:
             l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
         except:
@@ -111,16 +110,16 @@ def get_result_for_target(http_request, l):
     else:
         l.result = cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE)
         l.result["collectionName"] = l.result.get("collectionName",l.target)
-        
-    
+
+
 def fetch_user_name(personId):
     '''
     fetches user name for a person registered in Laji.fi
-    :param personId: person identifier 
+    :param personId: person identifier
     :returns: person's full name
     '''
     username = settings.LAJIPERSONAPI_USER
-    password = settings.LAJIPERSONAPI_PW 
+    password = settings.LAJIPERSONAPI_PW
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('name'+cacheKeyPersonId, 'has expired'):
         try:
@@ -141,7 +140,7 @@ def fetch_user_name(personId):
 
 def fetch_role(personId):
     username = settings.LAJIPERSONAPI_USER
-    password = settings.LAJIPERSONAPI_PW 
+    password = settings.LAJIPERSONAPI_PW
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('role'+cacheKeyPersonId, 'has expired'):
         response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
@@ -155,22 +154,22 @@ def fetch_role(personId):
 
 def fetch_pdf(data,style):
     username = settings.PDFAPI_USER
-    password = settings.PDFAPI_PW 
+    password = settings.PDFAPI_PW
     if(style):
         data = "<div style='"+ style +"'>" + data +  "</div>"
     payload = {'html': data}
     response = requests.post(settings.PDFAPI_URL, data = payload, auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
     if(response.status_code == 200):
         return response
-    
+
 def fetch_email_address(personId):
     '''
     fetches email-address for a person registered in Laji.fi
-    :param personId: person identifier 
+    :param personId: person identifier
     :returns: person's email-address
     '''
     username = settings.LAJIPERSONAPI_USER
-    password = settings.LAJIPERSONAPI_PW 
+    password = settings.LAJIPERSONAPI_PW
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('email'+cacheKeyPersonId, 'has expired'):
         try:
@@ -201,16 +200,13 @@ def create_coordinates(userRequest):
             coordinates.append("{:.6f}".format((float(coordinates[3])-float(coordinates[2]))/2 + float(coordinates[2])))
             return coordinates
     return None
-    
+
 def send_download_request(requestId):
     payload = {}
     userRequest = Request.objects.get(id=requestId)
     payload["id"] = userRequest.lajiId
     payload["personId"] = userRequest.user
     collectionlist = Collection.objects.filter(request=userRequest).exclude(status=Col_StatusEnum.APPROVED)
-    if not userRequest.sensStatus in {Sens_StatusEnum.APPROVED, Sens_StatusEnum.IGNORE_OFFICIAL}:
-        additionlist = Collection.objects.filter(request=userRequest, taxonSecured__gt=0)
-        collectionlist = list(chain(collectionlist, additionlist))
     cname = []
     for c in collectionlist:
         cname.append(c.address)
@@ -223,8 +219,8 @@ def send_download_request(requestId):
     for f in filters.__dict__:
         payload[f] = getattr(filters, f)
     response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
-    
-def update_collections():    
+
+def update_collections():
     payload = {}
     payload['access_token'] = settings.LAJIAPI_TOKEN
     payload['pageSize'] = 1000
@@ -246,7 +242,7 @@ def update_collections():
             if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):
                 result.append(co)
         if payload['page'] < data['lastPage']:
-            payload['page'] += 1    
+            payload['page'] += 1
         else:
             notFinished = False
     caches['collections'].set('collections',result)
@@ -279,7 +275,7 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
     handlerswithcollections = []
     for ha in handlers:
         handlerswithcollections.append({"handlers": [{"name":ha,"id":ha,"email":'undefined'}], "collections":[co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
-        
+
     emailed_handlers = HandlerInRequest.objects.filter(request=requestId)
     for hanco in handlerswithcollections:
         hanco["handlers"][0]["mailed"] = False
@@ -287,7 +283,7 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
             if hanco["handlers"][0]["id"] == handler.user:
                 if handler.emailed: hanco["handlers"][0]["mailed"] = True
                 break
-    
+
     noneindex = -1
     for index, hanco in enumerate(handlerswithcollections):
         if(hanco["handlers"][0]["id"] != 'None'):
@@ -297,8 +293,8 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
             noneindex = index
     if noneindex > -1:
         handlerswithcollections.insert(0, handlerswithcollections.pop(noneindex))
-    
-    #Groups handlers with identical collections    
+
+    #Groups handlers with identical collections
     while(True):
         grouped = False
         for i in range(0, len(handlerswithcollections)):
@@ -316,7 +312,7 @@ def is_collections_missing_download_handler(collectionsList):
     collections = caches['collections'].get('collections')
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
     missing = False;
-    for co in collections:       
+    for co in collections:
         if 'None' == co.get('downloadRequestHandler', ['None'])[0]:
             missing = True
             break
@@ -336,14 +332,14 @@ def is_download_handler_in_collection(userId, collectionId):
                 return False
     return False
 
-    
+
 def show_filters(http_request, userRequest):
     '''
-    Gathers all the names for the filters if available from Laji.api and reforms them into an usable list object. 
+    Gathers all the names for the filters if available from Laji.api and reforms them into an usable list object.
     Also contains them in a cache to lessen the laji.api strain.
-    :param request: request identifier 
+    :param request: request identifier
     :param userRequest: language code
-    '''    
+    '''
     filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
     filterResultList = list(range(len(vars(filterList).keys())))
     lang = http_request.LANGUAGE_CODE

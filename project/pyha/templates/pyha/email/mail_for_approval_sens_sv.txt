@@ -1,3 +1,0 @@
-﻿På svenska: Lajitietokeskuksesta {{ time }} lähetetty aineistopyyntö koskien sensitiivistä aineistoa odottaa päätöstänne käytön hyväksymisestä.
-
-Osoite aineistopyyntöön: {{ req_link }}?lang=sv

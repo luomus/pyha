@@ -1,8 +1,8 @@
 #coding=utf-8
 from django.test import TestCase, Client
 from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
-from pyha.warehouse import store 
-from pyha.database import update_request_status 
+from pyha.warehouse import store
+from pyha.database import update_request_status
 from pyha.roles import USER
 from pyha.test.mocks import *
 import unittest
@@ -13,7 +13,7 @@ def dummy(*args,**kwargs):
 
 class RequestTesting(TestCase):
 	def setUp(self):
-		self.client = Client() 
+		self.client = Client()
 		session = self.client.session
 		session['user_name'] = 'paisti'
 		session['user_id'] = 'MA.309'
@@ -22,12 +22,11 @@ class RequestTesting(TestCase):
 		session['token'] = 'asd213'
 		session.save()
 		store(JSON_MOCK)
-		
+
 	@mock.patch('pyha.warehouse.requests.post', dummy)
 	def test_requests_waiting(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
@@ -47,7 +46,6 @@ class RequestTesting(TestCase):
 	def test_requests_skip_offi_approved(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.changedBy = "test"
 		req.save()
 		for c in Collection.objects.filter(request=req.id):
@@ -56,12 +54,11 @@ class RequestTesting(TestCase):
 			c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
-		
+
 	@mock.patch('pyha.warehouse.requests.post', dummy)
 	def test_requests_skip_offi_approved_with_discard(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
@@ -75,12 +72,11 @@ class RequestTesting(TestCase):
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
-		
+
 	@mock.patch('pyha.warehouse.requests.post', dummy)
 	def test_requests_skip_offi_partially_approved(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
@@ -94,12 +90,11 @@ class RequestTesting(TestCase):
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
-		
+
 	@mock.patch('pyha.warehouse.requests.post', dummy)
 	def test_requests_skip_offi_rejected(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
@@ -113,12 +108,11 @@ class RequestTesting(TestCase):
 		c.save()
 		update_request_status(req, "fi")
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
-		
+
 	@mock.patch('pyha.warehouse.requests.post', dummy)
 	def test_requests_skip_offi_rejected_with_discard(self):
 		req = store(JSON_MOCK6)
 		req.status = StatusEnum.WAITING
-		req.sensStatus = Sens_StatusEnum.IGNORE_OFFICIAL
 		req.changedBy = "test"
 		req.save()
 		requestCollections = Collection.objects.filter(request=req.id)
@@ -134,7 +128,7 @@ class RequestTesting(TestCase):
 		self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
 
 
-		
+
 
 #Haluttiin että poistaa collectionin
 	'''def test_removing_sens_secure_reasons_doesnt_remove_collection(self):
@@ -144,7 +138,7 @@ class RequestTesting(TestCase):
 		col = Collection.objects.all().get(address="HR.39", request=2)
 		self.client.post('/pyha/removeSens', {'collectionId': col.id, 'requestid':req.id })
 		response = self.client.get('/request/2')
-		
+
 		self.assertContains(response, 'Talvilintulaskenta')'''
 
 
