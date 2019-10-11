@@ -2,14 +2,14 @@
 
 ## Yleisesti
 
-Kï¿½yttï¿½ï¿½ Oracle-tietokantaa.
-Mikï¿½li djangon luomat kentï¿½t haluaa SQL kielellï¿½.
+Käyttää Oracle-tietokantaa.
+Mikäli djangon luomat kentät haluaa SQL kielellä. 
 
 kansiossa /pyha
 
 source env/bin/activate
 
-Kï¿½ynnistï¿½ kansiossa /pyha/project
+Käynnistä kansiossa /pyha/project
 
 python manage.py sqlmigrate pyha 0001
 ...
@@ -17,51 +17,61 @@ python manage.py sqlmigrate pyha XXXX
 
 deactivate
 
-missï¿½ XXXX on /pyha/project/pyha/migrations/kansion suurin numero.
+missä XXXX on /pyha/project/pyha/migrations/kansion suurin numero.
 
 
 
 ## Taulut
 
-Collection: #Sisï¿½ltï¿½ï¿½ tietystï¿½ kokoelmasta aineistopyynnï¿½ssï¿½ haluttujen tietojen yleistï¿½ dataa, sekï¿½ siihen liittyvï¿½n pï¿½ï¿½tï¿½ksen ja pï¿½ï¿½tï¿½stekstin
+Collection: #Sisältää tietystä kokoelmasta aineistopyynnössä haluttujen tietojen yleistä dataa, sekä siihen liittyvän päätöksen ja päätöstekstin
 
-	address = models.CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssï¿½
-	count = models.IntegerField()  #Karkeistettujen havaintojen mï¿½ï¿½rï¿½
-
+	address = models.CharField(max_length=500) #Kokoelman tunniste api.laji.fi:ssä
+	count = models.IntegerField()  #Karkeistettujen havaintojen määrä
+	
 	#for collection.status
-	#status 0: Odottaa pyytï¿½jï¿½n hyvï¿½ksymistï¿½
-	#status 1: Odottaa aineiston toimittajan kï¿½sittelyï¿½
-	#status 3: Hylï¿½tty
-	#status 4: Hyvï¿½ksytty
-	#status 6: Odottaa vastausta lisï¿½kysymyksiin
+	#status 0: Odottaa pyytäjän hyväksymistä
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 6: Odottaa vastausta lisäkysymyksiin
 
-	status = models.IntegerField() #Pï¿½ï¿½tï¿½ksen tila, mitï¿½ kuvataan numeroarvona
+	status = models.IntegerField() #Päätöksen tila, mitä kuvataan numeroarvona
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
-	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen mï¿½ï¿½rï¿½
-	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen mï¿½ï¿½rï¿½
-	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssï¿½ hetkellï¿½, kun pyyntï¿½ annetaan kï¿½siteltï¿½vï¿½ksi.
-	decisionExplanation = models.CharField(max_length=1000,null=True) #Pï¿½ï¿½tï¿½ksen perustelut tekstinï¿½
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	taxonSecured = models.IntegerField(default=0) #Sensitiivisten havaintojen määrä
+	customSecured = models.IntegerField(default=0)  #Ainestokohtaisesti rajoitettujen havaintojen määrä
+	downloadRequestHandler = models.CharField(max_length=500,null=True) #Aineistonomistajien tunnisteet api.laji.fi:ssä hetkellä, kun pyyntö annetaan käsiteltäväksi.
+	decisionExplanation = models.CharField(max_length=1000,null=True) #Päätöksen perustelut tekstinä
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-Request: #Sisï¿½ltï¿½ï¿½ aineistopyynnï¿½n tietoja
-
-	id = models.AutoField(primary_key=True) #id alkaa ykkï¿½sestï¿½ ja nousee
+Request: #Sisältää aineistopyynnön tietoja, sen sensitiivisiin aineistoihin liittyvän päätöksen ja päätöstekstin
+	
+	id = models.AutoField(primary_key=True) #id alkaa ykkösestä ja nousee
 	lajiId = models.CharField(max_length=200) #id given by laji.api
 	description = models.CharField(max_length=400)  #description given by the requester for his request
-
+	
 	#for status
-	#status 0: Odottaa pyytï¿½jï¿½n hyvï¿½ksymistï¿½
-	#status 1: Odottaa aineiston toimittajan kï¿½sittelyï¿½
-	#status 2: Osittain hyvï¿½ksytty
-	#status 3: Hylï¿½tty
-	#status 4: Hyvï¿½ksytty
+	#status 0: Odottaa pyytäjän hyväksymistä
+	#status 1: Odottaa aineiston toimittajan käsittelyä
+	#status 2: Osittain hyväksytty
+	#status 3: Hylätty
+	#status 4: Hyväksytty
 	#status 5: Tuntematon
-	#status 6: Odottaa vastausta lisï¿½kysymyksiin
+	#status 6: Odottaa vastausta lisäkysymyksiin
 	#status 7: Odottaa latauksen valmistumista
 	#status 8: Ladattavissa
-
+	
 	status = models.IntegerField()
-
+	
+	#for sensStatus
+	#status 0: Odottaa pyytäjän hyväksymistä
+	#status 1: Odottaa viranomaisen käsittelyä
+	#status 3: Hylätty
+	#status 4: Hyväksytty
+	#status 99: Ohitettu (skippofficial)
+	
+	sensStatus = models.IntegerField()
+	sensDecisionExplanation = models.CharField(max_length=1000,null=True)
+	sensComment = models.CharField(max_length=1000,null=True)
 	date = models.DateTimeField()
 	source = models.CharField(max_length=60)
 	user = models.CharField(max_length=100)
@@ -81,9 +91,9 @@ Request: #Sisï¿½ltï¿½ï¿½ aineistopyynnï¿½n tietoja
 	personCorporationId = models.CharField(max_length=100,null=True)
 	reason = models.CharField(max_length=16000,null=True)
 	lang = models.CharField(max_length=10, default='fi')
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-RequestContact: #Sisï¿½ltï¿½ï¿½ lisï¿½ï¿½ yhteystietoja, mikï¿½li Request taulun yhdet yhteystiedot eivï¿½t riittï¿½neet.
+RequestContact: #Sisältää lisää yhteystietoja, mikäli Request taulun yhdet yhteystiedot eivät riittäneet.
 
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -96,9 +106,9 @@ RequestContact: #Sisï¿½ltï¿½ï¿½ lisï¿½ï¿½ yhteystietoja, mikï¿½li Request taulun
 	personPhoneNumber = models.CharField(max_length=100,null=True)
 	personOrganizationName = models.CharField(max_length=100,null=True)
 	personCorporationId = models.CharField(max_length=100,null=True)
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-RequestLogEntry: #Sisï¿½ltï¿½ï¿½ pyyntï¿½ihin liittyvien tapahtumien lokin
+RequestLogEntry: #Sisältää pyyntöihin liittyvien tapahtumien lokin
 
 	VIEW = 'VIEW'
 	ACCEPT = 'ACC'
@@ -116,28 +126,36 @@ RequestLogEntry: #Sisï¿½ltï¿½ï¿½ pyyntï¿½ihin liittyvien tapahtumien lokin
 	user = models.CharField(max_length=100)
 	role = models.CharField(max_length=100)
 	action = models.CharField(max_length=5, choices=ACTION)
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-RequestHandlerChatEntry: #Sisï¿½ltï¿½ï¿½ aineistonkï¿½sittelijï¿½iden keskustelut
+RequestSensitiveChatEntry: #Sisältää viranomaisten keskustelut
+
+	request = models.ForeignKey(Request, on_delete=models.CASCADE)
+	date = models.DateTimeField(auto_now_add=True)
+	user = models.CharField(max_length=100)
+	message = models.CharField(max_length=2000)
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
+
+RequestHandlerChatEntry: #Sisältää aineistonkäsittelijöiden keskustelut
 
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	message = models.CharField(max_length=2000)
 	target = models.CharField(max_length=200)
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-RequestInformationChatEntry: #Sisï¿½ltï¿½ï¿½ lisï¿½tietopyyntï¿½jen keskustelut
+RequestInformationChatEntry: #Sisältää lisätietopyyntöjen keskustelut
 
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = models.CharField(max_length=2000)
-	target = models.CharField(max_length=200) #Lisï¿½tietopyyntï¿½keskustelun kohde esim. aineiston tunniste
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	target = models.CharField(max_length=200) #Lisätietopyyntökeskustelun kohde esim. aineiston tunniste tai 'sens' sensitiivisille
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
 
-ContactPreset: #Sisï¿½ltï¿½ï¿½ muistissa kï¿½yttï¿½jï¿½n aikaisemmin tï¿½yttï¿½mï¿½t yhteystiedot.
+ContactPreset: #Sisältää muistissa käyttäjän aikaisemmin täyttämät yhteystiedot.
 
 	user = models.CharField(primary_key=True, max_length=100)
 	requestPersonName = models.CharField(max_length=100,null=True)
@@ -149,4 +167,4 @@ ContactPreset: #Sisï¿½ltï¿½ï¿½ muistissa kï¿½yttï¿½jï¿½n aikaisemmin tï¿½yttï¿½m
 	requestPersonPhoneNumber = models.CharField(max_length=100,null=True)
 	requestPersonOrganizationName = models.CharField(max_length=100,null=True)
 	requestPersonCorporationId = models.CharField(max_length=100,null=True)
-	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen kï¿½ytetyn funktion nimi
+	changedBy = models.CharField(max_length=100) #Viimeisin instanssin muuttaja tunnisteena + muutokseen käytetyn funktion nimi
