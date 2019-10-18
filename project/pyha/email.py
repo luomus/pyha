@@ -139,7 +139,7 @@ def send_mail_for_approval(requestId, collection, lang):
 		plaintext = get_template('pyha/email/mail_for_approval_sv.txt')
 	from_email = settings.ICT_EMAIL
 	recipients = []
-	response = requests.get(settings.LAJIAPI_URL+"collections/"+str(collection)+"?access_token="+settings.LAJIAPI_TOKEN)
+	response = requests.get(settings.LAJIAPI_URL+"collections/"+collection.address+"?access_token="+settings.LAJIAPI_TOKEN)
 	if(response.status_code == 200):
 		data = response.json()
 		if 'downloadRequestHandler' in data:

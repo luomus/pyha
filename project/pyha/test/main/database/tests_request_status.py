@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.test import TestCase, Client
-from pyha.models import Collection, Request, StatusEnum, Sens_StatusEnum
+from pyha.models import Collection, Request, StatusEnum
 from pyha.warehouse import store
 from pyha.database import update_request_status
 from pyha.roles import USER
