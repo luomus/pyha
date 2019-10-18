@@ -217,7 +217,7 @@ JSON_MOCK5 = '''
 	]
 }'''
 #mock6:sta löytyy secure reasonien määriä
-JSON_MOCK6 = '''	
+JSON_MOCK6 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775sdB16BD",
 	"source": "KE.398",
@@ -273,8 +273,8 @@ JSON_MOCK7= '''
 	"filters": [
 		{
 			"informalTaxonGroupId": [
-				"MVL.140",
-				"MVL.185"
+				"MVL.27",
+				"MVL.187"
 			]
 		},
 		{

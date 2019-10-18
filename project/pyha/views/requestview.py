@@ -12,7 +12,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
 from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
-from pyha.warehouse import send_download_request, is_download_handler_in_collection, update_collections
+from pyha.warehouse import send_download_request, update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 

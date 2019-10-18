@@ -168,7 +168,6 @@ def allowed_to_view(http_request, requestId, userId, role2):
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
-        currentRequest = Request.objects.get(id=requestId, status__gt=0)
         if role2:
             if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                 return False
@@ -184,7 +183,6 @@ def allowed_to_handle(http_request, requestId, userId, role2):
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
-        currentRequest = Request.objects.get(id=requestId, status__gt=0)
         if role2:
             if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
                 return False
