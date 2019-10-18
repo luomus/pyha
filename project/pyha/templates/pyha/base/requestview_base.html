@@ -1,0 +1,16 @@
+{% extends "pyha/base/base.html" %}
+{% load i18n %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <div class="page-header">
+      {% block page_header %}
+      {% endblock %}
+    </div>
+    {% block page_content %}
+    {% endblock %}
+  </div>
+</div>
+
+{% endblock %}

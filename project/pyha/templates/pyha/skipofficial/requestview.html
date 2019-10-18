@@ -1,11 +1,7 @@
-{% extends "pyha/base/base.html" %}
-{% block content %}
+{% extends "pyha/base/requestview_base.html" %}
 {% load i18n %}
 
-	<div class="container-fluid">
-		<div class="col-xs-12">
-		  <div class="page-header">
-
+{% block page_header %}
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
 			</div>
@@ -57,7 +53,8 @@
 
 					</span>
 				</span></h2>
-			</div>
+{% endblock %}
+{% block page_content %}
 			<div style="padding-left:0px;">
 				<div>
 					<div class="col-xs-12">
@@ -628,7 +625,4 @@
 		});
 	</script>
 	{% endif %}
-{% endblock %}
-
-{% block modal %}
 {% endblock %}

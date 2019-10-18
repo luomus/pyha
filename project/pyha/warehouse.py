@@ -179,12 +179,15 @@ def fetch_email_address(personId):
             response.status_code = 500
         if(response.status_code == 200):
             data = response.json()
-            email = data['rdf:RDF']['MA.person']['MA.emailAddress']
-            cache.set('email'+cacheKeyPersonId,email)
-            return email
-        else:
-            email = personId
-            cache.set('email'+cacheKeyPersonId,email)
+            person_data = data['rdf:RDF']['MA.person']
+            if 'MA.emailAddress' in person_data:
+                email = person_data['MA.emailAddress']
+                cache.set('email'+cacheKeyPersonId,email)
+                return email
+
+        email = personId
+        cache.set('email'+cacheKeyPersonId,email)
+        return email
     else:
         return cache.get('email'+cacheKeyPersonId)
 
