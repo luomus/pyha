@@ -492,7 +492,7 @@ div.contact-form{
 	color: #000 !important;
 }
 
-.request-action-tab:not([aria-expanded="true"]) {
+.request-user-action-tab:not([aria-expanded="true"]) {
 	border: 1px solid #ddd;
 	background-color: #f9f5f5;
 	color: #555;
@@ -501,7 +501,7 @@ div.contact-form{
 	font-weight: bold;
 }
 
-.request-action-tab[aria-expanded="true"] {
+.request-user-action-tab[aria-expanded="true"] {
 	color: #000 !important;
 	border-bottom: 4px solid #3fb8f5 !important;
 	padding-bottom: 7px;

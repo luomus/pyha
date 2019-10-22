@@ -2,69 +2,6 @@
 {% load i18n %}
 
 {% block page_content %}
-
-				<ul class="nav nav-tabs" role="tablist">
-					<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
-						<a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans "changes_history" %}
-							</span>
-						</a>
-					</li>
-					<li id="contacts-tab" role="presentation" {% if next == "contacts" %} class="active" {% endif %} >
-						<a href="#contacts" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contact" role="tab"{% if next == "contacts" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'contact_window' %}
-							</span>
-						</a>
-					</li>
-					<li id="arguments-tab" role="presentation" {% if next == "arguments" %} class="active" {% endif %} >
-						<a href="#arguments" class="request-tab request-view-tab" data-toggle="tab" aria-controls="argument" role="tab"{% if next == "arguments" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'argument_window' %}
-							</span>
-						</a>
-					</li>
-					<li id="request-tab" role="presentation" {% if next == "request" %} class="active" {% endif %} >
-						<a href="#request" class="request-tab request-view-tab" data-toggle="tab" aria-controls="contact" role="tab"{% if next == "request" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'request_window' %}
-							</span>
-						</a>
-					</li>
-					<li id="filters-tab" role="presentation" {% if next == "filters" %} class="active" {% endif %} >
-						<a href="#filters" class="request-tab request-view-tab" data-toggle="tab" aria-controls="argument" role="tab"{% if next == "filters" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'filter_window' %}
-							</span>
-						</a>
-					</li>
-					<li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} >
-						<a href="#terms" class="request-tab request-view-tab" data-toggle="tab" aria-controls="argument" role="tab"{% if next == "terms" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'terms_window' %}
-							</span>
-						</a>
-					</li>
-					<li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
-						<a href="#decision" class="request-tab request-view-tab" data-toggle="tab" aria-controls="decision" role="tab"{% if next == "decision" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% trans 'decision_window' %}
-							</span>
-						</a>
-					</li>
-					{% if requestInformationChat_list %}
-					<li id="additional_information-tab" role="presentation" {% if next == "information" %} class="active" {% endif %} >
-						<a href="#additional_information" class="request-tab request-action-tab" data-toggle="tab" aria-controls="contact" role="tab" {% if next == "information" %} aria-expanded="true" {% endif %}>
-							<span>
-								{% if userRequest.status == 6 %}<span class="glyphicon glyphicon-exclamation-sign"></span> {% endif %}{% trans 'additional_information_window' %}
-							</span>
-						</a>
-					</li>
-					{% endif %}
-				</ul>
-				<!-- aineistolista -->
-
 				<div class="tab-content">
 					<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
 						<h3>{% trans "request_window" %}</h3>
