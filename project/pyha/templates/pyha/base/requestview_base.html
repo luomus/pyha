@@ -171,6 +171,10 @@
         {% endif %}
       </ul>
 
+      <div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
+        {% include "pyha/skipofficial/history_tab.html" %}
+      </div>
+
       {% block page_content %}
       {% endblock %}
     </div>

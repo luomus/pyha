@@ -1,0 +1,90 @@
+{% load i18n %}
+
+<h3>{% trans "changes_history" %}</h3>
+<p>{% trans "changes_history_description" %}</p>
+{% if requestLog_list %}
+<table class="table" style="width:100%">
+  <tr style=color:black>
+    <th>{% trans "log_date" %}</th>
+    <th>{% trans "log_maker" %}</th>
+    {% if role == "handler" or role == "admin" %}<th>{% trans "handler_log_role" %}</th>{% endif %}
+    <th>{% trans "log_description" %}</th>
+  </tr>
+  {% for requestLog in requestLog_list %}
+  <tr>
+    <td>{{requestLog.date|date:"d.m.Y    H:i"}}</td>
+    {% if role == "handler" or role == "admin" %}<td>{{requestLog.name}} ({{requestLog.email}})</td>{% endif %}
+
+    {% if requestLog.role == 'admin' %}
+    <td>{% trans "log_admin" %}</td>
+    {% elif requestLog.role == 'handler' %}
+    <td>{% trans "log_handler" %}</td>
+    {% elif requestLog.role == 'MA.admin' %}
+    <td>{% trans "log_admin" %}</td>
+    {% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler' %}
+    <td>{% trans "log_sensitive_data_handler" %}</td>
+    {% elif requestLog.role == 'MA.downloadRequestHandler' %}
+    <td>{% trans "log_collection_provider" %}</td>
+    {% elif requestLog.role == 'MA.sensitiveInformationApprovalRequestHandler and MA.downloadRequestHandler' %}
+    <td>{% trans "log_sensitive_and_collections_handler" %}</td>
+    {% elif requestLog.role == 'user' and userRequest.user == request.session.user_id %}
+    <td>{{requestLog.name}}</td>
+    {% else %}
+    <td>{% trans "user" %}</td>
+    {% endif %}
+
+    {% if requestLog.action == 'VIEW' %}
+    <td>{% trans "log_viewed" %}</td>
+    {% elif requestLog.action == 'ACC' %}
+    <td>{% trans "log_terms_accepted" %}</td>
+    {% elif requestLog.action == 'POS' or requestLog.action == 'POSOV' %}
+      {% if requestLog.collection == None %}
+      <td>
+        {% if requestLog.action == 'POSOV' and role == "admin" %}
+        {% trans "admin_log_sensitives_accepted_because_overdue" %}
+        {% else %}
+        {% trans "log_sensitives_accepted" %}
+        {% endif %}
+      </td>
+      {% else %}
+      <td>
+        {% if requestLog.action == 'POSOV' and role == "admin" %}
+        {% trans "admin_log_collection_accepted_because_overdue" %}
+        {% else %}
+        {% trans "log_collection_accepted" %}
+        {% endif %}
+        ({{ requestLog.collection.result.collectionName }})
+      </td>
+      {% endif %}
+    {% elif requestLog.action == 'RESET' %}
+      {% if requestLog.collection == None %}
+      <td>{% trans "log_sensitives_reset" %}</td>
+      {% else %}
+      <td>{% trans "log_collection_reset" %} ({{ requestLog.collection.result.collectionName }})</td>
+      {% endif %}
+    {% elif requestLog.action == 'NEG' or requestLog.action == 'NEGOV' %}
+      {% if requestLog.collection == None %}
+      <td>
+        {% if requestLog.action == 'NEGOV' and role == "admin" %}
+        {% trans "admin_log_sensitives_denied_because_overdue" %}
+        {% else %}
+        {% trans "log_sensitives_denied" %}
+        {% endif %}
+      </td>
+      {% else %}
+      <td>
+        {% if requestLog.action == 'NEGOV' and role == "admin" %}
+        {% trans "admin_log_collection_denied_because_overdue" %}
+        {% else %}
+        {% trans "log_collection_denied" %}
+        {% endif %}
+        ({{ requestLog.collection.result.collectionName }})
+      </td>
+      {% endif %}
+    {% endif %}
+    </tr>
+  {% endfor %}
+</table>
+{% else %}
+<strong>{% trans "log_no_history" %}.</strong>
+{% endif %}
