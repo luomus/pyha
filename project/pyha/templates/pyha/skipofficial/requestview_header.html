@@ -1,0 +1,91 @@
+{% load i18n %}
+
+{% if role == "hander" or role == "admin" %}
+  <h1>{% trans "handler_request_from_user" %}
+    {{request_owner}},
+    {{request_owners_email}}
+  </h1>
+
+  <h2>{{userRequest.date|date:"d.m.Y    H:i"}}</h2>
+{% else %}
+  <div class="page-header" id="request_header">
+    <!--  requestheader.html snippet appears here -->
+  </div>
+{% endif %}
+
+<h2>
+  <span style="white-space: nowrap;">
+    {% trans "state_of_request" %}
+    <span
+    {% if userRequest.status == 1 %}
+       style="color:#AABBDD;"
+    {% elif userRequest.status == 2 %}
+       style="color:#BBBB77;"
+    {% elif userRequest.status == 3 %}
+       style="color:#DDBBAA;"
+    {% elif userRequest.status == 4 %}
+       style="color:#99DD99;"
+    {% else %}
+
+    {% endif %}
+    >
+    {% if userRequest.status == 1 %}
+      {% if role == "hander" or role == "admin" %}
+        {% if userRequest.waitingstatus == 1 %}
+          {% trans "handler_waiting_for_you" %}
+        {% else %}
+          {% trans "handler_waiting_for_others" %}
+        {% endif %}
+      {% else %}
+        {% trans "waiting_for_data_provider" %}
+      {% endif %}
+    {% elif userRequest.status == 2 %}
+      {% trans "partially_accepted" %}
+
+    {% elif userRequest.status == 3 %}
+      {% trans "denied" %}
+
+    {% elif userRequest.status == 4 %}
+      {% trans "accepted" %}
+
+    {% elif userRequest.status == 6 %}
+      {% trans "waiting_for_additional_information" %}
+      <a href="{{request.path}}?next=information" style="font-size:12px;white-space:normal;">{% trans "show_additional_information" %}</a>
+
+    {% elif userRequest.status == 7 %}
+      {% trans "waiting_for_download" %}
+
+    {% elif userRequest.status == 8 %}
+      {% if downloadable %}
+        {% trans "ready_for_download" %}
+      {% else %}
+        {% trans "download_has_expired" %}
+      {% endif %}
+
+    {% else %}
+      {% trans "unknown" %}
+
+    {% endif %}
+
+    </span>
+  </span>
+</h2>
+
+{% if role == "admin" %}
+  <form action="{% url 'pyha:freeze' %}" id="requestform" method="post">
+  	<div class="form-group stale-form">
+  		<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+  		<input type="hidden" id="next" name="next" value="{{request.path}}">
+  		{% if userRequest.frozen %}
+  		<h4 style="color:red">{% trans "admin_request_is_frozen" %}</h4>
+  		<button type="submit" id="submit" name="freeze" class="btn btn-default btn-sm" >{% trans "admin_unfreeze_request" %}</button>
+  		<p>{% trans 'admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin'%}</p>
+  		{% else %}
+  		<h4 style="color:green">{% trans 'admin_request_is_not_frozen'%}</h4>
+  		<button type="submit" id="submit" name="freeze" class="btn btn-default btn-sm" >{% trans "admin_freeze_request" %}</button>
+  		<p>{% trans 'admin_freeze_request_to_disable_access_and_actions_by_users_not_admin'%}</p>
+  		{% endif %}
+  	</div>
+  	{% csrf_token %}
+  </form>
+{% endif %}

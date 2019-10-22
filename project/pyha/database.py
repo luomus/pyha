@@ -295,6 +295,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html"
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
+	context["role"] = "handler" if role2 else ("admin" if role3 else "user")
 	if role2:
 		handles = get_collections_where_download_handler(userId)
 		context["collections"] = sort_collections_by_download_handler(collectionList, handles)

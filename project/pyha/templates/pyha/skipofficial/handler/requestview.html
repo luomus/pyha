@@ -1,40 +1,7 @@
 {% extends "pyha/base/requestview_base.html" %}
 {% load i18n %}
 
-{% block page_header %}
-{% include "pyha/skipofficial/handler/requestview_header.html" %}	
-{% endblock %}
-
 {% block page_content %}
-<div style="padding-left:0px;">
-	<div>
-		<div class="col-xs-12">
-			{% if collections %}
-			<h2 style="text-align:center;top:0%;">{% trans "handler_restricted" %}</h2>
-			<div>
-			<table class="table">
-				{% for collection in collections %}
-					<tr>
-					<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
-					<td>
-					<div class="slider-group" style="text-align:center;">
-						<span class="slider slider-accepted{% if collection.status == 1 %}-light{% endif %}">
-								{% if collection.address in handles %}
-									{% trans "handler_waiting_for_you" %}
-								{% else %}
-									{% trans "handler_waiting_for_others" %}
-								{% endif %}</span>
-						<span class="slider slider-accepted{% if collection.status == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-						<span class="slider slider-accepted{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
-					</div>
-					</td>
-				</tr>
-				{% endfor %}
-			</table>
-			</div>
-			{% endif %}
-		</div>
-</div>
 	<ul class="nav nav-tabs" role="tablist">
 		<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
 			<a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>

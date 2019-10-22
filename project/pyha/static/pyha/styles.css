@@ -85,32 +85,22 @@ p {
 	width:33%;
 }
 
-.slider-waiting-light {
+.slider-user-light {
     background-color: #2980B9;
 	color:white;
 }
 
-.slider-waiting {
+.slider-user {
     background-color: #DDDDDD;
 	color:#A9A9A9;
 }
 
-.slider-accepted-light {
+.slider-handler-light {
     background-color: #008000;
 	color:white;
 }
 
-.slider-accepted {
-    background-color: #DDDDDD;
-	color:#A9A9A9;
-}
-
-.slider-declined-light {
-    background-color: #EF1313;
-	color:white;
-}
-
-.slider-declined {
+.slider-handler {
     background-color: #DDDDDD;
 	color:#A9A9A9;
 }
@@ -125,8 +115,8 @@ p {
 	color:#A9A9A9;
 }
 
-#filtermap { 
-	height: 250px; 
+#filtermap {
+	height: 250px;
 	width: 250px;
 }
 
@@ -226,7 +216,7 @@ div.contact-form{
     float:left;
     padding-top:0px !important;
 }
- 
+
 .form-style-10{
     width:97%;
     padding:30px;
@@ -365,7 +355,7 @@ div.contact-form{
   table{
     border-collapse: separate; !important;
   }
-  
+
   .container-fluid {
     overflow-y: scroll;
 }
@@ -399,7 +389,7 @@ div.contact-form{
     position:fixed;
 }
   .floatcontainer, .inner{
-    position: relative; 
+    position: relative;
     width: auto;
     height: 200px;
     background-color: #EFF8FB;
@@ -548,7 +538,7 @@ div.contact-form{
   /* Not required for template or sticky footer method. */
 
   body > .container-fluid {
-    padding: 50px 0 0;
+    padding-top: 50px;
   }
   .container .text-muted {
     color: #ffffff;
@@ -585,7 +575,7 @@ div.contact-form{
     background-color: #2980B9;
     border-color: #2980B9;
   }
-  
+
   .navbar-toggle .icon-bar {
     background-color: white;
 }
@@ -611,7 +601,7 @@ div.contact-form{
   code {
     font-size: 80%;
   }
-  
+
   .model-field {
 	font-size: 14px;
   }
@@ -637,7 +627,7 @@ div.contact-form{
  .modal-confirm {
   position: absolute;
   top: 20%;
-  left: 20%; 
+  left: 20%;
   right: 10%;
   z-index: 10040;
   vertical-align: middle;
@@ -651,7 +641,7 @@ div.contact-form{
   .modal-confirm {
   position: absolute;
   top: 30%;
-  left: 40%; 
+  left: 40%;
   right: 100px;
   z-index: 10040;
   vertical-align: middle;
@@ -899,17 +889,17 @@ h3{
 }
 
 .large-thin-glyphicon-positive {
-	font-size: 30px; 
+	font-size: 30px;
 	-webkit-text-stroke: 2px #51a351;
 }
 
 .large-thin-glyphicon-info {
-	font-size: 30px; 
+	font-size: 30px;
 	-webkit-text-stroke: 2px #00abfd;
 }
 
 .large-thin-glyphicon-error {
-	font-size: 30px; 
+	font-size: 30px;
 	-webkit-text-stroke: 2px #c94e4e;
 }
 

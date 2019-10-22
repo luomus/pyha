@@ -5,6 +5,7 @@
 <style>.wizard .nav-tabs > li { width:25%; } .connecting-line{ width: 76%; }</style>
 
 <div class="container-fluid" style="overflow-y: hide;">
+	<div class=row>
 	<div class="col-xs-12">
 			<div class="page-header" id="request_header">
 				<!--  requestheader.html snippet appears here -->
@@ -20,9 +21,9 @@
 					<tr style=color:black>
 						<th>{% trans "filter" %}</th>
 						<th>{% trans "values" %}</th>
-					</tr>	
+					</tr>
 					{% for filter in filters %}
-					<tr>	
+					<tr>
 						<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
 						{% for f in filter.1 %}
 						<td>{{ f }}</td>
@@ -39,7 +40,7 @@
 				<strong>{% trans "no_filters" %}.</strong>
 				{% endif %}
 			</div>
-			
+
 			<!-- aineistolista -->
 		<form action="{% url 'pyha:approve' %}" id="requestform" method="post">
 			<div class="col-xs-12">
@@ -260,8 +261,8 @@
 														</div>
 													</div>
 												</div>
-										</div>  
-									</div>  
+										</div>
+									</div>
 									<div class="tab-pane" role="tabpanel" id="complete">
 										<div>
 											<h2>{% trans "request_summary" %}</h2>
@@ -388,7 +389,7 @@
 			</div>
 		</div>
 	</div>
-	{% if collections %} 
+	{% if collections %}
 	<!-- hidden delete collection form -->
 		{% for collection in collections %}
 	<form class="form-hidden" action="javascript:remove({{collection.id}})" id="deleteform{{collection.id}}" method="post">
@@ -402,6 +403,7 @@
 	</form>
 		{% endfor %}
 	{% endif %}
+	</div>
 </div>
 
 <div>
@@ -421,7 +423,7 @@
 <script>
 	var accepted = {};
 	var acceptedsens = 0;
-	function checksens() { 
+	function checksens() {
 		approvetext = "{% trans 'you_accepted_terms' %}";
 		nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
 		if(document.getElementById('checkbsens').checked){
@@ -435,11 +437,11 @@
 			acceptedsens = 0;
 		}
 	}
-	function remove(counter) { 
+	function remove(counter) {
 		delete accepted[counter];
 		removeAjax(counter, refresh_skip_official);
 	}
-	
+
 	function addContact(current) {
 	var newli = document.createElement("li");
 	var newa = document.createElement("a");
@@ -467,7 +469,7 @@
 	adda.setAttribute("href", "javascript:addContact("+current+")");
 	remli.hidden = false;
 	}
-	
+
 	function removeContact(current) {
 	if (current > 1){
 	var li = document.getElementById("contact_tab" + current);
@@ -493,8 +495,8 @@
 	contactsFilled();
 	document.getElementById("contact_tab_button_1").click();
 	}
-	
-	function updateReason() { 
+
+	function updateReason() {
 	var select = document.getElementById('reason_selector');
 	var result = getSelectValues(select);
 	var arguments = ['argument_reason','argument_municipality','argument_natura_areas','argument_project','argument_research','argument_research_address','argument_goals','argument_planning']
@@ -560,10 +562,10 @@
 	}
 	argumentsFilled();
 	}
-	
+
 	function contactsFilled() {
 	var count = 0;
-	var fills = ["request_person_name_","request_person_street_address_","request_person_postal_code_","request_person_post_office_name_","request_person_country_","request_person_email_","request_person_phone_number_"]; 
+	var fills = ["request_person_name_","request_person_street_address_","request_person_postal_code_","request_person_post_office_name_","request_person_country_","request_person_email_","request_person_phone_number_"];
 	while(true){
 	count ++;
 		if (document.getElementById("request_person_name_"+count) != null){
@@ -602,14 +604,14 @@
 			}
 		}
 	}
-	
-	
+
+
 	function argumentsFilled() {
 		var select = document.getElementById('reason_selector');
 		var result = getSelectValues(select);
 		var fills = [];
 		var state = false;
-		
+
 		if(result.length > 0) {
 			for (var i=0; i<result.length; i++) {
 				switch (result[i]) {
@@ -646,16 +648,16 @@
 			state = true;
 		}
 		if (!state) {
-			document.getElementById("to_step_3").disabled = false;      
-			 
+			document.getElementById("to_step_3").disabled = false;
+
 		} else {
-			document.getElementById("to_step_3").disabled = true;         
+			document.getElementById("to_step_3").disabled = true;
 			var $tabs = $('.wizard .nav-tabs li')
 			var $summary_tab = $tabs[$tabs.length - 1]
 			$summary_tab.className = 'disabled'
 		}
 	}
-	
+
 	function getSelectValues(select) {
 	var result = [];
 	var options = select && select.options;
@@ -681,7 +683,7 @@
 	  });
 	});
 	</script>
-	
+
 	<script>
 	//$(document).ready(function() {
 	//	var end = document.getElementById("contacts_content_end");
@@ -728,7 +730,7 @@
 				.one('click', '#delete', function(){
 					$(name).submit();
 			});
-			
+
 		});
 		$(document).on('click','.sensDeleteContainer',function(e){
 			var name = "#deletesens" + $(this).find('.removeSensitiveButton').attr('id');
@@ -774,7 +776,7 @@
         onChange: function(option, checked, select) {
         	this.$button.click();
         }
-			
+
 		});
 	});
 	</script>

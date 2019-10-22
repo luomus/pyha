@@ -4,6 +4,7 @@
 
 
 <div class="container-fluid">
+<div class="row">
 	 <div class="col-xs-12">
 		<div class="page-header">
 		  	<h2>{% trans "admin_settings_header" %}</h2>
@@ -27,7 +28,7 @@
 				      	<input onChange="refreshCustomEmail()" {% if user_settings.customEmailAddress %} checked {% endif %} type="checkbox" id="use_custom_email" name="use_custom_email" value="True"> {% trans "admin_use_custom_email_address" %}
 				    </label>
 				</div>
-			</div>	
+			</div>
 			<div class="row">
 				<div class="form-group col-sm-4">
 				    <label class="sr-only" for="InputEmail">Email address</label>
@@ -38,7 +39,7 @@
 	   		{% csrf_token %}
 	   </form>
 	   <h3 style="margin-top:50px">{% trans "admin_pyha_settings" %} <small style="color:red">{% trans "settings_affect_pyha_not_you_as_as_user" %}</small></h3>
-	   
+
 	   <form action="{% url 'pyha:save_pyha_settings' %}" id="settingsform" method="post">
  			<input type="hidden" id="next" name="next" value="{{request.path}}">
  			<p>{% trans "admin_pyha_periodical_event_automation" %}</p>
@@ -54,8 +55,8 @@
 			<div style="white-space: pre-line;" id="daily_handler_email_information" class="collapse">
 				<div style="padding-bottom: 30px;">
 					{% trans "daily_handler_email_information" %}
-				</div> 
-			</div> 
+				</div>
+			</div>
 			<div class="row">
 		 		<div class="checkbox col-sm-2">
 				    <label>
@@ -67,8 +68,8 @@
 			<div style="white-space: pre-line;"  id="weekly_missing_handlers_email_information" class="collapse">
 				<div style="padding-bottom: 30px;">
 					{% trans "weekly_missing_handlers_email_information" %}
-				</div> 
-			</div> 
+				</div>
+			</div>
 			<div class="row">
 		 		<div class="checkbox col-sm-2">
 				    <label>
@@ -76,24 +77,24 @@
 				    </label>
 				</div>
 				<p data-toggle="collapse" data-target="#auto_decline_overdue_information" class="btn btn-default btn-sm" style="margin:10px">{% trans "admin_setting_additional_information" %}</p>
-			</div>	
+			</div>
 			<div style="white-space: pre-line;"  id="auto_decline_overdue_information" class="collapse">
 				<div style="padding-bottom: 30px;">
 				{% trans "auto_decline_overdue_information" %}
 				</div>
-			</div> 
+			</div>
 			<div class="row">
 				<div class="form-group col-sm-4">
 				    <label>
 						<button style="margin-top:10px;" type="submit" id="submit" name="save" value=1 class="btn btn-default btn-sm" >{% trans "admin_save" %}</button>
 					</label>
 				</div>
-			</div>	
+			</div>
 	   		{% csrf_token %}
 	   </form>
-	   
-	 </div>
 
+	 </div>
+</div>
 </div>
 {% endblock %}
 
@@ -106,7 +107,7 @@
 			if(!x.checked){
 				y.value = "";
 			}
-			
+
 		}
 	</script>
 	<script>

@@ -4,19 +4,20 @@
 
 
     <div class="container-fluid">
+    <div class="row">
     <div class="col-xs-12">
       <div class="page-header">
         <h2>{% trans "handler_welcome" %}</h2>
       </div>
       {% if requests %}
       <h2>{% trans "handler_all_requests" %}</h2>
-  <p class ="text-muted">{% trans "click_for_info" %}.</p>            
+  <p class ="text-muted">{% trans "click_for_info" %}.</p>
   <table id="requests-table" class="table table-hover table-bordered">
     <thead>
       <tr bgcolor="#349934" style="color:white;">
         <th title="{% trans 'handler_new_events' %}" style="width:0px;">!</th>
         <th>{% trans "handler_request_date" %}</th>
-        <th>{% trans "handler_requester" %}</th>	
+        <th>{% trans "handler_requester" %}</th>
         <th>{% trans "handler_request_hits" %}</th>
         <th>{% trans "handler_request_status_for_admin" %}</th>
       </tr>
@@ -25,8 +26,8 @@
     {% load humanize %}
     <!-- {% load pyha_tags %} -->
     {% for request in requests %}
-        
-        
+
+
         {% if request.status == 1 %}
             <tr class="info clickable-row indextr"
         {% elif request.status == 3 %}
@@ -37,8 +38,8 @@
             <tr class="active clickable-row indextr"
         {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
             <tr class="success clickable-row indextr"
-        {% else %}  
-            <tr	
+        {% else %}
+            <tr
         {% endif %}
             data-href="{% url 'pyha:root' %}request/{{request.id}}"
             >
@@ -48,7 +49,7 @@
             <td>{{ request.allSecured }}</td>
             {% if request.status == 0 %}
                 <td>{% trans "handler_you_have_not_accepted_terms" %}</td>
-            
+
             {% elif request.status == 1 %}
 				<td>
 					{% if request.answerstatus == 1 %}
@@ -61,33 +62,33 @@
 				</td>
             {% elif request.status == 2 %}
                 <td>{% trans "handler_partially_accepted" %}</td>
-                
+
             {% elif request.status == 3 %}
                 <td>{% trans "handler_denied" %}</td>
 
             {% elif request.status == 4 %}
-                <td>{% trans "handler_accepted" %}</td>  
+                <td>{% trans "handler_accepted" %}</td>
 
             {% elif request.status == 6 %}
-                <td>{% trans "handler_waiting_for_additional_information" %}</td>  
+                <td>{% trans "handler_waiting_for_additional_information" %}</td>
 
             {% elif request.status == 7 %}
-                <td>{% trans "handler_waiting_for_download" %}</td>  
-            
+                <td>{% trans "handler_waiting_for_download" %}</td>
+
             {% elif request.status == 8 %}
                 {% if request.downloadable %}
                 <td>{% trans "handler_ready_for_download" %}</td>
-                {% else %} 
+                {% else %}
                 <td>{% trans "handler_download_has_expired" %}</td>
                 {% endif %}
-				
-            {% else %}  
+
+            {% else %}
                 <td>{% trans "handler_unknown" %}</td>
             {% endif %}
-        
-            
+
+
         </tr>
-        
+
 	{% endfor %}
     </tbody>
   </table>
@@ -98,9 +99,10 @@
    </div>
   <!--
     <div class="col-sm-3 col-lg-2 side-bar">
-  
+
     </div>
   -->
+  </div>
   </div>
 {% endblock %}
 

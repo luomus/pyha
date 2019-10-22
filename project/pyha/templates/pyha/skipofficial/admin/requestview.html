@@ -1,50 +1,7 @@
 {% extends "pyha/base/requestview_base.html" %}
 {% load i18n %}
 
-{% block page_header %}
-{% include "pyha/skipofficial/handler/requestview_header.html" %}
-<form action="{% url 'pyha:freeze' %}" id="requestform" method="post">
-	<div class="form-group stale-form">
-		<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-		<input type="hidden" id="next" name="next" value="{{request.path}}">
-		{% if userRequest.frozen %}
-		<h4 style="color:red">{% trans "admin_request_is_frozen" %}</h4>
-		<button type="submit" id="submit" name="freeze" class="btn btn-default btn-sm" >{% trans "admin_unfreeze_request" %}</button>
-		<p>{% trans 'admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin'%}</p>
-		{% else %}
-		<h4 style="color:green">{% trans 'admin_request_is_not_frozen'%}</h4>
-		<button type="submit" id="submit" name="freeze" class="btn btn-default btn-sm" >{% trans "admin_freeze_request" %}</button>
-		<p>{% trans 'admin_freeze_request_to_disable_access_and_actions_by_users_not_admin'%}</p>
-		{% endif %}
-	</div>
-	{% csrf_token %}
-</form>
-{% endblock %}
-
 {% block page_content %}
-<div style="padding-left:0px;">
-		<div class="col-xs-12">
-			{% if collections %}
-			<h2 style="text-align:center;top:0%;">{% trans "admin_restricted" %}</h2>
-			<div>
-			<table class="table">
-				{% for collection in collections %}
-					<tr>
-					<td>{{collection.result.collectionName}} <small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
-					<td>
-						<div class="slider-group" style="text-align:center;">
-							<span class="slider slider-admin{% if collection.status == 1 %}-light{% endif %}">{% trans "admin_waiting" %}</span>
-							<span class="slider slider-admin{% if collection.status == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-							<span class="slider slider-admin{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
-						</div>
-					</td>
-				</tr>
-				{% endfor %}
-			</table>
-			</div>
-			{% endif %}
-		</div>
-</div>
 	<ul class="nav nav-tabs" role="tablist">
 		<li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
 			<a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>
