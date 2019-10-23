@@ -128,13 +128,6 @@
             </span>
           </a>
         </li>
-        <li id="terms-tab" role="presentation" {% if next == "terms" %} class="active" {% endif %} >
-          <a href="#terms" class="request-tab request-view-tab" data-toggle="tab" aria-controls="terms" role="tab"{% if next == "terms" %} aria-expanded="true" {% endif %}>
-            <span>
-              {% trans 'terms_window' %}
-            </span>
-          </a>
-        </li>
         <li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
           <a href="#decision" class="request-tab {% if role == "handler" or role == "admin" %}request-{{role}}-action-tab{% else %}request-view-tab{% endif %}" data-toggle="tab" aria-controls="decision" role="tab"{% if next == "decision" %} aria-expanded="true" {% endif %}>
             <span>
