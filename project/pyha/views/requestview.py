@@ -36,19 +36,12 @@ def show_request(http_request):
         #make a log entry
         make_logEntry_view(http_request, userRequest, userId, role2, role3)
     context = create_request_view_context(requestId, http_request, userRequest)
-    if ADMIN in http_request.session.get("current_user_role", [None]):
-        update_request_status(userRequest, userRequest.lang)
-        return render(http_request, 'pyha/skipofficial/admin/requestview.html', context)
-    else:
-        if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-            update_request_status(userRequest, userRequest.lang)
-            return render(http_request, 'pyha/skipofficial/handler/requestview.html', context)
-        else:
-            if(userRequest.status == 0):
-                return render(http_request, 'pyha/skipofficial/requestform.html', context)
-            else:
-                update_request_status(userRequest, userRequest.lang)
-                return render(http_request, 'pyha/skipofficial/requestview.html', context)
+
+    if(userRequest.status == 0):
+        return render(http_request, 'pyha/skipofficial/requestform.html', context)
+
+    update_request_status(userRequest, userRequest.lang)
+    return render(http_request, 'pyha/requestview/requestview.html', context)
 
 def comment_handler(http_request):
     nexturl = http_request.POST.get('next', '/')

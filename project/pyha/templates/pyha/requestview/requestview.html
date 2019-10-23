@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="page-header">
-        {% include "pyha/skipofficial/requestview_header.html" %}
+        {% include "pyha/requestview/requestview_header.html" %}
       </div>
 
   		<div class="col-xs-12">
@@ -174,42 +174,42 @@
 
       <div class="tab-content">
         <div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
-          {% include "pyha/skipofficial/history_tab.html" %}
+          {% include "pyha/requestview/tabs/history.html" %}
         </div>
         <div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-          {% include "pyha/skipofficial/contacts_tab.html" %}
+          {% include "pyha/requestview/tabs/contacts.html" %}
         </div>
         <div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-          {% include "pyha/skipofficial/arguments_tab.html" %}
+          {% include "pyha/requestview/tabs/arguments.html" %}
         </div>
         <div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
-          {% include "pyha/skipofficial/request_tab.html" %}
+          {% include "pyha/requestview/tabs/request.html" %}
         </div>
         <div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-          {% include "pyha/skipofficial/filters_tab.html" %}
+          {% include "pyha/requestview/tabs/filters.html" %}
         </div>
         <div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
           {% if role == "handler" or role == "admin" %}
-          {% include "pyha/skipofficial/make_decision_tab.html" %}
+          {% include "pyha/requestview/tabs/make_decision.html" %}
           {% else %}
-          {% include "pyha/skipofficial/decision_tab.html" %}
+          {% include "pyha/requestview/tabs/decision.html" %}
           {% endif %}
         </div>
         <div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
           {% if role == "handler" or role == "admin" %}
-          {% include "pyha/skipofficial/ask_information_tab.html" %}
+          {% include "pyha/requestview/tabs/ask_information.html" %}
           {% else %}
-          {% include "pyha/skipofficial/information_tab.html" %}
+          {% include "pyha/requestview/tabs/information.html" %}
           {% endif %}
         </div>
         {% if role == "handler" or role == "admin" %}
         <div class="request-view-pane tab-pane {% if next == 'comments' %} active {% endif %}" role="tabpanel" id="handler_comments">
-        {% include "pyha/skipofficial/comments_tab.html" %}
+        {% include "pyha/requestview/tabs/comments.html" %}
         </div>
         {% endif %}
         {% if role == "admin" %}
         <div class="request-view-pane tab-pane {% if next == 'communications' %} active {% endif %}" role="tabpanel" id="admin_communications">
-        {% include "pyha/skipofficial/admin_communications.html" %}
+        {% include "pyha/requestview/tabs/admin_communications.html" %}
         </div>
         {% endif %}
       </div>
