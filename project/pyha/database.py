@@ -286,7 +286,8 @@ def create_request_view_context(requestId, http_request, userRequest):
 	request_owner = fetch_user_name(userRequest.user)
 	request_owners_email = fetch_email_address(userRequest.user)
 	request_log = requestLog(http_request, requestId)
-	context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "role": hasServiceRole, "role2": role2, "email": http_request.session["user_email"], "userRequest": userRequest, "requestLog_list": request_log, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+	context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+	context["requestLog_list"] = request_log if role2 or role3 else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
