@@ -1,0 +1,30 @@
+{% load i18n %}
+
+{% if requestInformationChat_list %}
+<h3>{% trans "additional_information_window" %}</h3>
+<p>{% trans "additional_information_window_description" %}</p>
+{% for question in requestInformationChat_list %}
+  {% if question.question %}
+  <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
+  <div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question.message}}</p></div>
+  <form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
+  <div class="form-group">
+    <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+    <input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
+    <input type="hidden" id="target" name="target" value="{{question.target}}">
+    <textarea style="width:100%;" rows="5" cols="70" id="reason" name="reason" required ></textarea>
+    <button type="submit" style="display:none;" onclick="showAnswer('requestform_{{ forloop.counter }}');" id="requestform_submit_{{ forloop.counter }}" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
+  </div>
+  {% csrf_token %}
+  </form>
+  <label style="margin-left:5px;margin-bottom:5px;" for="requestform_submit_{{ forloop.counter }}" class="btn btn-default btn-sm">{% trans "answer" %}</label>
+  </div>
+  {% endif %}
+  {% if question.question != True %}
+  <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
+  <div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans 'inquiry' %} {% trans "answered" %}&#10;&#13;{{question.message}}</p></div>
+  </div>
+  {% endif %}
+{% endfor %}
+<span id="information_bottom"></span>
+{% endif %}

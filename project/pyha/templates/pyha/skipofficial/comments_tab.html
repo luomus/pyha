@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<h3>{% trans "col_handler_comments_window" %}</h3>
+<p>{% trans "col_handler_comments_window_description" %}</p>
+<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
+{% for requestHandlerChat in requestHandlerChat_list %}
+<div class="panel panel-default">
+  <div class="panel-body" {% if requestHandlerChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }}  {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>
+</div>
+{% endfor %}
+<form action="{% url 'pyha:comment_handler' %}" id="commentform" method="post">
+<div class="form-group">
+  <input type="hidden" id="next" name="next" value="{{request.path}}?next=comments">
+  <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+  <span>{% trans 'talk_as_handler_of' %}</span>
+  <select id="target" name="target">
+  {% if role == "admin" %}
+  <option value="admin">{% trans "as_admin" %}</option>
+  {% else %}
+  {% for collection in collections %}
+    {% if collection.address in handles %}
+    <option value="{{collection.address}}">{{collection.result.collectionName}}</option>
+    {% endif %}
+  {% endfor %}
+  {% endif %}
+  </select>
+  <textarea class="form-control" rows="5" cols="700" id="commentsForHandlers" name="commentsForHandlers" style="overflow:auto;resize:none" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %} ></textarea>
+  <button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "save" %}</button>
+</div>
+{% csrf_token %}
+</form>

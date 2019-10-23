@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-23 14:29+0300\n"
+"POT-Creation-Date: 2019-10-23 16:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -476,7 +476,7 @@ msgstr "Lisätietokysymykseen on vastattu"
 
 #: pyha/templates/pyha/base/handler/index.html:58
 #: pyha/templates/pyha/base/requestview_base.html:27
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:35
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:37
 #: pyha/templates/pyha/skipofficial/request_tab.html:45
 #: pyha/templates/pyha/skipofficial/requestview_header.html:37
 msgid "handler_waiting_for_others"
@@ -484,7 +484,7 @@ msgstr "Odottaa muiden päätöstä"
 
 #: pyha/templates/pyha/base/handler/index.html:60
 #: pyha/templates/pyha/base/requestview_base.html:25
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:33
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:35
 #: pyha/templates/pyha/skipofficial/request_tab.html:43
 #: pyha/templates/pyha/skipofficial/requestview_header.html:35
 msgid "handler_waiting_for_you"
@@ -555,6 +555,7 @@ msgstr "Lue ja hyväksy ehdot"
 #: pyha/templates/pyha/base/index.html:54
 #: pyha/templates/pyha/base/requestview_base.html:30
 #: pyha/templates/pyha/skipofficial/decision_tab.html:23
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:33
 #: pyha/templates/pyha/skipofficial/request_tab.html:48
 #: pyha/templates/pyha/skipofficial/requestview_header.html:40
 msgid "waiting_for_data_provider"
@@ -562,7 +563,7 @@ msgstr "Odottaa päätöstä"
 
 #: pyha/templates/pyha/base/index.html:57
 #: pyha/templates/pyha/skipofficial/decision_tab.html:27
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:40
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:42
 #: pyha/templates/pyha/skipofficial/request_tab.html:54
 #: pyha/templates/pyha/skipofficial/requestview_header.html:43
 msgid "partially_accepted"
@@ -571,7 +572,7 @@ msgstr "Osittain hyväksytty"
 #: pyha/templates/pyha/base/index.html:60
 #: pyha/templates/pyha/base/requestview_base.html:34
 #: pyha/templates/pyha/skipofficial/decision_tab.html:25
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:38
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:40
 #: pyha/templates/pyha/skipofficial/request_tab.html:52
 #: pyha/templates/pyha/skipofficial/requestview_header.html:46
 msgid "denied"
@@ -580,7 +581,7 @@ msgstr "Hylätty"
 #: pyha/templates/pyha/base/index.html:63
 #: pyha/templates/pyha/base/requestview_base.html:33
 #: pyha/templates/pyha/skipofficial/decision_tab.html:29
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:42
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:44
 #: pyha/templates/pyha/skipofficial/request_tab.html:56
 #: pyha/templates/pyha/skipofficial/requestview_header.html:49
 msgid "accepted"
@@ -609,7 +610,7 @@ msgstr "Lataus on vanhentunut"
 
 #: pyha/templates/pyha/base/index.html:79
 #: pyha/templates/pyha/skipofficial/decision_tab.html:33
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:44
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:46
 #: pyha/templates/pyha/skipofficial/request_tab.html:60
 #: pyha/templates/pyha/skipofficial/requestview_header.html:66
 msgid "unknown"
@@ -697,188 +698,106 @@ msgstr "Päätökset"
 msgid "decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/base/requestview_base.html:146
-#: pyha/templates/pyha/skipofficial/requestview.html:8
+#: pyha/templates/pyha/base/requestview_base.html:147
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:3
+msgid "ask_additional_information_window"
+msgstr "Lisätietopyynnöt"
+
+#: pyha/templates/pyha/base/requestview_base.html:149
+#: pyha/templates/pyha/skipofficial/information_tab.html:4
 msgid "additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/base/requestview_base.html:155
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:40
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:48
+#: pyha/templates/pyha/base/requestview_base.html:159
+#: pyha/templates/pyha/skipofficial/comments_tab.html:3
 msgid "col_handler_comments_window"
 msgstr "Aineistonkäsittelijöiden kommentit"
 
-#: pyha/templates/pyha/base/requestview_base.html:164
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:70
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:226
+#: pyha/templates/pyha/base/requestview_base.html:168
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:10
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:166
 msgid "admin_communications_window"
 msgstr "Viestintä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:7
-msgid "admin_additional_information_window"
-msgstr "Lisätietopyynnöt"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:8
-msgid "admin_additional_information_window_description"
-msgstr " "
-
 #: pyha/templates/pyha/skipofficial/admin/requestview.html:12
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:12
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-#: pyha/templates/pyha/skipofficial/requestview.html:13
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "sensitivity"
-msgstr "Sensitiivisen lajitiedon käyttöehdot"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:12
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:45
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:12
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:53
-#: pyha/templates/pyha/skipofficial/requestview.html:13
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "admin_question"
-msgstr "Administraattori"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:12
-msgid "admin_asked"
-msgstr " kysyi:"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "inquiry"
-msgstr "kyselyyn"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-msgid "admin_answered"
-msgstr " vastasi:"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:21
-msgid "admin_form_to_request_additional_information"
-msgstr "Lomake lisätietojen pyytämiseen"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:26
-msgid "ask_as_admin_of"
-msgstr "Kysy roolissa"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:28
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:55
-msgid "as_admin"
-msgstr "Administraattori"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:31
-msgid "admin_request_additional_information"
-msgstr "Pyydä lisätietoja"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:41
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:49
-msgid "col_handler_comments_window_description"
-msgstr " "
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:42
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:50
-msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
-msgstr ""
-"Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön, eikä siis näy "
-"pyynnön tekijälle."
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:45
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:53
-msgid "col_handler_said"
-msgstr " kirjoitti:"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:53
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:61
-msgid "talk_as_handler_of"
-msgstr "Puhu roolissa"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:58
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:70
-msgid "handler_save"
-msgstr "Tallenna"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_refresh_collections_cache"
 msgstr "Päivitä kokoelmat"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:75
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:227
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:15
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:167
 msgid "admin_communications_window_description"
 msgstr " "
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:79
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:19
 msgid "admin_automated_emails_sent_last_time"
 msgstr "Pyyntöä koskevat sähköpostit on jaettu käsittelijöille viimeksi"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:85
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:25
 msgid "admin_communications_collections"
 msgstr "Kokoelmat ryhmittäin"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:86
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:26
 msgid "admin_communications_handlers"
 msgstr "Käsittelijät"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:87
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:27
 msgid "admin_communications_state"
 msgstr "Tila"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:88
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:28
 msgid "admin_send_email"
 msgstr "Lähetä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:89
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:29
 msgid "admin_communications_email"
 msgstr "Sähköposti"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:104
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:44
 msgid "admin_name_is_none"
 msgstr "tyhjä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:111
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:51
 msgid "admin_collections_missing_handler"
 msgstr "Aineistoista puuttuu käsittelijöitä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:121
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:191
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:61
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:131
 msgid "email_sender"
 msgstr "Lähettäjä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:125
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:195
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:65
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:135
 msgid "email_header"
 msgstr "Aihe"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:129
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:199
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:69
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:139
 msgid "email_lang"
 msgstr "Kieli"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:135
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:205
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:75
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:145
 msgid "admin_email_lang_all"
 msgstr "kaikki"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:145
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:215
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:85
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:155
 msgid "admin_send"
 msgstr "Lähetä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:171
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:111
 msgid "emailed"
 msgstr "Lähetetty"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:173
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:113
 msgid "not_emailed"
 msgstr "Lähettämättä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:228
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:168
 msgid "no_communications"
 msgstr "Viestintä on tyhjä"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:270
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:210
 msgid "in_other_languages_below"
 msgstr "(På svenska se nedan, in English see below)"
 
@@ -1080,6 +999,72 @@ msgstr "Natura-alueet"
 msgid "argument_reason"
 msgstr "Lisätietoa"
 
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:4
+msgid "ask_additional_information_window_description"
+msgstr " "
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:8
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:13
+#: pyha/templates/pyha/skipofficial/comments_tab.html:8
+#: pyha/templates/pyha/skipofficial/information_tab.html:9
+#: pyha/templates/pyha/skipofficial/information_tab.html:25
+msgid "admin_question"
+msgstr "Administraattori"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:8
+#: pyha/templates/pyha/skipofficial/information_tab.html:9
+msgid "asked"
+msgstr " kysyi:"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:13
+#: pyha/templates/pyha/skipofficial/information_tab.html:25
+msgid "inquiry"
+msgstr "kyselyyn"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:13
+#: pyha/templates/pyha/skipofficial/information_tab.html:25
+msgid "answered"
+msgstr " vastasit:"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:17
+msgid "form_to_request_additional_information"
+msgstr "Lomake lisätietojen pyytämiseen"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:22
+msgid "ask_as_handler_of"
+msgstr "Kysy roolissa"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:25
+#: pyha/templates/pyha/skipofficial/comments_tab.html:19
+msgid "as_admin"
+msgstr "Administraattori"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:35
+msgid "request_additional_information"
+msgstr "Pyydä lisätietoja"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:4
+msgid "col_handler_comments_window_description"
+msgstr " "
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:5
+msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
+msgstr ""
+"Tämä alue on pelkästään aineistonkäsittelijöiden käyttöön, eikä siis näy "
+"pyynnön tekijälle."
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:8
+msgid "col_handler_said"
+msgstr " kirjoitti:"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:16
+msgid "talk_as_handler_of"
+msgstr "Puhu roolissa"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:29
+msgid "save"
+msgstr "Tallenna"
+
 #: pyha/templates/pyha/skipofficial/contacts_tab.html:4
 msgid "contact_window_description"
 msgstr " "
@@ -1196,38 +1181,6 @@ msgstr "Arvot"
 msgid "no_filters"
 msgstr "Kannassa ei ole suodattimia tälle pyynnölle"
 
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:7
-msgid "handler_additional_information_window"
-msgstr "Pyydä lisätietoja"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:8
-msgid "handler_additional_information_window_description"
-msgstr " "
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:12
-msgid "handler_asked"
-msgstr " kysyi:"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-msgid "handler_answered"
-msgstr " vastasi:"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:22
-msgid "handler_form_to_request_additional_information"
-msgstr "Lomake lisätietojen pyytämiseen"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:27
-msgid "ask_as_handler_of"
-msgstr "Kysy roolissa"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:36
-msgid "handler_request_additional_information"
-msgstr "Pyydä lisätietoja"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:41
-msgid "collection_free_of_sensitive_data"
-msgstr "Pelkästään käyttörajoitettu"
-
 #: pyha/templates/pyha/skipofficial/history_tab.html:4
 msgid "changes_history_description"
 msgstr " "
@@ -1325,12 +1278,24 @@ msgstr "Aineisto hylätty"
 msgid "log_no_history"
 msgstr "Muutoshistoria on tyhjä"
 
+#: pyha/templates/pyha/skipofficial/information_tab.html:5
+msgid "additional_information_window_description"
+msgstr " "
+
+#: pyha/templates/pyha/skipofficial/information_tab.html:16
+msgid "send_additional_information"
+msgstr "Lähetä vastaus"
+
+#: pyha/templates/pyha/skipofficial/information_tab.html:20
+msgid "answer"
+msgstr "Vastaa kysymykseen"
+
 #: pyha/templates/pyha/skipofficial/make_decision_tab.html:4
 msgid "make_decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/skipofficial/make_decision_tab.html:13
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:56
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:58
 msgid "decision_arguments"
 msgstr "Päätöksen perustelut"
 
@@ -1342,27 +1307,27 @@ msgstr "Valitse"
 msgid "make_decision"
 msgstr "Tee päätös"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:51
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:53
 msgid "handler_not_handling"
 msgstr "Et käsittele"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:57
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:59
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "Valitse aineistot, joihin haluat asettaa päätöksen."
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:62
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:64
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Päätöksen perustelut laitetaan kaikkiin valittuihin aineistoihin."
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:63
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:65
 msgid "accept"
 msgstr "Hyväksy"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:65
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:67
 msgid "reset"
 msgstr "Nollaa"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:67
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:69
 msgid "refuse"
 msgstr "Hylkää"
 
@@ -1523,26 +1488,6 @@ msgstr "Valittu useampi"
 msgid "request_chosen_all_reasons"
 msgstr "Valittu kaikki"
 
-#: pyha/templates/pyha/skipofficial/requestview.html:9
-msgid "additional_information_window_description"
-msgstr " "
-
-#: pyha/templates/pyha/skipofficial/requestview.html:13
-msgid "asked"
-msgstr " kysyi:"
-
-#: pyha/templates/pyha/skipofficial/requestview.html:20
-msgid "send_additional_information"
-msgstr "Lähetä vastaus"
-
-#: pyha/templates/pyha/skipofficial/requestview.html:24
-msgid "answer"
-msgstr "Vastaa kysymykseen"
-
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "answered"
-msgstr " vastasit:"
-
 #: pyha/templates/pyha/skipofficial/requestview_header.html:4
 msgid "handler_request_from_user"
 msgstr "Pyyntö käyttäjältä"
@@ -1598,6 +1543,48 @@ msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 #: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
+
+#~ msgid "handler_save"
+#~ msgstr "Tallenna"
+
+#~ msgid "admin_additional_information_window"
+#~ msgstr "Lisätietopyynnöt"
+
+#~ msgid "admin_additional_information_window_description"
+#~ msgstr " "
+
+#~ msgid "sensitivity"
+#~ msgstr "Sensitiivisen lajitiedon käyttöehdot"
+
+#~ msgid "admin_asked"
+#~ msgstr " kysyi:"
+
+#~ msgid "admin_answered"
+#~ msgstr " vastasi:"
+
+#~ msgid "ask_as_admin_of"
+#~ msgstr "Kysy roolissa"
+
+#~ msgid "handler_additional_information_window"
+#~ msgstr "Pyydä lisätietoja"
+
+#~ msgid "handler_additional_information_window_description"
+#~ msgstr " "
+
+#~ msgid "handler_asked"
+#~ msgstr " kysyi:"
+
+#~ msgid "handler_answered"
+#~ msgstr " vastasi:"
+
+#~ msgid "handler_form_to_request_additional_information"
+#~ msgstr "Lomake lisätietojen pyytämiseen"
+
+#~ msgid "handler_request_additional_information"
+#~ msgstr "Pyydä lisätietoja"
+
+#~ msgid "collection_free_of_sensitive_data"
+#~ msgstr "Pelkästään käyttörajoitettu"
 
 #~ msgid "admin_changes_history"
 #~ msgstr "Muutoshistoria"
@@ -2428,9 +2415,6 @@ msgstr "Pyha:n asetukset tallennettu onnistuneesti."
 
 #~ msgid "handler_request_arguments"
 #~ msgstr "Perustelut"
-
-#~ msgid "save"
-#~ msgstr "Tallenna"
 
 #~ msgid "request_arguments_for_admin"
 #~ msgstr "Pyynnön perustelut"

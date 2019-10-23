@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-23 14:29+0300\n"
+"POT-Creation-Date: 2019-10-23 16:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -473,7 +473,7 @@ msgstr "The request for more information has a response"
 
 #: pyha/templates/pyha/base/handler/index.html:58
 #: pyha/templates/pyha/base/requestview_base.html:27
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:35
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:37
 #: pyha/templates/pyha/skipofficial/request_tab.html:45
 #: pyha/templates/pyha/skipofficial/requestview_header.html:37
 msgid "handler_waiting_for_others"
@@ -481,7 +481,7 @@ msgstr "Pending decision by others"
 
 #: pyha/templates/pyha/base/handler/index.html:60
 #: pyha/templates/pyha/base/requestview_base.html:25
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:33
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:35
 #: pyha/templates/pyha/skipofficial/request_tab.html:43
 #: pyha/templates/pyha/skipofficial/requestview_header.html:35
 msgid "handler_waiting_for_you"
@@ -552,6 +552,7 @@ msgstr "You haven't accepted the conditions"
 #: pyha/templates/pyha/base/index.html:54
 #: pyha/templates/pyha/base/requestview_base.html:30
 #: pyha/templates/pyha/skipofficial/decision_tab.html:23
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:33
 #: pyha/templates/pyha/skipofficial/request_tab.html:48
 #: pyha/templates/pyha/skipofficial/requestview_header.html:40
 msgid "waiting_for_data_provider"
@@ -559,7 +560,7 @@ msgstr "Pending decision"
 
 #: pyha/templates/pyha/base/index.html:57
 #: pyha/templates/pyha/skipofficial/decision_tab.html:27
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:40
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:42
 #: pyha/templates/pyha/skipofficial/request_tab.html:54
 #: pyha/templates/pyha/skipofficial/requestview_header.html:43
 msgid "partially_accepted"
@@ -568,7 +569,7 @@ msgstr "Partially accepted"
 #: pyha/templates/pyha/base/index.html:60
 #: pyha/templates/pyha/base/requestview_base.html:34
 #: pyha/templates/pyha/skipofficial/decision_tab.html:25
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:38
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:40
 #: pyha/templates/pyha/skipofficial/request_tab.html:52
 #: pyha/templates/pyha/skipofficial/requestview_header.html:46
 msgid "denied"
@@ -577,7 +578,7 @@ msgstr "Denied"
 #: pyha/templates/pyha/base/index.html:63
 #: pyha/templates/pyha/base/requestview_base.html:33
 #: pyha/templates/pyha/skipofficial/decision_tab.html:29
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:42
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:44
 #: pyha/templates/pyha/skipofficial/request_tab.html:56
 #: pyha/templates/pyha/skipofficial/requestview_header.html:49
 msgid "accepted"
@@ -606,7 +607,7 @@ msgstr "Download has expired"
 
 #: pyha/templates/pyha/base/index.html:79
 #: pyha/templates/pyha/skipofficial/decision_tab.html:33
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:44
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:46
 #: pyha/templates/pyha/skipofficial/request_tab.html:60
 #: pyha/templates/pyha/skipofficial/requestview_header.html:66
 msgid "unknown"
@@ -692,186 +693,106 @@ msgstr "Decisions"
 msgid "decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/base/requestview_base.html:146
-#: pyha/templates/pyha/skipofficial/requestview.html:8
+#: pyha/templates/pyha/base/requestview_base.html:147
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:3
+msgid "ask_additional_information_window"
+msgstr "Questions"
+
+#: pyha/templates/pyha/base/requestview_base.html:149
+#: pyha/templates/pyha/skipofficial/information_tab.html:4
 msgid "additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/base/requestview_base.html:155
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:40
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:48
+#: pyha/templates/pyha/base/requestview_base.html:159
+#: pyha/templates/pyha/skipofficial/comments_tab.html:3
 msgid "col_handler_comments_window"
 msgstr "Comments by collection handlers"
 
-#: pyha/templates/pyha/base/requestview_base.html:164
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:70
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:226
+#: pyha/templates/pyha/base/requestview_base.html:168
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:10
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:166
 msgid "admin_communications_window"
 msgstr "Communications"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:7
-msgid "admin_additional_information_window"
-msgstr "Questions"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:8
-msgid "admin_additional_information_window_description"
-msgstr " "
-
 #: pyha/templates/pyha/skipofficial/admin/requestview.html:12
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:12
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-#: pyha/templates/pyha/skipofficial/requestview.html:13
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "sensitivity"
-msgstr "Sensitivity"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:12
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:45
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:12
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:53
-#: pyha/templates/pyha/skipofficial/requestview.html:13
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "admin_question"
-msgstr "Additional questions"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:12
-msgid "admin_asked"
-msgstr " asked:"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "inquiry"
-msgstr "inquiry"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:17
-msgid "admin_answered"
-msgstr " responded:"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:21
-msgid "admin_form_to_request_additional_information"
-msgstr "Form to request additional information"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:26
-msgid "ask_as_admin_of"
-msgstr "Ask in role"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:28
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:55
-msgid "as_admin"
-msgstr "Administrator"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:31
-msgid "admin_request_additional_information"
-msgstr "Request additional information"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:41
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:49
-msgid "col_handler_comments_window_description"
-msgstr " "
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:42
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:50
-msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
-msgstr "This section is only visible to collection handlers not request owner"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:45
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:53
-msgid "col_handler_said"
-msgstr " wrote:"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:53
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:61
-msgid "talk_as_handler_of"
-msgstr "Present in role"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:58
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:70
-msgid "handler_save"
-msgstr "Save"
-
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:72
 msgid "admin_refresh_collections_cache"
 msgstr "Refresh collections"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:75
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:227
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:15
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:167
 msgid "admin_communications_window_description"
 msgstr " "
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:79
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:19
 msgid "admin_automated_emails_sent_last_time"
 msgstr "Automated emails were sent to handlers last"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:85
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:25
 msgid "admin_communications_collections"
 msgstr "Collections by groups"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:86
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:26
 msgid "admin_communications_handlers"
 msgstr "Handlers"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:87
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:27
 msgid "admin_communications_state"
 msgstr "State"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:88
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:28
 msgid "admin_send_email"
 msgstr "Send"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:89
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:29
 msgid "admin_communications_email"
 msgstr "Email"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:104
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:44
 msgid "admin_name_is_none"
 msgstr "Empty"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:111
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:51
 msgid "admin_collections_missing_handler"
 msgstr "Collections are missing handlers"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:121
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:191
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:61
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:131
 msgid "email_sender"
 msgstr "Sender"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:125
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:195
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:65
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:135
 msgid "email_header"
 msgstr "Subject"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:129
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:199
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:69
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:139
 msgid "email_lang"
 msgstr "Language"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:135
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:205
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:75
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:145
 msgid "admin_email_lang_all"
 msgstr "all"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:145
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:215
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:85
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:155
 msgid "admin_send"
 msgstr "Send"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:171
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:111
 msgid "emailed"
 msgstr "Emailed"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:173
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:113
 msgid "not_emailed"
 msgstr "Not emailed"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:228
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:168
 msgid "no_communications"
 msgstr "Communications is empty"
 
-#: pyha/templates/pyha/skipofficial/admin/requestview.html:270
+#: pyha/templates/pyha/skipofficial/admin/requestview.html:210
 msgid "in_other_languages_below"
 msgstr "(På svenska se nedan, in English see below)"
 
@@ -1069,6 +990,70 @@ msgstr "Natura sites"
 msgid "argument_reason"
 msgstr "Free text field"
 
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:4
+msgid "ask_additional_information_window_description"
+msgstr " "
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:8
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:13
+#: pyha/templates/pyha/skipofficial/comments_tab.html:8
+#: pyha/templates/pyha/skipofficial/information_tab.html:9
+#: pyha/templates/pyha/skipofficial/information_tab.html:25
+msgid "admin_question"
+msgstr "Additional questions"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:8
+#: pyha/templates/pyha/skipofficial/information_tab.html:9
+msgid "asked"
+msgstr " asked:"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:13
+#: pyha/templates/pyha/skipofficial/information_tab.html:25
+msgid "inquiry"
+msgstr "inquiry"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:13
+#: pyha/templates/pyha/skipofficial/information_tab.html:25
+msgid "answered"
+msgstr " responded:"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:17
+msgid "form_to_request_additional_information"
+msgstr "Form to request additional information"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:22
+msgid "ask_as_handler_of"
+msgstr "Ask in role"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:25
+#: pyha/templates/pyha/skipofficial/comments_tab.html:19
+msgid "as_admin"
+msgstr "Administrator"
+
+#: pyha/templates/pyha/skipofficial/ask_information_tab.html:35
+msgid "request_additional_information"
+msgstr "Request additional information"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:4
+msgid "col_handler_comments_window_description"
+msgstr " "
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:5
+msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
+msgstr "This section is only visible to collection handlers not request owner"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:8
+msgid "col_handler_said"
+msgstr " wrote:"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:16
+msgid "talk_as_handler_of"
+msgstr "Present in role"
+
+#: pyha/templates/pyha/skipofficial/comments_tab.html:29
+msgid "save"
+msgstr "Save"
+
 #: pyha/templates/pyha/skipofficial/contacts_tab.html:4
 msgid "contact_window_description"
 msgstr " "
@@ -1183,38 +1168,6 @@ msgstr "Values"
 msgid "no_filters"
 msgstr "There are no filters for this request"
 
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:7
-msgid "handler_additional_information_window"
-msgstr "Request additional information"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:8
-msgid "handler_additional_information_window_description"
-msgstr " "
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:12
-msgid "handler_asked"
-msgstr " asked:"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:17
-msgid "handler_answered"
-msgstr " responded:"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:22
-msgid "handler_form_to_request_additional_information"
-msgstr "Form to request additional information"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:27
-msgid "ask_as_handler_of"
-msgstr "Ask in role"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:36
-msgid "handler_request_additional_information"
-msgstr "Request additional information"
-
-#: pyha/templates/pyha/skipofficial/handler/requestview.html:41
-msgid "collection_free_of_sensitive_data"
-msgstr "Collections are free of sensitive data"
-
 #: pyha/templates/pyha/skipofficial/history_tab.html:4
 msgid "changes_history_description"
 msgstr " "
@@ -1308,12 +1261,24 @@ msgstr "Request denied"
 msgid "log_no_history"
 msgstr "No history"
 
+#: pyha/templates/pyha/skipofficial/information_tab.html:5
+msgid "additional_information_window_description"
+msgstr " "
+
+#: pyha/templates/pyha/skipofficial/information_tab.html:16
+msgid "send_additional_information"
+msgstr "Send response"
+
+#: pyha/templates/pyha/skipofficial/information_tab.html:20
+msgid "answer"
+msgstr "Respond"
+
 #: pyha/templates/pyha/skipofficial/make_decision_tab.html:4
 msgid "make_decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/skipofficial/make_decision_tab.html:13
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:56
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:58
 msgid "decision_arguments"
 msgstr "Basis of decision"
 
@@ -1325,27 +1290,27 @@ msgstr "Select"
 msgid "make_decision"
 msgstr "Make a decision"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:51
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:53
 msgid "handler_not_handling"
 msgstr "not handling"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:57
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:59
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "Select checksboxes to apply this decision to"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:62
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:64
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Arguments will be applied to all selected"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:63
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:65
 msgid "accept"
 msgstr "Accept"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:65
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:67
 msgid "reset"
 msgstr "Reset"
 
-#: pyha/templates/pyha/skipofficial/make_decision_tab.html:67
+#: pyha/templates/pyha/skipofficial/make_decision_tab.html:69
 msgid "refuse"
 msgstr "Reject"
 
@@ -1505,26 +1470,6 @@ msgstr "Multiple selected"
 msgid "request_chosen_all_reasons"
 msgstr "All selected"
 
-#: pyha/templates/pyha/skipofficial/requestview.html:9
-msgid "additional_information_window_description"
-msgstr " "
-
-#: pyha/templates/pyha/skipofficial/requestview.html:13
-msgid "asked"
-msgstr " asked:"
-
-#: pyha/templates/pyha/skipofficial/requestview.html:20
-msgid "send_additional_information"
-msgstr "Send response"
-
-#: pyha/templates/pyha/skipofficial/requestview.html:24
-msgid "answer"
-msgstr "Respond"
-
-#: pyha/templates/pyha/skipofficial/requestview.html:29
-msgid "answered"
-msgstr " responded:"
-
 #: pyha/templates/pyha/skipofficial/requestview_header.html:4
 msgid "handler_request_from_user"
 msgstr "Request from user"
@@ -1577,6 +1522,48 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#~ msgid "handler_save"
+#~ msgstr "Save"
+
+#~ msgid "admin_additional_information_window"
+#~ msgstr "Questions"
+
+#~ msgid "admin_additional_information_window_description"
+#~ msgstr " "
+
+#~ msgid "sensitivity"
+#~ msgstr "Sensitivity"
+
+#~ msgid "admin_asked"
+#~ msgstr " asked:"
+
+#~ msgid "admin_answered"
+#~ msgstr " responded:"
+
+#~ msgid "ask_as_admin_of"
+#~ msgstr "Ask in role"
+
+#~ msgid "handler_additional_information_window"
+#~ msgstr "Request additional information"
+
+#~ msgid "handler_additional_information_window_description"
+#~ msgstr " "
+
+#~ msgid "handler_asked"
+#~ msgstr " asked:"
+
+#~ msgid "handler_answered"
+#~ msgstr " responded:"
+
+#~ msgid "handler_form_to_request_additional_information"
+#~ msgstr "Form to request additional information"
+
+#~ msgid "handler_request_additional_information"
+#~ msgstr "Request additional information"
+
+#~ msgid "collection_free_of_sensitive_data"
+#~ msgstr "Collections are free of sensitive data"
 
 #~ msgid "admin_changes_history"
 #~ msgstr "Changes log"
@@ -2427,9 +2414,6 @@ msgstr "Pyha settings updated succesfully"
 #~| msgid "required_arguments"
 #~ msgid "handler_request_arguments"
 #~ msgstr "Free text field"
-
-#~ msgid "save"
-#~ msgstr "Save"
 
 #~ msgid "request_arguments_for_admin"
 #~ msgstr "Basis"
