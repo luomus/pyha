@@ -178,6 +178,9 @@
         <div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
           {% include "pyha/skipofficial/contacts_tab.html" %}
         </div>
+        <div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
+          {% include "pyha/skipofficial/arguments_tab.html" %}
+        </div>
       </div>
 
       {% block page_content %}

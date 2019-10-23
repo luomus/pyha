@@ -86,59 +86,6 @@
 					<strong>{% trans "handler_no_filters" %}.</strong>
 				{% endif %}
 		</div>
-		<div class="request-view-pane tab-pane {% if next == 'arguments' %} active {% endif %}" role="tabpanel" id="arguments">
-			<h3>{% trans "handler_argument_window" %}</h3>
-			<p>{% trans "handler_argument_window_description" %}</p>
-		<table class="table" style="width:100%">
-		<tr style=color:black><th>{% trans "handler_argument_choices" %}</th></tr>
-		<tr><td>
-		{% for choice in reasonlist.argument_choices%}
-			{% if choice == 'reason_zoning' %}
-				<p>{% trans "handler_reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
-			{% elif choice == 'reason_permission' %}
-				<p>{% trans "handler_reason_permission" %}{% if not forloop.last %},{% endif %}</p>
-			{% elif choice == 'reason_enviromental' %}
-				<p>{% trans "handler_reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
-			{% elif choice == 'reason_natura' %}
-				<p>{% trans "handler_reason_natura" %}{% if not forloop.last %},{% endif %}</p>
-			{% elif choice == 'reason_scientific' %}
-				<p>{% trans "handler_reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
-			{% elif choice == 'reason_forest' %}
-				<p>{% trans "handler_reason_forest" %}{% if not forloop.last %},{% endif %}</p>
-			{% elif choice == 'reason_other' %}
-				<p>{% trans "handler_reason_other" %}{% if not forloop.last %},{% endif %}</p>
-			{% endif %}
-		{% endfor %}
-		</td></tr>
-		{% for field in reasonlist.fields %}
-			{% if field.0 == 'argument_project' %}
-				<tr style=color:black><th>{% trans "handler_argument_project" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_research' %}
-				<tr style=color:black><th>{% trans "handler_argument_research" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_research_address' %}
-				<tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_goals' %}
-				<tr style=color:black><th>{% trans "handler_argument_goals" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_planning' %}
-				<tr style=color:black><th>{% trans "handler_argument_planning" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_municipality' %}
-				<tr style=color:black><th>{% trans "handler_argument_municipality" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_natura_areas' %}
-				<tr style=color:black><th>{% trans "handler_argument_natura_areas" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% elif field.0 == 'argument_reason' %}
-				<tr style=color:black><th>{% trans "handler_argument_reason" %}</th></tr>
-				<tr><td><p>{{field.1}}</p></td></tr>
-			{% endif %}
-		{% endfor %}
-			</table>
-		</div>
 		<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 				<h3>{% trans "handler_terms_window" %}</h3>
 				<p>{% trans "handler_terms_window_description" %}</p>

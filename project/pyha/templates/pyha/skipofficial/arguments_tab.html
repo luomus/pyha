@@ -1,0 +1,53 @@
+{% load i18n %}
+
+<h3>{% trans "argument_window" %}</h3>
+<p>{% trans "argument_window_description" %}</p>
+<table class="table" style="width:100%">
+<tr style=color:black><th>{% trans "argument_choices" %}</th></tr>
+<tr><td>
+{% for choice in reasonlist.argument_choices%}
+  {% if choice == 'reason_zoning' %}
+    <p>{% trans "reason_zoning" %}{% if not forloop.last %},{% endif %}</p>
+  {% elif choice == 'reason_permission' %}
+    <p>{% trans "reason_permission" %}{% if not forloop.last %},{% endif %}</p>
+  {% elif choice == 'reason_enviromental' %}
+    <p>{% trans "reason_enviromental" %}{% if not forloop.last %},{% endif %}</p>
+  {% elif choice == 'reason_natura' %}
+    <p>{% trans "reason_natura" %}{% if not forloop.last %},{% endif %}</p>
+  {% elif choice == 'reason_scientific' %}
+    <p>{% trans "reason_scientific" %}{% if not forloop.last %},{% endif %}</p>
+  {% elif choice == 'reason_forest' %}
+    <p>{% trans "reason_forest" %}{% if not forloop.last %},{% endif %}</p>
+  {% elif choice == 'reason_other' %}
+    <p>{% trans "reason_other" %}{% if not forloop.last %},{% endif %}</p>
+  {% endif %}
+{% endfor %}
+</td></tr>
+{% for field in reasonlist.fields %}
+  {% if field.0 == 'argument_project' %}
+    <tr style=color:black><th>{% trans "argument_project" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_research' %}
+    <tr style=color:black><th>{% trans "argument_research" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_research_address' %}
+    <tr style=color:black><th>{% trans "argument_research_address" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_goals' %}
+    <tr style=color:black><th>{% trans "argument_goals" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_planning' %}
+    <tr style=color:black><th>{% trans "argument_planning" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_municipality' %}
+    <tr style=color:black><th>{% trans "argument_municipality" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_natura_areas' %}
+    <tr style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_reason' %}
+    <tr style=color:black><th>{% trans "argument_reason" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% endif %}
+{% endfor %}
+</table>
