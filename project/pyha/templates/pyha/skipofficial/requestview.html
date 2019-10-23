@@ -3,7 +3,7 @@
 
 {% block page_content %}
 				<div class="tab-content">
-				
+
 					<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 						<h3>{% trans "decision_window" %}</h3>
 						<p>{% trans "decision_window_description" %}</p>
@@ -43,34 +43,6 @@
 								{% endfor %}
 							</table>
 						</div>
-					</div>
-					<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-							<h3>{% trans "filter_window" %}</h3>
-							<p>{% trans "filter_window_description" %}</p>
-								{% if filters %}
-									<a style="padding-left:8px;" href="{{ filter_link }}" target="_blank">{% trans "show_in_portal" %}</a>
-									<table class="table" style="width:100%">
-										<tr style=color:black>
-											<th>{% trans "filter" %}</th>
-											<th>{% trans "values" %}</th>
-										</tr>
-										{% for filter in filters %}
-										<tr>
-											<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
-											{% for f in filter.1 %}
-											<td>{{ f }}</td>
-										</tr>
-											<tr>
-											{% endfor %}
-											</tr>
-										{% endfor %}
-									</table>
-									{% if coordinates %}
-									<div id="filtermap"></div>
-									{% endif %}
-								{% else %}
-									<strong>{% trans "no_filters" %}.</strong>
-								{% endif %}
 					</div>
 					<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 							<h3>{% trans "terms_window" %}</h3>

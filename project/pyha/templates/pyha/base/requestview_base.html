@@ -184,6 +184,9 @@
         <div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
           {% include "pyha/skipofficial/request_tab.html" %}
         </div>
+        <div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
+          {% include "pyha/skipofficial/filters_tab.html" %}
+        </div>
       </div>
 
       {% block page_content %}

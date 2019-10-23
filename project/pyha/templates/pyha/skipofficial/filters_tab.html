@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<h3>{% trans "filter_window" %}</h3>
+<p>{% trans "filter_window_description" %}</p>
+{% if filters %}
+  <a style="padding-left:8px;" href="{{ filter_link }}" target="_blank">{% trans "show_in_portal" %}</a>
+  <table class="table" style="width:100%">
+    <tr style=color:black>
+      <th>{% trans "filter" %}</th>
+      <th>{% trans "values" %}</th>
+    </tr>
+    {% for filter in filters %}
+    <tr>
+      <td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
+      {% for f in filter.1 %}
+      <td>{{ f }}</td>
+    </tr>
+    <tr>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% if coordinates %}
+    <div id="filtermap"></div>
+  {% endif %}
+{% else %}
+  <strong>{% trans "no_filters" %}.</strong>
+{% endif %}

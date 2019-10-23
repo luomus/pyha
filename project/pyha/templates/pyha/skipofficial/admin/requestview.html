@@ -3,33 +3,6 @@
 
 {% block page_content %}
 	<div class="tab-content">
-		<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
-			<h3>{% trans "admin_filter_window" %} </h3> <a style="padding-left:8px;" href="{{ filter_link }}">{% trans "admin_show_in_portal" %}</a>
-			<p>{% trans "admin_filter_window_description" %}</p>
-				{% if filters %}
-					<table class = "table" style="width:100%">
-						<tr style=color:black>
-							<th>{% trans "admin_filter" %}</th>
-							<th>{% trans "admin_values" %}</th>
-						</tr>
-						{% for filter in filters %}
-						<tr>
-							<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
-							{% for f in filter.1 %}
-							<td>{{ f }}</td>
-						</tr>
-							<tr>
-							{% endfor %}
-							</tr>
-						{% endfor %}
-					</table>
-					{% if coordinates %}
-					<div id="filtermap"></div>
-					{% endif %}
-				{% else %}
-					<strong>{% trans "admin_no_filters" %}.</strong>
-				{% endif %}
-		</div>
 		<div class="request-view-pane tab-pane {% if next == 'terms' %} active {% endif %}" role="tabpanel" id="terms">
 				<h3>{% trans "admin_terms_window" %}</h3>
 				<p>{% trans "admin_terms_window_description" %}</p>
