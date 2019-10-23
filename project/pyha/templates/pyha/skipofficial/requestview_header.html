@@ -30,7 +30,7 @@
     {% endif %}
     >
     {% if userRequest.status == 1 %}
-      {% if role == "hander" or role == "admin" %}
+      {% if role == "hander" %}
         {% if userRequest.waitingstatus == 1 %}
           {% trans "handler_waiting_for_you" %}
         {% else %}

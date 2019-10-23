@@ -131,7 +131,11 @@
         <li id="decision-tab" role="presentation" {% if next == "decision" %} class="active" {% endif %} >
           <a href="#decision" class="request-tab {% if role == "handler" or role == "admin" %}request-{{role}}-action-tab{% else %}request-view-tab{% endif %}" data-toggle="tab" aria-controls="decision" role="tab"{% if next == "decision" %} aria-expanded="true" {% endif %}>
             <span>
+              {% if role == "handler" or role == "admin" %}
+              {% trans 'make_decision_window' %}
+              {% else %}
               {% trans 'decision_window' %}
+              {% endif %}
             </span>
           </a>
         </li>
@@ -179,6 +183,13 @@
         </div>
         <div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
           {% include "pyha/skipofficial/filters_tab.html" %}
+        </div>
+        <div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
+          {% if role == "handler" or role == "admin" %}
+          {% include "pyha/skipofficial/make_decision_tab.html" %}
+          {% else %}
+          {% include "pyha/skipofficial/decision_tab.html" %}
+          {% endif %}
         </div>
       </div>
 
