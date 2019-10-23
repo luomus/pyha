@@ -3,62 +3,6 @@
 
 {% block page_content %}
 	<div class="tab-content">
-		<div class="request-view-pane tab-pane {% if next == 'request' %} active {% endif %}" role="tabpanel" id="request">
-			<h3>{% trans "handler_request_window" %}</h3>
-			<p>{% trans "handler_request_window_description" %}</p>
-			{% if taxon %}
-			<p>{% trans 'given_values_are_not_absolute' %}</p>
-			{% endif %}
-				<table class="table" style="width:100%">
-					<tr style=color:black>
-						<th>{% trans "handler_collection_name" %}</th>
-						<th></th>
-						<th>{% trans "handler_collection_description" %}</th>
-						<th>{% trans "handler_collection_quality_description" %}</th>
-						<th>{% trans "handler_collection_terms" %}</th>
-						<th>{% trans "handler_secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
-						<th>{% trans "handler_secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
-						<th>{% trans "handler_secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
-						<th>{% trans "handler_state_of_processing" %}</th>
-					</tr>
-				{% for collection in collections %}
-					{% if collection.status == 1 %}
-					<tr class="info clickable-row">
-					{% elif collection.status == 3 %}
-					<tr class="danger clickable-row">
-					{% elif collection.status == 4 %}
-					<tr class="success clickable-row">
-					{% else %}
-					<tr>
-					{% endif %}
-					<td>{{collection.result.collectionName}}</td>
-					<td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
-					<td>{{collection.result.description}}</td>
-					<td>{{collection.result.qualityDescription}}</td>
-					<td>{{collection.result.collectionTerms}}</td>
-					<td>{{collection.quarantineSecured}}</td>
-					<td>{{collection.taxonSecured}}</td>
-					<td>{{collection.customSecured}}</td>
-					{% if collection.status == 1 %}
-						{% if collection.address in handles %}
-						<td>{% trans "handler_waiting_for_you" %}</td>
-						{% else %}
-						<td>{% trans "handler_waiting_for_others" %}</td>
-						{% endif %}
-					{% elif collection.status == 3 %}
-					<td>{% trans "denied" %}</td>
-					{% elif collection.status == 2 %}
-					<td>{% trans "partially_accepted" %}</td>
-					{% elif collection.status == 4 %}
-					<td>{% trans "accepted" %}</td>
-					{% elif collection.taxonSecured > 0 %}
-					<td>{% trans "Admission_for_sensitive_data" %}</td>
-					{% else %}
-					<td>{% trans "unknown" %}</td>
-					{% endif %}
-				{% endfor %}
-			</table>
-		</div>
 		<div class="request-view-pane tab-pane {% if next == 'filters' %} active {% endif %}" role="tabpanel" id="filters">
 			<h3>{% trans "handler_filter_window" %} </h3> <a style="padding-left:8px;" href="{{ filter_link }}">{% trans "handler_show_in_portal" %}</a>
 			<p>{% trans "handler_filter_window_description" %}</p>
