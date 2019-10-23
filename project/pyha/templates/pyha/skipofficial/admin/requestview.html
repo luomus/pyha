@@ -223,36 +223,6 @@
 							</div>
 				</table>
 		</div>
-		<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-			<h3>{% trans "admin_contact_window" %}</h3>
-			<p>{% trans "admin_contact_window_description" %}</p>
-			<table class="table" style="width:100%">
-				<tr style=color:black>
-					<th>{% trans "admin_full_name" %}</th>
-					<th>{% trans "admin_street_address" %}</th>
-					<th>{% trans "admin_postal_code" %}</th>
-					<th>{% trans "admin_post_office_name" %}</th>
-					<th>{% trans "admin_country" %}</th>
-					<th>{% trans "admin_email" %}</th>
-					<th>{% trans "admin_phone_number" %}</th>
-					<th>{% trans "admin_corporation/organization_name" %}</th>
-					<th>{% trans "admin_corporation_id" %}</th>
-				</tr>
-					{% for contact in contactlist %}
-				<tr>
-					<td>{{contact.personName}}</td>
-					<td>{{contact.personStreetAddress}}</td>
-					<td>{{contact.personPostalCode}}</td>
-					<td>{{contact.personPostOfficeName}}</td>
-					<td>{{contact.personCountry}}</td>
-					<td>{{contact.personEmail}}</td>
-					<td>{{contact.personPhoneNumber}}</td>
-					<td>{{contact.personOrganizationName}}</td>
-					<td>{{contact.personCorporationId}}</td>
-				</tr>
-					{% endfor %}
-			</table>
-		</div>
 		<div class="request-view-pane tab-pane {% if next == 'decision' %} active {% endif %}" role="tabpanel" id="decision">
 			<h3>{% trans "admin_decision_window" %}</h3>
 			<p>{% trans "admin_decision_window_description" %}</p>

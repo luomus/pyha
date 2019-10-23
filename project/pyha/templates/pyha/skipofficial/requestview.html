@@ -262,36 +262,7 @@
 								</table>
 
 					</div>
-					<div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
-						<h3>{% trans "contact_window" %}</h3>
-						<p>{% trans "contact_window_description" %}</p>
-						<table class="table" style="width:100%">
-							<tr style=color:black>
-								<th>{% trans "full_name" %}</th>
-								<th>{% trans "street_address" %}</th>
-								<th>{% trans "postal_code" %}</th>
-								<th>{% trans "post_office_name" %}</th>
-								<th>{% trans "country" %}</th>
-								<th>{% trans "email" %}</th>
-								<th>{% trans "phone_number" %}</th>
-								<th>{% trans "corporation/organization_name" %}</th>
-								<th>{% trans "corporation_id" %}</th>
-							</tr>
-								{% for contact in contactlist %}
-							<tr>
-								<td>{{contact.personName}}</td>
-								<td>{{contact.personStreetAddress}}</td>
-								<td>{{contact.personPostalCode}}</td>
-								<td>{{contact.personPostOfficeName}}</td>
-								<td>{{contact.personCountry}}</td>
-								<td>{{contact.personEmail}}</td>
-								<td>{{contact.personPhoneNumber}}</td>
-								<td>{{contact.personOrganizationName}}</td>
-								<td>{{contact.personCorporationId}}</td>
-							</tr>
-								{% endfor %}
-						</table>
-					</div>
+
 					{% if requestInformationChat_list %}
 					<div class="request-view-pane tab-pane {% if next == 'information' %} active {% endif %}" role="tabpanel" id="additional_information">
 							<h3>{% trans "additional_information_window" %}</h3>

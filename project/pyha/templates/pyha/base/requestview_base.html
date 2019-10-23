@@ -171,8 +171,13 @@
         {% endif %}
       </ul>
 
-      <div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
-        {% include "pyha/skipofficial/history_tab.html" %}
+      <div class="tab-content">
+        <div class="request-view-pane tab-pane {% if next == 'history' %} active {% endif %}" role="tabpanel" id="history">
+          {% include "pyha/skipofficial/history_tab.html" %}
+        </div>
+        <div class="request-view-pane tab-pane {% if next == 'contacts' %} active {% endif %}" role="tabpanel" id="contacts">
+          {% include "pyha/skipofficial/contacts_tab.html" %}
+        </div>
       </div>
 
       {% block page_content %}
