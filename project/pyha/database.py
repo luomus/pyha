@@ -269,6 +269,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 	customList = []
 	collectionList = []
 	userId = http_request.session["user_id"]
+	role = http_request.session.get("current_user_role", "user")
 	role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
 	role3 = CAT_ADMIN in http_request.session.get("user_roles", [None])
 	hasServiceRole = role2 or role3
@@ -287,7 +288,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 	request_owners_email = fetch_email_address(userRequest.user)
 	request_log = requestLog(http_request, requestId)
 	context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
-	context["requestLog_list"] = request_log if role2 or role3 else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
+	context["requestLog_list"] = request_log if (role == HANDLER_ANY or role == ADMIN) else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
 	context["coordinates"] = create_coordinates(userRequest)
 	context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
@@ -296,7 +297,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 	context["sensitivity_terms"] = "pyha/requestform/terms/collection-"+lang+".html"
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
-	context["role"] = "handler" if role2 else ("admin" if role3 else "user")
+	context["role"] = role
 	if role2:
 		handles = get_collections_where_download_handler(userId)
 		context["collections"] = sort_collections_by_download_handler(collectionList, handles)

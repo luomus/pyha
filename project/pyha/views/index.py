@@ -7,7 +7,7 @@ from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_inf
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
-from pyha.roles import ADMIN, HANDLER_ANY, CAT_HANDLER_COLL, ROLES_SHOWN_ROLE_IN_HEADER
+from pyha.roles import ADMIN, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
 from operator import attrgetter
 from itertools import chain
@@ -26,7 +26,6 @@ def index(http_request):
 	if not logged_in(http_request):
 		return _process_auth_response(http_request,'')
 	userId = http_request.session["user_id"]
-	hasRoleHeader = any([role in http_request.session.get("user_roles", [None]) for role in ROLES_SHOWN_ROLE_IN_HEADER])
 	toast = None
 	if(http_request.session.get("toast", None) is not None):
 		toast = http_request.session["toast"]
@@ -39,8 +38,6 @@ def index(http_request):
 			if(r.status == StatusEnum.DOWNLOADABLE):
 				r.downloadable = is_downloadable(http_request, r)
 			r.email = fetch_email_address(r.user)
-		context = {"role": hasRoleHeader, "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		return render(http_request, 'pyha/base/admin/index.html', context)
 	elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
 		request_list = []
 		if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
@@ -57,14 +54,11 @@ def index(http_request):
 			r.email = fetch_email_address(r.user)
 			if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
 				r.viewed = True
-
-		context = {"role": hasRoleHeader, "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		rend = render(http_request, 'pyha/base/handler/index.html', context)
-		return rend
 	else:
 		request_list = Request.objects.filter(user=userId, status__gte=0).order_by('-date')
 		for r in request_list:
 			if(r.status == StatusEnum.DOWNLOADABLE):
 				r.downloadable = is_downloadable(http_request, r)
-		context = {"role": hasRoleHeader, "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
-		return render(http_request, 'pyha/base/index.html', context)
+
+	context = {"role": http_request.session.get("current_user_role", "user"), "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+	return render(http_request, 'pyha/base/index.html', context)

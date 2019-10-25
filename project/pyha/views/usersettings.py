@@ -8,7 +8,7 @@ from pyha.log_utils import changed_by_session_user, changed_by
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import AdminUserSettings, AdminPyhaSettings
-from pyha.roles import ADMIN, ROLES_SHOWN_ROLE_IN_HEADER
+from pyha.roles import ADMIN
 from pyha import toast
 
 
@@ -21,9 +21,8 @@ def usersettings(http_request):
 	if not ADMIN in http_request.session.get("current_user_role", [None]):
 		return HttpResponseRedirect(reverse('pyha:root'))
 	userId = http_request.session["user_id"]
-	hasRoleHeader = any([role in http_request.session.get("user_roles", [None]) for role in ROLES_SHOWN_ROLE_IN_HEADER])
 	toast = None
-	if(http_request.session.get("toast", None) is not None): 
+	if(http_request.session.get("toast", None) is not None):
 		toast = http_request.session["toast"]
 		http_request.session["toast"] = None
 		http_request.session.save()
@@ -43,7 +42,7 @@ def usersettings(http_request):
 		pyha_settings.save()
 	else:
 		pyha_settings = pyha_settings.first()
-	context = {"pyha_settings":pyha_settings, "email_new_requests_setting":AdminUserSettings.EMAIL_NEW_REQUESTS_SETTING, "user_settings":user_settings, "toast": toast,"username": http_request.session["user_name"], "email": http_request.session["user_email"], "role": hasRoleHeader, "static": settings.STA_URL}
+	context = {"pyha_settings":pyha_settings, "email_new_requests_setting":AdminUserSettings.EMAIL_NEW_REQUESTS_SETTING, "user_settings":user_settings, "toast": toast,"username": http_request.session["user_name"], "email": http_request.session["user_email"], "static": settings.STA_URL}
 	return render(http_request, 'pyha/base/admin/usersettings.html', context)
 
 def save_user_settings(http_request):
@@ -60,7 +59,7 @@ def save_user_settings(http_request):
 		user_settings.changedBy = changed_by_session_user(http_request)
 		user_settings.save()
 		http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_user_settings_saved_succesfully')}
-		
+
 		return HttpResponseRedirect(nexturl)
 	return HttpResponseRedirect(reverse('pyha:root'))
 
@@ -82,14 +81,3 @@ def save_pyha_settings(http_request):
 			http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_pyha_settings_saved_succesfully')}
 		return HttpResponseRedirect(nexturl)
 	return HttpResponseRedirect(reverse('pyha:root'))
-
-
-
-
-
-
-
-
-
-
-

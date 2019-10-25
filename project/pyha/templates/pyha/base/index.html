@@ -4,99 +4,123 @@
 
 
 <div class="container-fluid">
-<div class="row">
- 	<div class="col-xs-12">
+  <div class="row">
+ 	  <div class="col-xs-12">
       <div class="page-header">
         <h2>{% trans "welcome" %}</h2>
       </div>
+
       {% if requests %}
-      <h2>{% trans "requests_for_user" %}</h2>
-  <p class ="text-muted">{% trans "click_for_info" %}.</p>
+      <h2>{% trans "all_requests" %}</h2>
+      <p class ="text-muted">{% trans "click_for_info" %}.</p>
 
-  <table id="requests-table" class="table table-hover table-bordered">
-    <thead>
-      <tr bgcolor="#3498DB" style="color:white;">
-        <th>{% trans "request_date" %}</th>
-        <th title="{% trans 'given_values_are_not_absolute' %}">{% trans "request_hits" %}</th>
-        <th>{% trans "request_status_for_user" %}</th>
-	    <th>{% trans "request_description" %}</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% load humanize %}
-    <!-- {% load pyha_tags %} -->
-    {% for request in requests %}
-
-
-        {% if request.status == 1 %}
-            <tr class="info clickable-row indextr"
-        {% elif request.status == 3 %}
-            <tr class="danger clickable-row indextr"
-        {% elif request.status == 2 %}
-            <tr class="warning clickable-row indextr"
-        {% elif request.status == 0 or request.status == 6 %}
-            <tr class="active clickable-row indextr"
-        {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
-            <tr class="success clickable-row indextr"
-        {% else %}
-            <tr
-        {% endif %}
-            data-href="{% url 'pyha:root' %}request/{{request.id}}"
-            >
-
-            <td>{{request.date|date:"d.m.Y    H:i"}}</td>
-
-            <td title="{% trans 'given_values_are_not_absolute' %}">{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
-            {% if request.status == 0 %}
-                <td>{% trans "you_have_not_accepted_terms" %}</td>
-
-            {% elif request.status == 1 %}
-                <td>{% trans "waiting_for_data_provider" %}</td>
-
-            {% elif request.status == 2 %}
-                <td>{% trans "partially_accepted" %}</td>
-
+      <table id="requests-table" class="table table-hover table-bordered">
+        <thead>
+          <tr bgcolor="{% if role == 'handler' %}#349934{% elif role == 'admin' %}#8080c0{% else %}#3498DB{% endif %}" style="color:white;">
+            {% if role == "handler" %}
+            <th title="{% trans 'handler_new_events' %}" style="width:0px;">!</th>
+            {% endif %}
+            <th>{% trans "request_date" %}</th>
+            {% if role == "handler" or role == "admin" %}
+            <th>{% trans "requester" %}</th>
+            {% endif %}
+            <th {% if role == "user" %}title="{% trans 'given_values_are_not_absolute' %}{% endif %}">{% trans "request_hits" %}</th>
+            <th>{% trans "request_status_for_user" %}</th>
+            {% if role == "user" %}
+            <th>{% trans "request_description" %}</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% load humanize %}
+          <!-- {% load pyha_tags %} -->
+          {% for request in requests %}
+            {% if request.status == 1 %}
+              <tr class="info clickable-row indextr"
             {% elif request.status == 3 %}
-                <td>{% trans "denied" %}</td>
+              <tr class="danger clickable-row indextr"
+            {% elif request.status == 2 %}
+              <tr class="warning clickable-row indextr"
+            {% elif request.status == 0 or request.status == 6 %}
+              <tr class="active clickable-row indextr"
+            {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
+              <tr class="success clickable-row indextr"
+            {% else %}
+              <tr
+            {% endif %}
+              data-href="{% url 'pyha:root' %}request/{{request.id}}">
 
-            {% elif request.status == 4 %}
-                <td>{% trans "accepted" %}</td>
-
-            {% elif request.status == 6 %}
-                <td>{% trans "waiting_for_additional_information" %}</td>
-
-            {% elif request.status == 7 %}
-                <td>{% trans "waiting_for_download" %}</td>
-
-            {% elif request.status == 8 %}
-            	{% if request.downloadable %}
-                <td>{% trans "ready_for_download" %}</td>
-                {% else %}
-                <td>{% trans "download_has_expired" %}</td>
+                {% if role == "handler" %}
+                <td {% if not request.viewed or request.answerstatus == 1%}data-order="1"><span class="glyphicon glyphicon-bell"></span>{% else %}data-order="0"><span></span>{% endif %}</td>
                 {% endif %}
 
-            {% else %}
+                <td>{{request.date|date:"d.m.Y    H:i"}}</td>
+
+                {% if role == "handler" or role == "admin" %}
+                <td>{{request.email}}</td>
+                {% endif %}
+
+                {% if role == "handler" or role == "admin" %}
+                <td>{{ request.allSecured }}</td>
+                {% else %}
+                <td title="{% trans 'given_values_are_not_absolute' %}">{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
+                {% endif %}
+
+                {% if request.status == 0 %}
+                <td>{% trans "you_have_not_accepted_terms" %}</td>
+                {% elif request.status == 1 %}
+                <td>
+                  {% if role == "handler" %}
+                    {% if request.answerstatus == 1 %}
+                    {% trans "handler_waiting_for_response_on_answer" %}
+                    {% elif request.waitingstatus == 0 %}
+                    {% trans "handler_waiting_for_others" %}
+                    {% elif request.waitingstatus == 1 %}
+                    {% trans "handler_waiting_for_you" %}
+                    {% endif %}
+                  {% else %}
+                    {% trans "waiting_for_data_provider" %}
+                  {% endif %}
+                </td>
+                {% elif request.status == 2 %}
+                <td>{% trans "partially_accepted" %}</td>
+                {% elif request.status == 3 %}
+                <td>{% trans "denied" %}</td>
+                {% elif request.status == 4 %}
+                <td>{% trans "accepted" %}</td>
+                {% elif request.status == 6 %}
+                <td>{% trans "waiting_for_additional_information" %}</td>
+                {% elif request.status == 7 %}
+                <td>{% trans "waiting_for_download" %}</td>
+                {% elif request.status == 8 %}
+                  {% if request.downloadable %}
+                  <td>{% trans "ready_for_download" %}</td>
+                  {% else %}
+                  <td>{% trans "download_has_expired" %}</td>
+                  {% endif %}
+                {% else %}
                 <td>{% trans "unknown" %}</td>
-            {% endif %}
+                {% endif %}
 
-		<td>{{request.description|linebreaks}}</td>
-        </tr>
+                {% if role == "user" %}
+      		      <td>{{request.description|linebreaks}}</td>
+                {% endif %}
+              </tr>
+      	  {% endfor %}
 
-	{% endfor %}
-	</tbody>
-  </table>
-   <p>{% trans 'given_values_are_not_absolute' %}</p>
-{% else %}
-	<strong>{% trans "no_requests_for_user" %}.</strong>
-{% endif %}
-   </div>
- <!--
-  <div class="col-sm-3 col-lg-2 side-bar">
+        </tbody>
+      </table>
+      {% if role == "user" %}
+      <p>{% trans 'given_values_are_not_absolute' %}</p>
+      {% endif %}
 
+      {% else %}
+      	<strong>{% trans "no_requests_for_user" %}.</strong>
+      {% endif %}
+    </div>
   </div>
--->
 </div>
-</div>
+
 {% endblock %}
 
 {% block end_script %}
@@ -111,7 +135,11 @@ $(document).ready(function($) {
 $(document).ready(function() {
     $.fn.dataTable.moment('DD.MM.YYYY    HH:mm');
     $('#requests-table').dataTable( {
-			"order": [[ 0, "desc" ]],
+			"order": [[ {% if role == "handler" %} 1 {% else %} 0 {% endif %}, "desc" ]],
+            {% if role == "handler" or role == "admin" %}
+            "lengthMenu": [[1, 10, 25, 50, 100, 500, 1000, 5000], [1, 10, 25, 50, 100, 500, 1000, 5000]],
+            "pageLength": 100,
+            {% endif %}
             "language": {
             {% if LANGUAGE == "fi" %}
             "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Finnish.json"

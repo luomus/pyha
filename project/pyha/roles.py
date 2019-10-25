@@ -6,5 +6,3 @@ HANDLER_ANY = 'handler'
 #role categories
 CAT_ADMIN = 'MA.admin'
 CAT_HANDLER_COLL = 'MA.downloadRequestHandler'
-
-ROLES_SHOWN_ROLE_IN_HEADER = {CAT_ADMIN,CAT_HANDLER_COLL}

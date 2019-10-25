@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-25 14:28+0300\n"
+"POT-Creation-Date: 2019-10-25 15:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,93 +40,6 @@ msgstr "Pyha admin"
 #: pyha/login.py:143 pyha/login.py:151
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Virhe, pyyntö on poissa käytöstä."
-
-#: pyha/templates/pyha/base/admin/index.html:10
-msgid "admin_welcome"
-msgstr "Tervetuloa käsittelemään aineistopyyntöjä!"
-
-#: pyha/templates/pyha/base/admin/index.html:13
-msgid "admin_all_requests"
-msgstr "Aineistopyynnöt"
-
-#: pyha/templates/pyha/base/admin/index.html:14
-#: pyha/templates/pyha/base/handler/index.html:14
-#: pyha/templates/pyha/base/index.html:14
-msgid "click_for_info"
-msgstr "Siirry aineistopyyntöön valitsemalla se luettelosta"
-
-#: pyha/templates/pyha/base/admin/index.html:18
-msgid "admin_request_date"
-msgstr "Pyyntö tehty"
-
-#: pyha/templates/pyha/base/admin/index.html:19
-msgid "admin_requester"
-msgstr "Aineistopyynnön tekijä"
-
-#: pyha/templates/pyha/base/admin/index.html:20
-msgid "admin_request_hits"
-msgstr "Havaintojen lukumäärä"
-
-#: pyha/templates/pyha/base/admin/index.html:21
-msgid "admin_request_status_for_admin"
-msgstr "Aineistopyynnön tila"
-
-#: pyha/templates/pyha/base/admin/index.html:49
-msgid "admin_you_have_not_accepted_terms"
-msgstr "Lue ja hyväksy ehdot"
-
-#: pyha/templates/pyha/base/admin/index.html:52
-msgid "admin_waiting"
-msgstr "Odottaa päätöstä"
-
-#: pyha/templates/pyha/base/admin/index.html:55
-msgid "admin_partially_accepted"
-msgstr "Osittain hyväksytty"
-
-#: pyha/templates/pyha/base/admin/index.html:58
-msgid "admin_denied"
-msgstr "Hylätty"
-
-#: pyha/templates/pyha/base/admin/index.html:61
-msgid "admin_accepted"
-msgstr "Hyväksytty"
-
-#: pyha/templates/pyha/base/admin/index.html:64
-msgid "admin_waiting_for_additional_information"
-msgstr "Odottaa lisätietoja"
-
-#: pyha/templates/pyha/base/admin/index.html:67
-msgid "admin_waiting_for_download"
-msgstr "Odottaa latauksen valmistumista"
-
-#: pyha/templates/pyha/base/admin/index.html:71
-msgid "admin_ready_for_download"
-msgstr "Valmiina ladattavaksi"
-
-#: pyha/templates/pyha/base/admin/index.html:73
-msgid "admin_download_has_expired"
-msgstr "Lataus on vanhentunut"
-
-#: pyha/templates/pyha/base/admin/index.html:77
-msgid "admin_unknown"
-msgstr "Tuntematon"
-
-#: pyha/templates/pyha/base/admin/index.html:86
-#: pyha/templates/pyha/base/handler/index.html:95
-#: pyha/templates/pyha/base/index.html:20
-#: pyha/templates/pyha/base/index.html:49
-#: pyha/templates/pyha/base/index.html:88
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
-#: pyha/templates/pyha/requestview/tabs/request.html:6
-msgid "given_values_are_not_absolute"
-msgstr ""
-"Salaussyistä kaikki havaintojen lukumäärät ovat suuntaa-antavia. Hyväksytyn "
-"aineistopyynnön havaintojen lukumäärä voi poiketa haetusta."
-
-#: pyha/templates/pyha/base/admin/index.html:88
-msgid "admin_no_requests_for_admin"
-msgstr "Ei aineistopyyntöjä"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:10
 msgid "admin_settings_header"
@@ -223,7 +136,7 @@ msgid "request_for_user"
 msgstr "Aineistopyyntösi"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:30
 msgid "request_description"
 msgstr "Kuvaus"
 
@@ -243,7 +156,7 @@ msgstr "Tallenna pyynnön kuvaus"
 msgid "Toggle_navigation"
 msgstr "Selaa"
 
-#: pyha/templates/pyha/base/base.html:58
+#: pyha/templates/pyha/base/base.html:58 pyha/templates/pyha/base/index.html:14
 msgid "all_requests"
 msgstr "Aineistopyynnöt"
 
@@ -284,43 +197,56 @@ msgstr "På svenska"
 msgid "set_lang_en"
 msgstr "In English"
 
-#: pyha/templates/pyha/base/handler/index.html:10
-msgid "handler_welcome"
-msgstr "Tervetuloa käsittelemään aineistopyyntöjä!"
+#: pyha/templates/pyha/base/index.html:10
+msgid "welcome"
+msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään!"
 
-#: pyha/templates/pyha/base/handler/index.html:13
-msgid "handler_all_requests"
-msgstr "Aineistopyynnöt"
+#: pyha/templates/pyha/base/index.html:15
+msgid "click_for_info"
+msgstr "Siirry aineistopyyntöön valitsemalla se luettelosta"
 
-#: pyha/templates/pyha/base/handler/index.html:18
+#: pyha/templates/pyha/base/index.html:21
 msgid "handler_new_events"
 msgstr "!"
 
-#: pyha/templates/pyha/base/handler/index.html:19
-msgid "handler_request_date"
+#: pyha/templates/pyha/base/index.html:23
+msgid "request_date"
 msgstr "Pyyntö tehty"
 
-#: pyha/templates/pyha/base/handler/index.html:20
-msgid "handler_requester"
-msgstr "Aineistopyynnön tekijä"
+#: pyha/templates/pyha/base/index.html:25
+msgid "requester"
+msgstr "Pyynnön tekijä"
 
-#: pyha/templates/pyha/base/handler/index.html:21
-msgid "handler_request_hits"
+#: pyha/templates/pyha/base/index.html:27
+#: pyha/templates/pyha/base/index.html:66
+#: pyha/templates/pyha/base/index.html:114
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
+#: pyha/templates/pyha/requestview/tabs/request.html:6
+msgid "given_values_are_not_absolute"
+msgstr ""
+"Salaussyistä kaikki havaintojen lukumäärät ovat suuntaa-antavia. Hyväksytyn "
+"aineistopyynnön havaintojen lukumäärä voi poiketa haetusta."
+
+#: pyha/templates/pyha/base/index.html:27
+msgid "request_hits"
 msgstr "Havaintojen lukumäärä"
 
-#: pyha/templates/pyha/base/handler/index.html:22
-msgid "handler_request_status_for_admin"
-msgstr "Aineistopyynnön tila"
+#: pyha/templates/pyha/base/index.html:28
+msgid "request_status_for_user"
+msgstr "Pyynnön tila"
 
-#: pyha/templates/pyha/base/handler/index.html:51
-msgid "handler_you_have_not_accepted_terms"
+#: pyha/templates/pyha/base/index.html:70
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:41
+#: pyha/templates/pyha/requestform/requestform.html:425
+msgid "you_have_not_accepted_terms"
 msgstr "Lue ja hyväksy ehdot"
 
-#: pyha/templates/pyha/base/handler/index.html:56
+#: pyha/templates/pyha/base/index.html:75
 msgid "handler_waiting_for_response_on_answer"
 msgstr "Lisätietokysymykseen on vastattu"
 
-#: pyha/templates/pyha/base/handler/index.html:58
+#: pyha/templates/pyha/base/index.html:77
 #: pyha/templates/pyha/requestview/requestview.html:27
 #: pyha/templates/pyha/requestview/requestview_header.html:37
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:37
@@ -328,7 +254,7 @@ msgstr "Lisätietokysymykseen on vastattu"
 msgid "handler_waiting_for_others"
 msgstr "Odottaa muiden päätöstä"
 
-#: pyha/templates/pyha/base/handler/index.html:60
+#: pyha/templates/pyha/base/index.html:79
 #: pyha/templates/pyha/requestview/requestview.html:25
 #: pyha/templates/pyha/requestview/requestview_header.html:35
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:35
@@ -336,69 +262,7 @@ msgstr "Odottaa muiden päätöstä"
 msgid "handler_waiting_for_you"
 msgstr "Odottaa sinun päätöstäsi"
 
-#: pyha/templates/pyha/base/handler/index.html:64
-msgid "handler_partially_accepted"
-msgstr "Osittain hyväksytty"
-
-#: pyha/templates/pyha/base/handler/index.html:67
-msgid "handler_denied"
-msgstr "Hylätty"
-
-#: pyha/templates/pyha/base/handler/index.html:70
-msgid "handler_accepted"
-msgstr "Hyväksytty"
-
-#: pyha/templates/pyha/base/handler/index.html:73
-msgid "handler_waiting_for_additional_information"
-msgstr "Odottaa lisätietoja"
-
-#: pyha/templates/pyha/base/handler/index.html:76
-msgid "handler_waiting_for_download"
-msgstr "Odottaa latauksen valmistumista"
-
-#: pyha/templates/pyha/base/handler/index.html:80
-msgid "handler_ready_for_download"
-msgstr "Valmiina ladattavaksi"
-
-#: pyha/templates/pyha/base/handler/index.html:82
-msgid "handler_download_has_expired"
-msgstr "Lataus on vanhentunut"
-
-#: pyha/templates/pyha/base/handler/index.html:86
-msgid "handler_unknown"
-msgstr "Tuntematon"
-
-#: pyha/templates/pyha/base/handler/index.html:97
-msgid "handler_no_requests_for_admin"
-msgstr "Ei aineistopyyntöjä"
-
-#: pyha/templates/pyha/base/index.html:10
-msgid "welcome"
-msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään!"
-
-#: pyha/templates/pyha/base/index.html:13
-msgid "requests_for_user"
-msgstr "Aineistopyyntösi"
-
-#: pyha/templates/pyha/base/index.html:19
-msgid "request_date"
-msgstr "Pyyntö tehty"
-
-#: pyha/templates/pyha/base/index.html:20
-msgid "request_hits"
-msgstr "Havaintojen lukumäärä"
-
-#: pyha/templates/pyha/base/index.html:21
-msgid "request_status_for_user"
-msgstr "Pyynnön tila"
-
-#: pyha/templates/pyha/base/index.html:51
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:41
-#: pyha/templates/pyha/requestform/requestform.html:425
-msgid "you_have_not_accepted_terms"
-msgstr "Lue ja hyväksy ehdot"
-
-#: pyha/templates/pyha/base/index.html:54
+#: pyha/templates/pyha/base/index.html:82
 #: pyha/templates/pyha/requestview/requestview.html:30
 #: pyha/templates/pyha/requestview/requestview_header.html:40
 #: pyha/templates/pyha/requestview/tabs/decision.html:23
@@ -407,7 +271,7 @@ msgstr "Lue ja hyväksy ehdot"
 msgid "waiting_for_data_provider"
 msgstr "Odottaa päätöstä"
 
-#: pyha/templates/pyha/base/index.html:57
+#: pyha/templates/pyha/base/index.html:86
 #: pyha/templates/pyha/requestview/requestview_header.html:43
 #: pyha/templates/pyha/requestview/tabs/decision.html:27
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:42
@@ -415,7 +279,7 @@ msgstr "Odottaa päätöstä"
 msgid "partially_accepted"
 msgstr "Osittain hyväksytty"
 
-#: pyha/templates/pyha/base/index.html:60
+#: pyha/templates/pyha/base/index.html:88
 #: pyha/templates/pyha/requestview/requestview.html:34
 #: pyha/templates/pyha/requestview/requestview_header.html:46
 #: pyha/templates/pyha/requestview/tabs/decision.html:25
@@ -424,7 +288,7 @@ msgstr "Osittain hyväksytty"
 msgid "denied"
 msgstr "Hylätty"
 
-#: pyha/templates/pyha/base/index.html:63
+#: pyha/templates/pyha/base/index.html:90
 #: pyha/templates/pyha/requestview/requestview.html:33
 #: pyha/templates/pyha/requestview/requestview_header.html:49
 #: pyha/templates/pyha/requestview/tabs/decision.html:29
@@ -433,28 +297,28 @@ msgstr "Hylätty"
 msgid "accepted"
 msgstr "Hyväksytty"
 
-#: pyha/templates/pyha/base/index.html:66
+#: pyha/templates/pyha/base/index.html:92
 #: pyha/templates/pyha/requestview/requestview_header.html:52
 msgid "waiting_for_additional_information"
 msgstr "Odottaa lisätietoja"
 
-#: pyha/templates/pyha/base/index.html:69
+#: pyha/templates/pyha/base/index.html:94
 #: pyha/templates/pyha/requestview/requestview_header.html:56
 msgid "waiting_for_download"
 msgstr "Odottaa latauksen valmistumista"
 
-#: pyha/templates/pyha/base/index.html:73
+#: pyha/templates/pyha/base/index.html:97
 #: pyha/templates/pyha/requestview/requestview_header.html:60
 msgid "ready_for_download"
 msgstr "Valmiina ladattavaksi"
 
-#: pyha/templates/pyha/base/index.html:75
+#: pyha/templates/pyha/base/index.html:99
 #: pyha/templates/pyha/requestview/requestview.html:52
 #: pyha/templates/pyha/requestview/requestview_header.html:62
 msgid "download_has_expired"
 msgstr "Lataus on vanhentunut"
 
-#: pyha/templates/pyha/base/index.html:79
+#: pyha/templates/pyha/base/index.html:102
 #: pyha/templates/pyha/requestview/requestview_header.html:66
 #: pyha/templates/pyha/requestview/tabs/decision.html:33
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:46
@@ -462,7 +326,7 @@ msgstr "Lataus on vanhentunut"
 msgid "unknown"
 msgstr "Tuntematon"
 
-#: pyha/templates/pyha/base/index.html:90
+#: pyha/templates/pyha/base/index.html:118
 msgid "no_requests_for_user"
 msgstr "Kannassa ei ole pyyntöjä"
 
@@ -1505,13 +1369,115 @@ msgstr "Kiitos, pyyntösi on kirjattu."
 msgid "toast_mails_sent_succesfully"
 msgstr "Viestit lähetetty onnistuneesti."
 
-#: pyha/views/usersettings.py:62
+#: pyha/views/usersettings.py:61
 msgid "toast_user_settings_saved_succesfully"
 msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 
-#: pyha/views/usersettings.py:82
+#: pyha/views/usersettings.py:81
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
+
+#~ msgid "admin_welcome"
+#~ msgstr "Tervetuloa käsittelemään aineistopyyntöjä!"
+
+#~ msgid "admin_all_requests"
+#~ msgstr "Aineistopyynnöt"
+
+#~ msgid "admin_request_date"
+#~ msgstr "Pyyntö tehty"
+
+#~ msgid "admin_requester"
+#~ msgstr "Aineistopyynnön tekijä"
+
+#~ msgid "admin_request_hits"
+#~ msgstr "Havaintojen lukumäärä"
+
+#~ msgid "admin_request_status_for_admin"
+#~ msgstr "Aineistopyynnön tila"
+
+#~ msgid "admin_you_have_not_accepted_terms"
+#~ msgstr "Lue ja hyväksy ehdot"
+
+#~ msgid "admin_waiting"
+#~ msgstr "Odottaa päätöstä"
+
+#~ msgid "admin_partially_accepted"
+#~ msgstr "Osittain hyväksytty"
+
+#~ msgid "admin_denied"
+#~ msgstr "Hylätty"
+
+#~ msgid "admin_accepted"
+#~ msgstr "Hyväksytty"
+
+#~ msgid "admin_waiting_for_additional_information"
+#~ msgstr "Odottaa lisätietoja"
+
+#~ msgid "admin_waiting_for_download"
+#~ msgstr "Odottaa latauksen valmistumista"
+
+#~ msgid "admin_ready_for_download"
+#~ msgstr "Valmiina ladattavaksi"
+
+#~ msgid "admin_download_has_expired"
+#~ msgstr "Lataus on vanhentunut"
+
+#~ msgid "admin_unknown"
+#~ msgstr "Tuntematon"
+
+#~ msgid "admin_no_requests_for_admin"
+#~ msgstr "Ei aineistopyyntöjä"
+
+#~ msgid "handler_welcome"
+#~ msgstr "Tervetuloa käsittelemään aineistopyyntöjä!"
+
+#~ msgid "handler_all_requests"
+#~ msgstr "Aineistopyynnöt"
+
+#~ msgid "handler_request_date"
+#~ msgstr "Pyyntö tehty"
+
+#~ msgid "handler_requester"
+#~ msgstr "Aineistopyynnön tekijä"
+
+#~ msgid "handler_request_hits"
+#~ msgstr "Havaintojen lukumäärä"
+
+#~ msgid "handler_request_status_for_admin"
+#~ msgstr "Aineistopyynnön tila"
+
+#~ msgid "handler_you_have_not_accepted_terms"
+#~ msgstr "Lue ja hyväksy ehdot"
+
+#~ msgid "handler_partially_accepted"
+#~ msgstr "Osittain hyväksytty"
+
+#~ msgid "handler_denied"
+#~ msgstr "Hylätty"
+
+#~ msgid "handler_accepted"
+#~ msgstr "Hyväksytty"
+
+#~ msgid "handler_waiting_for_additional_information"
+#~ msgstr "Odottaa lisätietoja"
+
+#~ msgid "handler_waiting_for_download"
+#~ msgstr "Odottaa latauksen valmistumista"
+
+#~ msgid "handler_ready_for_download"
+#~ msgstr "Valmiina ladattavaksi"
+
+#~ msgid "handler_download_has_expired"
+#~ msgstr "Lataus on vanhentunut"
+
+#~ msgid "handler_unknown"
+#~ msgstr "Tuntematon"
+
+#~ msgid "handler_no_requests_for_admin"
+#~ msgstr "Ei aineistopyyntöjä"
+
+#~ msgid "requests_for_user"
+#~ msgstr "Aineistopyyntösi"
 
 #~ msgid "handler_save"
 #~ msgstr "Tallenna"

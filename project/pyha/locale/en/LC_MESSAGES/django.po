@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-25 14:28+0300\n"
+"POT-Creation-Date: 2019-10-25 15:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,93 +39,6 @@ msgstr "Pyha admin"
 #: pyha/login.py:143 pyha/login.py:151
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Error, the request is currently unavailable"
-
-#: pyha/templates/pyha/base/admin/index.html:10
-msgid "admin_welcome"
-msgstr "Welcome!"
-
-#: pyha/templates/pyha/base/admin/index.html:13
-msgid "admin_all_requests"
-msgstr "Requests"
-
-#: pyha/templates/pyha/base/admin/index.html:14
-#: pyha/templates/pyha/base/handler/index.html:14
-#: pyha/templates/pyha/base/index.html:14
-msgid "click_for_info"
-msgstr "Click on a request to get more information"
-
-#: pyha/templates/pyha/base/admin/index.html:18
-msgid "admin_request_date"
-msgstr "Date"
-
-#: pyha/templates/pyha/base/admin/index.html:19
-msgid "admin_requester"
-msgstr "Created by"
-
-#: pyha/templates/pyha/base/admin/index.html:20
-msgid "admin_request_hits"
-msgstr "Matches"
-
-#: pyha/templates/pyha/base/admin/index.html:21
-msgid "admin_request_status_for_admin"
-msgstr "Status"
-
-#: pyha/templates/pyha/base/admin/index.html:49
-msgid "admin_you_have_not_accepted_terms"
-msgstr "You haven't accepted the conditions"
-
-#: pyha/templates/pyha/base/admin/index.html:52
-msgid "admin_waiting"
-msgstr "Waiting for handlers"
-
-#: pyha/templates/pyha/base/admin/index.html:55
-msgid "admin_partially_accepted"
-msgstr "Partially accepted"
-
-#: pyha/templates/pyha/base/admin/index.html:58
-msgid "admin_denied"
-msgstr "Denied"
-
-#: pyha/templates/pyha/base/admin/index.html:61
-msgid "admin_accepted"
-msgstr "Accepted"
-
-#: pyha/templates/pyha/base/admin/index.html:64
-msgid "admin_waiting_for_additional_information"
-msgstr "Pending additional information"
-
-#: pyha/templates/pyha/base/admin/index.html:67
-msgid "admin_waiting_for_download"
-msgstr "Waiting for download file to be completed"
-
-#: pyha/templates/pyha/base/admin/index.html:71
-msgid "admin_ready_for_download"
-msgstr "Ready for download"
-
-#: pyha/templates/pyha/base/admin/index.html:73
-msgid "admin_download_has_expired"
-msgstr "Download has expired"
-
-#: pyha/templates/pyha/base/admin/index.html:77
-msgid "admin_unknown"
-msgstr "Unknown"
-
-#: pyha/templates/pyha/base/admin/index.html:86
-#: pyha/templates/pyha/base/handler/index.html:95
-#: pyha/templates/pyha/base/index.html:20
-#: pyha/templates/pyha/base/index.html:49
-#: pyha/templates/pyha/base/index.html:88
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
-#: pyha/templates/pyha/requestview/tabs/request.html:6
-msgid "given_values_are_not_absolute"
-msgstr ""
-"Because some data is not public, the amount of observations is not exact. "
-"The amount of observations in an accepted request may differ."
-
-#: pyha/templates/pyha/base/admin/index.html:88
-msgid "admin_no_requests_for_admin"
-msgstr "There are no requests to be shown"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:10
 msgid "admin_settings_header"
@@ -218,7 +131,7 @@ msgid "request_for_user"
 msgstr "Request"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:30
 msgid "request_description"
 msgstr "Description"
 
@@ -240,7 +153,7 @@ msgstr "Change"
 msgid "Toggle_navigation"
 msgstr "Toggle navigation"
 
-#: pyha/templates/pyha/base/base.html:58
+#: pyha/templates/pyha/base/base.html:58 pyha/templates/pyha/base/index.html:14
 msgid "all_requests"
 msgstr "Requests"
 
@@ -281,43 +194,56 @@ msgstr "På svenska"
 msgid "set_lang_en"
 msgstr "In English"
 
-#: pyha/templates/pyha/base/handler/index.html:10
-msgid "handler_welcome"
+#: pyha/templates/pyha/base/index.html:10
+msgid "welcome"
 msgstr "Welcome!"
 
-#: pyha/templates/pyha/base/handler/index.html:13
-msgid "handler_all_requests"
-msgstr "Requests"
+#: pyha/templates/pyha/base/index.html:15
+msgid "click_for_info"
+msgstr "Click on a request to get more information"
 
-#: pyha/templates/pyha/base/handler/index.html:18
+#: pyha/templates/pyha/base/index.html:21
 msgid "handler_new_events"
 msgstr "handler_new_events"
 
-#: pyha/templates/pyha/base/handler/index.html:19
-msgid "handler_request_date"
+#: pyha/templates/pyha/base/index.html:23
+msgid "request_date"
 msgstr "Date"
 
-#: pyha/templates/pyha/base/handler/index.html:20
-msgid "handler_requester"
+#: pyha/templates/pyha/base/index.html:25
+msgid "requester"
 msgstr "Created by"
 
-#: pyha/templates/pyha/base/handler/index.html:21
-msgid "handler_request_hits"
+#: pyha/templates/pyha/base/index.html:27
+#: pyha/templates/pyha/base/index.html:66
+#: pyha/templates/pyha/base/index.html:114
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
+#: pyha/templates/pyha/requestview/tabs/request.html:6
+msgid "given_values_are_not_absolute"
+msgstr ""
+"Because some data is not public, the amount of observations is not exact. "
+"The amount of observations in an accepted request may differ."
+
+#: pyha/templates/pyha/base/index.html:27
+msgid "request_hits"
 msgstr "Matches"
 
-#: pyha/templates/pyha/base/handler/index.html:22
-msgid "handler_request_status_for_admin"
+#: pyha/templates/pyha/base/index.html:28
+msgid "request_status_for_user"
 msgstr "Status"
 
-#: pyha/templates/pyha/base/handler/index.html:51
-msgid "handler_you_have_not_accepted_terms"
-msgstr "Please read and accept the terms"
+#: pyha/templates/pyha/base/index.html:70
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:41
+#: pyha/templates/pyha/requestform/requestform.html:425
+msgid "you_have_not_accepted_terms"
+msgstr "You haven't accepted the conditions"
 
-#: pyha/templates/pyha/base/handler/index.html:56
+#: pyha/templates/pyha/base/index.html:75
 msgid "handler_waiting_for_response_on_answer"
 msgstr "The request for more information has a response"
 
-#: pyha/templates/pyha/base/handler/index.html:58
+#: pyha/templates/pyha/base/index.html:77
 #: pyha/templates/pyha/requestview/requestview.html:27
 #: pyha/templates/pyha/requestview/requestview_header.html:37
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:37
@@ -325,7 +251,7 @@ msgstr "The request for more information has a response"
 msgid "handler_waiting_for_others"
 msgstr "Pending decision by others"
 
-#: pyha/templates/pyha/base/handler/index.html:60
+#: pyha/templates/pyha/base/index.html:79
 #: pyha/templates/pyha/requestview/requestview.html:25
 #: pyha/templates/pyha/requestview/requestview_header.html:35
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:35
@@ -333,69 +259,7 @@ msgstr "Pending decision by others"
 msgid "handler_waiting_for_you"
 msgstr "Pending your decision"
 
-#: pyha/templates/pyha/base/handler/index.html:64
-msgid "handler_partially_accepted"
-msgstr "Partially accepted"
-
-#: pyha/templates/pyha/base/handler/index.html:67
-msgid "handler_denied"
-msgstr "Denied"
-
-#: pyha/templates/pyha/base/handler/index.html:70
-msgid "handler_accepted"
-msgstr "Partially accepted"
-
-#: pyha/templates/pyha/base/handler/index.html:73
-msgid "handler_waiting_for_additional_information"
-msgstr "Pending additional information"
-
-#: pyha/templates/pyha/base/handler/index.html:76
-msgid "handler_waiting_for_download"
-msgstr "Waiting for download file to be completed"
-
-#: pyha/templates/pyha/base/handler/index.html:80
-msgid "handler_ready_for_download"
-msgstr "Ready for downloading"
-
-#: pyha/templates/pyha/base/handler/index.html:82
-msgid "handler_download_has_expired"
-msgstr "Download has expired"
-
-#: pyha/templates/pyha/base/handler/index.html:86
-msgid "handler_unknown"
-msgstr "Unknown"
-
-#: pyha/templates/pyha/base/handler/index.html:97
-msgid "handler_no_requests_for_admin"
-msgstr "There are no requests to be shown"
-
-#: pyha/templates/pyha/base/index.html:10
-msgid "welcome"
-msgstr "Welcome!"
-
-#: pyha/templates/pyha/base/index.html:13
-msgid "requests_for_user"
-msgstr "Request"
-
-#: pyha/templates/pyha/base/index.html:19
-msgid "request_date"
-msgstr "Date"
-
-#: pyha/templates/pyha/base/index.html:20
-msgid "request_hits"
-msgstr "Matches"
-
-#: pyha/templates/pyha/base/index.html:21
-msgid "request_status_for_user"
-msgstr "Status"
-
-#: pyha/templates/pyha/base/index.html:51
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:41
-#: pyha/templates/pyha/requestform/requestform.html:425
-msgid "you_have_not_accepted_terms"
-msgstr "You haven't accepted the conditions"
-
-#: pyha/templates/pyha/base/index.html:54
+#: pyha/templates/pyha/base/index.html:82
 #: pyha/templates/pyha/requestview/requestview.html:30
 #: pyha/templates/pyha/requestview/requestview_header.html:40
 #: pyha/templates/pyha/requestview/tabs/decision.html:23
@@ -404,7 +268,7 @@ msgstr "You haven't accepted the conditions"
 msgid "waiting_for_data_provider"
 msgstr "Pending decision"
 
-#: pyha/templates/pyha/base/index.html:57
+#: pyha/templates/pyha/base/index.html:86
 #: pyha/templates/pyha/requestview/requestview_header.html:43
 #: pyha/templates/pyha/requestview/tabs/decision.html:27
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:42
@@ -412,7 +276,7 @@ msgstr "Pending decision"
 msgid "partially_accepted"
 msgstr "Partially accepted"
 
-#: pyha/templates/pyha/base/index.html:60
+#: pyha/templates/pyha/base/index.html:88
 #: pyha/templates/pyha/requestview/requestview.html:34
 #: pyha/templates/pyha/requestview/requestview_header.html:46
 #: pyha/templates/pyha/requestview/tabs/decision.html:25
@@ -421,7 +285,7 @@ msgstr "Partially accepted"
 msgid "denied"
 msgstr "Denied"
 
-#: pyha/templates/pyha/base/index.html:63
+#: pyha/templates/pyha/base/index.html:90
 #: pyha/templates/pyha/requestview/requestview.html:33
 #: pyha/templates/pyha/requestview/requestview_header.html:49
 #: pyha/templates/pyha/requestview/tabs/decision.html:29
@@ -430,28 +294,28 @@ msgstr "Denied"
 msgid "accepted"
 msgstr "Accepted"
 
-#: pyha/templates/pyha/base/index.html:66
+#: pyha/templates/pyha/base/index.html:92
 #: pyha/templates/pyha/requestview/requestview_header.html:52
 msgid "waiting_for_additional_information"
 msgstr "Pending additional information"
 
-#: pyha/templates/pyha/base/index.html:69
+#: pyha/templates/pyha/base/index.html:94
 #: pyha/templates/pyha/requestview/requestview_header.html:56
 msgid "waiting_for_download"
 msgstr "Waiting for download file to be completed"
 
-#: pyha/templates/pyha/base/index.html:73
+#: pyha/templates/pyha/base/index.html:97
 #: pyha/templates/pyha/requestview/requestview_header.html:60
 msgid "ready_for_download"
 msgstr "Ready for download"
 
-#: pyha/templates/pyha/base/index.html:75
+#: pyha/templates/pyha/base/index.html:99
 #: pyha/templates/pyha/requestview/requestview.html:52
 #: pyha/templates/pyha/requestview/requestview_header.html:62
 msgid "download_has_expired"
 msgstr "Download has expired"
 
-#: pyha/templates/pyha/base/index.html:79
+#: pyha/templates/pyha/base/index.html:102
 #: pyha/templates/pyha/requestview/requestview_header.html:66
 #: pyha/templates/pyha/requestview/tabs/decision.html:33
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:46
@@ -459,7 +323,7 @@ msgstr "Download has expired"
 msgid "unknown"
 msgstr "Unknown"
 
-#: pyha/templates/pyha/base/index.html:90
+#: pyha/templates/pyha/base/index.html:118
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
@@ -1484,13 +1348,115 @@ msgstr "Thank you, request has been registered."
 msgid "toast_mails_sent_succesfully"
 msgstr "Mails sent succesfully"
 
-#: pyha/views/usersettings.py:62
+#: pyha/views/usersettings.py:61
 msgid "toast_user_settings_saved_succesfully"
 msgstr "User settings updated succesfully"
 
-#: pyha/views/usersettings.py:82
+#: pyha/views/usersettings.py:81
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#~ msgid "admin_welcome"
+#~ msgstr "Welcome!"
+
+#~ msgid "admin_all_requests"
+#~ msgstr "Requests"
+
+#~ msgid "admin_request_date"
+#~ msgstr "Date"
+
+#~ msgid "admin_requester"
+#~ msgstr "Created by"
+
+#~ msgid "admin_request_hits"
+#~ msgstr "Matches"
+
+#~ msgid "admin_request_status_for_admin"
+#~ msgstr "Status"
+
+#~ msgid "admin_you_have_not_accepted_terms"
+#~ msgstr "You haven't accepted the conditions"
+
+#~ msgid "admin_waiting"
+#~ msgstr "Waiting for handlers"
+
+#~ msgid "admin_partially_accepted"
+#~ msgstr "Partially accepted"
+
+#~ msgid "admin_denied"
+#~ msgstr "Denied"
+
+#~ msgid "admin_accepted"
+#~ msgstr "Accepted"
+
+#~ msgid "admin_waiting_for_additional_information"
+#~ msgstr "Pending additional information"
+
+#~ msgid "admin_waiting_for_download"
+#~ msgstr "Waiting for download file to be completed"
+
+#~ msgid "admin_ready_for_download"
+#~ msgstr "Ready for download"
+
+#~ msgid "admin_download_has_expired"
+#~ msgstr "Download has expired"
+
+#~ msgid "admin_unknown"
+#~ msgstr "Unknown"
+
+#~ msgid "admin_no_requests_for_admin"
+#~ msgstr "There are no requests to be shown"
+
+#~ msgid "handler_welcome"
+#~ msgstr "Welcome!"
+
+#~ msgid "handler_all_requests"
+#~ msgstr "Requests"
+
+#~ msgid "handler_request_date"
+#~ msgstr "Date"
+
+#~ msgid "handler_requester"
+#~ msgstr "Created by"
+
+#~ msgid "handler_request_hits"
+#~ msgstr "Matches"
+
+#~ msgid "handler_request_status_for_admin"
+#~ msgstr "Status"
+
+#~ msgid "handler_you_have_not_accepted_terms"
+#~ msgstr "Please read and accept the terms"
+
+#~ msgid "handler_partially_accepted"
+#~ msgstr "Partially accepted"
+
+#~ msgid "handler_denied"
+#~ msgstr "Denied"
+
+#~ msgid "handler_accepted"
+#~ msgstr "Partially accepted"
+
+#~ msgid "handler_waiting_for_additional_information"
+#~ msgstr "Pending additional information"
+
+#~ msgid "handler_waiting_for_download"
+#~ msgstr "Waiting for download file to be completed"
+
+#~ msgid "handler_ready_for_download"
+#~ msgstr "Ready for downloading"
+
+#~ msgid "handler_download_has_expired"
+#~ msgstr "Download has expired"
+
+#~ msgid "handler_unknown"
+#~ msgstr "Unknown"
+
+#~ msgid "handler_no_requests_for_admin"
+#~ msgstr "There are no requests to be shown"
+
+#~ msgid "requests_for_user"
+#~ msgstr "Request"
 
 #~ msgid "handler_save"
 #~ msgstr "Save"
