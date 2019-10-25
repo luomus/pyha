@@ -7,7 +7,7 @@ from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_inf
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
-from pyha.roles import ADMIN, HANDLER_ANY, CAT_HANDLER_COLL
+from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
 from operator import attrgetter
 from itertools import chain
@@ -60,5 +60,5 @@ def index(http_request):
 			if(r.status == StatusEnum.DOWNLOADABLE):
 				r.downloadable = is_downloadable(http_request, r)
 
-	context = {"role": http_request.session.get("current_user_role", "user"), "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+	context = {"role": http_request.session.get("current_user_role", USER), "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
 	return render(http_request, 'pyha/base/index.html', context)

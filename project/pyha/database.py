@@ -57,7 +57,7 @@ def removeCollection(http_request):
 		return HttpResponseRedirect(nextRedirect)
 	return HttpResponseRedirect(reverse('pyha:root'))
 
-def create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId, role2):
+def create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId):
 	hasCollection = False
 	collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
 	if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
@@ -269,12 +269,10 @@ def create_request_view_context(requestId, http_request, userRequest):
 	customList = []
 	collectionList = []
 	userId = http_request.session["user_id"]
-	role = http_request.session.get("current_user_role", "user")
-	role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
-	role3 = CAT_ADMIN in http_request.session.get("user_roles", [None])
-	hasServiceRole = role2 or role3
+	role = http_request.session.get("current_user_role", USER)
+	hasServiceRole = (role == HANDLER_ANY or role == ADMIN)
 	lang = http_request.LANGUAGE_CODE
-	create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId, role2)
+	create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId)
 	taxon = False
 	allSecured = 0
 	allQuarantined = 0
@@ -298,11 +296,11 @@ def create_request_view_context(requestId, http_request, userRequest):
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
 	context["role"] = role
-	if role2:
+	if role == HANDLER_ANY:
 		handles = get_collections_where_download_handler(userId)
 		context["collections"] = sort_collections_by_download_handler(collectionList, handles)
 		context["handles"] = handles
-	if role3:
+	if role == ADMIN:
 		emails = {}
 		sent_time = get_collection_handlers_autom_email_sent_time()
 		accepted_time = get_log_terms_accepted_date_time(request_log)
@@ -327,7 +325,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 		context["contactPreset"] = ContactPreset.objects.get(user=userId)
 	else:
 		context["requestHandlerChat_list"] = requestHandlerChat(http_request, userRequest)
-		requestInformationChat_list = requestInformationChat(http_request, userRequest, role2, userId)
+		requestInformationChat_list = requestInformationChat(http_request, userRequest, userId)
 		context["requestInformationChat_list"] = requestInformationChat_list
 		if(requestInformationChat_list):
 			context["information"] = not requestInformationChat_list[-1].question
@@ -372,14 +370,14 @@ def get_reasons(userRequest):
 		return reasonlist
 	return None
 
-def make_logEntry_view(http_request, userRequest, userId, role2, role3):
+def make_logEntry_view(http_request, userRequest, userId, role_handler, role_admin):
 	if not "has_viewed" in http_request.session:
 		http_request.session["has_viewed"] = []
 	if userRequest.id not in http_request.session.get("has_viewed", [None]):
 		logRole = USER
-		if role3:
+		if role_admin:
 			logRole = CAT_ADMIN
-		elif role2:
+		elif role_handler:
 			logRole = CAT_HANDLER_COLL
 		http_request.session["has_viewed"].append(userRequest.id)
 		RequestLogEntry.requestLog.create(request=userRequest, user=userId, role=logRole, action=RequestLogEntry.VIEW)
@@ -407,13 +405,12 @@ def requestHandlerChat(http_request, userRequest):
 			get_result_for_target(http_request, c)
 		return requestHandlerChat_list
 
-def requestInformationChat(http_request, userRequest, role2, userId):
+def requestInformationChat(http_request, userRequest, userId):
 		requestInformationChat_list = []
 		if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-			if role2:
-				#for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
-				for collection in Collection.objects.filter(request=userRequest):
-					requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
+			#for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
+			for collection in Collection.objects.filter(request=userRequest):
+				requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
 		else:
 			requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
 		for l in requestInformationChat_list:

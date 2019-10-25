@@ -130,13 +130,11 @@ def _process_auth_response(http_request, indexpath):
 
 def is_allowed_to_view(http_request, requestId):
     userId = http_request.session["user_id"]
-    role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
-    return allowed_to_view(http_request, requestId, userId, role2)
+    return allowed_to_view(http_request, requestId, userId)
 
 def is_allowed_to_handle(http_request, requestId):
     userId = http_request.session["user_id"]
-    role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
-    return allowed_to_handle(http_request, requestId, userId, role2)
+    return allowed_to_handle(http_request, requestId, userId)
 
 def is_admin_frozen_and_not_admin(http_request, userRequest):
     if(userRequest.frozen and not ADMIN in http_request.session["current_user_role"]):
@@ -161,31 +159,29 @@ def is_request_owner(http_request, requestId):
 def is_admin(http_request):
     return ADMIN in http_request.session.get("current_user_role", [None])
 
-def allowed_to_view(http_request, requestId, userId, role2):
+def allowed_to_view(http_request, requestId, userId):
     if ADMIN in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
-        if role2:
-            if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
-                return False
+        if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+            return False
     else:
         if not Request.objects.filter(id=requestId, user=userId, status__gte=0).exists():
             return False
     return True
 
-def allowed_to_handle(http_request, requestId, userId, role2):
+def allowed_to_handle(http_request, requestId, userId):
     if ADMIN in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
-        if role2:
-            if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
-                return False
+        if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+            return False
     else:
         return False
     return True

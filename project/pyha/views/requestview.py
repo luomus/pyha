@@ -31,10 +31,10 @@ def show_request(http_request):
     userRequest = Request.objects.get(id=requestId)
     userId = http_request.session["user_id"]
     if (userRequest.user == userId and not USER in http_request.session.get("current_user_role", [None])) or userRequest.user != userId:
-        role2 = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
-        role3 = CAT_ADMIN in http_request.session.get("user_roles", [None])
+        role_handler = CAT_HANDLER_COLL in http_request.session.get("user_roles", [None])
+        role_admin = CAT_ADMIN in http_request.session.get("user_roles", [None])
         #make a log entry
-        make_logEntry_view(http_request, userRequest, userId, role2, role3)
+        make_logEntry_view(http_request, userRequest, userId, role_handler, role_admin)
     context = create_request_view_context(requestId, http_request, userRequest)
 
     if(userRequest.status == 0):
