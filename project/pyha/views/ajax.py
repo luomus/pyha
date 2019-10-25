@@ -37,40 +37,6 @@ def set_description_ajax(http_request):
         return HttpResponse(status=200)
     return HttpResponse(reverse('pyha:root'), status=310)
 
-def get_taxon_ajax(http_request):
-    if http_request.method == 'POST' and http_request.POST.get('requestid'):
-        if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
-        if not logged_in(http_request):
-            return HttpResponse(reverse('pyha:root'), status=310)
-        requestId = http_request.POST.get('requestid')
-        if not is_allowed_to_view(http_request, requestId):
-            return HttpResponse(reverse('pyha:root'), status=310)
-        userRequest = Request.objects.get(id=requestId)
-        if is_admin_frozen(http_request, userRequest):
-            return HttpResponse(reverse('pyha:root'), status=310)
-        if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
-            context = create_request_view_context(requestId, http_request, userRequest)
-            return render(http_request, 'pyha/official/ajax/requestformtaxon.html', context)
-    return HttpResponse(reverse('pyha:root'), status=310)
-
-def get_custom_ajax(http_request):
-    if http_request.method == 'POST' and http_request.POST.get('requestid'):
-        if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
-        if not logged_in(http_request):
-            return HttpResponse(reverse('pyha:root'), status=310)
-        requestId = http_request.POST.get('requestid')
-        if not is_allowed_to_view(http_request, requestId):
-            return HttpResponse(reverse('pyha:root'), status=310)
-        userRequest = Request.objects.get(id=requestId)
-        if is_admin_frozen(http_request, userRequest):
-            return HttpResponse(reverse('pyha:root'), status=310)
-        if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
-            context = create_request_view_context(requestId, http_request, userRequest)
-            return render(http_request, 'pyha/official/ajax/requestformcustom.html', context)
-    return HttpResponse(reverse('pyha:root'), status=310)
-
 def get_collection_ajax(http_request):
     if http_request.method == 'POST' and http_request.POST.get('requestid'):
         if check_language(http_request):
@@ -85,7 +51,7 @@ def get_collection_ajax(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
             context = create_request_view_context(requestId, http_request, userRequest)
-            return render(http_request, 'pyha/skipofficial/ajax/requestformcollection.html', context)
+            return render(http_request, 'pyha/requestform/ajax/requestformcollection.html', context)
     return HttpResponse(reverse('pyha:root'), status=310)
 
 def get_summary_ajax(http_request):
@@ -102,7 +68,7 @@ def get_summary_ajax(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
             context = create_request_view_context(requestId, http_request, userRequest)
-            return render(http_request, 'pyha/skipofficial/ajax/requestformsummary.html', context)
+            return render(http_request, 'pyha/requstform/ajax/requestformsummary.html', context)
     return HttpResponse(reverse('pyha:root'), status=310)
 
 def create_contact_ajax(http_request):
@@ -120,7 +86,7 @@ def create_contact_ajax(http_request):
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
             context = create_request_view_context(requestId, http_request, userRequest)
             context["contact_id"] = http_request.POST.get('id')
-            return render(http_request, 'pyha/base/ajax/requestformcontact.xml', context)
+            return render(http_request, 'pyha/requestform/ajax/requestformcontact.xml', context)
     return HttpResponse(reverse('pyha:root'), status=310)
 
 def remove_collection_ajax(http_request):

@@ -293,7 +293,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 	context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
 	context["tun_link"] = settings.TUN_URL
 	context["has_quarantine"] = allQuarantined > 0
-	context["sensitivity_terms"] = "pyha/skipofficial/terms/skipofficial_collection-"+lang+".html"
+	context["sensitivity_terms"] = "pyha/requestform/terms/collection-"+lang+".html"
 	context["username"] = http_request.session["user_name"]
 	context["allSecured"] = allSecured
 	context["role"] = "handler" if role2 else ("admin" if role3 else "user")

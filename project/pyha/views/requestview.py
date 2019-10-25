@@ -38,7 +38,7 @@ def show_request(http_request):
     context = create_request_view_context(requestId, http_request, userRequest)
 
     if(userRequest.status == 0):
-        return render(http_request, 'pyha/skipofficial/requestform.html', context)
+        return render(http_request, 'pyha/requestform/requestform.html', context)
 
     update_request_status(userRequest, userRequest.lang)
     return render(http_request, 'pyha/requestview/requestview.html', context)
