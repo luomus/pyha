@@ -15,7 +15,7 @@
   {% endif %}
 {% endfor %}
 <h4>{% trans "form_to_request_additional_information" %}</h4>
-<form action="{% url 'pyha:question' %}" id="requestform" method="post">
+<form action="{% url 'pyha:question' %}" id="ask-information-form" method="post">
   <div class="form-group">
     <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
     <input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
