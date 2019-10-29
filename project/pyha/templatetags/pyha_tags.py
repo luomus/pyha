@@ -10,10 +10,10 @@ def replaceCommaWithSpace(text):
     return text.replace(',', ' ')
 
 @register.simple_tag(name='translateCollectionStatus')
-def translateCollectionStatus(status, role, collection_id, own_collections):
+def translateCollectionStatus(status, role, collection_id, handles):
     if status == Col_StatusEnum.WAITING:
         if role == HANDLER_ANY:
-            if collection_id in own_collections:
+            if collection_id in handles:
                 return gettext('handler_waiting_for_you')
             else:
                 return gettext('handler_waiting_for_others')
