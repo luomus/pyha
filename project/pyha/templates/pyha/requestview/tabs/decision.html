@@ -19,7 +19,7 @@
       <tr>
       {% endif %}
       <td><a href="{{tun_link}}{{collection.address}}" target="_blank">{{collection.result.collectionName}}</a></td>
-      <td>{% translateCollectionStatus collection.status role collection.address own_collections %}</td>
+      <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
       <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% endif %}</td>
     {% endfor %}
   </table>

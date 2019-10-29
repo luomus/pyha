@@ -21,13 +21,13 @@
   					<td>
   					<div class="slider-group" style="text-align:center;">
   						<span class="slider slider-{{role}}{% if collection.status == 1 %}-light{% endif %}">
-                {% translateCollectionStatus 1 role collection.address own_collections %}
+                {% translateCollectionStatus 1 role collection.address handles %}
               </span>
   						<span class="slider slider-{{role}}{% if collection.status == 4 %}-light{% endif %}">
-                {% translateCollectionStatus 4 role collection.address own_collections %}
+                {% translateCollectionStatus 4 role collection.address handles %}
               </span>
   						<span class="slider slider-{{role}}{% if collection.status == 3 %}-light{% endif %}">
-                {% translateCollectionStatus 3 role collection.address own_collections %}
+                {% translateCollectionStatus 3 role collection.address handles %}
               </span>
   					</div>
   					</td>

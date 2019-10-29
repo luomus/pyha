@@ -36,6 +36,6 @@
     <td>{{collection.quarantineSecured}}</td>
     <td>{{collection.taxonSecured}}</td>
     <td>{{collection.customSecured}}</td>
-    <td>{% translateCollectionStatus collection.status role collection.address own_collections %}</td>
+    <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
   {% endfor %}
 </table>

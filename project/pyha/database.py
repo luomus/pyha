@@ -298,7 +298,8 @@ def create_request_view_context(requestId, http_request, userRequest):
     context["role"] = role
     if role == HANDLER_ANY:
         handles = get_collections_where_download_handler(userId)
-        context["collections"], context["own_collections"] = sort_collections_by_download_handler(collectionList, handles)
+        context["collections"], context["own_collection_count"] = sort_collections_by_download_handler(collectionList, handles)
+        context["handles"] = handles
     if role == ADMIN:
         emails = {}
         sent_time = get_collection_handlers_autom_email_sent_time()
@@ -308,6 +309,7 @@ def create_request_view_context(requestId, http_request, userRequest):
             emails[lang] = get_template_of_mail_for_approval(userRequest.id, lang)
         context["com_email_templates"] = emails
         context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, lang)
+        context["own_collection_count"] = len(collectionList)
     if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(userRequest.id, collectionList)
     if userRequest.status > StatusEnum.APPROVETERMS_WAIT:
         context["next"] = http_request.GET.get('next', 'history')
@@ -463,15 +465,14 @@ def contains_approved_collection(requestId):
 def sort_collections_by_download_handler(collectionList, handles):
     not_handle = []
     handle = []
-    handle_id = []
     for collection in collectionList:
         if collection.address in handles:
             handle.append(collection)
-            handle_id.append(collection.address)
         else:
             not_handle.append(collection)
+    handle_count = len(handle)
     handle.extend(not_handle)
-    return handle, handle_id
+    return handle, handle_count
 
 def get_log_terms_accepted_date_time(request_log):
     for log_entry in request_log:
