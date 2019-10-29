@@ -24,8 +24,8 @@
   {% endfor %}
   {% endif %}
   </select>
-  <textarea class="form-control" rows="5" cols="700" id="commentsForHandlers" name="commentsForHandlers" style="overflow:auto;resize:none" required {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %} ></textarea>
-  <button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.status == 3 or userRequest.status == 7 or userRequest.status == 8 or userRequest.frozen %} disabled {% endif %}>{% trans "save" %}</button>
+  <textarea class="form-control" rows="5" cols="700" id="commentsForHandlers" name="commentsForHandlers" style="overflow:auto;resize:none" required {% if userRequest.status == 3 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' or userRequest.frozen %} disabled {% endif %} ></textarea>
+  <button type="submit" id="submit" name="answer" value=1 class="btn btn-default btn-sm" {% if userRequest.status == 3 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' or userRequest.frozen %} disabled {% endif %}>{% trans "save" %}</button>
 </div>
 {% csrf_token %}
 </form>
