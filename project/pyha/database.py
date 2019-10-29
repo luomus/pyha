@@ -369,14 +369,14 @@ def get_reasons(userRequest):
         return reasonlist
     return None
 
-def make_logEntry_view(http_request, userRequest, userId, role_handler, role_admin):
+def make_logEntry_view(http_request, userRequest, userId, role):
     if not "has_viewed" in http_request.session:
         http_request.session["has_viewed"] = []
     if userRequest.id not in http_request.session.get("has_viewed", [None]):
         logRole = USER
-        if role_admin:
+        if role == ADMIN:
             logRole = CAT_ADMIN
-        elif role_handler:
+        elif role == HANDLER_ANY:
             logRole = CAT_HANDLER_COLL
         http_request.session["has_viewed"].append(userRequest.id)
         RequestLogEntry.requestLog.create(request=userRequest, user=userId, role=logRole, action=RequestLogEntry.VIEW)
