@@ -9,11 +9,11 @@
 
 {% if own_collection_count > 0 %}
 <form action="{% url 'pyha:group_answer' %}" id="requestform" method="post">
+  <span>{% trans "select_checksboxes_to_apply_this_decision_to" %}</span>
   <table class="table" style="width:100%">
     <tr style=color:black>
       <th>{% trans "collection_name" %}</th>
       <th></th>
-      <th>{% trans "collection_description" %}</th>
       <th>{% trans "state_of_processing" %}</th>
       <th>{% trans "decision_arguments" %}</th>
       <th>{% trans "select" %}</th>
@@ -31,7 +31,6 @@
       {% endif %}
         <td>{{collection.result.collectionName}}</td>
         <td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
-        <td>{{collection.result.description}}</td>
         <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
         <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
         <td>
@@ -43,13 +42,12 @@
   </table>
 
   <td rowspan="{{collections|length}}" style="background-color:white; border-bottom:0px;">
-    <h5>{% trans "decision_arguments" %}</h5>
-    <span>{% trans "select_checksboxes_to_apply_this_decision_to" %}</span>
+    <h4>{% trans "decision_arguments" %}</h4>
+    <p style="margin:2px 0;">{% trans "arguments_will_be_applied_to_all_selected" %}</p>
     <div class="form-group">
       <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
       <input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-      <textarea class="form-control" rows="5" cols="700" id="reason" name="reason"></textarea>
-      <p style="margin:2px;">{% trans "arguments_will_be_applied_to_all_selected" %}</p>
+      <textarea class="form-control" rows="5" cols="700" id="reason" name="reason" style="margin:2px 0;"></textarea>
       <button type="submit" id="submit" name="answer" value=1 class="btn btn-success btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "accept" %}</button>
       {% if role == "admin" %}
       <button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "reset" %}</button>
@@ -67,7 +65,6 @@
   <tr style=color:black>
     <th>{% trans "collection_name" %}</th>
     <th></th>
-    <th>{% trans "collection_description" %}</th>
     <th>{% trans "state_of_processing" %}</th>
     <th>{% trans "decision_arguments" %}</th>
   </tr>
@@ -84,7 +81,6 @@
     {% endif %}
       <td>{{collection.result.collectionName}}</td>
       <td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
-      <td>{{collection.result.description}}</td>
       <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
       <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
     </tr>
