@@ -68,7 +68,7 @@ def get_summary_ajax(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
             context = create_request_view_context(requestId, http_request, userRequest)
-            return render(http_request, 'pyha/requstform/ajax/requestformsummary.html', context)
+            return render(http_request, 'pyha/requestform/ajax/requestformsummary.html', context)
     return HttpResponse(reverse('pyha:root'), status=310)
 
 def create_contact_ajax(http_request):
