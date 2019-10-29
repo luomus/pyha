@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load pyha_tags %}
 
 {% if role == "hander" or role == "admin" %}
   <h1>{% trans "handler_request_from_user" %}
@@ -29,44 +30,10 @@
 
     {% endif %}
     >
-    {% if userRequest.status == 1 %}
-      {% if role == "hander" %}
-        {% if userRequest.waitingstatus == 1 %}
-          {% trans "handler_waiting_for_you" %}
-        {% else %}
-          {% trans "handler_waiting_for_others" %}
-        {% endif %}
-      {% else %}
-        {% trans "waiting_for_data_provider" %}
-      {% endif %}
-    {% elif userRequest.status == 2 %}
-      {% trans "partially_accepted" %}
-
-    {% elif userRequest.status == 3 %}
-      {% trans "denied" %}
-
-    {% elif userRequest.status == 4 %}
-      {% trans "accepted" %}
-
-    {% elif userRequest.status == 6 %}
-      {% trans "waiting_for_additional_information" %}
+    {% translateRequestStatus userRequest.status role userRequest.answerstatus userRequest.waitingstatus downloadable %}
+    {% if userRequest.status == 6 %}
       <a href="{{request.path}}?next=information" style="font-size:12px;white-space:normal;">{% trans "show_additional_information" %}</a>
-
-    {% elif userRequest.status == 7 %}
-      {% trans "waiting_for_download" %}
-
-    {% elif userRequest.status == 8 %}
-      {% if downloadable %}
-        {% trans "ready_for_download" %}
-      {% else %}
-        {% trans "download_has_expired" %}
-      {% endif %}
-
-    {% else %}
-      {% trans "unknown" %}
-
     {% endif %}
-
     </span>
   </span>
 </h2>

@@ -18,7 +18,7 @@
   <option value="admin">{% trans "as_admin" %}</option>
   {% else %}
   {% for collection in collections %}
-    {% if collection.address in handles %}
+    {% if collection.address in own_collections %}
     <option value="{{collection.address}}">{{collection.result.collectionName}}</option>
     {% endif %}
   {% endfor %}

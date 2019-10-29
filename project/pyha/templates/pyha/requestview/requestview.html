@@ -1,5 +1,6 @@
 {% extends "pyha/base/base.html" %}
 {% load i18n %}
+{% load pyha_tags %}
 {% block content %}
 
 <div class="container-fluid">
@@ -20,18 +21,14 @@
   					<td>
   					<div class="slider-group" style="text-align:center;">
   						<span class="slider slider-{{role}}{% if collection.status == 1 %}-light{% endif %}">
-                {% if role == "handler" %}
-    								{% if collection.address in handles %}
-    									{% trans "handler_waiting_for_you" %}
-    								{% else %}
-    									{% trans "handler_waiting_for_others" %}
-    								{% endif %}
-                {% else %}
-                  {% trans "waiting_for_data_provider" %}
-                {% endif %}
+                {% translateCollectionStatus 1 role collection.address own_collections %}
               </span>
-  						<span class="slider slider-{{role}}{% if collection.status == 4 %}-light{% endif %}">{% trans "accepted" %}</span>
-  						<span class="slider slider-{{role}}{% if collection.status == 3 %}-light{% endif %}">{% trans "denied" %}</span>
+  						<span class="slider slider-{{role}}{% if collection.status == 4 %}-light{% endif %}">
+                {% translateCollectionStatus 4 role collection.address own_collections %}
+              </span>
+  						<span class="slider slider-{{role}}{% if collection.status == 3 %}-light{% endif %}">
+                {% translateCollectionStatus 3 role collection.address own_collections %}
+              </span>
   					</div>
   					</td>
   				</tr>
