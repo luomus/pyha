@@ -38,6 +38,14 @@
   </span>
 </h2>
 
+{% if role == "handler" %}
+{% if userRequest.waitingstatus == 1 and userRequest.status == 7 or userRequest.waitingstatus == 1 and userRequest.status == 8 %}
+<div class="alert alert-danger" role="alert">
+  <p>{% trans "handling_suspended_warning" %}</p>
+</div>
+{% endif %}
+{% endif %}
+
 {% if role == "admin" %}
   <form action="{% url 'pyha:freeze' %}" id="requestform" method="post">
   	<div class="form-group stale-form">

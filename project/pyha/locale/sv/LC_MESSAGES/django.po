@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-30 11:18+0200\n"
+"POT-Creation-Date: 2019-10-30 14:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -941,7 +941,7 @@ msgstr ""
 msgid "Yes"
 msgstr "Ja"
 
-#: pyha/templates/pyha/requestview/requestview.html:281
+#: pyha/templates/pyha/requestview/requestview.html:304
 msgid "in_other_languages_below"
 msgstr "(På svenska se nedan, in English see below)"
 
@@ -957,30 +957,34 @@ msgstr "Status av begäran:"
 msgid "show_additional_information"
 msgstr "Visa begäran för tilläggsuppgifter"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:47
+#: pyha/templates/pyha/requestview/requestview_header.html:43
+msgid "handling_suspended_warning"
+msgstr ""
+
+#: pyha/templates/pyha/requestview/requestview_header.html:53
 msgid "admin_request_is_frozen"
 msgstr "Det finns inga begäran att visa"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:48
+#: pyha/templates/pyha/requestview/requestview_header.html:54
 msgid "admin_unfreeze_request"
 msgstr "Frigöra begäran"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:49
+#: pyha/templates/pyha/requestview/requestview_header.html:55
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr ""
 "Frigöra begäran om att aktivera åtkomst och åtgärder av användare som inte "
 "är administratörer"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:51
+#: pyha/templates/pyha/requestview/requestview_header.html:57
 msgid "admin_request_is_not_frozen"
 msgstr "Begäran är inte frusen"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:52
+#: pyha/templates/pyha/requestview/requestview_header.html:58
 msgid "admin_freeze_request"
 msgstr "Frys begäran"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:53
+#: pyha/templates/pyha/requestview/requestview_header.html:59
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
 msgstr ""
 "Frys begäran om att inaktivera åtkomst och åtgärder av icke-"

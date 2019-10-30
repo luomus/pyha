@@ -37,7 +37,7 @@
         <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
         <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
         <td>
-          <p style="text-align: center;"><input class="select_collection_checkbox" {% if frozen or collection.status != 1 and role != 'admin' %} disabled {% endif %} onChange="checkSelected()" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
+          <p style="text-align: center;"><input class="select_collection_checkbox" {% if userRequest.frozen or collection.status != 1 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' %} disabled {% endif %} onChange="checkSelected()" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
         </td>
       </tr>
     {% endfor %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-30 11:18+0200\n"
+"POT-Creation-Date: 2019-10-30 14:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -902,7 +902,7 @@ msgstr ""
 msgid "Yes"
 msgstr "Kyllä"
 
-#: pyha/templates/pyha/requestview/requestview.html:281
+#: pyha/templates/pyha/requestview/requestview.html:304
 msgid "in_other_languages_below"
 msgstr "(På svenska se nedan, in English see below)"
 
@@ -918,30 +918,36 @@ msgstr "Pyynnön tila:"
 msgid "show_additional_information"
 msgstr "Näytä lisätietopyyntö"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:47
+#: pyha/templates/pyha/requestview/requestview_header.html:43
+msgid "handling_suspended_warning"
+msgstr ""
+"Huom! Tämän pyynnön käsittely on keskeytetty, eikä muutosten tekeminen ole "
+"enää mahdollista."
+
+#: pyha/templates/pyha/requestview/requestview_header.html:53
 msgid "admin_request_is_frozen"
 msgstr "Pyyntö on jäädytetty"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:48
+#: pyha/templates/pyha/requestview/requestview_header.html:54
 msgid "admin_unfreeze_request"
 msgstr "Poista jäädytys"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:49
+#: pyha/templates/pyha/requestview/requestview_header.html:55
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr ""
 "Poista jäädytys palauttaaksesi muille käyttäjäryhmille pääsy muuttamaan "
 "pyyntöä."
 
-#: pyha/templates/pyha/requestview/requestview_header.html:51
+#: pyha/templates/pyha/requestview/requestview_header.html:57
 msgid "admin_request_is_not_frozen"
 msgstr "Pyyntöä ei ole jäädytetty"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:52
+#: pyha/templates/pyha/requestview/requestview_header.html:58
 msgid "admin_freeze_request"
 msgstr "Jäädytä pyyntö"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:53
+#: pyha/templates/pyha/requestview/requestview_header.html:59
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
 msgstr ""
 "Jäädytä pyyntö evätäksesi muilta käyttäjäryhmiltä pääsy muuttamaan pyyntöä."
