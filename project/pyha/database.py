@@ -217,16 +217,16 @@ def handler_mul_req_waiting_for_me_status(request_list, http_request, userId):
     for r in request_list:
         r.waitingstatus = 0
     if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
-        coobList = list(Collection.objects.filter(request__in=[re.id for re in request_list], customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = 1))
+        coobList = list(Collection.objects.filter(request__in=[re.id for re in request_list], address__in = get_collections_where_download_handler(userId), status = 1))
         for r in request_list:
-            if len([x for x in coobList if x.request == r.id]) > 0:
+            if len([x for x in coobList if x.request.id == r.id]) > 0:
                 r.waitingstatus = 1
     return
 
 def handler_req_waiting_for_me_status(r, http_request, userId):
     r.waitingstatus = 0
     if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
-        if Collection.objects.filter(request=r.id, customSecured__gt = 0, address__in = get_collections_where_download_handler(userId), status = 1).exists():
+        if Collection.objects.filter(request=r.id, address__in = get_collections_where_download_handler(userId), status = 1).exists():
             r.waitingstatus = 1
     return
 
