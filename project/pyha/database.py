@@ -211,7 +211,7 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
     if(wantedRequest.status != statusBeforeUpdate):
         wantedRequest.changedBy = changed_by("pyha")
         wantedRequest.save()
-    emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
+        emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
 
 def handler_mul_req_waiting_for_me_status(request_list, http_request, userId):
     for r in request_list:
@@ -500,6 +500,6 @@ def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
     #check if request is handled
     if collectionsNotHandled == 0:
         send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
-    elif(statusBeforeUpdate!=userRequest.status):
+    else:
         #Send email if status changed
         send_mail_after_request_status_change_to_requester(userRequest.id, lang)
