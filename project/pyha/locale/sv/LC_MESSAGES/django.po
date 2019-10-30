@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 13:05+0200\n"
+"POT-Creation-Date: 2019-10-30 11:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -281,14 +281,14 @@ msgstr ""
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:10
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:9
 #: pyha/templates/pyha/requestview/tabs/decision.html:7
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:11
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:71
 #: pyha/templates/pyha/requestview/tabs/request.html:11
 msgid "collection_name"
 msgstr "Material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:13
 msgid "collection_description"
 msgstr "Beskrivning"
@@ -358,7 +358,8 @@ msgstr "Begränsade observationer"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:22
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:19
 #: pyha/templates/pyha/requestview/requestview.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:31
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:36
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:88
 #: pyha/templates/pyha/requestview/tabs/request.html:32
 msgid "to_metadata"
 msgstr ""
@@ -1174,7 +1175,8 @@ msgid "decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:14
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:20
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:73
 #: pyha/templates/pyha/requestview/tabs/request.html:19
 msgid "state_of_processing"
 msgstr "Status"
@@ -1296,52 +1298,51 @@ msgstr "Svara på frågan"
 msgid "make_decision_window_description"
 msgstr " "
 
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:13
+#, fuzzy
+#| msgid "collections_tab"
+msgid "own_collections"
+msgstr "Andra begränsade material"
+
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:15
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:44
+msgid "select_checksboxes_to_apply_this_decision_to"
+msgstr ""
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:47
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
 msgid "decision_arguments"
 msgstr "Motivering av beslut"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:16
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
 #, fuzzy
 #| msgid "admin_reset"
 msgid "select"
 msgstr "Återställ"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:17
-#, fuzzy
-#| msgid "admin_argument_window"
-msgid "make_decision"
-msgstr "Motivering för begäran"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:39
-#, fuzzy
-#| msgid "handler_log_handler"
-msgid "handler_not_handling"
-msgstr "Behandlare"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:45
-msgid "select_checksboxes_to_apply_this_decision_to"
-msgstr ""
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:50
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:52
 #, fuzzy
 #| msgid "handler_argument_project"
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Projektnamn och beskrivning"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:51
-#, fuzzy
-#| msgid "accepted"
-msgid "accept"
-msgstr "Accepterad"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:53
-msgid "reset"
-msgstr "Återställ"
-
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:55
-msgid "refuse"
-msgstr "Neka"
+msgid "accept_selected"
+msgstr "Acceptera valda"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:57
+msgid "reset_selected"
+msgstr "Återställ valda"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:59
+msgid "refuse_selected"
+msgstr "Neka valda"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:68
+#, fuzzy
+#| msgid "collections_tab"
+msgid "other_collections"
+msgstr "Andra begränsade material"
 
 #: pyha/templates/pyha/requestview/tabs/request.html:5
 msgid "request_window_description"
@@ -1395,7 +1396,7 @@ msgstr "Klar för nedladdning"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Tack, din förfrågan har skrivits in."
 
-#: pyha/views/requestview.py:169
+#: pyha/views/requestview.py:168
 msgid "toast_mails_sent_succesfully"
 msgstr ""
 
@@ -1406,6 +1407,33 @@ msgstr ""
 #: pyha/views/usersettings.py:81
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr ""
+
+#~ msgid "accept_chosen"
+#~ msgstr "Acceptera den valda"
+
+#~ msgid "reset_chosen"
+#~ msgstr "Återställ den valda"
+
+#, fuzzy
+#~| msgid "admin_argument_window"
+#~ msgid "make_decision"
+#~ msgstr "Motivering för begäran"
+
+#, fuzzy
+#~| msgid "handler_log_handler"
+#~ msgid "handler_not_handling"
+#~ msgstr "Behandlare"
+
+#, fuzzy
+#~| msgid "accepted"
+#~ msgid "accept"
+#~ msgstr "Accepterad"
+
+#~ msgid "reset"
+#~ msgstr "Återställ"
+
+#~ msgid "refuse"
+#~ msgstr "Neka"
 
 #~ msgid "Admission_for_sensitive_data"
 #~ msgstr "Sensitiva material"
@@ -2244,11 +2272,6 @@ msgstr ""
 
 #~ msgid "description"
 #~ msgstr "Beskrivning"
-
-#, fuzzy
-#~| msgid "collections_tab"
-#~ msgid "collections"
-#~ msgstr "Andra begränsade material"
 
 #, fuzzy
 #~| msgid "enter_phone_number"

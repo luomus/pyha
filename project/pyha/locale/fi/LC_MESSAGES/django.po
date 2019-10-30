@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 13:05+0200\n"
+"POT-Creation-Date: 2019-10-30 11:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,14 +258,14 @@ msgstr ""
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:10
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:9
 #: pyha/templates/pyha/requestview/tabs/decision.html:7
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:11
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:71
 #: pyha/templates/pyha/requestview/tabs/request.html:11
 msgid "collection_name"
 msgstr "Aineisto"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:13
 msgid "collection_description"
 msgstr "Kuvaus"
@@ -322,7 +322,8 @@ msgstr "Käyttäjän/Omistajan havainnolleen tekemä karkeistus"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:22
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:19
 #: pyha/templates/pyha/requestview/requestview.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:31
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:36
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:88
 #: pyha/templates/pyha/requestview/tabs/request.html:32
 msgid "to_metadata"
 msgstr "metatiedot"
@@ -1110,7 +1111,8 @@ msgid "decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:14
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:20
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:73
 #: pyha/templates/pyha/requestview/tabs/request.html:19
 msgid "state_of_processing"
 msgstr "Käsittelyn tila"
@@ -1236,42 +1238,43 @@ msgstr "Vastaa kysymykseen"
 msgid "make_decision_window_description"
 msgstr " "
 
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:13
+msgid "own_collections"
+msgstr "Omat aineistot"
+
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:15
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:44
-msgid "decision_arguments"
-msgstr "Päätöksen perustelut"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:16
-msgid "select"
-msgstr "Valitse"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:17
-msgid "make_decision"
-msgstr "Tee päätös"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:39
-msgid "handler_not_handling"
-msgstr "Et käsittele"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:45
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "Valitse aineistot, joihin haluat asettaa päätöksen."
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:50
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:47
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
+msgid "decision_arguments"
+msgstr "Päätöksen perustelut"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+msgid "select"
+msgstr "Valitse"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:52
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Päätöksen perustelut laitetaan kaikkiin valittuihin aineistoihin."
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:51
-msgid "accept"
-msgstr "Hyväksy"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:53
-msgid "reset"
-msgstr "Nollaa"
-
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:55
-msgid "refuse"
-msgstr "Hylkää"
+msgid "accept_selected"
+msgstr "Hyväksy valitut"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:57
+msgid "reset_selected"
+msgstr "Nollaa valitut"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:59
+msgid "refuse_selected"
+msgstr "Hylkää valitut"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:68
+msgid "other_collections"
+msgstr "Muut aineistot"
 
 #: pyha/templates/pyha/requestview/tabs/request.html:5
 msgid "request_window_description"
@@ -1325,7 +1328,7 @@ msgstr "Valmiina ladattavaksi"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 
-#: pyha/views/requestview.py:169
+#: pyha/views/requestview.py:168
 msgid "toast_mails_sent_succesfully"
 msgstr "Viestit lähetetty onnistuneesti."
 
@@ -1336,6 +1339,27 @@ msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 #: pyha/views/usersettings.py:81
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
+
+#~ msgid "accept_chosen"
+#~ msgstr "Hyväksy valitut"
+
+#~ msgid "reset_chosen"
+#~ msgstr "Nollaa valitut"
+
+#~ msgid "make_decision"
+#~ msgstr "Tee päätös"
+
+#~ msgid "handler_not_handling"
+#~ msgstr "Et käsittele"
+
+#~ msgid "accept"
+#~ msgstr "Hyväksy"
+
+#~ msgid "reset"
+#~ msgstr "Nollaa"
+
+#~ msgid "refuse"
+#~ msgstr "Hylkää"
 
 #~ msgid "Admission_for_sensitive_data"
 #~ msgstr "Sensitiiviset aineistot"
@@ -2170,9 +2194,6 @@ msgstr "Pyha:n asetukset tallennettu onnistuneesti."
 
 #~ msgid "change_description"
 #~ msgstr "Muuta kuvausta"
-
-#~ msgid "collections"
-#~ msgstr "Aineistot"
 
 #, fuzzy
 #~| msgid "enter_phone_number"

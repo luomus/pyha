@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 13:05+0200\n"
+"POT-Creation-Date: 2019-10-30 11:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,14 +253,14 @@ msgstr ""
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:10
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:9
 #: pyha/templates/pyha/requestview/tabs/decision.html:7
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:11
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:71
 #: pyha/templates/pyha/requestview/tabs/request.html:11
 msgid "collection_name"
 msgstr "Collection name"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:13
 msgid "collection_description"
 msgstr "Description"
@@ -316,7 +316,8 @@ msgstr "User/Owner coarcened observation data"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:22
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:19
 #: pyha/templates/pyha/requestview/requestview.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:31
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:36
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:88
 #: pyha/templates/pyha/requestview/tabs/request.html:32
 msgid "to_metadata"
 msgstr "metadata"
@@ -1093,7 +1094,8 @@ msgid "decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:14
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:20
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:73
 #: pyha/templates/pyha/requestview/tabs/request.html:19
 msgid "state_of_processing"
 msgstr "State of processing"
@@ -1215,42 +1217,43 @@ msgstr "Respond"
 msgid "make_decision_window_description"
 msgstr " "
 
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:13
+msgid "own_collections"
+msgstr "Own collections"
+
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:15
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:44
-msgid "decision_arguments"
-msgstr "Basis of decision"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:16
-msgid "select"
-msgstr "Select"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:17
-msgid "make_decision"
-msgstr "Make a decision"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:39
-msgid "handler_not_handling"
-msgstr "not handling"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:45
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "Select checksboxes to apply this decision to"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:50
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:47
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
+msgid "decision_arguments"
+msgstr "Basis of decision"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+msgid "select"
+msgstr "Select"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:52
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Arguments will be applied to all selected"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:51
-msgid "accept"
-msgstr "Accept"
-
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:53
-msgid "reset"
-msgstr "Reset"
-
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:55
-msgid "refuse"
-msgstr "Reject"
+msgid "accept_selected"
+msgstr "Accept selected"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:57
+msgid "reset_selected"
+msgstr "Reset selected"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:59
+msgid "refuse_selected"
+msgstr "Reject selected"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:68
+msgid "other_collections"
+msgstr "Other collections"
 
 #: pyha/templates/pyha/requestview/tabs/request.html:5
 msgid "request_window_description"
@@ -1304,7 +1307,7 @@ msgstr "Ready for download"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Thank you, request has been registered."
 
-#: pyha/views/requestview.py:169
+#: pyha/views/requestview.py:168
 msgid "toast_mails_sent_succesfully"
 msgstr "Mails sent succesfully"
 
@@ -1315,6 +1318,27 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:81
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#~ msgid "accept_chosen"
+#~ msgstr "Accept selected"
+
+#~ msgid "reset_chosen"
+#~ msgstr "Reset selected"
+
+#~ msgid "make_decision"
+#~ msgstr "Make a decision"
+
+#~ msgid "handler_not_handling"
+#~ msgstr "not handling"
+
+#~ msgid "accept"
+#~ msgstr "Accept"
+
+#~ msgid "reset"
+#~ msgstr "Reset"
+
+#~ msgid "refuse"
+#~ msgstr "Reject"
 
 #~ msgid "Admission_for_sensitive_data"
 #~ msgstr "Admission for sensitive data"
@@ -2138,11 +2162,6 @@ msgstr "Pyha settings updated succesfully"
 
 #~ msgid "description"
 #~ msgstr "Description"
-
-#, fuzzy
-#~| msgid "collections_tab"
-#~ msgid "collections"
-#~ msgstr "Collections"
 
 #, fuzzy
 #~| msgid "enter_phone_number"

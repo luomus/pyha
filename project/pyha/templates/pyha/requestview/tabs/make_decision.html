@@ -8,7 +8,10 @@
 {% with own_collection_count_string=own_collection_count|stringformat:"s" %}
 
 {% if own_collection_count > 0 %}
-<form action="{% url 'pyha:group_answer' %}" id="requestform" method="post">
+<form action="{% url 'pyha:group_answer' %}" id="requestform" method="post" style="margin-bottom: 30px;">
+  {% if role != "admin" %}
+  <h4>{% trans "own_collections" %}</h4>
+  {% endif %}
   <span>{% trans "select_checksboxes_to_apply_this_decision_to" %}</span>
   <table class="table" style="width:100%">
     <tr style=color:black>
@@ -34,59 +37,62 @@
         <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
         <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
         <td>
-          <p style="text-align: center;"><input {% if frozen or collection.status != 1 and role != 'admin' %} disabled {% endif %} onChange="" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
+          <p style="text-align: center;"><input class="select_collection_checkbox" {% if frozen or collection.status != 1 and role != 'admin' %} disabled {% endif %} onChange="checkSelected()" type="checkbox" name="collection_id_{{ collection.id }}" value="{{ collection.address }}" style="vertical-align: middle;"></p>
         </td>
       </tr>
     {% endfor %}
     {% endwith %}
   </table>
 
-  <td rowspan="{{collections|length}}" style="background-color:white; border-bottom:0px;">
-    <h4>{% trans "decision_arguments" %}</h4>
+  <label for="name">{% trans "decision_arguments" %}</label>
+  <div class="form-group">
+    <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+    <input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
+    <textarea class="form-control" rows="5" cols="700" id="reason" name="reason"></textarea>
     <p style="margin:2px 0;">{% trans "arguments_will_be_applied_to_all_selected" %}</p>
-    <div class="form-group">
-      <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-      <input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-      <textarea class="form-control" rows="5" cols="700" id="reason" name="reason" style="margin:2px 0;"></textarea>
-      <button type="submit" id="submit" name="answer" value=1 class="btn btn-success btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "accept" %}</button>
-      {% if role == "admin" %}
-      <button type="submit" id="submit" name="answer" value=3 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "reset" %}</button>
-      {% endif %}
-      <button type="submit" id="submit" name="answer" value=0 class="btn btn-danger btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "refuse" %}</button>
-    </div>
-  </td>
+  </div>
+  <div style="margin: 0 -15px;">
+    <button type="submit" id="submit_accept_selected" name="answer" value=1 class="btn btn-success btn-sm" disabled style="margin: 0 15px;">{% trans "accept_selected" %}</button>
+    {% if role == "admin" %}
+    <button type="submit" id="submit_reset_selected" name="answer" value=3 class="btn btn-default btn-sm" disabled style="margin: 0 15px;">{% trans "reset_selected" %}</button>
+    {% endif %}
+    <button type="submit" id="submit_refuse_selected" name="answer" value=0 class="btn btn-danger btn-sm" disabled style="margin: 0 15px;">{% trans "refuse_selected" %}</button>
+  </div>
 
   {% csrf_token %}
 </form>
 {% endif %}
 
 {% if collections|length != own_collection_count %}
-<table class="table" style="width:100%">
-  <tr style=color:black>
-    <th>{% trans "collection_name" %}</th>
-    <th></th>
-    <th>{% trans "state_of_processing" %}</th>
-    <th>{% trans "decision_arguments" %}</th>
-  </tr>
-  {% with collection_slice=own_collection_count_string|add:":" %}
-  {% for collection in collections|slice:collection_slice %}
-    {% if collection.status == 1 %}
-    <tr class="info clickable-row">
-    {% elif collection.status == 3 %}
-    <tr class="danger clickable-row">
-    {% elif collection.status == 4 %}
-    <tr class="success clickable-row">
-    {% else %}
-    <tr>
-    {% endif %}
-      <td>{{collection.result.collectionName}}</td>
-      <td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
-      <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
-      <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
+<div>
+  <h4>{% trans "other_collections" %}</h4>
+  <table class="table" style="width:100%">
+    <tr style=color:black>
+      <th>{% trans "collection_name" %}</th>
+      <th></th>
+      <th>{% trans "state_of_processing" %}</th>
+      <th>{% trans "decision_arguments" %}</th>
     </tr>
-  {% endfor %}
-  {% endwith %}
-</table>
+    {% with collection_slice=own_collection_count_string|add:":" %}
+    {% for collection in collections|slice:collection_slice %}
+      {% if collection.status == 1 %}
+      <tr class="info clickable-row">
+      {% elif collection.status == 3 %}
+      <tr class="danger clickable-row">
+      {% elif collection.status == 4 %}
+      <tr class="success clickable-row">
+      {% else %}
+      <tr>
+      {% endif %}
+        <td>{{collection.result.collectionName}}</td>
+        <td><small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small></td>
+        <td>{% translateCollectionStatus collection.status role collection.address handles %}</td>
+        <td>{% if collection.decisionExplanation %}<p>{{collection.decisionExplanation}}</p>{% else %}{% endif %}</td>
+      </tr>
+    {% endfor %}
+    {% endwith %}
+  </table>
+</div>
 {% endif %}
 
 {% endwith %}

@@ -236,6 +236,29 @@
 </script>
 {% endif %}
 
+<script>
+function checkSelected() {
+  var disabled = true;
+
+  var checkboxes = document.getElementsByClassName('select_collection_checkbox');
+  for (var i = 0; i < checkboxes.length; i++) {
+    var checkbox = checkboxes[i];
+    if (checkbox.checked) {
+      disabled = false;
+    }
+  }
+
+  document.getElementById('submit_accept_selected').disabled = disabled;
+  {% if role == 'admin' %}
+  document.getElementById('submit_reset_selected').disabled = disabled;
+  {% endif %}
+  document.getElementById('submit_refuse_selected').disabled = disabled;
+}
+$(document).ready(function(){
+  checkSelected();
+});
+</script>
+
 {% if next == 'decision' %}
 <script>
   $(document).ready(function(){
