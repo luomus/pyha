@@ -243,7 +243,7 @@ function checkSelected() {
   var checkboxes = document.getElementsByClassName('select_collection_checkbox');
   for (var i = 0; i < checkboxes.length; i++) {
     var checkbox = checkboxes[i];
-    if (checkbox.checked) {
+    if (checkbox.checked && !checkbox.disabled) {
       disabled = false;
     }
   }
