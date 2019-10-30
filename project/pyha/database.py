@@ -57,6 +57,18 @@ def removeCollection(http_request):
         return HttpResponseRedirect(nextRedirect)
     return HttpResponseRedirect(reverse('pyha:root'))
 
+def remove_request(request, http_request):
+    collections = Collection.objects.filter(request=request.id)
+    for collection in collections:
+        if collection.status != StatusEnum.DISCARDED:
+            collection.status = StatusEnum.DISCARDED
+            collection.changedBy = changed_by('pyha')
+            collection.save()
+    if request.status != StatusEnum.DISCARDED:
+        request.status = StatusEnum.DISCARDED
+        request.changedBy = changed_by_session_user(http_request)
+        request.save()
+
 def create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId):
     hasCollection = False
     collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)

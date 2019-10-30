@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^/?$', index.index, name='root'),
     url(r'^index/?$', index.pyha, name='index'),
     url(r'^login/?$', index.index, name='login'),
+    url(r'^groupdeleterequest/?$', index.group_delete_request, name='group_delete_request'),
     url(r'^logout/?$', logout.logout, name='logout'),
     url(r'^settings/?$', usersettings.usersettings, name='usersettings'),
     url(r'^ajax/getCollection/?$', ajax.get_collection_ajax, name='get_collection_ajax'),
