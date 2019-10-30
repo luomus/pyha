@@ -79,13 +79,9 @@ ENV ENABLE_DEBUG=$ENABLE_DEBUG \
     STATIC_URL=$STATIC_URL
 
 COPY Requirements.txt ./
-RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r Requirements.txt
+RUN pip install --no-cache-dir -r Requirements.txt
 
 COPY . .
-
-RUN echo $LD_LIBRARY_PATH \
-    && echo $ORACLE_HOME
 
 RUN python project/manage.py collectstatic \
     && python project/manage.py makemigrations \
