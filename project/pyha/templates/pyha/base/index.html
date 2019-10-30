@@ -19,7 +19,7 @@
         <thead>
           <tr bgcolor="{% if role == 'handler' %}#349934{% elif role == 'admin' %}#8080c0{% else %}#3498DB{% endif %}" style="color:white;">
             {% if role == "handler" %}
-            <th title="{% trans 'handler_new_events' %}" style="width:0px;">!</th>
+            <th title="{% trans 'handler_new_events' %}" style="width:0px;">{% trans 'handler_new_events_abbreviation' %}</th>
             {% endif %}
             <th>{% trans "request_date" %}</th>
             {% if role == "handler" or role == "admin" %}

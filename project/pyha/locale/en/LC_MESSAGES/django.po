@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-30 14:38+0200\n"
+"POT-Creation-Date: 2019-10-30 17:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,7 +204,11 @@ msgstr "Click on a request to get more information"
 
 #: pyha/templates/pyha/base/index.html:22
 msgid "handler_new_events"
-msgstr "handler_new_events"
+msgstr ""
+
+#: pyha/templates/pyha/base/index.html:22
+msgid "handler_new_events_abbreviation"
+msgstr "Nb"
 
 #: pyha/templates/pyha/base/index.html:24
 msgid "request_date"
@@ -906,32 +910,32 @@ msgstr "State of request:"
 msgid "show_additional_information"
 msgstr "Show request for additional information"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:43
+#: pyha/templates/pyha/requestview/requestview_header.html:44
 msgid "handling_suspended_warning"
 msgstr ""
 
-#: pyha/templates/pyha/requestview/requestview_header.html:53
+#: pyha/templates/pyha/requestview/requestview_header.html:55
 msgid "admin_request_is_frozen"
 msgstr "This request is currently frozen"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:54
+#: pyha/templates/pyha/requestview/requestview_header.html:56
 msgid "admin_unfreeze_request"
 msgstr "Unfreeze request"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:55
+#: pyha/templates/pyha/requestview/requestview_header.html:57
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr "Unfreeze request to re-enable actions by users not admin"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:57
+#: pyha/templates/pyha/requestview/requestview_header.html:59
 msgid "admin_request_is_not_frozen"
 msgstr "This request is currently unfrozen"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:58
+#: pyha/templates/pyha/requestview/requestview_header.html:60
 msgid "admin_freeze_request"
 msgstr "Freeze request"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:59
+#: pyha/templates/pyha/requestview/requestview_header.html:61
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
 msgstr "Freeze request to disable actions by users not admin"
 
@@ -1442,9 +1446,6 @@ msgstr "Pyha settings updated succesfully"
 
 #~ msgid "handler_unknown"
 #~ msgstr "Unknown"
-
-#~ msgid "handler_no_requests_for_admin"
-#~ msgstr "There are no requests to be shown"
 
 #~ msgid "requests_for_user"
 #~ msgstr "Request"
