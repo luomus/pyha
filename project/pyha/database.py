@@ -211,7 +211,7 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
     if(wantedRequest.status != statusBeforeUpdate):
         wantedRequest.changedBy = changed_by("pyha")
         wantedRequest.save()
-        emailsOnUpdate(requestCollections, wantedRequest, lang, statusBeforeUpdate)
+        emailsOnUpdate(requestCollections, wantedRequest, lang)
 
 def handler_mul_req_waiting_for_me_status(request_list, http_request, userId):
     for r in request_list:
@@ -491,7 +491,7 @@ def get_collection_handlers_autom_email_sent_time():
     Send "request has been handled" email
     IF request's collections have status != 1(waiting for approval)
 """
-def emailsOnUpdate(requestCollections, userRequest, lang, statusBeforeUpdate):
+def emailsOnUpdate(requestCollections, userRequest, lang):
     #count collections that are still waiting for approval
     collectionsNotHandled = len(requestCollections)
     for c in requestCollections:
