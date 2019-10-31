@@ -236,29 +236,6 @@
 </script>
 {% endif %}
 
-<script>
-function checkSelected() {
-  var disabled = true;
-
-  var checkboxes = document.getElementsByClassName('select_collection_checkbox');
-  for (var i = 0; i < checkboxes.length; i++) {
-    var checkbox = checkboxes[i];
-    if (checkbox.checked && !checkbox.disabled) {
-      disabled = false;
-    }
-  }
-
-  document.getElementById('submit_accept_selected').disabled = disabled;
-  {% if role == 'admin' %}
-  document.getElementById('submit_reset_selected').disabled = disabled;
-  {% endif %}
-  document.getElementById('submit_refuse_selected').disabled = disabled;
-}
-$(document).ready(function(){
-  checkSelected();
-});
-</script>
-
 {% if next == 'decision' %}
 <script>
   $(document).ready(function(){
@@ -290,6 +267,72 @@ $(document).ready(function(){
   $(document).ready(function(){
     document.getElementById('admin_communications-tab').scrollIntoView();
   });
+</script>
+{% endif %}
+
+<script>
+  function updateTextareaLimit(textareaId, maxLength) {
+    var textElement = document.getElementById(textareaId);
+  	var text = textElement.value;
+    var newlines = text.split('\n').length - 1;
+    var count = text.length + newlines;
+
+    var countElement = document.getElementById(textareaId + '_count');
+    countElement.innerHTML = count + '/' + maxLength;
+
+    var textareaErrorClass = 'textarea-has-error';
+    var countOverClass = 'textarea-character-count-over';
+    if (count > maxLength) {
+      textElement.classList.add(textareaErrorClass);
+      countElement.classList.add(countOverClass);
+    } else {
+      textElement.classList.remove(textareaErrorClass);
+      countElement.classList.remove(countOverClass);
+    }
+  }
+
+  function addTextareaLimit(textareaId, maxLength) {
+    updateTextareaLimit(textareaId, maxLength);
+    var elem = document.getElementById(textareaId);
+    elem.onkeyup = function() {
+      updateTextareaLimit(textareaId, maxLength);
+    }
+    elem.onpaste = function() {
+      updateTextareaLimit(textareaId, maxLength);
+    }
+  }
+
+  $(document).ready(function() {
+    addTextareaLimit('reason', 2000);
+    {% if role == 'handler' or role == 'admin' %}
+    addTextareaLimit('decision_reason', 1000);
+    addTextareaLimit('commentsForHandlers', 2000);
+    {% endif %}
+  });
+</script>
+
+{% if role == 'handler' or role == 'admin' %}
+<script>
+function checkSelected() {
+  var disabled = true;
+
+  var checkboxes = document.getElementsByClassName('select_collection_checkbox');
+  for (var i = 0; i < checkboxes.length; i++) {
+    var checkbox = checkboxes[i];
+    if (checkbox.checked && !checkbox.disabled) {
+      disabled = false;
+    }
+  }
+
+  document.getElementById('submit_accept_selected').disabled = disabled;
+  {% if role == 'admin' %}
+  document.getElementById('submit_reset_selected').disabled = disabled;
+  {% endif %}
+  document.getElementById('submit_refuse_selected').disabled = disabled;
+}
+$(document).ready(function(){
+  checkSelected();
+});
 </script>
 {% endif %}
 

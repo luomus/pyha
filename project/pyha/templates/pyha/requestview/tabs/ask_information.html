@@ -32,6 +32,7 @@
     {% endif %}
     </select>
     <textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' or userRequest.frozen %} disabled {% endif %}></textarea>
+    <div id="reason_count" class="textarea-character-count"></div>
     <button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' or userRequest.frozen %} disabled {% endif %}>{% trans "request_additional_information" %}</button>
   </div>
   {% csrf_token %}

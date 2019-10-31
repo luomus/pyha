@@ -44,11 +44,16 @@
     {% endwith %}
   </table>
 
-  <label for="name">{% trans "decision_arguments" %}</label>
-  <div class="form-group">
+  <div class="form-group" style="position: relative;">
+    <label for="name">{% trans "decision_arguments" %}</label>
     <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
     <input type="hidden" id="next" name="next" value="{{request.path}}?next=decision">
-    <textarea class="form-control" rows="5" cols="700" id="reason" name="reason" {% if userRequest.frozen or userRequest.waitingstatus != 1 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' %} disabled {% endif %}></textarea>
+    <textarea class="form-control" rows="5" cols="700" id="decision_reason" name="reason"
+    {% if userRequest.frozen or userRequest.waitingstatus != 1 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' %} disabled {% endif %}
+    onkeyup="updateTextareaLimit('decision_reason', 1000)"
+    onpaste="updateTextareaLimit('decision_reason', 1000)"
+    ></textarea>
+    <div id="decision_reason_count" class="textarea-character-count"></div>
     <p style="margin:2px 0;">{% trans "arguments_will_be_applied_to_all_selected" %}</p>
   </div>
   <div style="margin: 0 -15px;">
