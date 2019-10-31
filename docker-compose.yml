@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  pyha:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - dev.env
+    ports:
+      - '8000:8000'

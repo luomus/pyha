@@ -1,6 +1,8 @@
 *.pyc
 *~
 db.*
+*.env
+oracle/*.rpm
 dev_settings.py
 *secrets.py
 services/
