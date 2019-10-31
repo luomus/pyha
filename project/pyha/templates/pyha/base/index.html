@@ -109,6 +109,7 @@ $(document).ready(function($) {
     });
 });
 </script>
+{% if role == "user" %}
 <script>
 function checkSelected() {
   var disabled = true;
@@ -127,6 +128,7 @@ $(document).ready(function(){
   checkSelected();
 });
 </script>
+{% endif %}
 <script>
 $(document).ready(function() {
     $.fn.dataTable.moment('DD.MM.YYYY    HH:mm');
