@@ -74,7 +74,7 @@
                   {% if role == "user" %}
         		      <td>{{request.description|linebreaks}}</td>
                   <td>
-                    <p style="text-align: center;"><input name="request_id_{{ request.id }}" type="checkbox" style="vertical-align: middle;"></p>
+                    <p style="text-align: center;"><input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="vertical-align: middle;" {% if request.status != 0 %} disabled {% endif %}></p>
                   </td>
                   {% endif %}
                 </tr>
@@ -84,7 +84,7 @@
         </table>
         {% if role == "user" %}
         <p>{% trans 'given_values_are_not_absolute' %}</p>
-        <button type="submit" id="submit_delete_requests" name="answer" value=0 class="btn btn-danger btn-sm">{% trans "delete_selected_requests" %}</button>
+        <button type="submit" id="submit_delete_requests" name="answer" value=0 class="btn btn-danger btn-sm" disabled>{% trans "delete_selected_requests" %}</button>
         {% csrf_token %}
       </form>
       {% endif %}
@@ -101,9 +101,30 @@
 {% block end_script %}
 <script>
 $(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.document.location = $(this).data("href");
+    $(".clickable-row").click(function(e) {
+      if (e.target && e.target.type === "checkbox") {
+        continue;
+      }
+      window.document.location = $(this).data("href");
     });
+});
+</script>
+<script>
+function checkSelected() {
+  var disabled = true;
+
+  var checkboxes = document.getElementsByClassName('select_request_checkbox');
+  for (var i = 0; i < checkboxes.length; i++) {
+    var checkbox = checkboxes[i];
+    if (checkbox.checked && !checkbox.disabled) {
+      disabled = false;
+    }
+  }
+
+  document.getElementById('submit_delete_requests').disabled = disabled;
+}
+$(document).ready(function(){
+  checkSelected();
 });
 </script>
 <script>

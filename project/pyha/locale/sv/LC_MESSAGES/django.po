@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-30 17:07+0200\n"
+"POT-Creation-Date: 2019-10-31 13:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,7 +155,7 @@ msgid "request_for_user"
 msgstr "Dina begäran"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:31
+#: pyha/templates/pyha/base/index.html:32
 msgid "request_description"
 msgstr "Beskrivning"
 
@@ -228,25 +228,25 @@ msgstr "Välkommen!"
 msgid "click_for_info"
 msgstr "Klicka på en begäran för att få mer information"
 
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events"
 msgstr ""
 
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events_abbreviation"
 msgstr "Obs"
 
-#: pyha/templates/pyha/base/index.html:24
+#: pyha/templates/pyha/base/index.html:25
 msgid "request_date"
 msgstr "Datum"
 
-#: pyha/templates/pyha/base/index.html:26
+#: pyha/templates/pyha/base/index.html:27
 msgid "requester"
 msgstr "Skapad av"
 
-#: pyha/templates/pyha/base/index.html:28
-#: pyha/templates/pyha/base/index.html:67
-#: pyha/templates/pyha/base/index.html:81
+#: pyha/templates/pyha/base/index.html:29
+#: pyha/templates/pyha/base/index.html:69
+#: pyha/templates/pyha/base/index.html:86
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -256,15 +256,28 @@ msgstr ""
 "vägledande. Antalet av observationer i en godkänd begäran kan avvika från "
 "sökningen."
 
-#: pyha/templates/pyha/base/index.html:28
+#: pyha/templates/pyha/base/index.html:29
 msgid "request_hits"
 msgstr "Antal av observationer"
 
-#: pyha/templates/pyha/base/index.html:29
+#: pyha/templates/pyha/base/index.html:30
 msgid "request_status_for_user"
 msgstr "Status"
 
-#: pyha/templates/pyha/base/index.html:85
+#: pyha/templates/pyha/base/index.html:33
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+#, fuzzy
+#| msgid "admin_reset"
+msgid "select"
+msgstr "Återställ"
+
+#: pyha/templates/pyha/base/index.html:87
+#, fuzzy
+#| msgid "handler_all_requests"
+msgid "delete_selected_requests"
+msgstr "Begäran"
+
+#: pyha/templates/pyha/base/index.html:93
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
@@ -1322,12 +1335,6 @@ msgstr ""
 msgid "decision_arguments"
 msgstr "Motivering av beslut"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
-#, fuzzy
-#| msgid "admin_reset"
-msgid "select"
-msgstr "Återställ"
-
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:52
 #, fuzzy
 #| msgid "handler_argument_project"
@@ -1499,9 +1506,6 @@ msgstr ""
 
 #~ msgid "handler_welcome"
 #~ msgstr "Välkommen!"
-
-#~ msgid "handler_all_requests"
-#~ msgstr "Begäran"
 
 #~ msgid "handler_request_date"
 #~ msgstr "Datum"

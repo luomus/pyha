@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-30 17:07+0200\n"
+"POT-Creation-Date: 2019-10-31 13:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgid "request_for_user"
 msgstr "Request"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:31
+#: pyha/templates/pyha/base/index.html:32
 msgid "request_description"
 msgstr "Description"
 
@@ -202,25 +202,25 @@ msgstr "Welcome!"
 msgid "click_for_info"
 msgstr "Click on a request to get more information"
 
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events"
 msgstr ""
 
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events_abbreviation"
 msgstr "Nb"
 
-#: pyha/templates/pyha/base/index.html:24
+#: pyha/templates/pyha/base/index.html:25
 msgid "request_date"
 msgstr "Date"
 
-#: pyha/templates/pyha/base/index.html:26
+#: pyha/templates/pyha/base/index.html:27
 msgid "requester"
 msgstr "Created by"
 
-#: pyha/templates/pyha/base/index.html:28
-#: pyha/templates/pyha/base/index.html:67
-#: pyha/templates/pyha/base/index.html:81
+#: pyha/templates/pyha/base/index.html:29
+#: pyha/templates/pyha/base/index.html:69
+#: pyha/templates/pyha/base/index.html:86
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -229,15 +229,26 @@ msgstr ""
 "Because some data is not public, the amount of observations is not exact. "
 "The amount of observations in an accepted request may differ."
 
-#: pyha/templates/pyha/base/index.html:28
+#: pyha/templates/pyha/base/index.html:29
 msgid "request_hits"
 msgstr "Matches"
 
-#: pyha/templates/pyha/base/index.html:29
+#: pyha/templates/pyha/base/index.html:30
 msgid "request_status_for_user"
 msgstr "Status"
 
-#: pyha/templates/pyha/base/index.html:85
+#: pyha/templates/pyha/base/index.html:33
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+msgid "select"
+msgstr "Select"
+
+#: pyha/templates/pyha/base/index.html:87
+#, fuzzy
+#| msgid "handler_all_requests"
+msgid "delete_selected_requests"
+msgstr "Requests"
+
+#: pyha/templates/pyha/base/index.html:93
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
@@ -1239,10 +1250,6 @@ msgstr "Select checksboxes to apply this decision to"
 msgid "decision_arguments"
 msgstr "Basis of decision"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
-msgid "select"
-msgstr "Select"
-
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:52
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Arguments will be applied to all selected"
@@ -1404,9 +1411,6 @@ msgstr "Pyha settings updated succesfully"
 
 #~ msgid "handler_welcome"
 #~ msgstr "Welcome!"
-
-#~ msgid "handler_all_requests"
-#~ msgstr "Requests"
 
 #~ msgid "handler_request_date"
 #~ msgstr "Date"

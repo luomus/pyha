@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-30 17:07+0200\n"
+"POT-Creation-Date: 2019-10-31 13:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgid "request_for_user"
 msgstr "Aineistopyyntösi"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:31
+#: pyha/templates/pyha/base/index.html:32
 msgid "request_description"
 msgstr "Kuvaus"
 
@@ -205,26 +205,26 @@ msgstr "Tervetuloa aineistopyyntöjen hallintajärjestelmään!"
 msgid "click_for_info"
 msgstr "Siirry aineistopyyntöön valitsemalla se luettelosta"
 
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events"
 msgstr ""
 "Pyynnöt, joiden tila on muuttunut ja jotka edellyttävät sinulta toimia."
 
-#: pyha/templates/pyha/base/index.html:22
+#: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events_abbreviation"
 msgstr "Huom"
 
-#: pyha/templates/pyha/base/index.html:24
+#: pyha/templates/pyha/base/index.html:25
 msgid "request_date"
 msgstr "Pyyntö tehty"
 
-#: pyha/templates/pyha/base/index.html:26
+#: pyha/templates/pyha/base/index.html:27
 msgid "requester"
 msgstr "Pyynnön tekijä"
 
-#: pyha/templates/pyha/base/index.html:28
-#: pyha/templates/pyha/base/index.html:67
-#: pyha/templates/pyha/base/index.html:81
+#: pyha/templates/pyha/base/index.html:29
+#: pyha/templates/pyha/base/index.html:69
+#: pyha/templates/pyha/base/index.html:86
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -233,15 +233,24 @@ msgstr ""
 "Salaussyistä kaikki havaintojen lukumäärät ovat suuntaa-antavia. Hyväksytyn "
 "aineistopyynnön havaintojen lukumäärä voi poiketa haetusta."
 
-#: pyha/templates/pyha/base/index.html:28
+#: pyha/templates/pyha/base/index.html:29
 msgid "request_hits"
 msgstr "Havaintojen lukumäärä"
 
-#: pyha/templates/pyha/base/index.html:29
+#: pyha/templates/pyha/base/index.html:30
 msgid "request_status_for_user"
 msgstr "Pyynnön tila"
 
-#: pyha/templates/pyha/base/index.html:85
+#: pyha/templates/pyha/base/index.html:33
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+msgid "select"
+msgstr "Valitse"
+
+#: pyha/templates/pyha/base/index.html:87
+msgid "delete_selected_requests"
+msgstr "Poista valitut pyynnöt"
+
+#: pyha/templates/pyha/base/index.html:93
 msgid "no_requests_for_user"
 msgstr "Kannassa ei ole pyyntöjä"
 
@@ -1263,10 +1272,6 @@ msgstr "Valitse aineistot, joihin haluat asettaa päätöksen."
 msgid "decision_arguments"
 msgstr "Päätöksen perustelut"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
-msgid "select"
-msgstr "Valitse"
-
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:52
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Päätöksen perustelut laitetaan kaikkiin valittuihin aineistoihin."
@@ -1428,9 +1433,6 @@ msgstr "Pyha:n asetukset tallennettu onnistuneesti."
 
 #~ msgid "handler_welcome"
 #~ msgstr "Tervetuloa käsittelemään aineistopyyntöjä!"
-
-#~ msgid "handler_all_requests"
-#~ msgstr "Aineistopyynnöt"
 
 #~ msgid "handler_request_date"
 #~ msgstr "Pyyntö tehty"

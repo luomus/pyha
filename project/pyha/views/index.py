@@ -70,7 +70,7 @@ def group_delete_request(http_request):
             return _process_auth_response(http_request, 'pyha')
         user_id = http_request.session['user_id']
         request_id_list = [reqid.replace('request_id_','') for reqid, _ in http_request.POST.items() if 'request_id_' in reqid]
-        requests = Request.objects.filter(id__in=request_id_list, user=user_id, status__gte=0)
+        requests = Request.objects.filter(id__in=request_id_list, user=user_id, status=0)
         for request in requests:
             remove_request(request, http_request)
     return HttpResponseRedirect(nexturl)
