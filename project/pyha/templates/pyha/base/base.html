@@ -83,6 +83,7 @@
 				</div>
 				<input type="hidden" id="next" name="next" value={{request.path}}>
 				<input id='role_form_select' name="role" type="hidden" value="">
+				{% csrf_token %}
 				</form>
 				</li>
 				{% endif %}
@@ -114,6 +115,7 @@
 					</div>
 				<input id='language_form_select' name="language" type="hidden" value="">
 				<input type="hidden" id="next" name="next" value={{request.get_full_path}}>
+				{% csrf_token %}
 				</form>
 				</div>
 		        </ul>
