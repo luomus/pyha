@@ -20,6 +20,13 @@ class TruncatingCharField(models.CharField):
 			return value[:self.max_length]
 		return value
 
+class TruncatingTextField(models.TextField):
+	def get_prep_value(self, value):
+		value = super(TruncatingTextField,self).get_prep_value(value)
+		if value:
+			return value[:self.max_length]
+		return value
+
 class TruncatingReasonJsonCharField(models.CharField):
 	def get_prep_value(self, value):
 		max_lengths = [("argument_project", 500),
@@ -65,7 +72,7 @@ class Collection(models.Model):
 	customSecured = models.IntegerField(default=0)
 	quarantineSecured = models.IntegerField(default=0)
 	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
-	decisionExplanation = TruncatingCharField(max_length=1000,blank=True,null=True)
+	decisionExplanation = TruncatingTextField(max_length=10000,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)
 	history = HistoricalRecords()
 
@@ -186,7 +193,7 @@ class RequestHandlerChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
-	message = TruncatingCharField(max_length=2000)
+	message = TruncatingTextField(max_length=10000)
 	target = models.CharField(max_length=200)
 	requestHandlerChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
@@ -201,7 +208,7 @@ class RequestInformationChatEntry(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
-	message = TruncatingCharField(max_length=2000)
+	message = TruncatingTextField(max_length=10000)
 	target = models.CharField(max_length=200) #apilaji defined collection id
 	requestInformationChat = models.Manager()
 	changedBy = models.CharField(max_length=100)
