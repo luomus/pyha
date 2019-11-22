@@ -1,32 +1,24 @@
 ﻿import json
 import sys
-from argparse import Namespace
 
 class Container(object):
-    pass 
+    pass
 
 def get_callers_function_name():
     return sys._getframe(2).f_code.co_name
 
-def filterlink(userRequest, link):
-    filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-    first = True
-    for f in vars(filterList).keys():
-        if not first:
-            link += "&"
-        else:
-            first = False
-        link += f + "="
-        if not isinstance(getattr(filterList, f), str):
-            secondfirst = True
-            for e in getattr(filterList, f):
-                if not secondfirst:
-                    link += "%2C"
-                link += e
-        else:
-            link += getattr(filterList, f)
-    return link
+def filterlink(userRequest, link, collectionList):
+    filterList = json.loads(userRequest.filter_list)
+    filterList['collectionId'] = [collection.address for collection in collectionList]
 
+    filters = []
+    for key in filterList:
+        value = filterList[key]
+        if not isinstance(value, str):
+            value = '%2C'.join(value)
+        filters.append('{}={}'.format(key, value))
+
+    return link + '&'.join(filters)
 
 import traceback
 try:

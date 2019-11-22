@@ -369,7 +369,7 @@ def show_filters(http_request, userRequest):
                     languagelabel = getattr(label, http_request.LANGUAGE_CODE)
                     if "RESOURCE" in getattr(filterfield, "type"):
                         resource = getattr(filterfield, "resource")
-                        for k, a in enumerate(getattr(filterList, b)):
+                        for k, a in enumerate(filternamelist):
                             if resource.startswith("metadata"):
                                 filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
                                 filtername = str(a)
@@ -384,7 +384,7 @@ def show_filters(http_request, userRequest):
                             filternamelist[k]= filtername
                     if "ENUMERATION" in getattr(filterfield, "type"):
                         enumerations = getattr(filterfield, "enumerations")
-                        for k, e in enumerate(getattr(filterList, b)):
+                        for k, e in enumerate(filternamelist):
                             filtername = e
                             for n in enumerations:
                                 if e == getattr(n, "name"):

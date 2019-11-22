@@ -26,7 +26,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		PYHA_API_USER 0 \
 		PYHA_API_PASSWORD 0 \
 		OBSERVATION_LINK_PREFIX "ex. https://laji.fi/observation/map?" \
-		OFFICIAL_OBSERVATION_LINK_PREFIX "https://viranomainen.laji.fi/observation/map?" \
+		OFFICIAL_OBSERVATION_LINK_PREFIX "https://viranomaiset.laji.fi/observation/map?" \
 		DB_NAME 0 \
 		DB_USER 0 \
 		DB_PASSWORD 0 \

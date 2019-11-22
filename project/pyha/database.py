@@ -300,8 +300,8 @@ def create_request_view_context(requestId, http_request, userRequest):
     context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
     context["requestLog_list"] = request_log if (role == HANDLER_ANY or role == ADMIN) else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
     context["coordinates"] = create_coordinates(userRequest)
-    context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK)
-    context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK)
+    context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK, collectionList)
+    context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK, collectionList)
     context["tun_link"] = settings.TUN_URL
     context["has_quarantine"] = allQuarantined > 0
     context["sensitivity_terms"] = "pyha/requestform/terms/collection-"+lang+".html"
