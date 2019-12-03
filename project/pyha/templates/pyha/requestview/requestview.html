@@ -303,10 +303,10 @@
   }
 
   $(document).ready(function() {
-    addTextareaLimit('reason', 10000);
+    addTextareaLimit('reason', 5000);
     {% if role == 'handler' or role == 'admin' %}
-    addTextareaLimit('decision_reason', 10000);
-    addTextareaLimit('commentsForHandlers', 10000);
+    addTextareaLimit('decision_reason', 5000);
+    addTextareaLimit('commentsForHandlers', 5000);
     {% endif %}
   });
 </script>
