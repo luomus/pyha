@@ -14,7 +14,9 @@ DATABASES = {
 		}
     }
 }
-if DEBUG: 
+if DEBUG:
+    SESSION_COOKIE_SECURE = False
+
     if not os.environ.get("EMAIL_BACKEND_FILE_PATH") == None:
         EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
         EMAIL_FILE_PATH = os.environ["EMAIL_BACKEND_FILE_PATH"]
