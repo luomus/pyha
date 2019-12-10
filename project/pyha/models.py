@@ -2,7 +2,6 @@
 import json
 from argparse import Namespace
 from simple_history.models import HistoricalRecords
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 #Use "python manage.py makemigrations pyha" to update the changes to model classes used by the app.
@@ -53,8 +52,6 @@ class TruncatingReasonJsonCharField(models.CharField):
 			return value
 		return value
 
-
-@python_2_unicode_compatible
 class Collection(models.Model):
 	address = models.CharField(max_length=500)
 	count = models.IntegerField()
@@ -79,7 +76,6 @@ class Collection(models.Model):
 	def __str__(self):
 		return 'Collection: %s (in Request: %d)' %(self.address, self.request.id)
 
-@python_2_unicode_compatible
 class HandlerInRequest(models.Model): #Used currently for the admin email gatekeeper, on who has been emailed per request
 	user = models.CharField(max_length=500)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -91,7 +87,6 @@ class HandlerInRequest(models.Model): #Used currently for the admin email gateke
 		return 'Handler: %s (in Request: %d) is emailed %s' %(self.user, self.request.id, self.emailed)
 
 
-@python_2_unicode_compatible
 class Request(models.Model):
 	#id alkaa ykkösestä ja nousee
 	id = models.AutoField(primary_key=True)
@@ -137,7 +132,6 @@ class Request(models.Model):
 	def __str__(self):
 		return 'Request: %d [%s] (lajiId: %s)' %(self.id, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.lajiId)
 
-@python_2_unicode_compatible
 class RequestContact(models.Model):
 	id = models.AutoField(primary_key=True)
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -156,7 +150,6 @@ class RequestContact(models.Model):
 	def __str__(self):
 		return 'RequestContact: %s (in Request: %d)' %(self.personName, self.request.id)
 
-@python_2_unicode_compatible
 class RequestLogEntry(models.Model):
 	VIEW = 'VIEW'
 	ACCEPT = 'ACC'
@@ -188,7 +181,6 @@ class RequestLogEntry(models.Model):
 	def __str__(self):
 		return 'RequestLogEntry: %s (role: %s) [%s]: %s (Request: %d, collection: %s)' %(self.user, self.role, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.get_action_display(), self.request.id, self.collection )
 
-@python_2_unicode_compatible
 class RequestHandlerChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
@@ -202,7 +194,6 @@ class RequestHandlerChatEntry(models.Model):
 	def __str__(self):
 		return 'RequestHandlerChatEntry: %s (in Request: %d, as target: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 
-@python_2_unicode_compatible
 class RequestInformationChatEntry(models.Model):
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
@@ -217,7 +208,6 @@ class RequestInformationChatEntry(models.Model):
 	def __str__(self):
 		return 'RequestInformationChatEntry: %s (in Request: %d, as/to target: %s, Question: %s) [%s]: %s' %(self.user, self.request.id, self.target, self.question, self.date.strftime('%d.%m.%Y %H:%M:%S'), self.message)
 
-@python_2_unicode_compatible
 class ContactPreset(models.Model):
 	user = models.CharField(primary_key=True, max_length=100)
 	requestPersonName = TruncatingCharField(max_length=100,blank=True,null=True)
@@ -236,7 +226,6 @@ class ContactPreset(models.Model):
 		return 'ContactPreset: %s' %(self.user)
 
 
-@python_2_unicode_compatible
 class AdminUserSettings(models.Model):
 	ALL = 'ALL'
 	MISSING = 'MISSING'
@@ -257,7 +246,6 @@ class AdminUserSettings(models.Model):
 	def __str__(self):
 		return 'AdminSettings: %s ' %(self.user)
 
-@python_2_unicode_compatible
 class AdminPyhaSettings(models.Model):
 	settingsName = TruncatingCharField(max_length=100,blank=False,null=False)
 	enableDailyHandlerEmail = models.BooleanField(default=False)
