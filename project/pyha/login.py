@@ -49,8 +49,6 @@ def log_in(http_request, token, authentication_info):
             if any(role in r for role in [CAT_ADMIN]):
                 http_request.session["user_roles"].append(r)
         http_request.session["token"] = token
-        if not "_language" in http_request.session:
-            http_request.session["_language"] = "fi"
         add_collection_request_handler_roles(http_request, authentication_info)
         http_request.session["user_roles"].append(USER)
         http_request.session["current_user_role"] = USER

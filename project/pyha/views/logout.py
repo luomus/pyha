@@ -8,7 +8,7 @@ def logout(http_request):
         return _process_auth_response(http_request, '')
     log_out(http_request)
     return HttpResponseRedirect("https://beta.laji.fi/")
-    
+
 def change_role(http_request):
     if not logged_in(http_request) and not 'role' in http_request.POST:
         return HttpResponseRedirect('/')
@@ -21,6 +21,7 @@ def change_lang(http_request):
     if not logged_in(http_request) and not 'lang' in http_request.POST:
         return HttpResponseRedirect('/')
     nextRedirect = http_request.POST.get('next', '/pyha/')
+    response = HttpResponseRedirect(nextRedirect)
     if(http_request.POST.get('language', 'none') in [x[0] for x in settings.LANGUAGES]):
-        http_request.session["_language"] = http_request.POST['language']
-    return HttpResponseRedirect(nextRedirect)
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, http_request.POST['language'])
+    return response

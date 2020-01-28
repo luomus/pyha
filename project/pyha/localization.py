@@ -1,8 +1,9 @@
-﻿		
+from django.utils.translation import LANGUAGE_SESSION_KEY
+from django.utils.translation import get_language
+from django.utils import translation
+from django.conf import settings
+
 def check_language(request):
-	if request.GET.get('lang') and request.session.get('_language', "none") != request.GET.get('lang'):
-			request.session["_language"] = request.GET.get('lang')
-			return True
 	return False
 
 def translate_truth(value, lang):
