@@ -1,7 +1,3 @@
-from django.utils.translation import LANGUAGE_SESSION_KEY
-from django.utils.translation import get_language
-from django.utils import translation
-from django.conf import settings
 
 def check_language(request):
 	return False
