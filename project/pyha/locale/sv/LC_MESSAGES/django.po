@@ -42,117 +42,93 @@ msgid "error_request_has_been_frozen_by_admin"
 msgstr "Fel, förfrågan är för närvarande inte tillgänglig"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:10
-#, fuzzy
-#| msgid "admin_street_address"
 msgid "admin_settings_header"
-msgstr "Adress"
+msgstr "Inställningar"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:12
-#, fuzzy
-#| msgid "admin_question"
 msgid "admin_user_settings"
-msgstr "Admin"
+msgstr "Användarinställningar"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:15
-#, fuzzy
-#| msgid "admin_all_requests"
 msgid "admin_send_me_email_for_new_requests"
-msgstr "Begäran"
+msgstr "Skicka e-post av begäran"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:19
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_email_for_none"
-msgstr "E-post"
+msgstr "ingen e-post"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:20
-#, fuzzy
-#| msgid "admin_log_sensitive_data_handler"
 msgid "admin_email_for_missing_handlers"
-msgstr "Myndighet"
+msgstr "om behandlare saknas"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:21
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_email_for_all"
-msgstr "E-post"
+msgstr "av alla begäran"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:28
-#, fuzzy
-#| msgid "admin_street_address"
 msgid "admin_use_custom_email_address"
-msgstr "Adress"
+msgstr "Använd en annan e-post"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:36
 #: pyha/templates/pyha/base/admin/usersettings.html:89
 msgid "admin_save"
-msgstr "Save"
+msgstr "Spara"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:41
-#, fuzzy
-#| msgid "admin_waiting"
 msgid "admin_pyha_settings"
-msgstr "Väntar på beslutet"
+msgstr "Pyha inställningar"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:41
 msgid "settings_affect_pyha_not_you_as_as_user"
-msgstr ""
+msgstr "Följande inställningar påverkar systemet"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:45
 msgid "admin_pyha_periodical_event_automation"
-msgstr ""
+msgstr "Automatisering av tidsinställda händelser"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:46
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr ""
+msgstr "Följande inställningar påverkar endast programmets interna "
+"tidinställda utförande"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:50
-#, fuzzy
-#| msgid "admin_log_sensitive_data_handler"
 msgid "admin_enable_daily_handler_email"
-msgstr "Myndighet"
+msgstr "Aktivera tidinställda påminnelser för behandlare"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:53
 #: pyha/templates/pyha/base/admin/usersettings.html:66
 #: pyha/templates/pyha/base/admin/usersettings.html:79
-#, fuzzy
-#| msgid "admin_show_additional_information"
 msgid "admin_setting_additional_information"
-msgstr "Visa begäran för tilläggsuppgifter"
+msgstr "Mer information"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:57
-#, fuzzy
-#| msgid "handler_show_additional_information"
 msgid "daily_handler_email_information"
-msgstr "Visa begäran för tilläggsuppgifter"
+msgstr "Skickar ett meddelande om väntande begäran till alla behandlare "
+"som har väntande begäran inom arbetsdagar."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
-#, fuzzy
-#| msgid "admin_log_sensitive_data_handler"
 msgid "admin_enable_weekly_missing_handlers_email"
-msgstr "Myndighet"
+msgstr "Aktivera den tidinställda granskning av saknade behandlare"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:70
-#, fuzzy
-#| msgid "admin_log_sensitive_data_handler"
 msgid "weekly_missing_handlers_email_information"
-msgstr "Myndighet"
+msgstr "Granskar veckovis begäran på väntan som gjorts till Pyha och "
+"skickar ett meddelande till ICT-e-postadressen om samlingar som inte har "
+"en behandlare. Meddelandet skickas inte om alla samlingar har en "
+"behandlare."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:76
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "admin_enable_auto_decline_overdue"
-msgstr "DECISION_POSITIVE_OVERDUE"
+msgstr "Aktivera avslag på planerad begäran"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:83
-#, fuzzy
-#| msgid "admin_log_sensitives_accepted_because_overdue"
 msgid "auto_decline_overdue_information"
-msgstr "DECISION_POSITIVE_OVERDUE"
+msgstr "Avvisa automatiskt begäran om de inte har lösts inom 28 dagar. "
+"Tidpunkten börjar när användarvillkoren har godkänts av den sökande."
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:2
 msgid "request_for_user"
-msgstr "Dina begäran"
+msgstr "Din begäran"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
 #: pyha/templates/pyha/base/index.html:32
@@ -186,10 +162,8 @@ msgid "admin_site"
 msgstr "Admin site"
 
 #: pyha/templates/pyha/base/base.html:65
-#, fuzzy
-#| msgid "admin_waiting"
 msgid "admin_settings"
-msgstr "Väntar på beslutet"
+msgstr "Inställningar"
 
 #: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:81
 msgid "admin"
@@ -197,12 +171,12 @@ msgstr "Roll: Admin"
 
 #: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:80
 msgid "handler"
-msgstr "Roll: behandlare"
+msgstr "Roll: Behandlare"
 
 #: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:79
 #: pyha/templates/pyha/requestview/tabs/history.html:33
 msgid "user"
-msgstr "Roll: Användare"
+msgstr "Roll: Sökande"
 
 #: pyha/templates/pyha/base/base.html:89
 msgid "logout"
@@ -266,16 +240,12 @@ msgstr "Status"
 
 #: pyha/templates/pyha/base/index.html:33
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:22
-#, fuzzy
-#| msgid "admin_reset"
 msgid "select"
-msgstr "Återställ"
+msgstr "Välj"
 
 #: pyha/templates/pyha/base/index.html:87
-#, fuzzy
-#| msgid "handler_all_requests"
 msgid "delete_selected_requests"
-msgstr "Begäran"
+msgstr "Uteslut de valda begäran"
 
 #: pyha/templates/pyha/base/index.html:93
 msgid "no_requests_for_user"
@@ -313,64 +283,53 @@ msgstr "Beskrivning"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
 #: pyha/templates/pyha/requestview/tabs/request.html:14
-#, fuzzy
-#| msgid "collection_description"
 msgid "collection_quality_description"
-msgstr "Beskrivning"
+msgstr "Beskrivning av kvalitet"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
 #: pyha/templates/pyha/requestview/tabs/request.html:15
-#, fuzzy
-#| msgid "Collection terms"
 msgid "collection_terms"
-msgstr "Material villkor"
+msgstr "Specialvillkor"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:16
-#, fuzzy
-#| msgid "admin_secured_by_data_provider"
 msgid "secured_by_quarantine"
-msgstr "Användning begränsad av data ägare"
+msgstr "Forskningsmaterial med begrändsad användning"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:16
-#, fuzzy
-#| msgid "admin_secured_by_data_provider"
 msgid "secured_by_quarantine_explanation"
-msgstr "Användning begränsad av data ägare"
+msgstr "Vetenskaplig forskningsdata vars användning har begränsats före en "
+"viss tidpunkt. Information om plats och tid grov."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:17
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "secured_by_sensitivity"
-msgstr "Sensitivitet"
+msgstr "Sensitiva data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:17
-#, fuzzy
-#| msgid "handler_sensitivity"
 msgid "secured_by_sensitivity_explanation"
-msgstr "Sensitivitet"
+msgstr "Material klassificerat som sensitiva enligt antingen allmän "
+"lagstiftning eller beslut om miljö- och resurshantering, sensitiv "
+"artinformation. Information om plats och tid grov."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
 #: pyha/templates/pyha/requestview/tabs/request.html:18
 msgid "secured_by_data_provider"
-msgstr "Begränsade observationer"
+msgstr "Användning begränsad av data ägare"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
 #: pyha/templates/pyha/requestview/tabs/request.html:18
-#, fuzzy
-#| msgid "secured_by_data_provider"
 msgid "secured_by_dataprovider_explanation"
-msgstr "Begränsade observationer"
+msgstr "Grovt baserat på ägarens beslut."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:22
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:19
@@ -379,7 +338,7 @@ msgstr "Begränsade observationer"
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:91
 #: pyha/templates/pyha/requestview/tabs/request.html:32
 msgid "to_metadata"
-msgstr ""
+msgstr "metadata"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:33
 msgid "Delete_these_sightings"
@@ -449,11 +408,11 @@ msgstr "Sökande"
 
 #: pyha/templates/pyha/requestform/requestform.html:61
 msgid "arguments_tab"
-msgstr "Motivering"
+msgstr "Grunden"
 
 #: pyha/templates/pyha/requestform/requestform.html:68
 msgid "collection_tab"
-msgstr "Begränsade material"
+msgstr "Material"
 
 #: pyha/templates/pyha/requestform/requestform.html:75
 msgid "summary_tab"
@@ -544,7 +503,7 @@ msgstr "FO-nummer"
 
 #: pyha/templates/pyha/requestform/requestform.html:160
 msgid "continue_to_step_2"
-msgstr "Fortsätt till steg 2"
+msgstr "Fortsätt till \"Grunden\""
 
 #: pyha/templates/pyha/requestform/requestform.html:165
 msgid "request_arguments_for_user"
@@ -598,10 +557,8 @@ msgid "required_research_name"
 msgstr "Forsknings namn"
 
 #: pyha/templates/pyha/requestform/requestform.html:187
-#, fuzzy
-#| msgid "required_research_name"
 msgid "required_research_address"
-msgstr "Forsknings namn"
+msgstr "Forskningsorganisation och forskningsgrupp och kontaktinformation"
 
 #: pyha/templates/pyha/requestform/requestform.html:190
 msgid "required_goals"
@@ -613,7 +570,7 @@ msgstr "Beskrivning av planeringsprojektet"
 
 #: pyha/templates/pyha/requestform/requestform.html:196
 msgid "required_municipality"
-msgstr "Ort där projektet är beläget"
+msgstr "Kommun"
 
 #: pyha/templates/pyha/requestform/requestform.html:199
 msgid "required_natura_areas"
@@ -625,7 +582,7 @@ msgstr "Fritextfält"
 
 #: pyha/templates/pyha/requestform/requestform.html:209
 msgid "continue_to_step_3"
-msgstr "Fortsätt till steg 3"
+msgstr "Fortsätt till \"Material\""
 
 #: pyha/templates/pyha/requestform/requestform.html:221
 #: pyha/templates/pyha/requestview/tabs/contacts.html:38
@@ -767,7 +724,7 @@ msgstr "FO-nummer"
 #: pyha/templates/pyha/requestform/requestform.html:298
 #: pyha/templates/pyha/requestform/requestform.html:358
 msgid "request_arguments"
-msgstr "Motiveringen"
+msgstr "Grunden"
 
 #: pyha/templates/pyha/requestform/requestform.html:300
 #: pyha/templates/pyha/requestform/requestform.html:360
@@ -784,10 +741,8 @@ msgstr "Forsknings namn"
 #: pyha/templates/pyha/requestform/requestform.html:304
 #: pyha/templates/pyha/requestform/requestform.html:364
 #: pyha/templates/pyha/requestview/tabs/arguments.html:34
-#, fuzzy
-#| msgid "argument_research"
 msgid "argument_research_address"
-msgstr "Forsknings namn"
+msgstr "Forskningsorganisation och forskningsgrupp och kontaktinformation"
 
 #: pyha/templates/pyha/requestform/requestform.html:306
 #: pyha/templates/pyha/requestform/requestform.html:366
@@ -942,16 +897,14 @@ msgstr "Kommentarer från myndigheterna"
 #: pyha/templates/pyha/requestview/requestview.html:151
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:162
-#, fuzzy
-#| msgid "admin_comments_window"
 msgid "admin_communications_window"
-msgstr "Kommentarer från myndigheterna"
+msgstr "Kommunikation"
 
 #: pyha/templates/pyha/requestview/requestview.html:209
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Material som inte har godkänts kommer att uteslutas från nedladdningen, och "
-"begäran kommer inte att behandlas vidare.  Är du säker på att du vill gå "
+"begäran kommer inte att behandlas vidare. Är du säker på att du vill gå "
 "vidare?"
 
 #: pyha/templates/pyha/requestview/requestview.html:212
@@ -1008,10 +961,8 @@ msgstr ""
 "administratörsanvändare"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:8
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_refresh_collections_cache"
-msgstr "Materialnamn"
+msgstr "Updatera material"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:11
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:163
@@ -1023,93 +974,69 @@ msgid "admin_automated_emails_sent_last_time"
 msgstr ""
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:21
-#, fuzzy
-#| msgid "admin_list_of_collections"
 msgid "admin_communications_collections"
-msgstr "Ta beslut om att ge ut sensitiva artdata"
+msgstr "Material per grupp"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:22
-#, fuzzy
-#| msgid "admin_comments_window"
 msgid "admin_communications_handlers"
-msgstr "Kommentarer från myndigheterna"
+msgstr "Behandlare"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:23
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_communications_state"
-msgstr "Materialnamn"
+msgstr "Status"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:24
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_send_email"
-msgstr "E-post"
+msgstr "Skicka"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:25
-#, fuzzy
-#| msgid "admin_corporation_id"
 msgid "admin_communications_email"
-msgstr "FO-nummer"
+msgstr "E-post"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:40
-#, fuzzy
-#| msgid "admin_argument_window"
 msgid "admin_name_is_none"
-msgstr "Motivering för begäran"
+msgstr "tom"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:47
-#, fuzzy
-#| msgid "admin_collection_name"
 msgid "admin_collections_missing_handler"
-msgstr "Materialnamn"
+msgstr "Det finns inga behandlare i material"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:57
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:127
 msgid "email_sender"
-msgstr ""
+msgstr "Avsändare"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:61
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:131
 msgid "email_header"
-msgstr ""
+msgstr "Ämne"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:65
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:135
-#, fuzzy
-#| msgid "email"
 msgid "email_lang"
-msgstr "E-post"
+msgstr "Språk"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:71
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:141
-#, fuzzy
-#| msgid "admin_email"
 msgid "admin_email_lang_all"
-msgstr "E-post"
+msgstr "alla"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:81
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:151
-#, fuzzy
-#| msgid "admin_asked"
 msgid "admin_send"
-msgstr " frågade"
+msgstr "Sckicka"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:107
-#, fuzzy
-#| msgid "email"
 msgid "emailed"
-msgstr "E-post"
+msgstr "Skickat"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:109
-#, fuzzy
-#| msgid "enter_email"
 msgid "not_emailed"
-msgstr "E-post"
+msgstr "Inte skickat"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:164
 msgid "no_communications"
-msgstr ""
+msgstr "Ingen kommunikation"
 
 #: pyha/templates/pyha/requestview/tabs/arguments.html:4
 msgid "argument_window_description"
@@ -1169,7 +1096,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/comments.html:5
 msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
-msgstr "Det här avsnittet är bara synliga för material hanterare"
+msgstr "Det här området är bara synligt för behandlare, inte sökande."
 
 #: pyha/templates/pyha/requestview/tabs/comments.html:8
 msgid "col_handler_said"
@@ -1324,26 +1251,22 @@ msgid "make_decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:13
-#, fuzzy
-#| msgid "collections_tab"
 msgid "own_collections"
-msgstr "Andra begränsade material"
+msgstr "Ägna material"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:15
 msgid "select_checksboxes_to_apply_this_decision_to"
-msgstr ""
+msgstr "Välj material som beslutet hänför sig till."
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:21
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:48
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:77
 msgid "decision_arguments"
-msgstr "Motivering av beslut"
+msgstr "Beslutsgrunderna"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:55
-#, fuzzy
-#| msgid "handler_argument_project"
 msgid "arguments_will_be_applied_to_all_selected"
-msgstr "Projektnamn och beskrivning"
+msgstr "Beslutsgrunderna ska bifogas till varje vald material"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:58
 msgid "accept_selected"
@@ -1355,13 +1278,11 @@ msgstr "Återställ valda"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:62
 msgid "refuse_selected"
-msgstr "Neka valda"
+msgstr "Avvisa valda"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:71
-#, fuzzy
-#| msgid "collections_tab"
 msgid "other_collections"
-msgstr "Andra begränsade material"
+msgstr "Övriga material"
 
 #: pyha/templates/pyha/requestview/tabs/request.html:5
 msgid "request_window_description"

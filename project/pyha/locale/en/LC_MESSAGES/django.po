@@ -176,7 +176,7 @@ msgstr "Role: Handler"
 #: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:79
 #: pyha/templates/pyha/requestview/tabs/history.html:33
 msgid "user"
-msgstr "Role: User"
+msgstr "Role: Applicant"
 
 #: pyha/templates/pyha/base/base.html:89
 msgid "logout"
@@ -204,11 +204,11 @@ msgstr "Click on a request to get more information"
 
 #: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events"
-msgstr ""
+msgstr "Requests tha have changed status and require action from you."
 
 #: pyha/templates/pyha/base/index.html:23
 msgid "handler_new_events_abbreviation"
-msgstr "Nb"
+msgstr "NB"
 
 #: pyha/templates/pyha/base/index.html:25
 msgid "request_date"
@@ -226,12 +226,12 @@ msgstr "Created by"
 #: pyha/templates/pyha/requestview/tabs/request.html:7
 msgid "given_values_are_not_absolute"
 msgstr ""
-"Because some data is not public, the amount of observations is not exact. "
-"The amount of observations in an accepted request may differ."
+"The number of observations is not exact because some data is aggregated. "
+"The number of observations in an accepted request may be different."
 
 #: pyha/templates/pyha/base/index.html:29
 msgid "request_hits"
-msgstr "Matches"
+msgstr "Number of observations"
 
 #: pyha/templates/pyha/base/index.html:30
 msgid "request_status_for_user"
@@ -243,10 +243,8 @@ msgid "select"
 msgstr "Select"
 
 #: pyha/templates/pyha/base/index.html:87
-#, fuzzy
-#| msgid "handler_all_requests"
 msgid "delete_selected_requests"
-msgstr "Requests"
+msgstr "Delete selected requests"
 
 #: pyha/templates/pyha/base/index.html:93
 msgid "no_requests_for_user"
@@ -254,7 +252,8 @@ msgstr "There are no requests to be shown"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:2
 msgid "restricted_collections_in_request"
-msgstr "Request involves collections requiring approval of data owners' terms"
+msgstr "Your request contains access-resctricted material. Read and accept the"
+"terms."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 msgid "sensitivity_info"
@@ -296,7 +295,7 @@ msgstr "Terms"
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:16
 msgid "secured_by_quarantine"
-msgstr "Secured by quarantine"
+msgstr "Access-restricted research material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
@@ -308,25 +307,25 @@ msgstr "Scientific protection period (location, time)"
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:17
 msgid "secured_by_sensitivity"
-msgstr "Sensitivity"
+msgstr "Sensitive material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:17
 msgid "secured_by_sensitivity_explanation"
-msgstr "Automatically coarcened sensitive data"
+msgstr "Automatically aggregated sensitive data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
 #: pyha/templates/pyha/requestview/tabs/request.html:18
 msgid "secured_by_data_provider"
-msgstr "Secured by data provider"
+msgstr "Access restricted by data provider"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
 #: pyha/templates/pyha/requestview/tabs/request.html:18
 msgid "secured_by_dataprovider_explanation"
-msgstr "User/Owner coarcened observation data"
+msgstr "User/Owner aggregated observation data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:22
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:19
@@ -345,7 +344,7 @@ msgstr "Exclude collection"
 #: pyha/templates/pyha/requestform/requestform.html:425
 #: pyha/templatetags/pyha_tags.py:32
 msgid "you_have_not_accepted_terms"
-msgstr "You haven't accepted the conditions"
+msgstr "Read and accept the terms"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:42
 #: pyha/templates/pyha/requestview/tabs/contacts.html:32
@@ -360,7 +359,7 @@ msgstr "Previous"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:44
 msgid "continue"
-msgstr "Continue"
+msgstr "Continue to summary"
 
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:3
 msgid "request_was_empty_and_will_be_closed"
@@ -405,7 +404,7 @@ msgstr "Contacts"
 
 #: pyha/templates/pyha/requestform/requestform.html:61
 msgid "arguments_tab"
-msgstr "Arguments"
+msgstr "Reason"
 
 #: pyha/templates/pyha/requestform/requestform.html:68
 msgid "collection_tab"
@@ -441,7 +440,7 @@ msgstr "Required fields are marked with an asterisk"
 
 #: pyha/templates/pyha/requestform/requestform.html:113
 msgid "enter_name_and_address"
-msgstr "Enter name and address"
+msgstr "Name and address"
 
 #: pyha/templates/pyha/requestform/requestform.html:116
 #: pyha/templates/pyha/requestform/requestform.html:136
@@ -500,11 +499,11 @@ msgstr "Business ID"
 
 #: pyha/templates/pyha/requestform/requestform.html:160
 msgid "continue_to_step_2"
-msgstr "Continue to step 2"
+msgstr "Continue to \"Reason\""
 
 #: pyha/templates/pyha/requestform/requestform.html:165
 msgid "request_arguments_for_user"
-msgstr "Basis for request"
+msgstr "The intended use of the material"
 
 #: pyha/templates/pyha/requestform/requestform.html:168
 #: pyha/templates/pyha/requestview/tabs/arguments.html:10
@@ -514,7 +513,7 @@ msgstr "Land use planning"
 #: pyha/templates/pyha/requestform/requestform.html:169
 #: pyha/templates/pyha/requestview/tabs/arguments.html:12
 msgid "reason_permission"
-msgstr "Permit request"
+msgstr "Permit application"
 
 #: pyha/templates/pyha/requestform/requestform.html:170
 #: pyha/templates/pyha/requestview/tabs/arguments.html:14
@@ -524,7 +523,7 @@ msgstr "Enviromental impact assessment"
 #: pyha/templates/pyha/requestform/requestform.html:171
 #: pyha/templates/pyha/requestview/tabs/arguments.html:16
 msgid "reason_natura"
-msgstr "Natura assessment (luonnonsuojelulaki)"
+msgstr "Natura assessment (Nature Conservation Act)"
 
 #: pyha/templates/pyha/requestform/requestform.html:172
 #: pyha/templates/pyha/requestview/tabs/arguments.html:18
@@ -555,19 +554,19 @@ msgstr "Name of study"
 
 #: pyha/templates/pyha/requestform/requestform.html:187
 msgid "required_research_address"
-msgstr "Scientific organisation ja group and contact information"
+msgstr "Scientific organisation and research group and contact information"
 
 #: pyha/templates/pyha/requestform/requestform.html:190
 msgid "required_goals"
-msgstr "Goals of study"
+msgstr "Research objectives"
 
 #: pyha/templates/pyha/requestform/requestform.html:193
 msgid "required_planning_description"
-msgstr "Description of planning project"
+msgstr "Description of the planning project"
 
 #: pyha/templates/pyha/requestform/requestform.html:196
 msgid "required_municipality"
-msgstr "Municipal location of project"
+msgstr "Municipality"
 
 #: pyha/templates/pyha/requestform/requestform.html:199
 msgid "required_natura_areas"
@@ -579,7 +578,7 @@ msgstr "Free text field"
 
 #: pyha/templates/pyha/requestform/requestform.html:209
 msgid "continue_to_step_3"
-msgstr "Continue to step 3"
+msgstr "Continue to \"Collections\""
 
 #: pyha/templates/pyha/requestform/requestform.html:221
 #: pyha/templates/pyha/requestview/tabs/contacts.html:38
@@ -661,7 +660,7 @@ msgstr "I have read and understood the terms "
 #: pyha/templates/pyha/requestform/requestform.html:260
 #: pyha/templates/pyha/requestview/tabs/contacts.html:101
 msgid "exit"
-msgstr "Exit"
+msgstr "Close"
 
 #: pyha/templates/pyha/requestform/requestform.html:268
 #: pyha/templates/pyha/requestform/requestform.html:339
@@ -721,7 +720,7 @@ msgstr "Business ID"
 #: pyha/templates/pyha/requestform/requestform.html:298
 #: pyha/templates/pyha/requestform/requestform.html:358
 msgid "request_arguments"
-msgstr "Basis"
+msgstr "Reason"
 
 #: pyha/templates/pyha/requestform/requestform.html:300
 #: pyha/templates/pyha/requestform/requestform.html:360
@@ -806,7 +805,7 @@ msgstr "Hide"
 
 #: pyha/templates/pyha/requestform/requestform.html:770
 msgid "request_choose_reason"
-msgstr "Basis for request"
+msgstr "Intended use of the material"
 
 #: pyha/templates/pyha/requestform/requestform.html:771
 msgid "request_chosen_multiple_reasons"
@@ -854,7 +853,7 @@ msgstr "Applicants"
 #: pyha/templates/pyha/requestview/requestview.html:96
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
-msgstr "Basis for application"
+msgstr "Reason for application"
 
 #: pyha/templates/pyha/requestview/requestview.html:103
 #: pyha/templates/pyha/requestview/tabs/request.html:4
@@ -989,7 +988,7 @@ msgstr "Empty"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:47
 msgid "admin_collections_missing_handler"
-msgstr "Collections are missing handlers"
+msgstr "Collection is missing handlers"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:57
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:127
@@ -1034,7 +1033,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/arguments.html:6
 msgid "argument_choices"
-msgstr "Selected usages"
+msgstr "Intended uses of the material"
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:4
 msgid "ask_additional_information_window_description"
@@ -1086,7 +1085,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/comments.html:5
 msgid "this_section_is_only_visible_to_collection_handlers_not_request_owner"
-msgstr "This section is only visible to collection handlers not request owner"
+msgstr "This section is only visible to collection handlers not to applicants"
 
 #: pyha/templates/pyha/requestview/tabs/comments.html:8
 msgid "col_handler_said"
@@ -1129,7 +1128,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/filters.html:6
 msgid "handler_show_in_officials_portal"
-msgstr "Show results in government portal"
+msgstr "Show results in the authority portal"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:4
 msgid "changes_history_description"
@@ -1246,17 +1245,17 @@ msgstr "Own collections"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:15
 msgid "select_checksboxes_to_apply_this_decision_to"
-msgstr "Select checksboxes to apply this decision to"
+msgstr "select the collections to which the decision relates"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:21
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:48
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:77
 msgid "decision_arguments"
-msgstr "Basis of decision"
+msgstr "Reason for the decision"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:55
 msgid "arguments_will_be_applied_to_all_selected"
-msgstr "Arguments will be applied to all selected"
+msgstr "The reason for the decision shall be added to any collection selected."
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:58
 msgid "accept_selected"
@@ -1264,7 +1263,7 @@ msgstr "Accept selected"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:60
 msgid "reset_selected"
-msgstr "Reset selected"
+msgstr "Reset selection"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:62
 msgid "refuse_selected"
