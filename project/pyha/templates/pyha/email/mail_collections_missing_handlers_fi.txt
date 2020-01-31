@@ -1,4 +1,4 @@
-﻿Pyyntöjenhallintajärjestelmä varoittaa, että metatiedoissa käsittelijät puuttuvat seuraavilta kokoelmilta:
+﻿Pyyntöjenhallintajärjestelmä varoittaa, että metatiedoissa ei ole mainittu käsittelijää seuraaville kokoelmille:
 
 {% for co in collections_missing_handler %}{{co}}
 {% endfor %}

@@ -1,3 +1,3 @@
-﻿På svenska: Lajitietokeskukseen {{ time }} tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.
+Din begäran om information på {{time}} till Artdatacenter behöver ytterligare information innan den kan behandlas.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=information
+Adress till begäran: {{ req_link }}?lang=fi&next=information

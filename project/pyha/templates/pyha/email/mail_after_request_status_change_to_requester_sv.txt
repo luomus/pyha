@@ -1,3 +1,3 @@
-﻿På svenska: Lajitietokeskukseen {{ time }} tekemäsi aineistopyynnön tila on muuttunut.
+﻿Status av din begäran för Artdatacenter {{ time }} han ändrats.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=sv
+Adress till begäran: {{ req_link }}?lang=sv

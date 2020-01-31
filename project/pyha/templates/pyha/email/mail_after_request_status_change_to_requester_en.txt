@@ -1,3 +1,3 @@
-﻿Status change in request sent from Finnish Biodiversity Info Faculty at {{ time }}.
+﻿Status has changed in your request sent for Finnish Biodiversity Information Facility at {{ time }}.
 
 Address to your request: {{ req_link }}?lang=en

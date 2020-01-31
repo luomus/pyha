@@ -1,5 +1,3 @@
-﻿Du har gjort en ansökan om att ladda ner säkra FinBIF-data på {{ time }}.
-
-Vänligen följ länken nedan för att slutföra din ansökan.
+﻿Materialet är färdig för nedladdning.
 
 Adress till ansökan: {{ req_link }}?lang=sv

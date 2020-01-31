@@ -1,3 +1,3 @@
-﻿{{ count }} käsittelemätöntä aineistopyyntöä odottaa käsittelyä Laji.fissä.
+﻿{{ count }} käsittelemätöntä aineistopyyntöä odottaa päätöstä Laji.fissä.
 
 Osoite aineistopyyntöjärjestelmään: {{ pyha_link }}?lang=fi

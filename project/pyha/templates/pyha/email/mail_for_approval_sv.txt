@@ -1,3 +1,3 @@
-﻿På svenska: Lajitietokeskuksesta {{ time }} lähetetty aineistopyyntö odottaa päätöstänne käytön hyväksymisestä.
+En begäran till Artdatacenter {{ time }} väntar på ditt beslut.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=sv
+Adress till begäran: {{ req_link }}?lang=sv
