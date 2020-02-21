@@ -1,4 +1,4 @@
-﻿import json
+﻿﻿import json
 import sys
 
 class Container(object):
@@ -35,6 +35,9 @@ class EmailRateLimitFilter(object):
     def filter(self, record):
         from django.conf import settings
         from django.core.cache import caches
+        
+        if record.exc_info is None:
+            return False
 
         tb = '\n'.join(traceback.format_exception(*record.exc_info))
 
