@@ -40,7 +40,7 @@ def download(http_request, link):
             userRequest.save()
             send_mail_after_receiving_download(userRequest.id, userRequest.lang)
     return HttpResponse('')
-    
+
 @csrf_exempt
 @basic_auth_required
 def new_count(http_request):
@@ -52,9 +52,13 @@ def new_count(http_request):
 
 def new_pdf(http_request):
     if http_request.method == 'POST':
-        response = HttpResponse(fetch_pdf(http_request.POST.get('source'),http_request.POST.get('style')),content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename=pyha.pdf'
-        return response
+        pdf_response = fetch_pdf(http_request.POST.get('source'),http_request.POST.get('style'))
+        if pdf_response:
+            response = HttpResponse(pdf_response, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=pyha.pdf'
+            return response
+        else:
+            return HttpResponse(status=504)
     return HttpResponse('')
 
 @csrf_exempt
@@ -67,9 +71,6 @@ def status(http_request):
             response = requests.get(settings.LAJIPERSONAPI_URL+"search?objectresource=pyharesponsestatustestping", auth=HTTPBasicAuth(settings.LAJIPERSONAPI_USER, settings.LAJIPERSONAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
             if not response.status_code == 200:
                 return HttpResponse(status=504)
-            response = requests.post(settings.PDFAPI_URL, data = {'html': "<div>pyha test</div>"}, auth=HTTPBasicAuth(settings.PDFAPI_USER, settings.PDFAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
-            if not response.status_code == 200:
-                return HttpResponse(status=504)
             response = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
             if not response.status_code == 200:
                 return HttpResponse(status=504)
@@ -77,4 +78,3 @@ def status(http_request):
             return HttpResponse(status=504)
         return HttpResponse(status=200)
     return HttpResponse(status=405)
-        

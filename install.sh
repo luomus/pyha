@@ -15,9 +15,6 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		TRIPLESTORE_URL "ex. https://fmnh-ws-test.it.helsinki.fi/triplestore/" \
 		TRIPLESTORE_USER 0 \
 		TRIPLESTORE_PASSWORD 0 \
-		PDF_API_URL "ex. https://fmnh-ws-prod.it.helsinki.fi/tipu-api/html2pdf" \
-		PDF_API_USER 0 \
-		PDF_API_PASSWORD 0 \
 		APILAJIFI_URL "ex. https://apitest.laji.fi/v0/" \
 		APILAJIFI_TOKEN 0 \
 		LAJI_AUTH_TARGET "ex. KE.521 for staging / KE.541 for local" \

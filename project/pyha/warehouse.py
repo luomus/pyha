@@ -153,12 +153,15 @@ def fetch_role(personId):
         return cache.get('role'+cacheKeyPersonId)
 
 def fetch_pdf(data,style):
-    username = settings.PDFAPI_USER
-    password = settings.PDFAPI_PW
     if(style):
         data = "<div style='"+ style +"'>" + data +  "</div>"
-    payload = {'html': data}
-    response = requests.post(settings.PDFAPI_URL, data = payload, auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+    response = requests.post(
+        settings.LAJIAPI_URL+"html-to-pdf",
+        data=data.encode("utf-8"),
+        params={"access_token": settings.LAJIAPI_TOKEN},
+        timeout=settings.SECRET_TIMEOUT_PERIOD,
+        headers={"Content-Type": "text/plain; charset=utf-8"}
+    )
     if(response.status_code == 200):
         return response
 
