@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-python manage.py collectstatic
+python manage.py collectstatic --noinput --clear
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createcachetable

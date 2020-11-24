@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.8
 
 # Copy the instant client rpms to the server
 COPY oracle/*.rpm /tmp/
