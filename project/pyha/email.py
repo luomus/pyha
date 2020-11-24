@@ -53,6 +53,42 @@ def send_mail_after_receiving_request(requestId, lang):
 	recipients = [to]
 	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
 
+def send_mail_after_approving_terms(requestId, lang):
+	'''
+	Sends email after the user has approved terms
+	:param requestId: request identifier
+	:param lang: language code
+	'''
+	req = Request.objects.get(id=requestId)
+	time = req.date.strftime('%d.%m.%Y %H:%M')
+	req_link = settings.PYHA_URL+"request/"+str(req.id)
+	context = {'req': req, 'req_link': req_link}
+
+	if(lang == 'fi'):
+		if(req.description != ''):
+			subject_content = u"Aineistopyyntö: " + req.description
+		else:
+			subject_content = u"Aineistopyyntö: " + time
+	elif(lang == 'en'):
+		if(req.description != ''):
+			subject_content = u"Download request: " + req.description
+		else:
+			subject_content = u"Download request: " + time
+	else:
+		if(req.description != ''):
+			subject_content = u"På svenska: Aineistopyyntö: " + req.description
+		else:
+			subject_content = u"På svenska: Aineistopyyntö: " + time
+
+	plaintext = get_template('pyha/email/mail_after_accepting_terms_{}.txt'.format(lang))
+	subject = subject_content
+	from_email = settings.ICT_EMAIL
+	to = fetch_email_address(req.user)
+	text_content = plaintext.render(context)
+
+	recipients = [to]
+	mail = send_mail(subject, text_content, from_email, recipients, fail_silently=False)
+
 def send_mail_for_missing_handlers(collections_missing_handler, lang):
 	'''
 	Sends email after receiving request from Laji.fi to ICT if there are no collection handlers for a request.
