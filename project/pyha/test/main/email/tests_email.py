@@ -6,7 +6,7 @@ from pyha.warehouse import store
 from django.core import mail
 from django.core.cache import cache
 from pyha.test.mocks import JSON_MOCK4, JSON_MOCK6
-from pyha.email import send_mail_after_receiving_request, send_mail_for_approval, send_mail_after_request_status_change_to_requester
+from pyha.email import send_mail_after_receiving_request, send_mail_after_request_status_change_to_requester
 from pyha.database import update_request_status
 import mock
 import base64
@@ -27,29 +27,6 @@ class EmailTesting (TestCase):
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
 		self.assertEqual(msg.subject, 'Aineistopyyntö: Testausta')
-
-
-
-	def test_mail_send_for_approval(self):
-		req = store(JSON_MOCK4)
-		req.changedBy = "test"
-		req.save()
-		collections = Collection.objects.filter(request = req.id)
-		emails = []
-		for c in collections:
-			personId = ast.literal_eval(c.downloadRequestHandler)[0]
-			emails.append('test{}@321.asdfgh'.format(personId))
-			cache.set('email{}'.format(personId), emails[-1])
-			send_mail_for_approval(req.id, c, "fi")
-		self.assertGreater(len(mail.outbox), 0)
-		msg = mail.outbox[0]
-		self.assertEqual(msg.subject, 'Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne')
-		recipients = []
-		for sent_mail in mail.outbox:
-			recipients += sent_mail.to
-		for email in emails:
-			self.assertTrue(email in recipients)
-
 
 	def test_send_mail_after_request_status_change_to_requester(self):
 		req = store(JSON_MOCK4)
