@@ -152,6 +152,7 @@ class RequestContact(models.Model):
 
 class RequestLogEntry(models.Model):
 	VIEW = 'VIEW'
+	SUBMIT = 'SUB'
 	ACCEPT = 'ACC'
 	DECISION_POSITIVE = 'POS'
 	DECISION_POSITIVE_OVERDUE = 'POSOV'
@@ -160,6 +161,7 @@ class RequestLogEntry(models.Model):
 	DECISION_NEGATIVE_OVERDUE = 'NEGOV'
 	ACTION = (
 		(VIEW, 'views request'),
+		(SUBMIT, 'submits request'),
 		(ACCEPT, 'accepts terms of use'),
 		(DECISION_POSITIVE, 'accepts use of data'),
 		(DECISION_POSITIVE_OVERDUE, 'accepted use of data, because decision has been overdue'),
