@@ -27,7 +27,7 @@ def send_mail_after_receiving_request(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('Aineistopyyntö: {description_or_time}'),
+			ugettext('mail_after_receiving_request_subject'),
 			'mail_after_receiving_request'
 		)
 
@@ -41,7 +41,7 @@ def send_mail_after_approving_terms(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('Aineistopyyntö: {description_or_time}'),
+			ugettext('mail_after_receiving_request_subject'),
 			'mail_after_accepting_terms'
 		)
 
@@ -55,7 +55,7 @@ def send_mail_after_receiving_download(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('Aineistopyynnön lataus: {description_or_time}'),
+			ugettext('mail_after_receiving_download_subject'),
 			'mail_after_receiving_download'
 		)
 
@@ -69,7 +69,7 @@ def send_mail_after_request_status_change_to_requester(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut'),
+			ugettext('mail_after_request_status_change_to_requester_subject'),
 			'mail_after_request_status_change_to_requester'
 		)
 
@@ -83,7 +83,7 @@ def send_mail_after_request_has_been_handled_to_requester(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('Pyyntösi käsittely on valmistunut'),
+			ugettext('mail_after_request_has_been_handled_to_requester_subject'),
 			'mail_after_request_has_been_handled_to_requester'
 		)
 
@@ -92,8 +92,8 @@ def send_mail_after_additional_information_requested(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('Pyyntösi tarvitsee lisätietoja'),
-			'mail_after_additional_information_requested_{}.txt'.format(lang)
+			ugettext('mail_after_additional_information_requested_subject'),
+			'mail_after_additional_information_requested'
 		)
 
 def send_mail_for_missing_handlers(collections_missing_handler, lang):
@@ -105,7 +105,7 @@ def send_mail_for_missing_handlers(collections_missing_handler, lang):
 	with translation.override(lang):
 		context = {'collections_missing_handler': collections_missing_handler}
 
-		subject = ugettext('Kokoelmista puuttuu käsittelijöitä.')
+		subject = ugettext('mail_collections_missing_handlers_subject')
 		text_content = _get_email_content('mail_collections_missing_handlers', lang, context)
 		from_email = settings.PYHA_EMAIL
 		to = [settings.ICT_EMAIL]
@@ -126,7 +126,7 @@ def get_template_of_mail_for_approval(requestId, lang):
 		req_link = settings.PYHA_URL+"request/"+str(req.id)
 		context = {'req': req, 'time': time, 'req_link': req_link}
 
-		subject = ugettext('Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne')
+		subject = ugettext('mail_for_approval_subject')
 		text_content = _get_email_content('mail_for_approval', lang, context)
 		from_email = settings.ICT_EMAIL
 
@@ -142,7 +142,7 @@ def send_mail_for_unchecked_requests(userId, count, lang):
 	with translation.override(lang):
 		context = {'count': count, 'pyha_link': settings.PYHA_URL}
 
-		subject = ugettext('Laji.fi:hin on tullut uusia aineistopyyntöjä')
+		subject = ugettext('mail_for_unchecked_requests_subject')
 		text_content = _get_email_content('mail_for_unchecked_requests', lang, context)
 		from_email = settings.ICT_EMAIL
 		to = [fetch_email_address(userId)]
@@ -161,7 +161,7 @@ def send_admin_mail_after_approved_request(requestId, lang, mailto):
 		req_link = settings.PYHA_URL+"request/"+str(req.id)
 		context = {'req': req, 'time': time, 'req_link': req_link}
 
-		subject = ugettext('Tullut uusi aineistopyyntö: {time}').format(**context)
+		subject = ugettext('mail_admin_after_request_approval_subject').format(**context)
 		text_content = _get_email_content('mail_admin_after_request_approval', lang, context)
 		from_email = settings.PYHA_EMAIL
 		to = [mailto]
@@ -181,7 +181,7 @@ def send_admin_mail_after_approved_request_missing_handlers(requestId, lang, mai
 		req_link = settings.PYHA_URL+"request/"+str(req.id)
 		context = {'req': req, 'time': time, 'req_link': req_link}
 
-		subject = ugettext('Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}').format(**context)
+		subject = ugettext('mail_admin_after_request_approval_missing_handlers_subject').format(**context)
 		text_content = _get_email_content('mail_admin_after_request_approval_missing_handlers', lang, context)
 		from_email = settings.PYHA_EMAIL
 		to = [mailto]

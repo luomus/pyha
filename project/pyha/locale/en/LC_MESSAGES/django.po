@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 13:01+0200\n"
+"POT-Creation-Date: 2020-11-26 14:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,47 +37,43 @@ msgid "Pyha admin"
 msgstr "Pyha admin"
 
 #: pyha/email.py:30 pyha/email.py:44
-#, python-brace-format
-msgid "Aineistopyyntö: {description_or_time}"
+msgid "mail_after_receiving_request_subject"
 msgstr "Download request: {description_or_time}"
 
 #: pyha/email.py:58
-#, python-brace-format
-msgid "Aineistopyynnön lataus: {description_or_time}"
+msgid "mail_after_receiving_download_subject"
 msgstr "Collection ready for download: {description_or_time}"
 
 #: pyha/email.py:72
-msgid "Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
+msgid "mail_after_request_status_change_to_requester_subject"
 msgstr "Status change in download request from FinBIF"
 
 #: pyha/email.py:86
-msgid "Pyyntösi käsittely on valmistunut"
+msgid "mail_after_request_has_been_handled_to_requester_subject"
 msgstr "Your download request from FinBIF has been handled"
 
 #: pyha/email.py:95
-msgid "Pyyntösi tarvitsee lisätietoja"
+msgid "mail_after_additional_information_requested_subject"
 msgstr "Your download request requires additional information"
 
 #: pyha/email.py:108
-msgid "Kokoelmista puuttuu käsittelijöitä."
+msgid "mail_collections_missing_handlers_subject"
 msgstr "Collections are missing handlers."
 
 #: pyha/email.py:129
-msgid "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+msgid "mail_for_approval_subject"
 msgstr "Download request from FinBIF waits for approval decision"
 
 #: pyha/email.py:145
-msgid "Laji.fi:hin on tullut uusia aineistopyyntöjä"
+msgid "mail_for_unchecked_requests_subject"
 msgstr "FinBIF has received new requests which require your attention"
 
 #: pyha/email.py:164
-#, python-brace-format
-msgid "Tullut uusi aineistopyyntö: {time}"
+msgid "mail_admin_after_request_approval_subject"
 msgstr "Arrived new download request: {time}"
 
 #: pyha/email.py:184
-#, python-brace-format
-msgid "Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}"
+msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr "New download request missing handlers: {time}"
 
 #: pyha/login.py:139 pyha/login.py:147
@@ -1529,9 +1525,6 @@ msgstr "Pyha settings updated succesfully"
 #~ msgid "handler_additional_information_window"
 #~ msgstr "Request additional information"
 
-#~ msgid "handler_additional_information_window_description"
-#~ msgstr " "
-
 #~ msgid "handler_asked"
 #~ msgstr " asked:"
 
@@ -1642,9 +1635,6 @@ msgstr "Pyha settings updated succesfully"
 
 #~ msgid "admin_reason_other"
 #~ msgstr "Other (please explain in free text)"
-
-#~ msgid "admin_argument_project"
-#~ msgstr "Project name and description"
 
 #~ msgid "admin_argument_research"
 #~ msgstr "Name of study"

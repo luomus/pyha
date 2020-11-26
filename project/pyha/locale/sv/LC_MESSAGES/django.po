@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 13:01+0200\n"
+"POT-Creation-Date: 2020-11-26 14:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,48 +38,44 @@ msgid "Pyha admin"
 msgstr "Pyha admin"
 
 #: pyha/email.py:30 pyha/email.py:44
-#, python-brace-format
-msgid "Aineistopyyntö: {description_or_time}"
-msgstr ""
+msgid "mail_after_receiving_request_subject"
+msgstr "Aineistopyyntö: {description_or_time}"
 
 #: pyha/email.py:58
-#, python-brace-format
-msgid "Aineistopyynnön lataus: {description_or_time}"
-msgstr ""
+msgid "mail_after_receiving_download_subject"
+msgstr "Aineistopyynnön lataus: {description_or_time}"
 
 #: pyha/email.py:72
-msgid "Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
-msgstr ""
+msgid "mail_after_request_status_change_to_requester_subject"
+msgstr "Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
 
 #: pyha/email.py:86
-msgid "Pyyntösi käsittely on valmistunut"
-msgstr ""
+msgid "mail_after_request_has_been_handled_to_requester_subject"
+msgstr "Pyyntösi käsittely on valmistunut"
 
 #: pyha/email.py:95
-msgid "Pyyntösi tarvitsee lisätietoja"
-msgstr ""
+msgid "mail_after_additional_information_requested_subject"
+msgstr "Pyyntösi tarvitsee lisätietoja"
 
 #: pyha/email.py:108
-msgid "Kokoelmista puuttuu käsittelijöitä."
-msgstr ""
+msgid "mail_collections_missing_handlers_subject"
+msgstr "Kokoelmista puuttuu käsittelijöitä."
 
 #: pyha/email.py:129
-msgid "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
-msgstr ""
+msgid "mail_for_approval_subject"
+msgstr "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 
 #: pyha/email.py:145
-msgid "Laji.fi:hin on tullut uusia aineistopyyntöjä"
-msgstr ""
+msgid "mail_for_unchecked_requests_subject"
+msgstr "Laji.fi:hin on tullut uusia aineistopyyntöjä"
 
 #: pyha/email.py:164
-#, python-brace-format
-msgid "Tullut uusi aineistopyyntö: {time}"
-msgstr ""
+msgid "mail_admin_after_request_approval_subject"
+msgstr "Tullut uusi aineistopyyntö: {time}"
 
 #: pyha/email.py:184
-#, python-brace-format
-msgid "Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}"
-msgstr ""
+msgid "mail_admin_after_request_approval_missing_handlers_subject"
+msgstr "Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}"
 
 #: pyha/login.py:139 pyha/login.py:147
 msgid "error_request_has_been_frozen_by_admin"
@@ -1551,9 +1547,6 @@ msgstr ""
 #~ msgid "handler_additional_information_window"
 #~ msgstr "Begära tilläggsuppgifter"
 
-#~ msgid "handler_additional_information_window_description"
-#~ msgstr " "
-
 #~ msgid "handler_asked"
 #~ msgstr " frågade"
 
@@ -1672,9 +1665,6 @@ msgstr ""
 
 #~ msgid "admin_reason_other"
 #~ msgstr "Annat (vänligen förklara i fri text)"
-
-#~ msgid "admin_argument_project"
-#~ msgstr "Projektnamn och beskrivning"
 
 #~ msgid "admin_argument_research"
 #~ msgstr "Forsknings namn"
