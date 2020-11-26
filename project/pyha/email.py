@@ -121,10 +121,7 @@ def get_template_of_mail_for_approval(requestId, lang):
 	:param lang: language code
 	'''
 	with translation.override(lang):
-		req = Request.objects.get(id = requestId)
-		time = req.date.strftime('%d.%m.%Y %H:%M')
-		req_link = settings.PYHA_URL+"request/"+str(req.id)
-		context = {'req': req, 'time': time, 'req_link': req_link}
+		context = _get_request_context(requestId)
 
 		subject = ugettext('mail_for_approval_subject')
 		text_content = _get_email_content('mail_for_approval', lang, context)
@@ -132,6 +129,22 @@ def get_template_of_mail_for_approval(requestId, lang):
 
 		template = {'header':subject, 'content': text_content, 'sender': from_email}
 		return template
+
+def send_mail_after_additional_information_received(requestId, lang, users):
+	'''
+	Sends email to request handler(s) or admin(s) who has requested additional information after the user has provided it.
+	:param requestId: request identifier
+	:param lang: language code
+	'''
+	with translation.override(lang):
+		context = _get_request_context(requestId)
+
+		subject = ugettext('mail_after_additional_information_received_subject')
+		text_content = _get_email_content('mail_after_additional_information_received', lang, context)
+		from_email = settings.ICT_EMAIL
+		to = [fetch_email_address(userId) for userId in users]
+
+		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
 def send_mail_for_unchecked_requests(userId, count, lang):
 	'''
@@ -156,10 +169,7 @@ def send_admin_mail_after_approved_request(requestId, lang, mailto):
 	:param lang: language code
 	'''
 	with translation.override(lang):
-		req = Request.objects.get(id=requestId)
-		time = req.date.strftime('%d.%m.%Y %H:%M')
-		req_link = settings.PYHA_URL+"request/"+str(req.id)
-		context = {'req': req, 'time': time, 'req_link': req_link}
+		context = _get_request_context(requestId)
 
 		subject = ugettext('mail_admin_after_request_approval_subject').format(**context)
 		text_content = _get_email_content('mail_admin_after_request_approval', lang, context)
@@ -176,10 +186,7 @@ def send_admin_mail_after_approved_request_missing_handlers(requestId, lang, mai
 	:param lang: language code
 	'''
 	with translation.override(lang):
-		req = Request.objects.get(id=requestId)
-		time = req.date.strftime('%d.%m.%Y %H:%M')
-		req_link = settings.PYHA_URL+"request/"+str(req.id)
-		context = {'req': req, 'time': time, 'req_link': req_link}
+		context = _get_request_context(requestId)
 
 		subject = ugettext('mail_admin_after_request_approval_missing_handlers_subject').format(**context)
 		text_content = _get_email_content('mail_admin_after_request_approval_missing_handlers', lang, context)
@@ -189,6 +196,20 @@ def send_admin_mail_after_approved_request_missing_handlers(requestId, lang, mai
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
 def _send_mail_to_request_user(requestId, lang, plain_subject, template_name):
+	context = _get_request_context(requestId)
+
+	subject = plain_subject.format(**context)
+	text_content = _get_email_content(template_name, lang, context)
+	from_email = settings.ICT_EMAIL
+	to = [fetch_email_address(context['req'].user)]
+
+	mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
+
+def _get_email_content(template_name, lang, context):
+	template = get_template('pyha/email/{}_{}.txt'.format(template_name, lang))
+	return template.render(context)
+
+def _get_request_context(requestId):
 	req = Request.objects.get(id = requestId)
 	time = req.date.strftime('%d.%m.%Y %H:%M')
 	context = {
@@ -197,14 +218,4 @@ def _send_mail_to_request_user(requestId, lang, plain_subject, template_name):
 		'req_link': '{}request/{}'.format(settings.PYHA_URL, str(req.id)),
 		'description_or_time': req.description if req.description != '' else time
 	}
-
-	subject = plain_subject.format(**context)
-	text_content = _get_email_content(template_name, lang, context)
-	from_email = settings.ICT_EMAIL
-	to = [fetch_email_address(req.user)]
-
-	mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
-
-def _get_email_content(template_name, lang, context):
-	template = get_template('pyha/email/{}_{}.txt'.format(template_name, lang))
-	return template.render(context)
+	return context

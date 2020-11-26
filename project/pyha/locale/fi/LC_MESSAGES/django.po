@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 14:05+0200\n"
+"POT-Creation-Date: 2020-11-26 15:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,19 +61,23 @@ msgstr "Pyyntösi tarvitsee lisätietoja"
 msgid "mail_collections_missing_handlers_subject"
 msgstr "Kokoelmista puuttuu käsittelijöitä."
 
-#: pyha/email.py:129
+#: pyha/email.py:126
 msgid "mail_for_approval_subject"
 msgstr "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 
-#: pyha/email.py:145
+#: pyha/email.py:142
+msgid "mail_after_additional_information_received_subject"
+msgstr "Aineistopyyntöön on tullut lisätietoja"
+
+#: pyha/email.py:158
 msgid "mail_for_unchecked_requests_subject"
 msgstr "Laji.fi:hin on tullut uusia aineistopyyntöjä"
 
-#: pyha/email.py:164
+#: pyha/email.py:174
 msgid "mail_admin_after_request_approval_subject"
 msgstr "Tullut uusi aineistopyyntö: {time}"
 
-#: pyha/email.py:184
+#: pyha/email.py:191
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr "Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}"
 

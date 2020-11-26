@@ -1,0 +1,3 @@
+Lajitietokeskukseen {{ time }} lähetettyyn aineistopyyntöön on tullut lisätietoja.
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=en&next=information
