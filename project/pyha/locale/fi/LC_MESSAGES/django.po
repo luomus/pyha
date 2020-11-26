@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-25 15:50+0200\n"
+"POT-Creation-Date: 2020-11-26 13:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1234,58 +1234,62 @@ msgid "log_sensitive_and_collections_handler"
 msgstr "Sensitiivisen ja aineistokohtaisen tiedon käsittelijä"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:37
+msgid "log_received"
+msgstr "Pyyntö vastaanotettu"
+
+#: pyha/templates/pyha/requestview/tabs/history.html:39
 msgid "log_viewed"
 msgstr "Katsottu"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:39
+#: pyha/templates/pyha/requestview/tabs/history.html:41
 msgid "log_terms_accepted"
 msgstr "Ehdot hyväksytty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:44
+#: pyha/templates/pyha/requestview/tabs/history.html:46
 msgid "admin_log_sensitives_accepted_because_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:46
+#: pyha/templates/pyha/requestview/tabs/history.html:48
 msgid "log_sensitives_accepted"
 msgstr "Sensitiiviset hyväksytty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:52
+#: pyha/templates/pyha/requestview/tabs/history.html:54
 msgid "admin_log_collection_accepted_because_overdue"
 msgstr ""
 "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
 "nopeasti."
 
-#: pyha/templates/pyha/requestview/tabs/history.html:54
+#: pyha/templates/pyha/requestview/tabs/history.html:56
 msgid "log_collection_accepted"
 msgstr "Aineisto hyväksytty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:61
+#: pyha/templates/pyha/requestview/tabs/history.html:63
 msgid "log_sensitives_reset"
 msgstr "Sensitiiviset päätös nollattu"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:63
+#: pyha/templates/pyha/requestview/tabs/history.html:65
 msgid "log_collection_reset"
 msgstr "Aineisto päätös nollattu"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:69
+#: pyha/templates/pyha/requestview/tabs/history.html:71
 msgid "admin_log_sensitives_denied_because_overdue"
 msgstr "DECISION_NEGATIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:71
+#: pyha/templates/pyha/requestview/tabs/history.html:73
 msgid "log_sensitives_denied"
 msgstr "Sensitiiviset hylätty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:77
+#: pyha/templates/pyha/requestview/tabs/history.html:79
 msgid "admin_log_collection_denied_because_overdue"
 msgstr ""
 "Aineisto hylätty automaattisesti, koska pyyntöön ei ole reagoitu tarpeeksi "
 "nopeasti."
 
-#: pyha/templates/pyha/requestview/tabs/history.html:79
+#: pyha/templates/pyha/requestview/tabs/history.html:81
 msgid "log_collection_denied"
 msgstr "Aineisto hylätty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:89
+#: pyha/templates/pyha/requestview/tabs/history.html:91
 msgid "log_no_history"
 msgstr "Käsittelyloki on tyhjä"
 

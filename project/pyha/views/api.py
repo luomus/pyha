@@ -8,7 +8,7 @@ from requests.auth import HTTPBasicAuth
 import requests
 from pyha.email import send_mail_after_receiving_request, send_mail_after_receiving_download
 from pyha.models import Request, RequestLogEntry
-from pyha.roles import USER
+from pyha.roles import CAT_HANDLER_COLL
 from pyha.database import count_unhandled_requests
 from pyha.warehouse import store, fetch_pdf
 from pyha.login import basic_auth_required
@@ -26,7 +26,7 @@ def receiver(http_request):
         jsond = http_request.body.decode("utf-8")
         userRequest = store(jsond)
     if(userRequest):
-        RequestLogEntry.requestLog.create(request=userRequest, user=userRequest.user, role=USER, action=RequestLogEntry.SUBMIT)
+        RequestLogEntry.requestLog.create(request=userRequest, user = "Laji.fi ICT-team", role = CAT_HANDLER_COLL, action=RequestLogEntry.RECEIVE)
         send_mail_after_receiving_request(userRequest.id, userRequest.lang)
     return HttpResponse('')
 
