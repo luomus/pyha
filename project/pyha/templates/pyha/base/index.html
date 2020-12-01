@@ -15,7 +15,7 @@
       <h2>{% trans "all_requests" %}</h2>
       <p class ="text-muted">{% trans "click_for_info" %}.</p>
 
-      <form action="{% url 'pyha:group_delete_request' %}" id="delete_requests" method="post">
+      <form action="{% url 'pyha:group_delete_request' %}" id="delete_requests" method="post" style="margin-bottom: 30px">
         <table id="requests-table" class="table table-hover table-bordered">
           <thead>
             <tr bgcolor="{% if role == 'handler' %}#349934{% elif role == 'admin' %}#8080c0{% else %}#3498DB{% endif %}" style="color:white;">
@@ -30,6 +30,9 @@
               <th>{% trans "request_status_for_user" %}</th>
               {% if role == "user" %}
               <th>{% trans "request_description" %}</th>
+              <th>{% trans "select" %}</th>
+              {% endif %}
+              {% if role == "admin" %}
               <th>{% trans "select" %}</th>
               {% endif %}
             </tr>
@@ -73,8 +76,13 @@
 
                   {% if role == "user" %}
         		      <td>{{request.description|linebreaks}}</td>
-                  <td>
-                    <p style="text-align: center;"><input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="vertical-align: middle;" {% if request.status != 0 %} disabled {% endif %}></p>
+                  <td class="checkbox-column" style="text-align: center;">
+                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;" {% if request.status != 0 %} disabled {% endif %}>
+                  </td>
+                  {% endif %}
+                  {% if role == "admin" %}
+                  <td class="checkbox-column" style="text-align: center">
+                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;">
                   </td>
                   {% endif %}
                 </tr>
@@ -84,10 +92,12 @@
         </table>
         {% if role == "user" %}
         <p>{% trans 'given_values_are_not_absolute' %}</p>
+        {% endif %}
+        {% if role == "user" or role == "admin" %}
         <button type="submit" id="submit_delete_requests" name="answer" value=0 class="btn btn-danger btn-sm" disabled>{% trans "delete_selected_requests" %}</button>
-        {% csrf_token %}
+        {% endif %}
+      {% csrf_token %}
       </form>
-      {% endif %}
 
       {% else %}
       	<strong>{% trans "no_requests_for_user" %}.</strong>
@@ -105,11 +115,15 @@ $(document).ready(function($) {
       if (e.target && e.target.type === "checkbox") {
         return;
       }
+      if (e.target && e.target.classList.contains("checkbox-column")) {
+        e.target.children[0].click();
+        return;
+      }
       window.document.location = $(this).data("href");
     });
 });
 </script>
-{% if role == "user" %}
+{% if role == "user" or role == "admin" %}
 <script>
 function checkSelected() {
   var disabled = true;

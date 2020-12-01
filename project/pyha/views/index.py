@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, get_mul_all_secured, handlers_cannot_be_updated, is_downloadable, remove_request
 from pyha.localization import check_language
-from pyha.login import logged_in, _process_auth_response, is_request_owner
+from pyha.login import logged_in, _process_auth_response, is_request_owner, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
@@ -70,7 +70,11 @@ def group_delete_request(http_request):
             return _process_auth_response(http_request, 'pyha')
         user_id = http_request.session['user_id']
         request_id_list = [reqid.replace('request_id_','') for reqid, _ in http_request.POST.items() if 'request_id_' in reqid]
-        requests = Request.objects.filter(id__in=request_id_list, user=user_id, status=0)
+        if is_admin(http_request):
+            requests = Request.objects.filter(id__in=request_id_list)
+        else:
+            requests = Request.objects.filter(id__in=request_id_list, user=user_id, status=0)
         for request in requests:
             remove_request(request, http_request)
+
     return HttpResponseRedirect(nexturl)
