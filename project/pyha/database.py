@@ -164,22 +164,29 @@ def update_collection_handlers():
     return True
 
 def count_unhandled_requests(userId):
-    role = fetch_role(userId)
-    unhandled = set()
-    q = Request.objects.exclude(status__lte=0)
-    request_list = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status = StatusEnum.WAITING).values("request"))
+    return len(get_unhandled_requests_data(userId))
+
+def get_unhandled_requests_data(userId):
+    unhandled = []
+
+    user_collections = get_collections_where_download_handler(userId)
+    collection_list = Collection.objects.filter(address__in = user_collections, status = StatusEnum.WAITING)
+    request_list = Request.objects.filter(status = StatusEnum.WAITING).filter(id__in=collection_list.values("request"))
+
     for r in request_list:
-        if (r.status == StatusEnum.WAITING):
-            questioning = False
-            for co in get_collections_where_download_handler(userId):
-                if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
-                    cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
-                    if cochat.question:
-                        questioning = True
-                        break
-            if not questioning:
-                unhandled.add(r)
-    return len(unhandled)
+        questioning = False
+        for co in user_collections:
+            if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
+                cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
+                if cochat.question:
+                    questioning = True
+                    break
+        if not questioning:
+            unhandled.append({
+                'request_id': r.id,
+                'collections': collection_list.filter(request = r.id).values("address")
+            })
+    return unhandled
 
 def update_request_status(userRequest, lang):
     if(not userRequest.status in [StatusEnum.WAITING_FOR_DOWNLOAD, StatusEnum.DOWNLOADABLE]):

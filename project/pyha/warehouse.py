@@ -264,6 +264,15 @@ def get_download_handlers_where_collection(collectionId):
             break
     return result
 
+def get_contact_email_for_collection(collectionId):
+    result = None
+    collections = caches['collections'].get('collections')
+    for co in collections:
+        if co['id'] == collectionId:
+            result = co.get('contactEmail', None)
+            break
+    return result
+
 def get_collections_where_download_handler(userId):
     resultlist = []
     collections = caches['collections'].get('collections')

@@ -61,7 +61,6 @@ class Collection(models.Model):
 	#status 1: Odottaa aineiston toimittajan käsittelyä
 	#status 3: Hylätty
 	#status 4: Hyväksytty
-	#status 6: Odottaa vastausta lisäkysymyksiin
 
 	status = models.IntegerField()
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
