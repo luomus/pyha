@@ -78,7 +78,7 @@
                 </tr>
                 </table>
                 <textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
-                <button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+                <button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_send" %}</button>
               </div>
           </td>
           {% endif %}
@@ -113,7 +113,7 @@
           </td>
           <td style="vertical-align: middle; line-height: 40px;">
             {% for handler in group.handlers %}
-              <p style="white-space: nowrap;"><input {% if handler.mailed or frozen %} disabled {% endif %} onChange="enableCommunicationsEmail()" type="checkbox" name="email_id_{{ handler.id }}" value="{{ handler.email }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
+              <p style="white-space: nowrap;"><input {% if handler.mailed %} disabled {% endif %} onChange="enableCommunicationsEmail()" type="checkbox" name="email_id_{{ handler.id }}" value="{{ handler.email }}" style="margin-top: 0px; margin-left: 15px; vertical-align: middle;"></p>
             {% endfor %}
               <div style="margin-bottom: 16px;"></div>
           </td>
@@ -148,7 +148,7 @@
                 </tr>
                 </table>
                 <textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
-                <button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm" {% if userRequest.frozen %} disabled {% endif %}>{% trans "admin_send" %}</button>
+                <button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_send" %}</button>
               </div>
           </td>
           {% endif %}

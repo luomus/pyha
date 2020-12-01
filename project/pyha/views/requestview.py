@@ -53,8 +53,6 @@ def comment_handler(http_request):
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id=requestId)
-        if is_admin_frozen(http_request, userRequest):
-            return HttpResponseRedirect(reverse('pyha:root'))
         if is_allowed_to_ask_information_as_target(http_request,target,requestId):
             newChatEntry = RequestHandlerChatEntry()
             newChatEntry.request = userRequest
@@ -214,8 +212,6 @@ def question(http_request):
         if not is_allowed_to_handle(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id = requestId)
-        if is_admin_frozen(http_request, userRequest):
-            return HttpResponseRedirect(reverse('pyha:root'))
         if(int(http_request.POST.get('answer')) == 2):
             if not is_allowed_to_ask_information_as_target(http_request, target, requestId):
                 return HttpResponseRedirect(reverse('pyha:root'))
@@ -244,8 +240,6 @@ def information(http_request):
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id = requestId)
-        if is_admin_frozen(http_request, userRequest):
-            return HttpResponseRedirect(reverse('pyha:root'))
         if(int(http_request.POST.get('information')) == 2):
             if not target_valid(target, requestId):
                 return HttpResponseRedirect(reverse('pyha:root'))
