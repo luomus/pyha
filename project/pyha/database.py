@@ -174,17 +174,20 @@ def get_unhandled_requests_data(userId):
     request_list = Request.objects.filter(status = StatusEnum.WAITING).filter(id__in=collection_list.values("request"))
 
     for r in request_list:
+        request_collections = collection_list.filter(request = r.id).values_list("address", flat=True)
+
         questioning = False
-        for co in user_collections:
-            if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0 and Collection.objects.get(request=r.id, address=co).status == StatusEnum.WAITING:
+        for co in request_collections:
+            if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).count() > 0:
                 cochat = RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target = co).order_by('-date')[0]
                 if cochat.question:
                     questioning = True
                     break
+
         if not questioning:
             unhandled.append({
                 'request_id': r.id,
-                'collections': collection_list.filter(request = r.id).values("address")
+                'collections': request_collections
             })
     return unhandled
 

@@ -152,13 +152,16 @@ def send_mail_for_unchecked_requests(userId, count, lang):
 	:param requestId: request identifier
 	:param lang: language code
 	'''
+	send_mail_for_unchecked_requests_to_email(fetch_email_address(userId), count, lang)
+
+def send_mail_for_unchecked_requests_to_email(mailto, count, lang):
 	with translation.override(lang):
 		context = {'count': count, 'pyha_link': settings.PYHA_URL}
 
 		subject = ugettext('mail_for_unchecked_requests_subject')
 		text_content = _get_email_content('mail_for_unchecked_requests', lang, context)
 		from_email = settings.ICT_EMAIL
-		to = [fetch_email_address(userId)]
+		to = [mailto]
 
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
