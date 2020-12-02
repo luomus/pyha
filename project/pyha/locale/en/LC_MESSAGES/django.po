@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 15:15+0200\n"
+"POT-Creation-Date: 2020-12-02 11:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,15 +68,15 @@ msgstr "Download request from FinBIF waits for approval decision"
 msgid "mail_after_additional_information_received_subject"
 msgstr "Aineistopyyntöön on tullut lisätietoja"
 
-#: pyha/email.py:158
+#: pyha/email.py:161
 msgid "mail_for_unchecked_requests_subject"
 msgstr "FinBIF has received new requests which require your attention"
 
-#: pyha/email.py:174
+#: pyha/email.py:177
 msgid "mail_admin_after_request_approval_subject"
 msgstr "Arrived new download request: {time}"
 
-#: pyha/email.py:191
+#: pyha/email.py:194
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr "New download request missing handlers: {time}"
 
@@ -113,7 +113,7 @@ msgid "admin_use_custom_email_address"
 msgstr "Use custom email address"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:36
-#: pyha/templates/pyha/base/admin/usersettings.html:89
+#: pyha/templates/pyha/base/admin/usersettings.html:102
 msgid "admin_save"
 msgstr "Save"
 
@@ -140,6 +140,7 @@ msgstr "Enable periodical handler email"
 #: pyha/templates/pyha/base/admin/usersettings.html:53
 #: pyha/templates/pyha/base/admin/usersettings.html:66
 #: pyha/templates/pyha/base/admin/usersettings.html:79
+#: pyha/templates/pyha/base/admin/usersettings.html:92
 msgid "admin_setting_additional_information"
 msgstr "Additional setting information"
 
@@ -150,21 +151,30 @@ msgstr ""
 "their attention."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
+msgid "admin_enable_daily_requester_email"
+msgstr "Aktivoi ajastetut tilannepäivitysviestit"
+
+#: pyha/templates/pyha/base/admin/usersettings.html:70
+msgid "daily_requester_email_information"
+msgstr ""
+"Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on muuttunut."
+
+#: pyha/templates/pyha/base/admin/usersettings.html:76
 msgid "admin_enable_weekly_missing_handlers_email"
 msgstr "Enable periodical missing handlers email"
 
-#: pyha/templates/pyha/base/admin/usersettings.html:70
+#: pyha/templates/pyha/base/admin/usersettings.html:83
 msgid "weekly_missing_handlers_email_information"
 msgstr ""
 "Does weekly checks on requests being handled for collections with missing "
 "handlers.&#10; Sends a notification email about those missing to ICT email."
 "&#10; Doesn't send anything if handlers are found for all collections."
 
-#: pyha/templates/pyha/base/admin/usersettings.html:76
+#: pyha/templates/pyha/base/admin/usersettings.html:89
 msgid "admin_enable_auto_decline_overdue"
 msgstr "Enable periodical decline overdue collections"
 
-#: pyha/templates/pyha/base/admin/usersettings.html:83
+#: pyha/templates/pyha/base/admin/usersettings.html:96
 msgid "auto_decline_overdue_information"
 msgstr ""
 "Declines overdue collections automatically after a period of 28 days.&#10; "
@@ -263,8 +273,8 @@ msgid "requester"
 msgstr "Created by"
 
 #: pyha/templates/pyha/base/index.html:29
-#: pyha/templates/pyha/base/index.html:69
-#: pyha/templates/pyha/base/index.html:86
+#: pyha/templates/pyha/base/index.html:72
+#: pyha/templates/pyha/base/index.html:94
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -282,15 +292,16 @@ msgid "request_status_for_user"
 msgstr "Status"
 
 #: pyha/templates/pyha/base/index.html:33
+#: pyha/templates/pyha/base/index.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:22
 msgid "select"
 msgstr "Select"
 
-#: pyha/templates/pyha/base/index.html:87
+#: pyha/templates/pyha/base/index.html:97
 msgid "delete_selected_requests"
 msgstr "Delete selected requests"
 
-#: pyha/templates/pyha/base/index.html:93
+#: pyha/templates/pyha/base/index.html:103
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
@@ -1373,7 +1384,7 @@ msgstr "Ready for download"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Thank you, request has been registered."
 
-#: pyha/views/requestview.py:168
+#: pyha/views/requestview.py:166
 msgid "toast_mails_sent_succesfully"
 msgstr "Mails sent succesfully"
 
@@ -1381,7 +1392,7 @@ msgstr "Mails sent succesfully"
 msgid "toast_user_settings_saved_succesfully"
 msgstr "User settings updated succesfully"
 
-#: pyha/views/usersettings.py:81
+#: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
 

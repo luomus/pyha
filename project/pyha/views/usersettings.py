@@ -74,6 +74,7 @@ def save_pyha_settings(http_request):
 		if pyha_settings.exists():
 			pyha_settings = pyha_settings.first()
 			pyha_settings.enableDailyHandlerEmail = http_request.POST.get('enable_daily_handler_email', False)
+			pyha_settings.enableDailyRequesterEmail = http_request.POST.get('enable_daily_requester_email', False)
 			pyha_settings.enableWeeklyMissingHandlersEmail = http_request.POST.get('enable_weekly_missing_handlers_email', False)
 			pyha_settings.enableDeclineOverdueCollections = http_request.POST.get('enable_auto_decline_overdue', False)
 			pyha_settings.changedBy = changed_by_session_user(http_request)

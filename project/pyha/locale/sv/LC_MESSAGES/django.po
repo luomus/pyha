@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-26 15:15+0200\n"
+"POT-Creation-Date: 2020-12-02 11:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,15 +69,15 @@ msgstr "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
 msgid "mail_after_additional_information_received_subject"
 msgstr "Aineistopyyntöön on tullut lisätietoja"
 
-#: pyha/email.py:158
+#: pyha/email.py:161
 msgid "mail_for_unchecked_requests_subject"
 msgstr "Laji.fi:hin on tullut uusia aineistopyyntöjä"
 
-#: pyha/email.py:174
+#: pyha/email.py:177
 msgid "mail_admin_after_request_approval_subject"
 msgstr "Tullut uusi aineistopyyntö: {time}"
 
-#: pyha/email.py:191
+#: pyha/email.py:194
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr "Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}"
 
@@ -114,7 +114,7 @@ msgid "admin_use_custom_email_address"
 msgstr "Använd en annan e-post"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:36
-#: pyha/templates/pyha/base/admin/usersettings.html:89
+#: pyha/templates/pyha/base/admin/usersettings.html:102
 msgid "admin_save"
 msgstr "Spara"
 
@@ -143,6 +143,7 @@ msgstr "Aktivera tidinställda påminnelser för behandlare"
 #: pyha/templates/pyha/base/admin/usersettings.html:53
 #: pyha/templates/pyha/base/admin/usersettings.html:66
 #: pyha/templates/pyha/base/admin/usersettings.html:79
+#: pyha/templates/pyha/base/admin/usersettings.html:92
 msgid "admin_setting_additional_information"
 msgstr "Mer information"
 
@@ -153,21 +154,30 @@ msgstr ""
 "väntande begäran inom arbetsdagar."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
+msgid "admin_enable_daily_requester_email"
+msgstr "Aktivoi ajastetut tilannepäivitysviestit"
+
+#: pyha/templates/pyha/base/admin/usersettings.html:70
+msgid "daily_requester_email_information"
+msgstr ""
+"Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on muuttunut."
+
+#: pyha/templates/pyha/base/admin/usersettings.html:76
 msgid "admin_enable_weekly_missing_handlers_email"
 msgstr "Aktivera den tidinställda granskning av saknade behandlare"
 
-#: pyha/templates/pyha/base/admin/usersettings.html:70
+#: pyha/templates/pyha/base/admin/usersettings.html:83
 msgid "weekly_missing_handlers_email_information"
 msgstr ""
 "Granskar veckovis begäran på väntan som gjorts till Pyha och skickar ett "
 "meddelande till ICT-e-postadressen om samlingar som inte har en behandlare. "
 "Meddelandet skickas inte om alla samlingar har en behandlare."
 
-#: pyha/templates/pyha/base/admin/usersettings.html:76
+#: pyha/templates/pyha/base/admin/usersettings.html:89
 msgid "admin_enable_auto_decline_overdue"
 msgstr "Aktivera avslag på planerad begäran"
 
-#: pyha/templates/pyha/base/admin/usersettings.html:83
+#: pyha/templates/pyha/base/admin/usersettings.html:96
 msgid "auto_decline_overdue_information"
 msgstr ""
 "Avvisa automatiskt begäran om de inte har lösts inom 28 dagar. Tidpunkten "
@@ -266,8 +276,8 @@ msgid "requester"
 msgstr "Skapad av"
 
 #: pyha/templates/pyha/base/index.html:29
-#: pyha/templates/pyha/base/index.html:69
-#: pyha/templates/pyha/base/index.html:86
+#: pyha/templates/pyha/base/index.html:72
+#: pyha/templates/pyha/base/index.html:94
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -286,15 +296,16 @@ msgid "request_status_for_user"
 msgstr "Status"
 
 #: pyha/templates/pyha/base/index.html:33
+#: pyha/templates/pyha/base/index.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:22
 msgid "select"
 msgstr "Välj"
 
-#: pyha/templates/pyha/base/index.html:87
+#: pyha/templates/pyha/base/index.html:97
 msgid "delete_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:93
+#: pyha/templates/pyha/base/index.html:103
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
@@ -1389,7 +1400,7 @@ msgstr "Klar för nedladdning"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Tack, din förfrågan har skrivits in."
 
-#: pyha/views/requestview.py:168
+#: pyha/views/requestview.py:166
 msgid "toast_mails_sent_succesfully"
 msgstr ""
 
@@ -1397,7 +1408,7 @@ msgstr ""
 msgid "toast_user_settings_saved_succesfully"
 msgstr ""
 
-#: pyha/views/usersettings.py:81
+#: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr ""
 

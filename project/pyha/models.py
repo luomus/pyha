@@ -250,6 +250,7 @@ class AdminUserSettings(models.Model):
 class AdminPyhaSettings(models.Model):
 	settingsName = TruncatingCharField(max_length=100,blank=False,null=False)
 	enableDailyHandlerEmail = models.BooleanField(default=False)
+	enableDailyRequesterEmail = models.BooleanField(default=False)
 	enableWeeklyMissingHandlersEmail = models.BooleanField(default=False)
 	enableDeclineOverdueCollections = models.BooleanField(default=False)
 	changedBy = models.CharField(max_length=100)
