@@ -197,43 +197,43 @@ def update_request_status(userRequest, lang):
 
 def ignore_official_database_update_request_status(wantedRequest, lang):
     statusBeforeUpdate = wantedRequest.status
-    requestCollections = Collection.objects.filter(request=wantedRequest.id, status__gte=0)
+    accepted, declined, pending = get_collection_status_counts(wantedRequest.id)
+
+    if pending > 0:
+        if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
+            wantedRequest.status = StatusEnum.WAITING
+    elif accepted > 0:
+        send_download_request(wantedRequest.id)
+        wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
+    elif declined > 0:
+        wantedRequest.status = StatusEnum.REJECTED
+    else:
+        wantedRequest.status = StatusEnum.UNKNOWN
+
+    if(wantedRequest.status != statusBeforeUpdate):
+        wantedRequest.changedBy = changed_by("pyha")
+        wantedRequest.save()
+        emailsOnUpdate(pending, wantedRequest, lang)
+
+def get_collection_status_counts(request_id):
+    collections = Collection.objects.filter(request=request_id, status__gte=0)
+
     accepted = 0
-    colaccepted = 0
     declined = 0
     pending = 0
-    for c in requestCollections:
+
+    for c in collections:
         if c.status == StatusEnum.WAITING:
             pending += 1
         elif c.status == StatusEnum.REJECTED:
             declined += 1
         elif c.status == StatusEnum.APPROVED:
-            colaccepted += 1
             accepted += 1
-    if (accepted >= 0 and pending > 0) and declined == 0:
-        if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
-            wantedRequest.status = StatusEnum.WAITING
-    elif (accepted > 0 and declined > 0) and pending == 0:
-        wantedRequest.status = StatusEnum.PARTIALLY_APPROVED
-        if colaccepted > 0:
-            send_download_request(wantedRequest.id)
-            wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
-    elif (pending == 0 and accepted == 0) and declined > 0:
-        wantedRequest.status = StatusEnum.REJECTED
-    elif accepted > 0 and (declined == 0 and pending == 0):
-        wantedRequest.status = StatusEnum.APPROVED
-        if colaccepted > 0:
-            send_download_request(wantedRequest.id)
-            wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
-    elif pending > 0:
-        if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
-            wantedRequest.status = StatusEnum.WAITING
-    else:
-        wantedRequest.status = StatusEnum.UNKNOWN
-    if(wantedRequest.status != statusBeforeUpdate):
-        wantedRequest.changedBy = changed_by("pyha")
-        wantedRequest.save()
-        emailsOnUpdate(requestCollections, wantedRequest, lang)
+
+    return accepted, declined, pending
+
+def get_all_waiting_requests():
+    return Request.objects.filter(status = StatusEnum.WAITING)
 
 def handler_mul_req_waiting_for_me_status(request_list, http_request, userId):
     for r in request_list:
@@ -513,14 +513,8 @@ def get_collection_handlers_autom_email_sent_time():
     Send "request has been handled" email
     IF request's collections have status != 1(waiting for approval)
 """
-def emailsOnUpdate(requestCollections, userRequest, lang):
-    #count collections that are still waiting for approval
-    collectionsNotHandled = len(requestCollections)
-    for c in requestCollections:
-        if c.status != Col_StatusEnum.WAITING:
-            collectionsNotHandled -=1
-    #check if request is handled
-    if collectionsNotHandled == 0:
+def emailsOnUpdate(pending, userRequest, lang):
+    if pending == 0:
         send_mail_after_request_has_been_handled_to_requester(userRequest.id, lang)
     else:
         #Send email if status changed

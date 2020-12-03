@@ -1,0 +1,7 @@
+Lajitietokeskukseen {{ time }} tekemäsi aineistopyynnön tila on seuraava:
+
+Hyväksyttyjä: {{ accepted }}
+Hylättyjä: {{ declined }}
+Odottaa päätöstä: {{ pending }}
+
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi

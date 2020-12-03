@@ -96,6 +96,16 @@ def send_mail_after_additional_information_requested(requestId, lang):
 			'mail_after_additional_information_requested'
 		)
 
+def send_status_mail_to_requester(requestId, accepted, declined, pending, lang):
+	with translation.override(lang):
+		_send_mail_to_request_user(
+			requestId,
+			lang,
+			ugettext('status_mail_to_requester_subject'),
+			'status_mail_to_requester',
+			{'accepted': accepted, 'declined': declined, 'pending': pending}
+		)
+
 def send_mail_for_missing_handlers(collections_missing_handler, lang):
 	'''
 	Sends email after receiving request from Laji.fi to ICT if there are no collection handlers for a request.
@@ -198,8 +208,8 @@ def send_admin_mail_after_approved_request_missing_handlers(requestId, lang, mai
 
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
-def _send_mail_to_request_user(requestId, lang, plain_subject, template_name):
-	context = _get_request_context(requestId)
+def _send_mail_to_request_user(requestId, lang, plain_subject, template_name, context = {}):
+	context = {**_get_request_context(requestId), **context}
 
 	subject = plain_subject.format(**context)
 	text_content = _get_email_content(template_name, lang, context)
