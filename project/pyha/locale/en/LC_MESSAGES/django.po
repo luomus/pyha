@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-02 11:38+0200\n"
+"POT-Creation-Date: 2020-12-03 14:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,27 +56,31 @@ msgstr "Your download request from FinBIF has been handled"
 msgid "mail_after_additional_information_requested_subject"
 msgstr "Your download request requires additional information"
 
-#: pyha/email.py:108
+#: pyha/email.py:104
+msgid "status_mail_to_requester_subject"
+msgstr "Status change in download request from FinBIF"
+
+#: pyha/email.py:118
 msgid "mail_collections_missing_handlers_subject"
 msgstr "Collections are missing handlers."
 
-#: pyha/email.py:126
+#: pyha/email.py:136
 msgid "mail_for_approval_subject"
 msgstr "Download request from FinBIF waits for approval decision"
 
-#: pyha/email.py:142
+#: pyha/email.py:152
 msgid "mail_after_additional_information_received_subject"
 msgstr "Aineistopyyntöön on tullut lisätietoja"
 
-#: pyha/email.py:161
+#: pyha/email.py:171
 msgid "mail_for_unchecked_requests_subject"
 msgstr "FinBIF has received new requests which require your attention"
 
-#: pyha/email.py:177
+#: pyha/email.py:187
 msgid "mail_admin_after_request_approval_subject"
 msgstr "Arrived new download request: {time}"
 
-#: pyha/email.py:194
+#: pyha/email.py:204
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr "New download request missing handlers: {time}"
 
@@ -157,7 +161,8 @@ msgstr "Aktivoi ajastetut tilannepäivitysviestit"
 #: pyha/templates/pyha/base/admin/usersettings.html:70
 msgid "daily_requester_email_information"
 msgstr ""
-"Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on muuttunut."
+"Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on "
+"muuttunut."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:76
 msgid "admin_enable_weekly_missing_handlers_email"
