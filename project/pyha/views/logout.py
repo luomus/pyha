@@ -7,7 +7,7 @@ def logout(http_request):
     if not logged_in(http_request):
         return _process_auth_response(http_request, '')
     log_out(http_request)
-    return HttpResponseRedirect("https://beta.laji.fi/")
+    return HttpResponseRedirect(settings.AFTER_LOGOUT_URL)
 
 def change_role(http_request):
     if not logged_in(http_request) and not 'role' in http_request.POST:

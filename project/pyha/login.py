@@ -32,6 +32,16 @@ def _get_authentication_info(token):
         content = json.loads(response.content.decode('utf-8'))
         return content
 
+def _delete_authentication_token(token):
+    '''
+    Logs the user out by deleting the authentication token
+    :param token: LajiAuth token
+    :return: Authentication info content.
+    '''
+    url = settings.LAJIAUTH_URL + "token/" + token
+    response = requests.delete(url, timeout=settings.SECRET_TIMEOUT_PERIOD)
+    return response.status_code == 200
+
 def log_in(http_request, token, authentication_info):
     '''
     Create session for the request.
@@ -85,10 +95,9 @@ def log_out(http_request):
 	:param http_request:
 	:return: true if user was succesfully logged out
 	'''
-    if "user_id" in http_request.session:
-        del http_request.session["user_id"]
+    if logged_in(http_request):
+        _delete_authentication_token(http_request.session["token"])
         http_request.session.flush()
-        return False
 
 def authenticate(http_request, token, result):
     '''
