@@ -1,3 +1,13 @@
-﻿{{ count }} käsittelemätöntä aineistopyyntöä odottaa päätöstä Laji.fissä.
+﻿Sinulla on {{ count }} käsittelemätöntä aineistopyyntöä Lajitietokeskuksen aineistopyyntöjärjestelmässä.
 
-Osoite aineistopyyntöjärjestelmään: {{ pyha_link }}?lang=fi
+Käythän hyväksymässä tai hylkäämässä pyynnöt: {{ pyha_link }}?lang=fi
+Tarvittaessa voit pyytää hakijalta lisätietoja.
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
