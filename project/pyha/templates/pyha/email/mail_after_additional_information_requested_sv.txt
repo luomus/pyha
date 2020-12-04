@@ -1,3 +1,13 @@
-Din begäran om information på {{time}} till Artdatacenter behöver ytterligare information innan den kan behandlas.
+Du har fått en begäran om ytterligare information om din begäran om data {{time}}.
 
-Adress till begäran: {{ req_link }}?lang=fi&next=information
+Svara på begäran på: {{ req_link }}?lang=fi&next=information
+
+
+
+Detta är ett automatiskt meddelande.
+
+Finlands Artdatacenter
+Naturhistoriska centralmuseet LUOMUS
+Helsingfors universitet
+
+www.laji.fi/sv
