@@ -1,4 +1,4 @@
-Lajitietokeskukseen {{ time }} lähetetyn aineistopyynnön lisätietopyyntöön on tullut vastaus.
+Lisätietopyyntöösi koskien aineistopyyntöä {{ time }} on tullut vastaus.
 
 Lue vastaus osoitteessa: {{ req_link }}?lang=fi&next=information
 
