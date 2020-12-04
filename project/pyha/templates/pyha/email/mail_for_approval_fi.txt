@@ -1,3 +1,13 @@
-﻿Lajitietokeskukseen {{ time }} lähetetty aineistopyyntö odottaa päätöstänne.
+﻿Lajitietokeskukseen on lähetetty uusi aineistopyyntö {{ time }} koskien aineistoanne.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi
+Pääset käsittelemään aineistopyynnön tästä linkistä: {{ req_link }}?lang=fi
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
