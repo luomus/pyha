@@ -1,3 +1,13 @@
-﻿Collection is ready for download.
+﻿The data is ready for download.
 
-Address to your request: {{ req_link }}?lang=en
+You can download the data in the data request system: {{ req_link }}?lang=en
+
+
+
+This is an automated message.
+
+Finnish Biodiversity Information Facility – FinBIF
+Finnish Museum of Natural History LUOMUS 
+University of Helsinki
+
+www.species.fi
