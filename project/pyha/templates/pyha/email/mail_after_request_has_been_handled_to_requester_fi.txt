@@ -1,3 +1,17 @@
 ﻿Lajitietokeskukseen {{ time }} tekemäsi aineistopyyntö on käsitelty.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi
+Jos aineistopyyntö on hyväksytty kokonaan tai osittain, saat sähköpostitse tiedon, kun aineisto on ladattavissa. 
+Lataustiedoston valmistumisaika riippuu aineiston koosta.
+
+
+Linkki aineistopyyntöön: {{ req_link }}?lang=fi
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
