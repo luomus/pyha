@@ -1,1 +1,15 @@
-[Tähän viestin sisältö]
+Din databegäran till Finlands Artdatacenter {{time}} har skickats till datahanterarna.
+
+Du kan spåra framstegen på: {{ req_link }}?lang=sv
+
+Du kommer att få ett e-postmeddelande när databegäran har behandlats.
+
+
+
+Detta är ett automatiskt meddelande.
+
+Finlands Artdatacenter
+Naturhistoriska centralmuseet LUOMUS
+Helsingfors universitet
+
+www.laji.fi/sv
