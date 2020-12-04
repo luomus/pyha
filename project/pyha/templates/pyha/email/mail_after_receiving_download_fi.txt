@@ -1,3 +1,13 @@
 ﻿Aineisto on valmiina ladattavaksi.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi
+Voit ladata aineiston aineistopyyntöjärjestelmässä: {{ req_link }}?lang=fi
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
