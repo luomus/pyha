@@ -1,1 +1,15 @@
-[Tähän viestin sisältö]
+Lajitietokeskukseen {{ time }} tekemäsi aineistopyyntö on lähetetty käsiteltäväksi aineistojen vastuuhenkilöille.
+
+Voit seurata käsittelyn etenemistä osoitteessa: {{ req_link }}?lang=fi
+
+Saat sähköpostin, kun aineistopyyntö on käsitelty.
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
