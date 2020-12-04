@@ -1,3 +1,13 @@
-﻿Olette tehneet pyynnön salattuun aineistoon Lajitietokeskuksessa {{ time }}.
+﻿Olet tehnyt aineistopyynnön käyttörajoitettuun aineistoon Lajitietokeskuksessa {{ time }}.
 
-Pyyntö otetaan käsittelyyn sen jälkeen kun perustelette aineistopyynnön ja hyväksytte käyttöehdot osoitteessa. {{ req_link }}?lang=fi
+Aineistopyyntö otetaan käsittelyyn, kun olet perustellut pyynnön ja hyväksynyt käyttöehdot osoitteessa: {{ req_link }}?lang=fi
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
