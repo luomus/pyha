@@ -1,4 +1,4 @@
-﻿Lajitietokeskukseen {{ time }} tekemästäsi aineistopyynnöstä kysytään lisätietoja, jotta pyynnön käsittelyä voidaan jatkaa.
+﻿Olet saanut lisätietopyynnön koskien aineistopyyntöäsi {{ time }}.
 
 Vastaathan lisätietopyyntöön osoitteessa: {{ req_link }}?lang=fi&next=information
 
