@@ -11,3 +11,20 @@ Luonnontieteellinen keskusmuseo LUOMUS
 Helsingin yliopisto
 
 www.laji.fi
+
+----------------------
+
+You have {{count}} unprocessed data requests in the FinBIF data request system.
+
+Please accept or reject these requests: {{ pyha_link }}?lang=en
+If necessary, you can ask the applicant for more information.
+
+
+
+This is an automated message.
+
+Finnish Biodiversity Information Facility – FinBIF
+Finnish Museum of Natural History LUOMUS 
+University of Helsinki
+
+www.species.fi
