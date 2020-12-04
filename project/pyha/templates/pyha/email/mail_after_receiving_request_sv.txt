@@ -1,3 +1,14 @@
-﻿Ni har gjort en begäran om att ladda ner säkra FinBIF-data {{ time }}.
+﻿Du har gjort en begäran om data av begränsad användning i Finlands Artdatacenter {{ time }}.
 
-Vänligen följ länken nedan för att slutföra din ansökan: {{ req_link }}?lang=sv
+Begäran kommer att behandlas när du har motiverat begäran och godkänt användarvillkoren på: {{ req_link }}?lang=sv
+
+
+
+Detta är ett automatiskt meddelande.
+
+Finlands Artdatacenter
+Naturhistoriska centralmuseet LUOMUS
+Helsingfors universitet
+
+www.laji.fi/sv
+
