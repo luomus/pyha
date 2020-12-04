@@ -1,3 +1,13 @@
-﻿Lajitietokeskukseen {{ time }} tekemäsi aineistopyyntö tarvitsee lisätietoja ennen käsittelyn jatkumista.
+﻿Lajitietokeskukseen {{ time }} tekemästäsi aineistopyynnöstä kysytään lisätietoja, jotta pyynnön käsittelyä voidaan jatkaa.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=information
+Vastaathan lisätietopyyntöön osoitteessa: {{ req_link }}?lang=fi&next=information
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
