@@ -5,3 +5,13 @@ Hylättyjä aineistoja: {{ declined }}
 Odottaa päätöstä: {{ pending }}
 
 Osoite aineistopyyntöön: {{ req_link }}?lang=fi
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
