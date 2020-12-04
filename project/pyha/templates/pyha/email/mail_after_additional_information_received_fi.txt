@@ -1,3 +1,13 @@
-Lajitietokeskukseen {{ time }} lähetettyyn aineistopyyntöön on tullut lisätietoja.
+Lajitietokeskukseen {{ time }} lähetetyn aineistopyynnön lisätietopyyntöön on tullut vastaus.
 
-Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=information
+Lue vastaus osoitteessa: {{ req_link }}?lang=fi&next=information
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
