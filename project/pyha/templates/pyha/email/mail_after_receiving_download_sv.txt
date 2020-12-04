@@ -1,3 +1,13 @@
-﻿Materialet är färdig för nedladdning.
+﻿Data är färdig för nedladdning.
 
-Adress till ansökan: {{ req_link }}?lang=sv
+Du kan ladda ner data i databegäransystemet: {{ req_link }}?lang=sv
+
+
+
+Detta är ett automatiskt meddelande.
+
+Finlands Artdatacenter
+Naturhistoriska centralmuseet LUOMUS
+Helsingfors universitet
+
+www.laji.fi/sv
