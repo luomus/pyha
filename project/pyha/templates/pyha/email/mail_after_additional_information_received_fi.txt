@@ -11,3 +11,19 @@ Luonnontieteellinen keskusmuseo LUOMUS
 Helsingin yliopisto
 
 www.laji.fi
+
+----------------------
+
+Your request for more information regarding the data request {{time}} has been answered.
+
+Read the answer at: {{ req_link }}?lang=en&next=information
+
+
+
+This is an automated message.
+
+Finnish Biodiversity Information Facility – FinBIF
+Finnish Museum of Natural History LUOMUS 
+University of Helsinki
+
+www.species.fi
