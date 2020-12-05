@@ -1,3 +1,9 @@
-﻿Lajitietokeskuksessa on täytetty uusi sähköinen aineistopyyntöhakemus {{ time }}.
+﻿Aineistopyyntöjärjestelmässä on täytetty uusi aineistopyyntö {{ time }}.
 
 Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=communications
+
+----------------------
+
+A new application to download restricted-use data has been made on {{ time }}.
+
+Address to the application: {{ req_link }}?lang=en&next=communications
