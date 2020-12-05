@@ -4,3 +4,12 @@
 {% endfor %}
 
 Pyha huomioi kokoelmien käsittelijöihin liittyvät muutokset välimuistinsa vanhentumisen/tyhjentymisen aikana.
+
+----------------------
+
+Pyha warns that there are handlers missing from these collections in the metadata:
+
+{% for co in collections_missing_handler %}{{co}}
+{% endfor %}
+
+Pyha collects new collection handler data on cache expiration/flush.
