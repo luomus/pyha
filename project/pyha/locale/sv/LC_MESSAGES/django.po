@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 14:31+0200\n"
+"POT-Creation-Date: 2020-12-08 16:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:208
+#: config/settings.py:209
 msgid "Suomi"
 msgstr "Suomi"
 
-#: config/settings.py:209
+#: config/settings.py:210
 msgid "Ruotsi"
 msgstr "Ruotsi"
 
-#: config/settings.py:210
+#: config/settings.py:211
 msgid "Englanti"
 msgstr "Englanti"
 
@@ -37,55 +37,59 @@ msgstr "Pyha administratione"
 msgid "Pyha admin"
 msgstr "Pyha admin"
 
-#: pyha/email.py:30 pyha/email.py:44
+#: pyha/email.py:30
 msgid "mail_after_receiving_request_subject"
-msgstr "Aineistopyyntö: {description_or_time}"
+msgstr "Databegäran: {description_or_time}"
+
+#: pyha/email.py:44
+msgid "mail_after_accepting_terms_subject"
+msgstr "Databegäran har skickats för behandling"
 
 #: pyha/email.py:58
 msgid "mail_after_receiving_download_subject"
-msgstr "Aineistopyynnön lataus: {description_or_time}"
+msgstr "Data tillgänglig för nedladdning: {description_or_time}"
 
 #: pyha/email.py:72
 msgid "mail_after_request_status_change_to_requester_subject"
-msgstr "Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
+msgstr "Status för din databegäran har ändrats"
 
 #: pyha/email.py:86
 msgid "mail_after_request_has_been_handled_to_requester_subject"
-msgstr "Pyyntösi käsittely on valmistunut"
+msgstr "Din databegäran har behandlats"
 
 #: pyha/email.py:95
 msgid "mail_after_additional_information_requested_subject"
-msgstr "Pyyntösi tarvitsee lisätietoja"
+msgstr "Lisätietopyyntöösi on vastattu – Your request for more information has been answered"
 
 #: pyha/email.py:104
 msgid "status_mail_to_requester_subject"
-msgstr "Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut"
+msgstr "Status för behandlingen av din databegäran {time}"
 
 #: pyha/email.py:118
 msgid "mail_collections_missing_handlers_subject"
-msgstr "Kokoelmista puuttuu käsittelijöitä."
+msgstr "Aineistoista puuttuu käsittelijöitä – Collections are missing handlers"
 
 #: pyha/email.py:136
 msgid "mail_for_approval_subject"
-msgstr "Aineistopyyntö Lajitietokeskuksesta odottaa hyväksymispäätöstänne"
+msgstr "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new data request"
 
 #: pyha/email.py:152
 msgid "mail_after_additional_information_received_subject"
-msgstr "Aineistopyyntöön on tullut lisätietoja"
+msgstr "Lisätietopyyntöösi on vastattu – Your request for more information has been answered"
 
 #: pyha/email.py:171
 msgid "mail_for_unchecked_requests_subject"
-msgstr "Laji.fi:hin on tullut uusia aineistopyyntöjä"
+msgstr "Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data requests in FinBIF"
 
 #: pyha/email.py:187
 msgid "mail_admin_after_request_approval_subject"
-msgstr "Tullut uusi aineistopyyntö: {time}"
+msgstr "Uusi aineistopyyntö: {time} – New data request: {time}"
 
 #: pyha/email.py:204
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
-msgstr "Uudesta aineistopyynnöstä puuttuu käsittelijöitä: {time}"
+msgstr "Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing handlers: {time}"
 
-#: pyha/login.py:139 pyha/login.py:147
+#: pyha/login.py:151 pyha/login.py:159
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Fel, förfrågan är för närvarande inte tillgänglig"
 

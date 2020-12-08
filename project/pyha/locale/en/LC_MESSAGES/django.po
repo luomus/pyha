@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 14:31+0200\n"
+"POT-Creation-Date: 2020-12-08 16:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: config/settings.py:208
+#: config/settings.py:209
 msgid "Suomi"
 msgstr ""
 
-#: config/settings.py:209
+#: config/settings.py:210
 msgid "Ruotsi"
 msgstr ""
 
-#: config/settings.py:210
+#: config/settings.py:211
 msgid "Englanti"
 msgstr ""
 
@@ -36,55 +36,59 @@ msgstr "Pyha administration"
 msgid "Pyha admin"
 msgstr "Pyha admin"
 
-#: pyha/email.py:30 pyha/email.py:44
+#: pyha/email.py:30
 msgid "mail_after_receiving_request_subject"
-msgstr "Download request: {description_or_time}"
+msgstr "Data request: {description_or_time}"
+
+#: pyha/email.py:44
+msgid "mail_after_accepting_terms_subject"
+msgstr "Data request sent for processing"
 
 #: pyha/email.py:58
 msgid "mail_after_receiving_download_subject"
-msgstr "Collection ready for download: {description_or_time}"
+msgstr "Data ready for download: {description_or_time}"
 
 #: pyha/email.py:72
 msgid "mail_after_request_status_change_to_requester_subject"
-msgstr "Status change in download request from FinBIF"
+msgstr "The status of your data request has changed"
 
 #: pyha/email.py:86
 msgid "mail_after_request_has_been_handled_to_requester_subject"
-msgstr "Your download request from FinBIF has been handled"
+msgstr "Your data request has been processed"
 
 #: pyha/email.py:95
 msgid "mail_after_additional_information_requested_subject"
-msgstr "Your download request requires additional information"
+msgstr "Request for more information regarding your data request"
 
 #: pyha/email.py:104
 msgid "status_mail_to_requester_subject"
-msgstr "Status change in download request from FinBIF"
+msgstr "Status of your data request {time} processing"
 
 #: pyha/email.py:118
 msgid "mail_collections_missing_handlers_subject"
-msgstr "Collections are missing handlers."
+msgstr "Aineistoista puuttuu käsittelijöitä – Collections are missing handlers"
 
 #: pyha/email.py:136
 msgid "mail_for_approval_subject"
-msgstr "Download request from FinBIF waits for approval decision"
+msgstr "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new data request"
 
 #: pyha/email.py:152
 msgid "mail_after_additional_information_received_subject"
-msgstr "Aineistopyyntöön on tullut lisätietoja"
+msgstr "Lisätietopyyntöösi on vastattu – Your request for more information has been answered"
 
 #: pyha/email.py:171
 msgid "mail_for_unchecked_requests_subject"
-msgstr "FinBIF has received new requests which require your attention"
+msgstr "Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data requests in FinBIF"
 
 #: pyha/email.py:187
 msgid "mail_admin_after_request_approval_subject"
-msgstr "Arrived new download request: {time}"
+msgstr "Uusi aineistopyyntö: {time} – New data request: {time}"
 
 #: pyha/email.py:204
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
-msgstr "New download request missing handlers: {time}"
+msgstr "Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing handlers: {time}"
 
-#: pyha/login.py:139 pyha/login.py:147
+#: pyha/login.py:151 pyha/login.py:159
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Error, the request is currently unavailable"
 

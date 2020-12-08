@@ -41,7 +41,7 @@ def send_mail_after_approving_terms(requestId, lang):
 		_send_mail_to_request_user(
 			requestId,
 			lang,
-			ugettext('mail_after_receiving_request_subject'),
+			ugettext('mail_after_accepting_terms_subject'),
 			'mail_after_accepting_terms'
 		)
 
