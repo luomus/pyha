@@ -35,7 +35,7 @@ class EmailTesting (TestCase):
 		send_mail_after_request_status_change_to_requester(req.id, "fi")
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
-		self.assertEqual(msg.subject, 'Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut')
+		self.assertEqual(msg.subject, 'Aineistopyyntösi tila on muuttunut')
 
 
 	def test_mail_is_actually_sent_when_request_is_received(self):
@@ -63,5 +63,5 @@ class EmailTesting (TestCase):
 		update_request_status(req, "fi")
 		self.assertEqual(len(mail.outbox), 1)
 		msg = mail.outbox[0]
-		self.assertEqual(msg.subject, 'Aineistopyyntösi tila Lajitietokeskuksessa on muuttunut')
+		self.assertEqual(msg.subject, 'Aineistopyyntösi tila on muuttunut')
 		self.assertEqual(msg.to, ['test123@321.asdfgh'])
