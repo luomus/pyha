@@ -48,6 +48,12 @@
   {% elif field.0 == 'argument_reason' %}
     <tr style=color:black><th>{% trans "argument_reason" %}</th></tr>
     <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_customer' %}
+    <tr style=color:black><th>{% trans "argument_customer" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_customer_contact' %}
+    <tr style=color:black><th>{% trans "argument_customer_contact" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
   {% endif %}
 {% endfor %}
 </table>

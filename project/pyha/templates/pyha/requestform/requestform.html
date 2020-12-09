@@ -176,30 +176,37 @@
 												</div>
 												<div id="additional_information" hidden=true>
 													<div class="section"><span>2</span>{% trans 'additional_information' %}</div>
+													<p>{% trans 'additional_information_info' %}</p>
 													<div class="inner-wrap">
 														<div hidden=true id="argument_project">
-														<label id="argument_details_label">{% trans 'required_project_name' %} <textarea id="project" name="argument_project" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_research">
-														<label id="argument_details_label">{% trans 'required_research_name' %} <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_research_address">
-														<label id="argument_details_label">{% trans 'required_research_address' %} <textarea id="research_address"  name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_goals">
-														<label id="argument_details_label">{% trans 'required_goals' %} <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_details_label">{% trans 'argument_project' %} * <textarea id="project" name="argument_project" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_planning">
-														<label id="argument_details_label">{% trans 'required_planning_description' %} <textarea id="planning" name="argument_planning" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_details_label">{% trans 'argument_planning' %} * <textarea id="planning" name="argument_planning" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_municipality">
-														<label id="argument_details_label">{% trans 'required_municipality' %} <textarea id="municipality" name="argument_municipality" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_details_label">{% trans 'argument_municipality' %} * <textarea id="municipality" name="argument_municipality" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_natura_areas">
-														<label id="argument_details_label">{% trans 'required_natura_areas' %} <textarea id="natura_areas" name="argument_natura_areas" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_details_label">{% trans 'argument_natura_areas' %} * <textarea id="natura_areas" name="argument_natura_areas" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														</div>
+														<div hidden=true id="argument_research">
+														<label id="argument_details_label">{% trans 'argument_research' %} * <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														</div>
+														<div hidden=true id="argument_research_address">
+														<label id="argument_details_label">{% trans 'argument_research_address' %} * <textarea id="research_address"  name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														</div>
+														<div hidden=true id="argument_goals">
+														<label id="argument_details_label">{% trans 'argument_goals' %} * <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														</div>
+														<div hidden=true id="argument_customer">
+														<label id="argument_details_label">{% trans 'argument_customer' %} * <textarea id="customer" name="argument_customer" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														</div>
+														<div hidden=true id="argument_customer_contact">
+														<label id="argument_details_label">{% trans 'argument_customer_contact' %} * <textarea id="customer_contact" name="argument_customer_contact" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_reason">
-														<label id="argument_details_label">{% trans 'required_arguments' %} <textarea id="reason" name="argument_reason" maxlength="4000" hidden placeholder=""></textarea></label>
+														<label id="argument_details_label">{% trans 'argument_reason' %} <textarea id="reason" name="argument_reason" maxlength="4000" disabled hidden placeholder=""></textarea></label>
 														</div>
 													</div>
 												</div>
@@ -293,18 +300,22 @@
 											<table class="table" style="width:100%">
 												<tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
 												<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
-												<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
-												<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
-												<tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
-												<tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
-												<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
-												<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
 												<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
 												<tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
 												<tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
 												<tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
 												<tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
 												<tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
+												<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
+												<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
+												<tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
+												<tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
+												<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
+												<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
+												<tr name="argument_customer" style=color:black><th>{% trans "argument_customer" %}</th></tr>
+												<tr name="argument_customer"><td><p name="argument_customer_fill"></p></td></tr>
+												<tr name="argument_customer_contact" style=color:black><th>{% trans "argument_customer_contact" %}</th></tr>
+												<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
 												<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
 												<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
 											</table>
@@ -353,18 +364,22 @@
 		<table class="table" style="width:100%">
 			<tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
 			<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
-			<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
-			<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
-			<tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
-			<tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
-			<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
-			<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
 			<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
 			<tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
 			<tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
 			<tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
 			<tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
 			<tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
+			<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
+			<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
+			<tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
+			<tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
+			<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
+			<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
+			<tr name="argument_customer" style=color:black><th>{% trans "argument_customer" %}</th></tr>
+			<tr name="argument_customer"><td><p name="argument_customer_fill"></p></td></tr>
+			<tr name="argument_customer_contact" style=color:black><th>{% trans "argument_customer_contact" %}</th></tr>
+			<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
 			<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
 			<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
 		</table>
@@ -490,65 +505,55 @@
 	function updateReason() {
 	var select = document.getElementById('reason_selector');
 	var result = getSelectValues(select);
-	var arguments = ['argument_reason','argument_municipality','argument_natura_areas','argument_project','argument_research','argument_research_address','argument_goals','argument_planning']
-	var inputs = ['reason','municipality','natura_areas','project','research','research_address','goals','planning']
-	for (var i=0; i<arguments.length; i++) {
-		document.getElementById(arguments[i]).hidden = true;
-	}
-	for (var i=0; i<arguments.length; i++) {
-		var names = document.getElementsByName(arguments[i])
+	var inputs = ['project', 'planning', 'municipality', 'natura_areas', 'research', 'research_address', 'goals', 'customer', 'customer_contact', 'reason'];
+
+	for (var i=0; i<inputs.length; i++) {
+		var argument = 'argument_' + inputs[i];
+		document.getElementById(inputs[i]).disabled = true;
+		document.getElementById(argument).hidden = true;
+
+		var names = document.getElementsByName(argument)
 		for (var j=0; j<names.length; j++) {
 			names[j].style.display = "none";
 		}
 	}
-	for (var i=0; i<inputs.length; i++) {
-		document.getElementById(inputs[i]).disabled = true;
-	}
+
 	document.getElementById('additional_information').hidden = result.length == 0;
 	for (var i=0; i<result.length; i++) {
-		var reasonarguments;
 		var reasoninputs;
 		switch (result[i]) {
 			case "reason_zoning":
-				reasonarguments = ['argument_reason','argument_municipality','argument_project','argument_planning'];
-				reasoninputs = ['reason','municipality','project','planning'];
+				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
 				break;
 			case "reason_permission":
-				reasonarguments = ['argument_reason','argument_municipality','argument_project'];
-				reasoninputs = ['reason','municipality','project'];
+				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
 				break;
 			case "reason_enviromental":
-				reasonarguments = ['argument_reason','argument_municipality','argument_project'];
-				reasoninputs = ['reason','municipality','project'];
+				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
 				break;
 			case "reason_natura":
-				reasonarguments = ['argument_reason','argument_municipality','argument_project','argument_natura_areas'];
-				reasoninputs = ['reason','municipality','project','natura_areas'];
+				reasoninputs = ['project', 'planning', 'municipality', 'natura_areas', 'customer', 'customer_contact', 'reason'];
 				break;
 			case "reason_scientific":
-				reasonarguments = ['argument_reason','argument_research','argument_research_address','argument_goals'];
-				reasoninputs = ['reason','research','research_address','goals'];
+				reasoninputs = ['research', 'research_address', 'goals', 'reason'];
 				break;
 			case "reason_forest":
-				reasonarguments = ['argument_reason','argument_municipality','argument_project'];
-				reasoninputs = ['reason','municipality','project'];
+				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
 				break;
 			case "reason_other":
-				reasonarguments = ['argument_reason','argument_municipality'];
-				reasoninputs = ['reason','municipality'];
+				reasoninputs = ['municipality', 'reason'];
 				break;
 		}
-		for (var j=0; j<reasonarguments.length; j++) {
-			document.getElementById(reasonarguments[j]).hidden = false;
-		}
-		for (var j=0; j<reasonarguments.length; j++) {
-			var names = document.getElementsByName(reasonarguments[j])
-			for (var k=0; k<names.length; k++) {
-				names[k].style.display = "table-row"
-			}
-		}
+
 		for (var j=0; j<reasoninputs.length; j++) {
+			var argument = 'argument_' + reasoninputs[j];
 			document.getElementById(reasoninputs[j]).disabled = false;
+			document.getElementById(argument).hidden = false;
+
+			var names = document.getElementsByName(argument)
+			for (var k=0; k<names.length; k++) {
+				names[k].style.display = "table-row";
+			}
 		}
 	}
 	argumentsFilled();
@@ -607,22 +612,22 @@
 			for (var i=0; i<result.length; i++) {
 				switch (result[i]) {
 					case "reason_zoning":
-						fills = fills.concat(['municipality','project','planning']);
+						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
 						break;
 					case "reason_permission":
-						fills = fills.concat(['municipality','project']);
+						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
 						break;
 					case "reason_enviromental":
-						fills = fills.concat(['municipality','project']);
+						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
 						break;
 					case "reason_natura":
-						fills = fills.concat(['municipality','project','natura_areas']);
+						fills = fills.concat(['project', 'planning', 'municipality', 'natura_areas', 'customer', 'customer_contact']);
 						break;
 					case "reason_scientific":
-						fills = fills.concat(['research','research_address','goals']);
+						fills = fills.concat(['research', 'research_address', 'goals']);
 						break;
 					case "reason_forest":
-						fills = fills.concat(['municipality','project']);
+						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
 						break;
 					case "reason_other":
 						fills = fills.concat(['municipality']);
@@ -700,11 +705,10 @@
 				updateField(namefield, fillfield)();
 			}
 		}
-		fields = ['reason','municipality','natura_areas','project','research','research_address','goals','planning'];
-		fills = ['argument_reason_fill','argument_municipality_fill','argument_natura_areas_fill','argument_project_fill','argument_research_fill','argument_research_address_fill','argument_goals_fill','argument_planning_fill'];
+		fields = ['project', 'planning', 'municipality', 'natura_areas', 'research', 'research_address', 'goals', 'customer', 'customer_contact', 'reason'];
 		for (i = 0; i < fields.length; i++){
 			var namefield = document.getElementById(fields[i]);
-			var fillfield = document.getElementsByName(fills[i]);
+			var fillfield = document.getElementsByName('argument_' + fields[i] + '_fill');
 			namefield.onkeyup = updateArgumentField(namefield, fillfield);
 			namefield.onchange = updateArgumentField(namefield, fillfield);
 			updateArgumentField(namefield, fillfield)();

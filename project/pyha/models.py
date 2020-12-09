@@ -35,7 +35,9 @@ class TruncatingReasonJsonCharField(models.CharField):
 		("argument_planning", 2000),
 		("argument_municipality", 2000),
 		("argument_natura_areas", 2000),
-		("argument_reason", 4000)]
+		("argument_reason", 4000),
+		("argument_customer", 500),
+		("argument_customer_contact", 500)]
 
 		value = super(TruncatingReasonJsonCharField,self).get_prep_value(value)
 		if value:
