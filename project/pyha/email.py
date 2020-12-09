@@ -106,7 +106,7 @@ def send_status_mail_to_requester(requestId, accepted, declined, pending, lang):
 			{'accepted': accepted, 'declined': declined, 'pending': pending}
 		)
 
-def send_mail_for_missing_handlers(collections_missing_handler, lang):
+def send_mail_for_missing_handlers(collections_missing_handler, lang='fi'):
 	'''
 	Sends email after receiving request from Laji.fi to ICT if there are no collection handlers for a request.
 	:param requestId: request identifier
@@ -140,7 +140,7 @@ def get_template_of_mail_for_approval(requestId, lang):
 		template = {'header':subject, 'content': text_content, 'sender': from_email}
 		return template
 
-def send_mail_after_additional_information_received(requestId, lang, users):
+def send_mail_after_additional_information_received(requestId, users, lang='fi'):
 	'''
 	Sends email to request handler(s) or admin(s) who has requested additional information after the user has provided it.
 	:param requestId: request identifier
@@ -156,7 +156,7 @@ def send_mail_after_additional_information_received(requestId, lang, users):
 
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
-def send_mail_for_unchecked_requests(userId, count, lang):
+def send_mail_for_unchecked_requests(userId, count, lang='fi'):
 	'''
 	Sends email after receiving request from Laji.fi to the person who made the request.
 	:param requestId: request identifier
@@ -164,7 +164,7 @@ def send_mail_for_unchecked_requests(userId, count, lang):
 	'''
 	send_mail_for_unchecked_requests_to_email(fetch_email_address(userId), count, lang)
 
-def send_mail_for_unchecked_requests_to_email(mailto, count, lang):
+def send_mail_for_unchecked_requests_to_email(mailto, count, lang='fi'):
 	with translation.override(lang):
 		context = {'count': count, 'pyha_link': settings.PYHA_URL}
 
@@ -175,7 +175,7 @@ def send_mail_for_unchecked_requests_to_email(mailto, count, lang):
 
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
-def send_admin_mail_after_approved_request(requestId, lang, mailto):
+def send_admin_mail_after_approved_request(requestId, mailto, lang='fi'):
 	'''
 	Sends email to admin after approved by the person who made the request.
 	:param requestId: request identifier
@@ -192,7 +192,7 @@ def send_admin_mail_after_approved_request(requestId, lang, mailto):
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
 
-def send_admin_mail_after_approved_request_missing_handlers(requestId, lang, mailto):
+def send_admin_mail_after_approved_request_missing_handlers(requestId, mailto, lang='fi'):
 	'''
 	Sends email to admin after approved by the person who made the request.
 	:param requestId: request identifier

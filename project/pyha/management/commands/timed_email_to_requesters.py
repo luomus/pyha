@@ -9,8 +9,6 @@ class Command(BaseCommand):
     #def add_arguments(self, parser):
 
     def handle(self, *args, **options):
-        lang = 'fi' #ainakin toistaiseksi
-
         status = caches['collections'].get('last_timed_email_sent_for_status', {})
         new_status = {}
 
@@ -23,7 +21,7 @@ class Command(BaseCommand):
                     status[request.id]['accepted'] != accepted or
                     status[request.id]['declined'] != declined
                 ):
-                    send_status_mail_to_requester(request.id, accepted, declined, pending, lang)
+                    send_status_mail_to_requester(request.id, accepted, declined, pending, request.lang)
                     new_status[request.id] = {
                         'accepted': accepted,
                         'declined': declined,

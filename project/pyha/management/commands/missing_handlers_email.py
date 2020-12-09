@@ -7,14 +7,13 @@ class Command(BaseCommand):
     help = 'Sends email to ICT for collections missing handlers.'
 
     #def add_arguments(self, parser):
-    
+
     def handle(self, *args, **options):
         update_collection_handlers()
         collections = caches['collections'].get('collections')
-        lang = 'fi' #ainakin toistaiseksi
         collections_missing_handler = []
         for co in collections:
             if(co.get('downloadRequestHandler', {}) == {}):
                     collections_missing_handler.append(co.get('id'))
         if(len(collections_missing_handler) > 0):
-            send_mail_for_missing_handlers(collections_missing_handler, lang)
+            send_mail_for_missing_handlers(collections_missing_handler)

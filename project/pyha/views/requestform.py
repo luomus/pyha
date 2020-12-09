@@ -107,13 +107,13 @@ def approve_terms_skip_official(http_request, userRequest, requestId, lang):
             if(setting.enableCustomEmailAddress): email = setting.customEmailAddress
             if(setting.emailNewRequests == AdminUserSettings.ALL):
                 if missing_handlers:
-                    send_admin_mail_after_approved_request_missing_handlers(requestId, lang, email)
+                    send_admin_mail_after_approved_request_missing_handlers(requestId, email)
                 else:
-                    send_admin_mail_after_approved_request(requestId, lang, email)
+                    send_admin_mail_after_approved_request(requestId, email)
             elif(setting.emailNewRequests == AdminUserSettings.MISSING and missing_handlers):
-                send_admin_mail_after_approved_request_missing_handlers(requestId, lang, email)
+                send_admin_mail_after_approved_request_missing_handlers(requestId, email)
 
-        send_mail_after_approving_terms(requestId, lang)
+        send_mail_after_approving_terms(requestId, userRequest.lang)
     else:
         userRequest.status = -1
         userRequest.changedBy = changed_by_session_user(http_request)

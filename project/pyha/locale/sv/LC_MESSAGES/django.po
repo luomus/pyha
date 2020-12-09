@@ -159,7 +159,7 @@ msgstr "Mer information"
 msgid "daily_handler_email_information"
 msgstr ""
 "Skickar ett meddelande om väntande begäran till alla behandlare som har "
-"väntande begäran inom arbetsdagar."
+"väntande begäran varje måndag och torsdag."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
 msgid "admin_enable_daily_requester_email"

@@ -158,7 +158,7 @@ msgstr "Lisätietoja asetuksesta"
 #: pyha/templates/pyha/base/admin/usersettings.html:57
 msgid "daily_handler_email_information"
 msgstr ""
-"Lähettää viestin käsittelemättömistä pyynnöistä viitenä arkipäivänä kaikille "
+"Lähettää viestin käsittelemättömistä pyynnöistä joka maanantai ja torstai kaikille "
 "aineistonkäsittelijöille, joilla on käsittelemättömiä pyyntöjä."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63

@@ -155,7 +155,7 @@ msgstr "Additional setting information"
 #: pyha/templates/pyha/base/admin/usersettings.html:57
 msgid "daily_handler_email_information"
 msgstr ""
-"Sends emails every weekday to collection handlers for collections requiring "
+"Sends emails every monday and thursday to collection handlers for collections requiring "
 "their attention."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63

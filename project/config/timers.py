@@ -50,10 +50,10 @@ def scheduler():
 
     # set the events here
     schedule.every().monday.at("11:22").do(run_threaded, timed_email)
-    schedule.every().tuesday.at("11:22").do(run_threaded, timed_email)
-    schedule.every().wednesday.at("11:22").do(run_threaded, timed_email)
+    #schedule.every().tuesday.at("11:22").do(run_threaded, timed_email)
+    #schedule.every().wednesday.at("11:22").do(run_threaded, timed_email)
     schedule.every().thursday.at("11:22").do(run_threaded, timed_email)
-    schedule.every().friday.at("11:22").do(run_threaded, timed_email)
+    #schedule.every().friday.at("11:22").do(run_threaded, timed_email)
 
     schedule.every().monday.at("11:22").do(run_threaded, timed_email_to_requesters)
     schedule.every().tuesday.at("11:22").do(run_threaded, timed_email_to_requesters)

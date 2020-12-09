@@ -13,7 +13,6 @@ class Command(BaseCommand):
         update_collection_handlers()
         collections = caches['collections'].get('collections')
         downloadRequestHandlers = set()
-        lang = 'fi' #ainakin toistaiseksi
         for co in collections:
                 for handler in co.get('downloadRequestHandler', {}):
                     downloadRequestHandlers.add(handler)
@@ -23,6 +22,7 @@ class Command(BaseCommand):
         for handler in downloadRequestHandlers:
             data = get_unhandled_requests_data(handler)
             if(len(data) > 0):
+                """
                 for request in data:
                     contact_emails = set()
                     for co in request['collections']:
@@ -34,12 +34,15 @@ class Command(BaseCommand):
                         if contact_email not in count_for_contact_email:
                             count_for_contact_email[contact_email] = 0
                         count_for_contact_email[contact_email] += 1
+                """
 
-                send_mail_for_unchecked_requests(handler, len(data), lang)
+                send_mail_for_unchecked_requests(handler, len(data))
 
+        """
         for contact_email in count_for_contact_email:
             send_mail_for_unchecked_requests_to_email(
-                contact_email, count_for_contact_email[contact_email], lang
+                contact_email, count_for_contact_email[contact_email]
             )
+        """
 
         update_collection_handlers_autom_email_sent_time()

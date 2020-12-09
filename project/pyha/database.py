@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.template.loader import get_template
-from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval, send_admin_mail_after_approved_request, send_admin_mail_after_approved_request_missing_handlers
+from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
     Col_StatusEnum, AdminUserSettings

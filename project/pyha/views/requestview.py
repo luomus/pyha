@@ -227,7 +227,7 @@ def question(http_request):
             userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
             userRequest.changedBy = changed_by_session_user(http_request)
             userRequest.save()
-            send_mail_after_additional_information_requested(requestId, http_request.LANGUAGE_CODE)
+            send_mail_after_additional_information_requested(requestId, userRequest.lang)
     return HttpResponseRedirect(nexturl)
 
 def information(http_request):
@@ -269,5 +269,5 @@ def information(http_request):
             userRequest.save()
             update_request_status(userRequest, userRequest.lang)
             users = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=target, question=True).values_list('user', flat=True).distinct()
-            send_mail_after_additional_information_received(requestId, http_request.LANGUAGE_CODE, users)
+            send_mail_after_additional_information_received(requestId, users)
     return HttpResponseRedirect(nexturl)
