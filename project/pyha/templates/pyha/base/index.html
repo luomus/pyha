@@ -27,10 +27,15 @@
               <th>{% trans "requester" %}</th>
               {% endif %}
               <th {% if role == "user" %}title="{% trans 'given_values_are_not_absolute' %}{% endif %}">{% trans "request_hits" %}</th>
-              <th>{% trans "request_status_for_user" %}</th>
               {% if role == "user" %}
+              <th>{% trans "request_status_for_user" %}</th>
               <th>{% trans "request_description" %}</th>
               <th>{% trans "select" %}</th>
+              {% endif %}
+              {% if role == "handler" or role == "admin" %}
+              <th>{% trans "request_information_status" %}</th>
+              <th>{% trans "request_download_status" %}</th>
+              <th>{% trans "request_status_for_user" %}</th>
               {% endif %}
               {% if role == "admin" %}
               <th>{% trans "select" %}</th>
@@ -72,13 +77,23 @@
                   <td title="{% trans 'given_values_are_not_absolute' %}">{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
                   {% endif %}
 
-                  <td>{% translateRequestStatus request.status role request.answerstatus request.waitingstatus request.downloadable %}</td>
-
                   {% if role == "user" %}
+                  <td>{% translateRequestStatus request.status role request.answerstatus request.waitingstatus request.downloadable %}</td>
         		      <td>{{request.description|linebreaks}}</td>
                   <td class="checkbox-column" style="text-align: center;">
                     <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;" {% if request.status != 0 %} disabled {% endif %}>
                   </td>
+                  {% endif %}
+                  {% if role == "handler" or role == "admin" %}
+                  <td>
+                    {% if request.information_status == 0 %}
+                    {% trans "waiting_for_additional_information" %}
+                    {% elif request.information_status == 1 %}
+                    {% trans "user_has_given_additional_information" %}
+                    {% endif %}
+                  </td>
+                  <td></td>
+                  <td></td>
                   {% endif %}
                   {% if role == "admin" %}
                   <td class="checkbox-column" style="text-align: center">

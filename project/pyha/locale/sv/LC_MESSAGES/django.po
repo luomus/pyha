@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-09 14:46+0200\n"
+"POT-Creation-Date: 2020-12-10 14:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -295,8 +295,8 @@ msgid "requester"
 msgstr "Skapad av"
 
 #: pyha/templates/pyha/base/index.html:29
-#: pyha/templates/pyha/base/index.html:72
-#: pyha/templates/pyha/base/index.html:94
+#: pyha/templates/pyha/base/index.html:77
+#: pyha/templates/pyha/base/index.html:109
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -310,21 +310,38 @@ msgstr ""
 msgid "request_hits"
 msgstr "Antal av observationer"
 
-#: pyha/templates/pyha/base/index.html:30
+#: pyha/templates/pyha/base/index.html:31
+#: pyha/templates/pyha/base/index.html:38
 msgid "request_status_for_user"
 msgstr "Status"
 
 #: pyha/templates/pyha/base/index.html:33
-#: pyha/templates/pyha/base/index.html:36
+#: pyha/templates/pyha/base/index.html:41
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:22
 msgid "select"
 msgstr "Välj"
 
-#: pyha/templates/pyha/base/index.html:97
+#: pyha/templates/pyha/base/index.html:36
+msgid "request_information_status"
+msgstr "Additional information needed"
+
+#: pyha/templates/pyha/base/index.html:37
+msgid "request_download_status"
+msgstr "Download status"
+
+#: pyha/templates/pyha/base/index.html:90 pyha/templatetags/pyha_tags.py:50
+msgid "waiting_for_additional_information"
+msgstr "Väntar på tillägsuppgifter"
+
+#: pyha/templates/pyha/base/index.html:92
+msgid "user_has_given_additional_information"
+msgstr "Requester has given additional information"
+
+#: pyha/templates/pyha/base/index.html:112
 msgid "delete_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:103
+#: pyha/templates/pyha/base/index.html:118
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
@@ -424,7 +441,7 @@ msgid "Delete_these_sightings"
 msgstr "Jag behöver inte detta material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:41
-#: pyha/templates/pyha/requestform/requestform.html:426
+#: pyha/templates/pyha/requestform/requestform.html:434
 #: pyha/templatetags/pyha_tags.py:32
 msgid "you_have_not_accepted_terms"
 msgstr "Vänligen läs och acceptera användarvillkor"
@@ -436,7 +453,7 @@ msgstr "Användarvillkor"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:43
 #: pyha/templates/pyha/requestform/requestform.html:215
-#: pyha/templates/pyha/requestform/requestform.html:321
+#: pyha/templates/pyha/requestform/requestform.html:325
 msgid "previous"
 msgstr "Föregående"
 
@@ -457,7 +474,7 @@ msgid "request_filters"
 msgstr "Filter"
 
 #: pyha/templates/pyha/requestform/requestform.html:16
-#: pyha/templates/pyha/requestform/requestform.html:667
+#: pyha/templates/pyha/requestform/requestform.html:675
 msgid "show"
 msgstr "Visa"
 
@@ -629,68 +646,76 @@ msgstr "Anled din begäran"
 
 #: pyha/templates/pyha/requestform/requestform.html:179
 msgid "additional_information_info"
-msgstr "Skriv beskrivningen noggrant eftersom den hjälper till vid beslutsfattandet och påskyndar behandlingen av begäran."
+msgstr ""
+"Skriv beskrivningen noggrant eftersom den hjälper till vid beslutsfattandet "
+"och påskyndar behandlingen av begäran."
 
 #: pyha/templates/pyha/requestform/requestform.html:182
 #: pyha/templates/pyha/requestform/requestform.html:301
-#: pyha/templates/pyha/requestform/requestform.html:361
+#: pyha/templates/pyha/requestform/requestform.html:365
 #: pyha/templates/pyha/requestview/tabs/arguments.html:28
 msgid "argument_project"
 msgstr "Projektnamn"
 
 #: pyha/templates/pyha/requestform/requestform.html:185
-#: pyha/templates/pyha/requestform/requestform.html:309
-#: pyha/templates/pyha/requestform/requestform.html:369
+#: pyha/templates/pyha/requestform/requestform.html:303
+#: pyha/templates/pyha/requestform/requestform.html:367
 #: pyha/templates/pyha/requestview/tabs/arguments.html:40
 msgid "argument_planning"
 msgstr "Projekt beskrivning"
 
 #: pyha/templates/pyha/requestform/requestform.html:188
-#: pyha/templates/pyha/requestform/requestform.html:311
-#: pyha/templates/pyha/requestform/requestform.html:371
+#: pyha/templates/pyha/requestform/requestform.html:305
+#: pyha/templates/pyha/requestform/requestform.html:369
 #: pyha/templates/pyha/requestview/tabs/arguments.html:43
 msgid "argument_municipality"
 msgstr "Ort där projektet är beläget"
 
 #: pyha/templates/pyha/requestform/requestform.html:191
-#: pyha/templates/pyha/requestform/requestform.html:313
-#: pyha/templates/pyha/requestform/requestform.html:373
+#: pyha/templates/pyha/requestform/requestform.html:307
+#: pyha/templates/pyha/requestform/requestform.html:371
 #: pyha/templates/pyha/requestview/tabs/arguments.html:46
 msgid "argument_natura_areas"
 msgstr "Natura-områden"
 
 #: pyha/templates/pyha/requestform/requestform.html:194
-#: pyha/templates/pyha/requestform/requestform.html:303
-#: pyha/templates/pyha/requestform/requestform.html:363
+#: pyha/templates/pyha/requestform/requestform.html:309
+#: pyha/templates/pyha/requestform/requestform.html:373
 #: pyha/templates/pyha/requestview/tabs/arguments.html:31
 msgid "argument_research"
 msgstr "Forsknings namn"
 
 #: pyha/templates/pyha/requestform/requestform.html:197
-#: pyha/templates/pyha/requestform/requestform.html:305
-#: pyha/templates/pyha/requestform/requestform.html:365
+#: pyha/templates/pyha/requestform/requestform.html:311
+#: pyha/templates/pyha/requestform/requestform.html:375
 #: pyha/templates/pyha/requestview/tabs/arguments.html:34
 msgid "argument_research_address"
 msgstr "Forskningsorganisation och forskningsgrupp och kontaktinformation"
 
 #: pyha/templates/pyha/requestform/requestform.html:200
-#: pyha/templates/pyha/requestform/requestform.html:307
-#: pyha/templates/pyha/requestform/requestform.html:367
+#: pyha/templates/pyha/requestform/requestform.html:313
+#: pyha/templates/pyha/requestform/requestform.html:377
 #: pyha/templates/pyha/requestview/tabs/arguments.html:37
 msgid "argument_goals"
 msgstr "Forskningsmål"
 
 #: pyha/templates/pyha/requestform/requestform.html:203
+#: pyha/templates/pyha/requestform/requestform.html:315
+#: pyha/templates/pyha/requestform/requestform.html:379
+#: pyha/templates/pyha/requestview/tabs/arguments.html:52
 msgid "argument_customer"
 msgstr "Beställare"
 
 #: pyha/templates/pyha/requestform/requestform.html:206
+#: pyha/templates/pyha/requestform/requestform.html:317
+#: pyha/templates/pyha/requestform/requestform.html:381
+#: pyha/templates/pyha/requestview/tabs/arguments.html:55
 msgid "argument_customer_contact"
 msgstr "Beställarens kontaktinformation"
 
 #: pyha/templates/pyha/requestform/requestform.html:209
-#: pyha/templates/pyha/requestform/requestform.html:315
-#: pyha/templates/pyha/requestform/requestform.html:375
+#: pyha/templates/pyha/requestform/requestform.html:319
+#: pyha/templates/pyha/requestform/requestform.html:383
 #: pyha/templates/pyha/requestview/tabs/arguments.html:49
 msgid "argument_reason"
 msgstr "Fritextfält"
@@ -705,68 +730,68 @@ msgid "sensitive_and_other_terms"
 msgstr "Sensitiva och annan begränsad artinformation från FinBIF"
 
 #: pyha/templates/pyha/requestform/requestform.html:229
-#: pyha/templates/pyha/requestform/requestform.html:319
+#: pyha/templates/pyha/requestform/requestform.html:323
 #: pyha/templates/pyha/requestview/tabs/contacts.html:40
 msgid "as_pdf"
 msgstr "i PDF-form"
 
 #: pyha/templates/pyha/requestform/requestform.html:241
-#: pyha/templates/pyha/requestform/requestform.html:346
+#: pyha/templates/pyha/requestform/requestform.html:350
 #: pyha/templates/pyha/requestview/tabs/contacts.html:55
 msgid "contact_name"
 msgstr "Namn"
 
 #: pyha/templates/pyha/requestform/requestform.html:243
-#: pyha/templates/pyha/requestform/requestform.html:348
+#: pyha/templates/pyha/requestform/requestform.html:352
 #: pyha/templates/pyha/requestview/tabs/contacts.html:57
 #: pyha/templates/pyha/requestview/tabs/contacts.html:76
 msgid "contact_street_address"
 msgstr "Adress"
 
 #: pyha/templates/pyha/requestform/requestform.html:244
-#: pyha/templates/pyha/requestform/requestform.html:349
+#: pyha/templates/pyha/requestform/requestform.html:353
 #: pyha/templates/pyha/requestview/tabs/contacts.html:58
 #: pyha/templates/pyha/requestview/tabs/contacts.html:77
 msgid "contact_postal"
 msgstr "Postnummer"
 
 #: pyha/templates/pyha/requestform/requestform.html:245
-#: pyha/templates/pyha/requestform/requestform.html:350
+#: pyha/templates/pyha/requestform/requestform.html:354
 #: pyha/templates/pyha/requestview/tabs/contacts.html:59
 #: pyha/templates/pyha/requestview/tabs/contacts.html:78
 msgid "contact_post_office"
 msgstr "Postanstalt"
 
 #: pyha/templates/pyha/requestform/requestform.html:246
-#: pyha/templates/pyha/requestform/requestform.html:351
+#: pyha/templates/pyha/requestform/requestform.html:355
 #: pyha/templates/pyha/requestview/tabs/contacts.html:60
 #: pyha/templates/pyha/requestview/tabs/contacts.html:79
 msgid "contact_country"
 msgstr "Land"
 
 #: pyha/templates/pyha/requestform/requestform.html:247
-#: pyha/templates/pyha/requestform/requestform.html:352
+#: pyha/templates/pyha/requestform/requestform.html:356
 #: pyha/templates/pyha/requestview/tabs/contacts.html:61
 #: pyha/templates/pyha/requestview/tabs/contacts.html:80
 msgid "contact_email"
 msgstr "E-post"
 
 #: pyha/templates/pyha/requestform/requestform.html:248
-#: pyha/templates/pyha/requestform/requestform.html:353
+#: pyha/templates/pyha/requestform/requestform.html:357
 #: pyha/templates/pyha/requestview/tabs/contacts.html:62
 #: pyha/templates/pyha/requestview/tabs/contacts.html:81
 msgid "contact_phone_number"
 msgstr "Telefonnummer"
 
 #: pyha/templates/pyha/requestform/requestform.html:249
-#: pyha/templates/pyha/requestform/requestform.html:354
+#: pyha/templates/pyha/requestform/requestform.html:358
 #: pyha/templates/pyha/requestview/tabs/contacts.html:64
 #: pyha/templates/pyha/requestview/tabs/contacts.html:83
 msgid "contact_corporation"
 msgstr "Företag/organisation"
 
 #: pyha/templates/pyha/requestform/requestform.html:250
-#: pyha/templates/pyha/requestform/requestform.html:355
+#: pyha/templates/pyha/requestform/requestform.html:359
 #: pyha/templates/pyha/requestview/tabs/contacts.html:67
 #: pyha/templates/pyha/requestview/tabs/contacts.html:86
 msgid "contact_corporation_id"
@@ -782,12 +807,12 @@ msgid "exit"
 msgstr "Stäng"
 
 #: pyha/templates/pyha/requestform/requestform.html:269
-#: pyha/templates/pyha/requestform/requestform.html:340
+#: pyha/templates/pyha/requestform/requestform.html:344
 msgid "request_summary"
 msgstr "Sammandrag"
 
 #: pyha/templates/pyha/requestform/requestform.html:273
-#: pyha/templates/pyha/requestform/requestform.html:344
+#: pyha/templates/pyha/requestform/requestform.html:348
 msgid "contacts"
 msgstr "Sökande"
 
@@ -837,52 +862,52 @@ msgid "corporation_id"
 msgstr "FO-nummer"
 
 #: pyha/templates/pyha/requestform/requestform.html:299
-#: pyha/templates/pyha/requestform/requestform.html:359
+#: pyha/templates/pyha/requestform/requestform.html:363
 msgid "request_arguments"
 msgstr "Grunden"
 
-#: pyha/templates/pyha/requestform/requestform.html:323
+#: pyha/templates/pyha/requestform/requestform.html:327
 msgid "end_request"
 msgstr "Avsluta begäran"
 
-#: pyha/templates/pyha/requestform/requestform.html:325
+#: pyha/templates/pyha/requestform/requestform.html:329
 msgid "send_to_be_accepted"
 msgstr "Skicka för godkännande"
 
-#: pyha/templates/pyha/requestform/requestform.html:385
+#: pyha/templates/pyha/requestform/requestform.html:393
 msgid "are_you_sure_you_want_to_remove_collection"
 msgstr "Är du säker på att du vill utesluta denna material?"
 
-#: pyha/templates/pyha/requestform/requestform.html:388
+#: pyha/templates/pyha/requestform/requestform.html:396
 msgid "delete"
 msgstr "Utesluta"
 
-#: pyha/templates/pyha/requestform/requestform.html:389
+#: pyha/templates/pyha/requestform/requestform.html:397
 #: pyha/templates/pyha/requestview/requestview.html:213
 msgid "back"
 msgstr "Tillbaka"
 
-#: pyha/templates/pyha/requestform/requestform.html:425
+#: pyha/templates/pyha/requestform/requestform.html:433
 msgid "you_accepted_terms"
 msgstr "Du accepterade användarvillkoren"
 
-#: pyha/templates/pyha/requestform/requestform.html:457
+#: pyha/templates/pyha/requestform/requestform.html:465
 msgid "new_contact"
 msgstr "Ny sökande"
 
-#: pyha/templates/pyha/requestform/requestform.html:670
+#: pyha/templates/pyha/requestform/requestform.html:678
 msgid "hide"
 msgstr "Dold"
 
-#: pyha/templates/pyha/requestform/requestform.html:761
+#: pyha/templates/pyha/requestform/requestform.html:768
 msgid "request_choose_reason"
 msgstr "Välj användningsändamål för materialet"
 
-#: pyha/templates/pyha/requestform/requestform.html:762
+#: pyha/templates/pyha/requestform/requestform.html:769
 msgid "request_chosen_multiple_reasons"
 msgstr "Flera valda"
 
-#: pyha/templates/pyha/requestform/requestform.html:763
+#: pyha/templates/pyha/requestform/requestform.html:770
 msgid "request_chosen_all_reasons"
 msgstr "Alla valda"
 
@@ -1390,10 +1415,6 @@ msgstr "Väntar på beslut"
 #: pyha/templatetags/pyha_tags.py:44
 msgid "partially_accepted"
 msgstr "Delvis accepterad"
-
-#: pyha/templatetags/pyha_tags.py:50
-msgid "waiting_for_additional_information"
-msgstr "Väntar på tillägsuppgifter"
 
 #: pyha/templatetags/pyha_tags.py:52
 msgid "waiting_for_download"
