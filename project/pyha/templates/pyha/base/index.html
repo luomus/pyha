@@ -93,7 +93,15 @@
                     {% endif %}
                   </td>
                   <td></td>
-                  <td></td>
+                  <td>
+                    {% if request.decision_status == 0 %}
+                    {% trans "no_decisions" %}
+                    {% elif request.decision_status == 1 %}
+                    {% trans "decisions_partly_done" %}
+                    {% elif request.decision_status == 2 %}
+                    {% trans "decisions_done" %}
+                    {% endif %}
+                  </td>
                   {% endif %}
                   {% if role == "admin" %}
                   <td class="checkbox-column" style="text-align: center">

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 14:21+0200\n"
+"POT-Creation-Date: 2020-12-10 15:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -296,7 +296,7 @@ msgstr "Skapad av"
 
 #: pyha/templates/pyha/base/index.html:29
 #: pyha/templates/pyha/base/index.html:77
-#: pyha/templates/pyha/base/index.html:109
+#: pyha/templates/pyha/base/index.html:117
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -337,11 +337,23 @@ msgstr "Väntar på tillägsuppgifter"
 msgid "user_has_given_additional_information"
 msgstr "Requester has given additional information"
 
-#: pyha/templates/pyha/base/index.html:112
+#: pyha/templates/pyha/base/index.html:98
+msgid "no_decisions"
+msgstr "No decisions made"
+
+#: pyha/templates/pyha/base/index.html:100
+msgid "decisions_partly_done"
+msgstr "Some decisions made"
+
+#: pyha/templates/pyha/base/index.html:102
+msgid "decisions_done"
+msgstr "All decisions made"
+
+#: pyha/templates/pyha/base/index.html:120
 msgid "delete_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:118
+#: pyha/templates/pyha/base/index.html:126
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
