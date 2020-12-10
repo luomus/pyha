@@ -92,7 +92,15 @@
                     {% trans "user_has_given_additional_information" %}
                     {% endif %}
                   </td>
-                  <td></td>
+                  <td>
+                    {% if request.download_status == 0 %}
+                    {% trans "data_is_not_downloaded" %}
+                    {% elif request.download_status == 1 %}
+                    {% trans "data_is_partly_downloaded" %}
+                    {% elif request.download_status == 2 %}
+                    {% trans "data_is_downloaded" %}
+                    {% endif %}
+                  </td>
                   <td>
                     {% if request.decision_status == 0 %}
                     {% trans "no_decisions" %}

@@ -204,6 +204,8 @@ def answer(http_request):
         userRequest = Request.objects.get(id = requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
+        if userRequest.status == StatusEnum.WAITING_FOR_DOWNLOAD or userRequest.status == StatusEnum.DOWNLOADABLE:
+            return HttpResponseRedirect(reverse('pyha:root'))
         collection = Collection.objects.get(request=requestId, address=collectionId)
         update_collection_status(http_request, userRequest, collection)
     return HttpResponseRedirect(nexturl)
@@ -219,6 +221,8 @@ def group_answer(http_request):
         userRequest = Request.objects.get(id = requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
+        if userRequest.status == StatusEnum.WAITING_FOR_DOWNLOAD or userRequest.status == StatusEnum.DOWNLOADABLE:
+            return HttpResponseRedirect(reverse('pyha:root'))            
         id_list = [{'id':colid.replace('collection_id_',''),'address':address} for colid, address in http_request.POST.items() if 'collection_id_' in colid]
         collections = Collection.objects.filter(request=requestId, id__in=[ide['id'] for ide in id_list], address__in=[ide['address'] for ide in id_list])
         for collection in collections:

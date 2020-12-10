@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 15:20+0200\n"
+"POT-Creation-Date: 2020-12-10 16:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -291,7 +291,7 @@ msgstr "Created by"
 
 #: pyha/templates/pyha/base/index.html:29
 #: pyha/templates/pyha/base/index.html:77
-#: pyha/templates/pyha/base/index.html:117
+#: pyha/templates/pyha/base/index.html:125
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -331,23 +331,35 @@ msgstr "Waiting for additional information"
 msgid "user_has_given_additional_information"
 msgstr "Requester has given additional information"
 
-#: pyha/templates/pyha/base/index.html:98
+#: pyha/templates/pyha/base/index.html:97
+msgid "data_is_not_downloaded"
+msgstr "Data not downloaded"
+
+#: pyha/templates/pyha/base/index.html:99
+msgid "data_is_partly_downloaded"
+msgstr "Partly downloaded"
+
+#: pyha/templates/pyha/base/index.html:101
+msgid "data_is_downloaded"
+msgstr "Requester downloaded the data"
+
+#: pyha/templates/pyha/base/index.html:106
 msgid "no_decisions"
 msgstr "No decisions made"
 
-#: pyha/templates/pyha/base/index.html:100
+#: pyha/templates/pyha/base/index.html:108
 msgid "decisions_partly_done"
 msgstr "Some decisions made"
 
-#: pyha/templates/pyha/base/index.html:102
+#: pyha/templates/pyha/base/index.html:110
 msgid "decisions_done"
 msgstr "All decisions made"
 
-#: pyha/templates/pyha/base/index.html:120
+#: pyha/templates/pyha/base/index.html:128
 msgid "delete_selected_requests"
 msgstr "Delete selected requests"
 
-#: pyha/templates/pyha/base/index.html:126
+#: pyha/templates/pyha/base/index.html:134
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
@@ -884,7 +896,7 @@ msgid "delete"
 msgstr "Delete"
 
 #: pyha/templates/pyha/requestform/requestform.html:397
-#: pyha/templates/pyha/requestview/requestview.html:213
+#: pyha/templates/pyha/requestview/requestview.html:218
 msgid "back"
 msgstr "Back"
 
@@ -916,92 +928,92 @@ msgstr "All selected"
 msgid "restricted"
 msgstr "Collections"
 
-#: pyha/templates/pyha/requestview/requestview.html:46
+#: pyha/templates/pyha/requestview/requestview.html:47
 msgid "download"
 msgstr "Download"
 
-#: pyha/templates/pyha/requestview/requestview.html:49
+#: pyha/templates/pyha/requestview/requestview.html:54
 #: pyha/templatetags/pyha_tags.py:57
 msgid "download_has_expired"
 msgstr "Download has expired"
 
-#: pyha/templates/pyha/requestview/requestview.html:54
+#: pyha/templates/pyha/requestview/requestview.html:59
 msgid "initialize_download"
 msgstr "Initialize download"
 
-#: pyha/templates/pyha/requestview/requestview.html:61
+#: pyha/templates/pyha/requestview/requestview.html:66
 msgid "you_will_be_emailed_when_ready"
 msgstr "You will be emailed when your download is ready"
 
-#: pyha/templates/pyha/requestview/requestview.html:64
+#: pyha/templates/pyha/requestview/requestview.html:69
 msgid "stop_wait_initialize_download"
 msgstr "Initialize download for currently accepted"
 
-#: pyha/templates/pyha/requestview/requestview.html:82
+#: pyha/templates/pyha/requestview/requestview.html:87
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Changelog"
 
-#: pyha/templates/pyha/requestview/requestview.html:89
+#: pyha/templates/pyha/requestview/requestview.html:94
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Applicants"
 
-#: pyha/templates/pyha/requestview/requestview.html:96
+#: pyha/templates/pyha/requestview/requestview.html:101
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Reason for application"
 
-#: pyha/templates/pyha/requestview/requestview.html:103
+#: pyha/templates/pyha/requestview/requestview.html:108
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Collections"
 
-#: pyha/templates/pyha/requestview/requestview.html:110
+#: pyha/templates/pyha/requestview/requestview.html:115
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Filters"
 
-#: pyha/templates/pyha/requestview/requestview.html:118
+#: pyha/templates/pyha/requestview/requestview.html:123
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/requestview/requestview.html:120
+#: pyha/templates/pyha/requestview/requestview.html:125
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/requestview/requestview.html:130
+#: pyha/templates/pyha/requestview/requestview.html:135
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/requestview/requestview.html:132
+#: pyha/templates/pyha/requestview/requestview.html:137
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/requestview/requestview.html:142
+#: pyha/templates/pyha/requestview/requestview.html:147
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Comments by collection handlers"
 
-#: pyha/templates/pyha/requestview/requestview.html:151
+#: pyha/templates/pyha/requestview/requestview.html:156
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:162
 msgid "admin_communications_window"
 msgstr "Communications"
 
-#: pyha/templates/pyha/requestview/requestview.html:209
+#: pyha/templates/pyha/requestview/requestview.html:214
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr "Halt further processing and download all accepted thus far"
 
-#: pyha/templates/pyha/requestview/requestview.html:212
+#: pyha/templates/pyha/requestview/requestview.html:217
 msgid "Yes"
 msgstr "Yes"
 
-#: pyha/templates/pyha/requestview/requestview.html:347
+#: pyha/templates/pyha/requestview/requestview.html:352
 msgid "in_other_languages_below"
 msgstr "(På svenska se nedan, in English see below)"
 
@@ -1422,7 +1434,7 @@ msgstr "Ready for download"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Thank you, request has been registered."
 
-#: pyha/views/requestview.py:166
+#: pyha/views/requestview.py:190
 msgid "toast_mails_sent_succesfully"
 msgstr "Mails sent succesfully"
 

@@ -441,18 +441,13 @@ def requestInformationChat(http_request, userRequest, userId):
             l.name = fetch_user_name(l.user)
         return requestInformationChat_list
 
-def information_status(http_request, userRequest):
+def get_last_information_chat_entry(http_request, userRequest):
     query = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest)
     if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         collection_list = Collection.objects.filter(request=userRequest).values_list("address", flat=True)
         query = query.filter(target__in = collection_list)
 
-    last_entry = query.order_by('date').last()
-    if last_entry is None:
-        return -1
-    if last_entry.question:
-        return 0
-    return 1
+    return query.order_by('date').last()
 
 def update_collection_status(http_request, userRequest, collection):
     if ADMIN in http_request.session["current_user_role"]:

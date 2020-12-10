@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, get_mul_all_secured, handlers_cannot_be_updated, is_downloadable, remove_request, information_status, get_collection_status_counts
+from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, get_mul_all_secured, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entry, get_collection_status_counts
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_request_owner, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
@@ -42,15 +42,7 @@ def index(http_request):
         get_mul_all_secured(request_list)
         for r in request_list:
             r.email = fetch_email_address(r.user)
-            r.information_status = information_status(http_request, r)
-
-            accepted, declined, pending = get_collection_status_counts(r.id)
-            if pending == 0:
-                r.decision_status = 2
-            elif accepted > 0 or declined > 0:
-                r.decision_status = 1
-            else:
-                r.decision_status = 0
+            _set_handler_statuses(http_request, r)
 
     if HANDLER_ANY in current_roles:
         handler_mul_information_chat_answered_status(request_list, http_request, userId)
@@ -62,18 +54,6 @@ def index(http_request):
 
     context = {"role": http_request.session.get("current_user_role", USER), "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
     return render(http_request, 'pyha/base/index.html', context)
-
-def _get_request_list(http_request, userId):
-    if ADMIN in http_request.session.get("current_user_role", [None]):
-        return Request.objects.filter(status__gt=0).order_by('-date')
-    elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-        request_list = []
-        if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
-            q = Request.objects.exclude(status__lte=0)
-            request_list = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"))
-        return sorted(request_list ,key=attrgetter('date'), reverse=True)
-    else:
-        return Request.objects.filter(user=userId, status__gte=0).order_by('-date')
 
 def group_delete_request(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -90,3 +70,40 @@ def group_delete_request(http_request):
             remove_request(request, http_request)
 
     return HttpResponseRedirect(nexturl)
+
+def _get_request_list(http_request, userId):
+    if ADMIN in http_request.session.get("current_user_role", [None]):
+        return Request.objects.filter(status__gt=0).order_by('-date')
+    elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
+        request_list = []
+        if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
+            q = Request.objects.exclude(status__lte=0)
+            request_list = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0 ).values("request"))
+        return sorted(request_list ,key=attrgetter('date'), reverse=True)
+    else:
+        return Request.objects.filter(user=userId, status__gte=0).order_by('-date')
+
+def _set_handler_statuses(http_request, r):
+    last_entry = get_last_information_chat_entry(http_request, r)
+    if last_entry is None:
+        r.information_status = -1
+    elif last_entry.question:
+        r.information_status = 0
+    else:
+        r.information_status = 1
+
+    accepted, declined, pending = get_collection_status_counts(r.id)
+    if pending == 0:
+        r.decision_status = 2
+    elif accepted > 0 or declined > 0:
+        r.decision_status = 1
+    else:
+        r.decision_status = 0
+
+    if r.downloaded is not None:
+        if r.downloaded is False:
+            r.download_status = 0
+        elif r.decision_status == 1:
+            r.download_status = 1
+        else:
+            r.download_status = 2

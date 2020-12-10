@@ -32,6 +32,7 @@ def store(jsond):
     req.approximateMatches = data.approximateMatches
     req.downloadFormat = getattr(data,'downloadFormat','UNKNOWN')
     req.downloadIncludes = getattr(data,'downloadIncludes','UNKNOWN')
+    req.downloaded = False
     req.filter_list = makeblob(data.filters)
     if hasattr(data, 'locale'):
         req.lang = data.locale
