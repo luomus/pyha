@@ -43,7 +43,12 @@
 				{% if userRequest.status == 8 %}
 					{% if downloadable %}
 						<div style="text-align:center;">
-						<a href="{{download}}" type="button" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;"><span class="glyphicon glyphicon-open-file"></span> {% trans 'download' %}</a>
+              <form action="{% url 'pyha:requestDownload' %}" method="post">
+                <button type="submit" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;"><span class="glyphicon glyphicon-open-file"></span> {% trans 'download' %}</button>
+                <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+                <input type="hidden" id="next" name="next" value={{request.path}}>
+                {% csrf_token %}
+              </form>
 						</div>
 					{% else %}
 						<h3 style="text-align:center;">{% trans 'download_has_expired' %}</h3>

@@ -342,7 +342,6 @@ def create_request_view_context(requestId, http_request, userRequest):
         context["user"] = userId
         handler_req_waiting_for_me_status(userRequest, http_request, userId)
     if userRequest.status == StatusEnum.DOWNLOADABLE:
-        context["download"] = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+http_request.session["token"]
         context["downloadable"] = is_downloadable(http_request, userRequest)
     if userRequest.status == StatusEnum.APPROVETERMS_WAIT and Request.objects.filter(user=userId,status__gte=1).count() > 0:
         context["contactPreset"] = ContactPreset.objects.get(user=userId)

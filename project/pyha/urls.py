@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^commentHandler/?$', requestview.comment_handler, name='comment_handler'),
     url(r'^sendEmail/?$', requestview.send_email, name='send_email'),
     url(r'^initializeDownload/?$', requestview.initialize_download, name='initializeDownload'),
+    url(r'^download/?$', requestview.download, name='requestDownload'),
     url(r'^saveUserSettings/?$', usersettings.save_user_settings, name='save_user_settings'),
     url(r'^savePyhaSettings/?$', usersettings.save_pyha_settings, name='save_pyha_settings'),
     url(r'^newpdf/?$', api.new_pdf, name='newpdf'),

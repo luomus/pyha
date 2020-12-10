@@ -6,7 +6,8 @@ from django.utils.translation import ugettext
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status
+from django.conf import settings
+from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status, is_downloadable
 from pyha.email import send_mail_after_additional_information_requested, send_mail_after_additional_information_received, send_raw_mail
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
@@ -83,6 +84,29 @@ def initialize_download(http_request):
                 userRequest.status = 7
                 userRequest.changedBy = changed_by_session_user(http_request)
                 userRequest.save()
+    return HttpResponseRedirect(nexturl)
+
+def download(http_request):
+    nexturl = http_request.POST.get('next', '/')
+    if http_request.method == 'POST':
+        requestId = http_request.POST.get('requestid', '?')
+        if not logged_in(http_request):
+            return _process_auth_response(http_request, "pyha")
+        if not is_allowed_to_view(http_request, requestId):
+            return HttpResponseRedirect(reverse('pyha:root'))
+        if not is_request_owner(http_request, requestId):
+            return HttpResponseRedirect(reverse('pyha:root'))
+        userRequest = Request.objects.get(id=requestId)
+        if is_admin_frozen(http_request, userRequest):
+            return HttpResponseRedirect(reverse('pyha:root'))
+
+        if userRequest.status == 8 and is_downloadable(http_request, userRequest):
+            userRequest.downloaded = True
+            userRequest.changedBy = changed_by_session_user(http_request)
+            userRequest.save()
+            url = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+http_request.session["token"]
+            return HttpResponseRedirect(url)
+
     return HttpResponseRedirect(nexturl)
 
 def change_description(http_request):
