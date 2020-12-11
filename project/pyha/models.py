@@ -267,6 +267,7 @@ def enum(*sequential, **named):
 	return type(str('Enum'), (), enums)
 
 StatusEnum = enum(
+				WITHDRAWN=-2,
 				DISCARDED=-1,
 				APPROVETERMS_WAIT=0,
 				WAITING=1,

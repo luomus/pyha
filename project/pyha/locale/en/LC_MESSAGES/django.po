@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-10 16:24+0200\n"
+"POT-Creation-Date: 2020-12-11 13:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -290,8 +290,8 @@ msgid "requester"
 msgstr "Created by"
 
 #: pyha/templates/pyha/base/index.html:29
-#: pyha/templates/pyha/base/index.html:77
-#: pyha/templates/pyha/base/index.html:125
+#: pyha/templates/pyha/base/index.html:79
+#: pyha/templates/pyha/base/index.html:124
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -323,37 +323,41 @@ msgstr "Additional information needed"
 msgid "request_download_status"
 msgstr "Download status"
 
-#: pyha/templates/pyha/base/index.html:90 pyha/templatetags/pyha_tags.py:50
+#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:50
 msgid "waiting_for_additional_information"
 msgstr "Waiting for additional information"
 
-#: pyha/templates/pyha/base/index.html:92
+#: pyha/templates/pyha/base/index.html:91
 msgid "user_has_given_additional_information"
 msgstr "Requester has given additional information"
 
-#: pyha/templates/pyha/base/index.html:97
+#: pyha/templates/pyha/base/index.html:96
 msgid "data_is_not_downloaded"
 msgstr "Data not downloaded"
 
-#: pyha/templates/pyha/base/index.html:99
+#: pyha/templates/pyha/base/index.html:98
 msgid "data_is_partly_downloaded"
 msgstr "Partly downloaded"
 
-#: pyha/templates/pyha/base/index.html:101
+#: pyha/templates/pyha/base/index.html:100
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
-#: pyha/templates/pyha/base/index.html:106
+#: pyha/templates/pyha/base/index.html:105
 msgid "no_decisions"
 msgstr "No decisions made"
 
-#: pyha/templates/pyha/base/index.html:108
+#: pyha/templates/pyha/base/index.html:107
 msgid "decisions_partly_done"
 msgstr "Some decisions made"
 
-#: pyha/templates/pyha/base/index.html:110
+#: pyha/templates/pyha/base/index.html:109
 msgid "decisions_done"
 msgstr "All decisions made"
+
+#: pyha/templates/pyha/base/index.html:125
+msgid "delete_or_withdraw_selected_requests"
+msgstr "Withdraw selected requests"
 
 #: pyha/templates/pyha/base/index.html:128
 msgid "delete_selected_requests"
@@ -1410,7 +1414,7 @@ msgstr "Denied"
 msgid "accepted"
 msgstr "Accepted"
 
-#: pyha/templatetags/pyha_tags.py:27 pyha/templatetags/pyha_tags.py:59
+#: pyha/templatetags/pyha_tags.py:27 pyha/templatetags/pyha_tags.py:61
 msgid "unknown"
 msgstr "Unknown"
 
@@ -1429,6 +1433,10 @@ msgstr "Waiting for download file to be completed"
 #: pyha/templatetags/pyha_tags.py:55
 msgid "ready_for_download"
 msgstr "Ready for download"
+
+#: pyha/templatetags/pyha_tags.py:59
+msgid "withdrawn"
+msgstr "Withdrawn"
 
 #: pyha/views/requestform.py:101
 msgid "toast_thanks_request_has_been_registered"

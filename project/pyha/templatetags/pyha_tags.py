@@ -55,5 +55,7 @@ def translateRequestStatus(status, role, answerstatus, waitingstatus, downloadab
             return gettext('ready_for_download')
         else:
             return gettext('download_has_expired')
+    elif status == StatusEnum.WITHDRAWN:
+         return gettext('withdrawn')
     else:
         return gettext('unknown')

@@ -56,6 +56,8 @@
                 <tr class="active clickable-row indextr"
               {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
                 <tr class="success clickable-row indextr"
+              {% elif request.status == -2 %}
+                <tr class="active clickable-row indextr"
               {% else %}
                 <tr
               {% endif %}
@@ -80,9 +82,6 @@
                   {% if role == "user" %}
                   <td>{% translateRequestStatus request.status role request.answerstatus request.waitingstatus request.downloadable %}</td>
         		      <td>{{request.description|linebreaks}}</td>
-                  <td class="checkbox-column" style="text-align: center;">
-                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;" {% if request.status != 0 %} disabled {% endif %}>
-                  </td>
                   {% endif %}
                   {% if role == "handler" or role == "admin" %}
                   <td>
@@ -102,7 +101,9 @@
                     {% endif %}
                   </td>
                   <td>
-                    {% if request.decision_status == 0 %}
+                    {% if request.decision_status == -1 %}
+                    {% trans "withdrawn" %}
+                    {% elif request.decision_status == 0 %}
                     {% trans "no_decisions" %}
                     {% elif request.decision_status == 1 %}
                     {% trans "decisions_partly_done" %}
@@ -111,9 +112,9 @@
                     {% endif %}
                   </td>
                   {% endif %}
-                  {% if role == "admin" %}
+                  {% if role == "user" or role == "admin" %}
                   <td class="checkbox-column" style="text-align: center">
-                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;">
+                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;" {% if request.status == -2 %}disabled{% endif %}>
                   </td>
                   {% endif %}
                 </tr>
@@ -123,9 +124,10 @@
         </table>
         {% if role == "user" %}
         <p>{% trans 'given_values_are_not_absolute' %}</p>
+        <button type="submit" id="submit_delete_requests" class="btn btn-danger btn-sm" disabled>{% trans "delete_or_withdraw_selected_requests" %}</button>
         {% endif %}
-        {% if role == "user" or role == "admin" %}
-        <button type="submit" id="submit_delete_requests" name="answer" value=0 class="btn btn-danger btn-sm" disabled>{% trans "delete_selected_requests" %}</button>
+        {% if role == "admin" %}
+        <button type="submit" id="submit_delete_requests" class="btn btn-danger btn-sm" disabled>{% trans "delete_selected_requests" %}</button>
         {% endif %}
       {% csrf_token %}
       </form>

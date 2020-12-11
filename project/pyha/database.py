@@ -69,6 +69,12 @@ def remove_request(request, http_request):
         request.changedBy = changed_by_session_user(http_request)
         request.save()
 
+def withdraw_request(request, http_request):
+    if request.status != StatusEnum.WITHDRAWN:
+        request.status = StatusEnum.WITHDRAWN
+        request.changedBy = changed_by_session_user(http_request)
+        request.save()
+
 def create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId):
     hasCollection = False
     collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
