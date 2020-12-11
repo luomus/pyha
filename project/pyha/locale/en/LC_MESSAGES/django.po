@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 15:14+0200\n"
+"POT-Creation-Date: 2020-12-11 16:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,7 +294,6 @@ msgstr "Created by"
 #: pyha/templates/pyha/base/index.html:126
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
-#: pyha/templates/pyha/requestview/tabs/request.html:7
 msgid "given_values_are_not_absolute"
 msgstr ""
 "The number of observations is not exact because some data is aggregated. The "
@@ -390,61 +389,61 @@ msgstr ""
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:74
-#: pyha/templates/pyha/requestview/tabs/request.html:11
+#: pyha/templates/pyha/requestview/tabs/request.html:17
 msgid "collection_name"
 msgstr "Collection name"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
-#: pyha/templates/pyha/requestview/tabs/request.html:13
+#: pyha/templates/pyha/requestview/tabs/request.html:19
 msgid "collection_description"
 msgstr "Description"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
-#: pyha/templates/pyha/requestview/tabs/request.html:14
+#: pyha/templates/pyha/requestview/tabs/request.html:20
 msgid "collection_quality_description"
 msgstr "Quality description"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
-#: pyha/templates/pyha/requestview/tabs/request.html:15
+#: pyha/templates/pyha/requestview/tabs/request.html:21
 msgid "collection_terms"
 msgstr "Terms"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
-#: pyha/templates/pyha/requestview/tabs/request.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:22
 msgid "secured_by_quarantine"
 msgstr "Access-restricted research material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
-#: pyha/templates/pyha/requestview/tabs/request.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:22
 msgid "secured_by_quarantine_explanation"
 msgstr "Scientific protection period (location, time)"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:17
+#: pyha/templates/pyha/requestview/tabs/request.html:23
 msgid "secured_by_sensitivity"
 msgstr "Sensitive material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:17
+#: pyha/templates/pyha/requestview/tabs/request.html:23
 msgid "secured_by_sensitivity_explanation"
 msgstr "Automatically aggregated sensitive data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:18
+#: pyha/templates/pyha/requestview/tabs/request.html:24
 msgid "secured_by_data_provider"
 msgstr "Access restricted by data provider"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:18
+#: pyha/templates/pyha/requestview/tabs/request.html:24
 msgid "secured_by_dataprovider_explanation"
 msgstr "User/Owner aggregated observation data"
 
@@ -453,7 +452,7 @@ msgstr "User/Owner aggregated observation data"
 #: pyha/templates/pyha/requestview/requestview.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:91
-#: pyha/templates/pyha/requestview/tabs/request.html:32
+#: pyha/templates/pyha/requestview/tabs/request.html:38
 msgid "to_metadata"
 msgstr "metadata"
 
@@ -1009,7 +1008,7 @@ msgstr "Comments by collection handlers"
 
 #: pyha/templates/pyha/requestview/requestview.html:156
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:162
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Communications"
 
@@ -1020,10 +1019,6 @@ msgstr "Halt further processing and download all accepted thus far"
 #: pyha/templates/pyha/requestview/requestview.html:217
 msgid "Yes"
 msgstr "Yes"
-
-#: pyha/templates/pyha/requestview/requestview.html:352
-msgid "in_other_languages_below"
-msgstr "(På svenska se nedan, in English see below)"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
@@ -1071,7 +1066,7 @@ msgid "admin_refresh_collections_cache"
 msgstr "Refresh collections"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:11
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:163
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:133
 msgid "admin_communications_window_description"
 msgstr " "
 
@@ -1108,39 +1103,29 @@ msgid "admin_collections_missing_handler"
 msgstr "Collection is missing handlers"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:57
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:127
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:112
 msgid "email_sender"
 msgstr "Sender"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:61
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:131
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:116
 msgid "email_header"
 msgstr "Subject"
 
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:65
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:135
-msgid "email_lang"
-msgstr "Language"
-
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:71
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:141
-msgid "admin_email_lang_all"
-msgstr "all"
-
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:81
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:151
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:66
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:121
 msgid "admin_send"
 msgstr "Send"
 
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:107
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:92
 msgid "emailed"
 msgstr "Emailed"
 
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:109
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:94
 msgid "not_emailed"
 msgstr "Not emailed"
 
-#: pyha/templates/pyha/requestview/tabs/admin_communications.html:164
+#: pyha/templates/pyha/requestview/tabs/admin_communications.html:134
 msgid "no_communications"
 msgstr "Communications is empty"
 
@@ -1231,7 +1216,7 @@ msgstr " "
 #: pyha/templates/pyha/requestview/tabs/decision.html:9
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:76
-#: pyha/templates/pyha/requestview/tabs/request.html:19
+#: pyha/templates/pyha/requestview/tabs/request.html:25
 msgid "state_of_processing"
 msgstr "State of processing"
 
@@ -1402,6 +1387,23 @@ msgstr "Other collections"
 msgid "request_window_description"
 msgstr " "
 
+#: pyha/templates/pyha/requestview/tabs/request.html:9
+msgid "given_values_are_not_absolute_handler"
+msgstr ""
+"Below is a list of datasets that are included in the search. The applicant "
+"will be shown an estimate of the number of observations in each dataset and "
+"the list may also include datasets that are not actually included in the "
+"data request. As a handler, you will see the exact numbers of usage-"
+"restricted observations."
+
+#: pyha/templates/pyha/requestview/tabs/request.html:11
+msgid "given_values_are_not_absolute_user"
+msgstr ""
+"Below is a list of datasets that are included in your request. To protect "
+"sensitive species data, the list may also contain datasets that are not "
+"actually included in your data request. An estimate of how many observations "
+"are in each dataset is provided for each dataset. The figures are indicative."
+
 #: pyha/templatetags/pyha_tags.py:17 pyha/templatetags/pyha_tags.py:38
 msgid "handler_waiting_for_you"
 msgstr "Pending your decision"
@@ -1457,6 +1459,15 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#~ msgid "in_other_languages_below"
+#~ msgstr "(På svenska se nedan, in English see below)"
+
+#~ msgid "email_lang"
+#~ msgstr "Language"
+
+#~ msgid "admin_email_lang_all"
+#~ msgstr "all"
 
 #, fuzzy
 #~| msgid "required_planning_description"

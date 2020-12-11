@@ -4,7 +4,7 @@
 <h3>{% trans "request_window" %}</h3>
 <p>{% trans "request_window_description" %}</p>
 {% if taxon %}
-<p>{% trans 'given_values_are_not_absolute' %}</p>
+<p>{% if role != "user" %}{% trans 'given_values_are_not_absolute_handler' %}{% else %}{% trans 'given_values_are_not_absolute_user' %}{% endif %}</p>
 {% endif %}
 <table class="table" style="width:100%">
   <tr style=color:black>
