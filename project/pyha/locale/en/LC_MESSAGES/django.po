@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 13:25+0200\n"
+"POT-Creation-Date: 2020-12-11 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -291,7 +291,7 @@ msgstr "Created by"
 
 #: pyha/templates/pyha/base/index.html:29
 #: pyha/templates/pyha/base/index.html:79
-#: pyha/templates/pyha/base/index.html:124
+#: pyha/templates/pyha/base/index.html:126
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -343,27 +343,31 @@ msgstr "Partly downloaded"
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
-#: pyha/templates/pyha/base/index.html:105
+#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:59
+msgid "withdrawn"
+msgstr "Withdrawn"
+
+#: pyha/templates/pyha/base/index.html:107
 msgid "no_decisions"
 msgstr "No decisions made"
 
-#: pyha/templates/pyha/base/index.html:107
+#: pyha/templates/pyha/base/index.html:109
 msgid "decisions_partly_done"
 msgstr "Some decisions made"
 
-#: pyha/templates/pyha/base/index.html:109
+#: pyha/templates/pyha/base/index.html:111
 msgid "decisions_done"
 msgstr "All decisions made"
 
-#: pyha/templates/pyha/base/index.html:125
+#: pyha/templates/pyha/base/index.html:127
 msgid "delete_or_withdraw_selected_requests"
 msgstr "Withdraw selected requests"
 
-#: pyha/templates/pyha/base/index.html:128
+#: pyha/templates/pyha/base/index.html:130
 msgid "delete_selected_requests"
 msgstr "Delete selected requests"
 
-#: pyha/templates/pyha/base/index.html:134
+#: pyha/templates/pyha/base/index.html:136
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
@@ -1285,58 +1289,62 @@ msgid "log_sensitive_and_collections_handler"
 msgstr "Sensitive and collection specific data handler"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:37
+msgid "log_withdrawn"
+msgstr "Request withdrawn"
+
+#: pyha/templates/pyha/requestview/tabs/history.html:39
 msgid "log_received"
 msgstr "Request received"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:39
+#: pyha/templates/pyha/requestview/tabs/history.html:41
 msgid "log_viewed"
 msgstr "Viewed"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:41
+#: pyha/templates/pyha/requestview/tabs/history.html:43
 msgid "log_terms_accepted"
 msgstr "Terms accepted"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:46
+#: pyha/templates/pyha/requestview/tabs/history.html:48
 msgid "admin_log_sensitives_accepted_because_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:48
+#: pyha/templates/pyha/requestview/tabs/history.html:50
 msgid "log_sensitives_accepted"
 msgstr "Sensitive data accepted"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:54
+#: pyha/templates/pyha/requestview/tabs/history.html:56
 msgid "admin_log_collection_accepted_because_overdue"
 msgstr "Collection was accepted because the decision was overdue"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:56
+#: pyha/templates/pyha/requestview/tabs/history.html:58
 msgid "log_collection_accepted"
 msgstr "Request accepted"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:63
+#: pyha/templates/pyha/requestview/tabs/history.html:65
 msgid "log_sensitives_reset"
 msgstr "Sensitive data reset"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:65
+#: pyha/templates/pyha/requestview/tabs/history.html:67
 msgid "log_collection_reset"
 msgstr "Collection reset"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:71
+#: pyha/templates/pyha/requestview/tabs/history.html:73
 msgid "admin_log_sensitives_denied_because_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:73
+#: pyha/templates/pyha/requestview/tabs/history.html:75
 msgid "log_sensitives_denied"
 msgstr "Sensitive data denied"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:79
+#: pyha/templates/pyha/requestview/tabs/history.html:81
 msgid "admin_log_collection_denied_because_overdue"
 msgstr "Collection was denied because the decision was overdue"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:81
+#: pyha/templates/pyha/requestview/tabs/history.html:83
 msgid "log_collection_denied"
 msgstr "Request denied"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:91
+#: pyha/templates/pyha/requestview/tabs/history.html:93
 msgid "log_no_history"
 msgstr "No history"
 
@@ -1433,10 +1441,6 @@ msgstr "Waiting for download file to be completed"
 #: pyha/templatetags/pyha_tags.py:55
 msgid "ready_for_download"
 msgstr "Ready for download"
-
-#: pyha/templatetags/pyha_tags.py:59
-msgid "withdrawn"
-msgstr "Withdrawn"
 
 #: pyha/views/requestform.py:101
 msgid "toast_thanks_request_has_been_registered"

@@ -33,7 +33,9 @@
     <td>{% trans "user" %}</td>
     {% endif %}
 
-    {% if requestLog.action == 'REC' %}
+    {% if requestLog.action == 'WITHD' %}
+    <td>{% trans "log_withdrawn" %}</td>
+    {% elif requestLog.action == 'REC' %}
     <td>{% trans "log_received" %}</td>
     {% elif requestLog.action == 'VIEW' %}
     <td>{% trans "log_viewed" %}</td>

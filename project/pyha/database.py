@@ -72,6 +72,7 @@ def remove_request(request, http_request):
 def withdraw_request(request, http_request):
     if request.status != StatusEnum.WITHDRAWN:
         request.status = StatusEnum.WITHDRAWN
+        request.frozen = True
         request.changedBy = changed_by_session_user(http_request)
         request.save()
 
@@ -198,7 +199,7 @@ def get_unhandled_requests_data(userId):
     return unhandled
 
 def update_request_status(userRequest, lang):
-    if(not userRequest.status in [StatusEnum.WAITING_FOR_DOWNLOAD, StatusEnum.DOWNLOADABLE]):
+    if(not userRequest.status in [StatusEnum.WITHDRAWN, StatusEnum.WAITING_FOR_DOWNLOAD, StatusEnum.DOWNLOADABLE]):
         ignore_official_database_update_request_status(userRequest, lang)
 
 def ignore_official_database_update_request_status(wantedRequest, lang):
@@ -339,7 +340,7 @@ def create_request_view_context(requestId, http_request, userRequest):
         context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, lang)
         context["own_collection_count"] = len(collectionList)
     if hasServiceRole: context["handler_groups"] = get_download_handlers_with_collections_listed_for_collections(userRequest.id, collectionList)
-    if userRequest.status > StatusEnum.APPROVETERMS_WAIT:
+    if userRequest.status != StatusEnum.APPROVETERMS_WAIT:
         context["next"] = http_request.GET.get('next', 'history')
         context["contactlist"] = get_request_contacts(userRequest)
         context["reasonlist"] = get_reasons(userRequest)

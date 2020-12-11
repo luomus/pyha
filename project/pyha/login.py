@@ -171,15 +171,15 @@ def is_admin(http_request):
 
 def allowed_to_view(http_request, requestId, userId):
     if ADMIN in http_request.session.get("current_user_role", [None]):
-        if not Request.objects.filter(id=requestId, status__gt=0).exists():
+        if not Request.objects.filter(id=requestId).exclude(status=-1).exists():
             return False
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-        if not Request.objects.filter(id=requestId, status__gt=0).exists():
+        if not Request.objects.filter(id=requestId).exclude(status=-1).exists():
             return False
         if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
             return False
     else:
-        if not Request.objects.filter(id=requestId, user=userId, status__gte=0).exists():
+        if not Request.objects.filter(id=requestId, user=userId).exclude(status=-1).exists():
             return False
     return True
 

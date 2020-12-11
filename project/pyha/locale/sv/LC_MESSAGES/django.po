@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 13:25+0200\n"
+"POT-Creation-Date: 2020-12-11 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -296,7 +296,7 @@ msgstr "Skapad av"
 
 #: pyha/templates/pyha/base/index.html:29
 #: pyha/templates/pyha/base/index.html:79
-#: pyha/templates/pyha/base/index.html:124
+#: pyha/templates/pyha/base/index.html:126
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 #: pyha/templates/pyha/requestview/tabs/request.html:7
@@ -349,27 +349,31 @@ msgstr "Partly downloaded"
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
-#: pyha/templates/pyha/base/index.html:105
+#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:59
+msgid "withdrawn"
+msgstr "Inställt"
+
+#: pyha/templates/pyha/base/index.html:107
 msgid "no_decisions"
 msgstr "No decisions made"
 
-#: pyha/templates/pyha/base/index.html:107
+#: pyha/templates/pyha/base/index.html:109
 msgid "decisions_partly_done"
 msgstr "Some decisions made"
 
-#: pyha/templates/pyha/base/index.html:109
+#: pyha/templates/pyha/base/index.html:111
 msgid "decisions_done"
 msgstr "All decisions made"
 
-#: pyha/templates/pyha/base/index.html:125
+#: pyha/templates/pyha/base/index.html:127
 msgid "delete_or_withdraw_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:128
+#: pyha/templates/pyha/base/index.html:130
 msgid "delete_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:134
+#: pyha/templates/pyha/base/index.html:136
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
@@ -1303,58 +1307,62 @@ msgid "log_sensitive_and_collections_handler"
 msgstr "Sensitiv och materialspecifik databehandlare"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:37
+msgid "log_withdrawn"
+msgstr "Inställt"
+
+#: pyha/templates/pyha/requestview/tabs/history.html:39
 msgid "log_received"
 msgstr "Mottagen"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:39
+#: pyha/templates/pyha/requestview/tabs/history.html:41
 msgid "log_viewed"
 msgstr "Granskad"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:41
+#: pyha/templates/pyha/requestview/tabs/history.html:43
 msgid "log_terms_accepted"
 msgstr "Användarvillkor accepterad"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:46
+#: pyha/templates/pyha/requestview/tabs/history.html:48
 msgid "admin_log_sensitives_accepted_because_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:48
+#: pyha/templates/pyha/requestview/tabs/history.html:50
 msgid "log_sensitives_accepted"
 msgstr "Sensitiva data godkänt"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:54
+#: pyha/templates/pyha/requestview/tabs/history.html:56
 msgid "admin_log_collection_accepted_because_overdue"
 msgstr "Material godkänt eftersom beslutet var försenad"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:56
+#: pyha/templates/pyha/requestview/tabs/history.html:58
 msgid "log_collection_accepted"
 msgstr "Material godkänt"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:63
+#: pyha/templates/pyha/requestview/tabs/history.html:65
 msgid "log_sensitives_reset"
 msgstr "Sensitiva data återställde"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:65
+#: pyha/templates/pyha/requestview/tabs/history.html:67
 msgid "log_collection_reset"
 msgstr "Material återställde"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:71
+#: pyha/templates/pyha/requestview/tabs/history.html:73
 msgid "admin_log_sensitives_denied_because_overdue"
 msgstr "DECISION_POSITIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:73
+#: pyha/templates/pyha/requestview/tabs/history.html:75
 msgid "log_sensitives_denied"
 msgstr "Sensitiva data nekad"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:79
+#: pyha/templates/pyha/requestview/tabs/history.html:81
 msgid "admin_log_collection_denied_because_overdue"
 msgstr "Material nekad eftersom beslutet var försenad"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:81
+#: pyha/templates/pyha/requestview/tabs/history.html:83
 msgid "log_collection_denied"
 msgstr "Material nekad"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:91
+#: pyha/templates/pyha/requestview/tabs/history.html:93
 msgid "log_no_history"
 msgstr "Ändringslogg är tom"
 
@@ -1451,10 +1459,6 @@ msgstr "Väntar på att nedladdningsfil ska bli färdig"
 #: pyha/templatetags/pyha_tags.py:55
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
-
-#: pyha/templatetags/pyha_tags.py:59
-msgid "withdrawn"
-msgstr "Inställt"
 
 #: pyha/views/requestform.py:101
 msgid "toast_thanks_request_has_been_registered"

@@ -57,7 +57,7 @@
               {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
                 <tr class="success clickable-row indextr"
               {% elif request.status == -2 %}
-                <tr class="active clickable-row indextr"
+                <tr class="danger clickable-row indextr"
               {% else %}
                 <tr
               {% endif %}
@@ -114,7 +114,7 @@
                   {% endif %}
                   {% if role == "user" or role == "admin" %}
                   <td class="checkbox-column" style="text-align: center">
-                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;" {% if request.status == -2 %}disabled{% endif %}>
+                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;">
                   </td>
                   {% endif %}
                 </tr>

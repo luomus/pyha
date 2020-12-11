@@ -68,8 +68,10 @@ def group_delete_request(http_request):
             requests = Request.objects.filter(id__in=request_id_list, user=user_id)
 
         for request in requests:
-            if not is_admin(http_request) and request.status > 0:
-                withdraw_request(request, http_request)
+            if not is_admin(http_request) and request.status != 0:
+                if request.status > 0:
+                    withdraw_request(request, http_request)
+                    RequestLogEntry.requestLog.create(request=request, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.WITHDRAW)
             else:
                 remove_request(request, http_request)
 

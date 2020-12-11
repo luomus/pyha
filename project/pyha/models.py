@@ -161,6 +161,7 @@ class RequestLogEntry(models.Model):
 	DECISION_RESET = 'RESET'
 	DECISION_NEGATIVE = 'NEG'
 	DECISION_NEGATIVE_OVERDUE = 'NEGOV'
+	WITHDRAW = 'WITHD'
 	ACTION = (
 		(VIEW, 'views request'),
 		(RECEIVE, 'receives request'),
@@ -170,6 +171,7 @@ class RequestLogEntry(models.Model):
 		(DECISION_RESET, 'resets the decision regarding data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
 		(DECISION_NEGATIVE_OVERDUE, 'declines use of data, because decision has been overdue'),
+		(WITHDRAW, 'withdraws request')
 	)
 
 	request = models.ForeignKey(Request, on_delete=models.CASCADE)
