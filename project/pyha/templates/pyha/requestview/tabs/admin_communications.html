@@ -61,21 +61,6 @@
                   <td style="border:0px;">{% trans "email_header" %}</td>
                   <td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
                 </tr>
-                <tr>
-                  <td style="border:0px;">{% trans "email_lang" %}</td>
-                  <td style="width:100%; border:0px;">
-                    <select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
-                      {% for code in com_email_templates %}
-                        <option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
-                            {% endfor %}
-                              <option value="all">{% trans "admin_email_lang_all" %}</option>
-                    </select>
-                    {% for code, values in com_email_templates.items %}
-                    <p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
-                    <p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
-                    {% endfor %}
-                  </td>
-                </tr>
                 </table>
                 <textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>
                 <button type="submit" id="submit_email" name="send" value=1 class="btn btn-default btn-sm">{% trans "admin_send" %}</button>
@@ -130,21 +115,6 @@
                 <tr>
                   <td style="border:0px;">{% trans "email_header" %}</td>
                   <td style="width:100%; border:0px;"><input type="text" id="com_email_header" name="com_email_header" value="{{ com_email_template.header }}" style="width:100%;padding:6px 12px;"></td>
-                </tr>
-                <tr>
-                  <td style="border:0px;">{% trans "email_lang" %}</td>
-                  <td style="width:100%; border:0px;">
-                    <select onchange="refreshCommunicationsEmailByLang();" id="admin_com_email_lang" name="admin_com_email_lang" style="padding:0px 9px;">
-                      {% for code in com_email_templates %}
-                        <option {% if LANGUAGE == code %} selected="selected" {% endif %} value="{{ code }}">{{ code }}</option>
-                            {% endfor %}
-                              <option value="all">{% trans "admin_email_lang_all" %}</option>
-                    </select>
-                    {% for code, values in com_email_templates.items %}
-                    <p hidden="true" id="com_email_header_{{ code }}">{{ values.header }}</p>
-                    <p hidden="true" id="com_email_content_{{ code }}">{{ values.content }}</p>
-                    {% endfor %}
-                  </td>
                 </tr>
                 </table>
                 <textarea class="form-control" rows="15" cols="70" id="com_email_content" name="com_email_content">{{ com_email_template.content }}</textarea>

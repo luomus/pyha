@@ -79,7 +79,7 @@
 				</form>
       </div>
       {% endif %}
-      
+
       <ul class="nav nav-tabs" role="tablist">
         <li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >
           <a href="#history" class="request-tab request-view-tab" data-toggle="tab" aria-controls="history" role="tab" {% if next == "history" %} aria-expanded="true" {% endif %}>
@@ -343,28 +343,6 @@ $(document).ready(function(){
 
 {% if role == 'admin' %}
 <script>
-  function refreshCommunicationsEmailByLang() {
-    var x = document.getElementById('admin_com_email_lang');
-    var strLang = x.options[x.selectedIndex].value;
-
-    if (strLang == 'all'){
-      document.getElementById('com_email_header').value = document.getElementById('com_email_header_fi').innerHTML;
-      document.getElementById('com_email_content').value = '{%trans "in_other_languages_below"%}\n\n\n\n';
-      {% for lang in languages %}
-      document.getElementById('com_email_content').value += document.getElementById('com_email_content_{{ lang.code }}').innerHTML;
-      document.getElementById('com_email_content').value += '\n\n------------------------------------';
-        {% if not forloop.last %}
-          document.getElementById('com_email_content').value += '\n\n\n';
-        {% endif %}
-      {% endfor %}
-    } else {
-      document.getElementById('com_email_header').value = document.getElementById('com_email_header_'+strLang).innerHTML;
-      document.getElementById('com_email_content').value = document.getElementById('com_email_content_'+strLang).innerHTML;
-    }
-
-  }
-</script>
-<script>
   function enableCommunicationsEmail() {
     var x = document.querySelectorAll('[name^=email_id_]');
     var b = false;
@@ -379,7 +357,6 @@ $(document).ready(function(){
 </script>
 <script>
   $(document).ready(function(){
-    refreshCommunicationsEmailByLang();
     enableCommunicationsEmail();
   });
 </script>
