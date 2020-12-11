@@ -1,0 +1,15 @@
+Status för din databegäran till Artdatacenter vid {{time}} är följande:
+
+Accepterat data: {{accepterat}}
+Avvisat data: {{avslog}}
+Väntar på beslut: {{väntar}}
+
+Adress till databegäran: {{ req_link }}?lang=sv
+
+Detta är ett automatiskt meddelande.
+
+Finlands Artdatacenter
+Naturhistoriska centralmuseet LUOMUS
+Helsingfors universitet
+
+www.laji.fi/sv

@@ -1,0 +1,15 @@
+The status of your data request to FinBIF at {{time}} is as follows:
+
+Accepted data: {{accepted}}
+Rejected data: {{declined}}
+Awaiting decision: {{pending}}
+
+Address of the data request: {{ req_link }}?lang=en
+
+This is an automated message.
+
+Finnish Biodiversity Information Facility – FinBIF
+Finnish Museum of Natural History LUOMUS
+University of Helsinki
+
+www.species.fi
