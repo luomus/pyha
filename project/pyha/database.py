@@ -13,31 +13,9 @@ from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInforma
     Col_StatusEnum, AdminUserSettings
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts
 from pyha.log_utils import changed_by_session_user, changed_by
 from pyha import toast
-
-def remove_custom_data(http_request):
-    if http_request.method == 'POST':
-        if not logged_in(http_request):
-            return _process_auth_response(http_request, "pyha")
-        requestId = http_request.POST.get('requestid')
-        if not is_request_owner(http_request, requestId):
-            return HttpResponseRedirect(reverse('pyha:root'))
-        nextRedirect = http_request.POST.get('next', '/')
-        collectionId = http_request.POST.get('collectionId')
-        collection = Collection.objects.get(id = collectionId)
-        collection.customSecured = 0
-        collection.changedBy = changed_by_session_user(http_request)
-        collection.save()
-        if(collection.taxonSecured == 0) and (collection.status != -1):
-            collection.status = StatusEnum.DISCARDED
-            collection.changedBy = changed_by_session_user(http_request)
-            collection.save()
-            check_all_collections_removed(requestId)
-        return HttpResponseRedirect(nextRedirect)
-    return HttpResponseRedirect(reverse('pyha:root'))
-
 
 def removeCollection(http_request):
     if http_request.method == 'POST':
@@ -82,38 +60,22 @@ def withdraw_request(request, http_request):
         request.changedBy = changed_by_session_user(http_request)
         request.save()
 
-def create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId):
-    hasCollection = False
+def create_collections_for_lists(requestId, http_request, collectionList, userRequest, userId):
     collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
-    if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-        customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
-        hasCollection = True
-    if not hasCollection:
-        taxonList += Collection.objects.filter(request=userRequest.id, taxonSecured__gt = 0, status__gte=0)
-        customList += Collection.objects.filter(request=userRequest.id, customSecured__gt = 0, status__gte=0)
     get_values_for_collections(requestId, http_request, collectionList)
-    get_values_for_collections(requestId, http_request, customList)
-    get_values_for_collections(requestId, http_request, taxonList)
 
 def create_collection_for_list(http_request, collectionList, userRequest):
     collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
     get_values_for_collections(userRequest.id, http_request, collectionList)
-
-def get_all_secured(userRequest):
-    allSecured = 0
-    collectionList = Collection.objects.filter(request=userRequest.id, status__gte=0)
-    for collection in collectionList:
-        collection.allSecured = collection.customSecured + collection.taxonSecured
-        allSecured += collection.allSecured
-    return allSecured
 
 def get_mul_all_secured(request_list):
     collectionList = list(Collection.objects.filter(request__in=[re.id for re in request_list], status__gte=0))
     for r in request_list:
         allSecured = 0
         for collection in [c for c in collectionList if c.request_id == r.id]:
-            collection.allSecured = collection.customSecured + collection.taxonSecured
-            allSecured += collection.allSecured
+            counts = get_collection_counts(collection)
+            for count in counts:
+                allSecured += count.count
         r.allSecured = allSecured
 
 def check_all_collections_removed(requestId):
@@ -300,36 +262,26 @@ def create_request_view_context(requestId, http_request, userRequest):
         toast = http_request.session["toast"]
         http_request.session["toast"] = None
         http_request.session.save()
-    taxonList = []
-    customList = []
     collectionList = []
     userId = http_request.session["user_id"]
     role = http_request.session.get("current_user_role", USER)
     hasServiceRole = (role == HANDLER_ANY or role == ADMIN)
     lang = http_request.LANGUAGE_CODE
-    create_collections_for_lists(requestId, http_request, taxonList, customList, collectionList, userRequest, userId)
-    taxon = False
-    allSecured = 0
-    allQuarantined = 0
+    create_collections_for_lists(requestId, http_request, collectionList, userRequest, userId)
     for collection in collectionList:
-        collection.allSecured = collection.customSecured + collection.taxonSecured
-        allSecured += collection.allSecured
-        allQuarantined += collection.quarantineSecured
-        if(collection.taxonSecured > 0):
-            taxon = True
+        collection.counts = get_collection_counts(collection)
+
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)
     request_log = requestLog(http_request, requestId)
-    context = {"toast": toast, "taxonlist": taxonList, "customlist": customList, "taxon": taxon, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
+    context = {"toast": toast, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
     context["requestLog_list"] = request_log if (role == HANDLER_ANY or role == ADMIN) else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
     context["coordinates"] = create_coordinates(userRequest)
     context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK, collectionList)
     context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK, collectionList)
     context["tun_link"] = settings.TUN_URL
-    context["has_quarantine"] = allQuarantined > 0
     context["sensitivity_terms"] = "pyha/requestform/terms/collection-"+lang+".html"
     context["username"] = http_request.session["user_name"]
-    context["allSecured"] = allSecured
     context["role"] = role
     if role == HANDLER_ANY:
         handles = get_collections_where_download_handler(userId)

@@ -1,5 +1,5 @@
 {% load i18n %}
-				{% if not collections and not taxon %}
+				{% if not collections %}
 				<h3>{% trans "request_was_empty_and_will_be_closed" %}</h3>
 				{% else %}
 				<h4>{% trans "collections_in_request" %}</h4>
@@ -10,9 +10,9 @@
 								<th>{% trans "collection_description" %}</th>
 								<th>{% trans "collection_quality_description" %}</th>
 								<th>{% trans "collection_terms" %}</th>
-								<th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
+								<!--th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
 								<th>{% trans "secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
-								<th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th>
+								<th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th-->
 							</tr>
 							{% for collection in collections %}
 							<tr>
@@ -20,9 +20,9 @@
 								<td>{{collection.result.description}}</td>
 								<td>{{collection.result.qualityDescription}}</td>
 								<td>{{collection.result.collectionTerms}}</td>
-								<td>{{collection.quarantineSecured}}</td>
+								<!--td>{{collection.quarantineSecured}}</td>
 								<td>{{collection.taxonSecured}}</td>
-								<td>{{collection.customSecured}}</td>
+								<td>{{collection.customSecured}}</td-->
 							</tr>
 							{% endfor %}
 						</table>

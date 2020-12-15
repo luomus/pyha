@@ -56,7 +56,15 @@ class TruncatingReasonJsonCharField(models.CharField):
 
 class Collection(models.Model):
 	address = models.CharField(max_length=500)
+
+	# old count fields, may be removed in the future
 	count = models.IntegerField()
+	taxonSecured = models.IntegerField(default=0)
+	customSecured = models.IntegerField(default=0)
+	quarantineSecured = models.IntegerField(default=0)
+
+	# new count field
+	count_list = models.CharField(max_length=2000, null=True)
 
 	#for collection.status
 	#status 0: Odottaa pyytäjän hyväksymistä
@@ -66,9 +74,6 @@ class Collection(models.Model):
 
 	status = models.IntegerField()
 	request = models.ForeignKey('Request', on_delete=models.CASCADE)
-	taxonSecured = models.IntegerField(default=0)
-	customSecured = models.IntegerField(default=0)
-	quarantineSecured = models.IntegerField(default=0)
 	downloadRequestHandler = models.CharField(max_length=500,blank=True,null=True)
 	decisionExplanation = TruncatingTextField(max_length=5000,blank=True,null=True)
 	changedBy = models.CharField(max_length=100)

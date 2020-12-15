@@ -50,13 +50,16 @@ def store(jsond):
 def makeCollection(req, i):
     co = Collection()
     co.address = i.id
-    co.count = getattr(i, 'count', 0)
     co.status = 0
     co.request = req
     co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler',['none']))
+    """
+    co.count = getattr(i, 'count', 0)
     co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
     co.customSecured = getattr(i, 'customReasonCount', 0)
     co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
+    """
+    co.count_list = json.dumps(i.counts)
     co.changedBy = changed_by("pyha")
     co.save()
 
@@ -348,6 +351,11 @@ def is_download_handler_in_collection(userId, collectionId):
                 return False
     return False
 
+def get_collection_counts(collection):
+    if collection.count_list is None or len(collection.count_list) == 0:
+        return []
+    count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
+    return count_list
 
 def show_filters(http_request, userRequest):
     '''
@@ -357,6 +365,7 @@ def show_filters(http_request, userRequest):
     :param userRequest: language code
     '''
     filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+    print(filterList)
     filterResultList = list(range(len(vars(filterList).keys())))
     lang = http_request.LANGUAGE_CODE
     if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):

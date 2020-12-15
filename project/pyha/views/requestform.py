@@ -14,25 +14,6 @@ from pyha.roles import USER
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 
-#removes custom sightings
-def remove_custom_data(http_request):
-    if http_request.method == 'POST':
-        if not logged_in(http_request):
-            return _process_auth_response(http_request, "pyha")
-        next = http_request.POST.get('next', '/')
-        collectionId = http_request.POST.get('collectionId')
-        requestId = http_request.POST.get('requestid')
-        collection = Collection.objects.get(id = collectionId)
-        collection.customSecured = 0
-        collection.changedBy = changed_by_session_user(http_request)
-        collection.save()
-        if(collection.taxonSecured == 0) and (collection.status != -1):
-            collection.status = -1
-            collection.changedBy = changed_by_session_user(http_request)
-            collection.save()
-            check_all_collections_removed(requestId)
-        return HttpResponseRedirect(next)
-    return HttpResponseRedirect(reverse('pyha:root'))
 
 def removeCollection(http_request):
     if http_request.method == 'POST':
