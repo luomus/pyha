@@ -2,12 +2,24 @@ from django import template
 from django.utils.translation import gettext
 from pyha.models import Col_StatusEnum, StatusEnum
 from pyha.roles import USER, HANDLER_ANY, ADMIN
+import math
 
 register = template.Library()
 
 @register.filter(name='replaceCommaWithSpace')
 def replaceCommaWithSpace(text):
     return text.replace(',', ' ')
+
+@register.simple_tag(name='collectionCount')
+def collectionCount(count, role):
+    if role == ADMIN or role == HANDLER_ANY:
+        return count
+
+    if count == 0:
+        max_value = 1
+    else:
+        max_value = 10**math.floor(math.log10(count))
+    return '0-{}'.format(max_value)
 
 @register.simple_tag(name='translateCollectionStatus')
 def translateCollectionStatus(status, role, collection_id, handles):

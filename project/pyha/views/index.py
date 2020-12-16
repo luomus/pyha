@@ -39,7 +39,7 @@ def index(http_request):
 
     current_roles = http_request.session.get("current_user_role", [None])
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        get_mul_all_secured(request_list)
+        get_mul_all_secured(request_list, http_request)
         for r in request_list:
             r.email = fetch_email_address(r.user)
             _set_handler_statuses(http_request, r)

@@ -64,7 +64,7 @@ class Collection(models.Model):
 	quarantineSecured = models.IntegerField(default=0)
 
 	# new count field
-	count_list = models.CharField(max_length=2000, null=True)
+	count_list = models.CharField(max_length=2000)
 
 	#for collection.status
 	#status 0: Odottaa pyytäjän hyväksymistä

@@ -68,14 +68,14 @@ def create_collection_for_list(http_request, collectionList, userRequest):
     collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
     get_values_for_collections(userRequest.id, http_request, collectionList)
 
-def get_mul_all_secured(request_list):
+def get_mul_all_secured(request_list, http_request):
     collectionList = list(Collection.objects.filter(request__in=[re.id for re in request_list], status__gte=0))
     for r in request_list:
         allSecured = 0
         for collection in [c for c in collectionList if c.request_id == r.id]:
-            counts = get_collection_counts(collection)
+            counts = get_collection_counts(collection, http_request)
             for count in counts:
-                allSecured += count.count
+                allSecured += count['count']
         r.allSecured = allSecured
 
 def check_all_collections_removed(requestId):
@@ -269,7 +269,7 @@ def create_request_view_context(requestId, http_request, userRequest):
     lang = http_request.LANGUAGE_CODE
     create_collections_for_lists(requestId, http_request, collectionList, userRequest, userId)
     for collection in collectionList:
-        collection.counts = get_collection_counts(collection)
+        collection.counts = get_collection_counts(collection, http_request)
 
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)

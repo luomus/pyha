@@ -3,6 +3,7 @@ from argparse import Namespace
 from datetime import datetime
 from django.conf import settings
 from django.core.cache import cache, caches
+from django.utils.translation import ugettext
 from itertools import chain
 from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
@@ -351,10 +352,32 @@ def is_download_handler_in_collection(userId, collectionId):
                 return False
     return False
 
-def get_collection_counts(collection):
-    if collection.count_list is None or len(collection.count_list) == 0:
-        return []
+def get_collection_counts(collection, http_request):
+    lang = http_request.LANGUAGE_CODE
+
+    if collection.count_list == '':
+        result = []
+        if collection.quarantineSecured > 0:
+            result.append({
+              'label': ugettext('secured_by_quarantine'),
+              "count": collection.quarantineSecured
+            })
+        if collection.taxonSecured > 0:
+            result.append({
+              'label': ugettext('secured_by_sensitivity'),
+              "count": collection.taxonSecured
+            })
+        if collection.customSecured > 0:
+            result.append({
+              'label': ugettext('secured_by_data_provider'),
+              "count": collection.customSecured
+            })
+
+        return result
+
     count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
+    for count in count_list:
+        count['label'] = count['label'][lang]
     return count_list
 
 def show_filters(http_request, userRequest):
@@ -365,7 +388,6 @@ def show_filters(http_request, userRequest):
     :param userRequest: language code
     '''
     filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-    print(filterList)
     filterResultList = list(range(len(vars(filterList).keys())))
     lang = http_request.LANGUAGE_CODE
     if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):

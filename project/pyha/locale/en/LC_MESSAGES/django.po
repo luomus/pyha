@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-11 16:38+0200\n"
+"POT-Creation-Date: 2020-12-15 17:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -389,95 +389,102 @@ msgstr ""
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:74
-#: pyha/templates/pyha/requestview/tabs/request.html:17
+#: pyha/templates/pyha/requestview/tabs/request.html:9
 msgid "collection_name"
 msgstr "Collection name"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
-#: pyha/templates/pyha/requestview/tabs/request.html:19
+#: pyha/templates/pyha/requestview/tabs/request.html:11
 msgid "collection_description"
 msgstr "Description"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
-#: pyha/templates/pyha/requestview/tabs/request.html:20
+#: pyha/templates/pyha/requestview/tabs/request.html:12
 msgid "collection_quality_description"
 msgstr "Quality description"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
-#: pyha/templates/pyha/requestview/tabs/request.html:21
+#: pyha/templates/pyha/requestview/tabs/request.html:13
 msgid "collection_terms"
 msgstr "Terms"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
-#: pyha/templates/pyha/requestview/tabs/request.html:22
+#, fuzzy
+#| msgid "collection_terms"
+msgid "collection_secure_counts"
+msgstr "Terms"
+
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
+#: pyha/templates/pyha/requestview/tabs/request.html:15 pyha/warehouse.py:362
 msgid "secured_by_quarantine"
 msgstr "Access-restricted research material"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
-#: pyha/templates/pyha/requestview/tabs/request.html:22
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
+#: pyha/templates/pyha/requestview/tabs/request.html:15
 msgid "secured_by_quarantine_explanation"
 msgstr "Scientific protection period (location, time)"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:23
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
+#: pyha/templates/pyha/requestview/tabs/request.html:16 pyha/warehouse.py:367
 msgid "secured_by_sensitivity"
 msgstr "Sensitive material"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:23
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
+#: pyha/templates/pyha/requestview/tabs/request.html:16
 msgid "secured_by_sensitivity_explanation"
 msgstr "Automatically aggregated sensitive data"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:24
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:17 pyha/warehouse.py:372
 msgid "secured_by_data_provider"
 msgstr "Access restricted by data provider"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:24
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:17
 msgid "secured_by_dataprovider_explanation"
 msgstr "User/Owner aggregated observation data"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:22
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:19
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:23
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:20
 #: pyha/templates/pyha/requestview/requestview.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:91
-#: pyha/templates/pyha/requestview/tabs/request.html:38
+#: pyha/templates/pyha/requestview/tabs/request.html:31
 msgid "to_metadata"
 msgstr "metadata"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:33
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:39
 msgid "Delete_these_sightings"
 msgstr "Exclude collection"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:41
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:47
 #: pyha/templates/pyha/requestform/requestform.html:434
 #: pyha/templatetags/pyha_tags.py:32
 msgid "you_have_not_accepted_terms"
 msgstr "Read and accept the terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:42
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:48
 #: pyha/templates/pyha/requestview/tabs/contacts.html:32
 msgid "terms"
 msgstr "Terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:43
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:49
 #: pyha/templates/pyha/requestform/requestform.html:215
 #: pyha/templates/pyha/requestform/requestform.html:325
 msgid "previous"
 msgstr "Previous"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:44
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:50
 msgid "continue"
 msgstr "Continue to summary"
 
@@ -1216,7 +1223,7 @@ msgstr " "
 #: pyha/templates/pyha/requestview/tabs/decision.html:9
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:76
-#: pyha/templates/pyha/requestview/tabs/request.html:25
+#: pyha/templates/pyha/requestview/tabs/request.html:18
 msgid "state_of_processing"
 msgstr "State of processing"
 
@@ -1387,7 +1394,7 @@ msgstr "Other collections"
 msgid "request_window_description"
 msgstr " "
 
-#: pyha/templates/pyha/requestview/tabs/request.html:9
+#: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_handler"
 msgstr ""
 "Below is a list of datasets that are included in the search. The applicant "
@@ -1396,13 +1403,17 @@ msgstr ""
 "data request. As a handler, you will see the exact numbers of usage-"
 "restricted observations."
 
-#: pyha/templates/pyha/requestview/tabs/request.html:11
+#: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_user"
 msgstr ""
 "Below is a list of datasets that are included in your request. To protect "
 "sensitive species data, the list may also contain datasets that are not "
 "actually included in your data request. An estimate of how many observations "
 "are in each dataset is provided for each dataset. The figures are indicative."
+
+#: pyha/templates/pyha/requestview/tabs/request.html:14
+msgid "collection_counts"
+msgstr "Number of observations"
 
 #: pyha/templatetags/pyha_tags.py:17 pyha/templatetags/pyha_tags.py:38
 msgid "handler_waiting_for_you"
@@ -1444,7 +1455,7 @@ msgstr "Waiting for download file to be completed"
 msgid "ready_for_download"
 msgstr "Ready for download"
 
-#: pyha/views/requestform.py:101
+#: pyha/views/requestform.py:82
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Thank you, request has been registered."
 
