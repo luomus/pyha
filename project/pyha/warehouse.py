@@ -61,7 +61,11 @@ def makeCollection(req, i):
     co.customSecured = getattr(i, 'customReasonCount', 0)
     co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
 
-    co.count_list = json.dumps(getattr(i, 'counts', ''))
+    counts = getattr(i, 'counts', None)
+    if counts is not None:
+        co.count_list = json.dumps(counts)
+    else:
+        co.count_list = ''
     co.changedBy = changed_by("pyha")
     co.save()
 
@@ -356,7 +360,7 @@ def is_download_handler_in_collection(userId, collectionId):
 def get_collection_counts(collection, http_request):
     lang = http_request.LANGUAGE_CODE
 
-    if collection.count_list == '':
+    if len(collection.count_list) == 0:
         result = []
         if collection.quarantineSecured > 0:
             result.append({

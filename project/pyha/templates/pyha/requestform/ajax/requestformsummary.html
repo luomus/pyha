@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load pyha_tags %}
 				{% if not collections %}
 				<h3>{% trans "request_was_empty_and_will_be_closed" %}</h3>
 				{% else %}
@@ -10,7 +11,7 @@
 								<th>{% trans "collection_description" %}</th>
 								<th>{% trans "collection_quality_description" %}</th>
 								<th>{% trans "collection_terms" %}</th>
-								<th>{% trans "collection_secure_counts" %}</th>
+								<th>{% trans "collection_counts" %}</th>
 								<!--th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
 								<th>{% trans "secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
 								<th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th-->
