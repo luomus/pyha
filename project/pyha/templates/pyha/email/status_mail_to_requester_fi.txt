@@ -4,6 +4,8 @@ Hyväksyttyjä aineistoja: {{ accepted }}
 Hylättyjä aineistoja: {{ declined }}
 Odottaa päätöstä: {{ pending }}
 
+Voit ladata jo hyväksytyt aineistot tai odottaa pyynnön käsittelyn valmistumista. Aineistojen lataus päättää aineistopyynnön käsittelyn.
+
 Osoite aineistopyyntöön: {{ req_link }}?lang=fi
 
 
