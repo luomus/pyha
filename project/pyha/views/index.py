@@ -12,6 +12,8 @@ from pyha.warehouse import fetch_email_address, get_collections_where_download_h
 from operator import attrgetter
 from itertools import chain
 
+def csrf_failure(http_request, reason=""):
+    return HttpResponseRedirect(reverse("pyha:root"))
 
 @csrf_exempt
 def pyha(http_request):

@@ -103,6 +103,9 @@ SERVER_EMAIL = os.environ["SERVER_EMAIL"]
 ALLOWED_HOSTS = ['localhost', '127.0.0.1'
 ]
 
+CSRF_TRUSTED_ORIGINS = [os.environ["PYHA_HOSTNAME"]]
+CSRF_FAILURE_VIEW = 'pyha.views.index.csrf_failure'
+
 # Application definition
 
 INSTALLED_APPS = [

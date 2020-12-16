@@ -34,7 +34,8 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		ADMIN_NAME 0 \
 		ADMIN_EMAIL "Email to send errormail" \
 		SERVER_EMAIL "Name for the errormail server address ex. pyha-staging@laji.fi" \
-		AFTER_LOGOUT_URL "ex. https://beta.laji.fi/"
+		AFTER_LOGOUT_URL "ex. https://beta.laji.fi/" \
+		PYHA_HOSTNAME "ex. localhost"
 		)
 
 # get length of an array
