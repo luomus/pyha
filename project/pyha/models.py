@@ -92,6 +92,16 @@ class HandlerInRequest(models.Model): #Used currently for the admin email gateke
 	def __str__(self):
 		return 'Handler: %s (in Request: %d) is emailed %s' %(self.user, self.request.id, self.emailed)
 
+class RequestSentStatusEmail(models.Model): # Keep track of the last status email that has been sent to user
+	id = models.AutoField(primary_key=True)
+	request = models.ForeignKey('Request', on_delete=models.CASCADE)
+	accepted_count = models.IntegerField()
+	declined_count = models.IntegerField()
+	pending_count = models.IntegerField()
+	date = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return 'Status email (for Request: %d) that was sent %s' %(self.request.id, self.date.strftime('%d.%m.%Y %H:%M:%S'))
 
 class Request(models.Model):
 	#id alkaa ykkösestä ja nousee

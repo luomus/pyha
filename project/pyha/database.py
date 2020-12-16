@@ -10,7 +10,7 @@ from django.template.loader import get_template
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
-    Col_StatusEnum, AdminUserSettings
+    Col_StatusEnum, AdminUserSettings, RequestSentStatusEmail
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
 from pyha.utilities import filterlink
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts
@@ -481,3 +481,9 @@ def emailsOnUpdate(pending, userRequest, lang):
     else:
         #Send email if status changed
         send_mail_after_request_status_change_to_requester(userRequest.id, lang)
+
+def get_latest_request_sent_status_email(requestId):
+    return RequestSentStatusEmail.objects.filter(request=requestId).order_by('date').last()
+
+def save_request_sent_status_email(request, accepted, declined, pending):
+    RequestSentStatusEmail.objects.create(request = request, accepted_count=accepted, declined_count=declined, pending_count=pending)

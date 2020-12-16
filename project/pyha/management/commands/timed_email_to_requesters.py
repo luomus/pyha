@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from pyha.email import send_status_mail_to_requester
-from pyha.database import get_all_waiting_requests, get_collection_status_counts
-from django.core.cache import caches
+from pyha.database import get_all_waiting_requests, get_collection_status_counts, get_latest_request_sent_status_email, save_request_sent_status_email
 
 class Command(BaseCommand):
     help = 'Sends status update emails to requesters.'
@@ -9,23 +8,17 @@ class Command(BaseCommand):
     #def add_arguments(self, parser):
 
     def handle(self, *args, **options):
-        status = caches['collections'].get('last_timed_email_sent_for_status', {})
         new_status = {}
 
         requests = get_all_waiting_requests()
         for request in requests:
+            last_email = get_latest_request_sent_status_email(request.id)
             accepted, declined, pending = get_collection_status_counts(request.id)
             if accepted > 0 or declined > 0:
                 if (
-                    request.id not in status or
-                    status[request.id]['accepted'] != accepted or
-                    status[request.id]['declined'] != declined
+                    last_email is None or
+                    last_email.accepted_count != accepted or
+                    last_email.declined_count != declined
                 ):
                     send_status_mail_to_requester(request.id, accepted, declined, pending, request.lang)
-                    new_status[request.id] = {
-                        'accepted': accepted,
-                        'declined': declined,
-                        'pending': pending
-                    }
-
-        caches['collections'].set('last_timed_email_sent_for_status', new_status, timeout=None)
+                    save_request_sent_status_email(request, accepted, declined, pending)
