@@ -54,12 +54,13 @@ def makeCollection(req, i):
     co.status = 0
     co.request = req
     co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler',['none']))
-    """
+
+    # old counts, may be removed in the future
     co.count = getattr(i, 'count', 0)
     co.taxonSecured = getattr(i, 'conservationReasonCount', 0)
     co.customSecured = getattr(i, 'customReasonCount', 0)
     co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
-    """
+
     co.count_list = json.dumps(i.counts)
     co.changedBy = changed_by("pyha")
     co.save()
