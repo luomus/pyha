@@ -4,6 +4,8 @@ Accepted data: {{accepted}}
 Rejected data: {{declined}}
 Awaiting decision: {{pending}}
 
+You can download already approved datasets or wait for the request to be processed. Downloading the data ends the processing of the data request.
+
 Address of the data request: {{ req_link }}?lang=en
 
 This is an automated message.
