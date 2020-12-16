@@ -4,6 +4,8 @@ Accepterat data: {{accepterat}}
 Avvisat data: {{avslog}}
 Väntar på beslut: {{väntar}}
 
+Du kan ladda ner redan godkänna data eller vänta på begäran ska behandlas. Neddladningen av data avslutar behandlingen av databegäran.
+
 Adress till databegäran: {{ req_link }}?lang=sv
 
 Detta är ett automatiskt meddelande.
