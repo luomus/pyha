@@ -48,12 +48,6 @@ def remove_request(request, http_request):
         request.save()
 
 def withdraw_request(request, http_request):
-    collections = Collection.objects.filter(request=request.id)
-    for collection in collections:
-        if collection.status != StatusEnum.REJECTED:
-            collection.status = StatusEnum.REJECTED
-            collection.changedBy = changed_by('pyha')
-            collection.save()
     if request.status != StatusEnum.WITHDRAWN:
         request.status = StatusEnum.WITHDRAWN
         request.frozen = True
