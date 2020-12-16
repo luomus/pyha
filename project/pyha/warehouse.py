@@ -61,7 +61,7 @@ def makeCollection(req, i):
     co.customSecured = getattr(i, 'customReasonCount', 0)
     co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
 
-    co.count_list = json.dumps(i.counts)
+    co.count_list = json.dumps(getattr(i, 'counts', None))
     co.changedBy = changed_by("pyha")
     co.save()
 
