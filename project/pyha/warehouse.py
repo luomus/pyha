@@ -63,7 +63,7 @@ def makeCollection(req, i):
 
     counts = getattr(i, 'counts', None)
     if counts is not None:
-        co.count_list = json.dumps(counts)
+        co.count_list = json.dumps(counts, default=lambda o: o.__dict__)
     else:
         co.count_list = ''
     co.changedBy = changed_by("pyha")
