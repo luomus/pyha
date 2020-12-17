@@ -380,7 +380,7 @@ def get_collection_counts(collection, http_request):
 
         return result
 
-    count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
+    count_list = json.loads(collection.count_list)
     for count in count_list:
         count['label'] = count['label'][lang]
     return count_list
