@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-15 17:17+0200\n"
+"POT-Creation-Date: 2020-12-17 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:209
+#: config/settings.py:212
 msgid "Suomi"
 msgstr "Suomi"
 
-#: config/settings.py:210
+#: config/settings.py:213
 msgid "Ruotsi"
 msgstr "Ruotsi"
 
-#: config/settings.py:211
+#: config/settings.py:214
 msgid "Englanti"
 msgstr "Englanti"
 
@@ -297,8 +297,8 @@ msgstr "Skapad av"
 #: pyha/templates/pyha/base/index.html:29
 #: pyha/templates/pyha/base/index.html:79
 #: pyha/templates/pyha/base/index.html:126
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
 msgstr ""
 "Eftersom vissa data är inte offentliga är antalet av observationer "
@@ -328,7 +328,7 @@ msgstr "Additional information needed"
 msgid "request_download_status"
 msgstr "Download status"
 
-#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:50
+#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:62
 msgid "waiting_for_additional_information"
 msgstr "Väntar på tillägsuppgifter"
 
@@ -348,7 +348,7 @@ msgstr "Partly downloaded"
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
-#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:59
+#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:71
 msgid "withdrawn"
 msgstr "Inställt"
 
@@ -376,13 +376,29 @@ msgstr "Uteslut de valda begäran"
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:2
+#: pyha/templates/pyha/error/403_crsf.html:11
+msgid "page_expired"
+msgstr "Sidan har löpt ut"
+
+#: pyha/templates/pyha/error/403_crsf.html:12
+msgid "page_expired_info_part1"
+msgstr "Gå tillbaka till"
+
+#: pyha/templates/pyha/error/403_crsf.html:12
+msgid "page_expired_info_link"
+msgstr "förstasidan"
+
+#: pyha/templates/pyha/error/403_crsf.html:12
+msgid "page_expired_info_part2"
+msgstr "och försök igen."
+
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 msgid "restricted_collections_in_request"
 msgstr ""
 "Din begäran innehåller begränsade material. Vänligen läs och acceptera "
 "användarvillkor"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:5
 msgid "sensitivity_info"
 msgstr ""
 "FinBIF kontrollerar sensitiva artdata genom att gömma antingen den exakta "
@@ -390,8 +406,8 @@ msgstr ""
 "bevarande skulle äventyras av förföljelse, jakt, trakasserier eller "
 "kommersiell eller privat insamling. Hotet ska gälla för de aktuella arterna."
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:10
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:9
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:74
@@ -399,53 +415,52 @@ msgstr ""
 msgid "collection_name"
 msgstr "Material"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
 #: pyha/templates/pyha/requestview/tabs/request.html:11
 msgid "collection_description"
 msgstr "Beskrivning"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
 #: pyha/templates/pyha/requestview/tabs/request.html:12
 msgid "collection_quality_description"
 msgstr "Beskrivning av kvalitet"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:13
 msgid "collection_terms"
 msgstr "Specialvillkor"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
-#, fuzzy
-#| msgid "collection_terms"
-msgid "collection_secure_counts"
-msgstr "Specialvillkor"
-
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:15 pyha/warehouse.py:362
+#: pyha/templates/pyha/requestview/tabs/request.html:14
+msgid "collection_counts"
+msgstr "Antalet av observationer"
+
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
+#: pyha/templates/pyha/requestview/tabs/request.html:15 pyha/warehouse.py:367
 msgid "secured_by_quarantine"
 msgstr "Forskningsmaterial med begrändsad användning"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
 #: pyha/templates/pyha/requestview/tabs/request.html:15
 msgid "secured_by_quarantine_explanation"
 msgstr ""
 "Vetenskaplig forskningsdata vars användning har begränsats före en viss "
 "tidpunkt. Information om plats och tid grov."
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:16 pyha/warehouse.py:367
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:16 pyha/warehouse.py:372
 msgid "secured_by_sensitivity"
 msgstr "Sensitiva data"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
 #: pyha/templates/pyha/requestview/tabs/request.html:16
 msgid "secured_by_sensitivity_explanation"
 msgstr ""
@@ -453,20 +468,20 @@ msgstr ""
 "eller beslut om miljö- och resurshantering, sensitiv artinformation. "
 "Information om plats och tid grov."
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:17 pyha/warehouse.py:372
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
+#: pyha/templates/pyha/requestview/tabs/request.html:17 pyha/warehouse.py:377
 msgid "secured_by_data_provider"
 msgstr "Användning begränsad av data ägare"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
 #: pyha/templates/pyha/requestview/tabs/request.html:17
 msgid "secured_by_dataprovider_explanation"
 msgstr "Grovt baserat på ägarens beslut."
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:23
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:20
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:24
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:21
 #: pyha/templates/pyha/requestview/requestview.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:91
@@ -474,36 +489,36 @@ msgstr "Grovt baserat på ägarens beslut."
 msgid "to_metadata"
 msgstr "metadata"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:39
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:40
 msgid "Delete_these_sightings"
 msgstr "Jag behöver inte detta material"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:47
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:48
 #: pyha/templates/pyha/requestform/requestform.html:434
-#: pyha/templatetags/pyha_tags.py:32
+#: pyha/templatetags/pyha_tags.py:44
 msgid "you_have_not_accepted_terms"
 msgstr "Vänligen läs och acceptera användarvillkor"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:48
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:49
 #: pyha/templates/pyha/requestview/tabs/contacts.html:32
 msgid "terms"
 msgstr "Användarvillkor"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:49
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:50
 #: pyha/templates/pyha/requestform/requestform.html:215
 #: pyha/templates/pyha/requestform/requestform.html:325
 msgid "previous"
 msgstr "Föregående"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:50
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:51
 msgid "continue"
 msgstr "Fortsätt till sammandrag"
 
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:3
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:4
 msgid "request_was_empty_and_will_be_closed"
 msgstr "Din begäran var tom och dess behandling ska slutas"
 
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:5
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 msgid "collections_in_request"
 msgstr "Material i din begäran"
 
@@ -958,7 +973,7 @@ msgid "download"
 msgstr "Ladda ner"
 
 #: pyha/templates/pyha/requestview/requestview.html:54
-#: pyha/templatetags/pyha_tags.py:57
+#: pyha/templatetags/pyha_tags.py:69
 msgid "download_has_expired"
 msgstr "Nedladdningen har löpt ut"
 
@@ -1428,47 +1443,43 @@ msgstr ""
 "din begäran. En uppskattning av hur många observationer det finns i varje "
 "dataset tillhandahålls för varje dataset. Siffrorna är vägledande."
 
-#: pyha/templates/pyha/requestview/tabs/request.html:14
-msgid "collection_counts"
-msgstr "Antalet av observationer"
-
-#: pyha/templatetags/pyha_tags.py:17 pyha/templatetags/pyha_tags.py:38
+#: pyha/templatetags/pyha_tags.py:29 pyha/templatetags/pyha_tags.py:50
 msgid "handler_waiting_for_you"
 msgstr "Väntar på ditt beslut"
 
-#: pyha/templatetags/pyha_tags.py:19 pyha/templatetags/pyha_tags.py:40
+#: pyha/templatetags/pyha_tags.py:31 pyha/templatetags/pyha_tags.py:52
 msgid "handler_waiting_for_others"
 msgstr "Väntar på beslut av andra"
 
-#: pyha/templatetags/pyha_tags.py:21 pyha/templatetags/pyha_tags.py:42
+#: pyha/templatetags/pyha_tags.py:33 pyha/templatetags/pyha_tags.py:54
 msgid "waiting_for_data_provider"
 msgstr "Väntar på beslutet"
 
-#: pyha/templatetags/pyha_tags.py:23 pyha/templatetags/pyha_tags.py:46
+#: pyha/templatetags/pyha_tags.py:35 pyha/templatetags/pyha_tags.py:58
 msgid "denied"
 msgstr "Nekad"
 
-#: pyha/templatetags/pyha_tags.py:25 pyha/templatetags/pyha_tags.py:48
+#: pyha/templatetags/pyha_tags.py:37 pyha/templatetags/pyha_tags.py:60
 msgid "accepted"
 msgstr "Accepterad"
 
-#: pyha/templatetags/pyha_tags.py:27 pyha/templatetags/pyha_tags.py:61
+#: pyha/templatetags/pyha_tags.py:39 pyha/templatetags/pyha_tags.py:73
 msgid "unknown"
 msgstr "Okänd"
 
-#: pyha/templatetags/pyha_tags.py:36
+#: pyha/templatetags/pyha_tags.py:48
 msgid "handler_waiting_for_response_on_answer"
 msgstr "Väntar på beslut"
 
-#: pyha/templatetags/pyha_tags.py:44
+#: pyha/templatetags/pyha_tags.py:56
 msgid "partially_accepted"
 msgstr "Delvis accepterad"
 
-#: pyha/templatetags/pyha_tags.py:52
+#: pyha/templatetags/pyha_tags.py:64
 msgid "waiting_for_download"
 msgstr "Väntar på att nedladdningsfil ska bli färdig"
 
-#: pyha/templatetags/pyha_tags.py:55
+#: pyha/templatetags/pyha_tags.py:67
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
 
@@ -1487,6 +1498,11 @@ msgstr ""
 #: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr ""
+
+#, fuzzy
+#~| msgid "collection_terms"
+#~ msgid "collection_secure_counts"
+#~ msgstr "Specialvillkor"
 
 #~ msgid "in_other_languages_below"
 #~ msgstr "(På svenska se nedan, in English see below)"

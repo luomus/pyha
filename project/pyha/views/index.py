@@ -13,7 +13,7 @@ from operator import attrgetter
 from itertools import chain
 
 def csrf_failure(http_request, reason=""):
-    return HttpResponseRedirect(reverse("pyha:root"))
+    return render(http_request, 'pyha/error/403_crsf.html', {'static': settings.STA_URL})
 
 @csrf_exempt
 def pyha(http_request):

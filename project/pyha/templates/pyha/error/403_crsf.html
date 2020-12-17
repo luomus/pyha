@@ -1,0 +1,17 @@
+{% extends "pyha/base/base.html" %}
+{% block content %}
+{% load i18n %}
+
+
+<div class="container-fluid">
+  <div class="row">
+ 	  <div class="col-xs-12">
+      <div class="page-header">
+        <h2>{% trans "page_expired" %}</h2>
+        <p>{% trans "page_expired_info_part1" %} <a href="{% url 'pyha:root' %}">{% trans "page_expired_info_link" %}</a> {% trans "page_expired_info_part2" %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

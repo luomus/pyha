@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-15 17:17+0200\n"
+"POT-Creation-Date: 2020-12-17 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: config/settings.py:209
+#: config/settings.py:212
 msgid "Suomi"
 msgstr ""
 
-#: config/settings.py:210
+#: config/settings.py:213
 msgid "Ruotsi"
 msgstr ""
 
-#: config/settings.py:211
+#: config/settings.py:214
 msgid "Englanti"
 msgstr ""
 
@@ -292,8 +292,8 @@ msgstr "Created by"
 #: pyha/templates/pyha/base/index.html:29
 #: pyha/templates/pyha/base/index.html:79
 #: pyha/templates/pyha/base/index.html:126
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
 msgstr ""
 "The number of observations is not exact because some data is aggregated. The "
@@ -322,7 +322,7 @@ msgstr "Additional information needed"
 msgid "request_download_status"
 msgstr "Download status"
 
-#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:50
+#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:62
 msgid "waiting_for_additional_information"
 msgstr "Waiting for additional information"
 
@@ -342,7 +342,7 @@ msgstr "Partly downloaded"
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
-#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:59
+#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:71
 msgid "withdrawn"
 msgstr "Withdrawn"
 
@@ -370,12 +370,28 @@ msgstr "Delete selected requests"
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:2
+#: pyha/templates/pyha/error/403_crsf.html:11
+msgid "page_expired"
+msgstr "Page expired"
+
+#: pyha/templates/pyha/error/403_crsf.html:12
+msgid "page_expired_info_part1"
+msgstr "Return to"
+
+#: pyha/templates/pyha/error/403_crsf.html:12
+msgid "page_expired_info_link"
+msgstr "the front page"
+
+#: pyha/templates/pyha/error/403_crsf.html:12
+msgid "page_expired_info_part2"
+msgstr "and try again."
+
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 msgid "restricted_collections_in_request"
 msgstr ""
 "Your request contains access-resctricted material. Read and accept theterms."
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:5
 msgid "sensitivity_info"
 msgstr ""
 "FinBIF controls sensitive species data either by hiding either exact "
@@ -384,8 +400,8 @@ msgstr ""
 "or commercial or private collecting. The threat has to apply to the species "
 "in question."
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:10
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:9
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:74
@@ -393,69 +409,68 @@ msgstr ""
 msgid "collection_name"
 msgstr "Collection name"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
 #: pyha/templates/pyha/requestview/tabs/request.html:11
 msgid "collection_description"
 msgstr "Description"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:12
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:11
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
 #: pyha/templates/pyha/requestview/tabs/request.html:12
 msgid "collection_quality_description"
 msgstr "Quality description"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:13
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:12
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
 #: pyha/templates/pyha/requestview/tabs/request.html:13
 msgid "collection_terms"
 msgstr "Terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:14
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:13
-#, fuzzy
-#| msgid "collection_terms"
-msgid "collection_secure_counts"
-msgstr "Terms"
-
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:15 pyha/warehouse.py:362
+#: pyha/templates/pyha/requestview/tabs/request.html:14
+msgid "collection_counts"
+msgstr "Number of observations"
+
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
+#: pyha/templates/pyha/requestview/tabs/request.html:15 pyha/warehouse.py:367
 msgid "secured_by_quarantine"
 msgstr "Access-restricted research material"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
 #: pyha/templates/pyha/requestview/tabs/request.html:15
 msgid "secured_by_quarantine_explanation"
 msgstr "Scientific protection period (location, time)"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:16 pyha/warehouse.py:367
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:16 pyha/warehouse.py:372
 msgid "secured_by_sensitivity"
 msgstr "Sensitive material"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
 #: pyha/templates/pyha/requestview/tabs/request.html:16
 msgid "secured_by_sensitivity_explanation"
 msgstr "Automatically aggregated sensitive data"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:17 pyha/warehouse.py:372
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
+#: pyha/templates/pyha/requestview/tabs/request.html:17 pyha/warehouse.py:377
 msgid "secured_by_data_provider"
 msgstr "Access restricted by data provider"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
 #: pyha/templates/pyha/requestview/tabs/request.html:17
 msgid "secured_by_dataprovider_explanation"
 msgstr "User/Owner aggregated observation data"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:23
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:20
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:24
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:21
 #: pyha/templates/pyha/requestview/requestview.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:91
@@ -463,36 +478,36 @@ msgstr "User/Owner aggregated observation data"
 msgid "to_metadata"
 msgstr "metadata"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:39
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:40
 msgid "Delete_these_sightings"
 msgstr "Exclude collection"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:47
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:48
 #: pyha/templates/pyha/requestform/requestform.html:434
-#: pyha/templatetags/pyha_tags.py:32
+#: pyha/templatetags/pyha_tags.py:44
 msgid "you_have_not_accepted_terms"
 msgstr "Read and accept the terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:48
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:49
 #: pyha/templates/pyha/requestview/tabs/contacts.html:32
 msgid "terms"
 msgstr "Terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:49
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:50
 #: pyha/templates/pyha/requestform/requestform.html:215
 #: pyha/templates/pyha/requestform/requestform.html:325
 msgid "previous"
 msgstr "Previous"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:50
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:51
 msgid "continue"
 msgstr "Continue to summary"
 
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:3
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:4
 msgid "request_was_empty_and_will_be_closed"
 msgstr "Empty request, processing will be terminated"
 
-#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:5
+#: pyha/templates/pyha/requestform/ajax/requestformsummary.html:6
 msgid "collections_in_request"
 msgstr "Collections in this request"
 
@@ -947,7 +962,7 @@ msgid "download"
 msgstr "Download"
 
 #: pyha/templates/pyha/requestview/requestview.html:54
-#: pyha/templatetags/pyha_tags.py:57
+#: pyha/templatetags/pyha_tags.py:69
 msgid "download_has_expired"
 msgstr "Download has expired"
 
@@ -1411,47 +1426,43 @@ msgstr ""
 "actually included in your data request. An estimate of how many observations "
 "are in each dataset is provided for each dataset. The figures are indicative."
 
-#: pyha/templates/pyha/requestview/tabs/request.html:14
-msgid "collection_counts"
-msgstr "Number of observations"
-
-#: pyha/templatetags/pyha_tags.py:17 pyha/templatetags/pyha_tags.py:38
+#: pyha/templatetags/pyha_tags.py:29 pyha/templatetags/pyha_tags.py:50
 msgid "handler_waiting_for_you"
 msgstr "Pending your decision"
 
-#: pyha/templatetags/pyha_tags.py:19 pyha/templatetags/pyha_tags.py:40
+#: pyha/templatetags/pyha_tags.py:31 pyha/templatetags/pyha_tags.py:52
 msgid "handler_waiting_for_others"
 msgstr "Pending decision by others"
 
-#: pyha/templatetags/pyha_tags.py:21 pyha/templatetags/pyha_tags.py:42
+#: pyha/templatetags/pyha_tags.py:33 pyha/templatetags/pyha_tags.py:54
 msgid "waiting_for_data_provider"
 msgstr "Pending decision"
 
-#: pyha/templatetags/pyha_tags.py:23 pyha/templatetags/pyha_tags.py:46
+#: pyha/templatetags/pyha_tags.py:35 pyha/templatetags/pyha_tags.py:58
 msgid "denied"
 msgstr "Denied"
 
-#: pyha/templatetags/pyha_tags.py:25 pyha/templatetags/pyha_tags.py:48
+#: pyha/templatetags/pyha_tags.py:37 pyha/templatetags/pyha_tags.py:60
 msgid "accepted"
 msgstr "Accepted"
 
-#: pyha/templatetags/pyha_tags.py:27 pyha/templatetags/pyha_tags.py:61
+#: pyha/templatetags/pyha_tags.py:39 pyha/templatetags/pyha_tags.py:73
 msgid "unknown"
 msgstr "Unknown"
 
-#: pyha/templatetags/pyha_tags.py:36
+#: pyha/templatetags/pyha_tags.py:48
 msgid "handler_waiting_for_response_on_answer"
 msgstr "The request for more information has a response"
 
-#: pyha/templatetags/pyha_tags.py:44
+#: pyha/templatetags/pyha_tags.py:56
 msgid "partially_accepted"
 msgstr "Partially accepted"
 
-#: pyha/templatetags/pyha_tags.py:52
+#: pyha/templatetags/pyha_tags.py:64
 msgid "waiting_for_download"
 msgstr "Waiting for download file to be completed"
 
-#: pyha/templatetags/pyha_tags.py:55
+#: pyha/templatetags/pyha_tags.py:67
 msgid "ready_for_download"
 msgstr "Ready for download"
 
@@ -1470,6 +1481,11 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:82
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#, fuzzy
+#~| msgid "collection_terms"
+#~ msgid "collection_secure_counts"
+#~ msgstr "Terms"
 
 #~ msgid "in_other_languages_below"
 #~ msgstr "(På svenska se nedan, in English see below)"
