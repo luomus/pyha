@@ -19,6 +19,10 @@ def collectionCount(count, role):
         max_value = 1
     else:
         max_value = 10**math.floor(math.log10(count))
+
+    if max_value < 10:
+        max_value = 10
+
     return '0-{}'.format(max_value)
 
 @register.simple_tag(name='translateCollectionStatus')
