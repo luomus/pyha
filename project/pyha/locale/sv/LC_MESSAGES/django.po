@@ -437,7 +437,7 @@ msgstr "Specialvillkor"
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:14
 msgid "collection_counts"
-msgstr "Antalet av observationer"
+msgstr "Antalet av observationer efter kategori"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15

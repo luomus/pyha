@@ -435,7 +435,7 @@ msgstr "Erityisehdot"
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:14
 msgid "collection_counts"
-msgstr "Havaintomäärät"
+msgstr "Havaintojen määrät luokittain"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15

@@ -431,7 +431,7 @@ msgstr "Terms"
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
 #: pyha/templates/pyha/requestview/tabs/request.html:14
 msgid "collection_counts"
-msgstr "Number of observations"
+msgstr "Number of observations by category"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
