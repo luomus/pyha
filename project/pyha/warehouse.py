@@ -10,6 +10,7 @@ from requests.auth import HTTPBasicAuth
 from pyha.models import Request, Collection, StatusEnum, Col_StatusEnum, HandlerInRequest
 from pyha.log_utils import changed_by
 from pyha.utilities import Container
+from pyha.roles import HANDLER_ANY, ADMIN
 import json
 import os
 import requests
@@ -36,6 +37,8 @@ def store(jsond):
     req.downloaded = False
     req.filter_list = makeblob(data.filters)
     req.filter_description_list = namespace_to_json(data, 'filterDescriptions')
+    req.public_link = namespace_to_json(data, 'publicLink')
+    req.private_link = namespace_to_json(data, 'privateLink')
     if hasattr(data, 'locale'):
         req.lang = data.locale
     else:
@@ -410,3 +413,17 @@ def show_filters(http_request, userRequest):
 
     filterDescriptionList = json.loads(userRequest.filter_description_list, object_hook=lambda d: Namespace(**d))
     return getattr(filterDescriptionList, lang, [])
+
+def get_filter_link(http_request, userRequest, role):
+    lang = http_request.LANGUAGE_CODE
+
+    if role == ADMIN or role == HANDLER_ANY:
+        data = userRequest.private_link
+    else:
+        data = userRequest.public_link
+
+    if len(data) == 0:
+        return None
+
+    parsed_data = json.loads(data, object_hook=lambda d: Namespace(**d))
+    return getattr(parsed_data, lang, [])

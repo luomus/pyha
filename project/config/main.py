@@ -21,7 +21,7 @@ if DEBUG:
         EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
         EMAIL_FILE_PATH = os.environ["EMAIL_BACKEND_FILE_PATH"]
     else:
-        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+        EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else: EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25

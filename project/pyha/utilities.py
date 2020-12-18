@@ -7,19 +7,6 @@ class Container(object):
 def get_callers_function_name():
     return sys._getframe(2).f_code.co_name
 
-def filterlink(userRequest, link, collectionList):
-    filterList = json.loads(userRequest.filter_list)
-    filterList['collectionId'] = [collection.address for collection in collectionList]
-
-    filters = []
-    for key in filterList:
-        value = filterList[key]
-        if not isinstance(value, str):
-            value = '%2C'.join(value)
-        filters.append('{}={}'.format(key, value))
-
-    return link + '&'.join(filters)
-
 import traceback
 try:
     from hashlib import md5
@@ -35,7 +22,7 @@ class EmailRateLimitFilter(object):
     def filter(self, record):
         from django.conf import settings
         from django.core.cache import caches
-        
+
         if record.exc_info is None:
             return False
 

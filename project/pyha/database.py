@@ -12,8 +12,7 @@ from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
     Col_StatusEnum, AdminUserSettings, RequestSentStatusEmail
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
-from pyha.utilities import filterlink
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, create_coordinates, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_filter_link
 from pyha.log_utils import changed_by_session_user, changed_by
 from pyha import toast
 
@@ -271,8 +270,7 @@ def create_request_view_context(requestId, http_request, userRequest):
     context = {"toast": toast, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
     context["requestLog_list"] = request_log if (role == HANDLER_ANY or role == ADMIN) else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
     context["coordinates"] = create_coordinates(userRequest)
-    context["filter_link"] = filterlink(userRequest, settings.FILTERS_LINK, collectionList)
-    context["official_filter_link"] = filterlink(userRequest, settings.OFFICIAL_FILTERS_LINK, collectionList)
+    context["filter_link"] = get_filter_link(http_request, userRequest, role)
     context["tun_link"] = settings.TUN_URL
     context["sensitivity_terms"] = "pyha/requestform/terms/collection-"+lang+".html"
     context["username"] = http_request.session["user_name"]

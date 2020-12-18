@@ -3,7 +3,9 @@
 <h3>{% trans "filter_window" %}</h3>
 <p>{% trans "filter_window_description" %}</p>
 {% if filters %}
-  <a style="padding-left:8px;" target="_blank" {% if role == 'handler' or role == 'admin' %}href="{{ official_filter_link }}">{% trans "handler_show_in_officials_portal" %}{% else %}href="{{ filter_link }}">{% trans "show_in_portal" %}{% endif %}</a>
+  {% if filter_link %}
+  <a style="padding-left:8px;" target="_blank" href="{{ filter_link }}">{% if role == 'handler' or role == 'admin' %}{% trans "handler_show_in_officials_portal" %}{% else %}{% trans "show_in_portal" %}{% endif %}</a>
+  {% endif %}
   <table class="table" style="width:100%">
     <tr style=color:black>
       <th>{% trans "filter" %}</th>
