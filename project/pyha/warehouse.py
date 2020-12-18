@@ -365,28 +365,29 @@ def get_collection_counts(collection, http_request):
     lang = http_request.LANGUAGE_CODE
 
     if len(collection.count_list) == 0:
+        # for backwards combability
         result = []
         if collection.quarantineSecured > 0:
-            result.append({
-              'label': ugettext('secured_by_quarantine'),
-              "count": collection.quarantineSecured
-            })
+            result.append(Namespace(
+              label=ugettext('secured_by_quarantine'),
+              count=collection.quarantineSecured
+            ))
         if collection.taxonSecured > 0:
-            result.append({
-              'label': ugettext('secured_by_sensitivity'),
-              "count": collection.taxonSecured
-            })
+            result.append(Namespace(
+              label=ugettext('secured_by_sensitivity'),
+              count=collection.taxonSecured
+            ))
         if collection.customSecured > 0:
-            result.append({
-              'label': ugettext('secured_by_data_provider'),
-              "count": collection.customSecured
-            })
+            result.append(Namespace(
+              label=ugettext('secured_by_data_provider'),
+              count=collection.customSecured
+            ))
 
         return result
 
-    count_list = json.loads(collection.count_list)
+    count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
     for count in count_list:
-        count['label'] = count['label'][lang]
+        count.label = getattr(count.label, lang, '')
     return count_list
 
 def show_filters(http_request, userRequest):
@@ -396,70 +397,16 @@ def show_filters(http_request, userRequest):
     :param request: request identifier
     :param userRequest: language code
     '''
-    filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-    filterResultList = list(range(len(vars(filterList).keys())))
     lang = http_request.LANGUAGE_CODE
-    if 'has expired' in cache.get('filters'+str(userRequest.id)+lang, 'has expired'):
-        try:
-            filters = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
-        except:
-            filters = Container()
-            filters.status_code = 500
-        if(filters.status_code == 200):
-            filtersobject = json.loads(filters.text, object_hook=lambda d: Namespace(**d))
-            for i, b in enumerate(vars(filterList).keys()):
-                languagelabel = b
-                filternamelist = getattr(filterList, b)
-                if isinstance(filternamelist, str):
-                    stringlist = []
-                    value = getattr(filterList, b)
-                    value = translate_truth(value, lang)
-                    stringlist.append(value)
-                    filternamelist = stringlist
-                if b in filters.json():
-                    filterfield = getattr(filtersobject, b)
-                    label = getattr(filterfield, "label")
-                    languagelabel = getattr(label, http_request.LANGUAGE_CODE)
-                    if "RESOURCE" in getattr(filterfield, "type"):
-                        resource = getattr(filterfield, "resource")
-                        for k, a in enumerate(filternamelist):
-                            if resource.startswith("metadata"):
-                                filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
-                                filtername = str(a)
-                                for ii in filterfield2.json():
-                                    if (str(a) == ii['id']):
-                                        filtername = ii['value']
-                                        break
-                            else:
-                                filterfield2 = requests.get(settings.LAJIAPI_URL+str(resource)+"/"+str(a)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
-                                filternameobject = json.loads(filterfield2.text, object_hook=lambda d: Namespace(**d))
-                                filtername = getattr(filternameobject, "name", str(a))
-                            filternamelist[k]= filtername
-                    if "ENUMERATION" in getattr(filterfield, "type"):
-                        enumerations = getattr(filterfield, "enumerations")
-                        for k, e in enumerate(filternamelist):
-                            filtername = e
-                            for n in enumerations:
-                                if e == getattr(n, "name"):
-                                    filtername = getattr(n.label, lang)
-                                    break
-                            filternamelist[k]= filtername
-                tup = (b, filternamelist, languagelabel)
-                filterResultList[i] = tup
-            cache.set('filters'+str(userRequest.id)+lang,filterResultList)
-        else:
-            for i, b in enumerate(vars(filterList).keys()):
-                languagelabel = b
-                filternamelist = getattr(filterList, b)
-                if isinstance(filternamelist, str):
-                    stringlist = []
-                    value = getattr(filterList, b)
-                    value = translate_truth(value, lang)
-                    stringlist.append(value)
-                    filternamelist = stringlist
-                tup = (b, filternamelist, b)
-                filterResultList[i] = tup
-            return filterResultList
-    else:
-        return cache.get('filters'+str(userRequest.id)+lang)
-    return filterResultList
+
+    if len(userRequest.filter_description_list) == 0:
+        # for backwards combability
+        filterResultList = []
+        filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
+        for i, b in enumerate(vars(filterList).keys()):
+            filternamelist = getattr(filterList, b)
+            filterResultList.append(Namespace(label=b, value=filternamelist))
+        return filterResultList
+
+    filterDescriptionList = json.loads(userRequest.filter_description_list, object_hook=lambda d: Namespace(**d))
+    return getattr(filterDescriptionList, lang, [])

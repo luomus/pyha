@@ -13,12 +13,12 @@ def replaceCommaWithSpace(text):
 @register.simple_tag(name='collectionCounts')
 def collectionCounts(counts, role):
     if role == ADMIN or role == HANDLER_ANY:
-        count_texts = ['{}: {}'.format(count['label'], count['count']) for count in counts]
+        count_texts = ['{}: {}'.format(count.label, count.count) for count in counts]
         return '\n'.join(count_texts)
 
     count_sum = 0
     for count in counts:
-        count_sum += count['count']
+        count_sum += count.count
 
     if count_sum == 0:
         max_value = 1

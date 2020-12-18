@@ -69,7 +69,7 @@ def get_mul_all_secured(request_list, http_request):
         for collection in [c for c in collectionList if c.request_id == r.id]:
             counts = get_collection_counts(collection, http_request)
             for count in counts:
-                allSecured += count['count']
+                allSecured += count.count
         r.allSecured = allSecured
 
 def check_all_collections_removed(requestId):
