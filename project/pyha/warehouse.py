@@ -212,18 +212,6 @@ def fetch_email_address(personId):
         return cache.get('email'+cacheKeyPersonId)
 
 
-def create_coordinates(userRequest):
-    filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-    coord = getattr(filterList,"coordinates", None)
-    if(coord):
-        coordinates = coord[0].split(":", 4)
-        coordinates = coordinates[:7]
-        if(len(coordinates)>=4):
-            coordinates.append("{:.6f}".format((float(coordinates[1])-float(coordinates[0]))/2 + float(coordinates[0])))
-            coordinates.append("{:.6f}".format((float(coordinates[3])-float(coordinates[2]))/2 + float(coordinates[2])))
-            return coordinates
-    return None
-
 def send_download_request(requestId):
     payload = {}
     userRequest = Request.objects.get(id=requestId)

@@ -16,7 +16,9 @@
 			<button class= "btn btn-default" data-toggle="collapse" data-target="#filterlist" id="filterbutton">{% trans "show" %}</button>
 			<div id="filterlist" class="collapse">
 				{% if filters %}
+				{% if filter_link %}
 				<a style="padding-left:8px;" href="{{ filter_link }}" target="_blank">{% trans "show_in_portal" %}</a>
+				{% endif %}
 				<table class = "table" style="width:100%">
 					<tr style=color:black>
 						<th>{% trans "filter" %}</th>
@@ -24,18 +26,11 @@
 					</tr>
 					{% for filter in filters %}
 					<tr>
-						<td rowspan={{filter.1|length}}>{{ filter.2 }}</td>
-						{% for f in filter.1 %}
-						<td>{{ f }}</td>
+						<td>{{ filter.label }}</td>
+						<td>{{ filter.value }}</td>
 					</tr>
-						<tr>
-						{% endfor %}
-						</tr>
 					{% endfor %}
 				</table>
-				{% if coordinates %}
-				<div id="filtermap"></div>
-				{% endif %}
 				{% else %}
 				<strong>{% trans "no_filters" %}.</strong>
 				{% endif %}
@@ -787,19 +782,6 @@
 	});
 	</script>
 	<!-- end create html snippets in tabs -->
-	{% if coordinates %}
-	<script>
-		$(document).ready(function(){
-			initializeMap();
-			map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
-			document.getElementById('filterlist').style.display = 'block';
-			map.invalidateSize();
-			document.getElementById('filterlist').style.display = '';
-			var bounds = [[{{coordinates.0}}, {{coordinates.2}}], [{{coordinates.1}},{{coordinates.3}}]];
-			L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
-		});
-	</script>
-	{% endif %}
 {% endblock %}
 {% block modal %}
 {% endblock %}

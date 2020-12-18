@@ -226,21 +226,6 @@
 {% endblock %}
 
 {% block end_script %}
-{% if coordinates %}
-<script>
-  $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-    initializeMap();
-    map.setView([{{coordinates.5}}, {{coordinates.6}}], 7);
-    document.getElementById('filters').style.display = 'block';
-    map.invalidateSize();
-    document.getElementById('filters').style.display = '';
-    var bounds = [[{{coordinates.0}}, {{coordinates.2}}], [{{coordinates.1}},{{coordinates.3}}]];
-    L.rectangle(bounds, {color: "#ff7800", weight: 1}).addTo(map);
-  });
-</script>
-{% endif %}
-
 {% if next == 'decision' %}
 <script>
   $(document).ready(function(){
