@@ -10,15 +10,20 @@ register = template.Library()
 def replaceCommaWithSpace(text):
     return text.replace(',', ' ')
 
-@register.simple_tag(name='collectionCount')
-def collectionCount(count, role):
+@register.simple_tag(name='collectionCounts')
+def collectionCounts(counts, role):
     if role == ADMIN or role == HANDLER_ANY:
-        return count
+        count_texts = ['{}: {}'.format(count['label'], count['count']) for count in counts]
+        return '\n'.join(count_texts)
 
-    if count == 0:
+    count_sum = 0
+    for count in counts:
+        count_sum += count['count']
+
+    if count_sum == 0:
         max_value = 1
     else:
-        max_value = 10**math.floor(math.log10(count))
+        max_value = 10**math.floor(math.log10(count_sum))
 
     if max_value < 10:
         max_value = 10

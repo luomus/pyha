@@ -3,7 +3,7 @@
 
 <h3>{% trans "request_window" %}</h3>
 <p>{% trans "request_window_description" %}</p>
-<p>{% if role != "user" %}{% trans 'given_values_are_not_absolute_handler' %}{% else %}{% trans 'given_values_are_not_absolute_user' %}{% endif %}</p>
+<p>{% if role == "handler" or role == "admin" %}{% trans 'given_values_are_not_absolute_handler' %}{% else %}{% trans 'given_values_are_not_absolute_user' %}{% endif %}</p>
 <table class="table" style="width:100%">
   <tr style=color:black>
     <th>{% trans "collection_name" %}</th>
@@ -11,7 +11,11 @@
     <th>{% trans "collection_description" %}</th>
     <th>{% trans "collection_quality_description" %}</th>
     <th>{% trans "collection_terms" %}</th>
+    {% if role == "handler" or role == "admin" %}
     <th class="col-sm-3">{% trans "collection_counts" %}</th>
+    {% else %}
+    <th>{% trans "collection_count" %}</th>
+    {% endif %}
     <!--th>{% trans "secured_by_quarantine" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_quarantine_explanation'%}</span></a></small></th>
     <th>{% trans "secured_by_sensitivity" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_sensitivity_explanation'%}</span></a></small></th>
     <th>{% trans "secured_by_data_provider" %}<small><a class="normaltooltip"> [?]<span class="normaltooltiptext">{% trans 'secured_by_dataprovider_explanation'%}</span></a></small></th-->
@@ -32,11 +36,7 @@
     <td>{{collection.result.description}}</td>
     <td>{{collection.result.qualityDescription}}</td>
     <td>{{collection.result.collectionTerms}}</td>
-    <td>
-      {% for count in collection.counts %}
-      {{ count.label }}: {% collectionCount count.count role %}<br>
-      {% endfor %}
-    </td>
+    <td style="white-space: pre">{% collectionCounts collection.counts role %}</td>
     <!--td>{{collection.quarantineSecured}}</td>
     <td>{{collection.taxonSecured}}</td>
     <td>{{collection.customSecured}}</td-->

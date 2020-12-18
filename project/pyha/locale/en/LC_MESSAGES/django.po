@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-17 13:49+0200\n"
+"POT-Creation-Date: 2020-12-18 11:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -322,7 +322,7 @@ msgstr "Additional information needed"
 msgid "request_download_status"
 msgstr "Download status"
 
-#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:62
+#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:71
 msgid "waiting_for_additional_information"
 msgstr "Waiting for additional information"
 
@@ -342,7 +342,7 @@ msgstr "Partly downloaded"
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
-#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:71
+#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:80
 msgid "withdrawn"
 msgstr "Withdrawn"
 
@@ -370,19 +370,19 @@ msgstr "Delete selected requests"
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
 
-#: pyha/templates/pyha/error/403_crsf.html:11
+#: pyha/templates/pyha/error/403_crsf.html:10
 msgid "page_expired"
 msgstr "Page expired"
 
-#: pyha/templates/pyha/error/403_crsf.html:12
+#: pyha/templates/pyha/error/403_crsf.html:11
 msgid "page_expired_info_part1"
 msgstr "Return to"
 
-#: pyha/templates/pyha/error/403_crsf.html:12
+#: pyha/templates/pyha/error/403_crsf.html:11
 msgid "page_expired_info_link"
 msgstr "the front page"
 
-#: pyha/templates/pyha/error/403_crsf.html:12
+#: pyha/templates/pyha/error/403_crsf.html:11
 msgid "page_expired_info_part2"
 msgstr "and try again."
 
@@ -429,43 +429,43 @@ msgstr "Terms"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:15
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:14
-#: pyha/templates/pyha/requestview/tabs/request.html:14
-msgid "collection_counts"
-msgstr "Number of observations by category"
+#: pyha/templates/pyha/requestview/tabs/request.html:17
+msgid "collection_count"
+msgstr "Number of observations"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:15 pyha/warehouse.py:367
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:371
 msgid "secured_by_quarantine"
 msgstr "Access-restricted research material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:15
+#: pyha/templates/pyha/requestview/tabs/request.html:19
 msgid "secured_by_quarantine_explanation"
 msgstr "Scientific protection period (location, time)"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:16 pyha/warehouse.py:372
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:376
 msgid "secured_by_sensitivity"
 msgstr "Sensitive material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:16
+#: pyha/templates/pyha/requestview/tabs/request.html:20
 msgid "secured_by_sensitivity_explanation"
 msgstr "Automatically aggregated sensitive data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:17 pyha/warehouse.py:377
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:381
 msgid "secured_by_data_provider"
 msgstr "Access restricted by data provider"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:17
+#: pyha/templates/pyha/requestview/tabs/request.html:21
 msgid "secured_by_dataprovider_explanation"
 msgstr "User/Owner aggregated observation data"
 
@@ -474,32 +474,32 @@ msgstr "User/Owner aggregated observation data"
 #: pyha/templates/pyha/requestview/requestview.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:36
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:91
-#: pyha/templates/pyha/requestview/tabs/request.html:31
+#: pyha/templates/pyha/requestview/tabs/request.html:35
 msgid "to_metadata"
 msgstr "metadata"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:40
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:36
 msgid "Delete_these_sightings"
 msgstr "Exclude collection"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:48
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:44
 #: pyha/templates/pyha/requestform/requestform.html:434
-#: pyha/templatetags/pyha_tags.py:44
+#: pyha/templatetags/pyha_tags.py:53
 msgid "you_have_not_accepted_terms"
 msgstr "Read and accept the terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:49
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:45
 #: pyha/templates/pyha/requestview/tabs/contacts.html:32
 msgid "terms"
 msgstr "Terms"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:50
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:46
 #: pyha/templates/pyha/requestform/requestform.html:215
 #: pyha/templates/pyha/requestform/requestform.html:325
 msgid "previous"
 msgstr "Previous"
 
-#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:51
+#: pyha/templates/pyha/requestform/ajax/requestformcollection.html:47
 msgid "continue"
 msgstr "Continue to summary"
 
@@ -962,7 +962,7 @@ msgid "download"
 msgstr "Download"
 
 #: pyha/templates/pyha/requestview/requestview.html:54
-#: pyha/templatetags/pyha_tags.py:69
+#: pyha/templatetags/pyha_tags.py:78
 msgid "download_has_expired"
 msgstr "Download has expired"
 
@@ -1238,7 +1238,7 @@ msgstr " "
 #: pyha/templates/pyha/requestview/tabs/decision.html:9
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:20
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:76
-#: pyha/templates/pyha/requestview/tabs/request.html:18
+#: pyha/templates/pyha/requestview/tabs/request.html:22
 msgid "state_of_processing"
 msgstr "State of processing"
 
@@ -1426,43 +1426,47 @@ msgstr ""
 "actually included in your data request. An estimate of how many observations "
 "are in each dataset is provided for each dataset. The figures are indicative."
 
-#: pyha/templatetags/pyha_tags.py:29 pyha/templatetags/pyha_tags.py:50
+#: pyha/templates/pyha/requestview/tabs/request.html:15
+msgid "collection_counts"
+msgstr "Number of observations by category"
+
+#: pyha/templatetags/pyha_tags.py:38 pyha/templatetags/pyha_tags.py:59
 msgid "handler_waiting_for_you"
 msgstr "Pending your decision"
 
-#: pyha/templatetags/pyha_tags.py:31 pyha/templatetags/pyha_tags.py:52
+#: pyha/templatetags/pyha_tags.py:40 pyha/templatetags/pyha_tags.py:61
 msgid "handler_waiting_for_others"
 msgstr "Pending decision by others"
 
-#: pyha/templatetags/pyha_tags.py:33 pyha/templatetags/pyha_tags.py:54
+#: pyha/templatetags/pyha_tags.py:42 pyha/templatetags/pyha_tags.py:63
 msgid "waiting_for_data_provider"
 msgstr "Pending decision"
 
-#: pyha/templatetags/pyha_tags.py:35 pyha/templatetags/pyha_tags.py:58
+#: pyha/templatetags/pyha_tags.py:44 pyha/templatetags/pyha_tags.py:67
 msgid "denied"
 msgstr "Denied"
 
-#: pyha/templatetags/pyha_tags.py:37 pyha/templatetags/pyha_tags.py:60
+#: pyha/templatetags/pyha_tags.py:46 pyha/templatetags/pyha_tags.py:69
 msgid "accepted"
 msgstr "Accepted"
 
-#: pyha/templatetags/pyha_tags.py:39 pyha/templatetags/pyha_tags.py:73
+#: pyha/templatetags/pyha_tags.py:48 pyha/templatetags/pyha_tags.py:82
 msgid "unknown"
 msgstr "Unknown"
 
-#: pyha/templatetags/pyha_tags.py:48
+#: pyha/templatetags/pyha_tags.py:57
 msgid "handler_waiting_for_response_on_answer"
 msgstr "The request for more information has a response"
 
-#: pyha/templatetags/pyha_tags.py:56
+#: pyha/templatetags/pyha_tags.py:65
 msgid "partially_accepted"
 msgstr "Partially accepted"
 
-#: pyha/templatetags/pyha_tags.py:64
+#: pyha/templatetags/pyha_tags.py:73
 msgid "waiting_for_download"
 msgstr "Waiting for download file to be completed"
 
-#: pyha/templatetags/pyha_tags.py:67
+#: pyha/templatetags/pyha_tags.py:76
 msgid "ready_for_download"
 msgstr "Ready for download"
 
