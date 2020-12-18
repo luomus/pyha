@@ -1,4 +1,3 @@
-#coding=utf-8
 #json-muotoinen pyyntö
 JSON_MOCK = '''
 {
@@ -293,6 +292,25 @@ JSON_MOCK7= '''
 			]
 		}
 	],
+	"filterDescriptions": {"fi": [
+		{
+			"label": "Lajiryhmä",
+			"value": "Kalat, Lepakot"
+		},
+		{
+			"label": "Lajin hallinnollinen rajaus",
+			"value": "Uhanalaiset lajit"
+		},
+		{
+			"label": "Aika",
+			"value": "2000/"
+		},
+		{
+			"label": "Vain salatut",
+			"value": "true"
+		}
+		]
+		},
 	"collections": [
 		{
 			"id": "http://tun.fi/HR.39",

@@ -53,8 +53,6 @@ class RequestTesting(TestCase):
         self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
 
     def test_requests_filters_labels_and_values_comes_from_apitest(self):
-        if cache.has_key('filters2fi'):
-            cache.delete('filters2fi')
         warehouse.store(JSON_MOCK7)
         response = self.client.get('/request/2')
         self.assertContains(response, "Vain salatut")
