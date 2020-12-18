@@ -35,6 +35,7 @@ def store(jsond):
     req.downloadIncludes = getattr(data,'downloadIncludes','UNKNOWN')
     req.downloaded = False
     req.filter_list = makeblob(data.filters)
+    req.filter_description_list = namespace_to_json(data, 'filterDescriptions')
     if hasattr(data, 'locale'):
         req.lang = data.locale
     else:
@@ -61,11 +62,7 @@ def makeCollection(req, i):
     co.customSecured = getattr(i, 'customReasonCount', 0)
     co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
 
-    counts = getattr(i, 'counts', None)
-    if counts is not None:
-        co.count_list = json.dumps(counts, default=lambda o: o.__dict__)
-    else:
-        co.count_list = ''
+    co.count_list = namespace_to_json(i, 'counts')
     co.changedBy = changed_by("pyha")
     co.save()
 
@@ -74,6 +71,13 @@ def checkJson(jsond):
     if all(x in jsond for x in wantedFields):
         return True
     return False
+
+def namespace_to_json(data, attribute):
+    value = getattr(data, attribute, None)
+    if value is not None:
+        return json.dumps(value, default=lambda o: o.__dict__)
+    else:
+        return ''
 
 def makeblob(x):
     data = {}

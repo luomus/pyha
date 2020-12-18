@@ -131,6 +131,7 @@ class Request(models.Model):
 	downloadDate = models.CharField(max_length=400,blank=True,null=True)
 	downloaded = models.BooleanField(null=True)
 	filter_list = models.CharField(max_length=2000)
+	filter_description_list = models.CharField(max_length=6000)
 	personName = TruncatingCharField(max_length=100,blank=True,null=True)
 	personStreetAddress = TruncatingCharField(max_length=100,blank=True,null=True)
 	personPostOfficeName = TruncatingCharField(max_length=100,blank=True,null=True)
