@@ -380,13 +380,7 @@ def requestHandlerChat(http_request, userRequest):
         return requestHandlerChat_list
 
 def requestInformationChat(http_request, userRequest, userId):
-        requestInformationChat_list = []
-        if HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-            #for collection in Collection.objects.filter(request=userRequest, address__in = get_collections_where_download_handler(userId)):
-            for collection in Collection.objects.filter(request=userRequest):
-                requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=str(collection.address)).order_by('date'))
-        else:
-            requestInformationChat_list += list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
+        requestInformationChat_list = list(RequestInformationChatEntry.requestInformationChat.filter(request=userRequest).order_by('date'))
         for l in requestInformationChat_list:
             get_result_for_target(http_request, l)
         for l in requestInformationChat_list:

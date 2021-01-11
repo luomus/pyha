@@ -296,6 +296,6 @@ def information(http_request):
             userRequest.changedBy = changed_by_session_user(http_request)
             userRequest.save()
             update_request_status(userRequest, userRequest.lang)
-            users = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=target, question=True).values_list('user', flat=True).distinct()
+            users = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, question=True).values_list('user', flat=True).distinct()
             send_mail_after_additional_information_received(requestId, users)
     return HttpResponseRedirect(nexturl)
