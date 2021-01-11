@@ -176,6 +176,7 @@ class RequestLogEntry(models.Model):
 	ACCEPT = 'ACC'
 	DECISION_POSITIVE = 'POS'
 	DECISION_POSITIVE_OVERDUE = 'POSOV'
+	DECISION_POSITIVE_NO_OBSERVATIONS = 'POSNO'
 	DECISION_RESET = 'RESET'
 	DECISION_NEGATIVE = 'NEG'
 	DECISION_NEGATIVE_OVERDUE = 'NEGOV'
@@ -186,6 +187,7 @@ class RequestLogEntry(models.Model):
 		(ACCEPT, 'accepts terms of use'),
 		(DECISION_POSITIVE, 'accepts use of data'),
 		(DECISION_POSITIVE_OVERDUE, 'accepted use of data, because decision has been overdue'),
+		(DECISION_POSITIVE_NO_OBSERVATIONS, 'accepted use of data, because no observations'),
 		(DECISION_RESET, 'resets the decision regarding data'),
 		(DECISION_NEGATIVE, 'declines use of data'),
 		(DECISION_NEGATIVE_OVERDUE, 'declines use of data, because decision has been overdue'),

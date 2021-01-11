@@ -41,7 +41,7 @@
     <td>{% trans "log_viewed" %}</td>
     {% elif requestLog.action == 'ACC' %}
     <td>{% trans "log_terms_accepted" %}</td>
-    {% elif requestLog.action == 'POS' or requestLog.action == 'POSOV' %}
+    {% elif requestLog.action == 'POS' or requestLog.action == 'POSOV' or requestLog.action == 'POSNO' %}
       {% if requestLog.collection == None %}
       <td>
         {% if requestLog.action == 'POSOV' and role == "admin" %}
@@ -54,6 +54,8 @@
       <td>
         {% if requestLog.action == 'POSOV' and role == "admin" %}
         {% trans "admin_log_collection_accepted_because_overdue" %}
+        {% elif requestLog.action == 'POSNO' and role == "admin" %}
+        {% trans "admin_log_collection_accepted_because_no_observations" %}
         {% else %}
         {% trans "log_collection_accepted" %}
         {% endif %}

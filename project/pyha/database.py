@@ -12,7 +12,7 @@ from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
     Col_StatusEnum, AdminUserSettings, RequestSentStatusEmail
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_filter_link
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link
 from pyha.log_utils import changed_by_session_user, changed_by
 from pyha import toast
 
@@ -66,7 +66,7 @@ def get_mul_all_secured(request_list, http_request):
     for r in request_list:
         allSecured = 0
         for collection in [c for c in collectionList if c.request_id == r.id]:
-            counts = get_collection_counts(collection, http_request)
+            counts = get_collection_counts(collection, http_request.LANGUAGE_CODE)
             for count in counts:
                 allSecured += count.count
         r.allSecured = allSecured
@@ -262,7 +262,7 @@ def create_request_view_context(requestId, http_request, userRequest):
     lang = http_request.LANGUAGE_CODE
     create_collections_for_lists(requestId, http_request, collectionList, userRequest, userId)
     for collection in collectionList:
-        collection.counts = get_collection_counts(collection, http_request)
+        collection.counts = get_collection_counts(collection, http_request.LANGUAGE_CODE)
 
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)
@@ -426,6 +426,16 @@ def update_collection_status(http_request, userRequest, collection):
             collection.decisionExplanation = http_request.POST.get('reason')
             collection.changedBy = changed_by_session_user(http_request)
             collection.save()
+            update_request_status(userRequest, userRequest.lang)
+
+def accept_empty_collections_automatically(userRequest, collectionList):
+    for collection in collectionList:
+        obs_count = get_collection_count_sum(collection)
+        if obs_count == 0:
+            collection.status = Col_StatusEnum.APPROVED
+            collection.changedBy = changed_by("pyha")
+            collection.save()
+            RequestLogEntry.requestLog.create(request = Request.objects.get(id = collection.request.id), collection = collection, user = "Laji.fi ICT-team", role = CAT_HANDLER_COLL, action = RequestLogEntry.DECISION_POSITIVE)
             update_request_status(userRequest, userRequest.lang)
 
 def get_collections_waiting_atleast_days(days_to_subtract):

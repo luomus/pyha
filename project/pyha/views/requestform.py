@@ -4,7 +4,7 @@ from django.utils.translation import ugettext
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from pyha.database import create_request_view_context, check_all_collections_removed, create_new_contact, update_contact_preset
+from pyha.database import create_request_view_context, check_all_collections_removed, create_new_contact, update_contact_preset, accept_empty_collections_automatically
 from pyha.email import send_mail_after_approving_terms, send_admin_mail_after_approved_request, send_admin_mail_after_approved_request_missing_handlers
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
@@ -95,6 +95,8 @@ def approve_terms_skip_official(http_request, userRequest, requestId, lang):
                 send_admin_mail_after_approved_request_missing_handlers(requestId, email)
 
         send_mail_after_approving_terms(requestId, userRequest.lang)
+
+        accept_empty_collections_automatically(userRequest, collectionList)
     else:
         userRequest.status = -1
         userRequest.changedBy = changed_by_session_user(http_request)

@@ -352,9 +352,7 @@ def is_download_handler_in_collection(userId, collectionId):
                 return False
     return False
 
-def get_collection_counts(collection, http_request):
-    lang = http_request.LANGUAGE_CODE
-
+def get_collection_counts(collection, lang):
     if len(collection.count_list) == 0:
         # for backwards combability
         result = []
@@ -380,6 +378,13 @@ def get_collection_counts(collection, http_request):
     for count in count_list:
         count.label = getattr(count.label, lang, '')
     return count_list
+
+def get_collection_count_sum(collection):
+    sum = 0
+    counts = get_collection_counts(collection, 'fi')
+    for count in counts:
+        sum += count.count
+    return sum
 
 def show_filters(http_request, userRequest):
     '''
