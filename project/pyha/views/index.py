@@ -92,7 +92,7 @@ def _get_request_list(http_request, userId):
         return Request.objects.filter(user=userId).exclude(status__in=[-1]).order_by('-date')
 
 def _set_handler_statuses(http_request, r):
-    last_entry = get_last_information_chat_entry(http_request, r)
+    last_entry = get_last_information_chat_entry(r)
     if last_entry is None:
         r.information_status = -1
     elif last_entry.question:
