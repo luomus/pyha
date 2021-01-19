@@ -413,5 +413,5 @@ def get_filter_link(http_request, userRequest, role):
     try:
         parsed_data = json.loads(data, object_hook=lambda d: Namespace(**d))
     except JSONDecodeError:
-        return []
-    return getattr(parsed_data, lang, [])
+        return None
+    return getattr(parsed_data, lang, None)
