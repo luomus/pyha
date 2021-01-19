@@ -12,6 +12,7 @@ from pyha.log_utils import changed_by
 from pyha.utilities import Container
 from pyha.roles import HANDLER_ANY, ADMIN
 import json
+from json import JSONDecodeError
 import os
 import requests
 
@@ -353,7 +354,9 @@ def is_download_handler_in_collection(userId, collectionId):
     return False
 
 def get_collection_counts(collection, lang):
-    if len(collection.count_list) == 0:
+    try:
+        count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
+    except JSONDecodeError:
         # for backwards combability
         result = []
         if collection.quarantineSecured > 0:
@@ -374,7 +377,6 @@ def get_collection_counts(collection, lang):
 
         return result
 
-    count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
     for count in count_list:
         count.label = getattr(count.label, lang, '')
     return count_list
@@ -394,17 +396,10 @@ def show_filters(http_request, userRequest):
     :param userRequest: language code
     '''
     lang = http_request.LANGUAGE_CODE
-
-    if len(userRequest.filter_description_list) == 0:
-        # for backwards combability
-        filterResultList = []
-        filterList = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
-        for i, b in enumerate(vars(filterList).keys()):
-            filternamelist = getattr(filterList, b)
-            filterResultList.append(Namespace(label=b, value=filternamelist))
-        return filterResultList
-
-    filterDescriptionList = json.loads(userRequest.filter_description_list, object_hook=lambda d: Namespace(**d))
+    try:
+        filterDescriptionList = json.loads(userRequest.filter_description_list, object_hook=lambda d: Namespace(**d))
+    except JSONDecodeError:
+        return []
     return getattr(filterDescriptionList, lang, [])
 
 def get_filter_link(http_request, userRequest, role):
@@ -415,8 +410,8 @@ def get_filter_link(http_request, userRequest, role):
     else:
         data = userRequest.public_link
 
-    if len(data) == 0:
-        return None
-
-    parsed_data = json.loads(data, object_hook=lambda d: Namespace(**d))
+    try:
+        parsed_data = json.loads(data, object_hook=lambda d: Namespace(**d))
+    except JSONDecodeError:
+        return []
     return getattr(parsed_data, lang, [])
