@@ -174,34 +174,34 @@
 													<p>{% trans 'additional_information_info' %}</p>
 													<div class="inner-wrap">
 														<div hidden=true id="argument_project">
-														<label id="argument_details_label">{% trans 'argument_project' %} * <textarea id="project" name="argument_project" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_project_label">{% trans 'argument_project' %} * <textarea id="project" name="argument_project" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_planning">
-														<label id="argument_details_label">{% trans 'argument_planning' %} * <textarea id="planning" name="argument_planning" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_planning_label">{% trans 'argument_planning' %} * <textarea id="planning" name="argument_planning" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_municipality">
-														<label id="argument_details_label">{% trans 'argument_municipality' %} * <textarea id="municipality" name="argument_municipality" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_municipality_label">{% trans 'argument_municipality' %} * <textarea id="municipality" name="argument_municipality" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_natura_areas">
-														<label id="argument_details_label">{% trans 'argument_natura_areas' %} * <textarea id="natura_areas" name="argument_natura_areas" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_natura_areas_label">{% trans 'argument_natura_areas' %} * <textarea id="natura_areas" name="argument_natura_areas" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_research">
-														<label id="argument_details_label">{% trans 'argument_research' %} * <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_research_label">{% trans 'argument_research' %} * <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_research_address">
-														<label id="argument_details_label">{% trans 'argument_research_address' %} * <textarea id="research_address"  name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_research_address_label">{% trans 'argument_research_address' %} * <textarea id="research_address"  name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_goals">
-														<label id="argument_details_label">{% trans 'argument_goals' %} * <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_goals_label">{% trans 'argument_goals' %} * <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_customer">
-														<label id="argument_details_label">{% trans 'argument_customer' %} * <textarea id="customer" name="argument_customer" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_customer_label">{% trans 'argument_customer' %} * <textarea id="customer" name="argument_customer" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_customer_contact">
-														<label id="argument_details_label">{% trans 'argument_customer_contact' %} * <textarea id="customer_contact" name="argument_customer_contact" maxlength="500" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_customer_contact_label">{% trans 'argument_customer_contact' %} * <textarea id="customer_contact" name="argument_customer_contact" maxlength="500" disabled hidden placeholder=""></textarea></label>
 														</div>
 														<div hidden=true id="argument_reason">
-														<label id="argument_details_label">{% trans 'argument_reason' %} <textarea id="reason" name="argument_reason" maxlength="4000" disabled hidden placeholder=""></textarea></label>
+														<label id="argument_reason_label">{% trans 'argument_reason' %} <textarea id="reason" name="argument_reason" maxlength="4000" disabled hidden placeholder=""></textarea></label>
 														</div>
 													</div>
 												</div>
@@ -545,6 +545,15 @@
 			document.getElementById(reasoninputs[j]).disabled = false;
 			document.getElementById(argument).hidden = false;
 
+			if (reasoninputs[j] == 'reason') {
+				var elem = document.getElementById('argument_' + reasoninputs[j] + '_label');
+				var label = "{% trans 'argument_reason' %} ";
+				if (result.indexOf('reason_other') > -1) {
+					label = "{% trans 'argument_reason_more_detail' %} * "
+				}
+				elem.firstChild.nodeValue = label;
+			}
+
 			var names = document.getElementsByName(argument)
 			for (var k=0; k<names.length; k++) {
 				names[k].style.display = "table-row";
@@ -625,7 +634,7 @@
 						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
 						break;
 					case "reason_other":
-						fills = fills.concat(['municipality']);
+						fills = fills.concat(['municipality', 'reason']);
 						break;
 				}
 			}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 10:12+0200\n"
+"POT-Creation-Date: 2021-01-21 13:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -529,7 +529,7 @@ msgid "request_filters"
 msgstr "Filter"
 
 #: pyha/templates/pyha/requestform/requestform.html:16
-#: pyha/templates/pyha/requestform/requestform.html:670
+#: pyha/templates/pyha/requestform/requestform.html:679
 msgid "show"
 msgstr "Visa"
 
@@ -771,6 +771,7 @@ msgstr "Beställarens kontaktinformation"
 #: pyha/templates/pyha/requestform/requestform.html:204
 #: pyha/templates/pyha/requestform/requestform.html:314
 #: pyha/templates/pyha/requestform/requestform.html:378
+#: pyha/templates/pyha/requestform/requestform.html:550
 #: pyha/templates/pyha/requestview/tabs/arguments.html:49
 msgid "argument_reason"
 msgstr "Fritextfält"
@@ -950,19 +951,23 @@ msgstr "Du accepterade användarvillkoren"
 msgid "new_contact"
 msgstr "Ny sökande"
 
-#: pyha/templates/pyha/requestform/requestform.html:673
+#: pyha/templates/pyha/requestform/requestform.html:552
+msgid "argument_reason_more_detail"
+msgstr "Fritextfält"
+
+#: pyha/templates/pyha/requestform/requestform.html:682
 msgid "hide"
 msgstr "Dold"
 
-#: pyha/templates/pyha/requestform/requestform.html:763
+#: pyha/templates/pyha/requestform/requestform.html:772
 msgid "request_choose_reason"
 msgstr "Välj användningsändamål för materialet"
 
-#: pyha/templates/pyha/requestform/requestform.html:764
+#: pyha/templates/pyha/requestform/requestform.html:773
 msgid "request_chosen_multiple_reasons"
 msgstr "Flera valda"
 
-#: pyha/templates/pyha/requestform/requestform.html:765
+#: pyha/templates/pyha/requestform/requestform.html:774
 msgid "request_chosen_all_reasons"
 msgstr "Alla valda"
 

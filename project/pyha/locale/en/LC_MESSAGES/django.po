@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 10:12+0200\n"
+"POT-Creation-Date: 2021-01-21 13:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -518,7 +518,7 @@ msgid "request_filters"
 msgstr "Request filters"
 
 #: pyha/templates/pyha/requestform/requestform.html:16
-#: pyha/templates/pyha/requestform/requestform.html:670
+#: pyha/templates/pyha/requestform/requestform.html:679
 msgid "show"
 msgstr "Show"
 
@@ -760,6 +760,7 @@ msgstr "Customers contact information"
 #: pyha/templates/pyha/requestform/requestform.html:204
 #: pyha/templates/pyha/requestform/requestform.html:314
 #: pyha/templates/pyha/requestform/requestform.html:378
+#: pyha/templates/pyha/requestform/requestform.html:550
 #: pyha/templates/pyha/requestview/tabs/arguments.html:49
 msgid "argument_reason"
 msgstr "Free text field"
@@ -939,19 +940,23 @@ msgstr "You accepted the terms of use"
 msgid "new_contact"
 msgstr "New applicant"
 
-#: pyha/templates/pyha/requestform/requestform.html:673
+#: pyha/templates/pyha/requestform/requestform.html:552
+msgid "argument_reason_more_detail"
+msgstr "Free text field"
+
+#: pyha/templates/pyha/requestform/requestform.html:682
 msgid "hide"
 msgstr "Hide"
 
-#: pyha/templates/pyha/requestform/requestform.html:763
+#: pyha/templates/pyha/requestform/requestform.html:772
 msgid "request_choose_reason"
 msgstr "Intended use of the material"
 
-#: pyha/templates/pyha/requestform/requestform.html:764
+#: pyha/templates/pyha/requestform/requestform.html:773
 msgid "request_chosen_multiple_reasons"
 msgstr "Multiple selected"
 
-#: pyha/templates/pyha/requestform/requestform.html:765
+#: pyha/templates/pyha/requestform/requestform.html:774
 msgid "request_chosen_all_reasons"
 msgstr "All selected"
 
