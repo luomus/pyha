@@ -130,7 +130,7 @@ class Request(models.Model):
 	downloadIncludes = models.CharField(max_length=1000)
 	downloadDate = models.CharField(max_length=400,blank=True,null=True)
 	downloaded = models.BooleanField(null=True)
-	filter_list = models.CharField(max_length=2000)
+	filter_list = models.CharField(max_length=5000)
 	filter_description_list = models.CharField(max_length=10000)
 	public_link = models.CharField(max_length=10000)
 	private_link = models.CharField(max_length=10000)
