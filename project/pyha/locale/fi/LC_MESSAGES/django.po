@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-18 11:09+0200\n"
+"POT-Creation-Date: 2021-01-21 10:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,48 +222,48 @@ msgstr "Ei kuvausta"
 msgid "change"
 msgstr "Tallenna"
 
-#: pyha/templates/pyha/base/base.html:48
+#: pyha/templates/pyha/base/base.html:47
 msgid "Toggle_navigation"
 msgstr "Selaa"
 
-#: pyha/templates/pyha/base/base.html:58 pyha/templates/pyha/base/index.html:15
+#: pyha/templates/pyha/base/base.html:57 pyha/templates/pyha/base/index.html:15
 msgid "all_requests"
 msgstr "Aineistopyynnöt"
 
-#: pyha/templates/pyha/base/base.html:62
+#: pyha/templates/pyha/base/base.html:61
 msgid "admin_site"
 msgstr "Admin sivu"
 
-#: pyha/templates/pyha/base/base.html:65
+#: pyha/templates/pyha/base/base.html:64
 msgid "admin_settings"
 msgstr "Asetukset"
 
-#: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:81
+#: pyha/templates/pyha/base/base.html:76 pyha/templates/pyha/base/base.html:80
 msgid "admin"
 msgstr "Rooli: Admin"
 
-#: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:80
+#: pyha/templates/pyha/base/base.html:76 pyha/templates/pyha/base/base.html:79
 msgid "handler"
 msgstr "Rooli: Käsittelijä"
 
-#: pyha/templates/pyha/base/base.html:77 pyha/templates/pyha/base/base.html:79
+#: pyha/templates/pyha/base/base.html:76 pyha/templates/pyha/base/base.html:78
 #: pyha/templates/pyha/requestview/tabs/history.html:33
 msgid "user"
 msgstr "Rooli: Hakija"
 
-#: pyha/templates/pyha/base/base.html:89
+#: pyha/templates/pyha/base/base.html:88
 msgid "logout"
 msgstr "Kirjaudu ulos"
 
-#: pyha/templates/pyha/base/base.html:104
+#: pyha/templates/pyha/base/base.html:103
 msgid "set_lang_fi"
 msgstr "Suomeksi"
 
-#: pyha/templates/pyha/base/base.html:106
+#: pyha/templates/pyha/base/base.html:105
 msgid "set_lang_sv"
 msgstr "På svenska"
 
-#: pyha/templates/pyha/base/base.html:108
+#: pyha/templates/pyha/base/base.html:107
 msgid "set_lang_en"
 msgstr "In English"
 
@@ -312,10 +312,8 @@ msgid "request_status_for_user"
 msgstr "Pyynnön tila"
 
 #: pyha/templates/pyha/base/index.html:33
-#: pyha/templates/pyha/base/index.html:41
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
-msgid "select"
-msgstr "Valitse"
+msgid "select_canceled"
+msgstr "Valitse peruttavat"
 
 #: pyha/templates/pyha/base/index.html:36
 msgid "request_information_status"
@@ -324,6 +322,10 @@ msgstr "Lisätietopyyntö"
 #: pyha/templates/pyha/base/index.html:37
 msgid "request_download_status"
 msgstr "Lataustieto"
+
+#: pyha/templates/pyha/base/index.html:41
+msgid "select_deleted"
+msgstr "Valitse poistettavat"
 
 #: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:71
 msgid "waiting_for_additional_information"
@@ -439,7 +441,7 @@ msgstr "Havaintojen määrä"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:371
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:362
 msgid "secured_by_quarantine"
 msgstr "Käyttörajoitetut tutkimusaineistot"
 
@@ -453,7 +455,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:376
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:367
 msgid "secured_by_sensitivity"
 msgstr "Sensitiivinen aineisto"
 
@@ -468,7 +470,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:381
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:372
 msgid "secured_by_data_provider"
 msgstr "Käyttörajoitetut aineistot"
 
@@ -492,7 +494,7 @@ msgid "Delete_these_sightings"
 msgstr "En tarvitse tätä aineistoa"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:44
-#: pyha/templates/pyha/requestform/requestform.html:434
+#: pyha/templates/pyha/requestform/requestform.html:429
 #: pyha/templatetags/pyha_tags.py:53
 msgid "you_have_not_accepted_terms"
 msgstr "Lue ja hyväksy ehdot"
@@ -503,8 +505,8 @@ msgid "terms"
 msgstr "Käyttöehdot"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:46
-#: pyha/templates/pyha/requestform/requestform.html:215
-#: pyha/templates/pyha/requestform/requestform.html:325
+#: pyha/templates/pyha/requestform/requestform.html:210
+#: pyha/templates/pyha/requestform/requestform.html:320
 msgid "previous"
 msgstr "Edellinen"
 
@@ -525,443 +527,443 @@ msgid "request_filters"
 msgstr "Aineistopyynnön rajaukset"
 
 #: pyha/templates/pyha/requestform/requestform.html:16
-#: pyha/templates/pyha/requestform/requestform.html:675
+#: pyha/templates/pyha/requestform/requestform.html:670
 msgid "show"
 msgstr "Näytä"
 
-#: pyha/templates/pyha/requestform/requestform.html:19
-#: pyha/templates/pyha/requestview/tabs/filters.html:6
+#: pyha/templates/pyha/requestform/requestform.html:20
+#: pyha/templates/pyha/requestview/tabs/filters.html:7
 msgid "show_in_portal"
 msgstr "Näytä Laji.fi-portaalissa"
 
-#: pyha/templates/pyha/requestform/requestform.html:22
-#: pyha/templates/pyha/requestview/tabs/filters.html:9
+#: pyha/templates/pyha/requestform/requestform.html:24
+#: pyha/templates/pyha/requestview/tabs/filters.html:11
 msgid "filter"
 msgstr "Rajaus"
 
-#: pyha/templates/pyha/requestform/requestform.html:23
-#: pyha/templates/pyha/requestview/tabs/filters.html:10
+#: pyha/templates/pyha/requestform/requestform.html:25
+#: pyha/templates/pyha/requestview/tabs/filters.html:12
 msgid "values"
 msgstr "Arvot"
 
-#: pyha/templates/pyha/requestform/requestform.html:40
-#: pyha/templates/pyha/requestview/tabs/filters.html:27
+#: pyha/templates/pyha/requestform/requestform.html:35
+#: pyha/templates/pyha/requestview/tabs/filters.html:22
 msgid "no_filters"
 msgstr "Kannassa ei ole suodattimia tälle pyynnölle"
 
-#: pyha/templates/pyha/requestform/requestform.html:53
+#: pyha/templates/pyha/requestform/requestform.html:48
 msgid "contact_info_tab"
 msgstr "Hakijat"
 
-#: pyha/templates/pyha/requestform/requestform.html:61
+#: pyha/templates/pyha/requestform/requestform.html:56
 msgid "arguments_tab"
 msgstr "Perustelut"
 
-#: pyha/templates/pyha/requestform/requestform.html:68
+#: pyha/templates/pyha/requestform/requestform.html:63
 msgid "collection_tab"
 msgstr "Aineistot"
 
-#: pyha/templates/pyha/requestform/requestform.html:75
+#: pyha/templates/pyha/requestform/requestform.html:70
 msgid "summary_tab"
 msgstr "Yhteenveto"
 
-#: pyha/templates/pyha/requestform/requestform.html:85
+#: pyha/templates/pyha/requestform/requestform.html:80
 msgid "contact_list"
 msgstr "Hakijat"
 
-#: pyha/templates/pyha/requestform/requestform.html:88
+#: pyha/templates/pyha/requestform/requestform.html:83
 msgid "main_contact"
 msgstr "Vastuullinen hakija"
 
-#: pyha/templates/pyha/requestform/requestform.html:94
+#: pyha/templates/pyha/requestform/requestform.html:89
 msgid "additional_contacts"
 msgstr "Muut hakijat"
 
-#: pyha/templates/pyha/requestform/requestform.html:98
+#: pyha/templates/pyha/requestform/requestform.html:93
 msgid "add_new_contact"
 msgstr "Lisää hakija "
 
-#: pyha/templates/pyha/requestform/requestform.html:105
+#: pyha/templates/pyha/requestform/requestform.html:100
 msgid "remove_last_contact"
 msgstr "Poista viimeisin hakija"
 
-#: pyha/templates/pyha/requestform/requestform.html:112
+#: pyha/templates/pyha/requestform/requestform.html:107
 msgid "required_fields_indicated_with_sign"
 msgstr "Tähdellä merkityt kentät ovat pakollisia."
 
-#: pyha/templates/pyha/requestform/requestform.html:113
+#: pyha/templates/pyha/requestform/requestform.html:108
 msgid "enter_name_and_address"
 msgstr "Nimi ja osoitetiedot"
 
-#: pyha/templates/pyha/requestform/requestform.html:116
-#: pyha/templates/pyha/requestform/requestform.html:136
+#: pyha/templates/pyha/requestform/requestform.html:111
+#: pyha/templates/pyha/requestform/requestform.html:131
 msgid "enter_full_name"
 msgstr "Etunimet ja sukunimi"
 
-#: pyha/templates/pyha/requestform/requestform.html:117
-#: pyha/templates/pyha/requestform/requestform.html:137
+#: pyha/templates/pyha/requestform/requestform.html:112
+#: pyha/templates/pyha/requestform/requestform.html:132
 msgid "enter_street_address"
 msgstr "Katuosoite"
 
-#: pyha/templates/pyha/requestform/requestform.html:118
-#: pyha/templates/pyha/requestform/requestform.html:138
+#: pyha/templates/pyha/requestform/requestform.html:113
+#: pyha/templates/pyha/requestform/requestform.html:133
 msgid "enter_postal_code"
 msgstr "Postinumero"
 
-#: pyha/templates/pyha/requestform/requestform.html:119
-#: pyha/templates/pyha/requestform/requestform.html:139
+#: pyha/templates/pyha/requestform/requestform.html:114
+#: pyha/templates/pyha/requestform/requestform.html:134
 msgid "enter_post_office_name"
 msgstr "Postitoimipaikka"
 
-#: pyha/templates/pyha/requestform/requestform.html:120
-#: pyha/templates/pyha/requestform/requestform.html:140
+#: pyha/templates/pyha/requestform/requestform.html:115
+#: pyha/templates/pyha/requestform/requestform.html:135
 msgid "enter_country"
 msgstr "Maa"
 
-#: pyha/templates/pyha/requestform/requestform.html:123
-#: pyha/templates/pyha/requestform/requestform.html:143
+#: pyha/templates/pyha/requestform/requestform.html:118
+#: pyha/templates/pyha/requestform/requestform.html:138
 msgid "enter_email_and_phone"
 msgstr "Sähköposti ja puhelinnumero"
 
-#: pyha/templates/pyha/requestform/requestform.html:125
-#: pyha/templates/pyha/requestform/requestform.html:145
+#: pyha/templates/pyha/requestform/requestform.html:120
+#: pyha/templates/pyha/requestform/requestform.html:140
 msgid "enter_email"
 msgstr "Sähköposti"
 
-#: pyha/templates/pyha/requestform/requestform.html:126
-#: pyha/templates/pyha/requestform/requestform.html:146
+#: pyha/templates/pyha/requestform/requestform.html:121
+#: pyha/templates/pyha/requestform/requestform.html:141
 msgid "enter_phone_number"
 msgstr "Puhelinnumero"
 
-#: pyha/templates/pyha/requestform/requestform.html:129
-#: pyha/templates/pyha/requestform/requestform.html:149
+#: pyha/templates/pyha/requestform/requestform.html:124
+#: pyha/templates/pyha/requestform/requestform.html:144
 msgid "enter_corporation/organization"
 msgstr "Yrityksen tiedot"
 
-#: pyha/templates/pyha/requestform/requestform.html:131
-#: pyha/templates/pyha/requestform/requestform.html:151
+#: pyha/templates/pyha/requestform/requestform.html:126
+#: pyha/templates/pyha/requestform/requestform.html:146
 msgid "enter_corporation/organization_name"
 msgstr "Yrityksen/organisaation nimi"
 
-#: pyha/templates/pyha/requestform/requestform.html:132
-#: pyha/templates/pyha/requestform/requestform.html:152
+#: pyha/templates/pyha/requestform/requestform.html:127
+#: pyha/templates/pyha/requestform/requestform.html:147
 msgid "enter_corporation_id"
 msgstr "Y-tunnus"
 
-#: pyha/templates/pyha/requestform/requestform.html:160
+#: pyha/templates/pyha/requestform/requestform.html:155
 msgid "continue_to_step_2"
 msgstr "Jatka kohtaan &#34;Perustelut&#34;"
 
-#: pyha/templates/pyha/requestform/requestform.html:165
+#: pyha/templates/pyha/requestform/requestform.html:160
 msgid "request_arguments_for_user"
 msgstr "Valitse aineiston käyttötarkoitus"
 
-#: pyha/templates/pyha/requestform/requestform.html:168
+#: pyha/templates/pyha/requestform/requestform.html:163
 #: pyha/templates/pyha/requestview/tabs/arguments.html:10
 msgid "reason_zoning"
 msgstr "Maankäytönsuunnittelu"
 
-#: pyha/templates/pyha/requestform/requestform.html:169
+#: pyha/templates/pyha/requestform/requestform.html:164
 #: pyha/templates/pyha/requestview/tabs/arguments.html:12
 msgid "reason_permission"
 msgstr "Lupahakemus"
 
-#: pyha/templates/pyha/requestform/requestform.html:170
+#: pyha/templates/pyha/requestform/requestform.html:165
 #: pyha/templates/pyha/requestview/tabs/arguments.html:14
 msgid "reason_enviromental"
 msgstr "Ympäristövaikutusten arviointimenettely"
 
-#: pyha/templates/pyha/requestform/requestform.html:171
+#: pyha/templates/pyha/requestform/requestform.html:166
 #: pyha/templates/pyha/requestview/tabs/arguments.html:16
 msgid "reason_natura"
 msgstr "Natura-arviointimenettely (luonnonsuojelulaki)"
 
-#: pyha/templates/pyha/requestform/requestform.html:172
+#: pyha/templates/pyha/requestform/requestform.html:167
 #: pyha/templates/pyha/requestview/tabs/arguments.html:18
 msgid "reason_scientific"
 msgstr "Tieteellinen tutkimus"
 
-#: pyha/templates/pyha/requestform/requestform.html:173
+#: pyha/templates/pyha/requestform/requestform.html:168
 #: pyha/templates/pyha/requestview/tabs/arguments.html:20
 msgid "reason_forest"
 msgstr "Metsäsuunnittelu"
 
-#: pyha/templates/pyha/requestform/requestform.html:174
+#: pyha/templates/pyha/requestform/requestform.html:169
 #: pyha/templates/pyha/requestview/tabs/arguments.html:22
 msgid "reason_other"
 msgstr "Muu (perustele Lisätiedot-kohdassa)"
 
-#: pyha/templates/pyha/requestform/requestform.html:178
+#: pyha/templates/pyha/requestform/requestform.html:173
 msgid "additional_information"
 msgstr "Perustele aineistopyyntösi"
 
-#: pyha/templates/pyha/requestform/requestform.html:179
+#: pyha/templates/pyha/requestform/requestform.html:174
 msgid "additional_information_info"
 msgstr ""
 "Tee kuvaus huolella, sillä se auttaa päätöksenteossa ja nopeuttaa pyynnön "
 "käsittelyä."
 
-#: pyha/templates/pyha/requestform/requestform.html:182
-#: pyha/templates/pyha/requestform/requestform.html:301
-#: pyha/templates/pyha/requestform/requestform.html:365
+#: pyha/templates/pyha/requestform/requestform.html:177
+#: pyha/templates/pyha/requestform/requestform.html:296
+#: pyha/templates/pyha/requestform/requestform.html:360
 #: pyha/templates/pyha/requestview/tabs/arguments.html:28
 msgid "argument_project"
 msgstr "Hankkeen nimi"
 
-#: pyha/templates/pyha/requestform/requestform.html:185
-#: pyha/templates/pyha/requestform/requestform.html:303
-#: pyha/templates/pyha/requestform/requestform.html:367
+#: pyha/templates/pyha/requestform/requestform.html:180
+#: pyha/templates/pyha/requestform/requestform.html:298
+#: pyha/templates/pyha/requestform/requestform.html:362
 #: pyha/templates/pyha/requestview/tabs/arguments.html:40
 msgid "argument_planning"
 msgstr "Hankkeen kuvaus"
 
-#: pyha/templates/pyha/requestform/requestform.html:188
-#: pyha/templates/pyha/requestform/requestform.html:305
-#: pyha/templates/pyha/requestform/requestform.html:369
+#: pyha/templates/pyha/requestform/requestform.html:183
+#: pyha/templates/pyha/requestform/requestform.html:300
+#: pyha/templates/pyha/requestform/requestform.html:364
 #: pyha/templates/pyha/requestview/tabs/arguments.html:43
 msgid "argument_municipality"
 msgstr "Sijaintikunta"
 
-#: pyha/templates/pyha/requestform/requestform.html:191
-#: pyha/templates/pyha/requestform/requestform.html:307
-#: pyha/templates/pyha/requestform/requestform.html:371
+#: pyha/templates/pyha/requestform/requestform.html:186
+#: pyha/templates/pyha/requestform/requestform.html:302
+#: pyha/templates/pyha/requestform/requestform.html:366
 #: pyha/templates/pyha/requestview/tabs/arguments.html:46
 msgid "argument_natura_areas"
 msgstr "Natura-alueet"
 
-#: pyha/templates/pyha/requestform/requestform.html:194
-#: pyha/templates/pyha/requestform/requestform.html:309
-#: pyha/templates/pyha/requestform/requestform.html:373
+#: pyha/templates/pyha/requestform/requestform.html:189
+#: pyha/templates/pyha/requestform/requestform.html:304
+#: pyha/templates/pyha/requestform/requestform.html:368
 #: pyha/templates/pyha/requestview/tabs/arguments.html:31
 msgid "argument_research"
 msgstr "Tutkimuksen nimi"
 
-#: pyha/templates/pyha/requestform/requestform.html:197
-#: pyha/templates/pyha/requestform/requestform.html:311
-#: pyha/templates/pyha/requestform/requestform.html:375
+#: pyha/templates/pyha/requestform/requestform.html:192
+#: pyha/templates/pyha/requestform/requestform.html:306
+#: pyha/templates/pyha/requestform/requestform.html:370
 #: pyha/templates/pyha/requestview/tabs/arguments.html:34
 msgid "argument_research_address"
 msgstr ""
 "Tutkimusorganisaatio ja tutkimusryhmä (jos on) ja yhteyshenkilön yhteystiedot"
 
-#: pyha/templates/pyha/requestform/requestform.html:200
-#: pyha/templates/pyha/requestform/requestform.html:313
-#: pyha/templates/pyha/requestform/requestform.html:377
+#: pyha/templates/pyha/requestform/requestform.html:195
+#: pyha/templates/pyha/requestform/requestform.html:308
+#: pyha/templates/pyha/requestform/requestform.html:372
 #: pyha/templates/pyha/requestview/tabs/arguments.html:37
 msgid "argument_goals"
 msgstr "Tutkimuksen tavoitteet"
 
-#: pyha/templates/pyha/requestform/requestform.html:203
-#: pyha/templates/pyha/requestform/requestform.html:315
-#: pyha/templates/pyha/requestform/requestform.html:379
+#: pyha/templates/pyha/requestform/requestform.html:198
+#: pyha/templates/pyha/requestform/requestform.html:310
+#: pyha/templates/pyha/requestform/requestform.html:374
 #: pyha/templates/pyha/requestview/tabs/arguments.html:52
 msgid "argument_customer"
 msgstr "Tilaaja"
 
-#: pyha/templates/pyha/requestform/requestform.html:206
-#: pyha/templates/pyha/requestform/requestform.html:317
-#: pyha/templates/pyha/requestform/requestform.html:381
+#: pyha/templates/pyha/requestform/requestform.html:201
+#: pyha/templates/pyha/requestform/requestform.html:312
+#: pyha/templates/pyha/requestform/requestform.html:376
 #: pyha/templates/pyha/requestview/tabs/arguments.html:55
 msgid "argument_customer_contact"
 msgstr "Tilaajan yhteystiedot"
 
-#: pyha/templates/pyha/requestform/requestform.html:209
-#: pyha/templates/pyha/requestform/requestform.html:319
-#: pyha/templates/pyha/requestform/requestform.html:383
+#: pyha/templates/pyha/requestform/requestform.html:204
+#: pyha/templates/pyha/requestform/requestform.html:314
+#: pyha/templates/pyha/requestform/requestform.html:378
 #: pyha/templates/pyha/requestview/tabs/arguments.html:49
 msgid "argument_reason"
 msgstr "Lisätietoa"
 
-#: pyha/templates/pyha/requestform/requestform.html:216
+#: pyha/templates/pyha/requestform/requestform.html:211
 msgid "continue_to_step_3"
 msgstr "Jatka kohtaan &#34;Aineistot&#34;"
 
-#: pyha/templates/pyha/requestform/requestform.html:228
+#: pyha/templates/pyha/requestform/requestform.html:223
 #: pyha/templates/pyha/requestview/tabs/contacts.html:38
 msgid "sensitive_and_other_terms"
 msgstr ""
 "Suomen Lajitietokeskuksen sensitiivinen ja muusta syystä käyttörajoitettu "
 "lajitieto"
 
-#: pyha/templates/pyha/requestform/requestform.html:229
-#: pyha/templates/pyha/requestform/requestform.html:323
+#: pyha/templates/pyha/requestform/requestform.html:224
+#: pyha/templates/pyha/requestform/requestform.html:318
 #: pyha/templates/pyha/requestview/tabs/contacts.html:40
 msgid "as_pdf"
 msgstr "PDF-muodossa"
 
-#: pyha/templates/pyha/requestform/requestform.html:241
-#: pyha/templates/pyha/requestform/requestform.html:350
+#: pyha/templates/pyha/requestform/requestform.html:236
+#: pyha/templates/pyha/requestform/requestform.html:345
 #: pyha/templates/pyha/requestview/tabs/contacts.html:55
 msgid "contact_name"
 msgstr "Nimi:"
 
-#: pyha/templates/pyha/requestform/requestform.html:243
-#: pyha/templates/pyha/requestform/requestform.html:352
+#: pyha/templates/pyha/requestform/requestform.html:238
+#: pyha/templates/pyha/requestform/requestform.html:347
 #: pyha/templates/pyha/requestview/tabs/contacts.html:57
 #: pyha/templates/pyha/requestview/tabs/contacts.html:76
 msgid "contact_street_address"
 msgstr "Katuosoite:"
 
-#: pyha/templates/pyha/requestform/requestform.html:244
-#: pyha/templates/pyha/requestform/requestform.html:353
+#: pyha/templates/pyha/requestform/requestform.html:239
+#: pyha/templates/pyha/requestform/requestform.html:348
 #: pyha/templates/pyha/requestview/tabs/contacts.html:58
 #: pyha/templates/pyha/requestview/tabs/contacts.html:77
 msgid "contact_postal"
 msgstr "Postinumero:"
 
-#: pyha/templates/pyha/requestform/requestform.html:245
-#: pyha/templates/pyha/requestform/requestform.html:354
+#: pyha/templates/pyha/requestform/requestform.html:240
+#: pyha/templates/pyha/requestform/requestform.html:349
 #: pyha/templates/pyha/requestview/tabs/contacts.html:59
 #: pyha/templates/pyha/requestview/tabs/contacts.html:78
 msgid "contact_post_office"
 msgstr "Postitoimipaikka:"
 
-#: pyha/templates/pyha/requestform/requestform.html:246
-#: pyha/templates/pyha/requestform/requestform.html:355
+#: pyha/templates/pyha/requestform/requestform.html:241
+#: pyha/templates/pyha/requestform/requestform.html:350
 #: pyha/templates/pyha/requestview/tabs/contacts.html:60
 #: pyha/templates/pyha/requestview/tabs/contacts.html:79
 msgid "contact_country"
 msgstr "Maa:"
 
-#: pyha/templates/pyha/requestform/requestform.html:247
-#: pyha/templates/pyha/requestform/requestform.html:356
+#: pyha/templates/pyha/requestform/requestform.html:242
+#: pyha/templates/pyha/requestform/requestform.html:351
 #: pyha/templates/pyha/requestview/tabs/contacts.html:61
 #: pyha/templates/pyha/requestview/tabs/contacts.html:80
 msgid "contact_email"
 msgstr "Sähköposti:"
 
-#: pyha/templates/pyha/requestform/requestform.html:248
-#: pyha/templates/pyha/requestform/requestform.html:357
+#: pyha/templates/pyha/requestform/requestform.html:243
+#: pyha/templates/pyha/requestform/requestform.html:352
 #: pyha/templates/pyha/requestview/tabs/contacts.html:62
 #: pyha/templates/pyha/requestview/tabs/contacts.html:81
 msgid "contact_phone_number"
 msgstr "Puhelinnumero:"
 
-#: pyha/templates/pyha/requestform/requestform.html:249
-#: pyha/templates/pyha/requestform/requestform.html:358
+#: pyha/templates/pyha/requestform/requestform.html:244
+#: pyha/templates/pyha/requestform/requestform.html:353
 #: pyha/templates/pyha/requestview/tabs/contacts.html:64
 #: pyha/templates/pyha/requestview/tabs/contacts.html:83
 msgid "contact_corporation"
 msgstr "Yritys/organisaatio:"
 
-#: pyha/templates/pyha/requestform/requestform.html:250
-#: pyha/templates/pyha/requestform/requestform.html:359
+#: pyha/templates/pyha/requestform/requestform.html:245
+#: pyha/templates/pyha/requestform/requestform.html:354
 #: pyha/templates/pyha/requestview/tabs/contacts.html:67
 #: pyha/templates/pyha/requestview/tabs/contacts.html:86
 msgid "contact_corporation_id"
 msgstr "Y-tunnus:"
 
-#: pyha/templates/pyha/requestform/requestform.html:259
+#: pyha/templates/pyha/requestform/requestform.html:254
 msgid "i_accept_terms"
 msgstr "Hyväksyn ehdot"
 
-#: pyha/templates/pyha/requestform/requestform.html:261
+#: pyha/templates/pyha/requestform/requestform.html:256
 #: pyha/templates/pyha/requestview/tabs/contacts.html:95
 msgid "exit"
 msgstr "Sulje"
 
-#: pyha/templates/pyha/requestform/requestform.html:269
-#: pyha/templates/pyha/requestform/requestform.html:344
+#: pyha/templates/pyha/requestform/requestform.html:264
+#: pyha/templates/pyha/requestform/requestform.html:339
 msgid "request_summary"
 msgstr "Yhteenveto"
 
-#: pyha/templates/pyha/requestform/requestform.html:273
-#: pyha/templates/pyha/requestform/requestform.html:348
+#: pyha/templates/pyha/requestform/requestform.html:268
+#: pyha/templates/pyha/requestform/requestform.html:343
 msgid "contacts"
 msgstr "Hakijat"
 
-#: pyha/templates/pyha/requestform/requestform.html:276
+#: pyha/templates/pyha/requestform/requestform.html:271
 #: pyha/templates/pyha/requestview/tabs/contacts.html:7
 msgid "full_name"
 msgstr "Nimi"
 
-#: pyha/templates/pyha/requestform/requestform.html:277
+#: pyha/templates/pyha/requestform/requestform.html:272
 #: pyha/templates/pyha/requestview/tabs/contacts.html:8
 msgid "street_address"
 msgstr "Katuosoite"
 
-#: pyha/templates/pyha/requestform/requestform.html:278
+#: pyha/templates/pyha/requestform/requestform.html:273
 #: pyha/templates/pyha/requestview/tabs/contacts.html:9
 msgid "postal_code"
 msgstr "Postinumero"
 
-#: pyha/templates/pyha/requestform/requestform.html:279
+#: pyha/templates/pyha/requestform/requestform.html:274
 #: pyha/templates/pyha/requestview/tabs/contacts.html:10
 msgid "post_office_name"
 msgstr "Postitoimipaikka"
 
-#: pyha/templates/pyha/requestform/requestform.html:280
+#: pyha/templates/pyha/requestform/requestform.html:275
 #: pyha/templates/pyha/requestview/tabs/contacts.html:11
 msgid "country"
 msgstr "Maa"
 
-#: pyha/templates/pyha/requestform/requestform.html:281
+#: pyha/templates/pyha/requestform/requestform.html:276
 #: pyha/templates/pyha/requestview/tabs/contacts.html:12
 msgid "email"
 msgstr "Sähköposti"
 
-#: pyha/templates/pyha/requestform/requestform.html:282
+#: pyha/templates/pyha/requestform/requestform.html:277
 #: pyha/templates/pyha/requestview/tabs/contacts.html:13
 msgid "phone_number"
 msgstr "Puhelinnumero"
 
-#: pyha/templates/pyha/requestform/requestform.html:283
+#: pyha/templates/pyha/requestform/requestform.html:278
 #: pyha/templates/pyha/requestview/tabs/contacts.html:14
 msgid "corporation/organization_name"
 msgstr "Yrityksen/organisaation nimi"
 
-#: pyha/templates/pyha/requestform/requestform.html:284
+#: pyha/templates/pyha/requestform/requestform.html:279
 #: pyha/templates/pyha/requestview/tabs/contacts.html:15
 msgid "corporation_id"
 msgstr "Y-tunnus"
 
-#: pyha/templates/pyha/requestform/requestform.html:299
-#: pyha/templates/pyha/requestform/requestform.html:363
+#: pyha/templates/pyha/requestform/requestform.html:294
+#: pyha/templates/pyha/requestform/requestform.html:358
 msgid "request_arguments"
 msgstr "Perustelut"
 
-#: pyha/templates/pyha/requestform/requestform.html:327
+#: pyha/templates/pyha/requestform/requestform.html:322
 msgid "end_request"
 msgstr "Päätä pyyntö"
 
-#: pyha/templates/pyha/requestform/requestform.html:329
+#: pyha/templates/pyha/requestform/requestform.html:324
 msgid "send_to_be_accepted"
 msgstr "Lähetä hyväksyttäväksi"
 
-#: pyha/templates/pyha/requestform/requestform.html:393
+#: pyha/templates/pyha/requestform/requestform.html:388
 msgid "are_you_sure_you_want_to_remove_collection"
 msgstr "Oletko varma, että haluat poistaa tämän aineiston pyynnöstäsi?"
 
-#: pyha/templates/pyha/requestform/requestform.html:396
+#: pyha/templates/pyha/requestform/requestform.html:391
 msgid "delete"
 msgstr "Poista"
 
-#: pyha/templates/pyha/requestform/requestform.html:397
+#: pyha/templates/pyha/requestform/requestform.html:392
 #: pyha/templates/pyha/requestview/requestview.html:218
 msgid "back"
 msgstr "Peruuta"
 
-#: pyha/templates/pyha/requestform/requestform.html:433
+#: pyha/templates/pyha/requestform/requestform.html:428
 msgid "you_accepted_terms"
 msgstr "Käyttöehdot hyväksytty"
 
-#: pyha/templates/pyha/requestform/requestform.html:465
+#: pyha/templates/pyha/requestform/requestform.html:460
 msgid "new_contact"
 msgstr "Uusi hakija"
 
-#: pyha/templates/pyha/requestform/requestform.html:678
+#: pyha/templates/pyha/requestform/requestform.html:673
 msgid "hide"
 msgstr "Piilota"
 
-#: pyha/templates/pyha/requestform/requestform.html:768
+#: pyha/templates/pyha/requestform/requestform.html:763
 msgid "request_choose_reason"
 msgstr "Valitse aineiston käyttötarkoitus"
 
-#: pyha/templates/pyha/requestform/requestform.html:769
+#: pyha/templates/pyha/requestform/requestform.html:764
 msgid "request_chosen_multiple_reasons"
 msgstr "Valittu useampi vaihtoehto"
 
-#: pyha/templates/pyha/requestform/requestform.html:770
+#: pyha/templates/pyha/requestform/requestform.html:765
 msgid "request_chosen_all_reasons"
 msgstr "Valittu kaikki vaihtoehdot"
 
@@ -1266,7 +1268,7 @@ msgstr "Aineistokohtaiset päätöksen perustelut"
 msgid "filter_window_description"
 msgstr " "
 
-#: pyha/templates/pyha/requestview/tabs/filters.html:6
+#: pyha/templates/pyha/requestview/tabs/filters.html:7
 msgid "handler_show_in_officials_portal"
 msgstr "Katso tulokset viranomaisportaalissa"
 
@@ -1342,36 +1344,44 @@ msgstr ""
 "nopeasti."
 
 #: pyha/templates/pyha/requestview/tabs/history.html:58
+#, fuzzy
+#| msgid "admin_log_collection_accepted_because_overdue"
+msgid "admin_log_collection_accepted_because_no_observations"
+msgstr ""
+"Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
+"nopeasti."
+
+#: pyha/templates/pyha/requestview/tabs/history.html:60
 msgid "log_collection_accepted"
 msgstr "Aineisto hyväksytty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:65
+#: pyha/templates/pyha/requestview/tabs/history.html:67
 msgid "log_sensitives_reset"
 msgstr "Sensitiiviset päätös nollattu"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:67
+#: pyha/templates/pyha/requestview/tabs/history.html:69
 msgid "log_collection_reset"
 msgstr "Aineisto päätös nollattu"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:73
+#: pyha/templates/pyha/requestview/tabs/history.html:75
 msgid "admin_log_sensitives_denied_because_overdue"
 msgstr "DECISION_NEGATIVE_OVERDUE"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:75
+#: pyha/templates/pyha/requestview/tabs/history.html:77
 msgid "log_sensitives_denied"
 msgstr "Sensitiiviset hylätty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:81
+#: pyha/templates/pyha/requestview/tabs/history.html:83
 msgid "admin_log_collection_denied_because_overdue"
 msgstr ""
 "Aineisto hylätty automaattisesti, koska pyyntöön ei ole reagoitu tarpeeksi "
 "nopeasti."
 
-#: pyha/templates/pyha/requestview/tabs/history.html:83
+#: pyha/templates/pyha/requestview/tabs/history.html:85
 msgid "log_collection_denied"
 msgstr "Aineisto hylätty"
 
-#: pyha/templates/pyha/requestview/tabs/history.html:93
+#: pyha/templates/pyha/requestview/tabs/history.html:95
 msgid "log_no_history"
 msgstr "Käsittelyloki on tyhjä"
 
@@ -1404,6 +1414,10 @@ msgstr "Valitse aineistot, joita päätös koskee."
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:77
 msgid "decision_arguments"
 msgstr "Päätöksen perustelut"
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+msgid "select"
+msgstr "Valitse"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:55
 msgid "arguments_will_be_applied_to_all_selected"

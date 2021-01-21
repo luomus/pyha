@@ -16,7 +16,7 @@
       <p class ="text-muted">{% trans "click_for_info" %}.</p>
 
       <form action="{% url 'pyha:group_delete_request' %}" id="delete_requests" method="post" style="margin-bottom: 30px">
-        <table id="requests-table" class="table table-hover table-bordered">
+        <table id="requests-table" class="table table-hover table-bordered" width="100%">
           <thead>
             <tr bgcolor="{% if role == 'handler' %}#349934{% elif role == 'admin' %}#8080c0{% else %}#3498DB{% endif %}" style="color:white;">
               {% if role == "handler" %}
@@ -30,7 +30,7 @@
               {% if role == "user" %}
               <th>{% trans "request_status_for_user" %}</th>
               <th>{% trans "request_description" %}</th>
-              <th>{% trans "select" %}</th>
+              <th>{% trans "select_canceled" %}</th>
               {% endif %}
               {% if role == "handler" or role == "admin" %}
               <th>{% trans "request_information_status" %}</th>
@@ -38,7 +38,7 @@
               <th>{% trans "request_status_for_user" %}</th>
               {% endif %}
               {% if role == "admin" %}
-              <th>{% trans "select" %}</th>
+              <th>{% trans "select_deleted" %}</th>
               {% endif %}
             </tr>
           </thead>
@@ -181,6 +181,9 @@ $(document).ready(function() {
     $.fn.dataTable.moment('DD.MM.YYYY    HH:mm');
     $('#requests-table').dataTable( {
 			"order": [[ {% if role == "handler" %} 1 {% else %} 0 {% endif %}, "desc" ]],
+            {% if role == "user" %}
+            "columnDefs": [{ "width": "15%", "targets": 4 }],
+            {% endif %}
             {% if role == "handler" or role == "admin" %}
             "lengthMenu": [[1, 10, 25, 50, 100, 500, 1000, 5000], [1, 10, 25, 50, 100, 500, 1000, 5000]],
             "pageLength": 100,
