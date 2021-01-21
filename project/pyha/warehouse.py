@@ -202,7 +202,7 @@ def fetch_email_address(personId):
             person_data = data['rdf:RDF']['MA.person']
             if 'MA.emailAddress' in person_data:
                 email = person_data['MA.emailAddress']
-                cache.set('email'+cacheKeyPersonId,email, timeout=600)
+                cache.set('email'+cacheKeyPersonId,email, timeout=3600)
                 return email
 
         email = personId
