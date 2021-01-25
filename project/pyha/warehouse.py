@@ -327,6 +327,13 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
         if not grouped: break
     return handlerswithcollections
 
+def get_download_handlers_for_collections(collectionsList):
+    resultlist = []
+    collections = caches['collections'].get('collections')
+    collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
+    handlers = [co.get('downloadRequestHandler', []) for co in collections]
+    return list(set(chain(*handlers)))
+
 def is_collections_missing_download_handler(collectionsList):
     collections = caches['collections'].get('collections')
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
@@ -336,7 +343,6 @@ def is_collections_missing_download_handler(collectionsList):
             missing = True
             break
     return missing
-
 
 def is_download_handler(userId):
     return len(get_collections_where_download_handler(userId)) > 0

@@ -5,11 +5,11 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from pyha.database import create_request_view_context, check_all_collections_removed, create_new_contact, update_contact_preset, accept_empty_collections_automatically
-from pyha.email import send_mail_after_approving_terms, send_admin_mail_after_approved_request, send_admin_mail_after_approved_request_missing_handlers
+from pyha.email import send_mail_after_approving_terms, send_admin_mail_after_approved_request, send_admin_mail_after_approved_request_missing_handlers, send_mail_about_new_request_to_handlers
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view
 from pyha.models import RequestLogEntry, Request, Collection, StatusEnum, Col_StatusEnum, AdminUserSettings
-from pyha.warehouse import is_collections_missing_download_handler, fetch_email_address
+from pyha.warehouse import is_collections_missing_download_handler, fetch_email_address, get_download_handlers_for_collections
 from pyha.roles import USER
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
@@ -95,6 +95,7 @@ def approve_terms_skip_official(http_request, userRequest, requestId, lang):
                 send_admin_mail_after_approved_request_missing_handlers(requestId, email)
 
         send_mail_after_approving_terms(requestId, userRequest.lang)
+        send_mail_about_new_request_to_handlers(requestId, get_download_handlers_for_collections(collectionList))
 
         accept_empty_collections_automatically(userRequest, collectionList)
     else:

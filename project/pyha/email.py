@@ -140,6 +140,22 @@ def get_template_of_mail_for_approval(requestId, lang):
 		template = {'header':subject, 'content': text_content, 'sender': from_email}
 		return template
 
+def send_mail_about_new_request_to_handlers(requestId, users, lang='fi'):
+	'''
+	Sends email after the user has approved terms to handler(s)
+	:param requestId: request identifier
+	:param lang: language code
+	'''
+	with translation.override(lang):
+		context = _get_request_context(requestId)
+
+		subject = ugettext('mail_for_approval_subject')
+		text_content = _get_email_content('mail_for_approval', lang, context)
+		from_email = settings.ICT_EMAIL
+		to = [fetch_email_address(userId) for userId in users]
+
+		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
+
 def send_mail_after_additional_information_received(requestId, users, lang='fi'):
 	'''
 	Sends email to request handler(s) or admin(s) who has requested additional information after the user has provided it.
