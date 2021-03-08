@@ -64,7 +64,7 @@ class Collection(models.Model):
 	quarantineSecured = models.IntegerField(default=0)
 
 	# new count field
-	count_list = models.CharField(max_length=2000)
+	count_list = models.CharField(max_length=4000)
 
 	#for collection.status
 	#status 0: Odottaa pyytäjän hyväksymistä
@@ -131,9 +131,9 @@ class Request(models.Model):
 	downloadDate = models.CharField(max_length=400,blank=True,null=True)
 	downloaded = models.BooleanField(null=True)
 	filter_list = models.CharField(max_length=5000)
-	filter_description_list = models.CharField(max_length=10000)
-	public_link = models.CharField(max_length=10000)
-	private_link = models.CharField(max_length=10000)
+	filter_description_list = models.CharField(max_length=16000)
+	public_link = models.CharField(max_length=16000)
+	private_link = models.CharField(max_length=16000)
 	personName = TruncatingCharField(max_length=100,blank=True,null=True)
 	personStreetAddress = TruncatingCharField(max_length=100,blank=True,null=True)
 	personPostOfficeName = TruncatingCharField(max_length=100,blank=True,null=True)
