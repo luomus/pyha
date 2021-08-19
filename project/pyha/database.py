@@ -129,7 +129,7 @@ def get_unhandled_requests_data(userId):
 
     user_collections = get_collections_where_download_handler(userId)
     collection_list = Collection.objects.filter(address__in = user_collections, status = StatusEnum.WAITING)
-    request_list = Request.objects.filter(status = StatusEnum.WAITING).filter(id__in=collection_list.values("request"))
+    request_list = Request.objects.filter(status = StatusEnum.WAITING, frozen=False).filter(id__in=collection_list.values("request"))
 
     for r in request_list:
         request_collections = collection_list.filter(request = r.id).values_list("address", flat=True)
