@@ -41,7 +41,7 @@ SECRET_HTTPS_PW = os.environ["PYHA_API_PASSWORD"]
 FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"] #'https://beta.laji.fi/observation/map?'
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"] #'https://viranomaiset.laji.fi/observation/map?'
 AFTER_LOGOUT_URL = os.environ["AFTER_LOGOUT_URL"]
-SEND_AUTOMATIC_HANDLER_MAILS = os.environ.get("SEND_AUTOMATIC_HANDLER_MAILS", False)
+SEND_AUTOMATIC_HANDLER_MAILS = os.environ.get("SEND_AUTOMATIC_HANDLER_MAILS", "False") == "True"
 ICT_EMAIL = "helpdesk@laji.fi"
 PYHA_EMAIL = "noreply.pyha-staging@laji.fi"
 DOWNLOAD_PERIOD_DAYS = 365
