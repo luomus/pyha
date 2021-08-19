@@ -36,7 +36,8 @@ class Command(BaseCommand):
                         count_for_contact_email[contact_email] += 1
                 """
 
-                send_mail_for_unchecked_requests(handler, len(data))
+                request_ids = [d['request_id'] for d in data]
+                send_mail_for_unchecked_requests(handler, request_ids)
 
         """
         for contact_email in count_for_contact_email:

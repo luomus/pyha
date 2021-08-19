@@ -172,17 +172,25 @@ def send_mail_after_additional_information_received(requestId, users, lang='fi')
 
 		mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
 
-def send_mail_for_unchecked_requests(userId, count, lang='fi'):
+def send_mail_for_unchecked_requests(userId, request_ids, lang='fi'):
 	'''
 	Sends email after receiving request from Laji.fi to the person who made the request.
 	:param requestId: request identifier
 	:param lang: language code
 	'''
-	send_mail_for_unchecked_requests_to_email(fetch_email_address(userId), count, lang)
+	send_mail_for_unchecked_requests_to_email(fetch_email_address(userId), request_ids, lang)
 
-def send_mail_for_unchecked_requests_to_email(mailto, count, lang='fi'):
+def send_mail_for_unchecked_requests_to_email(mailto, request_ids, lang='fi'):
 	with translation.override(lang):
-		context = {'count': count, 'pyha_link': settings.PYHA_URL}
+		req_links = ['{}request/{}'.format(settings.PYHA_URL, str(req_id)) for req_id in request_ids]
+		req_links_fi = [req_link + '?lang=fi' for req_link in req_links]
+		req_links_en = [req_link + '?lang=en' for req_link in req_links]
+
+		context = {
+			'count': len(request_ids),
+			'req_links_fi': '\n'.join(req_links_fi),
+			'req_links_en': '\n'.join(req_links_en)
+		}
 
 		subject = ugettext('mail_for_unchecked_requests_subject')
 		text_content = _get_email_content('mail_for_unchecked_requests', lang, context)
