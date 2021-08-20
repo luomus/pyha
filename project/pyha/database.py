@@ -415,6 +415,8 @@ def update_collection_status(http_request, userRequest, collection):
             update_request_status(userRequest, userRequest.lang)
 
 def accept_empty_collections_automatically(userRequest, collectionList):
+    accepted = []
+
     for collection in collectionList:
         obs_count = get_collection_count_sum(collection)
         if obs_count == 0:
@@ -423,6 +425,9 @@ def accept_empty_collections_automatically(userRequest, collectionList):
             collection.save()
             RequestLogEntry.requestLog.create(request = Request.objects.get(id = collection.request.id), collection = collection, user = "Laji.fi ICT-team", role = CAT_HANDLER_COLL, action = RequestLogEntry.DECISION_POSITIVE)
             update_request_status(userRequest, userRequest.lang)
+            accepted.append(collection)
+
+    return accepted
 
 def get_collections_waiting_atleast_days(days_to_subtract):
     return Collection.objects.filter(request__in=Request.objects.filter(id__in=RequestLogEntry.requestLog.filter(action=RequestLogEntry.ACCEPT, date__lt = datetime.today() - timedelta(days=days_to_subtract)).values("request"), status=StatusEnum.WAITING, frozen=False), status = Col_StatusEnum.WAITING)

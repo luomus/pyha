@@ -96,10 +96,12 @@ def approve_terms_skip_official(http_request, userRequest, requestId, lang):
                 send_admin_mail_after_approved_request_missing_handlers(requestId, email)
 
         send_mail_after_approving_terms(requestId, userRequest.lang)
-        if settings.SEND_AUTOMATIC_HANDLER_MAILS:
-            send_mail_about_new_request_to_handlers(requestId, get_download_handlers_for_collections(collectionList))
 
-        accept_empty_collections_automatically(userRequest, collectionList)
+        accepted = accept_empty_collections_automatically(userRequest, collectionList)
+        
+        if settings.SEND_AUTOMATIC_HANDLER_MAILS:
+            not_accepted = [collection_id for collection_id in collectionList if collection_id not in accepted]
+            send_mail_about_new_request_to_handlers(requestId, get_download_handlers_for_collections(not_accepted))
     else:
         userRequest.status = -1
         userRequest.changedBy = changed_by_session_user(http_request)
