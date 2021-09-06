@@ -183,13 +183,10 @@ def send_mail_for_unchecked_requests(userId, request_ids, lang='fi'):
 def send_mail_for_unchecked_requests_to_email(mailto, request_ids, lang='fi'):
 	with translation.override(lang):
 		req_links = ['{}request/{}'.format(settings.PYHA_URL, str(req_id)) for req_id in request_ids]
-		req_links_fi = [req_link + '?lang=fi' for req_link in req_links]
-		req_links_en = [req_link + '?lang=en' for req_link in req_links]
 
 		context = {
 			'count': len(request_ids),
-			'req_links_fi': '\n'.join(req_links_fi),
-			'req_links_en': '\n'.join(req_links_en)
+			'req_links': req_links
 		}
 
 		subject = ugettext('mail_for_unchecked_requests_subject')

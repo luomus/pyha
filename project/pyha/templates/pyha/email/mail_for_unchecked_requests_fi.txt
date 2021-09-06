@@ -1,7 +1,10 @@
 ﻿Sinulla on {{ count }} käsittelemätöntä aineistopyyntöä Lajitietokeskuksen aineistopyyntöjärjestelmässä.
 
 Käythän hyväksymässä tai hylkäämässä pyynnöt:
-{{ req_links_fi }}
+
+{% for req_link in req_links %}
+{{ req_link }}?lang=fi
+{% endfor %}
 
 Tarvittaessa voit pyytää hakijalta lisätietoja.
 
@@ -20,7 +23,10 @@ www.laji.fi
 You have {{ count }} unprocessed data requests in the FinBIF data request system.
 
 Please accept or reject these requests:
-{{ req_links_en }}
+
+{% for req_link in req_links %}
+{{ req_link }}?lang=en
+{% endfor %}
 
 If necessary, you can ask the applicant for more information.
 
