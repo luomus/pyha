@@ -302,6 +302,7 @@ StatusEnum = enum(
 				DOWNLOADABLE=8)
 
 Col_StatusEnum = enum(
+				DISCARDED=-1,
 				APPROVETERMS_WAIT=0,
 				WAITING=1,
 				REJECTED=3,
