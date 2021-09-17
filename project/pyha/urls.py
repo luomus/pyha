@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^question/?$', requestview.question, name='question'),
     url(r'^groupanswer/?$', requestview.group_answer, name='group_answer'),
     url(r'^information/?$', requestview.information, name='information'),
+    url(r'^downloadPdf/?$', requestview.download_pdf, name='download_pdf'),
     url(r'^commentHandler/?$', requestview.comment_handler, name='comment_handler'),
     url(r'^sendEmail/?$', requestview.send_email, name='send_email'),
     url(r'^initializeDownload/?$', requestview.initialize_download, name='initializeDownload'),

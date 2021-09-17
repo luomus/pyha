@@ -278,6 +278,10 @@ def information(http_request):
             newChatEntry.question = False
             newChatEntry.target = target
             newChatEntry.message = http_request.POST.get('reason')
+            if 'reasonFile' in http_request.FILES:
+                attached_file = http_request.FILES['reasonFile']
+                newChatEntry.attachedFile = attached_file.read()
+                newChatEntry.attachedFileName = attached_file.name
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
             userRequest.status = StatusEnum.WAITING
@@ -299,3 +303,25 @@ def information(http_request):
             users = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, question=True).values_list('user', flat=True).distinct()
             send_mail_after_additional_information_received(requestId, users)
     return HttpResponseRedirect(nexturl)
+
+def download_pdf(http_request):
+    if http_request.method == 'POST':
+        if not logged_in(http_request):
+            return _process_auth_response(http_request, 'pyha')
+
+        chat_entry_id = http_request.POST.get('chatEntryId', '?')
+        chat_entry = RequestInformationChatEntry.requestInformationChat.get(id=chat_entry_id)
+        request_id = chat_entry.request.id
+
+        if not is_allowed_to_view(http_request, request_id):
+            return HttpResponseRedirect(reverse('pyha:root'))
+        if not (
+            is_request_owner(http_request, request_id) or
+            is_allowed_to_ask_information_as_target(http_request, chat_entry.target, request_id)
+        ):
+            return HttpResponseRedirect(reverse('pyha:root'))
+
+        response = HttpResponse(chat_entry.attachedFile)
+        response['Content-Type'] = 'application/pdf'
+        response['Content-Disposition'] = 'attachment;filename={}'.format(chat_entry.attachedFileName)
+        return response

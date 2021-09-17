@@ -226,6 +226,8 @@ class RequestInformationChatEntry(models.Model):
 	user = models.CharField(max_length=100)
 	question = models.BooleanField()
 	message = TruncatingTextField(max_length=5000)
+	attachedFile = models.BinaryField(null=True)
+	attachedFileName = models.CharField(max_length=100,blank=True,null=True)
 	target = models.CharField(max_length=200) #apilaji defined collection id
 	requestInformationChat = models.Manager()
 	changedBy = models.CharField(max_length=100)

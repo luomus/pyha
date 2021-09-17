@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 13:39+0200\n"
+"POT-Creation-Date: 2021-09-13 16:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:212
+#: config/settings.py:213
 msgid "Suomi"
 msgstr ""
 
-#: config/settings.py:213
+#: config/settings.py:214
 msgid "Ruotsi"
 msgstr ""
 
-#: config/settings.py:214
+#: config/settings.py:215
 msgid "Englanti"
 msgstr ""
+
+#: dump_reasons.py:49 pyha/management/commands/generate_data_dump.py:65
+#: pyha/templates/pyha/requestview/tabs/arguments.html:6
+msgid "argument_choices"
+msgstr "Valitut käyttötarkoitukset"
 
 #: pyha/admin.py:66
 msgid "Pyha administration"
@@ -69,29 +74,29 @@ msgstr "Aineistopyyntösi {time} käsittelyn tila"
 msgid "mail_collections_missing_handlers_subject"
 msgstr "Aineistoista puuttuu käsittelijöitä – Collections are missing handlers"
 
-#: pyha/email.py:136
+#: pyha/email.py:136 pyha/email.py:152
 msgid "mail_for_approval_subject"
 msgstr ""
 "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new "
 "data request"
 
-#: pyha/email.py:152
+#: pyha/email.py:168
 msgid "mail_after_additional_information_received_subject"
 msgstr ""
 "Lisätietopyyntöösi on vastattu – Your request for more information has been "
 "answered"
 
-#: pyha/email.py:171
+#: pyha/email.py:192
 msgid "mail_for_unchecked_requests_subject"
 msgstr ""
 "Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data "
 "requests in FinBIF"
 
-#: pyha/email.py:187
+#: pyha/email.py:208
 msgid "mail_admin_after_request_approval_subject"
 msgstr "Uusi aineistopyyntö: {time} – New data request: {time}"
 
-#: pyha/email.py:204
+#: pyha/email.py:225
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr ""
 "Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing "
@@ -441,7 +446,7 @@ msgstr "Havaintojen määrä"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:362
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:368
 msgid "secured_by_quarantine"
 msgstr "Käyttörajoitetut tutkimusaineistot"
 
@@ -455,7 +460,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:367
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:373
 msgid "secured_by_sensitivity"
 msgstr "Sensitiivinen aineisto"
 
@@ -470,7 +475,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:372
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:378
 msgid "secured_by_data_provider"
 msgstr "Käyttörajoitetut aineistot"
 
@@ -954,7 +959,9 @@ msgstr "Uusi hakija"
 
 #: pyha/templates/pyha/requestform/requestform.html:552
 msgid "argument_reason_more_detail"
-msgstr "Lisätietoa: Kuvaa tähän selkeät perustelut ja liitä mukaan pyyntöön liittyvät tahot yhteistietoineen."
+msgstr ""
+"Lisätietoa: Kuvaa tähän selkeät perustelut ja liitä mukaan pyyntöön "
+"liittyvät tahot yhteistietoineen."
 
 #: pyha/templates/pyha/requestform/requestform.html:682
 msgid "hide"
@@ -1178,19 +1185,15 @@ msgstr "Viestintä on tyhjä"
 msgid "argument_window_description"
 msgstr " "
 
-#: pyha/templates/pyha/requestview/tabs/arguments.html:6
-msgid "argument_choices"
-msgstr "Valitut käyttötarkoitukset"
-
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:4
 msgid "ask_additional_information_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:8
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:13
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:14
 #: pyha/templates/pyha/requestview/tabs/comments.html:8
 #: pyha/templates/pyha/requestview/tabs/information.html:9
-#: pyha/templates/pyha/requestview/tabs/information.html:26
+#: pyha/templates/pyha/requestview/tabs/information.html:28
 msgid "admin_question"
 msgstr "Ylläpitäjä"
 
@@ -1199,30 +1202,35 @@ msgstr "Ylläpitäjä"
 msgid "asked"
 msgstr " kysyi:"
 
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:13
-#: pyha/templates/pyha/requestview/tabs/information.html:26
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:14
+#: pyha/templates/pyha/requestview/tabs/information.html:28
 msgid "inquiry"
 msgstr "kyselyyn"
 
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:13
-#: pyha/templates/pyha/requestview/tabs/information.html:26
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:14
+#: pyha/templates/pyha/requestview/tabs/information.html:28
 msgid "answered"
 msgstr " vastasit:"
 
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:17
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:18
+#: pyha/templates/pyha/requestview/tabs/information.html:32
+msgid "download_attachment"
+msgstr "Lataa liitetiedosto"
+
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:26
 msgid "form_to_request_additional_information"
 msgstr "Lomake lisätietojen pyytämiseen"
 
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:22
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:31
 msgid "ask_as_handler_of"
 msgstr "Kysy roolissa"
 
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:25
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:34
 #: pyha/templates/pyha/requestview/tabs/comments.html:18
 msgid "as_admin"
 msgstr "Ylläpitäjä"
 
-#: pyha/templates/pyha/requestview/tabs/ask_information.html:36
+#: pyha/templates/pyha/requestview/tabs/ask_information.html:45
 msgid "request_additional_information"
 msgstr "Pyydä lisätietoja"
 
@@ -1394,11 +1402,11 @@ msgstr "Käsittelyloki on tyhjä"
 msgid "additional_information_window_description"
 msgstr " "
 
-#: pyha/templates/pyha/requestview/tabs/information.html:17
+#: pyha/templates/pyha/requestview/tabs/information.html:18
 msgid "send_additional_information"
 msgstr "Lähetä vastaus"
 
-#: pyha/templates/pyha/requestview/tabs/information.html:21
+#: pyha/templates/pyha/requestview/tabs/information.html:22
 msgid "answer"
 msgstr "Vastaa kysymykseen"
 
@@ -1510,7 +1518,7 @@ msgstr "Odottaa latauksen valmistumista"
 msgid "ready_for_download"
 msgstr "Valmiina ladattavaksi"
 
-#: pyha/views/requestform.py:82
+#: pyha/views/requestform.py:83
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 
