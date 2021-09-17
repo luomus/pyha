@@ -45,16 +45,17 @@ def approve_terms(http_request):
         requestId = http_request.POST.get('requestid', '?')
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        lang = 'fi' #ainakin toistaiseksi
         userRequest = Request.objects.get(id = requestId)
-        approve_terms_skip_official(http_request, userRequest, requestId, lang)
+        if userRequest.status != 0:
+            return HttpResponseRedirect(reverse('pyha:root'))
+        approve_terms_skip_official(http_request, userRequest, requestId)
     return HttpResponseRedirect(reverse('pyha:root'))
 
 
-def approve_terms_skip_official(http_request, userRequest, requestId, lang):
+def approve_terms_skip_official(http_request, userRequest, requestId):
     senschecked = http_request.POST.get('checkbsens')
     collectionList = Collection.objects.filter(request=requestId, status__gte=0)
-    if(userRequest.status == 0 and senschecked and len(collectionList) > 0):
+    if senschecked and len(collectionList) > 0:
         for c in collectionList:
             if c.status == 0:
                 c.status = 1
