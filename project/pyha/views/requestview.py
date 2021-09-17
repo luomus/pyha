@@ -16,6 +16,7 @@ from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
 from pyha.warehouse import send_download_request, update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
+import PyPDF2
 
 @csrf_exempt
 def show_request(http_request):
@@ -278,10 +279,18 @@ def information(http_request):
             newChatEntry.question = False
             newChatEntry.target = target
             newChatEntry.message = http_request.POST.get('reason')
+
             if 'reasonFile' in http_request.FILES:
                 attached_file = http_request.FILES['reasonFile']
+                if not attached_file.name.endswith('.pdf'):
+                    return HttpResponseRedirect(reverse('pyha:root'))
+                try:
+                    PyPDF2.PdfFileReader(attached_file)
+                except PyPDF2.utils.PdfReadError:
+                    return HttpResponseRedirect(reverse('pyha:root'))
                 newChatEntry.attachedFile = attached_file.read()
                 newChatEntry.attachedFileName = attached_file.name
+
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
             userRequest.status = StatusEnum.WAITING
