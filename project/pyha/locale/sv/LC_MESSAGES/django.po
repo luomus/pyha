@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-13 16:33+0300\n"
+"POT-Creation-Date: 2021-09-17 10:20+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1193,7 +1193,7 @@ msgstr " "
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:14
 #: pyha/templates/pyha/requestview/tabs/comments.html:8
 #: pyha/templates/pyha/requestview/tabs/information.html:9
-#: pyha/templates/pyha/requestview/tabs/information.html:28
+#: pyha/templates/pyha/requestview/tabs/information.html:31
 msgid "admin_question"
 msgstr "Admin"
 
@@ -1203,17 +1203,17 @@ msgid "asked"
 msgstr " frågade:"
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:14
-#: pyha/templates/pyha/requestview/tabs/information.html:28
+#: pyha/templates/pyha/requestview/tabs/information.html:31
 msgid "inquiry"
 msgstr "förfrågan"
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:14
-#: pyha/templates/pyha/requestview/tabs/information.html:28
+#: pyha/templates/pyha/requestview/tabs/information.html:31
 msgid "answered"
 msgstr " svarade:"
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:18
-#: pyha/templates/pyha/requestview/tabs/information.html:32
+#: pyha/templates/pyha/requestview/tabs/information.html:35
 msgid "download_attachment"
 msgstr "Ladda ner bilaga"
 
@@ -1397,10 +1397,14 @@ msgid "additional_information_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/information.html:18
+msgid "add_pdf_attachment"
+msgstr "Bifoga fil (i pdf-format)"
+
+#: pyha/templates/pyha/requestview/tabs/information.html:21
 msgid "send_additional_information"
 msgstr "Skick svar"
 
-#: pyha/templates/pyha/requestview/tabs/information.html:22
+#: pyha/templates/pyha/requestview/tabs/information.html:25
 msgid "answer"
 msgstr "Svara på frågan"
 

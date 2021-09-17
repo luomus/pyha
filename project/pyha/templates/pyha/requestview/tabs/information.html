@@ -12,9 +12,12 @@
     <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
     <input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
     <input type="hidden" id="target" name="target" value="{{question.target}}">
-    <textarea style="width:100%;" rows="5" cols="70" id="reason" name="reason" required ></textarea>
+    <textarea style="width:100%;" rows="5" cols="70" id="reason" name="reason" required></textarea>
     <div id="reason_count" class="textarea-character-count"></div>
-    <input type="file" id="reasonFile" name="reasonFile" accept="application/pdf">
+    <div style="margin: 10px 0">
+      <label for="reasonFile">{% trans "add_pdf_attachment" %}</label>
+      <input type="file" id="reasonFile" name="reasonFile" accept="application/pdf">
+    </div>
     <button type="submit" style="display:none;" onclick="showAnswer('requestform_{{ forloop.counter }}');" id="requestform_submit_{{ forloop.counter }}" name="information" value=2 class="btn btn-default btn-sm">{% trans "send_additional_information" %}</button>
   </div>
   {% csrf_token %}
