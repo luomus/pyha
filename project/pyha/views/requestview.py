@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.utils.translation import ugettext
 from django.shortcuts import render
 from django.urls import reverse
@@ -282,12 +282,12 @@ def information(http_request):
 
             if 'reasonFile' in http_request.FILES:
                 attached_file = http_request.FILES['reasonFile']
-                if not attached_file.name.endswith('.pdf'):
-                    return HttpResponseRedirect(reverse('pyha:root'))
+                if attached_file.size > settings.MAX_UPLOAD_FILE_SIZE or not attached_file.name.endswith('.pdf'):
+                    return HttpResponseBadRequest()
                 try:
                     PyPDF2.PdfFileReader(attached_file)
                 except PyPDF2.utils.PdfReadError:
-                    return HttpResponseRedirect(reverse('pyha:root'))
+                    return HttpResponseBadRequest()
                 newChatEntry.attachedFile = attached_file.read()
                 newChatEntry.attachedFileName = attached_file.name
 
