@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 10:20+0300\n"
+"POT-Creation-Date: 2021-09-22 11:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/settings.py:213
+#: config/settings.py:214
 msgid "Suomi"
 msgstr "Suomi"
 
-#: config/settings.py:214
+#: config/settings.py:215
 msgid "Ruotsi"
 msgstr "Ruotsi"
 
-#: config/settings.py:215
+#: config/settings.py:216
 msgid "Englanti"
 msgstr "Englanti"
 
@@ -1514,13 +1514,17 @@ msgstr "Väntar på att nedladdningsfil ska bli färdig"
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
 
-#: pyha/views/requestform.py:83
+#: pyha/views/requestform.py:84
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Tack, din förfrågan har skrivits in."
 
-#: pyha/views/requestview.py:190
+#: pyha/views/requestview.py:192
 msgid "toast_mails_sent_succesfully"
 msgstr ""
+
+#: pyha/views/requestview.py:287 pyha/views/requestview.py:292
+msgid "file_upload_failed"
+msgstr "Filöverföring misslyckades"
 
 #: pyha/views/usersettings.py:61
 msgid "toast_user_settings_saved_succesfully"

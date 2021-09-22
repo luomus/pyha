@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.contrib import messages
 from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status, is_downloadable
 from pyha.email import send_mail_after_additional_information_requested, send_mail_after_additional_information_received, send_raw_mail
 from pyha.localization import check_language
@@ -283,11 +284,13 @@ def information(http_request):
             if 'reasonFile' in http_request.FILES:
                 attached_file = http_request.FILES['reasonFile']
                 if attached_file.size > settings.MAX_UPLOAD_FILE_SIZE or not attached_file.name.endswith('.pdf'):
-                    return HttpResponseBadRequest()
+                    messages.error(http_request, ugettext('file_upload_failed'))
+                    return HttpResponseRedirect(nexturl)
                 try:
                     PyPDF2.PdfFileReader(attached_file)
                 except PyPDF2.utils.PdfReadError:
-                    return HttpResponseBadRequest()
+                    messages.error(http_request, ugettext('file_upload_failed'))
+                    return HttpResponseRedirect(nexturl)
                 newChatEntry.attachedFile = attached_file.read()
                 newChatEntry.attachedFileName = attached_file.name
 
