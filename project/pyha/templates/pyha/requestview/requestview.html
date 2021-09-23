@@ -39,46 +39,81 @@
   		</div>
 
       {% if role == "user" %}
-      <div class="user-download">
-				{% if userRequest.status == 8 %}
-					{% if downloadable %}
-						<div style="text-align:center;">
-              <form action="{% url 'pyha:requestDownload' %}" method="post">
-                <button type="submit" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;"><span class="glyphicon glyphicon-open-file"></span> {% trans 'download' %}</button>
-                <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-                <input type="hidden" id="next" name="next" value={{request.path}}>
-                {% csrf_token %}
-              </form>
-						</div>
-					{% else %}
-						<h3 style="text-align:center;">{% trans 'download_has_expired' %}</h3>
-					{% endif %}
-				{% elif userRequest.status == 4  %}
-				<div style="text-align:center;">
-					<form action="{% url 'pyha:initializeDownload' %}" method="post">
-						<button style="width:100%; max-width:500px;" class="btn btn-default btn-lg " style="line-height:20px;width:100%; max-width:500px;">{% trans 'initialize_download' %}</button>
-						<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-						<input type="hidden" id="next" name="next" value={{request.path}}>
-						{% csrf_token %}
-					</form>
-				</div>
-				{% elif userRequest.status == 7%}
-				<h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
-				{% elif userRequest.status == 1 and endable %}
-				<div style="text-align:center;">
-					<button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">{% trans 'stop_wait_initialize_download' %}</button>
-				</div>
-				{% endif %}
-				<form class="form-hidden" action="{% url 'pyha:initializeDownload' %}" id="initialize" method="post">
-					<div class="form-group">
-						<input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
-						<input type="hidden" id="next" name="next" value={{request.path}}>
-						<input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;">
-					{% csrf_token %}
-					</div>
-				</form>
-      </div>
-      {% endif %}
+        <div class="user-download">
+            {% if userRequest.status == 8 %}
+            {% if downloadable %}
+            <div style="text-align:center;">
+                <form action="{% url 'pyha:requestDownload' %}" method="post">
+                    <div class="row">
+                        <div class="col-sm-6" style="text-align: right">
+                            <div style="display: inline-block; text-align: left">
+                                <div style="margin-bottom: 10px">
+                                    <label style="margin-right: 10px">File type:</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="standard" name="fileType" value="Standard">Standard
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="gis" name="fileType" value="GIS">GIS
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="format">Format:</label>
+                                    <select id="format" name="format">
+                                        <option value="shp">.shp</option>
+                                        <option value="gpkg">.gpkg</option>
+                                    </select>
+                                    <label for="geometry">Geometry:</label>
+                                    <select id="geometry" name="geometry">
+                                        <option value="point">point</option>
+                                        <option value="bbox">bbox</option>
+                                        <option value="footprint">footprint</option>
+                                    </select>
+                                    <label for="CRS">CRS:</label>
+                                    <select id="CRS" name="CRS">
+                                        <option value="euref">euref</option>
+                                        <option value="wgs84">wgs84</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="text-align: left">
+                            <button type="submit" class="btn btn-default btn-lg" style="line-height:20px;width:100%; max-width:500px;"><span class="glyphicon glyphicon-open-file"></span> {% trans 'download' %}</button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+                    <input type="hidden" id="next" name="next" value={{request.path}}>
+                    {% csrf_token %}
+                </form>
+            </div>
+            {% else %}
+            <h3 style="text-align:center;">{% trans 'download_has_expired' %}</h3>
+            {% endif %}
+            {% elif userRequest.status == 4  %}
+            <div style="text-align:center;">
+                <form action="{% url 'pyha:initializeDownload' %}" method="post">
+                    <button style="width:100%; max-width:500px;" class="btn btn-default btn-lg " style="line-height:20px;width:100%; max-width:500px;">{% trans 'initialize_download' %}</button>
+                    <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+                    <input type="hidden" id="next" name="next" value={{request.path}}>
+                    {% csrf_token %}
+                </form>
+            </div>
+            {% elif userRequest.status == 7%}
+            <h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
+            {% elif userRequest.status == 1 and endable %}
+            <div style="text-align:center;">
+                <button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">{% trans 'stop_wait_initialize_download' %}</button>
+            </div>
+            {% endif %}
+            <form class="form-hidden" action="{% url 'pyha:initializeDownload' %}" id="initialize" method="post">
+                <div class="form-group">
+                    <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
+                    <input type="hidden" id="next" name="next" value={{request.path}}>
+                    <input type="submit" class="btn" value="submit!" name="psubmit" Style="display: none;">
+                    {% csrf_token %}
+                </div>
+            </form>
+        </div>
+        {% endif %}
 
       <ul class="nav nav-tabs" role="tablist">
         <li id="change-history-tab" role="presentation" {% if next == "history" %} class="active" {% endif %} >

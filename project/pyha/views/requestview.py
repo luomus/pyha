@@ -13,7 +13,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
 from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
-from pyha.warehouse import send_download_request, update_collections
+from pyha.warehouse import send_download_request, update_collections, get_download_url
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 import PyPDF2
@@ -105,7 +105,21 @@ def download(http_request):
             userRequest.downloaded = True
             userRequest.changedBy = changed_by_session_user(http_request)
             userRequest.save()
-            url = settings.LAJIDOW_URL+userRequest.lajiId+'?personToken='+http_request.session["token"]
+
+            file_type = http_request.POST.get('fileType', '?')
+            format = http_request.POST.get('format', '?')
+            geometry = http_request.POST.get('geometry', '?')
+            CRS = http_request.POST.get('CRS', '?')
+
+            url = get_download_url(
+                userRequest.lajiId,
+                http_request.session['token'],
+                file_type,
+                format,
+                geometry,
+                CRS
+            )
+
             return HttpResponseRedirect(url)
 
     return HttpResponseRedirect(nexturl)

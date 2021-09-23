@@ -230,6 +230,14 @@ def send_download_request(requestId):
         payload[f] = getattr(filters, f)
     response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
 
+def get_download_url(laji_id, person_token, file_type, format, geometry, CRS):
+    if file_type == 'GIS':
+        return '{}{}/{}/{}/{}?personToken={}'.format(
+            settings.GEO_CONVERT_URL, laji_id.split('.')[-1], format, geometry, CRS, person_token
+        )
+
+    return '{}{}?personToken={}'.format(settings.LAJIDOW_URL, laji_id, person_token)
+
 def update_collections():
     payload = {}
     payload['access_token'] = settings.LAJIAPI_TOKEN
