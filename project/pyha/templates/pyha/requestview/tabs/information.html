@@ -40,14 +40,5 @@
   </div>
   {% endif %}
 {% endfor %}
-{% if messages %}
-{% for message in messages %}
-{% if message.tags == "error"%}
-<div class="alert alert-danger">
-  {{ message }}
-</div>
-{% endif %}
-{% endfor %}
-{% endif %}
 <span id="information_bottom"></span>
 {% endif %}
