@@ -42,7 +42,16 @@ def usersettings(http_request):
 		pyha_settings.save()
 	else:
 		pyha_settings = pyha_settings.first()
-	context = {"pyha_settings":pyha_settings, "email_new_requests_setting":AdminUserSettings.EMAIL_NEW_REQUESTS_SETTING, "user_settings":user_settings, "toast": toast,"username": http_request.session["user_name"], "email": http_request.session["user_email"], "static": settings.STA_URL}
+	context = {
+		"pyha_settings":pyha_settings,
+		"email_new_requests_setting":AdminUserSettings.EMAIL_NEW_REQUESTS_SETTING,
+		"user_settings":user_settings,
+		"toast": toast,
+		"username": http_request.session["user_name"],
+		"email": http_request.session["user_email"],
+		"static": settings.STA_URL,
+		"version": settings.VERSION
+	}
 	return render(http_request, 'pyha/base/admin/usersettings.html', context)
 
 def save_user_settings(http_request):

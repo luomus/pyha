@@ -28,14 +28,14 @@
 		<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"> -->
 		<link rel="stylesheet" href="{{ static }}pyha/bootstrap-dataTables/dataTables.bootstrap.min.css">
 		<link rel="stylesheet" href="{{ static }}pyha/css/bootstrap-multiselect.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css" >
-		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/font.css" >
-		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/tabs/tabs.css" >
+		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/styles.css?v={{version}}" >
+		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/font.css?v={{version}}" >
+		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/tabs/tabs.css?v={{version}}" >
 
 		{% if request.session.current_user_role == 'admin' %}
-		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/admin.css" >
+		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/admin.css?v={{version}}" >
 		{% elif request.session.current_user_role == 'handler' %}
-		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/handler.css" >
+		<link rel="stylesheet" type="text/css" href="{{ static }}pyha/handler.css?v={{version}}" >
 		{% endif %}
 	</head>
 

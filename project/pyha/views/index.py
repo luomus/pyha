@@ -13,7 +13,7 @@ from operator import attrgetter
 from itertools import chain
 
 def csrf_failure(http_request, reason=""):
-    return render(http_request, 'pyha/error/403_crsf.html', {'static': settings.STA_URL})
+    return render(http_request, 'pyha/error/403_crsf.html', {'static': settings.STA_URL, 'version': settings.VERSION})
 
 @csrf_exempt
 def pyha(http_request):
@@ -53,7 +53,14 @@ def index(http_request):
             if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
                 r.viewed = True
 
-    context = {"role": http_request.session.get("current_user_role", USER), "toast": toast, "username": http_request.session["user_name"], "requests": request_list, "static": settings.STA_URL }
+    context = {
+        "role": http_request.session.get("current_user_role", USER),
+        "toast": toast,
+        "username": http_request.session["user_name"],
+        "requests": request_list,
+        "static": settings.STA_URL,
+        "version": settings.VERSION
+    }
     return render(http_request, 'pyha/base/index.html', context)
 
 def group_delete_request(http_request):

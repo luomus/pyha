@@ -257,13 +257,25 @@ def create_request_view_context(requestId, http_request, userRequest):
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)
     request_log = requestLog(http_request, requestId)
-    context = {"toast": toast, "email": http_request.session["user_email"], "userRequest": userRequest, "filters": show_filters(http_request, userRequest), "collections": collectionList, "static": settings.STA_URL, "request_owner": request_owner, "request_owners_email": request_owners_email}
-    context["requestLog_list"] = request_log if (role == HANDLER_ANY or role == ADMIN) else list(filter(lambda x: x.action != RequestLogEntry.VIEW, request_log))
-    context["filter_link"] = get_filter_link(http_request, userRequest, role)
-    context["tun_link"] = settings.TUN_URL
-    context["sensitivity_terms"] = "pyha/requestform/terms/collection-"+lang+".html"
-    context["username"] = http_request.session["user_name"]
-    context["role"] = role
+    context = {
+        "toast": toast,
+        "email": http_request.session["user_email"],
+        "userRequest": userRequest,
+        "filters": show_filters(http_request, userRequest),
+        "collections": collectionList,
+        "static": settings.STA_URL,
+        "version": settings.VERSION,
+        "request_owner": request_owner,
+        "request_owners_email": request_owners_email,
+        "requestLog_list": request_log if (role == HANDLER_ANY or role == ADMIN) else list(
+            filter(lambda x: x.action != RequestLogEntry.VIEW, request_log)
+        ),
+        "filter_link": get_filter_link(http_request, userRequest, role),
+        "tun_link": settings.TUN_URL,
+        "sensitivity_terms": "pyha/requestform/terms/collection-" + lang + ".html",
+        "username": http_request.session["user_name"],
+        "role": role
+    }
     if role == HANDLER_ANY:
         handles = get_collections_where_download_handler(userId)
         context["collections"], context["own_collection_count"] = sort_collections_by_download_handler(collectionList, handles)
