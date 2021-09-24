@@ -49,10 +49,10 @@
                             <div style="margin-bottom: 10px">
                                 <label style="margin-right: 10px">File type:</label>
                                 <label class="radio-inline">
-                                    <input type="radio" id="standard" name="fileType" value="Standard" checked>Standard
+                                    <input type="radio" id="standard" name="fileType" value="Standard" checked onchange="updateGisFields()">Standard
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" id="gis" name="fileType" value="GIS">GIS
+                                    <input type="radio" id="gis" name="fileType" value="GIS" onchange="updateGisFields()">GIS
                                 </label>
                             </div>
                             <div>
@@ -317,8 +317,11 @@
   }
 
   function addTextareaLimit(textareaId, maxLength) {
-    updateTextareaLimit(textareaId, maxLength);
     var elem = document.getElementById(textareaId);
+    if (!elem) {
+      return;
+    }
+    updateTextareaLimit(textareaId, maxLength);
     elem.onkeyup = function() {
       updateTextareaLimit(textareaId, maxLength);
     }
@@ -366,7 +369,7 @@ $(document).ready(function(){
   function enableCommunicationsEmail() {
     var x = document.querySelectorAll('[name^=email_id_]');
     var b = false;
-    for (i = 0; i < x.length; i++){
+    for (var i = 0; i < x.length; i++){
       if(x[i].checked){
         b = true;
         break;
@@ -374,8 +377,6 @@ $(document).ready(function(){
     }
     document.getElementById('submit_email').disabled = !b;
   }
-</script>
-<script>
   $(document).ready(function(){
     enableCommunicationsEmail();
   });
@@ -392,8 +393,23 @@ $(document).ready(function(){
     });
 
   });
+
+  function updateGisFields() {
+    var fileTypeElem = document.querySelector('input[name="fileType"]:checked');
+    if (fileTypeElem) {
+      fileType = fileTypeElem.value;
+      var gisFieldsDisabled = fileType !== 'GIS';
+
+      var gisFields = ['format', 'geometry', 'CRS'];
+      for (var i = 0; i < gisFields.length; i++)  {
+        document.getElementById(gisFields[i]).disabled = gisFieldsDisabled;
+      }
+    }
+  }
+
   $(document).ready(function(){
     get_request_header();
+    updateGisFields();
   });
 </script>
 <script>
