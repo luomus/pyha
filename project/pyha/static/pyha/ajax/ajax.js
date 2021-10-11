@@ -204,6 +204,59 @@
     form.submit();
 	}
 
+	function download() {
+		var fields = ["requestid", "format", "geometry", "CRS"];
+
+		var data = "";
+		for (var i = 0; i < fields.length; i++) {
+		    data += fields[i] + "=" + document.getElementById(fields[i]).value + "&";
+		}
+		data += "fileType=" + document.querySelector("input[name='fileType']:checked").value;
+		$("#user-download-button").attr("disabled", true);
+
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+				if (this.status == 200) {
+				    var jsonResponse = JSON.parse(this.responseText);
+				    if (jsonResponse["status"] === "complete") {
+				    	$("#user-download-button").attr("disabled", false);
+                        window.location = jsonResponse["downloadUrl"];
+				    } else {
+				    	$("#loading-modal").modal('show');
+				        pollDownloadStatus(jsonResponse["statusUrl"]);
+				    }
+				}
+            }
+        };
+        xhttp.open("POST", document.getElementById("getDownloadURL").value, true);
+        xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(data);
+	}
+
+	function pollDownloadStatus(url) {
+	    var xhttp = new XMLHttpRequest();
+	    xhttp.onreadystatechange = function() {
+		    if (this.readyState == 4) {
+				if (this.status == 200) {
+				    var jsonResponse = JSON.parse(this.responseText);
+				    if (jsonResponse["status"] === "complete") {
+				        $("#loading-modal").modal("hide");
+				        $("#user-download-button").attr("disabled", false);
+                        window.location = jsonResponse["downloadUrl"];
+				    } else {
+                        setTimeout(() => {
+                            pollDownloadStatus(url);
+                        }, 5000);
+				    }
+				}
+			}
+		};
+	    xhttp.open("GET", url, true);
+	    xhttp.send();
+	}
+
 	function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

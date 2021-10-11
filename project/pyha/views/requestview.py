@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.translation import ugettext
 from django.shortcuts import render
 from django.urls import reverse
@@ -13,7 +13,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
 from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
-from pyha.warehouse import send_download_request, update_collections, get_download_url
+from pyha.warehouse import send_download_request, update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 import PyPDF2
@@ -85,43 +85,6 @@ def initialize_download(http_request):
                 userRequest.status = 7
                 userRequest.changedBy = changed_by_session_user(http_request)
                 userRequest.save()
-    return HttpResponseRedirect(nexturl)
-
-def download(http_request):
-    nexturl = http_request.POST.get('next', '/')
-    if http_request.method == 'POST':
-        requestId = http_request.POST.get('requestid', '?')
-        if not logged_in(http_request):
-            return _process_auth_response(http_request, "pyha")
-        if not is_allowed_to_view(http_request, requestId):
-            return HttpResponseRedirect(reverse('pyha:root'))
-        if not is_request_owner(http_request, requestId):
-            return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id=requestId)
-        if is_admin_frozen(http_request, userRequest):
-            return HttpResponseRedirect(reverse('pyha:root'))
-
-        if userRequest.status == 8 and is_downloadable(http_request, userRequest):
-            userRequest.downloaded = True
-            userRequest.changedBy = changed_by_session_user(http_request)
-            userRequest.save()
-
-            file_type = http_request.POST.get('fileType', '?')
-            format = http_request.POST.get('format', '?')
-            geometry = http_request.POST.get('geometry', '?')
-            CRS = http_request.POST.get('CRS', '?')
-
-            url = get_download_url(
-                userRequest.lajiId,
-                http_request.session['token'],
-                file_type,
-                format,
-                geometry,
-                CRS
-            )
-
-            return HttpResponseRedirect(url)
-
     return HttpResponseRedirect(nexturl)
 
 def change_description(http_request):

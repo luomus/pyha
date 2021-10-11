@@ -5,7 +5,6 @@ from django.conf import settings
 from django.core.cache import cache, caches
 from django.utils.translation import ugettext
 from itertools import chain
-from pyha.localization import translate_truth
 from requests.auth import HTTPBasicAuth
 from pyha.models import Request, Collection, StatusEnum, Col_StatusEnum, HandlerInRequest
 from pyha.log_utils import changed_by
@@ -230,13 +229,6 @@ def send_download_request(requestId):
         payload[f] = getattr(filters, f)
     response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
 
-def get_download_url(laji_id, person_token, file_type, format, geometry, CRS):
-    if file_type == 'GIS':
-        return '{}{}/{}/{}/{}?personToken={}'.format(
-            settings.GEO_CONVERT_URL, laji_id.split('.')[-1], format, geometry, CRS, person_token
-        )
-
-    return '{}{}?personToken={}'.format(settings.LAJIDOW_URL, laji_id, person_token)
 
 def update_collections():
     payload = {}
