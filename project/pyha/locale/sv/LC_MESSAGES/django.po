@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-08 14:09+0300\n"
+"POT-Creation-Date: 2021-10-11 14:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -448,7 +448,7 @@ msgstr "Antalet av observationer"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:380
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:368
 msgid "secured_by_quarantine"
 msgstr "Forskningsmaterial med begrändsad användning"
 
@@ -462,7 +462,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:385
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:373
 msgid "secured_by_sensitivity"
 msgstr "Sensitiva data"
 
@@ -477,7 +477,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:390
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:378
 msgid "secured_by_data_provider"
 msgstr "Användning begränsad av data ägare"
 
@@ -944,7 +944,7 @@ msgid "delete"
 msgstr "Utesluta"
 
 #: pyha/templates/pyha/requestform/requestform.html:392
-#: pyha/templates/pyha/requestview/requestview.html:252
+#: pyha/templates/pyha/requestview/requestview.html:249
 msgid "back"
 msgstr "Tillbaka"
 
@@ -984,93 +984,97 @@ msgstr "Material"
 msgid "download"
 msgstr "Ladda ner"
 
-#: pyha/templates/pyha/requestview/requestview.html:88
+#: pyha/templates/pyha/requestview/requestview.html:85
 #: pyha/templatetags/pyha_tags.py:78
 msgid "download_has_expired"
 msgstr "Nedladdningen har löpt ut"
 
-#: pyha/templates/pyha/requestview/requestview.html:93
+#: pyha/templates/pyha/requestview/requestview.html:90
 msgid "initialize_download"
 msgstr "Börja förberedelse av nedladdningen"
 
-#: pyha/templates/pyha/requestview/requestview.html:100
+#: pyha/templates/pyha/requestview/requestview.html:97
 msgid "you_will_be_emailed_when_ready"
 msgstr "Du ska få en e-post när nedladdningen är färdig"
 
-#: pyha/templates/pyha/requestview/requestview.html:103
+#: pyha/templates/pyha/requestview/requestview.html:100
 msgid "stop_wait_initialize_download"
 msgstr "Avbryta behandling och ladda ner godkända material"
 
-#: pyha/templates/pyha/requestview/requestview.html:121
+#: pyha/templates/pyha/requestview/requestview.html:118
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Ändringslogg"
 
-#: pyha/templates/pyha/requestview/requestview.html:128
+#: pyha/templates/pyha/requestview/requestview.html:125
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Sökande"
 
-#: pyha/templates/pyha/requestview/requestview.html:135
+#: pyha/templates/pyha/requestview/requestview.html:132
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Motivering av begäran"
 
-#: pyha/templates/pyha/requestview/requestview.html:142
+#: pyha/templates/pyha/requestview/requestview.html:139
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Information om material"
 
-#: pyha/templates/pyha/requestview/requestview.html:149
+#: pyha/templates/pyha/requestview/requestview.html:146
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Filter"
 
-#: pyha/templates/pyha/requestview/requestview.html:157
+#: pyha/templates/pyha/requestview/requestview.html:154
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Beslut"
 
-#: pyha/templates/pyha/requestview/requestview.html:159
+#: pyha/templates/pyha/requestview/requestview.html:156
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Beslut"
 
-#: pyha/templates/pyha/requestview/requestview.html:169
+#: pyha/templates/pyha/requestview/requestview.html:166
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Begäran för tilläggsuppgifter"
 
-#: pyha/templates/pyha/requestview/requestview.html:171
+#: pyha/templates/pyha/requestview/requestview.html:168
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Begäran för tilläggsuppgifter"
 
-#: pyha/templates/pyha/requestview/requestview.html:181
+#: pyha/templates/pyha/requestview/requestview.html:178
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Kommentarer från myndigheterna"
 
-#: pyha/templates/pyha/requestview/requestview.html:190
+#: pyha/templates/pyha/requestview/requestview.html:187
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Kommunikation"
 
-#: pyha/templates/pyha/requestview/requestview.html:248
+#: pyha/templates/pyha/requestview/requestview.html:245
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Material som inte har godkänts kommer att uteslutas från nedladdningen, och "
 "begäran kommer inte att behandlas vidare. Är du säker på att du vill gå "
 "vidare?"
 
-#: pyha/templates/pyha/requestview/requestview.html:251
+#: pyha/templates/pyha/requestview/requestview.html:248
 msgid "Yes"
 msgstr "Ja"
 
-#: pyha/templates/pyha/requestview/requestview.html:265
+#: pyha/templates/pyha/requestview/requestview.html:261
 msgid "loading"
 msgstr "Laddar..."
+
+#: pyha/templates/pyha/requestview/requestview.html:279
+msgid "download_failed"
+msgstr "Nedladdning misslyckad!"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
@@ -1522,11 +1526,11 @@ msgstr "Klar för nedladdning"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Tack, din förfrågan har skrivits in."
 
-#: pyha/views/requestview.py:215
+#: pyha/views/requestview.py:168
 msgid "toast_mails_sent_succesfully"
 msgstr ""
 
-#: pyha/views/requestview.py:312 pyha/views/requestview.py:321
+#: pyha/views/requestview.py:265 pyha/views/requestview.py:274
 msgid "file_upload_failed"
 msgstr "Filöverföring misslyckades"
 

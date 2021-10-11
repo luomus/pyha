@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-08 14:09+0300\n"
+"POT-Creation-Date: 2021-10-11 14:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -446,7 +446,7 @@ msgstr "Havaintojen määrä"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:380
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:368
 msgid "secured_by_quarantine"
 msgstr "Käyttörajoitetut tutkimusaineistot"
 
@@ -460,7 +460,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:385
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:373
 msgid "secured_by_sensitivity"
 msgstr "Sensitiivinen aineisto"
 
@@ -475,7 +475,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:390
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:378
 msgid "secured_by_data_provider"
 msgstr "Käyttörajoitetut aineistot"
 
@@ -945,7 +945,7 @@ msgid "delete"
 msgstr "Poista"
 
 #: pyha/templates/pyha/requestform/requestform.html:392
-#: pyha/templates/pyha/requestview/requestview.html:252
+#: pyha/templates/pyha/requestview/requestview.html:249
 msgid "back"
 msgstr "Peruuta"
 
@@ -987,92 +987,96 @@ msgstr "Aineistot"
 msgid "download"
 msgstr "Lataa"
 
-#: pyha/templates/pyha/requestview/requestview.html:88
+#: pyha/templates/pyha/requestview/requestview.html:85
 #: pyha/templatetags/pyha_tags.py:78
 msgid "download_has_expired"
 msgstr "Lataus on vanhentunut"
 
-#: pyha/templates/pyha/requestview/requestview.html:93
+#: pyha/templates/pyha/requestview/requestview.html:90
 msgid "initialize_download"
 msgstr "Aloita latauksen valmistelu"
 
-#: pyha/templates/pyha/requestview/requestview.html:100
+#: pyha/templates/pyha/requestview/requestview.html:97
 msgid "you_will_be_emailed_when_ready"
 msgstr "Saat sähköpostiin ilmoituksen, kun aineisto on ladattavissa"
 
-#: pyha/templates/pyha/requestview/requestview.html:103
+#: pyha/templates/pyha/requestview/requestview.html:100
 msgid "stop_wait_initialize_download"
 msgstr "Keskeytä pyyntö ja lataa hyväksytyt aineistot"
 
-#: pyha/templates/pyha/requestview/requestview.html:121
+#: pyha/templates/pyha/requestview/requestview.html:118
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Käsittelyloki"
 
-#: pyha/templates/pyha/requestview/requestview.html:128
+#: pyha/templates/pyha/requestview/requestview.html:125
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Hakijat"
 
-#: pyha/templates/pyha/requestview/requestview.html:135
+#: pyha/templates/pyha/requestview/requestview.html:132
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Hakemuksen perustelut"
 
-#: pyha/templates/pyha/requestview/requestview.html:142
+#: pyha/templates/pyha/requestview/requestview.html:139
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Aineistojen tiedot"
 
-#: pyha/templates/pyha/requestview/requestview.html:149
+#: pyha/templates/pyha/requestview/requestview.html:146
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Aineistorajaukset"
 
-#: pyha/templates/pyha/requestview/requestview.html:157
+#: pyha/templates/pyha/requestview/requestview.html:154
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/requestview/requestview.html:159
+#: pyha/templates/pyha/requestview/requestview.html:156
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/requestview/requestview.html:169
+#: pyha/templates/pyha/requestview/requestview.html:166
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/requestview/requestview.html:171
+#: pyha/templates/pyha/requestview/requestview.html:168
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/requestview/requestview.html:181
+#: pyha/templates/pyha/requestview/requestview.html:178
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Aineistonkäsittelijöiden kommentit"
 
-#: pyha/templates/pyha/requestview/requestview.html:190
+#: pyha/templates/pyha/requestview/requestview.html:187
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Viestintä"
 
-#: pyha/templates/pyha/requestview/requestview.html:248
+#: pyha/templates/pyha/requestview/requestview.html:245
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Hyväksymättömät aineistot jäävät latauksen ulkopuolelle ja pyynnön käsittely "
 "keskeytetään niiden osalta. Haluatko varmasti jatkaa?"
 
-#: pyha/templates/pyha/requestview/requestview.html:251
+#: pyha/templates/pyha/requestview/requestview.html:248
 msgid "Yes"
 msgstr "Kyllä"
 
-#: pyha/templates/pyha/requestview/requestview.html:265
+#: pyha/templates/pyha/requestview/requestview.html:261
 msgid "loading"
 msgstr "Ladataan..."
+
+#: pyha/templates/pyha/requestview/requestview.html:279
+msgid "download_failed"
+msgstr "Lataus epäonnistui!"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
@@ -1530,11 +1534,11 @@ msgstr "Valmiina ladattavaksi"
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 
-#: pyha/views/requestview.py:215
+#: pyha/views/requestview.py:168
 msgid "toast_mails_sent_succesfully"
 msgstr "Viestit lähetetty onnistuneesti."
 
-#: pyha/views/requestview.py:312 pyha/views/requestview.py:321
+#: pyha/views/requestview.py:265 pyha/views/requestview.py:274
 msgid "file_upload_failed"
 msgstr "Tiedoston lataus epäonnistui!"
 

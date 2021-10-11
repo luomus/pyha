@@ -49,6 +49,12 @@ def gis_download_status(http_request, download_id):
     if http_request.method == 'GET':
         url = '{}status/{}?timeout={}'.format(settings.GEO_CONVERT_URL, download_id, 1)
         r = requests.get(url, allow_redirects=False)
+        if not r.ok:
+            status_code = 502
+            if r.status_code == 400 or r.status_code == 404:
+                status_code = r.status_code
+            return HttpResponse(status=status_code)
+
         status = r.json()['status']
 
         response = {

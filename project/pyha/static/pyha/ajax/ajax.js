@@ -206,13 +206,13 @@
 
 	function download() {
 		var fields = ["requestid", "format", "geometry", "CRS"];
-
 		var data = "";
 		for (var i = 0; i < fields.length; i++) {
 		    data += fields[i] + "=" + document.getElementById(fields[i]).value + "&";
 		}
 		data += "fileType=" + document.querySelector("input[name='fileType']:checked").value;
-		$("#user-download-button").attr("disabled", true);
+
+		$("#loading-modal").modal('show');
 
 		var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -220,12 +220,12 @@
 				if (this.status == 200) {
 				    var jsonResponse = JSON.parse(this.responseText);
 				    if (jsonResponse["status"] === "complete") {
-				    	$("#user-download-button").attr("disabled", false);
-                        window.location = jsonResponse["downloadUrl"];
+				    	downloadSuccess(jsonResponse);
 				    } else {
-				    	$("#loading-modal").modal('show');
 				        pollDownloadStatus(jsonResponse["statusUrl"]);
 				    }
+				} else {
+				    downloadError();
 				}
             }
         };
@@ -242,19 +242,29 @@
 				if (this.status == 200) {
 				    var jsonResponse = JSON.parse(this.responseText);
 				    if (jsonResponse["status"] === "complete") {
-				        $("#loading-modal").modal("hide");
-				        $("#user-download-button").attr("disabled", false);
-                        window.location = jsonResponse["downloadUrl"];
+				        downloadSuccess(jsonResponse);
 				    } else {
                         setTimeout(() => {
                             pollDownloadStatus(url);
                         }, 5000);
 				    }
+				} else {
+				    downloadError();
 				}
 			}
 		};
 	    xhttp.open("GET", url, true);
 	    xhttp.send();
+	}
+
+	function downloadSuccess(jsonResponse) {
+	    $("#loading-modal").modal("hide");
+        window.location = jsonResponse["downloadUrl"];
+	}
+
+	function downloadError() {
+	    $("#loading-modal").modal("hide");
+	    alert(document.getElementById("getDownloadFailedText").value);
 	}
 
 	function getCookie(name) {

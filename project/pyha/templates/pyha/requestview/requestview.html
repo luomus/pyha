@@ -276,6 +276,7 @@
 <input type="hidden" id="setDescriptionURL" name="setDescription" value="{% url 'pyha:set_description_ajax' %}">
 <input type="hidden" id="getDescriptionURL" name="getDescription" value="{% url 'pyha:get_description_ajax' %}">
 <input type="hidden" id="getDownloadURL" name="getDownloadURL" value="{% url 'pyha:requestDownload' %}">
+<input type="hidden" id="getDownloadFailedText" name="getDownloadFailedText" value="{% trans 'download_failed' %}">
 
 {% endblock %}
 
