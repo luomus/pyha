@@ -275,6 +275,7 @@ def information(http_request):
                     }
                     http_request.session.save()
                     return HttpResponseRedirect(nexturl)
+                attached_file.seek(0)
                 newChatEntry.attachedFile = attached_file.read()
                 newChatEntry.attachedFileName = attached_file.name
 
