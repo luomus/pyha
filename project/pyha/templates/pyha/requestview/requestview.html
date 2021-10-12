@@ -46,30 +46,30 @@
                 <div class="user-download-settings">
                     <div style="text-align: left">
                         <div style="margin-bottom: 10px">
-                            <label style="margin-right: 10px">File type:</label>
+                            <label style="margin-right: 10px">{% trans 'download_file_type' %}:</label>
                             <label class="radio-inline">
-                                <input type="radio" id="standard" name="fileType" value="Standard" checked onchange="updateGisFields()">Standard
+                                <input type="radio" id="standard" name="fileType" value="Standard" checked onchange="updateGisFields()">{% trans 'download_file_type_standard' %}
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" id="gis" name="fileType" value="GIS" onchange="updateGisFields()">GIS
+                                <input type="radio" id="gis" name="fileType" value="GIS" onchange="updateGisFields()">{% trans 'download_file_type_gis' %}
                             </label>
                         </div>
                         <div>
-                            <label for="format">Format:</label>
+                            <label for="format">{% trans 'download_format' %}:</label>
                             <select id="format" name="format">
-                                <option value="shp">.shp</option>
-                                <option value="gpkg">.gpkg</option>
+                                <option value="shp">{% trans 'download_format_shp' %}</option>
+                                <option value="gpkg">{% trans 'download_format_gpkg' %}</option>
                             </select>
-                            <label for="geometry">Geometry:</label>
+                            <label for="geometry">{% trans 'download_geometry' %}:</label>
                             <select id="geometry" name="geometry">
-                                <option value="point">point</option>
-                                <option value="bbox">bbox</option>
-                                <option value="footprint">footprint</option>
+                                <option value="point">{% trans 'download_geometry_point' %}</option>
+                                <option value="bbox">{% trans 'download_geometry_bbox' %}</option>
+                                <option value="footprint">{% trans 'download_geometry_footprint' %}</option>
                             </select>
-                            <label for="CRS">CRS:</label>
+                            <label for="CRS">{% trans 'download_crs' %}:</label>
                             <select id="CRS" name="CRS">
-                                <option value="euref">euref</option>
-                                <option value="wgs84">wgs84</option>
+                                <option value="euref">{% trans 'download_crs_euref' %}</option>
+                                <option value="wgs84">{% trans 'download_crs_wgs84' %}</option>
                             </select>
                         </div>
                     </div>

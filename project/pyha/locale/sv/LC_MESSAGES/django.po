@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 14:36+0300\n"
+"POT-Creation-Date: 2021-10-12 12:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -979,6 +979,58 @@ msgstr "Alla valda"
 #: pyha/templates/pyha/requestview/requestview.html:15
 msgid "restricted"
 msgstr "Material"
+
+#: pyha/templates/pyha/requestview/requestview.html:49
+msgid "download_file_type"
+msgstr "File type"
+
+#: pyha/templates/pyha/requestview/requestview.html:51
+msgid "download_file_type_standard"
+msgstr "Standard"
+
+#: pyha/templates/pyha/requestview/requestview.html:54
+msgid "download_file_type_gis"
+msgstr "GIS"
+
+#: pyha/templates/pyha/requestview/requestview.html:58
+msgid "download_format"
+msgstr "Format"
+
+#: pyha/templates/pyha/requestview/requestview.html:60
+msgid "download_format_shp"
+msgstr ".shp"
+
+#: pyha/templates/pyha/requestview/requestview.html:61
+msgid "download_format_gpkg"
+msgstr ".gpkg"
+
+#: pyha/templates/pyha/requestview/requestview.html:63
+msgid "download_geometry"
+msgstr "Geometry"
+
+#: pyha/templates/pyha/requestview/requestview.html:65
+msgid "download_geometry_point"
+msgstr "point"
+
+#: pyha/templates/pyha/requestview/requestview.html:66
+msgid "download_geometry_bbox"
+msgstr "bbox"
+
+#: pyha/templates/pyha/requestview/requestview.html:67
+msgid "download_geometry_footprint"
+msgstr "footprint"
+
+#: pyha/templates/pyha/requestview/requestview.html:69
+msgid "download_crs"
+msgstr "CRS"
+
+#: pyha/templates/pyha/requestview/requestview.html:71
+msgid "download_crs_euref"
+msgstr "euref"
+
+#: pyha/templates/pyha/requestview/requestview.html:72
+msgid "download_crs_wgs84"
+msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:80
 msgid "download"
