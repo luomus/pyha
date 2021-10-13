@@ -943,3 +943,11 @@ h3{
 .user-download .user-download-button-container .btn {
     width: 100%;
 }
+
+.help-glyph {
+    margin-left: 5px;
+    border-radius: 9px;
+    color: white;
+    padding: 0px 6px;
+    font-size: 13px;
+}

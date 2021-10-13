@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 12:16+0300\n"
+"POT-Creation-Date: 2021-10-13 09:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -945,7 +945,7 @@ msgid "delete"
 msgstr "Poista"
 
 #: pyha/templates/pyha/requestform/requestform.html:392
-#: pyha/templates/pyha/requestview/requestview.html:249
+#: pyha/templates/pyha/requestview/requestview.html:250
 msgid "back"
 msgstr "Peruuta"
 
@@ -995,138 +995,142 @@ msgstr "Standard"
 msgid "download_file_type_gis"
 msgstr "GIS"
 
-#: pyha/templates/pyha/requestview/requestview.html:58
+#: pyha/templates/pyha/requestview/requestview.html:56
+msgid "download_help"
+msgstr "Info"
+
+#: pyha/templates/pyha/requestview/requestview.html:59
 msgid "download_format"
 msgstr "Format"
 
-#: pyha/templates/pyha/requestview/requestview.html:60
+#: pyha/templates/pyha/requestview/requestview.html:61
 msgid "download_format_shp"
 msgstr ".shp"
 
-#: pyha/templates/pyha/requestview/requestview.html:61
+#: pyha/templates/pyha/requestview/requestview.html:62
 msgid "download_format_gpkg"
 msgstr ".gpkg"
 
-#: pyha/templates/pyha/requestview/requestview.html:63
+#: pyha/templates/pyha/requestview/requestview.html:64
 msgid "download_geometry"
 msgstr "Geometry"
 
-#: pyha/templates/pyha/requestview/requestview.html:65
+#: pyha/templates/pyha/requestview/requestview.html:66
 msgid "download_geometry_point"
 msgstr "point"
 
-#: pyha/templates/pyha/requestview/requestview.html:66
+#: pyha/templates/pyha/requestview/requestview.html:67
 msgid "download_geometry_bbox"
 msgstr "bbox"
 
-#: pyha/templates/pyha/requestview/requestview.html:67
+#: pyha/templates/pyha/requestview/requestview.html:68
 msgid "download_geometry_footprint"
 msgstr "footprint"
 
-#: pyha/templates/pyha/requestview/requestview.html:69
+#: pyha/templates/pyha/requestview/requestview.html:70
 msgid "download_crs"
 msgstr "CRS"
 
-#: pyha/templates/pyha/requestview/requestview.html:71
+#: pyha/templates/pyha/requestview/requestview.html:72
 msgid "download_crs_euref"
 msgstr "euref"
 
-#: pyha/templates/pyha/requestview/requestview.html:72
+#: pyha/templates/pyha/requestview/requestview.html:73
 msgid "download_crs_wgs84"
 msgstr "wgs84"
 
-#: pyha/templates/pyha/requestview/requestview.html:80
+#: pyha/templates/pyha/requestview/requestview.html:81
 msgid "download"
 msgstr "Lataa"
 
-#: pyha/templates/pyha/requestview/requestview.html:85
+#: pyha/templates/pyha/requestview/requestview.html:86
 #: pyha/templatetags/pyha_tags.py:78
 msgid "download_has_expired"
 msgstr "Lataus on vanhentunut"
 
-#: pyha/templates/pyha/requestview/requestview.html:90
+#: pyha/templates/pyha/requestview/requestview.html:91
 msgid "initialize_download"
 msgstr "Aloita latauksen valmistelu"
 
-#: pyha/templates/pyha/requestview/requestview.html:97
+#: pyha/templates/pyha/requestview/requestview.html:98
 msgid "you_will_be_emailed_when_ready"
 msgstr "Saat sähköpostiin ilmoituksen, kun aineisto on ladattavissa"
 
-#: pyha/templates/pyha/requestview/requestview.html:100
+#: pyha/templates/pyha/requestview/requestview.html:101
 msgid "stop_wait_initialize_download"
 msgstr "Keskeytä pyyntö ja lataa hyväksytyt aineistot"
 
-#: pyha/templates/pyha/requestview/requestview.html:118
+#: pyha/templates/pyha/requestview/requestview.html:119
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Käsittelyloki"
 
-#: pyha/templates/pyha/requestview/requestview.html:125
+#: pyha/templates/pyha/requestview/requestview.html:126
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Hakijat"
 
-#: pyha/templates/pyha/requestview/requestview.html:132
+#: pyha/templates/pyha/requestview/requestview.html:133
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Hakemuksen perustelut"
 
-#: pyha/templates/pyha/requestview/requestview.html:139
+#: pyha/templates/pyha/requestview/requestview.html:140
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Aineistojen tiedot"
 
-#: pyha/templates/pyha/requestview/requestview.html:146
+#: pyha/templates/pyha/requestview/requestview.html:147
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Aineistorajaukset"
 
-#: pyha/templates/pyha/requestview/requestview.html:154
+#: pyha/templates/pyha/requestview/requestview.html:155
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/requestview/requestview.html:156
+#: pyha/templates/pyha/requestview/requestview.html:157
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/requestview/requestview.html:166
+#: pyha/templates/pyha/requestview/requestview.html:167
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/requestview/requestview.html:168
+#: pyha/templates/pyha/requestview/requestview.html:169
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/requestview/requestview.html:178
+#: pyha/templates/pyha/requestview/requestview.html:179
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Aineistonkäsittelijöiden kommentit"
 
-#: pyha/templates/pyha/requestview/requestview.html:187
+#: pyha/templates/pyha/requestview/requestview.html:188
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Viestintä"
 
-#: pyha/templates/pyha/requestview/requestview.html:245
+#: pyha/templates/pyha/requestview/requestview.html:246
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Hyväksymättömät aineistot jäävät latauksen ulkopuolelle ja pyynnön käsittely "
 "keskeytetään niiden osalta. Haluatko varmasti jatkaa?"
 
-#: pyha/templates/pyha/requestview/requestview.html:248
+#: pyha/templates/pyha/requestview/requestview.html:249
 msgid "Yes"
 msgstr "Kyllä"
 
-#: pyha/templates/pyha/requestview/requestview.html:261
+#: pyha/templates/pyha/requestview/requestview.html:262
 msgid "loading"
 msgstr "Ladataan..."
 
-#: pyha/templates/pyha/requestview/requestview.html:279
+#: pyha/templates/pyha/requestview/requestview.html:280
 msgid "download_failed"
 msgstr "Lataus epäonnistui!"
 
