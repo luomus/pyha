@@ -985,11 +985,11 @@ msgstr "Aineistot"
 
 #: pyha/templates/pyha/requestview/requestview.html:49
 msgid "download_file_type"
-msgstr "File type"
+msgstr "Tiedostotyyppi"
 
 #: pyha/templates/pyha/requestview/requestview.html:51
 msgid "download_file_type_standard"
-msgstr "Standard"
+msgstr "Vakio"
 
 #: pyha/templates/pyha/requestview/requestview.html:54
 msgid "download_file_type_gis"
@@ -1001,7 +1001,7 @@ msgstr "Info"
 
 #: pyha/templates/pyha/requestview/requestview.html:59
 msgid "download_format"
-msgstr "Format"
+msgstr "Tiedostomuoto"
 
 #: pyha/templates/pyha/requestview/requestview.html:61
 msgid "download_format_shp"
@@ -1013,7 +1013,7 @@ msgstr ".gpkg"
 
 #: pyha/templates/pyha/requestview/requestview.html:64
 msgid "download_geometry"
-msgstr "Geometry"
+msgstr "Geometria"
 
 #: pyha/templates/pyha/requestview/requestview.html:66
 msgid "download_geometry_point"
