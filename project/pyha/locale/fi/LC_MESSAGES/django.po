@@ -997,7 +997,14 @@ msgstr "GIS"
 
 #: pyha/templates/pyha/requestview/requestview.html:56
 msgid "download_help"
-msgstr "Info"
+msgstr "Paikkatietomuotoisessa aineistolatauksessa voit itse määrittää aineiston tiedostomuodon, geometriatyypin ja \
+koordinaattijärjestelmän.\n\nTiedostomuoto:\nshp. = ESRI Shapefile\ngpkg. = GeoPackage\n\nGeometria:\npoint = \
+havaintojen sijaintien keskipisteet\nfootprint* = havaintojen geometriat alkuperäisessä muodossaan: voi sisältää \
+piste-, viiva- ja aluegeometrioita\nbbx = havaintojen \"Bounding Box\" -aluerajaukset\n\nCRS \
+(koordinaattijärjestelmä):\neuref (ETRS89-TM35FIN, epsg 3067)\nwgs84 (epsg 4326)\n\n*HUOMIO Footprint -muotoinen \
+aineisto voi sisältää 'geometry collection' - havaintoja, jotka koostuvat useista eri geometriatyypeistä.\n\
+Useimmat paikkatieto-ohjelmistot eivät tue tätä aineistotyyppiä, jolloin osa havainnoista jää piirtymättä kartalle!\n\
+Varmista, että paikkatietojärjestelmään vietyjen havaintojen lukumäärä vastaa alkuperäistä lukua."
 
 #: pyha/templates/pyha/requestview/requestview.html:59
 msgid "download_format"

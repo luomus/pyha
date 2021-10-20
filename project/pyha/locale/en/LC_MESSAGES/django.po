@@ -983,7 +983,14 @@ msgstr "GIS"
 
 #: pyha/templates/pyha/requestview/requestview.html:56
 msgid "download_help"
-msgstr "Info"
+msgstr "Choosing download in GIS format allows you to define the file format, geometry type and coordinate reference \
+system of the observation data.\n\nFormat:\nshp. = ESRI Shapefile\ngpkg. = GeoPackage\n\nGeometry:\npoint = \
+observation centre points\nfootprint* = original geometries of the observations: different geometry types (points, \
+lines and polygons)\nbbx = bounding boxes that enclose the observation areas\n\nCRS (Coordinate Reference System):\n\
+euref (ETRS89-TM35FIN, epsg 3067)\nwgs84 (epsg 4326)\n\n*ATTENTION Footprint data might include 'geometry collection'\
+observations, that consist of different geometry types.\nMost of the common GIS applications do not support this data \
+type, leading to missing geometries.\nMake sure that the number of observations in GIS application is corresponding to \
+the original number of the observations."
 
 #: pyha/templates/pyha/requestview/requestview.html:59
 msgid "download_format"

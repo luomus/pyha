@@ -21,6 +21,9 @@ p {
     word-break: normal;
 }
 
+.popover{
+    max-width: 100%;
+}
 
 .normaltooltip {
 	position: relative;
