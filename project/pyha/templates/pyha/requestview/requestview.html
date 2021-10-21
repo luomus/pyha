@@ -45,8 +45,8 @@
             <div style="text-align:center;">
                 <div class="user-download-settings">
                     <div style="text-align: left">
-                        <div style="margin-bottom: 10px">
-                            <label style="margin-right: 10px">{% trans 'download_file_type' %}:</label>
+                        <div>
+                            <label style="margin-right: 10px; margin-bottom: 0">{% trans 'download_file_type' %}:</label>
                             <label class="radio-inline">
                                 <input type="radio" id="standard" name="fileType" value="Standard" checked onchange="updateGisFields()">{% trans 'download_file_type_standard' %}
                             </label>
@@ -55,7 +55,7 @@
                             </label>
                             <span class="label-info help-glyph" data-trigger="hover" data-html="true" data-toggle="popover" data-placement="right" data-content="{% trans 'download_help'|linebreaks|force_escape %}">?</span>
                         </div>
-                        <div>
+                        <div id="gis-fields" style="margin-top: 10px">
                             <label for="format">{% trans 'download_format' %}:</label>
                             <select id="format" name="format">
                                 <option value="shp">{% trans 'download_format_shp' %}</option>
@@ -418,13 +418,10 @@ $(document).ready(function(){
   function updateGisFields() {
     var fileTypeElem = document.querySelector('input[name="fileType"]:checked');
     if (fileTypeElem) {
-      fileType = fileTypeElem.value;
+      var fileType = fileTypeElem.value;
       var gisFieldsDisabled = fileType !== 'GIS';
 
-      var gisFields = ['format', 'geometry', 'CRS'];
-      for (var i = 0; i < gisFields.length; i++)  {
-        document.getElementById(gisFields[i]).disabled = gisFieldsDisabled;
-      }
+      document.getElementById("gis-fields").style.display = (gisFieldsDisabled ? "none" : "");
     }
   }
 
