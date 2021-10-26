@@ -3,14 +3,13 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entry, withdraw_request
+from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, withdraw_request
 from pyha.localization import check_language
-from pyha.login import logged_in, _process_auth_response, is_request_owner, is_admin
+from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler, get_collection_counts
 from operator import attrgetter
-from itertools import chain
 
 def csrf_failure(http_request, reason=""):
     return render(http_request, 'pyha/error/403_crsf.html', {'static': settings.STA_URL, 'version': settings.VERSION})
@@ -99,6 +98,8 @@ def _get_request_list(http_request, userId):
 
 def add_handler_values(request_list, http_request):
     collectionList = list(Collection.objects.filter(request__in=[re.id for re in request_list], status__gte=0))
+    entries = get_last_information_chat_entries(request_list)
+
     for r in request_list:
         allSecured = 0
         waiting_collections = 0
@@ -116,10 +117,10 @@ def add_handler_values(request_list, http_request):
 
         r.allSecured = allSecured
 
-        last_entry = get_last_information_chat_entry(r)
-        if last_entry is None:
+        last_entry = [e for e in entries if e.request_id == r.id]
+        if len(last_entry) == 0:
             r.information_status = -1
-        elif last_entry.question:
+        elif last_entry[0].question:
             r.information_status = 0
         else:
             r.information_status = 1

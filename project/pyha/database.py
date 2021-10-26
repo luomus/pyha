@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.template.loader import get_template
+from django.db.models import Max, F
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
@@ -389,9 +390,19 @@ def requestInformationChat(http_request, userRequest, userId):
             l.name = fetch_user_name(l.user)
         return requestInformationChat_list
 
-def get_last_information_chat_entry(userRequest):
-    query = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest)
-    return query.order_by('date').last()
+def get_last_information_chat_entries(request_list):
+    query = RequestInformationChatEntry.requestInformationChat.raw(
+        '''
+        select id, request_id, question from
+        (
+        select id, "DATE", request_id, question, max("DATE") over (partition by request_id) as max_date
+        from pyha_requestinformationchad9c9
+        where request_id in ({})
+        )
+        where "DATE" = max_date
+        '''.format(','.join([str(re.id) for re in request_list]))
+    )
+    return query
 
 def update_collection_status(http_request, userRequest, collection):
     if ADMIN in http_request.session["current_user_role"]:
