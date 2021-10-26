@@ -404,6 +404,38 @@ def get_last_information_chat_entries(request_list):
     )
     return query
 
+def get_request_collection_status(request_list):
+    query = Request.objects.raw(
+        '''
+        select r.id, count(distinct c1.id) as waiting_count, count(distinct c2.id) as handled_count,
+        sum(c3.count_sum) * count(distinct c3.id) / count(*) as observation_count
+        from pyha_request r
+        left outer join
+        (
+        select id, request_id
+        from pyha_collection
+        where status = {}
+        ) c1 on r.id = c1.request_id
+        left outer join
+        (
+        select id, request_id
+        from pyha_collection
+        where status = {} or status = {}
+        ) c2 on r.id = c2.request_id
+        left outer join
+        (
+        select id, count_sum, request_id
+        from pyha_collection
+        where status >= 0
+        ) c3 on r.id = c3.request_id
+        where r.id in ({})
+        group by r.id
+        '''.format(
+            StatusEnum.WAITING, StatusEnum.REJECTED, StatusEnum.APPROVED, ','.join([str(re.id) for re in request_list])
+        )
+    )
+    return query
+
 def update_collection_status(http_request, userRequest, collection):
     if ADMIN in http_request.session["current_user_role"]:
         if (int(http_request.POST.get('answer')) == 1):

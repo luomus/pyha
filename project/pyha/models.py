@@ -65,6 +65,7 @@ class Collection(models.Model):
 
 	# new count field
 	count_list = models.CharField(max_length=4000)
+	count_sum = models.IntegerField(default=0)
 
 	#for collection.status
 	#status 0: Odottaa pyytäjän hyväksymistä

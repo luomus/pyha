@@ -3,12 +3,12 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, withdraw_request
+from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, get_request_collection_status, withdraw_request
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
-from pyha.warehouse import fetch_email_address, get_collections_where_download_handler, get_collection_counts
+from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
 from operator import attrgetter
 
 def csrf_failure(http_request, reason=""):
@@ -40,7 +40,7 @@ def index(http_request):
 
     current_roles = http_request.session.get("current_user_role", [None])
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        add_handler_values(request_list, http_request)
+        add_handler_values(request_list)
         for r in request_list:
             r.email = fetch_email_address(r.user)
 
@@ -96,26 +96,13 @@ def _get_request_list(http_request, userId):
     else:
         return Request.objects.filter(user=userId).exclude(status__in=[-1]).order_by('-date')
 
-def add_handler_values(request_list, http_request):
-    collectionList = list(Collection.objects.filter(request__in=[re.id for re in request_list], status__gte=0))
+def add_handler_values(request_list):
+    collection_status = get_request_collection_status(request_list)
     entries = get_last_information_chat_entries(request_list)
 
-    for r in request_list:
-        allSecured = 0
-        waiting_collections = 0
-        handled_collections = 0
-
-        for collection in [c for c in collectionList if c.request_id == r.id]:
-            counts = get_collection_counts(collection, http_request.LANGUAGE_CODE)
-            for count in counts:
-                allSecured += count.count
-
-            if collection.status == StatusEnum.WAITING:
-                waiting_collections += 1
-            elif collection.status == StatusEnum.REJECTED or collection.status == StatusEnum.APPROVED:
-                handled_collections += 1
-
-        r.allSecured = allSecured
+    for idx, r in enumerate(request_list):
+        col_status = [c for c in collection_status if c.id == r.id][0]
+        r.allSecured = col_status.observation_count
 
         last_entry = [e for e in entries if e.request_id == r.id]
         if len(last_entry) == 0:
@@ -128,9 +115,9 @@ def add_handler_values(request_list, http_request):
         if r.status == StatusEnum.WITHDRAWN:
             r.decision_status = -1
         else:
-            if waiting_collections == 0:
+            if col_status.waiting_count == 0:
                 r.decision_status = 2
-            elif handled_collections > 0:
+            elif col_status.handled_count > 0:
                 r.decision_status = 1
             else:
                 r.decision_status = 0

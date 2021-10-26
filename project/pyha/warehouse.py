@@ -66,6 +66,10 @@ def makeCollection(req, i):
     co.quarantineSecured = getattr(i, 'dataQuarantineReasonCount', 0)
 
     co.count_list = namespace_to_json(i, 'counts')
+    count_sum = 0
+    for count in getattr(i, 'counts', []):
+        count_sum += count.count
+    co.count_sum = count_sum
     co.changedBy = changed_by("pyha")
     co.save()
 
