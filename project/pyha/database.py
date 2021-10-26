@@ -1,21 +1,17 @@
 import json
 from argparse import Namespace
 from datetime import timedelta, datetime
-from itertools import chain
 from django.core.cache import caches
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.template.loader import get_template
-from django.db.models import Max, F
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
-from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner
+from pyha.login import logged_in, _process_auth_response, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
-    Col_StatusEnum, AdminUserSettings, RequestSentStatusEmail
+    Col_StatusEnum, RequestSentStatusEmail
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_role, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link
 from pyha.log_utils import changed_by_session_user, changed_by
-from pyha import toast
 
 def removeCollection(http_request):
     if http_request.method == 'POST':
