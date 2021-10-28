@@ -1,6 +1,6 @@
 ﻿from django.conf import settings
 from django.urls import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, get_request_collection_status, withdraw_request
@@ -9,6 +9,7 @@ from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
+from pyha.templatetags.pyha_tags import translateRequestStatus
 from operator import attrgetter
 
 def csrf_failure(http_request, reason=""):
@@ -34,33 +35,70 @@ def index(http_request):
         http_request.session.save()
 
     request_list = _get_request_list(http_request, userId)
-    for r in request_list:
-        if(r.status == StatusEnum.DOWNLOADABLE):
-            r.downloadable = is_downloadable(http_request, r)
-
-    current_roles = http_request.session.get("current_user_role", [None])
-    if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        add_handler_values(request_list)
-        for r in request_list:
-            r.email = fetch_email_address(r.user)
-
-    if HANDLER_ANY in current_roles:
-        handler_mul_information_chat_answered_status(request_list, http_request, userId)
-        handler_mul_req_waiting_for_me_status(request_list, http_request, userId)
-        viewedlist = list(RequestLogEntry.requestLog.filter(request__in = [re.id for re in request_list], user = userId, action = 'VIEW'))
-        for r in request_list:
-            if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
-                r.viewed = True
-
     context = {
         "role": http_request.session.get("current_user_role", USER),
         "toast": toast,
         "username": http_request.session["user_name"],
-        "requests": request_list,
+        "has_requests": len(request_list) > 0,
         "static": settings.STA_URL,
         "version": settings.VERSION
     }
     return render(http_request, 'pyha/base/index.html', context)
+
+def get_request_list_ajax(http_request):
+    if http_request.method == 'POST':
+        if not logged_in(http_request):
+            return HttpResponse(reverse('pyha:root'), status=310)
+
+        user_id = http_request.session['user_id']
+        current_roles = http_request.session.get('current_user_role', [None])
+
+        draw = int(http_request.POST['draw'])
+        start = int(http_request.POST['start'])
+        length = int(http_request.POST['length'])
+        order_column_idx = int(http_request.POST['order[0][column]'])
+        order_column = http_request.POST['columns[{}][data]'.format(order_column_idx)]
+        order_dir = http_request.POST['order[0][dir]']
+        search_value = http_request.POST['search[value]']
+
+        request_list = _get_request_list_with_additional_info(http_request, user_id)
+        count = len(request_list)
+        request_list = request_list[start:start+length]
+
+        data = []
+        for r in request_list:
+            data_entry = {
+                'id': r.id,
+                'status': r.status,
+                'date': r.date
+            }
+            if ADMIN in current_roles or HANDLER_ANY in current_roles:
+                data_entry['email'] = r.email
+                data_entry['observationCount'] = r.observation_count
+                data_entry['informationStatus'] = r.information_status
+                data_entry['decisionStatus'] = r.decision_status
+                data_entry['downloadStatus'] = r.download_status
+
+                if HANDLER_ANY in current_roles:
+                    data_entry['viewed'] = r.viewed
+                    data_entry['answerStatus'] = r.answerstatus
+            else:
+                data_entry['approximateMatches'] = r.approximateMatches
+                data_entry['description'] = r.description
+                data_entry['statusText'] = translateRequestStatus(r.status, USER, None, None, r.downloadable)
+
+            data.append(data_entry)
+
+        result = {
+            'draw': draw,
+            'recordsTotal': count,
+            'recordsFiltered': count,
+            'data': data
+        }
+
+        return JsonResponse(result)
+
+    return HttpResponse(reverse('pyha:root'), status=310)
 
 def group_delete_request(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -84,6 +122,32 @@ def group_delete_request(http_request):
 
     return HttpResponseRedirect(nexturl)
 
+def _get_request_list_with_additional_info(http_request, userId):
+    request_list = _get_request_list(http_request, userId)
+    for r in request_list:
+        if(r.status == StatusEnum.DOWNLOADABLE):
+            r.downloadable = is_downloadable(http_request, r)
+        else:
+            r.downloadable = False
+
+    current_roles = http_request.session.get("current_user_role", [None])
+    if ADMIN in current_roles or HANDLER_ANY in current_roles:
+        add_handler_values(request_list)
+        for r in request_list:
+            r.email = fetch_email_address(r.user)
+
+    if HANDLER_ANY in current_roles:
+        handler_mul_information_chat_answered_status(request_list, http_request, userId)
+        handler_mul_req_waiting_for_me_status(request_list, http_request, userId)
+        viewedlist = list(RequestLogEntry.requestLog.filter(request__in = [re.id for re in request_list], user = userId, action = 'VIEW'))
+        for r in request_list:
+            if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
+                r.viewed = True
+            else:
+                r.viewed = False
+
+    return request_list
+
 def _get_request_list(http_request, userId):
     if ADMIN in http_request.session.get("current_user_role", [None]):
         return Request.objects.exclude(status__in=[-1, 0]).order_by('-date')
@@ -102,7 +166,7 @@ def add_handler_values(request_list):
 
     for idx, r in enumerate(request_list):
         col_status = [c for c in collection_status if c.id == r.id][0]
-        r.allSecured = col_status.observation_count
+        r.observation_count = col_status.observation_count
 
         last_entry = [e for e in entries if e.request_id == r.id]
         if len(last_entry) == 0:
@@ -122,7 +186,9 @@ def add_handler_values(request_list):
             else:
                 r.decision_status = 0
 
-        if r.downloaded is not None:
+        if r.downloaded is None:
+            r.download_status = None
+        else:
             if r.downloaded is False:
                 r.download_status = 0
             elif r.decision_status == 1:

@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^ajax/removeCollection/?$', ajax.remove_collection_ajax, name='remove_collection_ajax'),
     url(r'^ajax/getDescription/?$', ajax.get_description_ajax, name='get_description_ajax'),
     url(r'^ajax/setDescription/?$', ajax.set_description_ajax, name='set_description_ajax'),
+    url(r'^ajax/getRequestList/?$', index.get_request_list_ajax, name='get_request_list_ajax'),
     url(r'^approve/?$', requestform.approve_terms, name='approve'),
     url(r'^request/[1-9][0-9]*/?$', requestview.show_request, name='show_request'),
     url(r'^description/?$', requestview.change_description, name='change_description'),

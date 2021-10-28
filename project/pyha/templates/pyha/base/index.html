@@ -11,7 +11,7 @@
         <h2>{% trans "welcome" %}</h2>
       </div>
 
-      {% if requests %}
+      {% if has_requests %}
       <h2>{% trans "all_requests" %}</h2>
       <p class ="text-muted">{% trans "click_for_info" %}.</p>
 
@@ -42,85 +42,6 @@
               {% endif %}
             </tr>
           </thead>
-          <tbody>
-            {% load humanize %}
-            {% load pyha_tags %}
-            {% for request in requests %}
-              {% if request.status == 1 %}
-                <tr class="info clickable-row indextr"
-              {% elif request.status == 3 %}
-                <tr class="danger clickable-row indextr"
-              {% elif request.status == 2 %}
-                <tr class="warning clickable-row indextr"
-              {% elif request.status == 0 or request.status == 6 %}
-                <tr class="active clickable-row indextr"
-              {% elif request.status == 4 or request.status == 7 or request.status == 8 %}
-                <tr class="success clickable-row indextr"
-              {% elif request.status == -2 %}
-                <tr class="danger clickable-row indextr"
-              {% else %}
-                <tr
-              {% endif %}
-                data-href="{% url 'pyha:root' %}request/{{request.id}}">
-
-                  {% if role == "handler" %}
-                  <td {% if not request.viewed or request.answerstatus == 1%}data-order="1"><span class="glyphicon glyphicon-bell"></span>{% else %}data-order="0"><span></span>{% endif %}</td>
-                  {% endif %}
-
-                  <td>{{request.date|date:"d.m.Y    H:i"}}</td>
-
-                  {% if role == "handler" or role == "admin" %}
-                  <td>{{request.email}}</td>
-                  {% endif %}
-
-                  {% if role == "handler" or role == "admin" %}
-                  <td>{{ request.allSecured }}</td>
-                  {% else %}
-                  <td title="{% trans 'given_values_are_not_absolute' %}">{{ request.approximateMatches|intcomma|replaceCommaWithSpace }}</td>
-                  {% endif %}
-
-                  {% if role == "user" %}
-                  <td>{% translateRequestStatus request.status role request.answerstatus request.waitingstatus request.downloadable %}</td>
-        		      <td>{{request.description|linebreaks}}</td>
-                  {% endif %}
-                  {% if role == "handler" or role == "admin" %}
-                  <td>
-                    {% if request.information_status == 0 %}
-                    {% trans "waiting_for_additional_information" %}
-                    {% elif request.information_status == 1 %}
-                    {% trans "user_has_given_additional_information" %}
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if request.download_status == 0 %}
-                    {% trans "data_is_not_downloaded" %}
-                    {% elif request.download_status == 1 %}
-                    {% trans "data_is_partly_downloaded" %}
-                    {% elif request.download_status == 2 %}
-                    {% trans "data_is_downloaded" %}
-                    {% endif %}
-                  </td>
-                  <td>
-                    {% if request.decision_status == -1 %}
-                    {% trans "withdrawn" %}
-                    {% elif request.decision_status == 0 %}
-                    {% trans "no_decisions" %}
-                    {% elif request.decision_status == 1 %}
-                    {% trans "decisions_partly_done" %}
-                    {% elif request.decision_status == 2 %}
-                    {% trans "decisions_done" %}
-                    {% endif %}
-                  </td>
-                  {% endif %}
-                  {% if role == "user" or role == "admin" %}
-                  <td class="checkbox-column" style="text-align: center">
-                    <input class="select_request_checkbox" name="request_id_{{ request.id }}" type="checkbox" onChange="checkSelected()" style="margin: 0;">
-                  </td>
-                  {% endif %}
-                </tr>
-        	  {% endfor %}
-
-          </tbody>
         </table>
         {% if role == "user" %}
         <p>{% trans 'given_values_are_not_absolute' %}</p>
@@ -142,20 +63,6 @@
 {% endblock %}
 
 {% block end_script %}
-<script>
-$(document).ready(function($) {
-    $(".clickable-row").click(function(e) {
-      if (e.target && e.target.type === "checkbox") {
-        return;
-      }
-      if (e.target && e.target.classList.contains("checkbox-column")) {
-        e.target.children[0].click();
-        return;
-      }
-      window.document.location = $(this).data("href");
-    });
-});
-</script>
 {% if role == "user" or role == "admin" %}
 <script>
 function checkSelected() {
@@ -171,15 +78,115 @@ function checkSelected() {
 
   document.getElementById('submit_delete_requests').disabled = disabled;
 }
-$(document).ready(function(){
-  checkSelected();
-});
 </script>
 {% endif %}
 <script>
+var allColumns = [
+    { "data": "date", "render": $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSS', 'DD.MM.YYYY    HH:mm') },
+    {
+        "data": "approximateMatches",
+        "render": $.fn.dataTable.render.number(" ", ","),
+        "createdCell": function(td, cellData, rowData, row, col) {
+            $(td).attr("title", "{% trans 'given_values_are_not_absolute' %}");
+        }
+    },
+    {
+        "data": "statusText"
+    },
+    {
+        "data": "description",
+        "render": $.fn.dataTable.render.text(),
+        "createdCell": function(td, cellData, rowData, row, col) {
+            $(td).css({"white-space": "pre-wrap"});
+        }
+    },
+    { "data": "email", "render": $.fn.dataTable.render.text() },
+    { "data": "observationCount", "render": $.fn.dataTable.render.number(" ", ",") },
+    {
+        "data": "informationStatus",
+        "render": function(data, type, row) {
+            var content = "";
+            if (data == 0) {
+                content = "{% trans "waiting_for_additional_information" %}";
+            } else if (data == 1) {
+                content = "{% trans "user_has_given_additional_information" %}";
+            }
+            return content;
+        }
+    },
+    {
+        "data": "downloadStatus",
+        "render": function(data, type, row) {
+            var content = "";
+            if (data == 0) {
+                content = "{% trans "data_is_not_downloaded" %}";
+            } else if (data == 1) {
+                content = "{% trans "data_is_partly_downloaded" %}";
+            } else if (data == 2) {
+                content = "{% trans "data_is_downloaded" %}";
+            }
+            return content;
+        }
+    },
+    {
+        "data": "decisionStatus",
+        "render": function(data, type, row) {
+            var content = "";
+            if (data == -1) {
+                content = "{% trans "withdrawn" %}";
+            } else if (data == 0) {
+                content = "{% trans "no_decisions" %}";
+            } else if (data == 1) {
+                content = "{% trans "decisions_partly_done" %}";
+            } else if (data == 2) {
+                content = "{% trans "decisions_done" %}";
+            }
+            return content;
+        }
+    },
+    {
+        "data": null,
+        "defaultContent": "",
+        "render": function(data, type, row) {
+            var content = "<input class=\"select_request_checkbox\" name=\"request_id_";
+            content += data.id;
+            content += "\" type=\"checkbox\" onChange=\"checkSelected()\" style=\"margin: 0;\">";
+            return content;
+        },
+        "createdCell": function(td, cellData, rowData, row, col) {
+            $(td).addClass("checkbox-column text-center");
+        },
+        "sortable": false
+    },
+    {
+        "data": null,
+        "render": function(data, type, row) {
+            if (!row.viewed || row.answerStatus == 1) {
+                return "<span class=\"glyphicon glyphicon-bell\"></span>";
+            }
+            return "";
+        }
+    }
+];
+
 $(document).ready(function() {
-    $.fn.dataTable.moment('DD.MM.YYYY    HH:mm');
     $('#requests-table').dataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+              "url": "{% url 'pyha:get_request_list_ajax' %}",
+              "type": "POST",
+              "headers": {"X-CSRFToken": "{{ csrf_token }}"}
+            },
+            "columns": [
+                {% if role == "admin" %}
+                allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8], allColumns[9]
+                {% elif role == "handler" %}
+                allColumns[10], allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8]
+                {% else %}
+                allColumns[0], allColumns[1], allColumns[2], allColumns[3], allColumns[9]
+                {% endif %}
+            ],
 			"order": [[ {% if role == "handler" %} 1 {% else %} 0 {% endif %}, "desc" ]],
             {% if role == "user" %}
             "columnDefs": [{ "width": "15%", "targets": 4 }],
@@ -194,6 +201,32 @@ $(document).ready(function() {
             {% elif LANGUAGE == "sv" %}
             "url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Swedish.json"
             {% endif %}
+            },
+            "createdRow": function(row, data, dataIndex) {
+                var className = "clickable-row indextr";
+                if (data.status == 1) {
+                    className += " info";
+                } else if (data.status == 3 || data.status == -2) {
+                    className += " danger";
+                } else if (data.status == 2) {
+                    className += " warning";
+                } else if (data.status == 0 || data.status == 6) {
+                    className += " active";
+                } else if (data.status == 4 || data.status == 7 || data.status == 8) {
+                    className += " success";
+                }
+                $(row).addClass(className);
+
+                $(row).click(function(e) {
+                    if (e.target && e.target.type === "checkbox") {
+                        return;
+                    }
+                    if (e.target && e.target.classList.contains("checkbox-column")) {
+                        e.target.children[0].click();
+                        return;
+                    }
+                    window.document.location = "{% url 'pyha:root' %}request/" + data.id;
+                });
             }
         } );
     } );
