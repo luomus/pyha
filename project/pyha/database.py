@@ -385,7 +385,7 @@ def get_last_information_chat_entries(user_id, current_roles, roles):
         (
         select id, "DATE", request_id, question, max("DATE") over (partition by request_id) as max_date
         from pyha_requestinformationchad9c9 chat
-        where (exists (select 1 from pyha_request r where r.id = chat.id and r.status not in (-1, 0) {}))
+        where (exists (select 1 from pyha_request r where r.id = chat.request_id and r.status not in (-1, 0) {}))
         )
         where "DATE" = max_date
         '''.format(collection_filter)
