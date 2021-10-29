@@ -172,10 +172,10 @@ var allColumns = [
 $(document).ready(function() {
     $('#requests-table').dataTable( {
             "processing": true,
-            "serverSide": true,
+            "serverSide": false,
             "ajax": {
               "url": "{% url 'pyha:get_request_list_ajax' %}",
-              "type": "POST",
+              "type": "GET",
               "headers": {"X-CSRFToken": "{{ csrf_token }}"}
             },
             "columns": [

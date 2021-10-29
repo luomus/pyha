@@ -3,14 +3,13 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_mul_req_waiting_for_me_status, handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, get_request_collection_status, withdraw_request
+from pyha.database import handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, get_request_collection_status, withdraw_request
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
 from pyha.templatetags.pyha_tags import translateRequestStatus
-from operator import attrgetter
 
 def csrf_failure(http_request, reason=""):
     return render(http_request, 'pyha/error/403_crsf.html', {'static': settings.STA_URL, 'version': settings.VERSION})
@@ -46,24 +45,15 @@ def index(http_request):
     return render(http_request, 'pyha/base/index.html', context)
 
 def get_request_list_ajax(http_request):
-    if http_request.method == 'POST':
+    if http_request.method == 'GET':
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
 
         user_id = http_request.session['user_id']
         current_roles = http_request.session.get('current_user_role', [None])
 
-        draw = int(http_request.POST['draw'])
-        start = int(http_request.POST['start'])
-        length = int(http_request.POST['length'])
-        order_column_idx = int(http_request.POST['order[0][column]'])
-        order_column = http_request.POST['columns[{}][data]'.format(order_column_idx)]
-        order_dir = http_request.POST['order[0][dir]']
-        search_value = http_request.POST['search[value]']
-
-        request_list = _get_request_list_with_additional_info(http_request, user_id)
-        count = len(request_list)
-        request_list = request_list[start:start+length]
+        request_list = _get_request_list(http_request, user_id)
+        _add_additional_info_to_requests(http_request, user_id, request_list)
 
         data = []
         for r in request_list:
@@ -90,9 +80,6 @@ def get_request_list_ajax(http_request):
             data.append(data_entry)
 
         result = {
-            'draw': draw,
-            'recordsTotal': count,
-            'recordsFiltered': count,
             'data': data
         }
 
@@ -122,8 +109,7 @@ def group_delete_request(http_request):
 
     return HttpResponseRedirect(nexturl)
 
-def _get_request_list_with_additional_info(http_request, userId):
-    request_list = _get_request_list(http_request, userId)
+def _add_additional_info_to_requests(http_request, userId, request_list):
     for r in request_list:
         if(r.status == StatusEnum.DOWNLOADABLE):
             r.downloadable = is_downloadable(http_request, r)
@@ -131,14 +117,14 @@ def _get_request_list_with_additional_info(http_request, userId):
             r.downloadable = False
 
     current_roles = http_request.session.get("current_user_role", [None])
+    roles = http_request.session.get('user_roles', [None])
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        add_handler_values(request_list)
+        _add_handler_values(request_list, userId, current_roles, roles)
         for r in request_list:
             r.email = fetch_email_address(r.user)
 
     if HANDLER_ANY in current_roles:
         handler_mul_information_chat_answered_status(request_list, http_request, userId)
-        handler_mul_req_waiting_for_me_status(request_list, http_request, userId)
         viewedlist = list(RequestLogEntry.requestLog.filter(request__in = [re.id for re in request_list], user = userId, action = 'VIEW'))
         for r in request_list:
             if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
@@ -146,23 +132,26 @@ def _get_request_list_with_additional_info(http_request, userId):
             else:
                 r.viewed = False
 
-    return request_list
-
 def _get_request_list(http_request, userId):
-    if ADMIN in http_request.session.get("current_user_role", [None]):
-        return Request.objects.exclude(status__in=[-1, 0]).order_by('-date')
-    elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
-        request_list = []
-        if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
-            q = Request.objects.exclude(status__in=[-1, 0])
-            request_list = q.filter(id__in=Collection.objects.filter(address__in = get_collections_where_download_handler(userId), status__gt = 0).values("request"))
-        return sorted(request_list ,key=attrgetter('date'), reverse=True)
-    else:
-        return Request.objects.filter(user=userId).exclude(status__in=[-1]).order_by('-date')
+    current_roles = http_request.session.get('current_user_role', [None])
+    roles = http_request.session.get('user_roles', [None])
 
-def add_handler_values(request_list):
-    collection_status = get_request_collection_status(request_list)
-    entries = get_last_information_chat_entries(request_list)
+    query = Request.objects
+    if ADMIN in current_roles or HANDLER_ANY in current_roles:
+        query = query.exclude(status__in=[-1, 0])
+        if HANDLER_ANY in current_roles:
+            if CAT_HANDLER_COLL in roles:
+                query = query.filter(id__in=Collection.objects.filter(
+                    address__in=get_collections_where_download_handler(userId), status__gt=0).values('request')
+                )
+    else:
+        query = query.filter(user=userId).exclude(status__in=[-1])
+
+    return query
+
+def _add_handler_values(request_list, user_id, current_roles, roles):
+    collection_status = get_request_collection_status(user_id, current_roles, roles)
+    entries = get_last_information_chat_entries(user_id, current_roles, roles)
 
     for idx, r in enumerate(request_list):
         col_status = [c for c in collection_status if c.id == r.id][0]
