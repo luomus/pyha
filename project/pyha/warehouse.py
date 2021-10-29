@@ -185,33 +185,68 @@ def fetch_pdf(data,style):
     if(response.status_code == 200):
         return response
 
-def fetch_email_address(personId):
-    '''
-    fetches email-address for a person registered in Laji.fi
-    :param personId: person identifier
-    :returns: person's email-address
-    '''
+
+def fetch_email_addresses(user_ids):
+    """
+    fetches email-addresses for users registered in Laji.fi
+    :param user_ids: user identifiers
+    :returns: a dictionary with user ids as keys and email addresses as values
+    """
     username = settings.LAJIPERSONAPI_USER
     password = settings.LAJIPERSONAPI_PW
-    cacheKeyPersonId = personId.replace(' ', '_')
-    if 'has expired' in cache.get('email'+cacheKeyPersonId, 'has expired'):
+    result = {}
+
+    missing_email = []
+    for user_id in user_ids:
+        cache_key = user_id.replace(' ', '_')
+        email = cache.get('email' + cache_key, 'has expired')
+        if 'has expired' in email:
+            if user_id not in missing_email:
+                missing_email.append(user_id)
+        else:
+            result[user_id] = email
+
+    start = 0
+    limit = 500
+    while start < len(missing_email):
         try:
-            response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+            user_list = '+'.join(missing_email[start:start+limit])
+            response = requests.get(
+                '{}{}?format=json'.format(settings.LAJIPERSONAPI_URL, user_list),
+                auth=HTTPBasicAuth(username, password),
+                timeout=settings.SECRET_TIMEOUT_PERIOD
+            )
+            start += limit
         except:
             response = Container()
             response.status_code = 500
-        if(response.status_code == 200):
-            data = response.json()
-            person_data = data['rdf:RDF']['MA.person']
-            if 'MA.emailAddress' in person_data:
-                email = person_data['MA.emailAddress']
-                cache.set('email'+cacheKeyPersonId,email, timeout=3600)
-                return email
 
-        email = personId
-        return email
-    else:
-        return cache.get('email'+cacheKeyPersonId)
+        if response.status_code == 200:
+            data = response.json()
+            all_person_data = data['rdf:RDF']['MA.person']
+            for person_data in all_person_data:
+                user_id = person_data['rdf:about'].split('/')[-1]
+                email = user_id
+                if 'MA.emailAddress' in person_data:
+                    email = person_data['MA.emailAddress']
+                    cache_key = user_id.replace(' ', '_')
+                    cache.set('email' + cache_key, email, timeout=3600)
+
+                result[user_id] = email
+        else:
+            for user_id in missing_email:
+                result[user_id] = user_id
+
+    return result
+
+
+def fetch_email_address(user_id):
+    """
+    fetches email-address for a person registered in Laji.fi
+    :param user_id: person identifier
+    :returns: user's email-address
+    """
+    return fetch_email_addresses([user_id])[user_id]
 
 
 def send_download_request(requestId):

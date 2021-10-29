@@ -8,7 +8,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
-from pyha.warehouse import fetch_email_address, get_collections_where_download_handler
+from pyha.warehouse import fetch_email_address, get_collections_where_download_handler, fetch_email_addresses
 from pyha.templatetags.pyha_tags import translateRequestStatus
 
 def csrf_failure(http_request, reason=""):
@@ -120,8 +120,14 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
     roles = http_request.session.get('user_roles', [None])
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
         _add_handler_values(request_list, userId, current_roles, roles)
+
+        users = []
         for r in request_list:
-            r.email = fetch_email_address(r.user)
+            if r.user not in users:
+                users.append(r.user)
+        emails = fetch_email_addresses(users)
+        for r in request_list:
+            r.email = emails[r.user]
 
     if HANDLER_ANY in current_roles:
         handler_mul_information_chat_answered_status(request_list, http_request, userId)
