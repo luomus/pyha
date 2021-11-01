@@ -42,9 +42,9 @@ class RequestTesting(TestCase):
 
     def test_user_can_only_see_their_own_requests(self):
         warehouse.store(JSON_MOCK2)
-        response = self.client.get(reverse('pyha:root'))
+        response = self.client.get(reverse('pyha:get_request_list_ajax'))
         self.assertEqual(len(Request.objects.all()), 2)
-        self.assertContains(response, "1 742")
+        self.assertContains(response, "1742")
 
     def test_request_with_missing_attributes_is_not_saved(self):
         warehouse.store(JSON_MOCK3)
