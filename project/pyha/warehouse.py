@@ -224,18 +224,20 @@ def fetch_email_addresses(user_ids):
         if response.status_code == 200:
             data = response.json()
             all_person_data = data['rdf:RDF']['MA.person']
+            if type(all_person_data) is not list:
+                all_person_data = [all_person_data]
+
             for person_data in all_person_data:
                 user_id = person_data['rdf:about'].split('/')[-1]
-                email = user_id
                 if 'MA.emailAddress' in person_data:
                     email = person_data['MA.emailAddress']
                     cache_key = user_id.replace(' ', '_')
                     cache.set('email' + cache_key, email, timeout=3600)
+                    result[user_id] = email
 
-                result[user_id] = email
-        else:
-            for user_id in missing_email:
-                result[user_id] = user_id
+    for user_id in missing_email:
+        if user_id not in result:
+            result[user_id] = user_id
 
     return result
 
