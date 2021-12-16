@@ -1,8 +1,8 @@
 ﻿# Translations
 Email headers and translations are currently found in the project / Pyha / email.py file.
-The contents of the e-mails and their translations can be found in the project / Pyha / templates / Pyha / email folder as text files in UTF-8 format.
+The contents of the e-mails and their translations can be found in the project/pyha/templates/pyha/email folder as text files in UTF-8 format.
 
-The terms and their translations can be found in the project / Pyha / templates / Pyha / skipofficial / terms folder as html files.
+The terms and their translations can be found in the project /pyha/templates/pyha/skipofficial/terms folder as html files.
 
 * Templates have translations of `{% trans" Hello "%}`
     * If the template has a compiler, it must always have `{% load i18n%}` first
@@ -27,7 +27,7 @@ It collects compilers from templates and `*.py` files into `django.po` files.
 
 Then edit the translation files in the following locations:
 
-* `path / to / project / Pyha / locale / en / LC_MESSAGES / django.po` <- template & py texts
+* `path/to/project/pyha/locale/en/LC_MESSAGES/django.po` <- template & py texts
 
 Write the translations manually in these `.po` files (take a sample of the old translations).
 

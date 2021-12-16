@@ -1,17 +1,17 @@
 # Upgrading pyha
 These upgrade instructions are written for Ubuntu, and for the remote Oracle database server.
-The instructions require that all user-specific (non-sudo) commands be executed by your own user created for the Holy System.
-For example, the Holy User and the Holy Group.
+The instructions require that all user-specific (non-sudo) commands be executed by the user created for the system.
+For example user `pyha` and group `pyha`.
 
-(June 12, 2019) The most significant changes that require upgrade commands are:
+The most significant changes that require upgrade commands are:
 
-- Database changes.
-- NO changes to the environment variable.
+- Database changes
+- Changes to variables NOT defined as environment variables
 - New python library to install (schedule)
-- Language changes.
-- Static network elements.
+- Translation changes
+- Chagnes to static content
 
-#### Database updates may cause anomalies if users are able to use the service during the update.
+#### NOTE: Database updates may cause anomalies if users are able to use the service during the update.
 
 ## 0 - Start
 

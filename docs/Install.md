@@ -1,10 +1,10 @@
 # Installation of pyha
 
 These instructions are written for Ubuntu, and for the remote Oracle database server.
-The instructions require that all user-specific (non-sudo) commands be executed by your own user created for the Holy System.
-For example, the `pyha` User and the `pyha` Group.
+The instructions require that all user-specific (non-sudo) commands be executed by user created for runing this service.
+For example user `pyha` and group `pyha`.
 
-## 1 - Oracle client installation
+## 1 - Oracle client
 
 Follow the steps below to install:
 - Download the following Oracle clients [here](https://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html):
@@ -48,18 +48,18 @@ sudo apt-get install build-essential python3 python-pip python3-pip python-virtu
 Create a folder where you plan to install the environment, f.i. and clone the `pyha` repository in it:
 
 ```shell
-mkdir ~/request_management
+mkdir ~/pyha
 ```
 
 Navigate to the folder
 
 ```shell
-cd ~/request_management
+cd ~/pyha
 ```
 
 clone repository:
 
-```git clone https://kayttajanimi@bitbucket.org/luomus/pyha.git```
+```git clone https://bitbucket.org/luomus/pyha.git```
 
 Navigate to the folder created after this called `pyha`:
 ```shell
@@ -138,8 +138,8 @@ from the `services` folder to the `/etc/systemd/system` service folder.
 If you use the `pyha` service via Apache at: `hostdomain / pyha`, put:
 `services/pyha.conf` in folder `/etc/httpd/conf.d/`.
 
-Add `services / saha.cron` to the user's crontab file directory (usually `/var/spool/cron`) for scheduled functionality, 
-or preferably edit the user's crontab file with the command below and add the `saha.cron` file's content.
+Add `services/pyha.cron` to the user's crontab file directory (usually `/var/spool/cron`) for scheduled functionality, 
+or preferably edit the user's crontab file with the command below and add the `pyha.cron` file's content.
 
 ```shell
 crontab -e
@@ -204,8 +204,8 @@ with the following contents:
 	    Require all granted
 	</Directory>
 	ProxyPass               /pyha/static !
-	ProxyPass               /pyha http://localhost:portti
-	ProxyPassReverse        /pyha http://localhost:portti
+	ProxyPass               /pyha http://localhost:port
+	ProxyPassReverse        /pyha http://localhost:port
 	Alias /pyha/static     path/to/project/static
 	
 The timers work as internal threads, so there is no need to use crontab.

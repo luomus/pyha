@@ -1,6 +1,6 @@
 ﻿# Pyha
 
-## Finnish Species Information Center's request handler for the release of official material
+## Finnish Biodiversity Information Facility (FinBIF) system for handling data requests
 
 Links:
 - [Documentation](docs/Documentation.md)
