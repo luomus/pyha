@@ -34,7 +34,7 @@ Note: The system contains functionality for two different workflows:
 
 The request selection view lists all the material requests made by the applicant, as well as their
 general information and status. For dataset owners, all requests that contain occurrences from their
-datasets. ICT-admins see all requests.u
+datasets. ICT-admins see all requests.
 ### Requestview (/ requestview / id)
 
 The status view of the request shows the applicant all the information related to the request and its status
