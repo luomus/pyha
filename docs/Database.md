@@ -27,7 +27,7 @@ where <XXXX> is the largest number in the `/Pyha/project/Pyha/migrations/` folde
 
 ## Data model
 
-###Request:
+### Request:
 A single data request.
 NOTE: Prob not up to date? At least sensDecisions feature is no longer in use -> Sensitive data is no longer approved separately?
 
@@ -81,7 +81,7 @@ lang = models.CharField (max_length = 10, default = 'en')
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###Collection: 
+### Collection: 
 Decision for a specific collection of a data request  
 
 ```
@@ -104,7 +104,7 @@ decisionExplanation = models.CharField (max_length = 1000, null = True) # Justif
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###RequestContact: 
+### RequestContact: 
 Contains additional contacts if one of the contacts in the Request table was not sufficient.
 
 ```
@@ -122,7 +122,7 @@ personCorporationId = models.CharField (max_length = 100, null = True)
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###RequestLogEntry:
+### RequestLogEntry:
 Contains a log of events related to requests
 
 ```
@@ -145,7 +145,7 @@ action = models.CharField (max_length = 5, choices = ACTION)
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###RequestSensitiveChatEntry: 
+### RequestSensitiveChatEntry: 
 Includes government discussions NOTE: NOT USED ANYMORE? Sensitive data is no longer approved separately.
 
 ```
@@ -156,7 +156,7 @@ message = models.CharField (max_length = 2000)
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###RequestHandlerChatEntry: 
+### RequestHandlerChatEntry: 
 Includes discussions between data owners/decision makers
 
 ```
@@ -168,7 +168,7 @@ target = models.CharField (max_length = 200)
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###RequestInformationChatEntry: 
+### RequestInformationChatEntry: 
 Contains discussions between data owners and the applicant
 
 ```
@@ -181,7 +181,7 @@ target = models.CharField (max_length = 200) # Subject of the request for additi
 changedBy = models.CharField (max_length = 100) #Last instance variable as tag + name of the function used for the change
 ```
 
-###ContactPreset: 
+### ContactPreset: 
 Contains contacts previously filled in by the user.
 
 ```

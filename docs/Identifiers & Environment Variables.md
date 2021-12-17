@@ -1,4 +1,4 @@
-﻿
+﻿```shell
 export ENABLE_DEBUG='True'
 export EMAIL_ERROR_RATE_LIMIT='0'
 export EMAIL_ERROR_RATE_KEY_LIMIT='0'
@@ -30,3 +30,4 @@ export DB_ENGINE='django.db.backends.oracle'
 export DOMAIN_PATH_PREFIX=""
 export STATIC_PATH_URL=""
 export ZABBIX_STATUS_SUB_DIR='api/status'
+```
