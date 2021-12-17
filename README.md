@@ -4,7 +4,7 @@
 
 Links:
 - [Documentation](docs/Documentation.md)
-- [Installation instructions](docs/Asennus.md)
+- [Installation instructions](docs/Install.md)
 - [Upgrade instructions](docs/Update.md)
 
 ## Using docker
