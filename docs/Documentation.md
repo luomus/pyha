@@ -30,34 +30,34 @@ Note: The system contains functionality for two different workflows:
  
 ## System components
 
-### Request Selection View (/ index)
+### Request Selection View (/index)
 
 The request selection view lists all the material requests made by the applicant, as well as their
 general information and status. For dataset owners, all requests that contain occurrences from their
 datasets. ICT-admins see all requests.
-### Requestview (/ requestview / id)
+### Requestview (/requestview/id)
 
 The status view of the request shows the applicant all the information related to the request and its status
  - with the exception of discussions between dataset owners. 
 Dataset owners see the same, but they also have additional feature to chat with other datasets owners about 
-the request. TRhey also have an additional tool to make a decision to approve or decline the request and fill
+the request. They also have an additional tool to make a decision to approve or decline the request and fill
 in their reasoning. 
 
-### Fill in the request form (/ requestform / id)
+### Fill in the request form (/requestform/id)
 
-In the view, the layman fills the material request with the restrictions he / she has chosen,
+In the view, the layman fills the material request with the restrictions they have chosen,
 for the purpose and with the contact information of the system (accepting the data protection
 conditions).
 
-### Checking out (/ logout)
+### Checking out (/logout)
 
 Logout.
 
-### Interface (/ api /)
+### Interface (/api/)
 
 Provides an interface to other applications. ([Api Documentation] (Api.md))
 
-### Interface to ajax queries (/ ajax /)
+### Interface to ajax queries (/ajax/)
 
 Provides an interface for ajax queries.
 

@@ -1,5 +1,32 @@
 # Start and shutdown of the pyha service
-In environmental development / For local experimentation: 
+
+## For local experimentation:
+
+### Option 1
+
+In the folder `/pyha`
+
+```shell
+source env/bin/activate
+```
+
+In the folder `/pyha/project` run:
+
+```shell
+python manage.py runserver <port>
+```
+(where 'port' is the service port for the process, can be left empty)
+
+To stop the pyha service press:
+```Ctrl+c```
+
+and deactivate the virtualenv:
+
+```shell
+deactivate
+```
+
+### Option 2
 
 ```shell
 bash runserver.sh
@@ -11,7 +38,7 @@ or in the folder `/pyha/project`:
 gunicorn -b ip:port luomuspyha.wsgi &
 ```
 
-Run commands:
+You can kill the process with:
 
 ```shell
 ps ax | grep pyha
@@ -19,29 +46,8 @@ kill <pid>
 ```
 ('pid' = process id for the pyha service)
 
-or in the folder `/pyha`
 
-```shell
-source env/bin/activate
-```
-
-In the folder `/pyha/project` run:
-
-```shell
-python manage.py runserver <port>
-```
-(where 'port' is the service port for the process)
-
-To stop the pyha service press:
-```Ctrl+c```
-
-and f.i. deactivate the virtualenv:
-
-```shell
-deactivate
-```
-
-On the server this can be done with:
+## On the server
 
 ```shell
 systemctl status|stop|start pyha.service

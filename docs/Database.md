@@ -21,15 +21,15 @@ python manage.py sqlmigrate Pyha <XXXX>
 deactivate
 ```
 
-where <XXXX> is the largest number in the `/Pyha/project/Pyha/migrations/` folder.
+where <XXXX> is the largest number in the `/pyha/project/pyha/migrations/` folder.
 
 
 
 ## Data model
+NOTE: These might not be up-to-date. The latest models can be found in the file `/pyha/project/pyha/models.py`.
 
 ### Request:
 A single data request.
-NOTE: Prob not up to date? At least sensDecisions feature is no longer in use -> Sensitive data is no longer approved separately?
 
 ```
 id = models.AutoField (primary_key = True) #id starts at one and goes up
@@ -49,16 +49,6 @@ description = models.CharField (max_length = 400) #description given by the requ
 
 status = models.IntegerField ()
 
-#for sensStatus
-#status 0: Awaiting requestor approval
-#status 1: Awaiting authority processing
-#status 3: Rejected
-#status 4: Approved
-#status 99: Skippofficial
-
-sensStatus = models.IntegerField ()
-sensDecisionExplanation = models.CharField (max_length = 1000, null = True)
-sensComment = models.CharField (max_length = 1000, null = True)
 date = models.DateTimeField ()
 source = models.CharField (max_length = 60)
 user = models.CharField (max_length = 100)

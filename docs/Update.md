@@ -9,7 +9,7 @@ The most significant changes that require upgrade commands are:
 - Changes to variables NOT defined as environment variables
 - New python library to install (schedule)
 - Translation changes
-- Chagnes to static content
+- Changes to static content
 
 #### NOTE: Database updates may cause anomalies if users are able to use the service during the update.
 
@@ -17,7 +17,7 @@ The most significant changes that require upgrade commands are:
 
 In the terminal, go to the root directory of the Pyha git project.
 
-Download the latest version of git:
+Download the latest version from git:
 
 ```shell
 git pull
@@ -59,7 +59,7 @@ pip3 install -r Requirements.txt (Python libraries)
 ```
 
 ```shell
-rm -r project / Static (static network elements)
+rm -r project/static (static network elements)
 
 python project/manage.py collectstatic (static network elements)
 

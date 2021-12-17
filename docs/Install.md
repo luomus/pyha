@@ -1,7 +1,7 @@
 # Installation of pyha
 
 These instructions are written for Ubuntu, and for the remote Oracle database server.
-The instructions require that all user-specific (non-sudo) commands be executed by user created for runing this service.
+The instructions require that all user-specific (non-sudo) commands be executed by user created for running this service.
 For example user `pyha` and group `pyha`.
 
 ## 1 - Oracle client
@@ -12,14 +12,14 @@ Follow the steps below to install:
   * Instant Client SDK Linux 12.1.0.2.0
 
 - Extract the archives (they will be extracted to the same folder).
-  Then add the following lines to the file `~ / .bashrc`:
+  Then add the following lines to the file `~/.bashrc`:
 
    ```shell
    export ORACLE_HOME=path/to/instantclient_12_1  
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
    ```
   
-  Enter in a terminal:
+  Enter to a terminal:
 
    ```shell
    source ~/.bashrc
@@ -45,7 +45,7 @@ sudo apt-get install && sudo apt-get update
 sudo apt-get install build-essential python3 python-pip python3-pip python-virtualenv git libaio1
 ```
 
-Create a folder where you plan to install the environment, f.i. and clone the `pyha` repository in it:
+Create a folder where you plan to install the environment and clone the `pyha` repository in it:
 
 ```shell
 mkdir ~/pyha
@@ -61,7 +61,7 @@ clone repository:
 
 ```git clone https://bitbucket.org/luomus/pyha.git```
 
-Navigate to the folder created after this called `pyha`:
+Navigate to the created folder called `pyha`:
 ```shell
 cd pyha
 ```
@@ -115,7 +115,7 @@ Create a file:
 touch env_variables.sh
 ```
 
-Add all environment variables to the template here (see the list of variables with examples in the `install.sh` file):
+Add all environment variables there (see the list of variables with examples in the `install.sh` file):
 
     export ENVAR='content'
     ...
@@ -162,8 +162,6 @@ with contents:
 	User=pyha
 	Group=pyha
 	WorkingDirectory=<path/to/folder/pyha project>
-
-Add all environment variables to the template (see list and example from install.sh): #
 
 	Environment=ENVAR='content'
 	...
