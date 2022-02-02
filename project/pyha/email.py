@@ -232,7 +232,7 @@ def send_admin_mail_after_approved_request_missing_handlers(requestId, mailto, l
 def _send_mail_to_request_user(requestId, lang, plain_subject, template_name, context = {}):
 	context = {**_get_request_context(requestId), **context}
 
-	subject = plain_subject.format(**context)
+	subject = plain_subject.format(**context).replace('\n', ' ')
 	text_content = _get_email_content(template_name, lang, context)
 	from_email = settings.ICT_EMAIL
 	to = [fetch_email_address(context['req'].user)]
