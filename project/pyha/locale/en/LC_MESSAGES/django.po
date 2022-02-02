@@ -1372,7 +1372,7 @@ msgstr "Authority"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:27
 msgid "log_collection_provider"
-msgstr "Request denied"
+msgstr "Collection provider"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:29
 msgid "log_sensitive_and_collections_handler"
@@ -1414,7 +1414,7 @@ msgstr "Collection was accepted because the decision was overdue"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:60
 msgid "log_collection_accepted"
-msgstr "Request accepted"
+msgstr "Collection accepted"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:67
 msgid "log_sensitives_reset"
