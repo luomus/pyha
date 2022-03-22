@@ -51,7 +51,7 @@
                                 <input type="radio" id="standard" name="fileType" value="Standard" checked onchange="updateGisFields()">{% trans 'download_file_type_standard' %}
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" id="gis" name="fileType" value="GIS" onchange="updateGisFields()">{% trans 'download_file_type_gis' %}
+                                <input type="radio" id="gis" name="fileType" value="GIS" onchange="updateGisFields()" {% if gisDownloadDisabled %}disabled{% endif %}>{% trans 'download_file_type_gis' %}
                             </label>
                             <span class="label-info help-glyph" data-trigger="hover" data-html="true" data-toggle="popover" data-placement="right" data-content="{% trans 'download_help'|linebreaks|force_escape %}">?</span>
                         </div>
@@ -73,6 +73,11 @@
                                 <option value="wgs84">{% trans 'download_crs_wgs84' %}</option>
                             </select>
                         </div>
+                        {% if gisDownloadDisabled %}
+                        <span class="text text-warning">
+                            <i class="glyphicon glyphicon-alert"></i> {% trans 'download_gis_disabled' %}
+                        </span>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 09:26+0300\n"
+"POT-Creation-Date: 2022-03-22 15:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,22 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: config/settings.py:216
+#: config/settings.py:217
 msgid "Suomi"
 msgstr ""
 
-#: config/settings.py:217
+#: config/settings.py:218
 msgid "Ruotsi"
 msgstr ""
 
-#: config/settings.py:218
+#: config/settings.py:219
 msgid "Englanti"
 msgstr ""
-
-#: dump_reasons.py:49 pyha/management/commands/generate_data_dump.py:65
-#: pyha/templates/pyha/requestview/tabs/arguments.html:6
-msgid "argument_choices"
-msgstr "Intended uses of the material"
 
 #: pyha/admin.py:66
 msgid "Pyha administration"
@@ -104,6 +99,11 @@ msgstr ""
 #: pyha/login.py:151 pyha/login.py:159
 msgid "error_request_has_been_frozen_by_admin"
 msgstr "Error, the request is currently unavailable"
+
+#: pyha/management/commands/generate_data_dump.py:65
+#: pyha/templates/pyha/requestview/tabs/arguments.html:6
+msgid "argument_choices"
+msgstr "Intended uses of the material"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:10
 msgid "admin_settings_header"
@@ -295,8 +295,8 @@ msgid "requester"
 msgstr "Created by"
 
 #: pyha/templates/pyha/base/index.html:29
-#: pyha/templates/pyha/base/index.html:79
-#: pyha/templates/pyha/base/index.html:126
+#: pyha/templates/pyha/base/index.html:47
+#: pyha/templates/pyha/base/index.html:90
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
@@ -329,53 +329,53 @@ msgstr "Download status"
 msgid "select_deleted"
 msgstr "Select"
 
-#: pyha/templates/pyha/base/index.html:89 pyha/templatetags/pyha_tags.py:71
-msgid "waiting_for_additional_information"
-msgstr "Waiting for additional information"
-
-#: pyha/templates/pyha/base/index.html:91
-msgid "user_has_given_additional_information"
-msgstr "Requester has given additional information"
-
-#: pyha/templates/pyha/base/index.html:96
-msgid "data_is_not_downloaded"
-msgstr "Data not downloaded"
-
-#: pyha/templates/pyha/base/index.html:98
-msgid "data_is_partly_downloaded"
-msgstr "Partly downloaded"
-
-#: pyha/templates/pyha/base/index.html:100
-msgid "data_is_downloaded"
-msgstr "Requester downloaded the data"
-
-#: pyha/templates/pyha/base/index.html:105 pyha/templatetags/pyha_tags.py:80
-msgid "withdrawn"
-msgstr "Withdrawn"
-
-#: pyha/templates/pyha/base/index.html:107
-msgid "no_decisions"
-msgstr "No decisions made"
-
-#: pyha/templates/pyha/base/index.html:109
-msgid "decisions_partly_done"
-msgstr "Some decisions made"
-
-#: pyha/templates/pyha/base/index.html:111
-msgid "decisions_done"
-msgstr "All decisions made"
-
-#: pyha/templates/pyha/base/index.html:127
+#: pyha/templates/pyha/base/index.html:48
 msgid "delete_or_withdraw_selected_requests"
 msgstr "Withdraw selected requests"
 
-#: pyha/templates/pyha/base/index.html:130
+#: pyha/templates/pyha/base/index.html:51
 msgid "delete_selected_requests"
 msgstr "Delete selected requests"
 
-#: pyha/templates/pyha/base/index.html:136
+#: pyha/templates/pyha/base/index.html:57
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
+
+#: pyha/templates/pyha/base/index.html:110 pyha/templatetags/pyha_tags.py:71
+msgid "waiting_for_additional_information"
+msgstr "Waiting for additional information"
+
+#: pyha/templates/pyha/base/index.html:112
+msgid "user_has_given_additional_information"
+msgstr "Requester has given additional information"
+
+#: pyha/templates/pyha/base/index.html:122
+msgid "data_is_not_downloaded"
+msgstr "Data not downloaded"
+
+#: pyha/templates/pyha/base/index.html:124
+msgid "data_is_partly_downloaded"
+msgstr "Partly downloaded"
+
+#: pyha/templates/pyha/base/index.html:126
+msgid "data_is_downloaded"
+msgstr "Requester downloaded the data"
+
+#: pyha/templates/pyha/base/index.html:136 pyha/templatetags/pyha_tags.py:80
+msgid "withdrawn"
+msgstr "Withdrawn"
+
+#: pyha/templates/pyha/base/index.html:138
+msgid "no_decisions"
+msgstr "No decisions made"
+
+#: pyha/templates/pyha/base/index.html:140
+msgid "decisions_partly_done"
+msgstr "Some decisions made"
+
+#: pyha/templates/pyha/base/index.html:142
+msgid "decisions_done"
+msgstr "All decisions made"
 
 #: pyha/templates/pyha/error/403_crsf.html:10
 msgid "page_expired"
@@ -442,7 +442,7 @@ msgstr "Number of observations"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:368
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:409
 msgid "secured_by_quarantine"
 msgstr "Access-restricted research material"
 
@@ -454,7 +454,7 @@ msgstr "Scientific protection period (location, time)"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:373
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:414
 msgid "secured_by_sensitivity"
 msgstr "Sensitive material"
 
@@ -466,7 +466,7 @@ msgstr "Automatically aggregated sensitive data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:378
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:419
 msgid "secured_by_data_provider"
 msgstr "Access restricted by data provider"
 
@@ -933,7 +933,7 @@ msgid "delete"
 msgstr "Delete"
 
 #: pyha/templates/pyha/requestform/requestform.html:392
-#: pyha/templates/pyha/requestview/requestview.html:250
+#: pyha/templates/pyha/requestview/requestview.html:255
 msgid "back"
 msgstr "Back"
 
@@ -983,13 +983,30 @@ msgstr "GIS"
 
 #: pyha/templates/pyha/requestview/requestview.html:56
 msgid "download_help"
-msgstr "Downloading as GIS allows you to choose the file format, geometry type and coordinate reference system.\n\n\
-Format:\n.shp = ESRI Shapefile\n.gpkg = GeoPackage\n\nGeometry:\npoint = observation centre points\nfootprint* = \
-original geometries of the observations: different geometry types (points, lines and polygons)\nbbx = bounding boxes \
-that enclose the observation footprints\n\nCRS (Coordinate Reference System):\neuref (ETRS89-TM35FIN, epsg 3067)\n\
-wgs84 (epsg 4326)\n\n*ATTENTION: Footprint data might include 'geometry collection' observations, that consist of \
-different geometry types.\nMost GIS applications do not support these data, leading to missing geometries.\nEnsure \
-that the number of observations in your GIS application corresponds with the reported number of observations."
+msgstr ""
+"Downloading as GIS allows you to choose the file format, geometry type and "
+"coordinate reference system.\n"
+"\n"
+"Format:\n"
+".shp = ESRI Shapefile\n"
+".gpkg = GeoPackage\n"
+"\n"
+"Geometry:\n"
+"point = observation centre points\n"
+"footprint* = original geometries of the observations: different geometry "
+"types (points, lines and polygons)\n"
+"bbx = bounding boxes that enclose the observation footprints\n"
+"\n"
+"CRS (Coordinate Reference System):\n"
+"euref (ETRS89-TM35FIN, epsg 3067)\n"
+"wgs84 (epsg 4326)\n"
+"\n"
+"*ATTENTION: Footprint data might include 'geometry collection' observations, "
+"that consist of different geometry types.\n"
+"Most GIS applications do not support these data, leading to missing "
+"geometries.\n"
+"Ensure that the number of observations in your GIS application corresponds "
+"with the reported number of observations."
 
 #: pyha/templates/pyha/requestview/requestview.html:59
 msgid "download_format"
@@ -1031,96 +1048,102 @@ msgstr "euref"
 msgid "download_crs_wgs84"
 msgstr "wgs84"
 
-#: pyha/templates/pyha/requestview/requestview.html:81
+#: pyha/templates/pyha/requestview/requestview.html:78
+#, fuzzy
+#| msgid "download_failed"
+msgid "download_gis_disabled"
+msgstr "Download failed!"
+
+#: pyha/templates/pyha/requestview/requestview.html:86
 msgid "download"
 msgstr "Download"
 
-#: pyha/templates/pyha/requestview/requestview.html:86
+#: pyha/templates/pyha/requestview/requestview.html:91
 #: pyha/templatetags/pyha_tags.py:78
 msgid "download_has_expired"
 msgstr "Download has expired"
 
-#: pyha/templates/pyha/requestview/requestview.html:91
+#: pyha/templates/pyha/requestview/requestview.html:96
 msgid "initialize_download"
 msgstr "Initialize download"
 
-#: pyha/templates/pyha/requestview/requestview.html:98
+#: pyha/templates/pyha/requestview/requestview.html:103
 msgid "you_will_be_emailed_when_ready"
 msgstr "You will be emailed when your download is ready"
 
-#: pyha/templates/pyha/requestview/requestview.html:101
+#: pyha/templates/pyha/requestview/requestview.html:106
 msgid "stop_wait_initialize_download"
 msgstr "Initialize download for currently accepted"
 
-#: pyha/templates/pyha/requestview/requestview.html:119
+#: pyha/templates/pyha/requestview/requestview.html:124
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Changelog"
 
-#: pyha/templates/pyha/requestview/requestview.html:126
+#: pyha/templates/pyha/requestview/requestview.html:131
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Applicants"
 
-#: pyha/templates/pyha/requestview/requestview.html:133
+#: pyha/templates/pyha/requestview/requestview.html:138
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Reason for application"
 
-#: pyha/templates/pyha/requestview/requestview.html:140
+#: pyha/templates/pyha/requestview/requestview.html:145
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Collections"
 
-#: pyha/templates/pyha/requestview/requestview.html:147
+#: pyha/templates/pyha/requestview/requestview.html:152
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Filters"
 
-#: pyha/templates/pyha/requestview/requestview.html:155
+#: pyha/templates/pyha/requestview/requestview.html:160
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/requestview/requestview.html:157
+#: pyha/templates/pyha/requestview/requestview.html:162
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/requestview/requestview.html:167
+#: pyha/templates/pyha/requestview/requestview.html:172
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/requestview/requestview.html:169
+#: pyha/templates/pyha/requestview/requestview.html:174
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/requestview/requestview.html:179
+#: pyha/templates/pyha/requestview/requestview.html:184
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Comments by collection handlers"
 
-#: pyha/templates/pyha/requestview/requestview.html:188
+#: pyha/templates/pyha/requestview/requestview.html:193
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Communications"
 
-#: pyha/templates/pyha/requestview/requestview.html:246
+#: pyha/templates/pyha/requestview/requestview.html:251
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr "Halt further processing and download all accepted thus far"
 
-#: pyha/templates/pyha/requestview/requestview.html:249
+#: pyha/templates/pyha/requestview/requestview.html:254
 msgid "Yes"
 msgstr "Yes"
 
-#: pyha/templates/pyha/requestview/requestview.html:262
+#: pyha/templates/pyha/requestview/requestview.html:267
 msgid "loading"
 msgstr "Loading..."
 
-#: pyha/templates/pyha/requestview/requestview.html:280
+#: pyha/templates/pyha/requestview/requestview.html:285
 msgid "download_failed"
 msgstr "Download failed!"
 
