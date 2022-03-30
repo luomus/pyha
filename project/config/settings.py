@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Version of static files
+VERSION=8
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -51,7 +53,6 @@ GIS_DOWNLOAD_LIMIT = 100000
 MOCK_JSON=False
 TESTING=False
 APPEND_SLASH=False
-VERSION=7
 
 DEFAULT_CHARSET = 'utf-8'
 FORCE_SCRIPT_NAME = os.environ.get("DOMAIN_PATH_PREFIX", "")
