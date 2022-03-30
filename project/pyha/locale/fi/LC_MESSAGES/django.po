@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 15:26+0200\n"
+"POT-Creation-Date: 2022-03-29 17:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1160,6 +1160,18 @@ msgstr "Ladataan..."
 #: pyha/templates/pyha/requestview/requestview.html:285
 msgid "download_failed"
 msgstr "Lataus epäonnistui!"
+
+#: pyha/templates/pyha/requestview/requestview.html:286
+msgid "download_failed_too_complex"
+msgstr "Havaintojen geometria on liian monimutkainen .shp-tiedostomuodolle. Käytä sen sijaan .gpkg-muotoa."
+
+#: pyha/templates/pyha/requestview/requestview.html:287
+msgid "download_failed_not_supported"
+msgstr "Lataus epäonnistui! Tiedostomuotoa ei tueta."
+
+#: pyha/templates/pyha/requestview/requestview.html:288
+msgid "download_failed_geometry_not_available"
+msgstr "Lataus epäonnistui! Geometrinen data ei ole saatavilla."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"

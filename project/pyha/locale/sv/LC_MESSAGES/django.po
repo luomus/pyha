@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 15:26+0200\n"
+"POT-Creation-Date: 2022-03-29 17:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1160,6 +1160,24 @@ msgstr "Laddar..."
 #: pyha/templates/pyha/requestview/requestview.html:285
 msgid "download_failed"
 msgstr "Nedladdning misslyckad!"
+
+#: pyha/templates/pyha/requestview/requestview.html:286
+#, fuzzy
+#| msgid "download_file_type"
+msgid "download_failed_too_complex"
+msgstr "File type"
+
+#: pyha/templates/pyha/requestview/requestview.html:287
+#, fuzzy
+#| msgid "download_file_type"
+msgid "download_failed_not_supported"
+msgstr "File type"
+
+#: pyha/templates/pyha/requestview/requestview.html:288
+#, fuzzy
+#| msgid "download_geometry_point"
+msgid "download_failed_geometry_not_available"
+msgstr "point"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"

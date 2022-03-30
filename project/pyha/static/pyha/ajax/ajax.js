@@ -225,7 +225,7 @@
 				        pollDownloadStatus(jsonResponse["statusUrl"]);
 				    }
 				} else {
-				    downloadError();
+				    downloadError(this.responseText);
 				}
             }
         };
@@ -249,7 +249,7 @@
                         }, 5000);
 				    }
 				} else {
-				    downloadError();
+				    downloadError(this.responseText);
 				}
 			}
 		};
@@ -262,9 +262,22 @@
         window.location = jsonResponse["downloadUrl"];
 	}
 
-	function downloadError() {
+	function downloadError(responseText) {
+	    var errorTextInputId = "getDownloadFailedText";
+	    try {
+	        var jsonResponse = JSON.parse(responseText);
+	        var errName = jsonResponse["errName"];
+	        if (errName === "too_complex") {
+	            errorTextInputId = "getDownloadFailedTooComplexText";
+	        } else if (errName === "not_supported") {
+	            errorTextInputId = "getDownloadFailedNotSupportedText";
+	        } else if (errName === "geometry_not_available") {
+	            errorTextInputId = "getDownloadFailedGeometryNotAvailableText";
+	        }
+	    } catch (e) {}
+
 	    $("#loading-modal").modal("hide");
-	    alert(document.getElementById("getDownloadFailedText").value);
+	    alert(document.getElementById(errorTextInputId).value);
 	}
 
 	function getCookie(name) {

@@ -283,6 +283,9 @@
 <input type="hidden" id="getDescriptionURL" name="getDescription" value="{% url 'pyha:get_description_ajax' %}">
 <input type="hidden" id="getDownloadURL" name="getDownloadURL" value="{% url 'pyha:requestDownload' %}">
 <input type="hidden" id="getDownloadFailedText" name="getDownloadFailedText" value="{% trans 'download_failed' %}">
+<input type="hidden" id="getDownloadFailedTooComplexText" name="getDownloadFailedTooComplexText" value="{% trans 'download_failed_too_complex' %}">
+<input type="hidden" id="getDownloadFailedNotSupportedText" name="getDownloadFailedNotSupportedText" value="{% trans 'download_failed_not_supported' %}">
+<input type="hidden" id="getDownloadFailedGeometryNotAvailableText" name="getDownloadFailedGeometryNotAvailableText" value="{% trans 'download_failed_geometry_not_available' %}">
 
 {% endblock %}
 

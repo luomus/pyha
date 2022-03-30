@@ -49,14 +49,24 @@ def gis_download_status(http_request, download_id):
     if http_request.method == 'GET':
         url = '{}status/{}?timeout={}'.format(settings.GEO_CONVERT_URL, download_id, 1)
         r = requests.get(url, allow_redirects=False)
+
         if not r.ok:
             status_code = 502
+            err_name = None
+            err_msg = None
+
             if r.status_code == 400 or r.status_code == 404:
                 status_code = r.status_code
-            return HttpResponse(status=status_code)
+
+            error = r.json()
+            if 'err_name' in error:
+                err_name = error['err_name']
+            if 'err_msg' in error:
+                err_msg = error['err_msg']
+
+            return JsonResponse({'errName': err_name, 'errMsg': err_msg}, status=status_code)
 
         status = r.json()['status']
-
         response = {
             'status': status,
             'statusUrl': reverse('pyha:gis_download_status', args=(download_id,)),
