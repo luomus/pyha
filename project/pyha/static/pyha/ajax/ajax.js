@@ -269,10 +269,6 @@
 	        var errName = jsonResponse["errName"];
 	        if (errName === "too_complex") {
 	            errorTextInputId = "getDownloadFailedTooComplexText";
-	        } else if (errName === "not_supported") {
-	            errorTextInputId = "getDownloadFailedNotSupportedText";
-	        } else if (errName === "geometry_not_available") {
-	            errorTextInputId = "getDownloadFailedGeometryNotAvailableText";
 	        }
 	    } catch (e) {}
 

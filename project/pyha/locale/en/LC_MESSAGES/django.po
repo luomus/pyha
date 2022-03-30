@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-29 17:12+0300\n"
+"POT-Creation-Date: 2022-03-30 14:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: config/settings.py:217
+#: config/settings.py:218
 msgid "Suomi"
 msgstr ""
 
-#: config/settings.py:218
+#: config/settings.py:219
 msgid "Ruotsi"
 msgstr ""
 
-#: config/settings.py:219
+#: config/settings.py:220
 msgid "Englanti"
 msgstr ""
 
@@ -1049,10 +1049,8 @@ msgid "download_crs_wgs84"
 msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:78
-#, fuzzy
-#| msgid "download_failed"
 msgid "download_gis_disabled"
-msgstr "Download failed!"
+msgstr "The maximum limit for GIS format is 100 000 observations."
 
 #: pyha/templates/pyha/requestview/requestview.html:86
 msgid "download"
@@ -1148,22 +1146,11 @@ msgid "download_failed"
 msgstr "Download failed!"
 
 #: pyha/templates/pyha/requestview/requestview.html:286
-#, fuzzy
-#| msgid "download_file_type"
 msgid "download_failed_too_complex"
-msgstr "File type"
-
-#: pyha/templates/pyha/requestview/requestview.html:287
-#, fuzzy
-#| msgid "download_file_type"
-msgid "download_failed_not_supported"
-msgstr "File type"
-
-#: pyha/templates/pyha/requestview/requestview.html:288
-#, fuzzy
-#| msgid "download_geometry_point"
-msgid "download_failed_geometry_not_available"
-msgstr "point"
+msgstr ""
+"The geometries of some observations are too complex for the .shp file format "
+"(GeometryCollection). Use the .gpkg format instead, or choose another "
+"geometry type."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
