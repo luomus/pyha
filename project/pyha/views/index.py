@@ -117,9 +117,8 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
             r.downloadable = False
 
     current_roles = http_request.session.get("current_user_role", [None])
-    roles = http_request.session.get('user_roles', [None])
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        _add_handler_values(request_list, userId, current_roles, roles)
+        _add_handler_values(request_list, userId, current_roles)
 
         users = []
         for r in request_list:
@@ -155,9 +154,9 @@ def _get_request_list(http_request, userId):
 
     return query
 
-def _add_handler_values(request_list, user_id, current_roles, roles):
-    collection_status = get_request_collection_status(user_id, current_roles, roles)
-    entries = get_last_information_chat_entries(user_id, current_roles, roles)
+def _add_handler_values(request_list, user_id, current_roles):
+    collection_status = get_request_collection_status(user_id, current_roles)
+    entries = get_last_information_chat_entries(user_id, current_roles)
 
     for idx, r in enumerate(request_list):
         col_status = [c for c in collection_status if c.id == r.id][0]

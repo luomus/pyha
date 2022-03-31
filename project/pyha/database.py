@@ -377,8 +377,17 @@ def requestInformationChat(http_request, userRequest, userId):
             l.name = fetch_user_name(l.user)
         return requestInformationChat_list
 
-def get_last_information_chat_entries(user_id, current_roles, roles):
-    collection_filter = _get_collection_filter(user_id, current_roles, roles)
+
+def get_last_information_chat_entries(user_id, current_roles):
+    context = {
+        'status_discarded': StatusEnum.DISCARDED,
+        'status_waiting_terms': StatusEnum.APPROVETERMS_WAIT
+    }
+
+    collection_filter_query_string = ''
+    if ADMIN not in current_roles:
+        collection_filter_query_string, context2 = _get_collection_filter_query_string_and_context(user_id)
+        context.update(context2)
 
     query = RequestInformationChatEntry.requestInformationChat.raw(
         '''
@@ -386,60 +395,91 @@ def get_last_information_chat_entries(user_id, current_roles, roles):
         (
         select id, "DATE", request_id, question, max("DATE") over (partition by request_id) as max_date
         from pyha_requestinformationchad9c9 chat
-        where (exists (select 1 from pyha_request r where r.id = chat.request_id and r.status not in (-1, 0) {}))
-        )
+        where (
+        exists (
+        select 1 from pyha_request r
+        where r.id = chat.request_id and r.status not in (%(status_discarded)s, %(status_waiting_terms)s) {}
+        )))
         where "DATE" = max_date
-        '''.format(collection_filter)
+        '''.format(collection_filter_query_string),
+        context
     )
 
     return query
 
-def get_request_collection_status(user_id, current_roles, roles):
-    collection_filter = _get_collection_filter(user_id, current_roles, roles)
+
+def get_request_collection_status(user_id, current_roles):
+    context = {
+        'status_discarded': StatusEnum.DISCARDED,
+        'status_waiting_terms': StatusEnum.APPROVETERMS_WAIT,
+        'status_waiting': StatusEnum.WAITING,
+        'status_approved': StatusEnum.APPROVED,
+        'status_rejected': StatusEnum.REJECTED
+    }
+
+    collection_filter_query_string = ''
+    if ADMIN not in current_roles:
+        collection_filter_query_string, context2 = _get_collection_filter_query_string_and_context(user_id)
+        context.update(context2)
 
     query = Request.objects.raw(
         '''
-        select r.id, count(distinct c1.id) as waiting_count, count(distinct c2.id) as handled_count,
+        select r.id,
+        count(distinct c1.id) as waiting_count,
+        count(distinct c2.id) as handled_count,
         sum(c3.count_sum) * count(distinct c3.id) / count(*) as observation_count
         from pyha_request r
         left outer join
         (
         select id, request_id
         from pyha_collection
-        where status = {}
+        where status = %(status_waiting)s
         ) c1 on r.id = c1.request_id
         left outer join
         (
         select id, request_id
         from pyha_collection
-        where status = {} or status = {}
+        where status = %(status_approved)s or status = %(status_rejected)s
         ) c2 on r.id = c2.request_id
         left outer join
         (
         select id, count_sum, request_id
         from pyha_collection
-        where status >= 0
+        where status != %(status_discarded)s
         ) c3 on r.id = c3.request_id
-        where r.status not in (-1, 0) {}
+        where r.status not in (%(status_discarded)s, %(status_waiting_terms)s) {}
         group by r.id
-        '''.format(
-            StatusEnum.WAITING, StatusEnum.REJECTED, StatusEnum.APPROVED, collection_filter
-        )
+        '''.format(collection_filter_query_string),
+        context
     )
 
     return query
 
-def _get_collection_filter(user_id, current_roles, roles):
-    collection_filter = ''
 
-    if HANDLER_ANY in current_roles:
-        if CAT_HANDLER_COLL in roles:
-            collection_ids = get_collections_where_download_handler(user_id)
-            collection_filter = '''and (
-            exists (select 1 from pyha_collection c where c.request_id = r.id and c.address in ({}) and c.status > 0)
-            )'''.format(','.join(['\'{}\''.format(c_id) for c_id in collection_ids]))
+def _get_collection_filter_query_string_and_context(user_id):
+    context = {
+        'status_waiting_terms': StatusEnum.APPROVETERMS_WAIT
+    }
 
-    return collection_filter
+    collection_ids = get_collections_where_download_handler(user_id)
+    if len(collection_ids) == 0:
+        collection_ids = [None]
+
+    parameter_names = []
+    for idx, c_id in enumerate(collection_ids):
+        name = 'col_{}'.format(idx)
+        parameter_names.append(name)
+        context[name] = c_id
+
+    return '''
+        and (exists (
+        select 1 from pyha_collection c
+        where c.request_id = r.id and
+        c.address in ({}) and
+        c.status > %(status_waiting_terms)s
+        ))
+        '''.format(','.join(['%({})s'.format(name) for name in parameter_names])), context
+
 
 def update_collection_status(http_request, userRequest, collection):
     if ADMIN in http_request.session["current_user_role"]:
