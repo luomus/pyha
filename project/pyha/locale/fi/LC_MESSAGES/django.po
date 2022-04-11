@@ -1064,7 +1064,7 @@ msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:78
 msgid "download_gis_disabled"
-msgstr "GIS-latauksen enimmäisraja on 100 000 havaintoa."
+msgstr "GIS-latauksen enimmäisraja on 500 000 havaintoa."
 
 #: pyha/templates/pyha/requestview/requestview.html:86
 msgid "download"

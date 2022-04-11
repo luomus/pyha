@@ -1061,7 +1061,7 @@ msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:78
 msgid "download_gis_disabled"
-msgstr "Maxgränsen för GIS-format är 100 000 observationer."
+msgstr "Maxgränsen för nedladdning i GIS-format är 500 000 observationer."
 
 #: pyha/templates/pyha/requestview/requestview.html:86
 msgid "download"

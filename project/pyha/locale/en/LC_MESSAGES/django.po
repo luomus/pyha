@@ -1050,7 +1050,7 @@ msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:78
 msgid "download_gis_disabled"
-msgstr "The maximum limit for GIS format is 100 000 observations."
+msgstr "The maximum limit for download in GIS file format is 500 000 observations."
 
 #: pyha/templates/pyha/requestview/requestview.html:86
 msgid "download"
