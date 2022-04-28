@@ -1009,11 +1009,11 @@ msgstr ""
 "point = havaintojen sijaintien keskipisteet\n"
 "footprint = havaintojen geometriat alkuperäisessä muodossaan: voi sisältää "
 "piste-, viiva- ja aluegeometrioita\n"
-"bbx = havaintojen \"Bounding Box\" -aluerajaukset\n"
+"bbox = havaintojen \"Bounding Box\" -aluerajaukset\n"
 "\n"
 "CRS (koordinaattijärjestelmä):\n"
 "euref (ETRS89-TM35FIN, epsg 3067)\n"
-"wgs84 (epsg 4326)\n"
+"wgs84 (epsg 4326)"
 
 #: pyha/templates/pyha/requestview/requestview.html:59
 msgid "download_format"
@@ -1057,7 +1057,7 @@ msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:78
 msgid "download_gis_disabled"
-msgstr "GIS-latauksen enimmäisraja on 500 000 havaintoa."
+msgstr "GIS-latauksen enimmäisraja on 300 000 havaintoa."
 
 #: pyha/templates/pyha/requestview/requestview.html:86
 msgid "download"
