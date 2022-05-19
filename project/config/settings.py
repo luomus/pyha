@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Version of static files
-VERSION=9
+VERSION = 10
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -49,7 +49,7 @@ ICT_EMAIL = "helpdesk@laji.fi"
 PYHA_EMAIL = "noreply.pyha-staging@laji.fi"
 DOWNLOAD_PERIOD_DAYS = 365
 MAX_UPLOAD_FILE_SIZE = 10485760
-GIS_DOWNLOAD_LIMIT = 300000
+GIS_DOWNLOAD_LIMIT = 300000000000000000000000
 MOCK_JSON=False
 TESTING=False
 APPEND_SLASH=False

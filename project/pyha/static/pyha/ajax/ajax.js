@@ -212,6 +212,7 @@
 		}
 		data += "fileType=" + document.querySelector("input[name='fileType']:checked").value;
 
+        updateProgressBar();
 		$("#loading-modal").modal('show');
 
 		var xhttp = new XMLHttpRequest();
@@ -222,6 +223,7 @@
 				    if (jsonResponse["status"] === "complete") {
 				    	downloadSuccess(jsonResponse);
 				    } else {
+				        updateProgressBar(jsonResponse["progressPercent"]);
 				        pollDownloadStatus(jsonResponse["statusUrl"]);
 				    }
 				} else {
@@ -244,6 +246,8 @@
 				    if (jsonResponse["status"] === "complete") {
 				        downloadSuccess(jsonResponse);
 				    } else {
+                        updateProgressBar(jsonResponse["progressPercent"]);
+
                         setTimeout(() => {
                             pollDownloadStatus(url);
                         }, 5000);
@@ -255,6 +259,12 @@
 		};
 	    xhttp.open("GET", url, true);
 	    xhttp.send();
+	}
+
+	function updateProgressBar(progressPercent) {
+		var progressBar = document.getElementById("loadingProgressBar");
+		progressBar.innerHTML = progressPercent == null ? "" : progressPercent + "%";
+		progressBar.style.width = progressPercent == null ? "100%" : progressPercent + "%";
 	}
 
 	function downloadSuccess(jsonResponse) {

@@ -66,9 +66,11 @@ def gis_download_status(http_request, download_id):
 
             return JsonResponse({'errName': err_name, 'errMsg': err_msg}, status=status_code)
 
-        status = r.json()['status']
+        status_obj = r.json()
+        status = status_obj['status']
         response = {
             'status': status,
+            'progressPercent': status_obj['progress_percent'],
             'statusUrl': reverse('pyha:gis_download_status', args=(download_id,)),
             'downloadUrl': '{}{}'.format(settings.GEO_CONVERT_URL, r.headers['Location'].lstrip('/')) if (
                 status == 'complete'
