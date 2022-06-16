@@ -28,11 +28,10 @@ urlpatterns = [
 urlpatterns += [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(domain='djangojs', packages=['pyha']),
-        name='javascript-catalog'),
+      name='javascript-catalog'),
 ]
 
-urlpatterns += decorator.required(decorator.admin_required_and_force_english, [
-    url(r'^{0}/logout/?$'.format(settings.SECRET_ADMIN_SUB_DIR),
-        views.logout.logout),
+urlpatterns += decorator.required( decorator.admin_required_and_force_english, [
+    url(r'^{0}/logout/?$'.format(settings.SECRET_ADMIN_SUB_DIR), views.logout.logout),
     url(r'^{0}/'.format(settings.SECRET_ADMIN_SUB_DIR), admin.site.urls)
 ])

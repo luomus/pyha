@@ -10,40 +10,36 @@ from pyha.models import AdminPyhaSettings
 
 
 def timed_email():
-    pyha_settings = AdminPyhaSettings.objects.filter(settingsName='default')
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
     if pyha_settings.exists():
         if pyha_settings.first().enableDailyHandlerEmail:
             c = TimedEmailCommand()
             c.handle()
             connection.close()
 
-
 def timed_email_to_requesters():
-    pyha_settings = AdminPyhaSettings.objects.filter(settingsName='default')
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
     if pyha_settings.exists():
         if pyha_settings.first().enableDailyRequesterEmail:
             c = TimedEmailToRequestersCommand()
             c.handle()
             connection.close()
 
-
 def missing_handlers_email():
-    pyha_settings = AdminPyhaSettings.objects.filter(settingsName='default')
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
     if pyha_settings.exists():
         if pyha_settings.first().enableWeeklyMissingHandlersEmail:
             c = MissingHandlersCommand()
             c.handle()
             connection.close()
 
-
 def decline_overdue_collections():
-    pyha_settings = AdminPyhaSettings.objects.filter(settingsName='default')
+    pyha_settings = AdminPyhaSettings.objects.filter(settingsName = 'default')
     if pyha_settings.exists():
         if pyha_settings.first().enableDeclineOverdueCollections:
             c = DeclineOverDueCollectionsCommand()
             c.handle()
             connection.close()
-
 
 def run_threaded(job_func):
     job_thread = Thread(target=job_func)
@@ -61,13 +57,10 @@ def scheduler():
 
     schedule.every().monday.at("11:22").do(run_threaded, timed_email_to_requesters)
     schedule.every().tuesday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().wednesday.at("11:22").do(
-        run_threaded, timed_email_to_requesters)
-    schedule.every().thursday.at("11:22").do(
-        run_threaded, timed_email_to_requesters)
+    schedule.every().wednesday.at("11:22").do(run_threaded, timed_email_to_requesters)
+    schedule.every().thursday.at("11:22").do(run_threaded, timed_email_to_requesters)
     schedule.every().friday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().saturday.at("11:22").do(
-        run_threaded, timed_email_to_requesters)
+    schedule.every().saturday.at("11:22").do(run_threaded, timed_email_to_requesters)
     schedule.every().sunday.at("11:22").do(run_threaded, timed_email_to_requesters)
 
     schedule.every().tuesday.at("11:22").do(run_threaded, missing_handlers_email)

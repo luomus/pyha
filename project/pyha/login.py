@@ -32,7 +32,6 @@ def _get_authentication_info(token):
         content = json.loads(response.content.decode('utf-8'))
         return content
 
-
 def _delete_authentication_token(token):
     '''
     Logs the user out by deleting the authentication token
@@ -42,7 +41,6 @@ def _delete_authentication_token(token):
     url = settings.LAJIAUTH_URL + "token/" + token
     response = requests.delete(url, timeout=settings.SECRET_TIMEOUT_PERIOD)
     return response.status_code == 200
-
 
 def log_in(http_request, token, authentication_info):
     '''
@@ -71,7 +69,7 @@ def log_in(http_request, token, authentication_info):
             http_request.session["user_roles"].append(ADMIN)
             http_request.session["current_user_role"] = ADMIN
             admin, created = User.objects.get_or_create(
-                username=http_request.session["user_id"],
+                username = http_request.session["user_id"],
                 defaults={
                     'first_name': http_request.session["user_name"].split()[0],
                     'last_name': http_request.session["user_name"].split()[-1],
@@ -91,20 +89,18 @@ def log_in(http_request, token, authentication_info):
         return True
     return False
 
-
 def log_out(http_request):
     '''
-        Clear session for the request.
-        :param http_request:
-        :return: true if user was succesfully logged out
-        '''
+	Clear session for the request.
+	:param http_request:
+	:return: true if user was succesfully logged out
+	'''
     if logged_in(http_request):
         success = _delete_authentication_token(http_request.session["token"])
         http_request.session.flush()
         return success
 
     return False
-
 
 def authenticate(http_request, token, result):
     '''
@@ -119,22 +115,18 @@ def authenticate(http_request, token, result):
         log_in(http_request, token, result)
         return True
 
-
 def get_user_name(http_request):
     if "user_name" in http_request.session:
         return http_request.session["user_name"]
-
 
 def add_collection_request_handler_roles(http_request, content):
     if is_download_handler(http_request.session["user_id"]):
         http_request.session["user_roles"].append(CAT_HANDLER_COLL)
 
-
 def logged_in(http_request):
     if "user_id" in http_request.session:
         return True
     return False
-
 
 def _process_auth_response(http_request, indexpath):
     if not "token" in http_request.POST:
@@ -146,45 +138,36 @@ def _process_auth_response(http_request, indexpath):
     else:
         return HttpResponseRedirect(settings.LAJIAUTH_URL+'login?target='+settings.TARGET+'&next='+str(indexpath))
 
-
 def is_allowed_to_view(http_request, requestId):
     userId = http_request.session["user_id"]
     return allowed_to_view(http_request, requestId, userId)
-
 
 def is_allowed_to_handle(http_request, requestId):
     userId = http_request.session["user_id"]
     return allowed_to_handle(http_request, requestId, userId)
 
-
 def is_admin_frozen_and_not_admin(http_request, userRequest):
     if(userRequest.frozen and not ADMIN in http_request.session["current_user_role"]):
-        http_request.session["toast"] = {"status": toast.ERROR, "message": ugettext(
-            'error_request_has_been_frozen_by_admin')}
+        http_request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
         http_request.session.save()
         return True
     else:
         return False
-
 
 def is_admin_frozen(http_request, userRequest):
     if(userRequest.frozen):
-        http_request.session["toast"] = {"status": toast.ERROR, "message": ugettext(
-            'error_request_has_been_frozen_by_admin')}
+        http_request.session["toast"] = {"status": toast.ERROR , "message": ugettext('error_request_has_been_frozen_by_admin')}
         http_request.session.save()
         return True
     else:
         return False
-
 
 def is_request_owner(http_request, requestId):
     userId = http_request.session["user_id"]
     return Request.objects.filter(id=requestId, user=userId, status__gte=0).exists()
 
-
 def is_admin(http_request):
     return ADMIN in http_request.session.get("current_user_role", [None])
-
 
 def allowed_to_view(http_request, requestId, userId):
     if ADMIN in http_request.session.get("current_user_role", [None]):
@@ -193,13 +176,12 @@ def allowed_to_view(http_request, requestId, userId):
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId).exclude(status=-1).exists():
             return False
-        if not Collection.objects.filter(request=requestId, address__in=get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+        if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
             return False
     else:
         if not Request.objects.filter(id=requestId, user=userId).exclude(status=-1).exists():
             return False
     return True
-
 
 def allowed_to_handle(http_request, requestId, userId):
     if ADMIN in http_request.session.get("current_user_role", [None]):
@@ -208,12 +190,11 @@ def allowed_to_handle(http_request, requestId, userId):
     elif HANDLER_ANY in http_request.session.get("current_user_role", [None]):
         if not Request.objects.filter(id=requestId, status__gt=0).exists():
             return False
-        if not Collection.objects.filter(request=requestId, address__in=get_collections_where_download_handler(userId), status__gt=0).count() > 0:
+        if not Collection.objects.filter(request=requestId, address__in = get_collections_where_download_handler(userId), status__gt=0).count() > 0:
             return False
     else:
         return False
     return True
-
 
 def is_allowed_to_ask_information_as_target(http_request, target, requestId):
     if target == 'admin':
@@ -221,7 +202,6 @@ def is_allowed_to_ask_information_as_target(http_request, target, requestId):
     elif Collection.objects.filter(request=requestId, address=target).exists():
         return is_download_handler_in_collection(http_request.session["user_id"], target)
     return False
-
 
 def basic_auth_required(func):
     @wraps(func)

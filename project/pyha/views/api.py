@@ -26,11 +26,9 @@ def receiver(http_request):
         jsond = http_request.body.decode("utf-8")
         userRequest = store(jsond)
     if(userRequest):
-        RequestLogEntry.requestLog.create(
-            request=userRequest, user="Laji.fi ICT-team", role=CAT_HANDLER_COLL, action=RequestLogEntry.RECEIVE)
+        RequestLogEntry.requestLog.create(request=userRequest, user = "Laji.fi ICT-team", role = CAT_HANDLER_COLL, action=RequestLogEntry.RECEIVE)
         send_mail_after_receiving_request(userRequest.id, userRequest.lang)
     return HttpResponse('')
-
 
 @csrf_exempt
 @basic_auth_required
@@ -42,10 +40,8 @@ def download(http_request, link):
             userRequest.downloadDate = datetime.now()
             userRequest.changedBy = changed_by("pyha")
             userRequest.save()
-            send_mail_after_receiving_download(
-                userRequest.id, userRequest.lang)
+            send_mail_after_receiving_download(userRequest.id, userRequest.lang)
     return HttpResponse('')
-
 
 @csrf_exempt
 @basic_auth_required
@@ -53,38 +49,31 @@ def new_count(http_request):
     if http_request.method == 'GET':
         if 'none' != http_request.GET.get('person', 'none'):
             userId = http_request.GET.get('person')
-            return JsonResponse({'count': count_unhandled_requests(userId)})
+            return JsonResponse({'count':count_unhandled_requests(userId)})
     return HttpResponse('')
-
 
 def new_pdf(http_request):
     if http_request.method == 'POST':
-        pdf_response = fetch_pdf(http_request.POST.get(
-            'source'), http_request.POST.get('style'))
+        pdf_response = fetch_pdf(http_request.POST.get('source'),http_request.POST.get('style'))
         if pdf_response:
-            response = HttpResponse(
-                pdf_response, content_type='application/pdf')
+            response = HttpResponse(pdf_response, content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename=pyha.pdf'
             return response
         else:
             return HttpResponse(status=504)
     return HttpResponse('')
 
-
 @csrf_exempt
 def status(http_request):
     if http_request.method == 'GET':
         try:
-            response = requests.get(settings.LAJIAPI_URL+"collections?access_token=" +
-                                    settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
+            response = requests.get(settings.LAJIAPI_URL+"collections?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD)
             if not response.status_code == 200:
                 return HttpResponse(status=504)
-            response = requests.get(settings.LAJIPERSONAPI_URL+"search?objectresource=pyharesponsestatustestping", auth=HTTPBasicAuth(
-                settings.LAJIPERSONAPI_USER, settings.LAJIPERSONAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
+            response = requests.get(settings.LAJIPERSONAPI_URL+"search?objectresource=pyharesponsestatustestping", auth=HTTPBasicAuth(settings.LAJIPERSONAPI_USER, settings.LAJIPERSONAPI_PW), timeout=settings.SECRET_TIMEOUT_PERIOD)
             if not response.status_code == 200:
                 return HttpResponse(status=504)
-            response = requests.get(
-                settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
+            response = requests.get(settings.LAJIFILTERS_URL, timeout=settings.SECRET_TIMEOUT_PERIOD)
             if not response.status_code == 200:
                 return HttpResponse(status=504)
         except:
