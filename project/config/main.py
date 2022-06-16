@@ -9,9 +9,9 @@ DATABASES = {
         'NAME': os.environ["DB_NAME"],
         'USER': os.environ["DB_USER"],
         'PASSWORD': os.environ["DB_PASSWORD"],
-		'OPTIONS': {
-			'threaded': True,
-		}
+        'OPTIONS': {
+            'threaded': True,
+        }
     }
 }
 if DEBUG:
@@ -22,7 +22,8 @@ if DEBUG:
         EMAIL_FILE_PATH = os.environ["EMAIL_BACKEND_FILE_PATH"]
     else:
         EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else: EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = ''

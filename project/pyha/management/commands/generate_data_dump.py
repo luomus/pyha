@@ -10,8 +10,10 @@ import json
 import requests
 
 lang = 'fi'
-filtered_fields = ['source', 'changedBy', 'downloadFormat', 'downloadIncludes', 'filter_list']
-collection_filtered_fields = ['id', 'changedBy', 'downloadRequestHandler', 'count', 'taxonSecured', 'customSecured', 'quarantineSecured']
+filtered_fields = ['source', 'changedBy',
+                   'downloadFormat', 'downloadIncludes', 'filter_list']
+collection_filtered_fields = ['id', 'changedBy', 'downloadRequestHandler',
+                              'count', 'taxonSecured', 'customSecured', 'quarantineSecured']
 collection_names = {}
 
 
@@ -27,7 +29,8 @@ class Command(BaseCommand):
     def generate_request_data_dump(self):
         with open('pyha_requests.csv', 'w') as f:
             model_fields = Request._meta.fields + Request._meta.many_to_many
-            field_names = [field.name for field in model_fields if field.name not in filtered_fields]
+            field_names = [
+                field.name for field in model_fields if field.name not in filtered_fields]
 
             writer = csv.writer(f, delimiter=';')
             writer.writerow(field_names)
@@ -39,14 +42,16 @@ class Command(BaseCommand):
                     value = getattr(obj, field)
 
                     if field == 'status':
-                        status = [a for a in dir(StatusEnum) if not a.startswith('__')]
+                        status = [a for a in dir(
+                            StatusEnum) if not a.startswith('__')]
                         for s in status:
                             if getattr(StatusEnum, s) == value:
                                 value = s
                     if field == 'user':
                         value = fetch_user_name(value)
                     if field == 'filter_description_list' or field == 'public_link' or field == 'private_link':
-                        value = json.loads(value, object_hook=lambda d: Namespace(**d))
+                        value = json.loads(
+                            value, object_hook=lambda d: Namespace(**d))
                         value = getattr(value, lang)
 
                         if field == 'filter_description_list':
@@ -62,9 +67,11 @@ class Command(BaseCommand):
                             choices = reasons['argument_choices']
                             fields = reasons['fields']
 
-                            value[ugettext('argument_choices')] = ', '.join([ugettext(c) for c in choices])
+                            value[ugettext('argument_choices')] = ', '.join(
+                                [ugettext(c) for c in choices])
                             for field_name in fields:
-                                value[ugettext(field_name)] = fields[field_name]
+                                value[ugettext(field_name)
+                                      ] = fields[field_name]
 
                     row.append(value)
 
@@ -94,7 +101,8 @@ class Command(BaseCommand):
                     if field == 'request':
                         value = value.id
                     if field == 'status':
-                        status = [a for a in dir(Col_StatusEnum) if not a.startswith('__')]
+                        status = [a for a in dir(
+                            Col_StatusEnum) if not a.startswith('__')]
                         for s in status:
                             if getattr(StatusEnum, s) == value:
                                 value = s

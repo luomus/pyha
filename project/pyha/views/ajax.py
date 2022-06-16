@@ -9,6 +9,7 @@ from pyha.models import Request, Collection, StatusEnum
 from pyha.log_utils import changed_by_session_user
 import requests
 
+
 def download_link(http_request):
     if http_request.method == 'POST':
         if not logged_in(http_request):
@@ -35,19 +36,23 @@ def download_link(http_request):
 
         if file_type == 'GIS':
             url = '{}{}/{}/{}/{}?personToken={}'.format(
-                settings.GEO_CONVERT_URL, laji_id.split('.')[-1], format, geometry, CRS, person_token
+                settings.GEO_CONVERT_URL, laji_id.split(
+                    '.')[-1], format, geometry, CRS, person_token
             )
             download_id = requests.get(url, allow_redirects=False).json()
             return HttpResponseRedirect(reverse('pyha:gis_download_status', args=(download_id,)))
         else:
-            link = '{}{}?personToken={}'.format(settings.LAJIDOW_URL, laji_id, person_token)
+            link = '{}{}?personToken={}'.format(
+                settings.LAJIDOW_URL, laji_id, person_token)
             return JsonResponse({'status': 'complete', 'downloadUrl': link})
 
     return HttpResponse(reverse('pyha:root'), status=310)
 
+
 def gis_download_status(http_request, download_id):
     if http_request.method == 'GET':
-        url = '{}status/{}?timeout={}'.format(settings.GEO_CONVERT_URL, download_id, 1)
+        url = '{}status/{}?timeout={}'.format(
+            settings.GEO_CONVERT_URL, download_id, 1)
         r = requests.get(url, allow_redirects=False)
 
         if not r.ok:
@@ -81,19 +86,22 @@ def gis_download_status(http_request, download_id):
 
     return HttpResponse(reverse('pyha:root'), status=310)
 
+
 def get_description_ajax(http_request):
     if http_request.method == 'POST' and http_request.POST.get('requestid'):
         if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
+            return HttpResponse(reverse(http_request.get_full_path()), status=310)
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         requestId = http_request.POST.get('requestid')
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponse(reverse('pyha:root'), status=310)
         userRequest = Request.objects.get(id=requestId)
-        context = create_request_view_context(requestId, http_request, userRequest)
+        context = create_request_view_context(
+            requestId, http_request, userRequest)
         return render(http_request, 'pyha/base/ajax/requestheader.html', context)
     return HttpResponse(reverse('pyha:root'), status=310)
+
 
 def set_description_ajax(http_request):
     if http_request.method == 'POST':
@@ -102,7 +110,7 @@ def set_description_ajax(http_request):
         requestId = http_request.POST.get('requestid')
         if not is_request_owner(http_request, requestId):
             return HttpResponse(reverse('pyha:root'), status=310)
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponse(reverse('pyha:root'), status=310)
         userRequest.description = http_request.POST.get('description')
@@ -111,10 +119,11 @@ def set_description_ajax(http_request):
         return HttpResponse(status=200)
     return HttpResponse(reverse('pyha:root'), status=310)
 
+
 def get_collection_ajax(http_request):
     if http_request.method == 'POST' and http_request.POST.get('requestid'):
         if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
+            return HttpResponse(reverse(http_request.get_full_path()), status=310)
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         requestId = http_request.POST.get('requestid')
@@ -124,14 +133,16 @@ def get_collection_ajax(http_request):
         if is_admin_frozen(http_request, userRequest):
             return HttpResponse(reverse('pyha:root'), status=310)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
-            context = create_request_view_context(requestId, http_request, userRequest)
+            context = create_request_view_context(
+                requestId, http_request, userRequest)
             return render(http_request, 'pyha/requestform/ajax/requestformcollection.html', context)
     return HttpResponse(reverse('pyha:root'), status=310)
+
 
 def get_summary_ajax(http_request):
     if http_request.method == 'POST' and http_request.POST.get('requestid'):
         if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
+            return HttpResponse(reverse(http_request.get_full_path()), status=310)
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         requestId = http_request.POST.get('requestid')
@@ -141,14 +152,16 @@ def get_summary_ajax(http_request):
         if is_admin_frozen(http_request, userRequest):
             return HttpResponse(reverse('pyha:root'), status=310)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
-            context = create_request_view_context(requestId, http_request, userRequest)
+            context = create_request_view_context(
+                requestId, http_request, userRequest)
             return render(http_request, 'pyha/requestform/ajax/requestformsummary.html', context)
     return HttpResponse(reverse('pyha:root'), status=310)
+
 
 def create_contact_ajax(http_request):
     if http_request.method == 'POST' and http_request.POST.get('requestid') and http_request.POST.get('id'):
         if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
+            return HttpResponse(reverse(http_request.get_full_path()), status=310)
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         requestId = http_request.POST.get('requestid')
@@ -158,15 +171,17 @@ def create_contact_ajax(http_request):
         if is_admin_frozen(http_request, userRequest):
             return HttpResponse(reverse('pyha:root'), status=310)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT):
-            context = create_request_view_context(requestId, http_request, userRequest)
+            context = create_request_view_context(
+                requestId, http_request, userRequest)
             context["contact_id"] = http_request.POST.get('id')
             return render(http_request, 'pyha/requestform/ajax/requestformcontact.xml', context)
     return HttpResponse(reverse('pyha:root'), status=310)
 
+
 def remove_collection_ajax(http_request):
     if http_request.method == 'POST' and http_request.POST.get('requestid'):
         if check_language(http_request):
-                return HttpResponse(reverse(http_request.get_full_path()), status=310)
+            return HttpResponse(reverse(http_request.get_full_path()), status=310)
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
         requestId = http_request.POST.get('requestid')
@@ -176,7 +191,7 @@ def remove_collection_ajax(http_request):
         if is_admin_frozen(http_request, userRequest):
             return HttpResponse(reverse('pyha:root'), status=310)
         collectionId = http_request.POST.get('collectionId')
-        collection = Collection.objects.get(id = collectionId)
+        collection = Collection.objects.get(id=collectionId)
         if(userRequest.status == StatusEnum.APPROVETERMS_WAIT and collection.status != -1):
             collection.status = -1
             collection.changedBy = changed_by_session_user(http_request)

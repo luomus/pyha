@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 from django.test import TestCase, Client
 from django.conf import settings
 from pyha.models import Collection, Request, RequestLogEntry
@@ -12,14 +12,18 @@ from django.core.cache import cache
 import unittest
 import mock
 
+
 def fake_is_allowed_to_view(request, requestId):
     return True
+
 
 def fake_is_allowed_to_handle(userId, requestId):
     return True
 
+
 def fake_is_download_handler_in_collection(userId, collectionId):
     return True
+
 
 class RequestTesting(TestCase):
 
@@ -50,7 +54,8 @@ class RequestTesting(TestCase):
         warehouse.store(JSON_MOCK3)
         response = self.client.get(reverse('pyha:root'))
         self.assertEqual(len(Request.objects.all()), 1)
-        self.assertNotContains(response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
+        self.assertNotContains(
+            response, "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555")
 
     def test_requests_filters_labels_and_values_comes_from_apitest(self):
         warehouse.store(JSON_MOCK7)
@@ -69,7 +74,6 @@ class RequestTesting(TestCase):
         self.client.get('/request/1')
         self.assertEqual(len(RequestLogEntry.requestLog.all()), 0)
 
-
     @mock.patch("pyha.views.requestview.is_allowed_to_view", fake_is_allowed_to_view)
     @mock.patch("pyha.views.requestview.is_allowed_to_handle", fake_is_allowed_to_handle)
     def test_RequestLogEntry_view_someone_elses_request(self):
@@ -85,7 +89,7 @@ class RequestTesting(TestCase):
         session.save()
 
         response = self.client.get('/request/2')
-        logEntry = RequestLogEntry.requestLog.get(request = wanted)
+        logEntry = RequestLogEntry.requestLog.get(request=wanted)
         self.assertEqual(logEntry.user, "MA.313")
         self.assertEqual(logEntry.role, CAT_HANDLER_COLL)
         self.assertEqual(logEntry.collection, None)
@@ -94,8 +98,10 @@ class RequestTesting(TestCase):
 
     def test_RequestLogEntry_accept(self):
         warehouse.store(JSON_MOCK6)
-        self.client.post(reverse('pyha:approve'), {'requestid': 2, 'checkb': ['sens','colcustomsec1'] })
-        logEntry = RequestLogEntry.requestLog.get(request = Request.objects.get(id=2), collection = None )
+        self.client.post(reverse('pyha:approve'), {
+                         'requestid': 2, 'checkb': ['sens', 'colcustomsec1']})
+        logEntry = RequestLogEntry.requestLog.get(
+            request=Request.objects.get(id=2), collection=None)
         self.assertEqual(logEntry.user, "MA.309")
         self.assertEqual(logEntry.role, USER)
         self.assertEqual(logEntry.action, "ACC")
@@ -119,8 +125,10 @@ class RequestTesting(TestCase):
         session["current_user_role"] = HANDLER_ANY
         session.save()
 
-        self.client.post(reverse('pyha:answer'), {'requestid': 1,'answer' : 1, 'collectionid':"HR.39"})
-        logEntry = RequestLogEntry.requestLog.get(request = request1, collection = col)
+        self.client.post(reverse('pyha:answer'), {
+                         'requestid': 1, 'answer': 1, 'collectionid': "HR.39"})
+        logEntry = RequestLogEntry.requestLog.get(
+            request=request1, collection=col)
         self.assertEqual(logEntry.user, "MA.313")
         self.assertEqual(logEntry.role, CAT_HANDLER_COLL)
         self.assertEqual(logEntry.action, 'POS')
@@ -145,12 +153,15 @@ class RequestTesting(TestCase):
         session["current_user_role"] = HANDLER_ANY
         session.save()
 
-        self.client.post(reverse('pyha:answer'), {'requestid': 2,'answer' : 0,'collectionid': 'colcustomsec1', 'reason': 'ei sovi' })
-        logEntry = RequestLogEntry.requestLog.get(request = request2, collection = col )
+        self.client.post(reverse('pyha:answer'), {
+                         'requestid': 2, 'answer': 0, 'collectionid': 'colcustomsec1', 'reason': 'ei sovi'})
+        logEntry = RequestLogEntry.requestLog.get(
+            request=request2, collection=col)
         self.assertEqual(logEntry.user, "MA.313")
         self.assertEqual(logEntry.role, CAT_HANDLER_COLL)
         self.assertEqual(logEntry.action, 'NEG')
         self.assertEqual(len(RequestLogEntry.requestLog.all()), 1)
+
 
 '''    def test_removing_both_secure_reasons_removes_collection(self):
         warehouse.store(JSON_MOCK7)

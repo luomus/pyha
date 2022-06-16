@@ -6,7 +6,7 @@ if __name__ == "__main__":
     if "test" in sys.argv:
         configpath = "config.test"
     else:
-        configpath = "config.main"        
+        configpath = "config.main"
     os.environ["DJANGO_SETTINGS_MODULE"] = configpath
     try:
         from django.core.management import execute_from_command_line

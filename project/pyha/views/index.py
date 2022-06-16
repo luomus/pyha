@@ -11,12 +11,15 @@ from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import fetch_email_address, get_collections_where_download_handler, fetch_email_addresses
 from pyha.templatetags.pyha_tags import translateRequestStatus
 
+
 def csrf_failure(http_request, reason=""):
     return render(http_request, 'pyha/error/403_crsf.html', {'static': settings.STA_URL, 'version': settings.VERSION})
+
 
 @csrf_exempt
 def pyha(http_request):
     return HttpResponseRedirect(reverse("pyha:root"))
+
 
 @csrf_exempt
 def index(http_request):
@@ -25,7 +28,7 @@ def index(http_request):
     if check_language(http_request):
         return HttpResponseRedirect(http_request.get_full_path())
     if not logged_in(http_request):
-        return _process_auth_response(http_request,'')
+        return _process_auth_response(http_request, '')
     userId = http_request.session["user_id"]
     toast = None
     if(http_request.session.get("toast", None) is not None):
@@ -43,6 +46,7 @@ def index(http_request):
         "version": settings.VERSION
     }
     return render(http_request, 'pyha/base/index.html', context)
+
 
 def get_request_list_ajax(http_request):
     if http_request.method == 'GET':
@@ -75,7 +79,8 @@ def get_request_list_ajax(http_request):
             else:
                 data_entry['approximateMatches'] = r.approximateMatches
                 data_entry['description'] = r.description
-                data_entry['statusText'] = translateRequestStatus(r.status, USER, None, None, r.downloadable)
+                data_entry['statusText'] = translateRequestStatus(
+                    r.status, USER, None, None, r.downloadable)
 
             data.append(data_entry)
 
@@ -87,27 +92,32 @@ def get_request_list_ajax(http_request):
 
     return HttpResponse(reverse('pyha:root'), status=310)
 
+
 def group_delete_request(http_request):
     nexturl = http_request.POST.get('next', '/')
     if http_request.method == 'POST':
         if not logged_in(http_request):
             return _process_auth_response(http_request, 'pyha')
         user_id = http_request.session['user_id']
-        request_id_list = [reqid.replace('request_id_','') for reqid, _ in http_request.POST.items() if 'request_id_' in reqid]
+        request_id_list = [reqid.replace(
+            'request_id_', '') for reqid, _ in http_request.POST.items() if 'request_id_' in reqid]
         if is_admin(http_request):
             requests = Request.objects.filter(id__in=request_id_list)
         else:
-            requests = Request.objects.filter(id__in=request_id_list, user=user_id)
+            requests = Request.objects.filter(
+                id__in=request_id_list, user=user_id)
 
         for request in requests:
             if not is_admin(http_request) and request.status != 0:
                 if request.status > 0:
                     withdraw_request(request, http_request)
-                    RequestLogEntry.requestLog.create(request=request, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.WITHDRAW)
+                    RequestLogEntry.requestLog.create(
+                        request=request, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.WITHDRAW)
             else:
                 remove_request(request, http_request)
 
     return HttpResponseRedirect(nexturl)
+
 
 def _add_additional_info_to_requests(http_request, userId, request_list):
     for r in request_list:
@@ -129,13 +139,16 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
             r.email = emails[r.user]
 
     if HANDLER_ANY in current_roles:
-        handler_mul_information_chat_answered_status(request_list, http_request, userId)
-        viewedlist = list(RequestLogEntry.requestLog.filter(request__in = [re.id for re in request_list], user = userId, action = 'VIEW'))
+        handler_mul_information_chat_answered_status(
+            request_list, http_request, userId)
+        viewedlist = list(RequestLogEntry.requestLog.filter(
+            request__in=[re.id for re in request_list], user=userId, action='VIEW'))
         for r in request_list:
             if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
                 r.viewed = True
             else:
                 r.viewed = False
+
 
 def _get_request_list(http_request, userId):
     current_roles = http_request.session.get('current_user_role', [None])
@@ -153,6 +166,7 @@ def _get_request_list(http_request, userId):
         query = query.filter(user=userId).exclude(status__in=[-1])
 
     return query
+
 
 def _add_handler_values(request_list, user_id, current_roles):
     collection_status = get_request_collection_status(user_id, current_roles)

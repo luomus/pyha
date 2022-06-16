@@ -6,14 +6,17 @@ import math
 
 register = template.Library()
 
+
 @register.filter(name='replaceCommaWithSpace')
 def replaceCommaWithSpace(text):
     return text.replace(',', ' ')
 
+
 @register.simple_tag(name='collectionCounts')
 def collectionCounts(counts, role):
     if role == ADMIN or role == HANDLER_ANY:
-        count_texts = ['{}: {}'.format(count.label, count.count) for count in counts]
+        count_texts = ['{}: {}'.format(
+            count.label, count.count) for count in counts]
         return '\n'.join(count_texts)
 
     count_sum = 0
@@ -29,6 +32,7 @@ def collectionCounts(counts, role):
         max_value = 10
 
     return '0-{}'.format(max_value)
+
 
 @register.simple_tag(name='translateCollectionStatus')
 def translateCollectionStatus(status, role, collection_id, handles):
@@ -46,6 +50,7 @@ def translateCollectionStatus(status, role, collection_id, handles):
         return gettext('accepted')
     else:
         return gettext('unknown')
+
 
 @register.simple_tag(name='translateRequestStatus')
 def translateRequestStatus(status, role, answerstatus, waitingstatus, downloadable):
@@ -77,6 +82,6 @@ def translateRequestStatus(status, role, answerstatus, waitingstatus, downloadab
         else:
             return gettext('download_has_expired')
     elif status == StatusEnum.WITHDRAWN:
-         return gettext('withdrawn')
+        return gettext('withdrawn')
     else:
         return gettext('unknown')

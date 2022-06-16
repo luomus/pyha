@@ -4,18 +4,19 @@ from pyha.database import update_collection_handlers, update_collection_handlers
 from pyha.warehouse import get_contact_email_for_collection
 from django.core.cache import caches
 
+
 class Command(BaseCommand):
     help = 'Sends reminder emails to all collection handlers for unhandled requests.'
 
-    #def add_arguments(self, parser):
+    # def add_arguments(self, parser):
 
     def handle(self, *args, **options):
         update_collection_handlers()
         collections = caches['collections'].get('collections')
         downloadRequestHandlers = set()
         for co in collections:
-                for handler in co.get('downloadRequestHandler', {}):
-                    downloadRequestHandlers.add(handler)
+            for handler in co.get('downloadRequestHandler', {}):
+                downloadRequestHandlers.add(handler)
 
         count_for_contact_email = {}
 
