@@ -11,7 +11,8 @@ import requests
 
 lang = 'fi'
 filtered_fields = ['source', 'changedBy', 'downloadFormat', 'downloadIncludes', 'filter_list']
-collection_filtered_fields = ['id', 'changedBy', 'downloadRequestHandler', 'count', 'taxonSecured', 'customSecured', 'quarantineSecured']
+collection_filtered_fields = ['id', 'changedBy', 'downloadRequestHandler',
+                              'count', 'taxonSecured', 'customSecured', 'quarantineSecured']
 collection_names = {}
 
 

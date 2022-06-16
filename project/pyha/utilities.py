@@ -1,18 +1,21 @@
-﻿import json
+﻿import traceback
+from datetime import datetime, timedelta
+import json
 import sys
+
 
 class Container(object):
     pass
 
+
 def get_callers_function_name():
     return sys._getframe(2).f_code.co_name
 
-import traceback
+
 try:
     from hashlib import md5
 except ImportError:
     from md5 import md5
-from datetime import datetime, timedelta
 
 
 class EmailRateLimitFilter(object):
@@ -52,8 +55,8 @@ class EmailRateLimitFilter(object):
                 max_keys = getattr(settings, 'ERROR_RATE_KEY_LIMIT', 100)
                 duplicate = (key in self._errors and self._errors[key] >= min_date)
                 self._errors = dict(list(filter(lambda x: x[1] >= min_date,
-                                          sorted(self._errors.items(),
-                                                 key=lambda x: x[1])))[0-max_keys:])
+                                                sorted(self._errors.items(),
+                                                       key=lambda x: x[1])))[0-max_keys:])
                 if not duplicate:
                     self._errors[key] = datetime.now()
 

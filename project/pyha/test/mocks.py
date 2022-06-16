@@ -1,4 +1,4 @@
-#json-muotoinen pyyntö
+# json-muotoinen pyyntö
 JSON_MOCK = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
@@ -44,7 +44,7 @@ JSON_MOCK = '''
 	]
 }'''
 
-#eroaa ensimmäisestä id:n osalta
+# eroaa ensimmäisestä id:n osalta
 JSON_MOCK2 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE",
@@ -90,7 +90,7 @@ JSON_MOCK2 = '''
 	]
 }'''
 
-#jsonista puuttuu filtterit
+# jsonista puuttuu filtterit
 JSON_MOCK3 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555",
@@ -123,7 +123,7 @@ JSON_MOCK3 = '''
 	]
 }'''
 
-#mock4 on email-testausta varten
+# mock4 on email-testausta varten
 JSON_MOCK4 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LL",
@@ -169,7 +169,7 @@ JSON_MOCK4 = '''
 		}
 	]
 }'''
-#sama pyyntö kuin mock4, mutta eri id ja kuvaus
+# sama pyyntö kuin mock4, mutta eri id ja kuvaus
 JSON_MOCK5 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LÖ",
@@ -215,7 +215,7 @@ JSON_MOCK5 = '''
 		}
 	]
 }'''
-#mock6:sta löytyy secure reasonien määriä
+# mock6:sta löytyy secure reasonien määriä
 JSON_MOCK6 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775sdB16BD",
@@ -255,8 +255,8 @@ JSON_MOCK6 = '''
 	]
 	}
   '''
-  #jsonmock7:sta löytyy oikeat filtterit ja metadata-alkuinenkin filtteri
-JSON_MOCK7= '''
+# jsonmock7:sta löytyy oikeat filtterit ja metadata-alkuinenkin filtteri
+JSON_MOCK7 = '''
   {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16AB",
 	"source": "KE.398",
@@ -349,7 +349,7 @@ JSON_MOCK7= '''
 	}
   '''
 
-#Custom col only pyyntö.
+# Custom col only pyyntö.
 JSON_MOCK8 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",

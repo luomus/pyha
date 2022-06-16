@@ -25,10 +25,10 @@ def removeCollection(http_request):
             return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = http_request.POST.get('collectionid')
         redirect_path = http_request.POST.get('next')
-        collection = Collection.objects.get(address = collectionId, request = requestId)
+        collection = Collection.objects.get(address=collectionId, request=requestId)
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        #avoid work when submitted multiple times
+        # avoid work when submitted multiple times
         if(collection.status != -1):
             collection.status = -1
             collection.save()
@@ -45,7 +45,7 @@ def approve_terms(http_request):
         requestId = http_request.POST.get('requestid', '?')
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if userRequest.status != 0:
             return HttpResponseRedirect(reverse('pyha:root'))
         approve_terms_skip_official(http_request, userRequest, requestId)
@@ -79,15 +79,18 @@ def approve_terms_skip_official(http_request, userRequest, requestId):
         userRequest.changedBy = changed_by_session_user(http_request)
         userRequest.save()
         update_contact_preset(http_request, userRequest)
-        #make a log entry
-        RequestLogEntry.requestLog.create(request=userRequest, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
-        http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_thanks_request_has_been_registered')}
+        # make a log entry
+        RequestLogEntry.requestLog.create(
+            request=userRequest, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+        http_request.session["toast"] = {"status": toast.POSITIVE,
+                                         "message": ugettext('toast_thanks_request_has_been_registered')}
         http_request.session.save()
 
         missing_handlers = is_collections_missing_download_handler(collectionList)
         for setting in AdminUserSettings.objects.all():
             email = fetch_email_address(setting.user)
-            if(setting.enableCustomEmailAddress): email = setting.customEmailAddress
+            if(setting.enableCustomEmailAddress):
+                email = setting.customEmailAddress
             if(setting.emailNewRequests == AdminUserSettings.ALL):
                 if missing_handlers:
                     send_admin_mail_after_approved_request_missing_handlers(requestId, email)
@@ -99,7 +102,7 @@ def approve_terms_skip_official(http_request, userRequest, requestId):
         send_mail_after_approving_terms(requestId, userRequest.lang)
 
         accepted = accept_empty_collections_automatically(userRequest, collectionList)
-        
+
         if settings.SEND_AUTOMATIC_HANDLER_MAILS:
             not_accepted = [collection_id for collection_id in collectionList if collection_id not in accepted]
             send_mail_about_new_request_to_handlers(requestId, get_download_handlers_for_collections(not_accepted))
@@ -107,7 +110,9 @@ def approve_terms_skip_official(http_request, userRequest, requestId):
         userRequest.status = -1
         userRequest.changedBy = changed_by_session_user(http_request)
         userRequest.save()
-        RequestLogEntry.requestLog.create(request=userRequest, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+        RequestLogEntry.requestLog.create(
+            request=userRequest, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.ACCEPT)
+
 
 def create_argument_blob(request):
     post = request.POST
@@ -119,6 +124,7 @@ def create_argument_blob(request):
             fields[string] = post.get(string)
     data['fields'] = fields
     return json.dumps(data)
+
 
 def count_contacts(post):
     i = 0

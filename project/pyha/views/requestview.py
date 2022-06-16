@@ -18,11 +18,12 @@ from pyha.log_utils import changed_by_session_user
 from pyha import toast
 import PyPDF2
 
+
 @csrf_exempt
 def show_request(http_request):
     if check_language(http_request):
         return HttpResponseRedirect(http_request.get_full_path())
-    #Has Access
+    # Has Access
     requestId = os.path.basename(os.path.normpath(http_request.path))
     if handlers_cannot_be_updated():
         return HttpResponse(status=503)
@@ -34,7 +35,7 @@ def show_request(http_request):
     userId = http_request.session["user_id"]
     role = http_request.session.get("current_user_role", USER)
     if (userRequest.user == userId and role != USER) or userRequest.user != userId:
-        #make a log entry
+        # make a log entry
         make_logEntry_view(http_request, userRequest, userId, role)
     context = create_request_view_context(requestId, http_request, userRequest)
 
@@ -43,6 +44,7 @@ def show_request(http_request):
 
     update_request_status(userRequest, userRequest.lang)
     return render(http_request, 'pyha/requestview/requestview.html', context)
+
 
 def comment_handler(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -55,7 +57,7 @@ def comment_handler(http_request):
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest = Request.objects.get(id=requestId)
-        if is_allowed_to_ask_information_as_target(http_request,target,requestId):
+        if is_allowed_to_ask_information_as_target(http_request, target, requestId):
             newChatEntry = RequestHandlerChatEntry()
             newChatEntry.request = userRequest
             newChatEntry.target = target
@@ -65,6 +67,7 @@ def comment_handler(http_request):
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
     return HttpResponseRedirect(nexturl)
+
 
 def initialize_download(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -87,6 +90,7 @@ def initialize_download(http_request):
                 userRequest.save()
     return HttpResponseRedirect(nexturl)
 
+
 def change_description(http_request):
     if http_request.method == 'POST':
         nexturl = http_request.POST.get('next', '/')
@@ -95,7 +99,7 @@ def change_description(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_request_owner(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         userRequest.description = http_request.POST.get('description')
@@ -103,6 +107,7 @@ def change_description(http_request):
         userRequest.save()
         return HttpResponseRedirect(nexturl)
     return HttpResponseRedirect(reverse('pyha:root'))
+
 
 def freeze(http_request):
     if http_request.method == 'POST':
@@ -112,13 +117,16 @@ def freeze(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_admin(http_request):
             return HttpResponse(status=404)
-        userRequest = Request.objects.get(id = requestId)
-        if userRequest.frozen: userRequest.frozen = False
-        else: userRequest.frozen = True
+        userRequest = Request.objects.get(id=requestId)
+        if userRequest.frozen:
+            userRequest.frozen = False
+        else:
+            userRequest.frozen = True
         userRequest.changedBy = changed_by_session_user(http_request)
         userRequest.save()
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
+
 
 def refresh_collections_cache(http_request):
     if http_request.method == 'POST':
@@ -131,6 +139,7 @@ def refresh_collections_cache(http_request):
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
 
+
 def send_email(http_request):
     if http_request.method == 'POST':
         nexturl = http_request.POST.get('next', '/')
@@ -139,7 +148,8 @@ def send_email(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_admin(http_request):
             return HttpResponse(status=404)
-        id_list = [{'id':userid.replace('email_id_',''),'email':email} for userid, email in http_request.POST.items() if 'email_id_' in userid]
+        id_list = [{'id': userid.replace('email_id_', ''), 'email': email}
+                   for userid, email in http_request.POST.items() if 'email_id_' in userid]
         sender = http_request.POST.get('com_email_sender')
         recipients = [userid['email'] for userid in id_list]
         subject = http_request.POST.get('com_email_header')
@@ -165,9 +175,10 @@ def send_email(http_request):
                 handler.save()
         for recipient in recipients:
             send_raw_mail(subject, sender, [recipient], content)
-        http_request.session["toast"] = {"status": toast.POSITIVE , "message": ugettext('toast_mails_sent_succesfully')}
+        http_request.session["toast"] = {"status": toast.POSITIVE, "message": ugettext('toast_mails_sent_succesfully')}
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
+
 
 def answer(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -179,7 +190,7 @@ def answer(http_request):
         if not is_allowed_to_handle(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
         collectionId = http_request.POST.get('collectionid')
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if userRequest.status == StatusEnum.WAITING_FOR_DOWNLOAD or userRequest.status == StatusEnum.DOWNLOADABLE:
@@ -187,6 +198,7 @@ def answer(http_request):
         collection = Collection.objects.get(request=requestId, address=collectionId)
         update_collection_status(http_request, userRequest, collection)
     return HttpResponseRedirect(nexturl)
+
 
 def group_answer(http_request):
     nexturl = http_request.POST.get('next', '/')
@@ -196,13 +208,15 @@ def group_answer(http_request):
         requestId = http_request.POST.get('requestid', '?')
         if not is_allowed_to_handle(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
             return HttpResponseRedirect(reverse('pyha:root'))
         if userRequest.status == StatusEnum.WAITING_FOR_DOWNLOAD or userRequest.status == StatusEnum.DOWNLOADABLE:
             return HttpResponseRedirect(reverse('pyha:root'))
-        id_list = [{'id':colid.replace('collection_id_',''),'address':address} for colid, address in http_request.POST.items() if 'collection_id_' in colid]
-        collections = Collection.objects.filter(request=requestId, id__in=[ide['id'] for ide in id_list], address__in=[ide['address'] for ide in id_list])
+        id_list = [{'id': colid.replace('collection_id_', ''), 'address': address}
+                   for colid, address in http_request.POST.items() if 'collection_id_' in colid]
+        collections = Collection.objects.filter(request=requestId, id__in=[ide['id'] for ide in id_list], address__in=[
+                                                ide['address'] for ide in id_list])
         for collection in collections:
             update_collection_status(http_request, userRequest, collection)
     return HttpResponseRedirect(nexturl)
@@ -217,7 +231,7 @@ def question(http_request):
         target = http_request.POST.get('target', '?')
         if not is_allowed_to_handle(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if(int(http_request.POST.get('answer')) == 2):
             if not is_allowed_to_ask_information_as_target(http_request, target, requestId):
                 return HttpResponseRedirect(reverse('pyha:root'))
@@ -236,6 +250,7 @@ def question(http_request):
             send_mail_after_additional_information_requested(requestId, userRequest.lang)
     return HttpResponseRedirect(nexturl)
 
+
 def information(http_request):
     nexturl = http_request.POST.get('next', '/')
     if http_request.method == 'POST':
@@ -245,7 +260,7 @@ def information(http_request):
         target = http_request.POST.get('target', '?')
         if not is_allowed_to_view(http_request, requestId):
             return HttpResponseRedirect(reverse('pyha:root'))
-        userRequest = Request.objects.get(id = requestId)
+        userRequest = Request.objects.get(id=requestId)
         if(int(http_request.POST.get('information')) == 2):
             if not target_valid(target, requestId):
                 return HttpResponseRedirect(reverse('pyha:root'))
@@ -282,7 +297,7 @@ def information(http_request):
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
             userRequest.status = StatusEnum.WAITING
-            for co in Collection.objects.filter(request = userRequest):
+            for co in Collection.objects.filter(request=userRequest):
                 try:
                     if RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, target=co.address).latest('date').question:
                         userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
@@ -297,9 +312,11 @@ def information(http_request):
             userRequest.changedBy = changed_by_session_user(http_request)
             userRequest.save()
             update_request_status(userRequest, userRequest.lang)
-            users = RequestInformationChatEntry.requestInformationChat.filter(request=userRequest, question=True).values_list('user', flat=True).distinct()
+            users = RequestInformationChatEntry.requestInformationChat.filter(
+                request=userRequest, question=True).values_list('user', flat=True).distinct()
             send_mail_after_additional_information_received(requestId, users)
     return HttpResponseRedirect(nexturl)
+
 
 def download_pdf(http_request):
     if http_request.method == 'POST':

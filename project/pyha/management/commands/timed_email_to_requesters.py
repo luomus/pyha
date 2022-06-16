@@ -2,10 +2,11 @@ from django.core.management.base import BaseCommand
 from pyha.email import send_status_mail_to_requester
 from pyha.database import get_all_waiting_requests, get_collection_status_counts, get_latest_request_sent_status_email, save_request_sent_status_email
 
+
 class Command(BaseCommand):
     help = 'Sends status update emails to requesters.'
 
-    #def add_arguments(self, parser):
+    # def add_arguments(self, parser):
 
     def handle(self, *args, **options):
         new_status = {}

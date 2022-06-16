@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 from argparse import Namespace
 from datetime import datetime
 from django.conf import settings
@@ -15,25 +15,26 @@ from json import JSONDecodeError
 import os
 import requests
 
+
 def store(jsond):
     if not checkJson(jsond):
         return
     data = json.loads(jsond, object_hook=lambda d: Namespace(**d))
     if Request.objects.filter(lajiId=os.path.basename(str(data.id))).exists():
         return
-    status = getattr(data,'status', 0)
+    status = getattr(data, 'status', 0)
     time = datetime.now()
 
     req = Request()
-    req.description=''
+    req.description = ''
     req.lajiId = os.path.basename(str(data.id))
     req.status = status
     req.date = time
     req.source = data.source
     req.user = data.personId
     req.approximateMatches = data.approximateMatches
-    req.downloadFormat = getattr(data,'downloadFormat','UNKNOWN')
-    req.downloadIncludes = getattr(data,'downloadIncludes','UNKNOWN')
+    req.downloadFormat = getattr(data, 'downloadFormat', 'UNKNOWN')
+    req.downloadIncludes = getattr(data, 'downloadIncludes', 'UNKNOWN')
     req.downloaded = False
     req.filter_list = makeblob(data.filters)
     req.filter_description_list = namespace_to_json(data, 'filterDescriptions')
@@ -48,16 +49,18 @@ def store(jsond):
 
     if hasattr(data, 'collections'):
         for i in data.collections:
-                makeCollection(req, i)
+            makeCollection(req, i)
 
     return req
+
 
 def makeCollection(req, i):
     co = Collection()
     co.address = i.id
     co.status = 0
     co.request = req
-    co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler',['none']))
+    co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(
+        co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler', ['none']))
 
     # old counts, may be removed in the future
     co.count = getattr(i, 'count', 0)
@@ -73,11 +76,13 @@ def makeCollection(req, i):
     co.changedBy = changed_by("pyha")
     co.save()
 
+
 def checkJson(jsond):
-    wantedFields = ['"id":','"source":','"personId":','"approximateMatches":','"filters":']
+    wantedFields = ['"id":', '"source":', '"personId":', '"approximateMatches":', '"filters":']
     if all(x in jsond for x in wantedFields):
         return True
     return False
+
 
 def namespace_to_json(data, attribute):
     value = getattr(data, attribute, None)
@@ -85,6 +90,7 @@ def namespace_to_json(data, attribute):
         return json.dumps(value, default=lambda o: o.__dict__)
     else:
         return ''
+
 
 def makeblob(x):
     data = {}
@@ -94,43 +100,47 @@ def makeblob(x):
     blob = json.dumps(data)
     return blob
 
+
 def get_values_for_collections(requestId, http_request, list):
     for i, c in enumerate(list):
         if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
             try:
-                c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+                c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE +
+                                        "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
             except:
                 c.result = cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE)
-                c.result["collectionName"] = c.result.get("collectionName",c.address)
-                c.result["description"] = c.result.get("description","-")
-                c.result["qualityDescription"] = c.result.get("dataQualityDescription","-")
-                c.result["collectionTerms"] = c.result.get("dataUseTerms","-")
+                c.result["collectionName"] = c.result.get("collectionName", c.address)
+                c.result["description"] = c.result.get("description", "-")
+                c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
+                c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
                 return
             cache.set(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, c.result)
-            c.result["collectionName"] = c.result.get("collectionName",c.address)
-            c.result["description"] = c.result.get("description","-")
-            c.result["qualityDescription"] = c.result.get("dataQualityDescription","-")
-            c.result["collectionTerms"] = c.result.get("dataUseTerms","-")
+            c.result["collectionName"] = c.result.get("collectionName", c.address)
+            c.result["description"] = c.result.get("description", "-")
+            c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
+            c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
         else:
             c.result = cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE)
-            c.result["collectionName"] = c.result.get("collectionName",c.address)
-            c.result["description"] = c.result.get("description","-")
-            c.result["qualityDescription"] = c.result.get("dataQualityDescription","-")
-            c.result["collectionTerms"] = c.result.get("dataUseTerms","-")
+            c.result["collectionName"] = c.result.get("collectionName", c.address)
+            c.result["description"] = c.result.get("description", "-")
+            c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
+            c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
+
 
 def get_result_for_target(http_request, l):
     if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
         try:
-            l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + http_request.LANGUAGE_CODE + "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+            l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + http_request.LANGUAGE_CODE +
+                                    "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
         except:
             l.result = cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE)
-            l.result["collectionName"] = l.result.get("collectionName",l.target)
+            l.result["collectionName"] = l.result.get("collectionName", l.target)
             return
         cache.set(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, l.result)
-        l.result["collectionName"] = l.result.get("collectionName",l.target)
+        l.result["collectionName"] = l.result.get("collectionName", l.target)
     else:
         l.result = cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE)
-        l.result["collectionName"] = l.result.get("collectionName",l.target)
+        l.result["collectionName"] = l.result.get("collectionName", l.target)
 
 
 def fetch_user_name(personId):
@@ -144,37 +154,41 @@ def fetch_user_name(personId):
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('name'+cacheKeyPersonId, 'has expired'):
         try:
-            response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+            response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json",
+                                    auth=HTTPBasicAuth(username, password), timeout=settings.SECRET_TIMEOUT_PERIOD)
         except:
             response = Container()
             response.status_code = 500
         if(response.status_code == 200):
             data = response.json()
             name = data['rdf:RDF']['MA.person']['MA.fullName']
-            cache.set('name'+cacheKeyPersonId,name)
+            cache.set('name'+cacheKeyPersonId, name)
             return name
         else:
             return personId
     else:
         return cache.get('name'+cacheKeyPersonId)
 
+
 def fetch_role(personId):
     username = settings.LAJIPERSONAPI_USER
     password = settings.LAJIPERSONAPI_PW
     cacheKeyPersonId = personId.replace(' ', '_')
     if 'has expired' in cache.get('role'+cacheKeyPersonId, 'has expired'):
-        response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json", auth=HTTPBasicAuth(username, password ), timeout=settings.SECRET_TIMEOUT_PERIOD)
+        response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json",
+                                auth=HTTPBasicAuth(username, password), timeout=settings.SECRET_TIMEOUT_PERIOD)
         if(response.status_code == 200):
             data = response.json()
-            role = data['rdf:RDF']['MA.person'].get('MA.role', {'role':'none'})
-            cache.set('role'+cacheKeyPersonId,role)
+            role = data['rdf:RDF']['MA.person'].get('MA.role', {'role': 'none'})
+            cache.set('role'+cacheKeyPersonId, role)
             return role
     else:
         return cache.get('role'+cacheKeyPersonId)
 
-def fetch_pdf(data,style):
+
+def fetch_pdf(data, style):
     if(style):
-        data = "<div style='"+ style +"'>" + data +  "</div>"
+        data = "<div style='" + style + "'>" + data + "</div>"
     response = requests.post(
         settings.LAJIAPI_URL+"html-to-pdf",
         data=data.encode("utf-8"),
@@ -268,7 +282,8 @@ def send_download_request(requestId):
     filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
     for f in filters.__dict__:
         payload[f] = getattr(filters, f)
-    response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved", data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+    response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved",
+                             data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
 
 
 def update_collections():
@@ -280,14 +295,15 @@ def update_collections():
     result = []
     while notFinished:
         try:
-            response = requests.get(settings.LAJIAPI_URL+"collections", params=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+            response = requests.get(settings.LAJIAPI_URL+"collections", params=payload,
+                                    timeout=settings.SECRET_TIMEOUT_PERIOD)
         except:
             response = Container()
             response.status_code = 500
         if(response.status_code == 200):
             data = response.json()
         else:
-            caches['collections'].set('collection_update','updated', 7200)
+            caches['collections'].set('collection_update', 'updated', 7200)
             return False
         for co in data['results']:
             if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):
@@ -296,9 +312,10 @@ def update_collections():
             payload['page'] += 1
         else:
             notFinished = False
-    caches['collections'].set('collections',result)
-    caches['collections'].set('collection_update','updated', 7200)
+    caches['collections'].set('collections', result)
+    caches['collections'].set('collection_update', 'updated', 7200)
     return True
+
 
 def get_download_handlers_where_collection(collectionId):
     result = {}
@@ -309,6 +326,7 @@ def get_download_handlers_where_collection(collectionId):
             break
     return result
 
+
 def get_contact_email_for_collection(collectionId):
     result = None
     collections = caches['collections'].get('collections')
@@ -318,6 +336,7 @@ def get_contact_email_for_collection(collectionId):
             break
     return result
 
+
 def get_collections_where_download_handler(userId):
     resultlist = []
     collections = caches['collections'].get('collections')
@@ -325,6 +344,7 @@ def get_collections_where_download_handler(userId):
         if userId in co.get('downloadRequestHandler', {}):
             resultlist.append(co['id'])
     return resultlist
+
 
 def get_download_handlers_with_collections_listed_for_collections(requestId, collectionsList):
     resultlist = []
@@ -334,14 +354,16 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
     handlers = set(chain(*repeatedhandlers))
     handlerswithcollections = []
     for ha in handlers:
-        handlerswithcollections.append({"handlers": [{"name":ha,"id":ha,"email":'undefined'}], "collections":[co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
+        handlerswithcollections.append({"handlers": [{"name": ha, "id": ha, "email": 'undefined'}], "collections": [
+                                       co for co in collections if ha in co.get('downloadRequestHandler', ['None'])]})
 
     emailed_handlers = HandlerInRequest.objects.filter(request=requestId)
     for hanco in handlerswithcollections:
         hanco["handlers"][0]["mailed"] = False
         for handler in emailed_handlers:
             if hanco["handlers"][0]["id"] == handler.user:
-                if handler.emailed: hanco["handlers"][0]["mailed"] = True
+                if handler.emailed:
+                    hanco["handlers"][0]["mailed"] = True
                 break
 
     noneindex = -1
@@ -354,19 +376,23 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
     if noneindex > -1:
         handlerswithcollections.insert(0, handlerswithcollections.pop(noneindex))
 
-    #Groups handlers with identical collections
+    # Groups handlers with identical collections
     while(True):
         grouped = False
         for i in range(0, len(handlerswithcollections)):
             for j in range(i+1, len(handlerswithcollections)):
                 if handlerswithcollections[i]['collections'] == handlerswithcollections[j]['collections']:
-                    handlerswithcollections[i]["handlers"] = handlerswithcollections[i]["handlers"] + (handlerswithcollections[j]["handlers"])
+                    handlerswithcollections[i]["handlers"] = handlerswithcollections[i]["handlers"] + \
+                        (handlerswithcollections[j]["handlers"])
                     handlerswithcollections.remove(handlerswithcollections[j])
                     grouped = True
                     break
-            if grouped: break
-        if not grouped: break
+            if grouped:
+                break
+        if not grouped:
+            break
     return handlerswithcollections
+
 
 def get_download_handlers_for_collections(collectionsList):
     resultlist = []
@@ -375,18 +401,21 @@ def get_download_handlers_for_collections(collectionsList):
     handlers = [co.get('downloadRequestHandler', []) for co in collections]
     return list(set(chain(*handlers)))
 
+
 def is_collections_missing_download_handler(collectionsList):
     collections = caches['collections'].get('collections')
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
-    missing = False;
+    missing = False
     for co in collections:
         if 'None' == co.get('downloadRequestHandler', ['None'])[0]:
             missing = True
             break
     return missing
 
+
 def is_download_handler(userId):
     return len(get_collections_where_download_handler(userId)) > 0
+
 
 def is_download_handler_in_collection(userId, collectionId):
     collections = caches['collections'].get('collections')
@@ -398,6 +427,7 @@ def is_download_handler_in_collection(userId, collectionId):
                 return False
     return False
 
+
 def get_collection_counts(collection, lang):
     try:
         count_list = json.loads(collection.count_list, object_hook=lambda d: Namespace(**d))
@@ -406,18 +436,18 @@ def get_collection_counts(collection, lang):
         result = []
         if collection.quarantineSecured > 0:
             result.append(Namespace(
-              label=ugettext('secured_by_quarantine'),
-              count=collection.quarantineSecured
+                label=ugettext('secured_by_quarantine'),
+                count=collection.quarantineSecured
             ))
         if collection.taxonSecured > 0:
             result.append(Namespace(
-              label=ugettext('secured_by_sensitivity'),
-              count=collection.taxonSecured
+                label=ugettext('secured_by_sensitivity'),
+                count=collection.taxonSecured
             ))
         if collection.customSecured > 0:
             result.append(Namespace(
-              label=ugettext('secured_by_data_provider'),
-              count=collection.customSecured
+                label=ugettext('secured_by_data_provider'),
+                count=collection.customSecured
             ))
 
         return result
@@ -426,12 +456,14 @@ def get_collection_counts(collection, lang):
         count.label = getattr(count.label, lang, '')
     return count_list
 
+
 def get_collection_count_sum(collection):
     sum = 0
     counts = get_collection_counts(collection, 'fi')
     for count in counts:
         sum += count.count
     return sum
+
 
 def show_filters(http_request, userRequest):
     '''
@@ -446,6 +478,7 @@ def show_filters(http_request, userRequest):
     except JSONDecodeError:
         return []
     return getattr(filterDescriptionList, lang, [])
+
 
 def get_filter_link(http_request, userRequest, role):
     lang = http_request.LANGUAGE_CODE

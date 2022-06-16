@@ -5,7 +5,7 @@ import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("ENABLE_DEBUG", "False") == "True"
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': os.environ["DB_ENGINE"],
 #        'NAME': os.environ["DB_NAME"],
@@ -15,7 +15,7 @@ DEBUG = os.environ.get("ENABLE_DEBUG", "False") == "True"
 #			'threaded': True,
 #		}
 #    }
-#}
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
