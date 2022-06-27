@@ -88,6 +88,15 @@ class Collection(models.Model):
         return 'Collection: %s (in Request: %d)' % (self.address, self.request.id)
 
 
+class File(models.Model):
+    content = models.BinaryField()
+    fileName = models.CharField(max_length=100)
+    contentType = models.CharField(max_length=50)
+
+    def __str__(self):
+        return 'File: %s' % self.fileName
+
+
 class HandlerInRequest(models.Model):  # Used currently for the admin email gatekeeper, on who has been emailed per request
     user = models.CharField(max_length=500)
     request = models.ForeignKey('Request', on_delete=models.CASCADE)
@@ -241,6 +250,7 @@ class RequestInformationChatEntry(models.Model):
     message = TruncatingTextField(max_length=5000)
     attachedFile = models.BinaryField(null=True)
     attachedFileName = models.CharField(max_length=100, blank=True, null=True)
+    file = models.ForeignKey(File, on_delete=models.SET_NULL, blank=True, null=True)
     target = models.CharField(max_length=200)  # apilaji defined collection id
     requestInformationChat = models.Manager()
     changedBy = models.CharField(max_length=100)

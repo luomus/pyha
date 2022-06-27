@@ -12,7 +12,7 @@
   <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
   <div class="panel-body">
     <p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans 'inquiry' %} {% trans "answered" %}&#10;&#13;{{question.message}}</p>
-    {% if question.attachedFile %}
+    {% if question.file %}
     <form action="{% url 'pyha:download_pdf' %}" id="download_{{ forloop.counter }}" method="post">
       <input type="hidden" id="chatEntryId" name="chatEntryId" value={{question.id}}>
       <button type="submit" id="download_submit_{{ forloop.counter }}" name="download" value=2 class="btn btn-default btn-sm">{% trans "download_attachment" %}</button>

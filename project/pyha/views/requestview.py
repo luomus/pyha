@@ -11,7 +11,7 @@ from pyha.database import create_request_view_context, make_logEntry_view, updat
 from pyha.email import send_mail_after_additional_information_requested, send_mail_after_additional_information_received, send_raw_mail
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
-from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum
+from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum, File
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
 from pyha.warehouse import send_download_request, update_collections
 from pyha.log_utils import changed_by_session_user
@@ -291,8 +291,11 @@ def information(http_request):
                     http_request.session.save()
                     return HttpResponseRedirect(nexturl)
                 attached_file.seek(0)
-                newChatEntry.attachedFile = attached_file.read()
-                newChatEntry.attachedFileName = attached_file.name
+                newChatEntry.file = File(
+                    content=attached_file.read(),
+                    fileName=attached_file.name,
+                    contentType='application/pdf'
+                )
 
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
@@ -335,7 +338,8 @@ def download_pdf(http_request):
         ):
             return HttpResponseRedirect(reverse('pyha:root'))
 
-        response = HttpResponse(chat_entry.attachedFile)
-        response['Content-Type'] = 'application/pdf'
-        response['Content-Disposition'] = 'attachment;filename={}'.format(chat_entry.attachedFileName)
+        file = chat_entry.file
+        response = HttpResponse(file.content)
+        response['Content-Type'] = file.contentType
+        response['Content-Disposition'] = 'attachment;filename={}'.format(file.fileName)
         return response
