@@ -1,0 +1,8 @@
+{% load i18n %}
+{% if chatEntry.file %}
+<form action="{% url 'pyha:chat_entry_file_download' %}" id="download_{{ chatEntry.id }}" method="post">
+    <input type="hidden" id="chatEntryId" name="chatEntryId" value={{ chatEntry.id }}>
+    <button type="submit" id="download_submit_{{ chatEntry.id }}" name="download" class="btn btn-default btn-sm">{% trans "download_attachment" %}</button>
+    {% csrf_token %}
+</form>
+{% endif %}

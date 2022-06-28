@@ -6,7 +6,10 @@
 {% for question in requestInformationChat_list %}
   {% if question.question %}
   <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-  <div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question.message}}</p></div>
+  <div class="panel-body">
+    <p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question.message}}</p>
+    {% include "pyha/requestview/shared/chat_entry_file_download.html" with chatEntry=question %}
+  </div>
   <form action="{% url 'pyha:information' %}" id="requestform_{{ forloop.counter }}" method="post" enctype="multipart/form-data" style="display:none;padding-top:20px;padding-left:5px;padding-right:5px;">
   <div class="form-group">
     <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
@@ -29,13 +32,7 @@
   <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
   <div class="panel-body">
     <p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans 'inquiry' %} {% trans "answered" %}&#10;&#13;{{question.message}}</p>
-    {% if question.file %}
-    <form action="{% url 'pyha:download_pdf' %}" id="download_{{ forloop.counter }}" method="post">
-      <input type="hidden" id="chatEntryId" name="chatEntryId" value={{question.id}}>
-      <button type="submit" id="download_submit_{{ forloop.counter }}" name="download" value=2 class="btn btn-default btn-sm">{% trans "download_attachment" %}</button>
-      {% csrf_token %}
-    </form>
-    {% endif %}
+    {% include "pyha/requestview/shared/chat_entry_file_download.html" with chatEntry=question %}
   </div>
   </div>
   {% endif %}

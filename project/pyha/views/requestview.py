@@ -242,6 +242,11 @@ def question(http_request):
             newChatEntry.question = True
             newChatEntry.target = target
             newChatEntry.message = http_request.POST.get('reason')
+
+            response = _add_file_to_chat_entry(http_request, newChatEntry, nexturl)
+            if response is not None:
+                return response
+
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
             userRequest.status = StatusEnum.WAITING_FOR_INFORMATION
@@ -272,30 +277,9 @@ def information(http_request):
             newChatEntry.target = target
             newChatEntry.message = http_request.POST.get('reason')
 
-            if 'reasonFile' in http_request.FILES:
-                attached_file = http_request.FILES['reasonFile']
-                if attached_file.size > settings.MAX_UPLOAD_FILE_SIZE or not attached_file.name.endswith('.pdf'):
-                    http_request.session["toast"] = {
-                        "status": toast.ERROR,
-                        "message": ugettext('file_upload_failed')
-                    }
-                    http_request.session.save()
-                    return HttpResponseRedirect(nexturl)
-                try:
-                    PyPDF2.PdfFileReader(attached_file)
-                except PyPDF2.utils.PdfReadError:
-                    http_request.session["toast"] = {
-                        "status": toast.ERROR,
-                        "message": ugettext('file_upload_failed')
-                    }
-                    http_request.session.save()
-                    return HttpResponseRedirect(nexturl)
-                attached_file.seek(0)
-                newChatEntry.file = File(
-                    content=attached_file.read(),
-                    fileName=attached_file.name,
-                    contentType='application/pdf'
-                )
+            response = _add_file_to_chat_entry(http_request, newChatEntry, nexturl)
+            if response is not None:
+                return response
 
             newChatEntry.changedBy = changed_by_session_user(http_request)
             newChatEntry.save()
@@ -321,7 +305,7 @@ def information(http_request):
     return HttpResponseRedirect(nexturl)
 
 
-def download_pdf(http_request):
+def chat_entry_file_download(http_request):
     if http_request.method == 'POST':
         if not logged_in(http_request):
             return _process_auth_response(http_request, 'pyha')
@@ -343,3 +327,34 @@ def download_pdf(http_request):
         response['Content-Type'] = file.contentType
         response['Content-Disposition'] = 'attachment;filename={}'.format(file.fileName)
         return response
+    return HttpResponseRedirect(reverse('pyha:root'))
+
+
+def _add_file_to_chat_entry(http_request, new_chat_entry, nexturl):
+    if 'reasonFile' in http_request.FILES:
+        attached_file = http_request.FILES['reasonFile']
+        if attached_file.size > settings.MAX_UPLOAD_FILE_SIZE or not attached_file.name.endswith('.pdf'):
+            http_request.session["toast"] = {
+                "status": toast.ERROR,
+                "message": ugettext('file_upload_failed')
+            }
+            http_request.session.save()
+            return HttpResponseRedirect(nexturl)
+        try:
+            PyPDF2.PdfFileReader(attached_file)
+        except PyPDF2.utils.PdfReadError:
+            http_request.session["toast"] = {
+                "status": toast.ERROR,
+                "message": ugettext('file_upload_failed')
+            }
+            http_request.session.save()
+            return HttpResponseRedirect(nexturl)
+
+        attached_file.seek(0)
+        file = File(
+            content=attached_file.read(),
+            fileName=attached_file.name,
+            contentType='application/pdf'
+        )
+        file.save()
+        new_chat_entry.file = file

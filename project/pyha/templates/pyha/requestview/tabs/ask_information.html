@@ -5,26 +5,23 @@
 {% for question in requestInformationChat_list %}
   {% if question.question %}
   <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
-  <div class="panel-body"><p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question.message}}</p></div>
+    <div class="panel-body">
+      <p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans "asked" %}&#10;&#13;{{question.message}}</p>
+      {% include "pyha/requestview/shared/chat_entry_file_download.html" with chatEntry=question %}
+    </div>
   </div>
   {% endif %}
   {% if question.question != True %}
   <div class="panel panel-default" {% if question.user == user %} style="background-color:#d9edf7;" {% endif %}>
   <div class="panel-body">
     <p>{{question.date|date:"d.m.Y H:i"}} {{ question.name }} {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ question.result.collectionName }}) {% endif %} {% trans 'inquiry' %} {% trans "answered" %}&#10;&#13;{{question.message}}</p>
-    {% if question.file %}
-    <form action="{% url 'pyha:download_pdf' %}" id="download_{{ forloop.counter }}" method="post">
-      <input type="hidden" id="chatEntryId" name="chatEntryId" value={{question.id}}>
-      <button type="submit" id="download_submit_{{ forloop.counter }}" name="download" value=2 class="btn btn-default btn-sm">{% trans "download_attachment" %}</button>
-      {% csrf_token %}
-    </form>
-    {% endif %}
+    {% include "pyha/requestview/shared/chat_entry_file_download.html" with chatEntry=question %}
   </div>
   </div>
   {% endif %}
 {% endfor %}
 <h4>{% trans "form_to_request_additional_information" %}</h4>
-<form action="{% url 'pyha:question' %}" id="ask-information-form" method="post">
+<form action="{% url 'pyha:question' %}" id="ask-information-form" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <input type="hidden" id="requestid" name="requestid" value={{userRequest.id}}>
     <input type="hidden" id="next" name="next" value="{{request.path}}?next=information">
@@ -42,6 +39,10 @@
     </select>
     <textarea class="form-control" rows="5" cols="70" id="reason" name="reason" required {% if userRequest.status == 3 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' %} disabled {% endif %}></textarea>
     <div id="reason_count" class="textarea-character-count"></div>
+    <div style="margin: 10px 0">
+      <label for="reasonFile">{% trans "add_pdf_attachment" %}</label>
+      <input type="file" id="reasonFile" name="reasonFile" accept="application/pdf">
+    </div>
     <button type="submit" id="submit" name="answer" value=2 class="btn btn-default btn-sm" {% if userRequest.status == 3 and role != 'admin' or userRequest.status == 7 and role != 'admin' or userRequest.status == 8 and role != 'admin' %} disabled {% endif %}>{% trans "request_additional_information" %}</button>
   </div>
   {% csrf_token %}
