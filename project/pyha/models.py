@@ -121,6 +121,13 @@ class RequestSentStatusEmail(models.Model):  # Keep track of the last status ema
 
 
 class Request(models.Model):
+    STANDARD = 'STANDARD'
+    API_KEY = 'API_KEY'
+    DOWNLOAD_TYPE = (
+        (STANDARD, 'standard'),
+        (API_KEY, 'api key')
+    )
+
     # id alkaa ykkösestä ja nousee
     id = models.AutoField(primary_key=True)
     lajiId = models.CharField(max_length=200)  # id given by laji.api
@@ -162,6 +169,7 @@ class Request(models.Model):
     personOrganizationName = TruncatingCharField(max_length=100, blank=True, null=True)
     personCorporationId = TruncatingCharField(max_length=100, blank=True, null=True)
     reason = TruncatingReasonJsonCharField(max_length=16000, blank=True, null=True)
+    downloadType = models.CharField(max_length=8, choices=DOWNLOAD_TYPE, default=STANDARD)
     lang = models.CharField(max_length=10, default='fi')
     frozen = models.BooleanField(default=False)
     changedBy = models.CharField(max_length=100)
@@ -336,3 +344,8 @@ Col_StatusEnum = enum(
     WAITING=1,
     REJECTED=3,
     APPROVED=4)
+
+DownloadTypeEnum = enum(
+    STANDARD='standard',
+    API_KEY='apiKey'
+)

@@ -169,8 +169,17 @@
 														<option value="reason_other">{% trans "reason_other" %}</option>
 													</select>
 												</div>
+												<div>
+													<div class="section"><span>2</span>{% trans "request_usage" %}</div>
+													<div class="inner-wrap">
+														<select id="usage_selector" name="usage_selector" style="width:400px;">
+															<option value="{{ download_types.standard }}">{% trans "usage_download" %}</option>
+															<option value="{{ download_types.api_key }}">{% trans "usage_apikey" %}</option>
+														</select>
+													</div>
+												</div>
 												<div id="additional_information" hidden=true>
-													<div class="section"><span>2</span>{% trans 'additional_information' %}</div>
+													<div class="section"><span>3</span>{% trans 'additional_information' %}</div>
 													<p>{% trans 'additional_information_info' %}</p>
 													<div class="inner-wrap">
 														<div hidden=true id="argument_project">
@@ -647,9 +656,11 @@
 		} else {
 			state = true;
 		}
+
+		state = state || document.getElementById("usage_selector").value == '';
+
 		if (!state) {
 			document.getElementById("to_step_3").disabled = false;
-
 		} else {
 			document.getElementById("to_step_3").disabled = true;
 			var $tabs = $('.wizard .nav-tabs li')
@@ -767,6 +778,7 @@
 	}
 	</script>
 	<script>
+	var that = this;
 	$(document).ready(function() {
 		$('#reason_selector').multiselect({
 		nonSelectedText: '{% trans "request_choose_reason" %}',
@@ -776,6 +788,13 @@
         	this.$button.click();
         }
 
+		});
+
+		$('#usage_selector').val('').multiselect({
+			nonSelectedText: '{% trans "usage_choose" %}',
+			onChange: function(option, checked, select) {
+        		that.argumentsFilled();
+        	}
 		});
 	});
 	</script>

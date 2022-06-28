@@ -17,6 +17,7 @@ from pyha.warehouse import send_download_request, update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 import PyPDF2
+from argparse import Namespace
 
 
 @csrf_exempt
@@ -39,7 +40,8 @@ def show_request(http_request):
         make_logEntry_view(http_request, userRequest, userId, role)
     context = create_request_view_context(requestId, http_request, userRequest)
 
-    if(userRequest.status == 0):
+    if userRequest.status == 0:
+        context['download_types'] = Namespace(standard=Request.STANDARD, api_key=Request.API_KEY)
         return render(http_request, 'pyha/requestform/requestform.html', context)
 
     update_request_status(userRequest, userRequest.lang)
