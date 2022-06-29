@@ -103,7 +103,13 @@
             <h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
             {% elif userRequest.status == 1 and endable %}
             <div style="text-align:center;">
-                <button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">{% trans 'stop_wait_initialize_download' %}</button>
+                <button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">
+                    {% if userRequest.downloadType == download_types.standard  %}
+                    {% trans 'stop_wait_initialize_download' %}
+                    {% else %}
+                    {% trans 'stop_wait_initialize_api_key' %}
+                    {% endif %}
+                </button>
             </div>
             {% endif %}
             <form class="form-hidden" action="{% url 'pyha:initializeDownload' %}" id="initialize" method="post">

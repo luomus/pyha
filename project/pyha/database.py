@@ -288,7 +288,8 @@ def create_request_view_context(requestId, http_request, userRequest):
         "tun_link": settings.TUN_URL,
         "sensitivity_terms": "pyha/requestform/terms/collection-" + lang + ".html",
         "username": http_request.session["user_name"],
-        "role": role
+        "role": role,
+        "download_types": Namespace(standard=Request.STANDARD, api_key=Request.API_KEY)
     }
     if role == HANDLER_ANY:
         handles = get_collections_where_download_handler(userId)

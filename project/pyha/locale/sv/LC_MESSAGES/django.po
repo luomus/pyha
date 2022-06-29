@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 13:18+0300\n"
+"POT-Creation-Date: 2022-06-28 17:20+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
@@ -418,8 +418,8 @@ msgstr ""
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:77
 #: pyha/templates/pyha/requestview/tabs/request.html:9
 msgid "collection_name"
 msgstr "Material"
@@ -492,8 +492,8 @@ msgstr "Grovt baserat på ägarens beslut."
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:24
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:21
 #: pyha/templates/pyha/requestview/requestview.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:36
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:91
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:39
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:94
 #: pyha/templates/pyha/requestview/tabs/request.html:35
 msgid "to_metadata"
 msgstr "metadata"
@@ -962,7 +962,7 @@ msgid "delete"
 msgstr "Utesluta"
 
 #: pyha/templates/pyha/requestform/requestform.html:401
-#: pyha/templates/pyha/requestview/requestview.html:255
+#: pyha/templates/pyha/requestview/requestview.html:261
 msgid "back"
 msgstr "Tillbaka"
 
@@ -982,15 +982,15 @@ msgstr "Fritextfält"
 msgid "hide"
 msgstr "Dold"
 
-#: pyha/templates/pyha/requestform/requestform.html:783
+#: pyha/templates/pyha/requestform/requestform.html:784
 msgid "request_choose_reason"
 msgstr "Välj användningsändamål för materialet"
 
-#: pyha/templates/pyha/requestform/requestform.html:784
+#: pyha/templates/pyha/requestform/requestform.html:785
 msgid "request_chosen_multiple_reasons"
 msgstr "Flera valda"
 
-#: pyha/templates/pyha/requestform/requestform.html:785
+#: pyha/templates/pyha/requestform/requestform.html:786
 msgid "request_chosen_all_reasons"
 msgstr "Alla valda"
 
@@ -1097,86 +1097,92 @@ msgstr "Börja förberedelse av nedladdningen"
 msgid "you_will_be_emailed_when_ready"
 msgstr "Du ska få en e-post när nedladdningen är färdig"
 
-#: pyha/templates/pyha/requestview/requestview.html:106
+#: pyha/templates/pyha/requestview/requestview.html:108
 msgid "stop_wait_initialize_download"
 msgstr "Avbryta behandling och ladda ner godkända material"
 
-#: pyha/templates/pyha/requestview/requestview.html:124
+#: pyha/templates/pyha/requestview/requestview.html:110
+#, fuzzy
+#| msgid "stop_wait_initialize_download"
+msgid "stop_wait_initialize_api_key"
+msgstr "Avbryta behandling och ladda ner godkända material"
+
+#: pyha/templates/pyha/requestview/requestview.html:130
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Ändringslogg"
 
-#: pyha/templates/pyha/requestview/requestview.html:131
+#: pyha/templates/pyha/requestview/requestview.html:137
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Sökande"
 
-#: pyha/templates/pyha/requestview/requestview.html:138
+#: pyha/templates/pyha/requestview/requestview.html:144
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Motivering av begäran"
 
-#: pyha/templates/pyha/requestview/requestview.html:145
+#: pyha/templates/pyha/requestview/requestview.html:151
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Information om material"
 
-#: pyha/templates/pyha/requestview/requestview.html:152
+#: pyha/templates/pyha/requestview/requestview.html:158
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Filter"
 
-#: pyha/templates/pyha/requestview/requestview.html:160
+#: pyha/templates/pyha/requestview/requestview.html:166
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Beslut"
 
-#: pyha/templates/pyha/requestview/requestview.html:162
+#: pyha/templates/pyha/requestview/requestview.html:168
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Beslut"
 
-#: pyha/templates/pyha/requestview/requestview.html:172
+#: pyha/templates/pyha/requestview/requestview.html:178
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Begäran för tilläggsuppgifter"
 
-#: pyha/templates/pyha/requestview/requestview.html:174
+#: pyha/templates/pyha/requestview/requestview.html:180
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Begäran för tilläggsuppgifter"
 
-#: pyha/templates/pyha/requestview/requestview.html:184
+#: pyha/templates/pyha/requestview/requestview.html:190
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Kommentarer från myndigheterna"
 
-#: pyha/templates/pyha/requestview/requestview.html:193
+#: pyha/templates/pyha/requestview/requestview.html:199
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Kommunikation"
 
-#: pyha/templates/pyha/requestview/requestview.html:251
+#: pyha/templates/pyha/requestview/requestview.html:257
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Material som inte har godkänts kommer att uteslutas från nedladdningen, och "
 "begäran kommer inte att behandlas vidare. Är du säker på att du vill gå "
 "vidare?"
 
-#: pyha/templates/pyha/requestview/requestview.html:254
+#: pyha/templates/pyha/requestview/requestview.html:260
 msgid "Yes"
 msgstr "Ja"
 
-#: pyha/templates/pyha/requestview/requestview.html:267
+#: pyha/templates/pyha/requestview/requestview.html:273
 msgid "loading"
 msgstr "Laddar..."
 
-#: pyha/templates/pyha/requestview/requestview.html:285
+#: pyha/templates/pyha/requestview/requestview.html:291
 msgid "download_failed"
 msgstr "Nedladdning misslyckad!"
 
-#: pyha/templates/pyha/requestview/requestview.html:286
+#: pyha/templates/pyha/requestview/requestview.html:292
 msgid "download_failed_too_complex"
 msgstr ""
 "Observationernas geometri är för komplex för .shp-filformatet "
@@ -1388,8 +1394,8 @@ msgid "decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/decision.html:9
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:76
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:23
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:79
 #: pyha/templates/pyha/requestview/tabs/request.html:22
 msgid "state_of_processing"
 msgstr "Status"
@@ -1530,40 +1536,46 @@ msgid "make_decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:13
+#, fuzzy
+#| msgid "make_decision_window_description"
+msgid "make_decision_api_key_alert"
+msgstr " "
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:16
 msgid "own_collections"
 msgstr "Ägna material"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:15
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "Välj material som beslutet hänför sig till."
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:48
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:77
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:24
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:51
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:80
 msgid "decision_arguments"
 msgstr "Beslutsgrunderna"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:25
 msgid "select"
 msgstr "Välj"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:55
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:58
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Beslutsgrunderna ska bifogas till varje vald material"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:58
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:61
 msgid "accept_selected"
 msgstr "Acceptera valda"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:60
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:63
 msgid "reset_selected"
 msgstr "Återställ valda"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:62
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:65
 msgid "refuse_selected"
 msgstr "Avvisa valda"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:71
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
 msgid "other_collections"
 msgstr "Övriga material"
 
@@ -1631,7 +1643,7 @@ msgstr "Väntar på att nedladdningsfil ska bli färdig"
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
 
-#: pyha/views/requestform.py:86
+#: pyha/views/requestform.py:87
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Tack, din förfrågan har skrivits in."
 

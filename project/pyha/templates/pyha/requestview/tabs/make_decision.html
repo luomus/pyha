@@ -9,6 +9,11 @@
 
 {% if own_collection_count > 0 %}
 <form action="{% url 'pyha:group_answer' %}" id="requestform" method="post" style="margin-bottom: 30px;">
+  {% if userRequest.downloadType == download_types.api_key  %}
+  <div class="alert alert-warning" role="alert">
+    {% trans "make_decision_api_key_alert" %}
+  </div>
+  {% endif %}
   {% if role != "admin" %}
   <h4>{% trans "own_collections" %}</h4>
   {% endif %}

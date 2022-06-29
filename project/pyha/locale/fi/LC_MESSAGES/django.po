@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 13:18+0300\n"
+"POT-Creation-Date: 2022-06-28 17:20+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: Finnish\n"
@@ -415,8 +415,8 @@ msgstr ""
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:77
 #: pyha/templates/pyha/requestview/tabs/request.html:9
 msgid "collection_name"
 msgstr "Aineisto"
@@ -489,8 +489,8 @@ msgstr "Aineiston omistajan päätöksestä karkeistetut aineistot."
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:24
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:21
 #: pyha/templates/pyha/requestview/requestview.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:36
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:91
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:39
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:94
 #: pyha/templates/pyha/requestview/tabs/request.html:35
 msgid "to_metadata"
 msgstr "metatiedot"
@@ -958,7 +958,7 @@ msgid "delete"
 msgstr "Poista"
 
 #: pyha/templates/pyha/requestform/requestform.html:401
-#: pyha/templates/pyha/requestview/requestview.html:255
+#: pyha/templates/pyha/requestview/requestview.html:261
 msgid "back"
 msgstr "Peruuta"
 
@@ -980,15 +980,15 @@ msgstr ""
 msgid "hide"
 msgstr "Piilota"
 
-#: pyha/templates/pyha/requestform/requestform.html:783
+#: pyha/templates/pyha/requestform/requestform.html:784
 msgid "request_choose_reason"
 msgstr "Valitse aineiston käyttötarkoitus"
 
-#: pyha/templates/pyha/requestform/requestform.html:784
+#: pyha/templates/pyha/requestform/requestform.html:785
 msgid "request_chosen_multiple_reasons"
 msgstr "Valittu useampi vaihtoehto"
 
-#: pyha/templates/pyha/requestform/requestform.html:785
+#: pyha/templates/pyha/requestform/requestform.html:786
 msgid "request_chosen_all_reasons"
 msgstr "Valittu kaikki vaihtoehdot"
 
@@ -1093,85 +1093,89 @@ msgstr "Aloita latauksen valmistelu"
 msgid "you_will_be_emailed_when_ready"
 msgstr "Saat sähköpostiin ilmoituksen, kun aineisto on ladattavissa"
 
-#: pyha/templates/pyha/requestview/requestview.html:106
+#: pyha/templates/pyha/requestview/requestview.html:108
 msgid "stop_wait_initialize_download"
 msgstr "Keskeytä pyyntö ja lataa hyväksytyt aineistot"
 
-#: pyha/templates/pyha/requestview/requestview.html:124
+#: pyha/templates/pyha/requestview/requestview.html:110
+msgid "stop_wait_initialize_api_key"
+msgstr "Keskeytä pyyntö ja pyydä API-avain hyväksytyille aineistoille"
+
+#: pyha/templates/pyha/requestview/requestview.html:130
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Käsittelyloki"
 
-#: pyha/templates/pyha/requestview/requestview.html:131
+#: pyha/templates/pyha/requestview/requestview.html:137
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Hakijat"
 
-#: pyha/templates/pyha/requestview/requestview.html:138
+#: pyha/templates/pyha/requestview/requestview.html:144
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Hakemuksen perustelut"
 
-#: pyha/templates/pyha/requestview/requestview.html:145
+#: pyha/templates/pyha/requestview/requestview.html:151
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Aineistojen tiedot"
 
-#: pyha/templates/pyha/requestview/requestview.html:152
+#: pyha/templates/pyha/requestview/requestview.html:158
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Aineistorajaukset"
 
-#: pyha/templates/pyha/requestview/requestview.html:160
+#: pyha/templates/pyha/requestview/requestview.html:166
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/requestview/requestview.html:162
+#: pyha/templates/pyha/requestview/requestview.html:168
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Päätökset"
 
-#: pyha/templates/pyha/requestview/requestview.html:172
+#: pyha/templates/pyha/requestview/requestview.html:178
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/requestview/requestview.html:174
+#: pyha/templates/pyha/requestview/requestview.html:180
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Lisätietopyynnöt"
 
-#: pyha/templates/pyha/requestview/requestview.html:184
+#: pyha/templates/pyha/requestview/requestview.html:190
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Aineistonkäsittelijöiden kommentit"
 
-#: pyha/templates/pyha/requestview/requestview.html:193
+#: pyha/templates/pyha/requestview/requestview.html:199
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Viestintä"
 
-#: pyha/templates/pyha/requestview/requestview.html:251
+#: pyha/templates/pyha/requestview/requestview.html:257
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Hyväksymättömät aineistot jäävät latauksen ulkopuolelle ja pyynnön käsittely "
 "keskeytetään niiden osalta. Haluatko varmasti jatkaa?"
 
-#: pyha/templates/pyha/requestview/requestview.html:254
+#: pyha/templates/pyha/requestview/requestview.html:260
 msgid "Yes"
 msgstr "Kyllä"
 
-#: pyha/templates/pyha/requestview/requestview.html:267
+#: pyha/templates/pyha/requestview/requestview.html:273
 msgid "loading"
 msgstr "Ladataan..."
 
-#: pyha/templates/pyha/requestview/requestview.html:285
+#: pyha/templates/pyha/requestview/requestview.html:291
 msgid "download_failed"
 msgstr "Lataus epäonnistui!"
 
-#: pyha/templates/pyha/requestview/requestview.html:286
+#: pyha/templates/pyha/requestview/requestview.html:292
 msgid "download_failed_too_complex"
 msgstr ""
 "Joidenkin havaintojen geometriat ovat liian monimutkaisia .shp-"
@@ -1379,8 +1383,8 @@ msgid "decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/decision.html:9
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:76
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:23
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:79
 #: pyha/templates/pyha/requestview/tabs/request.html:22
 msgid "state_of_processing"
 msgstr "Käsittelyn tila"
@@ -1525,40 +1529,44 @@ msgid "make_decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:13
+msgid "make_decision_api_key_alert"
+msgstr "Huomaa, että aineistopyytäjä on hakenut lupaa aineistojen käyttöön Lajitietokeskuksen rajapinnan (API) kautta."
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:16
 msgid "own_collections"
 msgstr "Omat aineistot"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:15
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "Valitse aineistot, joita päätös koskee."
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:48
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:77
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:24
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:51
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:80
 msgid "decision_arguments"
 msgstr "Päätöksen perustelut"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:25
 msgid "select"
 msgstr "Valitse"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:55
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:58
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "Päätöksen perustelut liitetään kaikkiin valittuihin aineistoihin."
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:58
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:61
 msgid "accept_selected"
 msgstr "Hyväksy valitut"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:60
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:63
 msgid "reset_selected"
 msgstr "Tyhjennä valinnat"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:62
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:65
 msgid "refuse_selected"
 msgstr "Hylkää valitut"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:71
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
 msgid "other_collections"
 msgstr "Muut aineistot"
 
@@ -1628,7 +1636,7 @@ msgstr "Odottaa latauksen valmistumista"
 msgid "ready_for_download"
 msgstr "Valmiina ladattavaksi"
 
-#: pyha/views/requestform.py:86
+#: pyha/views/requestform.py:87
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-28 13:18+0300\n"
+"POT-Creation-Date: 2022-06-28 17:20+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: English, United Kingdom\n"
@@ -412,8 +412,8 @@ msgstr ""
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:10
 #: pyha/templates/pyha/requestview/tabs/decision.html:8
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:77
 #: pyha/templates/pyha/requestview/tabs/request.html:9
 msgid "collection_name"
 msgstr "Collection name"
@@ -481,8 +481,8 @@ msgstr "User/Owner aggregated observation data"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:24
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:21
 #: pyha/templates/pyha/requestview/requestview.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:36
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:91
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:39
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:94
 #: pyha/templates/pyha/requestview/tabs/request.html:35
 msgid "to_metadata"
 msgstr "metadata"
@@ -951,7 +951,7 @@ msgid "delete"
 msgstr "Delete"
 
 #: pyha/templates/pyha/requestform/requestform.html:401
-#: pyha/templates/pyha/requestview/requestview.html:255
+#: pyha/templates/pyha/requestview/requestview.html:261
 msgid "back"
 msgstr "Back"
 
@@ -971,15 +971,15 @@ msgstr "Free text field"
 msgid "hide"
 msgstr "Hide"
 
-#: pyha/templates/pyha/requestform/requestform.html:783
+#: pyha/templates/pyha/requestform/requestform.html:784
 msgid "request_choose_reason"
 msgstr "Intended use of the material"
 
-#: pyha/templates/pyha/requestform/requestform.html:784
+#: pyha/templates/pyha/requestform/requestform.html:785
 msgid "request_chosen_multiple_reasons"
 msgstr "Multiple selected"
 
-#: pyha/templates/pyha/requestform/requestform.html:785
+#: pyha/templates/pyha/requestform/requestform.html:786
 msgid "request_chosen_all_reasons"
 msgstr "All selected"
 
@@ -1087,83 +1087,89 @@ msgstr "Initialize download"
 msgid "you_will_be_emailed_when_ready"
 msgstr "You will be emailed when your download is ready"
 
-#: pyha/templates/pyha/requestview/requestview.html:106
+#: pyha/templates/pyha/requestview/requestview.html:108
 msgid "stop_wait_initialize_download"
 msgstr "Initialize download for currently accepted"
 
-#: pyha/templates/pyha/requestview/requestview.html:124
+#: pyha/templates/pyha/requestview/requestview.html:110
+#, fuzzy
+#| msgid "stop_wait_initialize_download"
+msgid "stop_wait_initialize_api_key"
+msgstr "Initialize download for currently accepted"
+
+#: pyha/templates/pyha/requestview/requestview.html:130
 #: pyha/templates/pyha/requestview/tabs/history.html:3
 msgid "changes_history"
 msgstr "Changelog"
 
-#: pyha/templates/pyha/requestview/requestview.html:131
+#: pyha/templates/pyha/requestview/requestview.html:137
 #: pyha/templates/pyha/requestview/tabs/contacts.html:3
 msgid "contact_window"
 msgstr "Applicants"
 
-#: pyha/templates/pyha/requestview/requestview.html:138
+#: pyha/templates/pyha/requestview/requestview.html:144
 #: pyha/templates/pyha/requestview/tabs/arguments.html:3
 msgid "argument_window"
 msgstr "Reason for application"
 
-#: pyha/templates/pyha/requestview/requestview.html:145
+#: pyha/templates/pyha/requestview/requestview.html:151
 #: pyha/templates/pyha/requestview/tabs/request.html:4
 msgid "request_window"
 msgstr "Collections"
 
-#: pyha/templates/pyha/requestview/requestview.html:152
+#: pyha/templates/pyha/requestview/requestview.html:158
 #: pyha/templates/pyha/requestview/tabs/filters.html:3
 msgid "filter_window"
 msgstr "Filters"
 
-#: pyha/templates/pyha/requestview/requestview.html:160
+#: pyha/templates/pyha/requestview/requestview.html:166
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:4
 msgid "make_decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/requestview/requestview.html:162
+#: pyha/templates/pyha/requestview/requestview.html:168
 #: pyha/templates/pyha/requestview/tabs/decision.html:4
 msgid "decision_window"
 msgstr "Decisions"
 
-#: pyha/templates/pyha/requestview/requestview.html:172
+#: pyha/templates/pyha/requestview/requestview.html:178
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:3
 msgid "ask_additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/requestview/requestview.html:174
+#: pyha/templates/pyha/requestview/requestview.html:180
 #: pyha/templates/pyha/requestview/tabs/information.html:4
 msgid "additional_information_window"
 msgstr "Questions"
 
-#: pyha/templates/pyha/requestview/requestview.html:184
+#: pyha/templates/pyha/requestview/requestview.html:190
 #: pyha/templates/pyha/requestview/tabs/comments.html:3
 msgid "col_handler_comments_window"
 msgstr "Comments by collection handlers"
 
-#: pyha/templates/pyha/requestview/requestview.html:193
+#: pyha/templates/pyha/requestview/requestview.html:199
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:6
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:132
 msgid "admin_communications_window"
 msgstr "Communications"
 
-#: pyha/templates/pyha/requestview/requestview.html:251
+#: pyha/templates/pyha/requestview/requestview.html:257
 msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr "Halt further processing and download all accepted thus far"
 
-#: pyha/templates/pyha/requestview/requestview.html:254
+#: pyha/templates/pyha/requestview/requestview.html:260
 msgid "Yes"
 msgstr "Yes"
 
-#: pyha/templates/pyha/requestview/requestview.html:267
+#: pyha/templates/pyha/requestview/requestview.html:273
 msgid "loading"
 msgstr "Loading..."
 
-#: pyha/templates/pyha/requestview/requestview.html:285
+#: pyha/templates/pyha/requestview/requestview.html:291
 msgid "download_failed"
 msgstr "Download failed!"
 
-#: pyha/templates/pyha/requestview/requestview.html:286
+#: pyha/templates/pyha/requestview/requestview.html:292
 msgid "download_failed_too_complex"
 msgstr ""
 "The geometries of some observations are too complex for the .shp file format "
@@ -1371,8 +1377,8 @@ msgid "decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/decision.html:9
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:20
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:76
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:23
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:79
 #: pyha/templates/pyha/requestview/tabs/request.html:22
 msgid "state_of_processing"
 msgstr "State of processing"
@@ -1513,40 +1519,46 @@ msgid "make_decision_window_description"
 msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:13
+#, fuzzy
+#| msgid "make_decision_window_description"
+msgid "make_decision_api_key_alert"
+msgstr " "
+
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:16
 msgid "own_collections"
 msgstr "Own collections"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:15
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 msgid "select_checksboxes_to_apply_this_decision_to"
 msgstr "select the collections to which the decision relates"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:21
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:48
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:77
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:24
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:51
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:80
 msgid "decision_arguments"
 msgstr "Reason for the decision"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:22
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:25
 msgid "select"
 msgstr "Select"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:55
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:58
 msgid "arguments_will_be_applied_to_all_selected"
 msgstr "The reason for the decision shall be added to any collection selected."
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:58
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:61
 msgid "accept_selected"
 msgstr "Accept selected"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:60
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:63
 msgid "reset_selected"
 msgstr "Reset selection"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:62
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:65
 msgid "refuse_selected"
 msgstr "Reject selected"
 
-#: pyha/templates/pyha/requestview/tabs/make_decision.html:71
+#: pyha/templates/pyha/requestview/tabs/make_decision.html:74
 msgid "other_collections"
 msgstr "Other collections"
 
@@ -1615,7 +1627,7 @@ msgstr "Waiting for download file to be completed"
 msgid "ready_for_download"
 msgstr "Ready for download"
 
-#: pyha/views/requestform.py:86
+#: pyha/views/requestform.py:87
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Thank you, request has been registered."
 
