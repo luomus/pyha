@@ -15,6 +15,7 @@ DATABASES = {
     }
 }
 if DEBUG:
+    MIDDLEWARE.append('pyha.middleware.NoCache')
     SESSION_COOKIE_SECURE = False
 
     if not os.environ.get("EMAIL_BACKEND_FILE_PATH") == None:

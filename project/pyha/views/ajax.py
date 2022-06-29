@@ -8,20 +8,21 @@ from pyha.login import logged_in, is_allowed_to_view, is_request_owner, is_admin
 from pyha.models import Request, Collection, StatusEnum
 from pyha.log_utils import changed_by_session_user
 import requests
+from http import HTTPStatus
 
 
 def download_link(http_request):
     if http_request.method == 'POST':
         if not logged_in(http_request):
-            return HttpResponse(reverse('pyha:root'), status=310)
+            return HttpResponse(status=HTTPStatus.UNAUTHORIZED)
         requestId = http_request.POST.get('requestid')
         if not is_request_owner(http_request, requestId):
-            return HttpResponse(reverse('pyha:root'), status=310)
+            return HttpResponse(status=HTTPStatus.FORBIDDEN)
         userRequest = Request.objects.get(id=requestId)
         if is_admin_frozen(http_request, userRequest):
-            return HttpResponse(reverse('pyha:root'), status=310)
+            return HttpResponse(status=HTTPStatus.LOCKED)
         if not (userRequest.status == 8 and is_downloadable(http_request, userRequest)):
-            return HttpResponse(reverse('pyha:root'), status=310)
+            return HttpResponse(status=HTTPStatus.BAD_REQUEST)
 
         userRequest.downloaded = True
         userRequest.changedBy = changed_by_session_user(http_request)
@@ -44,7 +45,7 @@ def download_link(http_request):
             link = '{}{}?personToken={}'.format(settings.LAJIDOW_URL, laji_id, person_token)
             return JsonResponse({'status': 'complete', 'downloadUrl': link})
 
-    return HttpResponse(reverse('pyha:root'), status=310)
+    return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
 
 
 def gis_download_status(http_request, download_id):
@@ -53,11 +54,11 @@ def gis_download_status(http_request, download_id):
         r = requests.get(url, allow_redirects=False)
 
         if not r.ok:
-            status_code = 502
+            status_code = HTTPStatus.BAD_GATEWAY
             err_name = None
             err_msg = None
 
-            if r.status_code == 400 or r.status_code == 404:
+            if r.status_code == HTTPStatus.BAD_REQUEST or r.status_code == HTTPStatus.NOT_FOUND:
                 status_code = r.status_code
 
             error = r.json()
@@ -81,7 +82,43 @@ def gis_download_status(http_request, download_id):
 
         return JsonResponse(response)
 
-    return HttpResponse(reverse('pyha:root'), status=310)
+    return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
+
+
+def get_api_key(http_request):
+    if http_request.method == 'POST':
+        if not logged_in(http_request):
+            return HttpResponse(status=HTTPStatus.UNAUTHORIZED)
+        requestId = http_request.POST.get('requestid')
+        if not is_request_owner(http_request, requestId):
+            return HttpResponse(status=HTTPStatus.FORBIDDEN)
+        userRequest = Request.objects.get(id=requestId)
+        if is_admin_frozen(http_request, userRequest):
+            return HttpResponse(status=HTTPStatus.LOCKED)
+        if not (userRequest.status == 8 and is_downloadable(http_request, userRequest)):
+            return HttpResponse(status=HTTPStatus.BAD_REQUEST)
+
+        userRequest.downloaded = True
+        userRequest.changedBy = changed_by_session_user(http_request)
+        userRequest.save()
+
+        laji_id = userRequest.lajiId
+        person_token = http_request.session['token']
+
+        response = requests.get('{}warehouse/api-keys/{}'.format(settings.LAJIAPI_URL, laji_id),
+                                params={'person_token': person_token, 'access_token': settings.LAJIAPI_TOKEN},
+                                timeout=settings.SECRET_TIMEOUT_PERIOD
+                                )
+        if not response.ok:
+            return HttpResponse(status=HTTPStatus.BAD_GATEWAY)
+
+        api_key = response.json()
+        if not ('found' in api_key and api_key['found']):
+            return HttpResponse(status=HTTPStatus.NOT_FOUND)
+
+        return JsonResponse(api_key)
+
+    return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
 
 
 def get_description_ajax(http_request):

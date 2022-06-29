@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^initializeDownload/?$', requestview.initialize_download, name='initializeDownload'),
     url(r'^downloadLink/?$', ajax.download_link, name='requestDownload'),
     url(r'^gisDownloadStatus/(?P<download_id>[^/]+)/?$', ajax.gis_download_status, name='gis_download_status'),
+    url(r'^apiKey/?$', ajax.get_api_key, name='get_api_key'),
     url(r'^saveUserSettings/?$', usersettings.save_user_settings, name='save_user_settings'),
     url(r'^savePyhaSettings/?$', usersettings.save_pyha_settings, name='save_pyha_settings'),
     url(r'^newpdf/?$', api.new_pdf, name='newpdf'),

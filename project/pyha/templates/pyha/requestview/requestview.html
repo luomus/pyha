@@ -41,6 +41,7 @@
       {% if role == "user" %}
         <div class="user-download">
             {% if userRequest.status == 8 %}
+            {% if userRequest.downloadType == download_types.standard  %}
             {% if downloadable %}
             <div style="text-align:center;">
                 <div class="user-download-settings">
@@ -90,6 +91,13 @@
             {% else %}
             <h3 style="text-align:center;">{% trans 'download_has_expired' %}</h3>
             {% endif %}
+            {% else %}
+            <div style="text-align:center;">
+                <button id="user-show-api-key-button" class="btn btn-default btn-lg" onclick="showApiKey()">
+                    <span class="glyphicon glyphicon-open-file"></span> {% trans 'show_api_key' %}
+                </button>
+            </div>
+            {% endif %}
             {% elif userRequest.status == 4  %}
             <div style="text-align:center;">
                 <form action="{% url 'pyha:initializeDownload' %}" method="post">
@@ -100,7 +108,13 @@
                 </form>
             </div>
             {% elif userRequest.status == 7%}
-            <h3 style="text-align:center;">{% trans 'you_will_be_emailed_when_ready' %}</h3>
+            <h3 style="text-align:center;">
+                {% if userRequest.downloadType == download_types.standard  %}
+                {% trans 'you_will_be_emailed_when_ready' %}
+                {% else %}
+                {% trans 'you_will_be_emailed_when_api_key_ready' %}
+                {% endif %}
+            </h3>
             {% elif userRequest.status == 1 and endable %}
             <div style="text-align:center;">
                 <button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">
@@ -285,11 +299,34 @@
     </div>
 </div>
 
+<!-- api key modal -->
+<div id="api-key-modal" class="modal fade modal-loading" tabindex="-1"
+    role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    {% trans "api_key" %}
+                 </h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info
+                    progress-bar-striped active"
+                    style="width: 100%; min-width: 2em">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="setDescriptionURL" name="setDescription" value="{% url 'pyha:set_description_ajax' %}">
 <input type="hidden" id="getDescriptionURL" name="getDescription" value="{% url 'pyha:get_description_ajax' %}">
 <input type="hidden" id="getDownloadURL" name="getDownloadURL" value="{% url 'pyha:requestDownload' %}">
 <input type="hidden" id="getDownloadFailedText" name="getDownloadFailedText" value="{% trans 'download_failed' %}">
 <input type="hidden" id="getDownloadFailedTooComplexText" name="getDownloadFailedTooComplexText" value="{% trans 'download_failed_too_complex' %}">
+<input type="hidden" id="getApiKeyURL" name="getApiKey" value="{% url 'pyha:get_api_key' %}">
 
 {% endblock %}
 

@@ -237,6 +237,30 @@
         xhttp.send(data);
 	}
 
+	function showApiKey() {
+		var data = "requestid=" + document.getElementById("requestid").value;
+
+		$("#api-key-modal").modal('show');
+
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+				if (this.status == 200) {
+				    var jsonResponse = JSON.parse(this.responseText);
+				    console.log(jsonResponse);
+				} else {
+				    downloadError(this.responseText);
+				    $("#api-key-modal").modal('hide');
+				}
+            }
+        };
+
+        xhttp.open("POST", document.getElementById("getApiKeyURL").value, true);
+        xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(data);
+	}
+
 	function pollDownloadStatus(url) {
 	    var xhttp = new XMLHttpRequest();
 	    xhttp.onreadystatechange = function() {
