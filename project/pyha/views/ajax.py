@@ -106,17 +106,20 @@ def get_api_key(http_request):
         person_token = http_request.session['token']
 
         response = requests.get('{}warehouse/api-keys/{}'.format(settings.LAJIAPI_URL, laji_id),
-                                params={'person_token': person_token, 'access_token': settings.LAJIAPI_TOKEN},
+                                params={'personToken': person_token, 'access_token': settings.LAJIAPI_TOKEN},
                                 timeout=settings.SECRET_TIMEOUT_PERIOD
                                 )
         if not response.ok:
             return HttpResponse(status=HTTPStatus.BAD_GATEWAY)
 
         api_key = response.json()
-        if not ('found' in api_key and api_key['found']):
+        if 'apiKey' not in api_key:
             return HttpResponse(status=HTTPStatus.NOT_FOUND)
 
-        return JsonResponse(api_key)
+        return JsonResponse({
+            'apiKey': api_key['apiKey'],
+            'apiKeyExpires': api_key['apiKeyExpires']
+        })
 
     return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
 

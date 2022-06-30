@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 15:36+0300\n"
+"POT-Creation-Date: 2022-06-30 14:59+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
@@ -450,7 +450,7 @@ msgstr "Antalet av observationer"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:441
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:446
 msgid "secured_by_quarantine"
 msgstr "Forskningsmaterial med begrändsad användning"
 
@@ -464,7 +464,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:446
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:451
 msgid "secured_by_sensitivity"
 msgstr "Sensitiva data"
 
@@ -479,7 +479,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:451
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:456
 msgid "secured_by_data_provider"
 msgstr "Användning begränsad av data ägare"
 
@@ -1016,7 +1016,7 @@ msgstr "Alla valda"
 msgid "usage_choose"
 msgstr "Ladda ner"
 
-#: pyha/templates/pyha/requestform/requestform.html:816
+#: pyha/templates/pyha/requestform/requestform.html:818
 msgid "expiration_choose"
 msgstr ""
 
@@ -1208,15 +1208,25 @@ msgstr "Ja"
 msgid "loading"
 msgstr "Laddar..."
 
-#: pyha/templates/pyha/requestview/requestview.html:309
+#: pyha/templates/pyha/requestview/requestview.html:312
 msgid "api_key"
 msgstr ""
 
-#: pyha/templates/pyha/requestview/requestview.html:327
+#: pyha/templates/pyha/requestview/requestview.html:323
+#, fuzzy
+#| msgid "page_expired"
+msgid "api_key_expires"
+msgstr "Sidan har löpt ut"
+
+#: pyha/templates/pyha/requestview/requestview.html:326
+msgid "copy_api_key"
+msgstr ""
+
+#: pyha/templates/pyha/requestview/requestview.html:340
 msgid "download_failed"
 msgstr "Nedladdning misslyckad!"
 
-#: pyha/templates/pyha/requestview/requestview.html:328
+#: pyha/templates/pyha/requestview/requestview.html:341
 msgid "download_failed_too_complex"
 msgstr ""
 "Observationernas geometri är för komplex för .shp-filformatet "
@@ -1677,7 +1687,7 @@ msgstr "Väntar på att nedladdningsfil ska bli färdig"
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
 
-#: pyha/views/requestform.py:87
+#: pyha/views/requestform.py:90
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Tack, din förfrågan har skrivits in."
 

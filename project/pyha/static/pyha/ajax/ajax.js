@@ -240,17 +240,27 @@
 	function showApiKey() {
 		var data = "requestid=" + document.getElementById("requestid").value;
 
-		$("#api-key-modal").modal('show');
+		$("#api-key-modal").modal("show");
+
+		var text = document.getElementById("api-key").innerText;
+		if (text) {
+		    return;
+		}
 
 		var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4) {
 				if (this.status == 200) {
 				    var jsonResponse = JSON.parse(this.responseText);
-				    console.log(jsonResponse);
+				    document.getElementById("api-key-progress").style.display = "none";
+				    document.getElementById("api-key-container").style.display = "";
+				    document.getElementById("api-key").innerText = jsonResponse["apiKey"];
+				    var expiresDate = moment(jsonResponse["apiKeyExpires"], "YYYY-MM-DD").format("D.M.YYYY")
+				    document.getElementById("api-key-expires").innerText = expiresDate;
+				    document.getElementById("api-key-close-btn").style.display = "";
 				} else {
 				    downloadError(this.responseText);
-				    $("#api-key-modal").modal('hide');
+				    $("#api-key-modal").modal("hide");
 				}
             }
         };
@@ -259,6 +269,15 @@
         xhttp.setRequestHeader("X-CSRFToken", csrftoken);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(data);
+	}
+
+	function closeApiKeyModal() {
+		$("#api-key-modal").modal("hide");
+	}
+
+	function copyApiKeyToClipboard() {
+	    var text = document.getElementById("api-key").innerText;
+	    window.navigator.clipboard.writeText(text);
 	}
 
 	function pollDownloadStatus(url) {

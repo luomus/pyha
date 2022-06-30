@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 15:36+0300\n"
+"POT-Creation-Date: 2022-06-30 14:59+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: Finnish\n"
@@ -447,7 +447,7 @@ msgstr "Havaintojen määrä"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:441
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:446
 msgid "secured_by_quarantine"
 msgstr "Käyttörajoitetut tutkimusaineistot"
 
@@ -461,7 +461,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:446
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:451
 msgid "secured_by_sensitivity"
 msgstr "Sensitiivinen aineisto"
 
@@ -476,7 +476,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:451
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:456
 msgid "secured_by_data_provider"
 msgstr "Käyttörajoitetut aineistot"
 
@@ -1012,7 +1012,7 @@ msgstr "Valittu kaikki vaihtoehdot"
 msgid "usage_choose"
 msgstr "Valitse käyttötapa"
 
-#: pyha/templates/pyha/requestform/requestform.html:816
+#: pyha/templates/pyha/requestform/requestform.html:818
 msgid "expiration_choose"
 msgstr "Valitse aika"
 
@@ -1127,7 +1127,7 @@ msgstr "Keskeytä pyyntö ja lataa hyväksytyt aineistot"
 
 #: pyha/templates/pyha/requestview/requestview.html:124
 msgid "stop_wait_initialize_api_key"
-msgstr "Keskeytä pyyntö ja pyydä API-avain hyväksytyille aineistoille"
+msgstr "Keskeytä pyyntö ja lataa API-avain hyväksytyille aineistoille"
 
 #: pyha/templates/pyha/requestview/requestview.html:144
 #: pyha/templates/pyha/requestview/tabs/history.html:3
@@ -1199,15 +1199,23 @@ msgstr "Kyllä"
 msgid "loading"
 msgstr "Ladataan..."
 
-#: pyha/templates/pyha/requestview/requestview.html:309
+#: pyha/templates/pyha/requestview/requestview.html:312
 msgid "api_key"
 msgstr "API-avain"
 
-#: pyha/templates/pyha/requestview/requestview.html:327
+#: pyha/templates/pyha/requestview/requestview.html:323
+msgid "api_key_expires"
+msgstr "Voimassaolon päättymispäivä"
+
+#: pyha/templates/pyha/requestview/requestview.html:326
+msgid "copy_api_key"
+msgstr "Kopioi avain leikepöydälle"
+
+#: pyha/templates/pyha/requestview/requestview.html:340
 msgid "download_failed"
 msgstr "Lataus epäonnistui!"
 
-#: pyha/templates/pyha/requestview/requestview.html:328
+#: pyha/templates/pyha/requestview/requestview.html:341
 msgid "download_failed_too_complex"
 msgstr ""
 "Joidenkin havaintojen geometriat ovat liian monimutkaisia .shp-"
@@ -1670,7 +1678,7 @@ msgstr "Odottaa latauksen valmistumista"
 msgid "ready_for_download"
 msgstr "Valmiina ladattavaksi"
 
-#: pyha/views/requestform.py:87
+#: pyha/views/requestform.py:90
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 

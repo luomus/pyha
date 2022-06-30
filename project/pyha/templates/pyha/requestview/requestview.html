@@ -117,7 +117,7 @@
             </h3>
             {% elif userRequest.status == 1 and endable %}
             <div style="text-align:center;">
-                <button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:500px;">
+                <button type="button" class="btn btn-default btn-lg initializeButton initializeContainer" style="line-height:20px;width:100%; max-width:600px;">
                     {% if userRequest.downloadType == download_types.standard  %}
                     {% trans 'stop_wait_initialize_download' %}
                     {% else %}
@@ -305,15 +305,30 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
+                <button id="api-key-close-btn" type="button" class="close pull-right" onclick="closeApiKeyModal()" style="display: none">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
                 <h4 class="modal-title">
                     {% trans "api_key" %}
                  </h4>
             </div>
             <div class="modal-body">
-                <div class="progress">
+                <div class="progress" id="api-key-progress">
                     <div class="progress-bar progress-bar-info
                     progress-bar-striped active"
                     style="width: 100%; min-width: 2em">
+                    </div>
+                </div>
+                <div id="api-key-container" style="display: none">
+                    <div style="margin-bottom: 5px">
+                        <label for="api-key-expires" style="margin-bottom: 0">{% trans "api_key_expires" %}:</label>
+                        <br>
+                        <span id="api-key-expires"></span>
+                    </div>
+                    <label for="api-key">{% trans "copy_api_key" %}:</label>
+                    <div tabindex="0" class="copy-to-clipboard wrap-text" onclick="copyApiKeyToClipboard()">
+                        <i class="glyphicon glyphicon-paperclip" style="margin-right: 4px"></i>
+                        <span id="api-key"></span>
                     </div>
                 </div>
             </div>
