@@ -176,6 +176,16 @@
 															<option value="{{ download_types.standard }}">{% trans "usage_download" %}</option>
 															<option value="{{ download_types.api_key }}">{% trans "usage_apikey" %}</option>
 														</select>
+														<div id="expiration_section" style="margin-top: 15px; display: none">
+															<label for="expiration_selector" style="margin-bottom: 0">{% trans 'expiration_choose_label' %}</label>
+															<select id="expiration_selector" name="expiration_selector" style="width:400px;">
+																<option value="{{ api_key_expires_options.three_months }}">{% trans "expiration_three_months" %}<br><b>*</b>
+																<option value="{{ api_key_expires_options.year }}">{% trans "expiration_one_year" %}</option>
+															</select>
+															<div class="footnote">
+																<b>*</b> {% trans "expiration_three_months_note" %}</option>
+															</div>
+														</div>
 													</div>
 												</div>
 												<div id="additional_information" hidden=true>
@@ -619,7 +629,7 @@
 		var select = document.getElementById('reason_selector');
 		var result = getSelectValues(select);
 		var fills = [];
-		var state = false;
+		var missingAnswers = false;
 
 		if(result.length > 0) {
 			for (var i=0; i<result.length; i++) {
@@ -649,17 +659,22 @@
 			}
 			for (var i=0; i<fills.length; i++){
 				if (document.getElementById(fills[i]).value == ''){
-					state = true;
+					missingAnswers = true;
 					break;
 				}
 			}
 		} else {
-			state = true;
+			missingAnswers = true;
 		}
 
-		state = state || document.getElementById("usage_selector").value == '';
+		if (!missingAnswers) {
+			var usage = document.getElementById("usage_selector").value;
+			missingAnswers = usage === "" || (
+				usage === "{{ download_types.api_key }}" && document.getElementById("expiration_selector").value === ""
+			);
+		}
 
-		if (!state) {
+		if (!missingAnswers) {
 			document.getElementById("to_step_3").disabled = false;
 		} else {
 			document.getElementById("to_step_3").disabled = true;
@@ -792,6 +807,15 @@
 
 		$('#usage_selector').val('').multiselect({
 			nonSelectedText: '{% trans "usage_choose" %}',
+			onChange: function(option, checked, select) {
+				var apiKeySelected = document.getElementById("usage_selector").value === "{{ download_types.api_key }}";
+				document.getElementById("expiration_section").style.display = apiKeySelected ? "" : "none";
+        		that.argumentsFilled();
+        	}
+		});
+
+		$('#expiration_selector').val('').multiselect({
+			nonSelectedText: '{% trans "expiration_choose" %}',
 			onChange: function(option, checked, select) {
         		that.argumentsFilled();
         	}

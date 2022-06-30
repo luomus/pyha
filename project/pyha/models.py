@@ -128,6 +128,13 @@ class Request(models.Model):
         (API_KEY, 'api key')
     )
 
+    THREE_MONTHS = 90
+    YEAR = 365
+    API_KEY_EXPIRES = (
+        (THREE_MONTHS, 'three months'),
+        (YEAR, 'year')
+    )
+
     # id alkaa ykkösestä ja nousee
     id = models.AutoField(primary_key=True)
     lajiId = models.CharField(max_length=200)  # id given by laji.api
@@ -170,6 +177,7 @@ class Request(models.Model):
     personCorporationId = TruncatingCharField(max_length=100, blank=True, null=True)
     reason = TruncatingReasonJsonCharField(max_length=16000, blank=True, null=True)
     downloadType = models.CharField(max_length=8, choices=DOWNLOAD_TYPE, default=STANDARD)
+    apiKeyExpires = models.IntegerField(choices=API_KEY_EXPIRES, null=True)
     lang = models.CharField(max_length=10, default='fi')
     frozen = models.BooleanField(default=False)
     changedBy = models.CharField(max_length=100)

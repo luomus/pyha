@@ -66,6 +66,9 @@ def approve_terms_skip_official(http_request, userRequest, requestId):
             create_new_contact(http_request, userRequest, count)
 
         userRequest.downloadType = http_request.POST.get('usage_selector')
+        if userRequest.downloadType == Request.API_KEY:
+            userRequest.apiKeyExpires = http_request.POST.get('expiration_selector', Request.THREE_MONTHS)
+
         userRequest.reason = create_argument_blob(http_request)
         userRequest.status = 1
         userRequest.personName = http_request.POST.get('request_person_name_1')

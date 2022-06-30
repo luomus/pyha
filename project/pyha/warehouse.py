@@ -283,7 +283,8 @@ def send_download_request(requestId):
     for f in filters.__dict__:
         payload[f] = getattr(filters, f)
     if userRequest.downloadType == Request.API_KEY:
-        payload["apiKeyExpires"] = 90
+        payload["apiKeyExpires"] = userRequest.apiKeyExpires if userRequest.apiKeyExpires is not None \
+            else Request.THREE_MONTHS
     response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved",
                              data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
 
