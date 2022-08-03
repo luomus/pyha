@@ -87,34 +87,39 @@
 				{% endif %}
 		        <li><a href="{% url 'pyha:logout' %}">{% trans "logout" %} <span class="glyphicon glyphicon-log-out"></span></a></li>
 		        {% get_current_language as LANGUAGE %}
-				<div class="dropdown">
-				<form id='language_form' action="{% url 'pyha:set_language' %}" method="post"
-		            data-currenturl='{{ request.path }}'
-		            data-currentfullurl='{{ request.get_full_path }}'>
-				<button type="button" onclick="showLangDropdown()" class="dropbtn"><span class="glyphicon glyphicon-globe"></span> {{LANGUAGE|upper}}{% csrf_token %}</button>
-					<div id="langDropdown" class="dropdown-content" style="left: -50%;">
-		              {% get_available_languages as LANGUAGES %}
-		              {% get_language_info_list for LANGUAGES as languages %}
+				<li>
+					<div class="dropdown">
+					<form id='language_form' action="{% url 'pyha:set_language' %}" method="post"
+						data-currenturl='{{ request.path }}'
+						data-currentfullurl='{{ request.get_full_path }}'>
+					<button type="button" onclick="showLangDropdown()" class="dropbtn"><span class="glyphicon glyphicon-globe"></span> {{LANGUAGE|upper}}{% csrf_token %}</button>
+						<div id="langDropdown" class="dropdown-content" style="left: -50%;">
+						  {% get_available_languages as LANGUAGES %}
+						  {% get_language_info_list for LANGUAGES as languages %}
 
-		              {% for language in languages %}
-						{% if not LANGUAGE == language.code %}
-						  <a onclick='submit("{{ language.code }}")' name="code" id="code">
-							  {% if language.code == 'fi' %}
-							  {% trans "set_lang_fi" %}
-							  {% elif language.code == 'sv' %}
-							  {% trans "set_lang_sv" %}
-							  {% elif language.code == 'en' %}
-							  {% trans "set_lang_en" %}
+						  {% for language in languages %}
+							{% if not LANGUAGE == language.code %}
+							  <a onclick='submit("{{ language.code }}")' name="code" id="code">
+								  {% if language.code == 'fi' %}
+								  {% trans "set_lang_fi" %}
+								  {% elif language.code == 'sv' %}
+								  {% trans "set_lang_sv" %}
+								  {% elif language.code == 'en' %}
+								  {% trans "set_lang_en" %}
+								  {% endif %}
+							  </a>
 							  {% endif %}
-						  </a>
-						  {% endif %}
-		              {% endfor %}
+						  {% endfor %}
 
+						</div>
+					<input id='language_form_select' name="language" type="hidden" value="">
+					<input type="hidden" id="next" name="next" value={{request.get_full_path}}>
+					</form>
 					</div>
-				<input id='language_form_select' name="language" type="hidden" value="">
-				<input type="hidden" id="next" name="next" value={{request.get_full_path}}>
-				</form>
-				</div>
+				</li>
+				{% if request.session.current_user_role == 'handler' or request.session.current_user_role == 'admin' %}
+		        <li><a href="https://cdn.laji.fi/files/pyha/Aineistopyyntöjärjestelmä_ohje_käsittelijoille_2022.pdf" target="_blank">{% trans "manual" %} <span class="glyphicon glyphicon-question-sign"></span></a></li>
+				{% endif %}
 		        </ul>
 		      {% endif %}
 		    </div>

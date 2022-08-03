@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 14:45+0300\n"
+"POT-Creation-Date: 2022-08-03 15:26+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: English, United Kingdom\n"
@@ -260,17 +260,21 @@ msgstr "Role: Applicant"
 msgid "logout"
 msgstr "Log out"
 
-#: pyha/templates/pyha/base/base.html:103
+#: pyha/templates/pyha/base/base.html:104
 msgid "set_lang_fi"
 msgstr "Suomeksi"
 
-#: pyha/templates/pyha/base/base.html:105
+#: pyha/templates/pyha/base/base.html:106
 msgid "set_lang_sv"
 msgstr "På svenska"
 
-#: pyha/templates/pyha/base/base.html:107
+#: pyha/templates/pyha/base/base.html:108
 msgid "set_lang_en"
 msgstr "In English"
+
+#: pyha/templates/pyha/base/base.html:120
+msgid "manual"
+msgstr ""
 
 #: pyha/templates/pyha/base/index.html:11
 msgid "welcome"
