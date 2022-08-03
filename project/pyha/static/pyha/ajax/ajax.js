@@ -237,15 +237,34 @@
         xhttp.send(data);
 	}
 
+	function resetApiKeyModal() {
+	    document.getElementById("api-key-terms").checked = false;
+        apiKeyTermsChange(false);
+        document.getElementById("api-key-divider").style.display = "none";
+		document.getElementById("api-key-progress").style.display = "none";
+		document.getElementById("api-key-container").style.display = "none";
+		document.getElementById("api-key").innerText = "";
+		document.getElementById("api-key-expires").innerText = "";
+	}
+
+	function showApiKeyModal() {
+	    $("#api-key-modal").modal("show");
+	}
+
+	function apiKeyTermsChange(checked) {
+	    document.getElementById("api-key-download-btn").disabled = !checked;
+	}
+
 	function showApiKey() {
-		var data = "requestid=" + document.getElementById("requestid").value;
-
-		$("#api-key-modal").modal("show");
-
 		var text = document.getElementById("api-key").innerText;
 		if (text) {
 		    return;
 		}
+
+		var data = "requestid=" + document.getElementById("requestid").value;
+
+		document.getElementById("api-key-divider").style.display = "";
+		document.getElementById("api-key-progress").style.display = "";
 
 		var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -257,7 +276,6 @@
 				    document.getElementById("api-key").innerText = jsonResponse["apiKey"];
 				    var expiresDate = moment(jsonResponse["apiKeyExpires"], "YYYY-MM-DD").format("D.M.YYYY")
 				    document.getElementById("api-key-expires").innerText = expiresDate;
-				    document.getElementById("api-key-close-btn").style.display = "";
 				} else {
 				    downloadError(this.responseText);
 				    $("#api-key-modal").modal("hide");

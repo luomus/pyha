@@ -93,7 +93,7 @@
             {% endif %}
             {% else %}
             <div style="text-align:center;">
-                <button id="user-show-api-key-button" class="btn btn-default btn-lg" onclick="showApiKey()">
+                <button id="user-show-api-key-button" class="btn btn-default btn-lg" onclick="showApiKeyModal()">
                     <span class="glyphicon glyphicon-open-file"></span> {% trans 'show_api_key' %}
                 </button>
             </div>
@@ -305,7 +305,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button id="api-key-close-btn" type="button" class="close pull-right" onclick="closeApiKeyModal()" style="display: none">
+                <button type="button" class="close pull-right" onclick="closeApiKeyModal()">
                     <i class="glyphicon glyphicon-remove"></i>
                 </button>
                 <h4 class="modal-title">
@@ -313,7 +313,16 @@
                  </h4>
             </div>
             <div class="modal-body">
-                <div class="progress" id="api-key-progress">
+                <div class="checkbox">
+                    <label>
+                        <input id="api-key-terms" type="checkbox" onchange="apiKeyTermsChange(this.checked)"> {% trans "accept_api_key_terms_part1" %} <a href="https://cdn.laji.fi/files/pyha/API-avain_käyttöehdot.pdf" target="_blank">{% trans "accept_api_key_terms_part2" %}</a>
+                    </label>
+                </div>
+                <button id="api-key-download-btn" type="button" class="btn btn-default" disabled onclick="showApiKey()">
+                    {% trans "download" %}
+                </button>
+                <hr id="api-key-divider" style="display: none">
+                <div class="progress" id="api-key-progress" style="display: none">
                     <div class="progress-bar progress-bar-info
                     progress-bar-striped active"
                     style="width: 100%; min-width: 2em">
@@ -492,6 +501,7 @@ $(document).ready(function(){
   $(document).ready(function(){
     get_request_header();
     updateGisFields();
+    resetApiKeyModal();
   });
 </script>
 <script>
