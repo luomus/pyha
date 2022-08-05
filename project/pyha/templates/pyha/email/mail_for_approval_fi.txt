@@ -2,7 +2,7 @@
 
 Pääset käsittelemään aineistopyynnön tästä linkistä: {{ req_link }}?lang=fi
 
-
+Aineistopyyntöjärjestelmän ohjeet: {{ manual_link }}
 
 Tämä viesti on lähetetty automaattisesti.
 
@@ -18,7 +18,7 @@ A new data request has been sent to FinBIF {{time}} regarding your data.
 
 You can process the data request from this link: {{ req_link }}?lang=en
 
-
+Manual (in Finnish): {{ manual_link }}
 
 This is an automated message.
 

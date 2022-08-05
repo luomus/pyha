@@ -1,6 +1,6 @@
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.conf import settings
-from config.timers import *
+from django.views.generic import RedirectView
 from pyha.views import api, index, requestform, requestview, logout, ajax, usersettings
 
 app_name = 'pyha'
@@ -44,4 +44,8 @@ urlpatterns = [
     url(r'^freezeRequest/?$', requestview.freeze, name='freeze'),
     url(r'^refreshCollectionsCache/?$', requestview.refresh_collections_cache, name='refresh_collections_cache'),
     url(r'^lang/?$', logout.change_lang, name='set_language'),
+    url(r'^handler-manual.pdf$', RedirectView.as_view(
+        url='https://cdn.laji.fi/files/pyha/Aineistopyyntöjärjestelmä_ohje_käsittelijoille_2022.pdf',
+        permanent=False
+    ), name='handler_manual')
 ]

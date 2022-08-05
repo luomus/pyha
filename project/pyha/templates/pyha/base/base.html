@@ -118,7 +118,7 @@
 					</div>
 				</li>
 				{% if request.session.current_user_role == 'handler' or request.session.current_user_role == 'admin' %}
-		        <li><a href="https://cdn.laji.fi/files/pyha/Aineistopyyntöjärjestelmä_ohje_käsittelijoille_2022.pdf" target="_blank">{% trans "manual" %} <span class="glyphicon glyphicon-question-sign"></span></a></li>
+		        <li><a href="{% url 'pyha:handler_manual' %}" target="_blank">{% trans "manual" %} <span class="glyphicon glyphicon-question-sign"></span></a></li>
 				{% endif %}
 		        </ul>
 		      {% endif %}
