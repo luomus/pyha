@@ -1,6 +1,7 @@
 # coding=utf-8
 from argparse import Namespace
 from datetime import datetime
+from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 from django.conf import settings
 from django.core.cache import cache, caches
 from django.utils.translation import ugettext
@@ -496,4 +497,32 @@ def get_filter_link(http_request, userRequest, role):
         parsed_data = json.loads(data, object_hook=lambda d: Namespace(**d))
     except JSONDecodeError:
         return None
-    return getattr(parsed_data, lang, None)
+
+    link = getattr(parsed_data, lang, None)
+    return update_collection_in_filter_link(link, userRequest)
+
+
+def update_collection_in_filter_link(link, user_request):
+    removed_collections = Collection.objects.filter(request=user_request.id, status=Col_StatusEnum.DISCARDED)
+    removed_collection_ids = [c.address for c in removed_collections]
+
+    if len(removed_collection_ids) > 0:
+        parsed_link = urlparse(link)
+        qs = dict(parse_qs(parsed_link.query))
+
+        if 'collectionId' in qs:
+            collection_ids = str(qs['collectionId'][0]).split(',')
+            collection_ids = [c for c in collection_ids if c not in removed_collection_ids]
+            qs['collectionId'] = [','.join(collection_ids)]
+
+        filtered_collection_ids = []
+        if 'collectionIdNot' in qs:
+            filtered_collection_ids = str(qs['collectionIdNot'][0]).split(',')
+        filtered_collection_ids += removed_collection_ids
+        qs['collectionIdNot'] = [','.join(set(filtered_collection_ids))]
+
+        qs = urlencode(qs, True)
+        parsed_link = parsed_link._replace(query=qs)
+        link = urlunparse(parsed_link)
+
+    return link
