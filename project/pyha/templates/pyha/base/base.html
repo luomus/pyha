@@ -126,15 +126,18 @@
 		   </div>
 
 		</nav>
-	  	{% if toast %}
-	  		{% if toast.status == 'error' %}
-	  			<div id="toastbox" class="error"><span class="glyphicon glyphicon-remove large-thin-glyphicon-error toast-glyphicon"> </span>{{ toast.message }}</div>
-	  		{% elif toast.status == 'positive' %}
-	  			<div id="toastbox" class="positive"><span class="glyphicon glyphicon-ok large-thin-glyphicon-positive toast-glyphicon"> </span>{{ toast.message }}</div>
-	  		{% else %}
-	  			<div id="toastbox" class="info"><span class="glyphicon glyphicon-info-sign large-thin-glyphicon-info toast-glyphicon"> </span>{{ toast.message }}</div>
-	  		{% endif %}
-	  	{% endif %}
+		<div id="toastbox_error" class="toastbox error">
+			<span class="glyphicon glyphicon-remove large-thin-glyphicon-error toast-glyphicon"> </span>
+			<span id="toastbox_error_msg"></span>
+		</div>
+		<div id="toastbox_positive" class="toastbox positive">
+			<span class="glyphicon glyphicon-ok large-thin-glyphicon-positive toast-glyphicon"> </span>
+			<span id="toastbox_positive_msg"></span>
+		</div>
+		<div id="toastbox_info" class="toastbox info">
+			<span class="glyphicon glyphicon-info-sign large-thin-glyphicon-info toast-glyphicon"> </span>
+			<span id="toastbox_info_msg"></span>
+		</div>
 		{% block content %}
 		{% endblock %}
 		<!-- Bootstrap core JavaScript
@@ -190,20 +193,24 @@
 			document.getElementById("role_form").submit()
 		}
 
-		function showToast() {
-			var message = document.getElementById("toastbox");
-			setTimeout(function(){ message.classList.add("show");}, 1000);
-		    setTimeout(function(){ message.classList.remove("show");}, 7000);
+		function showToast(msg, type) {
+			var toastBoxMsg = document.getElementById("toastbox_" + type + "_msg");
+			toastBoxMsg.innerText = msg;
+			var toastBox = document.getElementById("toastbox_" + type);
+			setTimeout(function(){ toastBox.classList.add("show");}, 1000);
+		    setTimeout(function(){ toastBox.classList.remove("show");}, 7000);
 		}
 
-
+		function showGenericErrorToast() {
+			showToast("{% trans 'generic_error' %}", "error");
+		}
 
 		</script>
 
 		{% if toast %}
 		<script>
 			$(document).ready(function(){
-				showToast();
+				showToast("{{ toast.message }}", "{{ toast.status }}");
 			});
 		</script>
 		{% endif %}

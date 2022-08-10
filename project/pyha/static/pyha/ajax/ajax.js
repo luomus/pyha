@@ -9,6 +9,8 @@
 					get_request_header();
 				} else if(this.status == 310){
 					window.location = this.responseText;
+				} else {
+				    showGenericErrorToast();
 				}
 			}
 		};
@@ -29,6 +31,8 @@
 					on_success();
 				} else if(this.status == 310){
 					window.location = this.responseText;
+				} else {
+				    showGenericErrorToast();
 				}
 			}
 		};
@@ -48,6 +52,8 @@
 					document.getElementById("collectiontable").innerHTML = this.responseText;
 				} else if(this.status == 310){
 					window.location = this.responseText;
+				} else {
+				    showGenericErrorToast();
 				}
 			}
 		};
@@ -68,6 +74,8 @@
 				checkHasDescription();
 			} else if(this.status == 310){
 				window.location = this.responseText;
+			} else {
+		        showGenericErrorToast();
 			}
 		}
 	};
@@ -89,6 +97,8 @@
 				}
 			} else if(this.status == 310){
 				window.location = this.responseText;
+			} else {
+		        showGenericErrorToast();
 			}
 		}
 	};
@@ -139,6 +149,8 @@
 				document.getElementById("contact_tab_button_"+id).click();
 			} else if(this.status == 310){
 				window.location = this.responseText;
+			} else {
+			    showGenericErrorToast();
 			}
 		}
 	};

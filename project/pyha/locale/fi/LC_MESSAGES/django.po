@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 15:26+0300\n"
+"POT-Creation-Date: 2022-08-10 11:47+0300\n"
 "PO-Revision-Date: 2022-06-25 21:29\n"
 "Last-Translator: \n"
 "Language-Team: Finnish\n"
@@ -70,29 +70,29 @@ msgstr "Aineistopyyntösi {time} käsittelyn tila"
 msgid "mail_collections_missing_handlers_subject"
 msgstr "Aineistoista puuttuu käsittelijöitä – Collections are missing handlers"
 
-#: pyha/email.py:145 pyha/email.py:162
+#: pyha/email.py:146 pyha/email.py:163
 msgid "mail_for_approval_subject"
 msgstr ""
 "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new "
 "data request"
 
-#: pyha/email.py:179
+#: pyha/email.py:180
 msgid "mail_after_additional_information_received_subject"
 msgstr ""
 "Lisätietopyyntöösi on vastattu – Your request for more information has been "
 "answered"
 
-#: pyha/email.py:205
+#: pyha/email.py:206
 msgid "mail_for_unchecked_requests_subject"
 msgstr ""
 "Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data "
 "requests in FinBIF"
 
-#: pyha/email.py:222
+#: pyha/email.py:223
 msgid "mail_admin_after_request_approval_subject"
 msgstr "Uusi aineistopyyntö: {time} – New data request: {time}"
 
-#: pyha/email.py:239
+#: pyha/email.py:240
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
 msgstr ""
 "Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing "
@@ -273,9 +273,13 @@ msgstr "På svenska"
 msgid "set_lang_en"
 msgstr "In English"
 
-#: pyha/templates/pyha/base/base.html:120
+#: pyha/templates/pyha/base/base.html:121
 msgid "manual"
 msgstr "Ohjeet"
+
+#: pyha/templates/pyha/base/base.html:205
+msgid "generic_error"
+msgstr "Odottamaton virhe tapahtui. Yritä hetken kuluttua uudestaan."
 
 #: pyha/templates/pyha/base/index.html:11
 msgid "welcome"
@@ -451,7 +455,7 @@ msgstr "Havaintojen määrä"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:15
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:443
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:445
 msgid "secured_by_quarantine"
 msgstr "Käyttörajoitetut tutkimusaineistot"
 
@@ -465,7 +469,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:448
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:450
 msgid "secured_by_sensitivity"
 msgstr "Sensitiivinen aineisto"
 
@@ -480,7 +484,7 @@ msgstr ""
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:453
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:455
 msgid "secured_by_data_provider"
 msgstr "Käyttörajoitetut aineistot"
 

@@ -836,7 +836,7 @@ h3{
 	display: inline-block;
 }
 
-#toastbox {
+.toastbox {
 	visibility: hidden;
 	min-width: 250px;
 	box-shadow: 0 0 12px #999;
@@ -853,19 +853,19 @@ h3{
 	border-radius: 3px;
 }
 
-#toastbox.info {
+.toastbox.info {
 	background-color: #00abfd;
 }
 
-#toastbox.positive {
+.toastbox.positive {
 	background-color: #51a351;
 }
 
-#toastbox.error {
+.toastbox.error {
 	background-color: #c94e4e;
 }
 
-#toastbox.show {
+.toastbox.show {
     visibility: visible;
    -webkit-animation: fadein 0.5s, fadeout 1s 5s;
    animation: fadein 0.5s, fadeout 1s 5s;
