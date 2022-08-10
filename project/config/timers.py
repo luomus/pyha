@@ -6,6 +6,7 @@ from pyha.management.commands.timed_email import Command as TimedEmailCommand
 from pyha.management.commands.timed_email_to_requesters import Command as TimedEmailToRequestersCommand
 from pyha.management.commands.missing_handlers_email import Command as MissingHandlersCommand
 from pyha.management.commands.decline_overdue_collections import Command as DeclineOverDueCollectionsCommand
+from pyha.management.commands.check_failed_requests import Command as CheckFailedRequestsCommand
 from pyha.models import AdminPyhaSettings
 
 
@@ -45,6 +46,12 @@ def decline_overdue_collections():
             connection.close()
 
 
+def check_failed_download_requests():
+    c = CheckFailedRequestsCommand()
+    c.handle()
+    connection.close()
+
+
 def run_threaded(job_func):
     job_thread = Thread(target=job_func)
     job_thread.start()
@@ -68,6 +75,8 @@ def scheduler():
     schedule.every().sunday.at("11:22").do(run_threaded, timed_email_to_requesters)
 
     schedule.every().tuesday.at("11:22").do(run_threaded, missing_handlers_email)
+
+    schedule.every(30).minutes.do(run_threaded, check_failed_download_requests)
     # For schedule function usage:
     # ---- https://schedule.readthedocs.io/en/stable/index.html ----
 

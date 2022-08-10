@@ -7,7 +7,7 @@ from django.core.cache import cache, caches
 from django.utils.translation import ugettext
 from itertools import chain
 from requests.auth import HTTPBasicAuth
-from pyha.models import Request, Collection, StatusEnum, Col_StatusEnum, HandlerInRequest
+from pyha.models import Request, Collection, Col_StatusEnum, HandlerInRequest
 from pyha.log_utils import changed_by
 from pyha.utilities import Container
 from pyha.roles import HANDLER_ANY, ADMIN
@@ -289,6 +289,7 @@ def send_download_request(requestId):
 
     response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved",
                              data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+    return response.ok
 
 
 def update_collections():

@@ -7,13 +7,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status, is_downloadable
+from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status, try_to_send_download_request
 from pyha.email import send_mail_after_additional_information_requested, send_mail_after_additional_information_received, send_raw_mail
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
-from pyha.models import HandlerInRequest, RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, Col_StatusEnum, File
-from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, ADMIN, CAT_ADMIN, USER
-from pyha.warehouse import send_download_request, update_collections
+from pyha.models import HandlerInRequest, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, File
+from pyha.roles import ADMIN, USER
+from pyha.warehouse import update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 import PyPDF2
@@ -84,7 +84,7 @@ def initialize_download(http_request):
             return HttpResponseRedirect(reverse('pyha:root'))
         if(not userRequest.frozen or ADMIN in http_request.session["current_user_role"]):
             if (userRequest.status == 4 or userRequest.status == 2 or contains_approved_collection(requestId)):
-                send_download_request(requestId)
+                try_to_send_download_request(userRequest)
                 userRequest.status = 7
                 userRequest.changedBy = changed_by_session_user(http_request)
                 userRequest.save()

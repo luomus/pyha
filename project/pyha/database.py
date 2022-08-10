@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
 from pyha.login import logged_in, _process_auth_response, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
-    Col_StatusEnum, RequestSentStatusEmail
+    Col_StatusEnum, RequestSentStatusEmail, FailedDownloadRequest
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
 from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link
 from pyha.log_utils import changed_by_session_user, changed_by
@@ -175,7 +175,7 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
         if wantedRequest.status != StatusEnum.WAITING_FOR_INFORMATION:
             wantedRequest.status = StatusEnum.WAITING
     elif accepted > 0:
-        send_download_request(wantedRequest.id)
+        try_to_send_download_request(wantedRequest)
         wantedRequest.status = StatusEnum.WAITING_FOR_DOWNLOAD
     elif declined > 0:
         wantedRequest.status = StatusEnum.REJECTED
@@ -186,6 +186,12 @@ def ignore_official_database_update_request_status(wantedRequest, lang):
         wantedRequest.changedBy = changed_by("pyha")
         wantedRequest.save()
         emailsOnUpdate(pending, wantedRequest, lang)
+
+
+def try_to_send_download_request(user_request):
+    success = send_download_request(user_request.id)
+    if not success:
+        create_new_failed_download_request(user_request)
 
 
 def get_collection_status_counts(request_id):
@@ -639,3 +645,13 @@ def get_latest_request_sent_status_email(requestId):
 def save_request_sent_status_email(request, accepted, declined, pending):
     RequestSentStatusEmail.objects.create(request=request, accepted_count=accepted,
                                           declined_count=declined, pending_count=pending)
+
+
+def create_new_failed_download_request(user_request):
+    failed_request = FailedDownloadRequest()
+    failed_request.request = user_request
+    failed_request.save()
+
+
+def get_failed_download_requests():
+    return FailedDownloadRequest.objects.all().order_by('date')

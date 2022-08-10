@@ -328,6 +328,16 @@ class AdminPyhaSettings(models.Model):
         return 'AdminSettings: %s ' % (self.settingsName)
 
 
+class FailedDownloadRequest(models.Model):
+    request = models.ForeignKey(Request, on_delete=models.CASCADE)
+    nbr_of_tries = models.IntegerField(default=1)
+    date = models.DateTimeField(auto_now_add=True)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return 'FailedDownloadRequest: %s ' % self.request
+
+
 def enum(*sequential, **named):
     enums = dict(zip(sequential, range(len(sequential))), **named)
     return type(str('Enum'), (), enums)
