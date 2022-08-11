@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<div class="form-style-10">
+    <p>{% trans 'required_fields_indicated_with_sign' %}</p>
+    <div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
+    <div class="inner-wrap">
+        <label>{% trans 'enter_full_name' %} *<input type="text" maxlength="100" id="request_person_name_{{contact_id}}" name="request_person_name_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonName }}{% else %}{{ request_owner }}{% endif %}"></label>
+        <label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_street_address_{{contact_id}}" name="request_person_street_address_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonStreetAddress }}{% endif %}"/></label>
+        <label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_postal_code_{{contact_id}}" name="request_person_postal_code_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonPostalCode }}{% endif %}"/></label>
+        <label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_post_office_name_{{contact_id}}" name="request_person_post_office_name_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonPostOfficeName }}{% endif %}"/></label>
+        <label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_country_{{contact_id}}" name="request_person_country_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonCountry }}{% else %}Suomi{% endif %}"/></label>
+    </div>
+
+    <div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
+    <div class="inner-wrap">
+        <label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" maxlength="100" id="request_person_email_{{contact_id}}" name="request_person_email_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonEmail }}{% else %}{{ request_owners_email }}{% endif %}"/></label>
+        <label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_phone_number_{{contact_id}}" name="request_person_phone_number_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonPhoneNumber }}{% endif %}"/></label>
+    </div>
+
+    <div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
+    <div class="inner-wrap">
+        <label>{% trans "enter_corporation/organization_name" %}<input type="text" maxlength="100" id="request_person_organization_name_{{contact_id}}" name="request_person_organization_name_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonOrganizationName }}{% endif %}"/></label>
+        <label>{% trans "enter_corporation_id" %}<input type="text" maxlength="100" id="request_person_corporation_id_{{contact_id}}" name="request_person_corporation_id_{{contact_id}}" value="{% if contactPreset %}{{ contactPreset.requestPersonCorporationId }}{% endif %}"/></label>
+    </div>
+</div>

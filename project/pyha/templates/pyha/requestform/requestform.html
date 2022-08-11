@@ -80,74 +80,30 @@
 										<h3 style="color:#2980B9">{% trans 'contact_list'%}</h3>
 										<div id="contacts_content" class="tab-content col-md-12">
 											<ul id="contact_list" class="vertical col-md-2">
-											<p style="color:#2980B9;align:center;">{% trans 'main_contact'%}</p>
-											<li id="contact_tab1" class="active vertical-li">
-												<a id="contact_tab_button_1" href="#contact1" class="request-tab" data-toggle="tab" aria-controls="contact1" role="tab">
-													<span id="contact_tab_text_1">{% if contactPreset %}{{contactPreset.requestPersonName}}{% else %}{{request_owner}}{% endif %}</span>
-												</a>
-											</li>
-											<p style="color:#2980B9;align:center;">{% trans 'additional_contacts'%}</p>
-											<li id="add_contact_tab">
-												<a id="add_contact_link" href="javascript:addContact(2)" class="request-tab">
-													<span>
-														{% trans 'add_new_contact' %}<i class="glyphicon glyphicon-plus"></i>
-													</span>
-												</a>
-											</li>
-											<li id="remove_contact_tab" hidden>
-												<a id="remove_contact_link" href="javascript:removeContact(2)" class="request-tab">
-													<span>
-														{% trans 'remove_last_contact' %}<i class="glyphicon glyphicon-minus"></i>
-													</span>
-												</a>
-											</li>
+												<p style="color:#2980B9;align:center;">{% trans 'main_contact'%}</p>
+												<li id="contact_tab1" class="active vertical-li">
+													<a id="contact_tab_button_1" href="#contact1" class="request-tab" data-toggle="tab" aria-controls="contact1" role="tab">
+														<span id="contact_tab_text_1">{% if contactPreset %}{{contactPreset.requestPersonName}}{% else %}{{request_owner}}{% endif %}</span>
+													</a>
+												</li>
+												<p style="color:#2980B9;align:center;">{% trans 'additional_contacts'%}</p>
+												<li id="add_contact_tab">
+													<a id="add_contact_link" href="javascript:addContact(2)" class="request-tab">
+																							<span>
+																								{% trans 'add_new_contact' %}<i class="glyphicon glyphicon-plus"></i>
+																							</span>
+													</a>
+												</li>
+												<li id="remove_contact_tab" hidden>
+													<a id="remove_contact_link" href="javascript:removeContact(2)" class="request-tab">
+																							<span>
+																								{% trans 'remove_last_contact' %}<i class="glyphicon glyphicon-minus"></i>
+																							</span>
+													</a>
+												</li>
 											</ul>
-											<div id="contact1" class="tab-pane active contact-form col-md-10" role="tabpanel">
-												<div class="form-style-10">
-													<p>{% trans 'required_fields_indicated_with_sign' %}</p>
-													<div class="section"><span>1</span>{% trans 'enter_name_and_address' %}</div>
-													{% if contactPreset %}
-													<div class="inner-wrap">
-														<label>{% trans 'enter_full_name' %} *<input type="text" maxlength="100" id="request_person_name_1" name="request_person_name_1" value="{{contactPreset.requestPersonName}}"/></label>
-														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_street_address_1" name="request_person_street_address_1" value="{{contactPreset.requestPersonStreetAddress}}"/></label>
-														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_postal_code_1" name="request_person_postal_code_1" value="{{contactPreset.requestPersonPostalCode}}"/></label>
-														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_post_office_name_1" name="request_person_post_office_name_1" value="{{contactPreset.requestPersonPostOfficeName}}"/></label>
-														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_country_1" name="request_person_country_1" value="{{contactPreset.requestPersonCountry}}"/></label>
-													</div>
-
-													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
-													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" maxlength="100" id="request_person_email_1" name="request_person_email_1" value="{{contactPreset.requestPersonEmail}}"/></label>
-														<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_phone_number_1" name="request_person_phone_number_1" value="{{contactPreset.requestPersonPhoneNumber}}"/></label>
-													</div>
-
-													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
-														<div class="inner-wrap">
-														<label>{% trans "enter_corporation/organization_name" %}<input type="text" maxlength="100" id="request_person_organization_name_1" name="request_person_organization_name_1" value="{{contactPreset.requestPersonOrganizationName}}"/></label>
-														<label>{% trans "enter_corporation_id" %}<input type="text" maxlength="100" id="request_person_corporation_id_1" name="request_person_corporation_id_1" value="{{contactPreset.requestPersonCorporationId}}"/></label>
-													</div>
-													{% else %}
-													<div class="inner-wrap">
-														<label>{% trans 'enter_full_name' %} *<input type="text" maxlength="100" id="request_person_name_1" name="request_person_name_1" value="{{request_owner}}"></input></label>
-														<label>{% trans "enter_street_address" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_street_address_1" name="request_person_street_address_1"/></label>
-														<label>{% trans "enter_postal_code" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" name="request_person_postal_code_1" id="request_person_postal_code_1"/></label>
-														<label>{% trans "enter_post_office_name" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_post_office_name_1" name="request_person_post_office_name_1"/></label>
-														<label>{% trans "enter_country" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_country_1" name="request_person_country_1" value="Suomi"/></label>
-													</div>
-
-													<div class="section"><span>2</span>{% trans 'enter_email_and_phone' %}</div>
-													<div class="inner-wrap">
-														<label>{% trans 'enter_email' %} *<input onkeyup="contactsFilled();" type="email" maxlength="100" id="request_person_email_1" name="request_person_email_1" value="{{request_owners_email}}"/></label>
-														<label>{% trans "enter_phone_number" %} *<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_phone_number_1" name="request_person_phone_number_1"/></label>
-													</div>
-
-													<div class="section"><span>3</span>{% trans 'enter_corporation/organization' %}</div>
-														<div class="inner-wrap">
-														<label>{% trans "enter_corporation/organization_name" %}<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_organization_name_1" name="request_person_organization_name_1" /></label>
-														<label>{% trans "enter_corporation_id" %}<input onkeyup="contactsFilled();" type="text" maxlength="100" id="request_person_corporation_id_1" name="request_person_corporation_id_1" /></label>
-													</div>
-													{% endif %}
-												</div>
+											<div id="contact{{contact_id}}" class="tab-pane active contact-form col-md-10" role="tabpanel">
+											{% include "pyha/requestform/tabs/contact_person.html" with contact_id=1 %}
 											</div>
 											<span id="contacts_content_end" hidden></span>
 										</div>
@@ -156,75 +112,7 @@
 										</ul>
 									</div>
 									<div class="tab-pane" role="tabpanel" id="step2">
-										<div class="form-style-10">
-												<div class="section"><span>1</span>{% trans "request_arguments_for_user" %}</div>
-												<div class="inner-wrap">
-													<select multiple="multiple" id="reason_selector" name="argument_choices" onchange="updateReason();" style="width:400px;">
-														<option value="reason_zoning">{% trans "reason_zoning" %}</option>
-														<option value="reason_permission">{% trans "reason_permission" %}</option>
-														<option value="reason_enviromental">{% trans "reason_enviromental" %}</option>
-														<option value="reason_natura">{% trans "reason_natura" %}</option>
-														<option value="reason_scientific">{% trans "reason_scientific" %}</option>
-														<option value="reason_forest">{% trans "reason_forest" %}</option>
-														<option value="reason_other">{% trans "reason_other" %}</option>
-													</select>
-												</div>
-												<div>
-													<div class="section"><span>2</span>{% trans "request_usage" %}</div>
-													<div class="inner-wrap">
-														<select id="usage_selector" name="usage_selector" style="width:400px;">
-															<option value="{{ download_types.standard }}">{% trans "usage_download" %}</option>
-															<option value="{{ download_types.api_key }}">{% trans "usage_apikey" %}</option>
-														</select>
-														<div id="expiration_section" style="margin-top: 15px; display: none">
-															<label for="expiration_selector" style="margin-bottom: 0">{% trans 'expiration_choose_label' %}</label>
-															<select id="expiration_selector" name="expiration_selector" style="width:400px;">
-																<option value="{{ api_key_expires_options.three_months }}">{% trans "expiration_three_months" %}<br><b>*</b>
-																<option value="{{ api_key_expires_options.year }}">{% trans "expiration_one_year" %}</option>
-															</select>
-															<div class="footnote">
-																<b>*</b> {% trans "expiration_three_months_note" %}</option>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div id="additional_information" hidden=true>
-													<div class="section"><span>3</span>{% trans 'additional_information' %}</div>
-													<p>{% trans 'additional_information_info' %}</p>
-													<div class="inner-wrap">
-														<div hidden=true id="argument_project">
-														<label id="argument_project_label">{% trans 'argument_project' %} * <textarea id="project" name="argument_project" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_planning">
-														<label id="argument_planning_label">{% trans 'argument_planning' %} * <textarea id="planning" name="argument_planning" maxlength="2000" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_municipality">
-														<label id="argument_municipality_label">{% trans 'argument_municipality' %} * <textarea id="municipality" name="argument_municipality" maxlength="2000" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_natura_areas">
-														<label id="argument_natura_areas_label">{% trans 'argument_natura_areas' %} * <textarea id="natura_areas" name="argument_natura_areas" maxlength="2000" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_research">
-														<label id="argument_research_label">{% trans 'argument_research' %} * <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_research_address">
-														<label id="argument_research_address_label">{% trans 'argument_research_address' %} * <textarea id="research_address"  name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_goals">
-														<label id="argument_goals_label">{% trans 'argument_goals' %} * <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_customer">
-														<label id="argument_customer_label">{% trans 'argument_customer' %} * <textarea id="customer" name="argument_customer" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_customer_contact">
-														<label id="argument_customer_contact_label">{% trans 'argument_customer_contact' %} * <textarea id="customer_contact" name="argument_customer_contact" maxlength="500" disabled hidden placeholder=""></textarea></label>
-														</div>
-														<div hidden=true id="argument_reason">
-														<label id="argument_reason_label">{% trans 'argument_reason' %} <textarea id="reason" name="argument_reason" maxlength="4000" disabled hidden placeholder=""></textarea></label>
-														</div>
-													</div>
-												</div>
-										</div>
+										{% include "pyha/requestform/tabs/reasons.html" %}
 										<ul class="list-inline pull-right">
 											<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
 											<li><button id="to_step_3" type="button" class="btn btn-primary btn-info-full next-step" disabled=true>{% trans 'continue_to_step_3' %}</button></li>
