@@ -7,10 +7,11 @@ from pyha.roles import USER
 from pyha.test.mocks import *
 import unittest
 import mock
+from argparse import Namespace
 
 
 def dummy(*args, **kwargs):
-    return True
+    return Namespace(ok=True)
 
 
 class RequestTesting(TestCase):
