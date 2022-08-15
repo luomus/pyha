@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Request summary pdf</title>
+    <link rel="stylesheet" href="https://cdn.laji.fi/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+    <style>
+        @page {
+            size: 210mm 297mm;
+            margin: 10mm;
+        }
+
+        .page {
+            width: 190mm !important;
+        }
+        .page-section {
+            margin-top: 10mm;
+        }
+        .no-page-break {
+            break-inside: avoid;
+        }
+
+        h3 {
+            color:#2980B9 !important;
+        }
+
+        .table {
+            table-layout: fixed;
+            font-size: 10px;
+        }
+        .table td {
+            overflow-wrap: break-word;
+        }
+
+        .collection-table td:last-child {
+           white-space: break-spaces !important;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <h1>{% trans 'request_summary_for_handlers' %} {{ user_request.id }}</h1>
+    <h2>{{ user_request.date|date:"d.m.Y H:i" }}</h2>
+    <div class="page-section no-page-break">
+        <h3>{% trans 'contact_window' %}</h3>
+        {% include 'pyha/common/contact_table.html' %}
+    </div>
+    <div class="page-section no-page-break">
+        <h3>{% trans 'argument_window' %}</h3>
+        {% include 'pyha/common/argument_table.html' %}
+    </div>
+    <div class="page-section no-page-break">
+        <h3>{% trans 'filter_window' %}</h3>
+        <p>{% trans 'filter_window_description' %}</p>
+        {% include 'pyha/common/filter_table.html' %}
+    </div>
+    <div class="page-section">
+        <h3>{% trans 'restricted' %}</h3>
+        {% include 'pyha/common/collection_table.html' with hide_metadata_link=True %}
+    </div>
+</div>
+</body>
+</html>

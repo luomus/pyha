@@ -2,22 +2,4 @@
 
 <h3>{% trans "filter_window" %}</h3>
 <p>{% trans "filter_window_description" %}</p>
-{% if filters %}
-  {% if filter_link %}
-  <a style="padding-left:8px;" target="_blank" href="{{ filter_link }}">{% if role == 'handler' or role == 'admin' %}{% trans "handler_show_in_officials_portal" %}{% else %}{% trans "show_in_portal" %}{% endif %}</a>
-  {% endif %}
-  <table class="table" style="width:100%">
-    <tr style=color:black>
-      <th>{% trans "filter" %}</th>
-      <th>{% trans "values" %}</th>
-    </tr>
-    {% for filter in filters %}
-    <tr>
-      <td>{{ filter.label }}</td>
-      <td>{{ filter.value }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-{% else %}
-  <strong>{% trans "no_filters" %}.</strong>
-{% endif %}
+{% include 'pyha/common/filter_table.html' %}

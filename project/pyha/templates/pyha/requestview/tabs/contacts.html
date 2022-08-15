@@ -2,32 +2,7 @@
 
 <h3>{% trans "contact_window" %}</h3>
 <p>{% trans "contact_window_description" %}</p>
-<table class="table" style="width:100%">
-  <tr style=color:black>
-    <th>{% trans "full_name" %}</th>
-    <th>{% trans "street_address" %}</th>
-    <th>{% trans "postal_code" %}</th>
-    <th>{% trans "post_office_name" %}</th>
-    <th>{% trans "country" %}</th>
-    <th>{% trans "email" %}</th>
-    <th>{% trans "phone_number" %}</th>
-    <th>{% trans "corporation/organization_name" %}</th>
-    <th>{% trans "corporation_id" %}</th>
-  </tr>
-    {% for contact in contactlist %}
-  <tr>
-    <td>{{contact.personName}}</td>
-    <td>{{contact.personStreetAddress}}</td>
-    <td>{{contact.personPostalCode}}</td>
-    <td>{{contact.personPostOfficeName}}</td>
-    <td>{{contact.personCountry}}</td>
-    <td>{{contact.personEmail}}</td>
-    <td>{{contact.personPhoneNumber}}</td>
-    <td>{{contact.personOrganizationName}}</td>
-    <td>{{contact.personCorporationId}}</td>
-  </tr>
-    {% endfor %}
-</table>
+{% include 'pyha/common/contact_table.html' %}
 
 <button type="button" class="btn btn-default btn-sm" required data-toggle="modal" data-target="#myModalsens">{% trans "terms" %}</button>
 <div class="modal fade" id="myModalsens" tabindex="-1" role="dialog" aria-labelledby="sensiModalLabel">

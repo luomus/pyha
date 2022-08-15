@@ -1,0 +1,29 @@
+{% load i18n %}
+{% load pyha_tags %}
+
+<table class="table" style="width:100%">
+  <tr style=color:black>
+    <th>{% trans "full_name" %}</th>
+    <th>{% trans "street_address" %}</th>
+    <th>{% trans "postal_code" %}</th>
+    <th>{% trans "post_office_name" %}</th>
+    <th>{% trans "country" %}</th>
+    <th>{% trans "email" %}</th>
+    <th>{% trans "phone_number" %}</th>
+    <th>{{ "corporation/organization_name"|translateAndAddWordBreaks }}</th>
+    <th>{% trans "corporation_id" %}</th>
+  </tr>
+    {% for contact in contactlist %}
+  <tr>
+    <td>{{contact.personName}}</td>
+    <td>{{contact.personStreetAddress}}</td>
+    <td>{{contact.personPostalCode}}</td>
+    <td>{{contact.personPostOfficeName}}</td>
+    <td>{{contact.personCountry}}</td>
+    <td>{{contact.personEmail}}</td>
+    <td>{{contact.personPhoneNumber}}</td>
+    <td>{{contact.personOrganizationName}}</td>
+    <td>{{contact.personCorporationId}}</td>
+  </tr>
+    {% endfor %}
+</table>
