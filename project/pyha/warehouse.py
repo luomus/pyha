@@ -102,26 +102,26 @@ def makeblob(x):
     return blob
 
 
-def get_values_for_collections(requestId, http_request, list):
+def get_values_for_collections(requestId, lang, list):
     for i, c in enumerate(list):
-        if 'has expired' in cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
+        if 'has expired' in cache.get(str(c.address)+'collection_values'+lang, 'has expired'):
             try:
-                c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + http_request.LANGUAGE_CODE +
+                c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + lang +
                                         "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
             except:
-                c.result = cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE)
+                c.result = cache.get(str(c.address)+'collection_values'+lang)
                 c.result["collectionName"] = c.result.get("collectionName", c.address)
                 c.result["description"] = c.result.get("description", "-")
                 c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
                 c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
                 return
-            cache.set(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE, c.result)
+            cache.set(str(c.address)+'collection_values'+lang, c.result)
             c.result["collectionName"] = c.result.get("collectionName", c.address)
             c.result["description"] = c.result.get("description", "-")
             c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
             c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
         else:
-            c.result = cache.get(str(c.address)+'collection_values'+http_request.LANGUAGE_CODE)
+            c.result = cache.get(str(c.address)+'collection_values'+lang)
             c.result["collectionName"] = c.result.get("collectionName", c.address)
             c.result["description"] = c.result.get("description", "-")
             c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
@@ -471,14 +471,13 @@ def get_collection_count_sum(collection):
     return sum
 
 
-def show_filters(http_request, userRequest):
+def show_filters(userRequest, lang):
     '''
     Gathers all the names for the filters if available from Laji.api and reforms them into an usable list object.
     Also contains them in a cache to lessen the laji.api strain.
     :param request: request identifier
     :param userRequest: language code
     '''
-    lang = http_request.LANGUAGE_CODE
     try:
         filterDescriptionList = json.loads(userRequest.filter_description_list, object_hook=lambda d: Namespace(**d))
     except JSONDecodeError:

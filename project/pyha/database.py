@@ -54,14 +54,12 @@ def withdraw_request(request, http_request):
         request.save()
 
 
-def create_collections_for_lists(requestId, http_request, collectionList, userRequest, userId):
-    collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
-    get_values_for_collections(requestId, http_request, collectionList)
-
-
-def create_collection_for_list(http_request, collectionList, userRequest):
-    collectionList += Collection.objects.filter(request=userRequest.id, status__gte=0)
-    get_values_for_collections(userRequest.id, http_request, collectionList)
+def get_collection_list(userRequest, lang):
+    collection_list = Collection.objects.filter(request=userRequest.id, status__gte=0)
+    get_values_for_collections(userRequest.id, lang, collection_list)
+    for collection in collection_list:
+        collection.counts = get_collection_counts(collection, lang)
+    return collection_list
 
 
 def check_all_collections_removed(requestId):
@@ -264,14 +262,13 @@ def create_request_view_context(requestId, http_request, userRequest):
         toast = http_request.session["toast"]
         http_request.session["toast"] = None
         http_request.session.save()
-    collectionList = []
+
     userId = http_request.session["user_id"]
     role = http_request.session.get("current_user_role", USER)
     hasServiceRole = (role == HANDLER_ANY or role == ADMIN)
     lang = http_request.LANGUAGE_CODE
-    create_collections_for_lists(requestId, http_request, collectionList, userRequest, userId)
-    for collection in collectionList:
-        collection.counts = get_collection_counts(collection, http_request.LANGUAGE_CODE)
+
+    collectionList = get_collection_list(userRequest, http_request.LANGUAGE_CODE)
 
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)
@@ -281,7 +278,7 @@ def create_request_view_context(requestId, http_request, userRequest):
         "email": http_request.session["user_email"],
         "userRequest": userRequest,
         "gisDownloadDisabled": userRequest.approximateMatches > settings.GIS_DOWNLOAD_LIMIT,
-        "filters": show_filters(http_request, userRequest),
+        "filters": show_filters(userRequest, http_request.LANGUAGE_CODE),
         "collections": collectionList,
         "static": settings.STA_URL,
         "version": settings.VERSION,
@@ -398,7 +395,7 @@ def requestLog(http_request, requestId):
             collectionList.append(l.collection)
         l.email = fetch_email_address(l.user)
         l.name = fetch_user_name(l.user)
-    get_values_for_collections(requestId, http_request, collectionList)
+    get_values_for_collections(requestId, http_request.LANGUAGE_CODE, collectionList)
     for l in requestLog_list:
         if(l.collection):
             collectionList.append(l)
