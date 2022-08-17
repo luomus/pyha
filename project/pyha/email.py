@@ -138,7 +138,6 @@ def get_template_of_mail_for_approval(requestId, lang):
     '''
     with translation.override(lang):
         context = _get_request_context(requestId)
-        context['manual_link'] = '{}handler-manual.pdf'.format(settings.PYHA_URL)
 
         subject = ugettext('mail_for_approval_subject')
         text_content = _get_email_content('mail_for_approval', lang, context)
@@ -272,6 +271,7 @@ def _get_request_context(requestId):
         'req': req,
         'time': time,
         'req_link': '{}request/{}'.format(settings.PYHA_URL, str(req.id)),
-        'description_or_time': req.description if req.description != '' else time
+        'description_or_time': req.description if req.description != '' else time,
+        'manual_link': '{}handler-manual.pdf'.format(settings.PYHA_URL)
     }
     return context
