@@ -1,0 +1,71 @@
+{% load i18n %}
+
+<div class="form-style-10">
+    <div class="section"><span>1</span>{% trans "request_arguments_for_user" %}</div>
+    <div class="inner-wrap">
+        <select multiple="multiple" id="reason_selector" name="argument_choices" onchange="updateReason();" style="width:400px;">
+            <option value="reason_zoning">{% trans "reason_zoning" %}</option>
+            <option value="reason_permission">{% trans "reason_permission" %}</option>
+            <option value="reason_enviromental">{% trans "reason_enviromental" %}</option>
+            <option value="reason_natura">{% trans "reason_natura" %}</option>
+            <option value="reason_scientific">{% trans "reason_scientific" %}</option>
+            <option value="reason_forest">{% trans "reason_forest" %}</option>
+            <option value="reason_other">{% trans "reason_other" %}</option>
+        </select>
+    </div>
+    <div>
+        <div class="section"><span>2</span>{% trans "request_usage" %}</div>
+        <div class="inner-wrap">
+            <select id="usage_selector" name="usage_selector" style="width:400px;">
+                <option value="{{ download_types.standard }}">{% trans "usage_download" %}</option>
+                <option value="{{ download_types.api_key }}">{% trans "usage_apikey" %}</option>
+            </select>
+            <div id="expiration_section" style="margin-top: 15px; display: none">
+                <label for="expiration_selector" style="margin-bottom: 0">{% trans 'expiration_choose_label' %}</label>
+                <select id="expiration_selector" name="expiration_selector" style="width:400px;">
+                    <option value="{{ api_key_expires_options.three_months }}">{% trans "expiration_three_months" %}<br><b>*</b>
+                    <option value="{{ api_key_expires_options.year }}">{% trans "expiration_one_year" %}</option>
+                </select>
+                <div class="footnote">
+                    <b>*</b> {% trans "expiration_three_months_note" %}</option>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="additional_information" hidden=true>
+        <div class="section"><span>3</span>{% trans 'additional_information' %}</div>
+        <p>{% trans 'additional_information_info' %}</p>
+        <div class="inner-wrap">
+            <div hidden=true id="argument_project">
+                <label id="argument_project_label">{% trans 'argument_project' %} * <textarea id="project" name="argument_project" maxlength="500" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_planning">
+                <label id="argument_planning_label">{% trans 'argument_planning' %} * <textarea id="planning" name="argument_planning" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_municipality">
+                <label id="argument_municipality_label">{% trans 'argument_municipality' %} * <textarea id="municipality" name="argument_municipality" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_natura_areas">
+                <label id="argument_natura_areas_label">{% trans 'argument_natura_areas' %} * <textarea id="natura_areas" name="argument_natura_areas" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_research">
+                <label id="argument_research_label">{% trans 'argument_research' %} * <textarea id="research" name="argument_research" maxlength="500" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_research_address">
+                <label id="argument_research_address_label">{% trans 'argument_research_address' %} * <textarea id="research_address"  name="argument_research_address" maxlength="500" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_goals">
+                <label id="argument_goals_label">{% trans 'argument_goals' %} * <textarea id="goals" name="argument_goals" maxlength="2000" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_customer">
+                <label id="argument_customer_label">{% trans 'argument_customer' %} * <textarea id="customer" name="argument_customer" maxlength="500" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_customer_contact">
+                <label id="argument_customer_contact_label">{% trans 'argument_customer_contact' %} * <textarea id="customer_contact" name="argument_customer_contact" maxlength="500" disabled hidden placeholder=""></textarea></label>
+            </div>
+            <div hidden=true id="argument_reason">
+                <label id="argument_reason_label">{% trans 'argument_reason' %} <textarea id="reason" name="argument_reason" maxlength="4000" disabled hidden placeholder=""></textarea></label>
+            </div>
+        </div>
+    </div>
+</div>

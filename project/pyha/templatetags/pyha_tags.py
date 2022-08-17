@@ -1,7 +1,9 @@
 from django import template
 from django.utils.translation import gettext
 from pyha.models import Col_StatusEnum, StatusEnum
-from pyha.roles import USER, HANDLER_ANY, ADMIN
+from pyha.roles import HANDLER_ANY, ADMIN
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 import math
 
 register = template.Library()
@@ -10,6 +12,13 @@ register = template.Library()
 @register.filter(name='replaceCommaWithSpace')
 def replaceCommaWithSpace(text):
     return text.replace(',', ' ')
+
+
+@register.filter(name='translateAndAddWordBreaks')
+def translate_and_add_word_breaks(text):
+    translated_text = escape(gettext(text))
+    translated_text = translated_text.replace('/', '/<wbr>')
+    return mark_safe(translated_text)
 
 
 @register.simple_tag(name='collectionCounts')

@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load pyha_tags %}
+
+<table class="table collection-table">
+	<tr style=color:black>
+		<th>{% trans "collection_name" %}</th>
+		<th>{% trans "collection_description" %}</th>
+		<th>{% trans "collection_quality_description" %}</th>
+		<th>{% trans "collection_terms" %}</th>
+		<th>{% trans "collection_count" %}</th>
+	</tr>
+	{% for collection in collections %}
+	<tr>
+		<td>
+			{{collection.result.collectionName}}
+			{% if not hide_metadata_link %}
+			<small>[<a href="{{tun_link}}{{collection.address}}" target="_blank">{% trans 'to_metadata' %}</a>]</small>
+			{% endif %}
+		</td>
+		<td>{{collection.result.description}}</td>
+		<td>{{collection.result.qualityDescription}}</td>
+		<td>{{collection.result.collectionTerms}}</td>
+		<td style="white-space: pre">{% collectionCounts collection.counts role %}</td>
+	</tr>
+	{% endfor %}
+</table>

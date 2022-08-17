@@ -2,16 +2,13 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.core.mail import send_mail
-from django.template.loader import get_template
-from django.template import Context
+from django.core.mail import send_mail, EmailMessage
 from django.utils import translation
 from django.utils.translation import ugettext
-
-from pyha.models import Collection, Request
 from pyha.warehouse import fetch_email_address
-import requests
-from requests.auth import HTTPBasicAuth
+from django.template.loader import get_template
+from pyha.models import Request
+from django.utils.translation import ugettext
 
 
 def send_raw_mail(subject, sender, recipients, content):
@@ -152,6 +149,7 @@ def get_template_of_mail_for_approval(requestId, lang):
 
 
 def send_mail_about_new_request_to_handlers(requestId, users, lang='fi'):
+    from pyha.pdf_files import get_request_summary_pdf
     '''
     Sends email after the user has approved terms to handler(s)
     :param requestId: request identifier
@@ -165,7 +163,13 @@ def send_mail_about_new_request_to_handlers(requestId, users, lang='fi'):
         from_email = settings.ICT_EMAIL
         to = [fetch_email_address(userId) for userId in users]
 
-        mail = send_mail(subject, text_content, from_email, to, fail_silently=False)
+        summary_pdf = get_request_summary_pdf(requestId, lang)
+        summary_pdf_name = '{} {}.pdf'.format(ugettext('request_summary_for_handlers'), requestId)
+        summary_pdf_name = summary_pdf_name.replace(' ', '_')
+
+        email = EmailMessage(subject, text_content, from_email, to)
+        email.attach(summary_pdf_name, summary_pdf, 'application/pdf')
+        email.send(fail_silently=False)
 
 
 def send_mail_after_additional_information_received(requestId, users, lang='fi'):
