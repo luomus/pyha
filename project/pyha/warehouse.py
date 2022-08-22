@@ -160,13 +160,16 @@ def fetch_user_name(personId):
         except:
             response = Container()
             response.status_code = 500
-        if(response.status_code == 200):
+
+        if response.status_code == 200:
             data = response.json()
-            name = data['rdf:RDF']['MA.person']['MA.fullName']
-            cache.set('name'+cacheKeyPersonId, name)
-            return name
-        else:
-            return personId
+
+            if 'rdf:RDF' in data and 'MA.person' in data['rdf:RDF'] and 'MA.fullName' in data['rdf:RDF']['MA.person']:
+                name = data['rdf:RDF']['MA.person']['MA.fullName']
+                cache.set('name'+cacheKeyPersonId, name)
+                return name
+
+        return personId
     else:
         return cache.get('name'+cacheKeyPersonId)
 
@@ -238,17 +241,18 @@ def fetch_email_addresses(user_ids):
 
         if response.status_code == 200:
             data = response.json()
-            all_person_data = data['rdf:RDF']['MA.person']
-            if type(all_person_data) is not list:
-                all_person_data = [all_person_data]
+            if 'rdf:RDF' in data and 'MA.person' in data['rdf:RDF']:
+                all_person_data = data['rdf:RDF']['MA.person']
+                if type(all_person_data) is not list:
+                    all_person_data = [all_person_data]
 
-            for person_data in all_person_data:
-                user_id = person_data['rdf:about'].split('/')[-1]
-                if 'MA.emailAddress' in person_data:
-                    email = person_data['MA.emailAddress']
-                    cache_key = user_id.replace(' ', '_')
-                    cache.set('email' + cache_key, email, timeout=3600)
-                    result[user_id] = email
+                for person_data in all_person_data:
+                    user_id = person_data['rdf:about'].split('/')[-1]
+                    if 'MA.emailAddress' in person_data:
+                        email = person_data['MA.emailAddress']
+                        cache_key = user_id.replace(' ', '_')
+                        cache.set('email' + cache_key, email, timeout=3600)
+                        result[user_id] = email
 
     for user_id in missing_email:
         if user_id not in result:
