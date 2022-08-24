@@ -1,4 +1,4 @@
-﻿Du har gjort en begäran om data av begränsad användning i Finlands Artdatacenter {{ time }}.
+Du har gjort en begäran om data av begränsad användning i Finlands Artdatacenter {{ time }}.
 
 Begäran kommer att behandlas när du har motiverat begäran och godkänt användarvillkoren på: {{ req_link }}?lang=sv
 
@@ -11,4 +11,3 @@ Naturhistoriska centralmuseet LUOMUS
 Helsingfors universitet
 
 www.laji.fi/sv
-

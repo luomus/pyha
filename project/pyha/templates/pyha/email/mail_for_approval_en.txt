@@ -1,3 +1,29 @@
-﻿Download request for access-restricted data sent for Finnish Biodiversity Information Facility at {{ time }} waits for your decision of approval.
+﻿Lajitietokeskukseen on lähetetty uusi aineistopyyntö {{ time }} koskien aineistoanne.
 
-Address to the request: {{ req_link }}?lang=en
+Pääset käsittelemään aineistopyynnön tästä linkistä: {{ req_link }}?lang=fi
+
+Aineistopyyntöjärjestelmän ohjeet: {{ manual_link }}
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
+
+----------------------
+
+A new data request has been sent to FinBIF {{time}} regarding your data.
+
+You can process the data request from this link: {{ req_link }}?lang=en
+
+Manual (in Finnish): {{ manual_link }}
+
+This is an automated message.
+
+Finnish Biodiversity Information Facility – FinBIF
+Finnish Museum of Natural History LUOMUS 
+University of Helsinki
+
+www.species.fi

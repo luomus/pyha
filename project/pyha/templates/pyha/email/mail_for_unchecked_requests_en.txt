@@ -1,3 +1,41 @@
-﻿{{ count }} unchecked download requests in Finnish Biodiversity Information Facility wait for your approval decision.\n
+﻿Sinulla on {{ count }} käsittelemätöntä aineistopyyntöä Lajitietokeskuksen aineistopyyntöjärjestelmässä.
 
-Link to the request system: {{ pyha_link }}?lang=en
+Käythän hyväksymässä tai hylkäämässä pyynnöt:
+
+{% for req_link in req_links %}
+{{ req_link }}?lang=fi
+{% endfor %}
+
+Tarvittaessa voit pyytää hakijalta lisätietoja.
+
+
+
+Tämä viesti on lähetetty automaattisesti.
+
+Suomen Lajitietokeskus
+Luonnontieteellinen keskusmuseo LUOMUS
+Helsingin yliopisto
+
+www.laji.fi
+
+----------------------
+
+You have {{ count }} unprocessed data requests in the FinBIF data request system.
+
+Please accept or reject these requests:
+
+{% for req_link in req_links %}
+{{ req_link }}?lang=en
+{% endfor %}
+
+If necessary, you can ask the applicant for more information.
+
+
+
+This is an automated message.
+
+Finnish Biodiversity Information Facility – FinBIF
+Finnish Museum of Natural History LUOMUS 
+University of Helsinki
+
+www.species.fi

@@ -1,6 +1,15 @@
-Pyha varnar för att det saknas behandlare från dessa samlingar i metadata:
+﻿Pyyntöjenhallintajärjestelmä varoittaa, että metatiedoissa ei ole mainittu käsittelijää seuraaville kokoelmille:
 
 {% for co in collections_missing_handler %}{{co}}
 {% endfor %}
 
-Pyha samlar in nya data för samlingsbehandlaren om cache-utgång / flush.
+Pyha huomioi kokoelmien käsittelijöihin liittyvät muutokset välimuistinsa vanhentumisen/tyhjentymisen aikana.
+
+----------------------
+
+Pyha warns that there are handlers missing from these collections in the metadata:
+
+{% for co in collections_missing_handler %}{{co}}
+{% endfor %}
+
+Pyha collects new collection handler data on cache expiration/flush.

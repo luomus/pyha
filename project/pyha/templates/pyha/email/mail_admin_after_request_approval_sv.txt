@@ -1,3 +1,9 @@
-﻿En ny begäran för att ladda ner säkra FinBIF-data har gjorts på {{ time }}.
+﻿Aineistopyyntöjärjestelmässä on täytetty uusi aineistopyyntö {{ time }}.
 
-Adress till begäran: {{ req_link }}?lang=sv&next=communications
+Osoite aineistopyyntöön: {{ req_link }}?lang=fi&next=communications
+
+----------------------
+
+A new application to download restricted-use data has been made on {{ time }}.
+
+Address to the application: {{ req_link }}?lang=en&next=communications

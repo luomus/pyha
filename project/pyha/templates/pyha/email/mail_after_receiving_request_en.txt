@@ -1,12 +1,13 @@
-﻿You have made a data request for restricted-use data in the Finnish Species Information Center {{ time }}.
+You have made a data request for restricted-use data in the Finnish Species Information Center {{ time }}.
 
 The data request will be processed after you have reasoned the request and accepted the Terms of Use at: {{ req_link }}?lang=en
+
 
 
 This is an automated message.
 
 Finnish Biodiversity Information Facility – FinBIF
-Finnish Museum of Natural History LUOMUS 
+Finnish Museum of Natural History LUOMUS
 University of Helsinki
 
 www.species.fi

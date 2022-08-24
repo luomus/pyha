@@ -1,0 +1,37 @@
+"project_id_env": "CROWDIN_PROJECT_ID"
+"api_token_env": "CROWDIN_API_TOKEN"
+"base_path": "."
+"base_url": "https://api.crowdin.com"
+"preserve_hierarchy": true
+
+"files": [
+  {
+    "source": "/project/pyha/locale/fi/LC_MESSAGES/django.po",
+    "dest": "PYHA/pyha.po",
+    "translation": "/project/pyha/locale/%two_letters_code%/LC_MESSAGES/%original_file_name%",
+    "languages_mapping" : {
+      "two_letters_code" : {
+        "en-GB" : "en",
+        "sv-FI": "sv"
+      }
+    },
+    "update_option": "update_as_unapproved"
+  },
+  {
+    "source": "/project/pyha/templates/pyha/email/*_fi.txt",
+    "dest": "PYHA/emails/%original_file_name%",
+    "translation": "/project/pyha/templates/pyha/email/%file_name%_%two_letters_code%.txt",
+    "translation_replace": {
+      "_fi_fi": "_fi",
+      "_fi_en": "_en",
+      "_fi_sv": "_sv"
+    },
+    "languages_mapping": {
+      "two_letters_code": {
+        "en-GB": "en",
+        "sv-FI": "sv"
+      }
+    },
+    "update_option": "update_as_unapproved"
+  }
+]

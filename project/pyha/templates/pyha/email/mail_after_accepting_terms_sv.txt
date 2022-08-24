@@ -1,4 +1,4 @@
-Din databegäran till Finlands Artdatacenter {{time}} har skickats till datahanterarna.
+Din databegäran till Finlands Artdatacenter {{ time }} har skickats till datahanterarna.
 
 Du kan spåra framstegen på: {{ req_link }}?lang=sv
 

@@ -1,4 +1,4 @@
-﻿You have received a request for additional information regarding your request for restricted-use data at {{time}}.
+You have received a request for additional information regarding your request for restricted-use data at {{ time }}.
 
 Please respond to the request at: {{ req_link }}?lang=en&next=information
 
@@ -7,7 +7,7 @@ Please respond to the request at: {{ req_link }}?lang=en&next=information
 This is an automated message.
 
 Finnish Biodiversity Information Facility – FinBIF
-Finnish Museum of Natural History LUOMUS 
+Finnish Museum of Natural History LUOMUS
 University of Helsinki
 
 www.species.fi

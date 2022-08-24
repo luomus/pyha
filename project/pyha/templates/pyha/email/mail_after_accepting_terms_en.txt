@@ -1,4 +1,4 @@
-Your data request to FinBIF at {{time}} has been sent to the data managers.
+Your data request to FinBIF at {{ time }} has been sent to the data managers.
 
 You can track the progress at: {{ req_link }}?lang=en
 
@@ -9,7 +9,7 @@ You will receive an email once the data request has been processed.
 This is an automated message.
 
 Finnish Biodiversity Information Facility – FinBIF
-Finnish Museum of Natural History LUOMUS 
+Finnish Museum of Natural History LUOMUS
 University of Helsinki
 
 www.species.fi

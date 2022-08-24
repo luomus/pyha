@@ -1,7 +1,8 @@
-﻿Your data request to FinBIF at {{time}} has been processed.
+Your data request to FinBIF at {{ time }} has been processed.
 
-If the data request has been approved in full or in part, you will be notified by email when the data is available for download.
+If the data request has been approved in full or in part, you will be notified by email when the data is available for download. 
 The completion time of the download file depends on the size of the data.
+
 
 Address to your request: {{ req_link }}?lang=en
 
@@ -10,7 +11,7 @@ Address to your request: {{ req_link }}?lang=en
 This is an automated message.
 
 Finnish Biodiversity Information Facility – FinBIF
-Finnish Museum of Natural History LUOMUS 
+Finnish Museum of Natural History LUOMUS
 University of Helsinki
 
 www.species.fi

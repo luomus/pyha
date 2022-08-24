@@ -1,4 +1,4 @@
-﻿The data is ready for download.
+The data is ready for download.
 
 You can download the data in the data request system: {{ req_link }}?lang=en
 
@@ -7,7 +7,7 @@ You can download the data in the data request system: {{ req_link }}?lang=en
 This is an automated message.
 
 Finnish Biodiversity Information Facility – FinBIF
-Finnish Museum of Natural History LUOMUS 
+Finnish Museum of Natural History LUOMUS
 University of Helsinki
 
 www.species.fi

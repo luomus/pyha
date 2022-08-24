@@ -1,4 +1,4 @@
-Du har fått en begäran om ytterligare information om din begäran om data {{time}}.
+Du har fått en begäran om ytterligare information om din begäran om data {{ time }}.
 
 Svara på begäran på: {{ req_link }}?lang=fi&next=information
 

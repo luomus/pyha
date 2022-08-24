@@ -14,4 +14,4 @@ cronlogs/
 env_variables.sh
 project/static
 *pyha.log
-crowdin.yml
+.crowdin-env

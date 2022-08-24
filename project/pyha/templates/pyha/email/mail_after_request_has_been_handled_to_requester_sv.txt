@@ -1,7 +1,8 @@
-﻿Din databegäran till Artdatacenter {{time}} har behandlats.
+Din databegäran till Artdatacenter {{ time }} har behandlats.
 
-Om databegäran har godkänts helt eller delvis kommer du att meddelas via e-post när materialet är tillgängligt för nedladdning.
+Om databegäran har godkänts helt eller delvis kommer du att meddelas via e-post när materialet är tillgängligt för nedladdning. 
 Slutförandetiden för nedladdningsfilen beror på data storlek.
+
 
 Adress till begäran: {{ req_link }}?lang=sv
 
