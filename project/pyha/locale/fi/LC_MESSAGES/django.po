@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-15 11:01+0300\n"
-"PO-Revision-Date: 2022-08-24 13:20\n"
+"PO-Revision-Date: 2022-08-31 11:07\n"
 "Last-Translator: \n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
@@ -291,7 +291,7 @@ msgstr "Hakija"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
-msgstr "Salaussyistä kaikki havaintojen lukumäärät ovat suuntaa-antavia. Hyväksytyn aineistopyynnön havaintojen lukumäärä voi poiketa haetusta."
+msgstr "Suojelusyistä havaintojen lukumäärät ovat suuntaa-antavia. Hyväksytyn aineistopyynnön havaintojen lukumäärä voi poiketa ilmoitetusta."
 
 #: pyha/templates/pyha/base/index.html:29
 msgid "request_hits"
@@ -1356,7 +1356,7 @@ msgstr " vastasit:"
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:23
 msgid "form_to_request_additional_information"
-msgstr "Lomake lisätietojen pyytämiseen"
+msgstr "Voit tarvittaessa pyytää hakijalta lisätietoja tällä lomakkeella."
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:28
 msgid "ask_as_handler_of"
@@ -1370,7 +1370,7 @@ msgstr "Ylläpitäjä"
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:43
 #: pyha/templates/pyha/requestview/tabs/information.html:21
 msgid "add_pdf_attachment"
-msgstr "Lisää liite (pdf muodossa)"
+msgstr "Lisää liite (pdf-muodossa)"
 
 #: pyha/templates/pyha/requestview/tabs/ask_information.html:46
 msgid "request_additional_information"
@@ -1425,7 +1425,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/filters.html:7
 msgid "handler_show_in_officials_portal"
-msgstr "Katso tulokset viranomaisportaalissa"
+msgstr "Katso tulokset viranomaisportaalissa."
 
 #: pyha/templates/pyha/requestview/tabs/history.html:4
 msgid "changes_history_description"
@@ -1542,7 +1542,7 @@ msgstr "Lähetä vastaus"
 
 #: pyha/templates/pyha/requestview/tabs/information.html:28
 msgid "answer"
-msgstr "Vastaa kysymykseen"
+msgstr "Lähetä vastaus"
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:5
 msgid "make_decision_window_description"
@@ -1596,7 +1596,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_handler"
-msgstr "Alla on luettelo aineistoista, joihin aineistopyyntö kohdistuu. Hakijalle näytetään arvio havaintomääristä, joita kussakin aineistossa on, ja luettelossa voi olla myös aineistoja, jotka eivät tosiasiassa sisälly aineistopyyntöön. Käsittelijänä näet käyttörajoitettujen havaintojen tarkat luvut."
+msgstr "Alla on luettelo aineistoista, joihin aineistopyyntö kohdistuu. Suojelusyistä hakijalle näytetään vain arvio kunkin aineiston havaintomäärästä ja luettelossa voi olla myös aineistoja, jotka eivät tosiasiassa sisälly aineistopyyntöön. Käsittelijänä näet käyttörajoitettujen havaintojen tarkat luvut."
 
 #: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_user"
@@ -1608,7 +1608,7 @@ msgstr "Havaintojen määrä luokittain"
 
 #: pyha/templatetags/pyha_tags.py:41 pyha/templatetags/pyha_tags.py:63
 msgid "handler_waiting_for_you"
-msgstr "Odottaa sinun päätöstäsi"
+msgstr "Odottaa päätöstäsi"
 
 #: pyha/templatetags/pyha_tags.py:43 pyha/templatetags/pyha_tags.py:65
 msgid "handler_waiting_for_others"
