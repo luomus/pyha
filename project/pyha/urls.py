@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.conf import settings
 from django.views.generic import RedirectView
+from config.timers import *
 from pyha.views import api, index, requestform, requestview, logout, ajax, usersettings
 
 app_name = 'pyha'
