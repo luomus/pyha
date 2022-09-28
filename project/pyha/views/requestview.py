@@ -316,11 +316,6 @@ def chat_entry_file_download(http_request):
 
         if not is_allowed_to_view(http_request, request_id):
             return HttpResponseRedirect(reverse('pyha:root'))
-        if not (
-            is_request_owner(http_request, request_id) or
-            is_allowed_to_ask_information_as_target(http_request, chat_entry.target, request_id)
-        ):
-            return HttpResponseRedirect(reverse('pyha:root'))
 
         file = chat_entry.file
         response = HttpResponse(file.content)
