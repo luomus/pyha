@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from pyha.database import handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, get_request_collection_status, withdraw_request
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
-from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
+from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
 from pyha.warehouse import get_collections_where_download_handler, fetch_email_addresses
 from pyha.templatetags.pyha_tags import translateRequestStatus
@@ -153,28 +153,34 @@ def _get_request_list(http_request, userId, only_uncompleted=False):
     current_roles = http_request.session.get('current_user_role', [None])
     roles = http_request.session.get('user_roles', [None])
 
+    completed_status = [
+        StatusEnum.WITHDRAWN,
+        StatusEnum.DISCARDED,
+        StatusEnum.PARTIALLY_APPROVED,
+        StatusEnum.REJECTED,
+        StatusEnum.APPROVED,
+        StatusEnum.WAITING_FOR_DOWNLOAD,
+        StatusEnum.DOWNLOADABLE
+    ]
+    excluded_status = completed_status if only_uncompleted else [StatusEnum.DISCARDED]
+
     query = Request.objects
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        query = query.exclude(status__in=[StatusEnum.DISCARDED, StatusEnum.APPROVETERMS_WAIT])
-        if HANDLER_ANY in current_roles:
-            if CAT_HANDLER_COLL in roles:
-                query = query.filter(id__in=Collection.objects.filter(
-                    address__in=get_collections_where_download_handler(userId), status__gt=0).values('request')
-                )
-    else:
-        query = query.filter(user=userId).exclude(status__in=[StatusEnum.DISCARDED])
+        excluded_status.append(StatusEnum.APPROVETERMS_WAIT)
 
+        if HANDLER_ANY in current_roles and CAT_HANDLER_COLL in roles:
+            collections = Collection.objects.filter(address__in=get_collections_where_download_handler(userId))
+            if only_uncompleted:
+                collections = collections.filter(status=Col_StatusEnum.WAITING)
+            else:
+                collections = collections.filter(status__gt=Col_StatusEnum.APPROVETERMS_WAIT)
+            query = query.filter(id__in=collections.values('request'))
+    else:
+        query = query.filter(user=userId)
+
+    query = query.exclude(status__in=excluded_status)
     if only_uncompleted:
-        completed_status = [
-            StatusEnum.WITHDRAWN,
-            StatusEnum.DISCARDED,
-            StatusEnum.PARTIALLY_APPROVED,
-            StatusEnum.REJECTED,
-            StatusEnum.APPROVED,
-            StatusEnum.WAITING_FOR_DOWNLOAD,
-            StatusEnum.DOWNLOADABLE
-        ]
-        query = query.exclude(status__in=completed_status).exclude(frozen=True)
+        query = query.exclude(frozen=True)
 
     return query
 
