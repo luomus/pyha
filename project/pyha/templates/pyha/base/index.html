@@ -15,6 +15,10 @@
       <h2>{% trans "all_requests" %}</h2>
       <p class ="text-muted">{% trans "click_for_info" %}.</p>
 
+      <div style="margin-bottom: 10px">
+          <button id="showOnlyUncompletedRequestsTrueBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(true)">{% trans "show_uncompleted_requests" %}</button>
+          <button id="showOnlyUncompletedRequestsFalseBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(false)">{% trans "show_all_requests" %}</button>
+      </div>
       <form action="{% url 'pyha:group_delete_request' %}" id="delete_requests" method="post" style="margin-bottom: 30px">
         <table id="requests-table" class="table table-hover table-bordered" width="100%">
           <thead>
@@ -81,7 +85,7 @@ function checkSelected() {
 </script>
 {% endif %}
 <script>
-var allColumns = [
+const allColumns = [
     { "data": "date", "render": $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSS', 'DD.MM.YYYY    HH:mm') },
     {
         "data": "approximateMatches",
@@ -169,14 +173,20 @@ var allColumns = [
     }
 ];
 
+let table;
+
 $(document).ready(function() {
-    $('#requests-table').dataTable( {
+    table = $('#requests-table').DataTable( {
             "processing": true,
             "serverSide": false,
             "ajax": {
               "url": "{% url 'pyha:get_request_list_ajax' %}",
+              "data": function (d) {
+                d.onlyUncompleted = $("#showOnlyUncompletedRequestsTrueBtn").prop("disabled");
+              },
               "type": "GET",
-              "headers": {"X-CSRFToken": "{{ csrf_token }}"}
+              "headers": {"X-CSRFToken": "{{ csrf_token }}"},
+              "cache": true
             },
             "columns": [
                 {% if role == "admin" %}
@@ -230,5 +240,21 @@ $(document).ready(function() {
             }
         } );
     } );
+
+    function showOnlyUncompletedRequestsChange(value) {
+        const trueBtn = $("#showOnlyUncompletedRequestsTrueBtn");
+        const falseBtn = $("#showOnlyUncompletedRequestsFalseBtn");
+        if (value) {
+            trueBtn.prop("disabled", true);
+            falseBtn.prop("disabled", false);
+        } else {
+            trueBtn.prop("disabled", false);
+            falseBtn.prop("disabled", true);
+        }
+        if (table) {
+            table.ajax.reload();
+        }
+    }
+    showOnlyUncompletedRequestsChange(true);
 </script>
 {% endblock %}

@@ -8,7 +8,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
-from pyha.warehouse import fetch_email_address, get_collections_where_download_handler, fetch_email_addresses
+from pyha.warehouse import get_collections_where_download_handler, fetch_email_addresses
 from pyha.templatetags.pyha_tags import translateRequestStatus
 
 
@@ -53,10 +53,12 @@ def get_request_list_ajax(http_request):
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
 
+        only_uncompleted = http_request.GET.get('onlyUncompleted', 'true') == 'true'
+
         user_id = http_request.session['user_id']
         current_roles = http_request.session.get('current_user_role', [None])
 
-        request_list = _get_request_list(http_request, user_id)
+        request_list = _get_request_list(http_request, user_id, only_uncompleted)
         _add_additional_info_to_requests(http_request, user_id, request_list)
 
         data = []
@@ -147,20 +149,32 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
                 r.viewed = False
 
 
-def _get_request_list(http_request, userId):
+def _get_request_list(http_request, userId, only_uncompleted=False):
     current_roles = http_request.session.get('current_user_role', [None])
     roles = http_request.session.get('user_roles', [None])
 
     query = Request.objects
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        query = query.exclude(status__in=[-1, 0])
+        query = query.exclude(status__in=[StatusEnum.DISCARDED, StatusEnum.APPROVETERMS_WAIT])
         if HANDLER_ANY in current_roles:
             if CAT_HANDLER_COLL in roles:
                 query = query.filter(id__in=Collection.objects.filter(
                     address__in=get_collections_where_download_handler(userId), status__gt=0).values('request')
                 )
     else:
-        query = query.filter(user=userId).exclude(status__in=[-1])
+        query = query.filter(user=userId).exclude(status__in=[StatusEnum.DISCARDED])
+
+    if only_uncompleted:
+        completed_status = [
+            StatusEnum.WITHDRAWN,
+            StatusEnum.DISCARDED,
+            StatusEnum.PARTIALLY_APPROVED,
+            StatusEnum.REJECTED,
+            StatusEnum.APPROVED,
+            StatusEnum.WAITING_FOR_DOWNLOAD,
+            StatusEnum.DOWNLOADABLE
+        ]
+        query = query.exclude(status__in=completed_status).exclude(frozen=True)
 
     return query
 
