@@ -186,7 +186,10 @@ $(document).ready(function() {
               },
               "type": "GET",
               "headers": {"X-CSRFToken": "{{ csrf_token }}"},
-              "cache": true
+              "error": function() {
+                alert("{% trans "generic_error" %}");
+                $("#requests-table_processing").hide();
+              }
             },
             "columns": [
                 {% if role == "admin" %}
