@@ -78,7 +78,7 @@ class Collection(models.Model):
     # status 4: Hyväksytty
 
     status = models.IntegerField()
-    request = models.ForeignKey('Request', on_delete=models.CASCADE)
+    request = models.ForeignKey('Request', on_delete=models.CASCADE, related_name='collections')
     downloadRequestHandler = models.CharField(max_length=500, blank=True, null=True)
     decisionExplanation = TruncatingTextField(max_length=5000, blank=True, null=True)
     changedBy = models.CharField(max_length=100)

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, get_last_information_chat_entries, get_request_collection_status, withdraw_request
+from pyha.database import handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
@@ -59,7 +59,7 @@ def get_request_list_ajax(http_request):
         current_roles = http_request.session.get('current_user_role', [None])
 
         request_list = _get_request_list(http_request, user_id, only_uncompleted)
-        _add_additional_info_to_requests(http_request, user_id, request_list)
+        request_list = _add_additional_info_to_requests(http_request, user_id, request_list)
 
         data = []
         for r in request_list:
@@ -120,15 +120,20 @@ def group_delete_request(http_request):
 
 
 def _add_additional_info_to_requests(http_request, userId, request_list):
+    current_roles = http_request.session.get("current_user_role", [None])
+
+    if ADMIN in current_roles or HANDLER_ANY in current_roles:
+        request_list = add_collection_counts_to_request_list(request_list)
+        request_list = add_last_chat_entry_status_to_request_list(request_list)
+
     for r in request_list:
-        if(r.status == StatusEnum.DOWNLOADABLE):
+        if r.status == StatusEnum.DOWNLOADABLE:
             r.downloadable = is_downloadable(http_request, r)
         else:
             r.downloadable = False
 
-    current_roles = http_request.session.get("current_user_role", [None])
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        _add_handler_values(request_list, userId, current_roles)
+        _add_handler_values(request_list)
 
         users = []
         for r in request_list:
@@ -143,10 +148,12 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
         viewedlist = list(RequestLogEntry.requestLog.filter(
             request__in=[re.id for re in request_list], user=userId, action='VIEW'))
         for r in request_list:
-            if([re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING):
+            if [re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING:
                 r.viewed = True
             else:
                 r.viewed = False
+
+    return request_list
 
 
 def _get_request_list(http_request, userId, only_uncompleted=False):
@@ -185,18 +192,11 @@ def _get_request_list(http_request, userId, only_uncompleted=False):
     return query
 
 
-def _add_handler_values(request_list, user_id, current_roles):
-    collection_status = get_request_collection_status(user_id, current_roles)
-    entries = get_last_information_chat_entries(user_id, current_roles)
-
+def _add_handler_values(request_list):
     for idx, r in enumerate(request_list):
-        col_status = [c for c in collection_status if c.id == r.id][0]
-        r.observation_count = col_status.observation_count
-
-        last_entry = [e for e in entries if e.request_id == r.id]
-        if len(last_entry) == 0:
+        if r.last_chat_entry_is_question is None:
             r.information_status = -1
-        elif last_entry[0].question:
+        elif r.last_chat_entry_is_question:
             r.information_status = 0
         else:
             r.information_status = 1
@@ -204,9 +204,9 @@ def _add_handler_values(request_list, user_id, current_roles):
         if r.status == StatusEnum.WITHDRAWN:
             r.decision_status = -1
         else:
-            if col_status.waiting_count == 0:
+            if r.waiting_count == 0:
                 r.decision_status = 2
-            elif col_status.handled_count > 0:
+            elif r.handled_count > 0:
                 r.decision_status = 1
             else:
                 r.decision_status = 0

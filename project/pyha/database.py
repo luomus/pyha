@@ -5,6 +5,7 @@ from django.core.cache import caches
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.db.models import Count, Sum, Case, When, IntegerField, Q, F, Subquery, OuterRef
 from pyha.email import send_mail_after_request_has_been_handled_to_requester, send_mail_after_request_status_change_to_requester, get_template_of_mail_for_approval
 from pyha.login import logged_in, _process_auth_response, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
@@ -421,107 +422,34 @@ def requestInformationChat(http_request, userRequest, userId):
     return requestInformationChat_list
 
 
-def get_last_information_chat_entries(user_id, current_roles):
-    context = {
-        'status_discarded': StatusEnum.DISCARDED,
-        'status_waiting_terms': StatusEnum.APPROVETERMS_WAIT
-    }
-
-    collection_filter_query_string = ''
-    if ADMIN not in current_roles:
-        collection_filter_query_string, context2 = _get_collection_filter_query_string_and_context(user_id)
-        context.update(context2)
-
-    query = RequestInformationChatEntry.requestInformationChat.raw(
-        '''
-        select id, request_id, question from
-        (
-        select id, "DATE", request_id, question, max("DATE") over (partition by request_id) as max_date
-        from pyha_requestinformationchad9c9 chat
-        where (
-        exists (
-        select 1 from pyha_request r
-        where r.id = chat.request_id and r.status not in (%(status_discarded)s, %(status_waiting_terms)s) {}
-        )))
-        where "DATE" = max_date
-        '''.format(collection_filter_query_string),
-        context
+def add_last_chat_entry_status_to_request_list(request_list):
+    return request_list.annotate(
+        last_chat_entry_is_question=Subquery(
+            RequestInformationChatEntry.requestInformationChat.filter(
+                request=OuterRef('pk')
+            ).order_by('-date').values('question')[:1]
+        )
     )
 
-    return query
 
-
-def get_request_collection_status(user_id, current_roles):
-    context = {
-        'status_discarded': StatusEnum.DISCARDED,
-        'status_waiting_terms': StatusEnum.APPROVETERMS_WAIT,
-        'status_waiting': StatusEnum.WAITING,
-        'status_approved': StatusEnum.APPROVED,
-        'status_rejected': StatusEnum.REJECTED
-    }
-
-    collection_filter_query_string = ''
-    if ADMIN not in current_roles:
-        collection_filter_query_string, context2 = _get_collection_filter_query_string_and_context(user_id)
-        context.update(context2)
-
-    query = Request.objects.raw(
-        '''
-        select r.id,
-        count(distinct c1.id) as waiting_count,
-        count(distinct c2.id) as handled_count,
-        sum(c3.count_sum) * count(distinct c3.id) / count(*) as observation_count
-        from pyha_request r
-        left outer join
-        (
-        select id, request_id
-        from pyha_collection
-        where status = %(status_waiting)s
-        ) c1 on r.id = c1.request_id
-        left outer join
-        (
-        select id, request_id
-        from pyha_collection
-        where status = %(status_approved)s or status = %(status_rejected)s
-        ) c2 on r.id = c2.request_id
-        left outer join
-        (
-        select id, count_sum, request_id
-        from pyha_collection
-        where status != %(status_discarded)s
-        ) c3 on r.id = c3.request_id
-        where r.status not in (%(status_discarded)s, %(status_waiting_terms)s) {}
-        group by r.id
-        '''.format(collection_filter_query_string),
-        context
-    )
-
-    return query
-
-
-def _get_collection_filter_query_string_and_context(user_id):
-    context = {
-        'status_waiting_terms': StatusEnum.APPROVETERMS_WAIT
-    }
-
-    collection_ids = get_collections_where_download_handler(user_id)
-    if len(collection_ids) == 0:
-        collection_ids = [None]
-
-    parameter_names = []
-    for idx, c_id in enumerate(collection_ids):
-        name = 'col_{}'.format(idx)
-        parameter_names.append(name)
-        context[name] = c_id
-
-    return '''
-        and (exists (
-        select 1 from pyha_collection c
-        where c.request_id = r.id and
-        c.address in ({}) and
-        c.status > %(status_waiting_terms)s
+def add_collection_counts_to_request_list(request_list):
+    return request_list.annotate(
+        waiting_count=Count(Case(
+            When(collections__status=Col_StatusEnum.WAITING, then=1),
+            output_field=IntegerField()
+        )),
+        handled_count=Count(Case(
+            When(
+                Q(collections__status=Col_StatusEnum.APPROVED) | Q(collections__status=Col_StatusEnum.REJECTED),
+                then=1
+            ),
+            output_field=IntegerField()
+        )),
+        observation_count=Sum(Case(
+            When(~Q(collections__status=Col_StatusEnum.DISCARDED), then=F('collections__count_sum')),
+            output_field=IntegerField()
         ))
-        '''.format(','.join(['%({})s'.format(name) for name in parameter_names])), context
+    )
 
 
 def update_collection_status(http_request, userRequest, collection):
