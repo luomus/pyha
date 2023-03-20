@@ -15,10 +15,12 @@
       <h2>{% trans "all_requests" %}</h2>
       <p class ="text-muted">{% trans "click_for_info" %}.</p>
 
+      {% if role == "handler" or role == "admin" %}
       <div style="margin-bottom: 10px">
           <button id="showOnlyUncompletedRequestsTrueBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(true)">{% trans "show_uncompleted_requests" %}</button>
           <button id="showOnlyUncompletedRequestsFalseBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(false)">{% trans "show_all_requests" %}</button>
       </div>
+      {% endif %}
       <form action="{% url 'pyha:group_delete_request' %}" id="delete_requests" method="post" style="margin-bottom: 30px">
         <table id="requests-table" class="table table-hover table-bordered" width="100%">
           <thead>
@@ -181,9 +183,11 @@ $(document).ready(function() {
             "serverSide": false,
             "ajax": {
               "url": "{% url 'pyha:get_request_list_ajax' %}",
+              {% if role == "handler" or role == "admin" %}
               "data": function (d) {
                 d.onlyUncompleted = $("#showOnlyUncompletedRequestsTrueBtn").prop("disabled");
               },
+              {% endif %}
               "type": "GET",
               "headers": {"X-CSRFToken": "{{ csrf_token }}"},
               "error": function() {

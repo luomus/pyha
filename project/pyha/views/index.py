@@ -53,7 +53,7 @@ def get_request_list_ajax(http_request):
         if not logged_in(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
 
-        only_uncompleted = http_request.GET.get('onlyUncompleted', 'true') == 'true'
+        only_uncompleted = http_request.GET.get('onlyUncompleted', 'false') == 'true'
 
         user_id = http_request.session['user_id']
         current_roles = http_request.session.get('current_user_role', [None])
