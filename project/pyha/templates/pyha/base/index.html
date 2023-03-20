@@ -106,46 +106,13 @@ const allColumns = [
     { "data": "email", "render": $.fn.dataTable.render.text() },
     { "data": "observationCount", "render": $.fn.dataTable.render.number(" ", ",") },
     {
-        "data": "informationStatus",
-        "render": function(data, type, row) {
-            var content = "";
-            if (data == 0) {
-                content = "{% trans "waiting_for_additional_information" %}";
-            } else if (data == 1) {
-                content = "{% trans "user_has_given_additional_information" %}";
-            }
-            return content;
-        }
+        "data": "informationStatusText"
     },
     {
-        "data": "downloadStatus",
-        "render": function(data, type, row) {
-            var content = "";
-            if (data == 0) {
-                content = "{% trans "data_is_not_downloaded" %}";
-            } else if (data == 1) {
-                content = "{% trans "data_is_partly_downloaded" %}";
-            } else if (data == 2) {
-                content = "{% trans "data_is_downloaded" %}";
-            }
-            return content;
-        }
+        "data": "downloadStatusText"
     },
     {
-        "data": "decisionStatus",
-        "render": function(data, type, row) {
-            var content = "";
-            if (data == -1) {
-                content = "{% trans "withdrawn" %}";
-            } else if (data == 0) {
-                content = "{% trans "no_decisions" %}";
-            } else if (data == 1) {
-                content = "{% trans "decisions_partly_done" %}";
-            } else if (data == 2) {
-                content = "{% trans "decisions_done" %}";
-            }
-            return content;
-        }
+        "data": "decisionStatusText"
     },
     {
         "data": null,

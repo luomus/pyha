@@ -3,7 +3,9 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handlers_cannot_be_updated, is_downloadable, remove_request, add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request
+from django.utils.translation import gettext
+from pyha.database import handlers_cannot_be_updated, is_downloadable, remove_request, \
+    add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
@@ -59,7 +61,7 @@ def get_request_list_ajax(http_request):
         current_roles = http_request.session.get('current_user_role', [None])
 
         request_list = _get_request_list(http_request, user_id, only_uncompleted)
-        request_list = _add_additional_info_to_requests(http_request, user_id, request_list)
+        request_list = _add_additional_info_to_requests(http_request, request_list)
 
         data = []
         for r in request_list:
@@ -71,9 +73,9 @@ def get_request_list_ajax(http_request):
             if ADMIN in current_roles or HANDLER_ANY in current_roles:
                 data_entry['email'] = r.email
                 data_entry['observationCount'] = r.observation_count
-                data_entry['informationStatus'] = r.information_status
-                data_entry['decisionStatus'] = r.decision_status
-                data_entry['downloadStatus'] = r.download_status
+                data_entry['informationStatusText'] = _get_information_status_text(r)
+                data_entry['decisionStatusText'] = _get_decision_status_text(r)
+                data_entry['downloadStatusText'] = _get_download_status_text(r)
             else:
                 data_entry['approximateMatches'] = r.approximateMatches
                 data_entry['description'] = r.description
@@ -115,7 +117,7 @@ def group_delete_request(http_request):
     return HttpResponseRedirect(nexturl)
 
 
-def _add_additional_info_to_requests(http_request, userId, request_list):
+def _add_additional_info_to_requests(http_request, request_list):
     current_roles = http_request.session.get("current_user_role", [None])
 
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
@@ -129,8 +131,6 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
             r.downloadable = False
 
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        _add_handler_values(request_list)
-
         users = []
         for r in request_list:
             if r.user not in users:
@@ -178,31 +178,34 @@ def _get_request_list(http_request, userId, only_uncompleted=False):
     return query
 
 
-def _add_handler_values(request_list):
-    for idx, r in enumerate(request_list):
-        if r.last_chat_entry_is_question is None:
-            r.information_status = -1
-        elif r.last_chat_entry_is_question:
-            r.information_status = 0
-        else:
-            r.information_status = 1
+def _get_information_status_text(r):
+    if r.last_chat_entry_is_question is None:
+        return ''
+    elif r.last_chat_entry_is_question:
+        return gettext('waiting_for_additional_information')
+    else:
+        return gettext('user_has_given_additional_information')
 
-        if r.status == StatusEnum.WITHDRAWN:
-            r.decision_status = -1
-        else:
-            if r.waiting_count == 0:
-                r.decision_status = 2
-            elif r.handled_count > 0:
-                r.decision_status = 1
-            else:
-                r.decision_status = 0
 
-        if r.downloaded is None:
-            r.download_status = None
+def _get_decision_status_text(r):
+    if r.status == StatusEnum.WITHDRAWN:
+        return gettext('withdrawn')
+    else:
+        if r.waiting_count == 0:
+            return gettext('decisions_done')
+        elif r.handled_count > 0:
+            return gettext('decisions_partly_done')
         else:
-            if r.downloaded is False:
-                r.download_status = 0
-            elif r.decision_status == 1:
-                r.download_status = 1
-            else:
-                r.download_status = 2
+            return gettext('no_decisions')
+
+
+def _get_download_status_text(r):
+    if r.downloaded is None:
+        return ''
+    else:
+        if r.downloaded is False:
+            return gettext('data_is_not_downloaded')
+        elif r.waiting_count != 0:
+            return gettext('data_is_partly_downloaded')
+        else:
+            return gettext('data_is_downloaded')
