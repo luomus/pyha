@@ -151,11 +151,13 @@ def _add_additional_info_to_requests(http_request, request_list):
     return request_list
 
 
-def _get_request_list(http_request, userId, only_uncompleted=False):
+def _get_request_list(http_request, user_id, only_uncompleted=False):
     current_roles = http_request.session.get('current_user_role', [None])
     roles = http_request.session.get('user_roles', [None])
 
-    completed_status = [
+    query = Request.objects
+
+    excluded_status = [
         StatusEnum.WITHDRAWN,
         StatusEnum.DISCARDED,
         StatusEnum.PARTIALLY_APPROVED,
@@ -163,26 +165,25 @@ def _get_request_list(http_request, userId, only_uncompleted=False):
         StatusEnum.APPROVED,
         StatusEnum.WAITING_FOR_DOWNLOAD,
         StatusEnum.DOWNLOADABLE
-    ]
-    excluded_status = completed_status if only_uncompleted else [StatusEnum.DISCARDED]
+    ] if only_uncompleted else [StatusEnum.DISCARDED]
 
-    query = Request.objects
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
         excluded_status.append(StatusEnum.APPROVETERMS_WAIT)
-
-        if HANDLER_ANY in current_roles and CAT_HANDLER_COLL in roles:
-            collections = Collection.objects.filter(address__in=get_collections_where_download_handler(userId))
-            if only_uncompleted:
-                collections = collections.filter(status=Col_StatusEnum.WAITING)
-            else:
-                collections = collections.filter(status__gt=Col_StatusEnum.APPROVETERMS_WAIT)
-            query = query.filter(id__in=collections.values('request'))
     else:
-        query = query.filter(user=userId)
+        query = query.filter(user=user_id)
 
     query = query.exclude(status__in=excluded_status)
+
     if only_uncompleted:
         query = query.exclude(frozen=True)
+
+    if HANDLER_ANY in current_roles and CAT_HANDLER_COLL in roles:
+        collections = Collection.objects.filter(address__in=get_collections_where_download_handler(user_id))
+        if only_uncompleted:
+            collections = collections.filter(status=Col_StatusEnum.WAITING)
+        else:
+            collections = collections.filter(status__gt=Col_StatusEnum.APPROVETERMS_WAIT)
+        query = query.filter(collections__in=collections)
 
     return query
 
