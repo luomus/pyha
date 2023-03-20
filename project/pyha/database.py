@@ -410,8 +410,8 @@ def add_last_chat_entry_status_to_request_list(request_list):
     )
 
 
-def add_collection_counts_to_request_list(request_list):
-    return request_list.annotate(
+def add_collection_counts_to_request_list(request_list, user_collections=None):
+    request_list = request_list.annotate(
         waiting_count=Count(Case(
             When(collections__status=Col_StatusEnum.WAITING, then=1),
             output_field=IntegerField()
@@ -428,6 +428,19 @@ def add_collection_counts_to_request_list(request_list):
             output_field=IntegerField()
         ))
     )
+
+    if user_collections is not None:
+        request_list = request_list.annotate(
+            waiting_for_user_count=Count(Case(
+                When(
+                    Q(collections__status=Col_StatusEnum.WAITING) & Q(collections__address__in=user_collections),
+                    then=1
+                ),
+                output_field=IntegerField()
+            ))
+        )
+
+    return request_list
 
 
 def update_collection_status(http_request, userRequest, collection):

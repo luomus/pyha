@@ -175,9 +175,17 @@ $(document).ready(function() {
             {% endif %}
             },
             "createdRow": function(row, data, dataIndex) {
-                var className = "clickable-row indextr";
+                let className = "clickable-row indextr";
                 if (data.status == 1) {
+                    {% if role == "handler" %}
+                    if (data.waitingForUser) {
+                        className += " info";
+                    } else {
+                        className += " success";
+                    }
+                    {% else %}
                     className += " info";
+                    {% endif %}
                 } else if (data.status == 3 || data.status == -2) {
                     className += " danger";
                 } else if (data.status == 2) {

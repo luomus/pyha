@@ -74,8 +74,13 @@ def get_request_list_ajax(http_request):
                 data_entry['email'] = r.email
                 data_entry['observationCount'] = r.observation_count
                 data_entry['informationStatusText'] = _get_information_status_text(r)
-                data_entry['decisionStatusText'] = _get_decision_status_text(r)
                 data_entry['downloadStatusText'] = _get_download_status_text(r)
+
+                if ADMIN in current_roles:
+                    data_entry['decisionStatusText'] = _get_decision_status_text(r)
+                else:
+                    data_entry['decisionStatusText'] = _get_decision_status_text_for_handler(r)
+                    data_entry['waitingForUser'] = r.waiting_for_user_count > 0
             else:
                 data_entry['approximateMatches'] = r.approximateMatches
                 data_entry['description'] = r.description
@@ -118,10 +123,14 @@ def group_delete_request(http_request):
 
 
 def _add_additional_info_to_requests(http_request, request_list):
+    user_id = http_request.session['user_id']
     current_roles = http_request.session.get("current_user_role", [None])
 
     if ADMIN in current_roles or HANDLER_ANY in current_roles:
-        request_list = add_collection_counts_to_request_list(request_list)
+        user_collections = None
+        if HANDLER_ANY in current_roles:
+            user_collections = get_collections_where_download_handler(user_id)
+        request_list = add_collection_counts_to_request_list(request_list, user_collections)
         request_list = add_last_chat_entry_status_to_request_list(request_list)
 
     for r in request_list:
@@ -197,6 +206,18 @@ def _get_decision_status_text(r):
             return gettext('decisions_partly_done')
         else:
             return gettext('no_decisions')
+
+
+def _get_decision_status_text_for_handler(r):
+    if r.status == StatusEnum.WITHDRAWN:
+        return gettext('withdrawn')
+    else:
+        if r.waiting_count == 0:
+            return gettext('decisions_done')
+        elif r.waiting_for_user_count == 0:
+            return gettext('handler_waiting_for_others')
+        else:
+            return gettext('handler_waiting_for_you')
 
 
 def _get_download_status_text(r):
