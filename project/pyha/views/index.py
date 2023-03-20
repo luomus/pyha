@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from pyha.database import handler_mul_information_chat_answered_status, handlers_cannot_be_updated, is_downloadable, remove_request, add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request
+from pyha.database import handlers_cannot_be_updated, is_downloadable, remove_request, add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
@@ -74,10 +74,6 @@ def get_request_list_ajax(http_request):
                 data_entry['informationStatus'] = r.information_status
                 data_entry['decisionStatus'] = r.decision_status
                 data_entry['downloadStatus'] = r.download_status
-
-                if HANDLER_ANY in current_roles:
-                    data_entry['viewed'] = r.viewed
-                    data_entry['answerStatus'] = r.answerstatus
             else:
                 data_entry['approximateMatches'] = r.approximateMatches
                 data_entry['description'] = r.description
@@ -142,16 +138,6 @@ def _add_additional_info_to_requests(http_request, userId, request_list):
         emails = fetch_email_addresses(users)
         for r in request_list:
             r.email = emails[r.user]
-
-    if HANDLER_ANY in current_roles:
-        handler_mul_information_chat_answered_status(request_list, http_request, userId)
-        viewedlist = list(RequestLogEntry.requestLog.filter(
-            request__in=[re.id for re in request_list], user=userId, action='VIEW'))
-        for r in request_list:
-            if [re.request.id for re in viewedlist].count(r.id) > 0 or not r.status == StatusEnum.WAITING:
-                r.viewed = True
-            else:
-                r.viewed = False
 
     return request_list
 

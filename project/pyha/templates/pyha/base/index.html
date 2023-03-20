@@ -25,9 +25,6 @@
         <table id="requests-table" class="table table-hover table-bordered" width="100%">
           <thead>
             <tr bgcolor="{% if role == 'handler' %}#349934{% elif role == 'admin' %}#8080c0{% else %}#3498DB{% endif %}" style="color:white;">
-              {% if role == "handler" %}
-              <th title="{% trans 'handler_new_events' %}" style="width:0px;">{% trans 'handler_new_events_abbreviation' %}</th>
-              {% endif %}
               <th>{% trans "request_date" %}</th>
               {% if role == "handler" or role == "admin" %}
               <th>{% trans "requester" %}</th>
@@ -163,15 +160,6 @@ const allColumns = [
             $(td).addClass("checkbox-column text-center");
         },
         "sortable": false
-    },
-    {
-        "data": null,
-        "render": function(data, type, row) {
-            if (!row.viewed || row.answerStatus == 1) {
-                return "<span class=\"glyphicon glyphicon-bell\"></span>";
-            }
-            return "";
-        }
     }
 ];
 
@@ -199,12 +187,12 @@ $(document).ready(function() {
                 {% if role == "admin" %}
                 allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8], allColumns[9]
                 {% elif role == "handler" %}
-                allColumns[10], allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8]
+                allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8]
                 {% else %}
                 allColumns[0], allColumns[1], allColumns[2], allColumns[3], allColumns[9]
                 {% endif %}
             ],
-			"order": [[ {% if role == "handler" %} 1 {% else %} 0 {% endif %}, "desc" ]],
+			"order": [[ 0, "desc" ]],
             {% if role == "user" %}
             "columnDefs": [{ "width": "15%", "targets": 4 }],
             {% endif %}

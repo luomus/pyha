@@ -223,28 +223,6 @@ def handler_req_waiting_for_me_status(r, http_request, userId):
     return
 
 
-def handler_mul_information_chat_answered_status(request_list, http_request, userId):
-    for r in request_list:
-        r.answerstatus = 0
-
-    if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
-        reqFilteredColChatList = list(RequestInformationChatEntry.requestInformationChat.filter(
-            request__in=[re.id for re in request_list], target__in=get_collections_where_download_handler(userId)))
-        coobList = list(Collection.objects.filter(
-            request__in=[re.id for re in request_list], address__in=get_collections_where_download_handler(userId)))
-        for r in request_list:
-            colist = [co for co in coobList if co.request_id == r.id]
-            for co in colist:
-                colbasedchatlist = [x for x in reqFilteredColChatList if x.target ==
-                                    co.address and x.request_id == r.id]
-                if len(colbasedchatlist) > 0 and co.status == StatusEnum.WAITING:
-                    colbasedchatlist.sort(key=lambda x: x.date, reverse=True)
-                    latestchat = colbasedchatlist[0]
-                    if not latestchat.question:
-                        r.answerstatus = 1
-                        break
-
-
 def handler_information_chat_answered_status(r, http_request, userId):
     r.answerstatus = 0
     if CAT_HANDLER_COLL in http_request.session.get("user_roles", [None]):
