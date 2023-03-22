@@ -11,7 +11,7 @@ from pyha.login import logged_in, _process_auth_response, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
     Col_StatusEnum, RequestSentStatusEmail, FailedDownloadRequest
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link, fetch_user_info
 from pyha.log_utils import changed_by_session_user, changed_by
 
 
@@ -251,7 +251,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)
-    request_log = requestLog(http_request, requestId)
+    request_log = request_log(http_request, requestId)
     context = {
         "toast": toast,
         "email": http_request.session["user_email"],
@@ -365,20 +365,25 @@ def make_logEntry_view(http_request, userRequest, userId, role):
         RequestLogEntry.requestLog.create(request=userRequest, user=userId, role=logRole, action=RequestLogEntry.VIEW)
 
 
-def requestLog(http_request, requestId):
-    requestLog_list = list(RequestLogEntry.requestLog.filter(request=requestId).order_by('-date'))
-    collectionList = []
-    email = []
-    for l in requestLog_list:
-        if(l.collection):
-            collectionList.append(l.collection)
-        l.email = fetch_email_address(l.user)
-        l.name = fetch_user_name(l.user)
-    get_values_for_collections(requestId, http_request.LANGUAGE_CODE, collectionList)
-    for l in requestLog_list:
-        if(l.collection):
-            collectionList.append(l)
-    return requestLog_list
+def request_log(http_request, request_id):
+    request_log_list = list(RequestLogEntry.requestLog.filter(request=request_id).order_by('-date'))
+
+    collections = []
+    users = []
+
+    for log_entry in request_log_list:
+        if log_entry.collection:
+            collections.append(log_entry.collection)
+        if log_entry.user not in users:
+            users.append(log_entry.user)
+
+    get_values_for_collections(request_id, http_request.LANGUAGE_CODE, collections)
+    user_info = fetch_user_info(users)
+    for log_entry in request_log_list:
+        log_entry.email = user_info[log_entry.user].email
+        log_entry.name = user_info[log_entry.user].name
+
+    return request_log_list
 
 
 def requestHandlerChat(http_request, userRequest):

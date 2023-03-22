@@ -144,34 +144,13 @@ def get_result_for_target(http_request, l):
         l.result["collectionName"] = l.result.get("collectionName", l.target)
 
 
-def fetch_user_name(personId):
+def fetch_user_name(user_id):
     '''
     fetches user name for a person registered in Laji.fi
     :param personId: person identifier
     :returns: person's full name
     '''
-    username = settings.LAJIPERSONAPI_USER
-    password = settings.LAJIPERSONAPI_PW
-    cacheKeyPersonId = personId.replace(' ', '_')
-    if 'has expired' in cache.get('name'+cacheKeyPersonId, 'has expired'):
-        try:
-            response = requests.get(settings.LAJIPERSONAPI_URL+personId+"?format=json",
-                                    auth=HTTPBasicAuth(username, password), timeout=settings.SECRET_TIMEOUT_PERIOD)
-        except:
-            response = Container()
-            response.status_code = 500
-
-        if response.status_code == 200:
-            data = response.json()
-
-            if 'rdf:RDF' in data and 'MA.person' in data['rdf:RDF'] and 'MA.fullName' in data['rdf:RDF']['MA.person']:
-                name = data['rdf:RDF']['MA.person']['MA.fullName']
-                cache.set('name'+cacheKeyPersonId, name)
-                return name
-
-        return personId
-    else:
-        return cache.get('name'+cacheKeyPersonId)
+    return fetch_user_info([user_id])[user_id].name
 
 
 def fetch_role(personId):
@@ -204,7 +183,7 @@ def fetch_pdf(data, style):
         return response
 
 
-def fetch_email_addresses(user_ids):
+def fetch_user_info(user_ids):
     """
     fetches email-addresses for users registered in Laji.fi
     :param user_ids: user identifiers
@@ -214,28 +193,28 @@ def fetch_email_addresses(user_ids):
     password = settings.LAJIPERSONAPI_PW
     result = {}
 
-    missing_email = []
+    missing_user = []
     for user_id in user_ids:
         cache_key = user_id.replace(' ', '_')
-        email = cache.get('email' + cache_key, 'has expired')
-        if 'has expired' in email:
-            if user_id not in missing_email:
-                missing_email.append(user_id)
+        user_info = cache.get('user_info' + cache_key, 'has expired')
+        if 'has expired' in user_info:
+            if user_id not in missing_user:
+                missing_user.append(user_id)
         else:
-            result[user_id] = email
+            result[user_id] = user_info
 
     start = 0
     limit = 500
-    while start < len(missing_email):
+    while start < len(missing_user):
         try:
-            user_list = '+'.join(missing_email[start:start+limit])
+            user_list = '+'.join(missing_user[start:start+limit])
             response = requests.get(
                 '{}{}?format=json'.format(settings.LAJIPERSONAPI_URL, user_list),
                 auth=HTTPBasicAuth(username, password),
                 timeout=settings.SECRET_TIMEOUT_PERIOD
             )
             start += limit
-        except:
+        except requests.exceptions.RequestException:
             response = Container()
             response.status_code = 500
 
@@ -248,15 +227,18 @@ def fetch_email_addresses(user_ids):
 
                 for person_data in all_person_data:
                     user_id = person_data['rdf:about'].split('/')[-1]
-                    if 'MA.emailAddress' in person_data:
-                        email = person_data['MA.emailAddress']
-                        cache_key = user_id.replace(' ', '_')
-                        cache.set('email' + cache_key, email, timeout=3600)
-                        result[user_id] = email
+                    email = person_data['MA.emailAddress'] if 'MA.emailAddress' in person_data else None
+                    name = person_data['MA.fullName'] if 'MA.fullName' in person_data else None
 
-    for user_id in missing_email:
+                    user_info = Namespace(email=email, name=name)
+
+                    cache_key = user_id.replace(' ', '_')
+                    cache.set('user_info' + cache_key, user_info, timeout=3600)
+                    result[user_id] = user_info
+
+    for user_id in missing_user:
         if user_id not in result:
-            result[user_id] = user_id
+            result[user_id] = Namespace(email=user_id, name=user_id)
 
     return result
 
@@ -267,7 +249,7 @@ def fetch_email_address(user_id):
     :param user_id: person identifier
     :returns: user's email-address
     """
-    return fetch_email_addresses([user_id])[user_id]
+    return fetch_user_info([user_id])[user_id].email
 
 
 def send_download_request(requestId):

@@ -10,7 +10,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
-from pyha.warehouse import get_collections_where_download_handler, fetch_email_addresses
+from pyha.warehouse import get_collections_where_download_handler, fetch_user_info
 from pyha.templatetags.pyha_tags import translateRequestStatus
 
 
@@ -144,9 +144,9 @@ def _add_additional_info_to_requests(http_request, request_list):
         for r in request_list:
             if r.user not in users:
                 users.append(r.user)
-        emails = fetch_email_addresses(users)
+        user_info = fetch_user_info(users)
         for r in request_list:
-            r.email = emails[r.user]
+            r.email = user_info[r.user].email
 
     return request_list
 
