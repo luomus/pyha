@@ -251,7 +251,7 @@ def create_request_view_context(requestId, http_request, userRequest):
 
     request_owner = fetch_user_name(userRequest.user)
     request_owners_email = fetch_email_address(userRequest.user)
-    request_log = request_log(http_request, requestId)
+    request_log = get_request_log(http_request, requestId)
     context = {
         "toast": toast,
         "email": http_request.session["user_email"],
@@ -365,13 +365,13 @@ def make_logEntry_view(http_request, userRequest, userId, role):
         RequestLogEntry.requestLog.create(request=userRequest, user=userId, role=logRole, action=RequestLogEntry.VIEW)
 
 
-def request_log(http_request, request_id):
-    request_log_list = list(RequestLogEntry.requestLog.filter(request=request_id).order_by('-date'))
+def get_request_log(http_request, request_id):
+    request_log = list(RequestLogEntry.requestLog.filter(request=request_id).order_by('-date'))
 
     collections = []
     users = []
 
-    for log_entry in request_log_list:
+    for log_entry in request_log:
         if log_entry.collection:
             collections.append(log_entry.collection)
         if log_entry.user not in users:
@@ -379,11 +379,11 @@ def request_log(http_request, request_id):
 
     get_values_for_collections(request_id, http_request.LANGUAGE_CODE, collections)
     user_info = fetch_user_info(users)
-    for log_entry in request_log_list:
+    for log_entry in request_log:
         log_entry.email = user_info[log_entry.user].email
         log_entry.name = user_info[log_entry.user].name
 
-    return request_log_list
+    return request_log
 
 
 def requestHandlerChat(http_request, userRequest):
