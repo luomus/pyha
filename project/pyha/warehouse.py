@@ -102,30 +102,35 @@ def makeblob(x):
     return blob
 
 
-def get_values_for_collections(requestId, lang, list):
-    for i, c in enumerate(list):
+def get_values_for_collections(requestId, lang, collections):
+    missing_collections = []
+    for c in collections:
         if 'has expired' in cache.get(str(c.address)+'collection_values'+lang, 'has expired'):
-            try:
-                c.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(c.address)+"?lang=" + lang +
-                                        "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
-            except:
-                c.result = cache.get(str(c.address)+'collection_values'+lang)
-                c.result["collectionName"] = c.result.get("collectionName", c.address)
-                c.result["description"] = c.result.get("description", "-")
-                c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
-                c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
-                return
-            cache.set(str(c.address)+'collection_values'+lang, c.result)
-            c.result["collectionName"] = c.result.get("collectionName", c.address)
-            c.result["description"] = c.result.get("description", "-")
-            c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
-            c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
-        else:
-            c.result = cache.get(str(c.address)+'collection_values'+lang)
-            c.result["collectionName"] = c.result.get("collectionName", c.address)
-            c.result["description"] = c.result.get("description", "-")
-            c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
-            c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
+            missing_collections.append(c.address)
+
+    data_by_id = {}
+    if len(missing_collections) > 0:
+        try:
+            result = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
+                'idIn': ','.join(missing_collections),
+                'lang': lang,
+                'access_token': settings.LAJIAPI_TOKEN,
+                'pageSize': len(missing_collections)
+            }, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+
+            for value in result['results']:
+                data_by_id[value['id']] = value
+        except:
+            pass
+
+    for c in collections:
+        if c.address in data_by_id:
+            cache.set(str(c.address) + 'collection_values' + lang, data_by_id[c.address])
+        c.result = cache.get(str(c.address)+'collection_values'+lang, {})
+        c.result["collectionName"] = c.result.get("collectionName", c.address)
+        c.result["description"] = c.result.get("description", "-")
+        c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
+        c.result["collectionTerms"] = c.result.get("dataUseTerms", "-")
 
 
 def get_result_for_target(http_request, l):
