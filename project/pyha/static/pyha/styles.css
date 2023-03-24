@@ -622,6 +622,9 @@ div.contact-form{
       height: 100%;
     }
   }
+  .modal {
+  z-index: 1070;
+  }
   .modal-body {
   position: relative;
   padding: 15px;
