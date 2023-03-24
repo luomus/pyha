@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-24 10:30+0200\n"
+"POT-Creation-Date: 2023-03-24 13:02+0200\n"
 "PO-Revision-Date: 2022-08-31 11:07\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
@@ -218,7 +218,7 @@ msgid "request_for_user"
 msgstr "Din begäran"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:35
+#: pyha/templates/pyha/base/index.html:32
 msgid "request_description"
 msgstr "Beskrivning"
 
@@ -285,8 +285,8 @@ msgstr "In English"
 msgid "manual"
 msgstr "Ohjeet"
 
-#: pyha/templates/pyha/base/base.html:205
-#: pyha/templates/pyha/base/index.html:143
+#: pyha/templates/pyha/base/base.html:206
+#: pyha/templates/pyha/base/index.html:142
 msgid "generic_error"
 msgstr "Odottamaton virhe tapahtui. Yritä hetken kuluttua uudestaan."
 
@@ -315,12 +315,8 @@ msgid "request_date"
 msgstr "Datum"
 
 #: pyha/templates/pyha/base/index.html:30
-msgid "requester"
-msgstr "Skapad av"
-
-#: pyha/templates/pyha/base/index.html:32
-#: pyha/templates/pyha/base/index.html:51
-#: pyha/templates/pyha/base/index.html:94
+#: pyha/templates/pyha/base/index.html:50
+#: pyha/templates/pyha/base/index.html:93
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
@@ -329,46 +325,51 @@ msgstr ""
 "vägledande. Antalet av observationer i en godkänd begäran kan avvika från "
 "sökningen."
 
-#: pyha/templates/pyha/base/index.html:32
+#: pyha/templates/pyha/base/index.html:30
+#: pyha/templates/pyha/base/index.html:38
 msgid "request_hits"
 msgstr "Antal av observationer"
 
-#: pyha/templates/pyha/base/index.html:34
-#: pyha/templates/pyha/base/index.html:42
+#: pyha/templates/pyha/base/index.html:31
+#: pyha/templates/pyha/base/index.html:41
 msgid "request_status_for_user"
 msgstr "Status"
 
-#: pyha/templates/pyha/base/index.html:36
+#: pyha/templates/pyha/base/index.html:33
 msgid "select_canceled"
 msgstr "Välj"
 
-#: pyha/templates/pyha/base/index.html:39
+#: pyha/templates/pyha/base/index.html:36
+msgid "requester"
+msgstr "Skapad av"
+
+#: pyha/templates/pyha/base/index.html:37
 #, fuzzy
 #| msgid "argument_municipality"
 msgid "request_municipality"
 msgstr "Ort där projektet är beläget"
 
-#: pyha/templates/pyha/base/index.html:40
+#: pyha/templates/pyha/base/index.html:39
 msgid "request_information_status"
 msgstr "Additional information needed"
 
-#: pyha/templates/pyha/base/index.html:41
+#: pyha/templates/pyha/base/index.html:40
 msgid "request_download_status"
 msgstr "Download status"
 
-#: pyha/templates/pyha/base/index.html:45
+#: pyha/templates/pyha/base/index.html:44
 msgid "select_deleted"
 msgstr "Välj"
 
-#: pyha/templates/pyha/base/index.html:52
+#: pyha/templates/pyha/base/index.html:51
 msgid "delete_or_withdraw_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:55
+#: pyha/templates/pyha/base/index.html:54
 msgid "delete_selected_requests"
 msgstr "Uteslut de valda begäran"
 
-#: pyha/templates/pyha/base/index.html:61
+#: pyha/templates/pyha/base/index.html:60
 msgid "no_requests_for_user"
 msgstr "Det finns inga begäran att visa"
 
@@ -1230,30 +1231,40 @@ msgstr ""
 "Huom! Tämän pyynnön käsittely on keskeytetty, eikä muutosten tekeminen ole "
 "enää mahdollista."
 
-#: pyha/templates/pyha/requestview/requestview_header.html:55
+#: pyha/templates/pyha/requestview/requestview_header.html:48
+msgid "frozen_warning"
+msgstr ""
+
+#: pyha/templates/pyha/requestview/requestview_header.html:49
+#, fuzzy
+#| msgid "no_communications"
+msgid "show_comments"
+msgstr "Ingen kommunikation"
+
+#: pyha/templates/pyha/requestview/requestview_header.html:61
 msgid "admin_request_is_frozen"
 msgstr "Det finns inga begäran att visa"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:56
+#: pyha/templates/pyha/requestview/requestview_header.html:62
 msgid "admin_unfreeze_request"
 msgstr "Frigöra begäran"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:57
+#: pyha/templates/pyha/requestview/requestview_header.html:63
 msgid ""
 "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr ""
 "Frigöra begäran om att aktivera åtkomst och åtgärder av användare som inte "
 "är administratörer"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:59
+#: pyha/templates/pyha/requestview/requestview_header.html:65
 msgid "admin_request_is_not_frozen"
 msgstr "Begäran är inte frusen"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:60
+#: pyha/templates/pyha/requestview/requestview_header.html:66
 msgid "admin_freeze_request"
 msgstr "Frys begäran"
 
-#: pyha/templates/pyha/requestview/requestview_header.html:61
+#: pyha/templates/pyha/requestview/requestview_header.html:67
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
 msgstr ""
 "Frys begäran om att inaktivera åtkomst och åtgärder av icke-"

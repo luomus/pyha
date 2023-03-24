@@ -2,7 +2,7 @@
 
 <h3>{% trans "col_handler_comments_window" %}</h3>
 <p>{% trans "col_handler_comments_window_description" %}</p>
-<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</hspan>
+<span>{% trans "this_section_is_only_visible_to_collection_handlers_not_request_owner" %}</span>
 {% for requestHandlerChat in requestHandlerChat_list %}
 <div class="panel panel-default">
   <div class="panel-body" {% if requestHandlerChat.user == user %} style="background-color:#d9edf7;" {% endif %}><p>{{requestHandlerChat.date|date:"d.m.Y H:i"}} {{ requestHandlerChat.name }}  {% if question.target == 'admin' %} ({% trans 'admin_question' %}) {% else %} ({{ requestHandlerChat.result.collectionName }}) {% endif %} {% trans "col_handler_said" %}&#10;&#13;{{requestHandlerChat.message}}</p></div>

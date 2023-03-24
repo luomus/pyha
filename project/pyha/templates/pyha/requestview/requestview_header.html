@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load pyha_tags %}
 
-{% if role == "hander" or role == "admin" %}
+{% if role == "handler" or role == "admin" %}
   <h1>{% trans "handler_request_from_user" %}
     {{request_owner}},
     {{request_owners_email}}
@@ -42,6 +42,12 @@
 {% if userRequest.waitingstatus == 1 and userRequest.status == 7 or userRequest.waitingstatus == 1 and userRequest.status == 8 %}
 <div class="alert alert-danger" role="alert">
   <p>{% trans "handling_suspended_warning" %}</p>
+</div>
+{% elif userRequest.frozen %}
+<div class="alert alert-danger" role="alert">
+  <p>{% trans "frozen_warning" %}{% if requestHandlerChat_list|length > 0 %}
+    <a href="{{request.path}}?next=comments">{% trans "show_comments" %}</a>{% endif %}
+  </p>
 </div>
 {% endif %}
 {% endif %}
