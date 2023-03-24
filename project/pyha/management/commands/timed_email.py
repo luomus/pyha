@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
-from pyha.email import send_mail_for_unchecked_requests, send_mail_for_unchecked_requests_to_email
-from pyha.database import update_collection_handlers, update_collection_handlers_autom_email_sent_time, get_unhandled_requests_data
-from pyha.warehouse import get_contact_email_for_collection
+from pyha.email import send_mail_for_unchecked_requests
+from pyha.database import update_collection_handlers, update_collection_handlers_autom_email_sent_time, \
+    get_unhandled_requests_data
 from django.core.cache import caches
 
 
@@ -13,16 +13,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         update_collection_handlers()
         collections = caches['collections'].get('collections')
-        downloadRequestHandlers = set()
+        download_request_handlers = set()
         for co in collections:
             for handler in co.get('downloadRequestHandler', {}):
-                downloadRequestHandlers.add(handler)
+                download_request_handlers.add(handler)
 
-        count_for_contact_email = {}
+        # count_for_contact_email = {}
 
-        for handler in downloadRequestHandlers:
+        for handler in download_request_handlers:
             data = get_unhandled_requests_data(handler)
-            if(len(data) > 0):
+            if len(data) > 0:
                 """
                 for request in data:
                     contact_emails = set()

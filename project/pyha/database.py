@@ -129,35 +129,26 @@ def update_collection_handlers():
     return True
 
 
-def count_unhandled_requests(userId):
-    return len(get_unhandled_requests_data(userId))
+def count_unhandled_requests(user_id):
+    return len(get_unhandled_requests_data(user_id))
 
 
-def get_unhandled_requests_data(userId):
+def get_unhandled_requests_data(user_id):
     unhandled = []
 
-    user_collections = get_collections_where_download_handler(userId)
+    user_collections = get_collections_where_download_handler(user_id)
     collection_list = Collection.objects.filter(address__in=user_collections, status=StatusEnum.WAITING)
     request_list = Request.objects.filter(status=StatusEnum.WAITING, frozen=False).filter(
-        id__in=collection_list.values("request"))
+        id__in=collection_list.values('request')
+    )
 
     for r in request_list:
-        request_collections = collection_list.filter(request=r.id).values_list("address", flat=True)
+        request_collections = collection_list.filter(request=r.id).values_list('address', flat=True)
+        unhandled.append({
+            'request_id': r.id,
+            'collections': request_collections
+        })
 
-        questioning = False
-        for co in request_collections:
-            if RequestInformationChatEntry.requestInformationChat.filter(request=r.id, target=co).count() > 0:
-                cochat = RequestInformationChatEntry.requestInformationChat.filter(
-                    request=r.id, target=co).order_by('-date')[0]
-                if cochat.question:
-                    questioning = True
-                    break
-
-        if not questioning:
-            unhandled.append({
-                'request_id': r.id,
-                'collections': request_collections
-            })
     return unhandled
 
 
