@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-17 13:54+0200\n"
+"POT-Creation-Date: 2023-03-24 10:30+0200\n"
 "PO-Revision-Date: 2022-08-31 11:07\n"
 "Last-Translator: \n"
 "Language-Team: English, United Kingdom\n"
@@ -214,7 +214,7 @@ msgid "request_for_user"
 msgstr "Request"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:17
-#: pyha/templates/pyha/base/index.html:37
+#: pyha/templates/pyha/base/index.html:35
 msgid "request_description"
 msgstr "Description"
 
@@ -282,6 +282,7 @@ msgid "manual"
 msgstr "Ohjeet"
 
 #: pyha/templates/pyha/base/base.html:205
+#: pyha/templates/pyha/base/index.html:143
 msgid "generic_error"
 msgstr "Odottamaton virhe tapahtui. Yritä hetken kuluttua uudestaan."
 
@@ -293,37 +294,29 @@ msgstr "Welcome!"
 msgid "click_for_info"
 msgstr "Click on a request to get more information"
 
-#: pyha/templates/pyha/base/index.html:19
+#: pyha/templates/pyha/base/index.html:20
 #, fuzzy
 #| msgid "delete_selected_requests"
 msgid "show_uncompleted_requests"
 msgstr "Delete selected requests"
 
-#: pyha/templates/pyha/base/index.html:20
+#: pyha/templates/pyha/base/index.html:21
 #, fuzzy
 #| msgid "all_requests"
 msgid "show_all_requests"
 msgstr "Requests"
 
 #: pyha/templates/pyha/base/index.html:28
-msgid "handler_new_events"
-msgstr "Requests tha have changed status and require action from you."
-
-#: pyha/templates/pyha/base/index.html:28
-msgid "handler_new_events_abbreviation"
-msgstr "NB"
-
-#: pyha/templates/pyha/base/index.html:30
 msgid "request_date"
 msgstr "Date"
 
-#: pyha/templates/pyha/base/index.html:32
+#: pyha/templates/pyha/base/index.html:30
 msgid "requester"
 msgstr "Created by"
 
-#: pyha/templates/pyha/base/index.html:34
-#: pyha/templates/pyha/base/index.html:52
-#: pyha/templates/pyha/base/index.html:95
+#: pyha/templates/pyha/base/index.html:32
+#: pyha/templates/pyha/base/index.html:51
+#: pyha/templates/pyha/base/index.html:94
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
@@ -331,78 +324,48 @@ msgstr ""
 "The number of observations is not exact because some data is aggregated. The "
 "number of observations in an accepted request may be different."
 
-#: pyha/templates/pyha/base/index.html:34
+#: pyha/templates/pyha/base/index.html:32
 msgid "request_hits"
 msgstr "Number of observations"
 
-#: pyha/templates/pyha/base/index.html:36
-#: pyha/templates/pyha/base/index.html:43
+#: pyha/templates/pyha/base/index.html:34
+#: pyha/templates/pyha/base/index.html:42
 msgid "request_status_for_user"
 msgstr "Status"
 
-#: pyha/templates/pyha/base/index.html:38
+#: pyha/templates/pyha/base/index.html:36
 msgid "select_canceled"
 msgstr "Select"
 
-#: pyha/templates/pyha/base/index.html:41
+#: pyha/templates/pyha/base/index.html:39
+#, fuzzy
+#| msgid "argument_municipality"
+msgid "request_municipality"
+msgstr "Municipal location"
+
+#: pyha/templates/pyha/base/index.html:40
 msgid "request_information_status"
 msgstr "Additional information needed"
 
-#: pyha/templates/pyha/base/index.html:42
+#: pyha/templates/pyha/base/index.html:41
 msgid "request_download_status"
 msgstr "Download status"
 
-#: pyha/templates/pyha/base/index.html:46
+#: pyha/templates/pyha/base/index.html:45
 msgid "select_deleted"
 msgstr "Select"
 
-#: pyha/templates/pyha/base/index.html:53
+#: pyha/templates/pyha/base/index.html:52
 msgid "delete_or_withdraw_selected_requests"
 msgstr "Withdraw selected requests"
 
-#: pyha/templates/pyha/base/index.html:56
+#: pyha/templates/pyha/base/index.html:55
 msgid "delete_selected_requests"
 msgstr "Delete selected requests"
 
-#: pyha/templates/pyha/base/index.html:62
+#: pyha/templates/pyha/base/index.html:61
 msgid "no_requests_for_user"
 msgstr "There are no requests to be shown"
-
-#: pyha/templates/pyha/base/index.html:115 pyha/templatetags/pyha_tags.py:84
-msgid "waiting_for_additional_information"
-msgstr "Waiting for additional information"
-
-#: pyha/templates/pyha/base/index.html:117
-msgid "user_has_given_additional_information"
-msgstr "Requester has given additional information"
-
-#: pyha/templates/pyha/base/index.html:127
-msgid "data_is_not_downloaded"
-msgstr "Data not downloaded"
-
-#: pyha/templates/pyha/base/index.html:129
-msgid "data_is_partly_downloaded"
-msgstr "Partly downloaded"
-
-#: pyha/templates/pyha/base/index.html:131
-msgid "data_is_downloaded"
-msgstr "Requester downloaded the data"
-
-#: pyha/templates/pyha/base/index.html:141 pyha/templatetags/pyha_tags.py:93
-msgid "withdrawn"
-msgstr "Withdrawn"
-
-#: pyha/templates/pyha/base/index.html:143
-msgid "no_decisions"
-msgstr "No decisions made"
-
-#: pyha/templates/pyha/base/index.html:145
-msgid "decisions_partly_done"
-msgstr "Some decisions made"
-
-#: pyha/templates/pyha/base/index.html:147
-msgid "decisions_done"
-msgstr "All decisions made"
 
 #: pyha/templates/pyha/common/argument_table.html:8
 #: pyha/templates/pyha/requestform/tabs/reasons.html:7
@@ -675,7 +638,7 @@ msgstr ""
 "in question."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
-#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:449
+#: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:436
 msgid "secured_by_quarantine"
 msgstr "Access-restricted research material"
 
@@ -685,7 +648,7 @@ msgid "secured_by_quarantine_explanation"
 msgstr "Scientific protection period (location, time)"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
-#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:454
+#: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:441
 msgid "secured_by_sensitivity"
 msgstr "Sensitive material"
 
@@ -695,7 +658,7 @@ msgid "secured_by_sensitivity_explanation"
 msgstr "Automatically aggregated sensitive data"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
-#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:459
+#: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:446
 msgid "secured_by_data_provider"
 msgstr "Access restricted by data provider"
 
@@ -1641,10 +1604,12 @@ msgid "collection_counts"
 msgstr "Number of observations by category"
 
 #: pyha/templatetags/pyha_tags.py:50 pyha/templatetags/pyha_tags.py:72
+#: pyha/views/index.py:229
 msgid "handler_waiting_for_you"
 msgstr "Pending your decision"
 
 #: pyha/templatetags/pyha_tags.py:52 pyha/templatetags/pyha_tags.py:74
+#: pyha/views/index.py:227
 msgid "handler_waiting_for_others"
 msgstr "Pending decision by others"
 
@@ -1672,6 +1637,10 @@ msgstr "The request for more information has a response"
 msgid "partially_accepted"
 msgstr "Partially accepted"
 
+#: pyha/templatetags/pyha_tags.py:84 pyha/views/index.py:203
+msgid "waiting_for_additional_information"
+msgstr "Waiting for additional information"
+
 #: pyha/templatetags/pyha_tags.py:86
 msgid "waiting_for_download"
 msgstr "Waiting for download file to be completed"
@@ -1679,6 +1648,39 @@ msgstr "Waiting for download file to be completed"
 #: pyha/templatetags/pyha_tags.py:89
 msgid "ready_for_download"
 msgstr "Ready for download"
+
+#: pyha/templatetags/pyha_tags.py:93 pyha/views/index.py:210
+#: pyha/views/index.py:222
+msgid "withdrawn"
+msgstr "Withdrawn"
+
+#: pyha/views/index.py:205
+msgid "user_has_given_additional_information"
+msgstr "Requester has given additional information"
+
+#: pyha/views/index.py:213 pyha/views/index.py:225
+msgid "decisions_done"
+msgstr "All decisions made"
+
+#: pyha/views/index.py:215
+msgid "decisions_partly_done"
+msgstr "Some decisions made"
+
+#: pyha/views/index.py:217
+msgid "no_decisions"
+msgstr "No decisions made"
+
+#: pyha/views/index.py:237
+msgid "data_is_not_downloaded"
+msgstr "Data not downloaded"
+
+#: pyha/views/index.py:239
+msgid "data_is_partly_downloaded"
+msgstr "Partly downloaded"
+
+#: pyha/views/index.py:241
+msgid "data_is_downloaded"
+msgstr "Requester downloaded the data"
 
 #: pyha/views/requestform.py:90
 msgid "toast_thanks_request_has_been_registered"
@@ -1699,3 +1701,9 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#~ msgid "handler_new_events"
+#~ msgstr "Requests tha have changed status and require action from you."
+
+#~ msgid "handler_new_events_abbreviation"
+#~ msgstr "NB"

@@ -26,16 +26,16 @@
           <thead>
             <tr bgcolor="{% if role == 'handler' %}#349934{% elif role == 'admin' %}#8080c0{% else %}#3498DB{% endif %}" style="color:white;">
               <th>{% trans "request_date" %}</th>
-              {% if role == "handler" or role == "admin" %}
-              <th>{% trans "requester" %}</th>
-              {% endif %}
-              <th {% if role == "user" %}title="{% trans 'given_values_are_not_absolute' %}{% endif %}">{% trans "request_hits" %}</th>
               {% if role == "user" %}
+              <th title="{% trans 'given_values_are_not_absolute' %}">{% trans "request_hits" %}</th>
               <th>{% trans "request_status_for_user" %}</th>
               <th>{% trans "request_description" %}</th>
               <th>{% trans "select_canceled" %}</th>
               {% endif %}
               {% if role == "handler" or role == "admin" %}
+              <th>{% trans "requester" %}</th>
+              <th>{% trans "request_municipality" %}</th>
+              <th>{% trans "request_hits" %}</th>
               <th>{% trans "request_information_status" %}</th>
               <th>{% trans "request_download_status" %}</th>
               <th>{% trans "request_status_for_user" %}</th>
@@ -93,9 +93,7 @@ const allColumns = [
             $(td).attr("title", "{% trans 'given_values_are_not_absolute' %}");
         }
     },
-    {
-        "data": "statusText"
-    },
+    { "data": "statusText", "render": $.fn.dataTable.render.text() },
     {
         "data": "description",
         "render": $.fn.dataTable.render.text(),
@@ -105,15 +103,9 @@ const allColumns = [
     },
     { "data": "email", "render": $.fn.dataTable.render.text() },
     { "data": "observationCount", "render": $.fn.dataTable.render.number(" ", ",") },
-    {
-        "data": "informationStatusText"
-    },
-    {
-        "data": "downloadStatusText"
-    },
-    {
-        "data": "decisionStatusText"
-    },
+    { "data": "informationStatusText", "render": $.fn.dataTable.render.text() },
+    { "data": "downloadStatusText", "render": $.fn.dataTable.render.text() },
+    { "data": "decisionStatusText", "render": $.fn.dataTable.render.text() },
     {
         "data": null,
         "defaultContent": "",
@@ -127,7 +119,8 @@ const allColumns = [
             $(td).addClass("checkbox-column text-center");
         },
         "sortable": false
-    }
+    },
+    { "data" : "municipality", "render": $.fn.dataTable.render.ellipsis(40, false, true) }
 ];
 
 let table;
@@ -152,9 +145,9 @@ $(document).ready(function() {
             },
             "columns": [
                 {% if role == "admin" %}
-                allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8], allColumns[9]
+                allColumns[0], allColumns[4], allColumns[10], allColumns[5], allColumns[6], allColumns[7], allColumns[8], allColumns[9]
                 {% elif role == "handler" %}
-                allColumns[0], allColumns[4], allColumns[5], allColumns[6], allColumns[7], allColumns[8]
+                allColumns[0], allColumns[4], allColumns[10], allColumns[5], allColumns[6], allColumns[7], allColumns[8]
                 {% else %}
                 allColumns[0], allColumns[1], allColumns[2], allColumns[3], allColumns[9]
                 {% endif %}

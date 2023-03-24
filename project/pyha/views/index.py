@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import gettext
 from pyha.database import handlers_cannot_be_updated, is_downloadable, remove_request, \
-    add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request
+    add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request, get_reasons
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
@@ -73,6 +73,7 @@ def get_request_list_ajax(http_request):
             if ADMIN in current_roles or HANDLER_ANY in current_roles:
                 data_entry['email'] = r.email
                 data_entry['observationCount'] = r.observation_count
+                data_entry['municipality'] = _get_municipality(r)
                 data_entry['informationStatusText'] = _get_information_status_text(r)
                 data_entry['downloadStatusText'] = _get_download_status_text(r)
 
@@ -186,6 +187,13 @@ def _get_request_list(http_request, user_id, only_uncompleted=False):
         query = query.filter(collections__in=collections)
 
     return query
+
+
+def _get_municipality(r):
+    reasons = get_reasons(r)
+    for field in reasons.fields:
+        if field[0] == 'argument_municipality':
+            return field[1]
 
 
 def _get_information_status_text(r):
