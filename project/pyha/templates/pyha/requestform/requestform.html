@@ -157,9 +157,11 @@
 															</div>
 														</div>
 														<div class="modal-footer">
-															<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
-															{% trans "i_accept_terms" %}<br>
-															<p></p>
+															<label style="font-weight: normal; margin-bottom: 10px">
+																<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
+																{% trans "i_accept_terms" %}
+															</label>
+															<br>
 															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
 														</div>
 													</div>
