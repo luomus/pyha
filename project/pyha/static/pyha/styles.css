@@ -359,7 +359,7 @@ div.contact-form{
     border-collapse: separate; !important;
   }
 
-  .container-fluid {
+  *:not(.navbar) > .container-fluid {
     overflow-y: scroll;
 }
 
