@@ -180,9 +180,13 @@
 						}
 	}
 
-	function updateArgumentField(namefield, fillfield){
+	function updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel){
 	return function() { for(var e in fillfield){
-							fillfield[e].textContent = namefield.value;
+	                        let value = namefield.value;
+	                        if (namefield.type === "checkbox") {
+	                            value = namefield.checked ? checkboxTrueLabel : checkboxFalseLabel;
+	                        }
+							fillfield[e].textContent = value;
 						}
 						argumentsFilled();
 						}

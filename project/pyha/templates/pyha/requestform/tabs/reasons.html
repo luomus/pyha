@@ -68,4 +68,21 @@
             </div>
         </div>
     </div>
+    <div>
+        <div class="section"><span>4</span>{% trans 'request_other_parties' %}</div>
+        <p>{% trans 'request_other_parties_info' %}</p>
+        <div class="inner-wrap">
+            <div hidden=true id="argument_customer_check">
+                <div class="checkbox" style="margin-top: 0">
+                    <label>
+                        <input id="customer_check" type="checkbox" name="argument_customer_check" value="true">
+                        {% trans 'argument_customer' %}
+                    </label>
+                </div>
+            </div>
+            <div hidden=true id="argument_other_party">
+                <label>{% trans 'other_party' %}<textarea id="other_party" name="argument_other_party" maxlength="500" placeholder=""></textarea></label>
+            </div>
+        </div>
+    </div>
 </div>

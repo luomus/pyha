@@ -157,11 +157,12 @@
 															</div>
 														</div>
 														<div class="modal-footer">
-															<label style="font-weight: normal; margin-bottom: 10px">
-																<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
-																{% trans "i_accept_terms" %}
-															</label>
-															<br>
+															<div class="checkbox" style="margin-bottom: 10px">
+																<label>
+																	<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
+																	{% trans "i_accept_terms" %}
+																</label>
+															</div>
 															<button type="button" class="btn btn-default" data-dismiss="modal" >{% trans "exit" %}</button>
 														</div>
 													</div>
@@ -222,6 +223,10 @@
 												<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
 												<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
 												<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
+												<tr name="argument_customer_check" style=color:black><th>{% trans "argument_customer_check" %}</th></tr>
+												<tr name="argument_customer_check"><td><p name="argument_customer_check_fill"></p></td></tr>
+												<tr name="argument_other_party" style=color:black><th>{% trans "argument_other_party" %}</th></tr>
+												<tr name="argument_other_party"><td><p name="argument_other_party_fill"></p></td></tr>
 											</table>
 										</div>
 										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: 'font-size:80%', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
@@ -286,6 +291,10 @@
 			<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
 			<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
 			<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
+			<tr name="argument_customer_check" style=color:black><th>{% trans "argument_customer_check" %}</th></tr>
+			<tr name="argument_customer_check"><td><p name="argument_customer_check_fill"></p></td></tr>
+			<tr name="argument_other_party" style=color:black><th>{% trans "argument_other_party" %}</th></tr>
+			<tr name="argument_other_party"><td><p name="argument_other_party_fill"></p></td></tr>
 		</table>
 	</div>
 		<!--- hidden confirm modal --->
@@ -407,12 +416,12 @@
 	}
 
 	function updateReason() {
-	var select = document.getElementById('reason_selector');
+	var select = document.getElementById("reason_selector");
 	var result = getSelectValues(select);
-	var inputs = ['project', 'planning', 'municipality', 'natura_areas', 'research', 'research_address', 'goals', 'customer', 'customer_contact', 'reason'];
+	var inputs = ["project", "planning", "municipality", "natura_areas", "research", "research_address", "goals", "customer", "customer_contact", "reason", "customer_check", "other_party"];
 
 	for (var i=0; i<inputs.length; i++) {
-		var argument = 'argument_' + inputs[i];
+		var argument = "argument_" + inputs[i];
 		document.getElementById(inputs[i]).disabled = true;
 		document.getElementById(argument).hidden = true;
 
@@ -422,42 +431,42 @@
 		}
 	}
 
-	document.getElementById('additional_information').hidden = result.length == 0;
+	document.getElementById("additional_information").hidden = result.length == 0;
 	for (var i=0; i<result.length; i++) {
 		var reasoninputs;
 		switch (result[i]) {
 			case "reason_zoning":
-				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
+				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
 				break;
 			case "reason_permission":
-				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
+				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
 				break;
 			case "reason_enviromental":
-				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
+				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
 				break;
 			case "reason_natura":
-				reasoninputs = ['project', 'planning', 'municipality', 'natura_areas', 'customer', 'customer_contact', 'reason'];
+				reasoninputs = ["project", "planning", "municipality", "natura_areas", "customer", "customer_contact", "reason", "customer_check", "other_party"];
 				break;
 			case "reason_scientific":
-				reasoninputs = ['research', 'research_address', 'goals', 'reason'];
+				reasoninputs = ["research", "research_address", "goals", "reason", "other_party"];
 				break;
 			case "reason_forest":
-				reasoninputs = ['project', 'planning', 'municipality', 'customer', 'customer_contact', 'reason'];
+				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
 				break;
 			case "reason_other":
-				reasoninputs = ['municipality', 'reason'];
+				reasoninputs = ["municipality", "reason", "other_party"];
 				break;
 		}
 
 		for (var j=0; j<reasoninputs.length; j++) {
-			var argument = 'argument_' + reasoninputs[j];
+			var argument = "argument_" + reasoninputs[j];
 			document.getElementById(reasoninputs[j]).disabled = false;
 			document.getElementById(argument).hidden = false;
 
-			if (reasoninputs[j] == 'reason') {
-				var elem = document.getElementById('argument_' + reasoninputs[j] + '_label');
+			if (reasoninputs[j] == "reason") {
+				var elem = document.getElementById("argument_" + reasoninputs[j] + "_label");
 				var label = "{% trans 'argument_reason' %} ";
-				if (result.indexOf('reason_other') > -1) {
+				if (result.indexOf("reason_other") > -1) {
 					label = "{% trans 'argument_reason_more_detail' %} * "
 				}
 				elem.firstChild.nodeValue = label;
@@ -625,13 +634,17 @@
 				updateField(namefield, fillfield)();
 			}
 		}
-		fields = ['project', 'planning', 'municipality', 'natura_areas', 'research', 'research_address', 'goals', 'customer', 'customer_contact', 'reason'];
+		fields = ['project', 'planning', 'municipality', 'natura_areas', 'research', 'research_address', 'goals', 'customer', 'customer_contact', 'reason', 'customer_check', 'other_party'];
 		for (i = 0; i < fields.length; i++){
-			var namefield = document.getElementById(fields[i]);
-			var fillfield = document.getElementsByName('argument_' + fields[i] + '_fill');
-			namefield.onkeyup = updateArgumentField(namefield, fillfield);
-			namefield.onchange = updateArgumentField(namefield, fillfield);
-			updateArgumentField(namefield, fillfield)();
+			const checkboxTrueLabel = "{% trans 'Yes' %}";
+			const checkboxFalseLabel = "{% trans 'No' %}";
+
+			const namefield = document.getElementById(fields[i]);
+			const fillfield = document.getElementsByName('argument_' + fields[i] + '_fill');
+
+			namefield.onkeyup = updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel);
+			namefield.onchange = updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel);
+			updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel)();
 		}
 	});
 	</script>
