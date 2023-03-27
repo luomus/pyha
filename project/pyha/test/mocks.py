@@ -3,7 +3,6 @@ JSON_MOCK = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
 	"source": "KE.398",
-	"email": "ex.apmle@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -49,7 +48,6 @@ JSON_MOCK2 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BE",
 	"source": "KE.398",
-	"email": "ex@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -95,7 +93,6 @@ JSON_MOCK3 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B15555",
 	"source": "KE.398",
-	"email": "filters@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -129,7 +126,6 @@ JSON_MOCK4 = '''
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LL",
 	"description": "Testausta",
 	"source": "KE.398",
-	"email": "te.staaja@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -175,7 +171,6 @@ JSON_MOCK5 = '''
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B12LÖ",
 	"description": "Testausta2",
 	"source": "KE.398",
-	"email": "te.staaja@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -220,7 +215,6 @@ JSON_MOCK6 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775sdB16BD",
 	"source": "KE.398",
-	"email": "test123@321.asdfgh",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -260,7 +254,6 @@ JSON_MOCK7 = '''
   {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16AB",
 	"source": "KE.398",
-	"email": "pyhatestaaja@gmail.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -354,7 +347,6 @@ JSON_MOCK8 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
 	"source": "KE.398",
-	"email": "ex.apmle@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",
@@ -396,7 +388,6 @@ JSON_MOCK9 = '''
 {
 	"id": "http://tun.fi/HBF.C60AB314-43E9-41F8-BB7D-0775773B16BD",
 	"source": "KE.398",
-	"email": "ex.apmle@example.com",
 	"personId":"MA.309",
 	"approximateMatches": 1742,
 	"downloadFormat": "CSV_FLAT",

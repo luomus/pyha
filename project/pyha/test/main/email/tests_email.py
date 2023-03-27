@@ -44,7 +44,7 @@ class EmailTesting (TestCase):
                          base64.b64encode((settings.SECRET_HTTPS_USER+':'+settings.SECRET_HTTPS_PW).encode()).decode())
         self.assertEqual(len(mail.outbox), 1)
         msg = mail.outbox[0]
-        self.assertEqual(msg.to, ['test123@321.asdfgh'])
+        self.assertEqual(msg.to, ['pyhatestaaja@gmail.com'])
 
     def test_mail_is_actually_sent_when_request_status_is_changed(self):
         req = store(JSON_MOCK6)
@@ -64,4 +64,4 @@ class EmailTesting (TestCase):
         self.assertEqual(len(mail.outbox), 1)
         msg = mail.outbox[0]
         self.assertEqual(msg.subject, 'Aineistopyyntösi tila on muuttunut')
-        self.assertEqual(msg.to, ['test123@321.asdfgh'])
+        self.assertEqual(msg.to, ['pyhatestaaja@gmail.com'])
