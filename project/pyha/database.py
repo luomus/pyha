@@ -65,7 +65,7 @@ def get_collection_list(userRequest, lang):
 
 def check_all_collections_removed(requestId):
     userRequest = Request.objects.get(id=requestId)
-    collectionList = userRequest.collection_set.filter(status__gte=0)
+    collectionList = userRequest.collections.filter(status__gte=0)
     if not collectionList:
         userRequest.status = -1
         userRequest.changedBy = changed_by("pyha")
