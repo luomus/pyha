@@ -118,15 +118,17 @@ def approve_terms_skip_official(http_request, userRequest, requestId):
 
 def create_argument_blob(request):
     post = request.POST
-    data = {}
-    data['argument_choices'] = post.getlist('argument_choices')
+    data = {'argument_choices': post.getlist('argument_choices')}
     fields = {}
     for string in post:
-        if "argument_" in string and not "argument_choices" in string:
-            if "_check" in string:
-                fields[string] = post.get(string) == 'true'
+        if 'argument_' in string and not 'argument_choices' in string:
+            value = post.get(string, '')
+            if value == '':
+                continue
+            if '_check' in string:
+                fields[string] = value == 'true'
             else:
-                fields[string] = post.get(string)
+                fields[string] = value
     data['fields'] = fields
     return json.dumps(data)
 
@@ -134,6 +136,6 @@ def create_argument_blob(request):
 def count_contacts(post):
     i = 0
     for string in post:
-        if "request_person_name" in string:
+        if 'request_person_name' in string:
             i += 1
     return i

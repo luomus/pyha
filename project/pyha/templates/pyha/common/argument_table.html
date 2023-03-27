@@ -52,6 +52,12 @@
   {% elif field.0 == 'argument_customer_contact' %}
     <tr style=color:black><th>{% trans "argument_customer_contact" %}</th></tr>
     <tr><td><p>{{field.1}}</p></td></tr>
+  {% elif field.0 == 'argument_customer_check' %}
+    <tr style=color:black><th>{% trans "argument_customer_check" %}</th></tr>
+    <tr><td><p>{% if field.1 == True %}{% trans "Yes" %}{% else %}{% trans "No" %}{% endif %}</p></td></tr>
+  {% elif field.0 == 'argument_other_party' %}
+    <tr style=color:black><th>{% trans "argument_other_party" %}</th></tr>
+    <tr><td><p>{{field.1}}</p></td></tr>
   {% endif %}
 {% endfor %}
 </table>
