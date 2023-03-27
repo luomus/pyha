@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-27 11:07+0300\n"
+"POT-Creation-Date: 2023-03-27 14:34+0300\n"
 "PO-Revision-Date: 2022-08-31 11:07\n"
 "Last-Translator: \n"
 "Language-Team: Finnish\n"
@@ -282,7 +282,11 @@ msgstr "In English"
 msgid "manual"
 msgstr "Ohjeet"
 
-#: pyha/templates/pyha/base/base.html:206
+#: pyha/templates/pyha/base/base.html:123
+msgid "privacy_policy"
+msgstr "Tietosuojaseloste"
+
+#: pyha/templates/pyha/base/base.html:207
 #: pyha/templates/pyha/base/index.html:142
 msgid "generic_error"
 msgstr "Odottamaton virhe tapahtui. Yritä hetken kuluttua uudestaan."
@@ -451,7 +455,7 @@ msgstr "Natura-alueet"
 #: pyha/templates/pyha/common/argument_table.html:47
 #: pyha/templates/pyha/requestform/requestform.html:224
 #: pyha/templates/pyha/requestform/requestform.html:292
-#: pyha/templates/pyha/requestform/requestform.html:470
+#: pyha/templates/pyha/requestform/requestform.html:468
 #: pyha/templates/pyha/requestform/tabs/reasons.html:67
 msgid "argument_reason"
 msgstr "Lisätietoa"
@@ -460,7 +464,7 @@ msgstr "Lisätietoa"
 #: pyha/templates/pyha/requestform/requestform.html:220
 #: pyha/templates/pyha/requestform/requestform.html:288
 #: pyha/templates/pyha/requestform/tabs/reasons.html:61
-#: pyha/templates/pyha/requestform/tabs/reasons.html:78
+#: pyha/templates/pyha/requestform/tabs/reasons.html:79
 msgid "argument_customer"
 msgstr "Tilaaja"
 
@@ -470,6 +474,29 @@ msgstr "Tilaaja"
 #: pyha/templates/pyha/requestform/tabs/reasons.html:64
 msgid "argument_customer_contact"
 msgstr "Tilaajan yhteystiedot"
+
+#: pyha/templates/pyha/common/argument_table.html:56
+#: pyha/templates/pyha/requestform/requestform.html:226
+#: pyha/templates/pyha/requestform/requestform.html:294
+msgid "argument_customer_check"
+msgstr "Aineisto luovutetaan tilaajalle"
+
+#: pyha/templates/pyha/common/argument_table.html:57
+#: pyha/templates/pyha/requestform/requestform.html:639
+#: pyha/templates/pyha/requestview/requestview.html:274
+msgid "Yes"
+msgstr "Kyllä"
+
+#: pyha/templates/pyha/common/argument_table.html:57
+#: pyha/templates/pyha/requestform/requestform.html:640
+msgid "No"
+msgstr ""
+
+#: pyha/templates/pyha/common/argument_table.html:59
+#: pyha/templates/pyha/requestform/requestform.html:228
+#: pyha/templates/pyha/requestform/requestform.html:296
+msgid "argument_other_party"
+msgstr "Aineisto luovutetaan lisäksi seuraavalle taholle"
 
 #: pyha/templates/pyha/common/collection_table.html:6
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
@@ -709,7 +736,7 @@ msgid "request_filters"
 msgstr "Aineistopyynnön rajaukset"
 
 #: pyha/templates/pyha/requestform/requestform.html:16
-#: pyha/templates/pyha/requestform/requestform.html:619
+#: pyha/templates/pyha/requestform/requestform.html:604
 msgid "show"
 msgstr "Näytä"
 
@@ -860,16 +887,6 @@ msgstr "Yrityksen/organisaation nimi"
 msgid "request_arguments"
 msgstr "Perustelut"
 
-#: pyha/templates/pyha/requestform/requestform.html:226
-#: pyha/templates/pyha/requestform/requestform.html:294
-msgid "argument_customer_check"
-msgstr "Aineisto luovutetaan tilaajalle"
-
-#: pyha/templates/pyha/requestform/requestform.html:228
-#: pyha/templates/pyha/requestform/requestform.html:296
-msgid "argument_other_party"
-msgstr "Aineisto luovutetaan lisäksi seuraavalle taholle"
-
 #: pyha/templates/pyha/requestform/requestform.html:236
 msgid "end_request"
 msgstr "Päätä pyyntö"
@@ -899,33 +916,33 @@ msgstr "Käyttöehdot hyväksytty"
 msgid "new_contact"
 msgstr "Uusi hakija"
 
-#: pyha/templates/pyha/requestform/requestform.html:472
+#: pyha/templates/pyha/requestform/requestform.html:470
 msgid "argument_reason_more_detail"
 msgstr ""
 "Lisätietoa: Kuvaa tähän selkeät perustelut ja liitä mukaan pyyntöön "
 "liittyvät tahot yhteistietoineen."
 
-#: pyha/templates/pyha/requestform/requestform.html:622
+#: pyha/templates/pyha/requestform/requestform.html:607
 msgid "hide"
 msgstr "Piilota"
 
-#: pyha/templates/pyha/requestform/requestform.html:713
+#: pyha/templates/pyha/requestform/requestform.html:702
 msgid "request_choose_reason"
 msgstr "Valitse aineiston käyttötarkoitus"
 
-#: pyha/templates/pyha/requestform/requestform.html:714
+#: pyha/templates/pyha/requestform/requestform.html:703
 msgid "request_chosen_multiple_reasons"
 msgstr "Valittu useampi vaihtoehto"
 
-#: pyha/templates/pyha/requestform/requestform.html:715
+#: pyha/templates/pyha/requestform/requestform.html:704
 msgid "request_chosen_all_reasons"
 msgstr "Valittu kaikki vaihtoehdot"
 
-#: pyha/templates/pyha/requestform/requestform.html:723
+#: pyha/templates/pyha/requestform/requestform.html:712
 msgid "usage_choose"
 msgstr "Valitse käyttötapa"
 
-#: pyha/templates/pyha/requestform/requestform.html:732
+#: pyha/templates/pyha/requestform/requestform.html:721
 msgid "expiration_choose"
 msgstr "Valitse aika"
 
@@ -1033,7 +1050,7 @@ msgstr ""
 "Haemme pyydetyn aineiston käyttöoikeutta pyynnön tekijän lisäksi seuraaville "
 "tahoille:"
 
-#: pyha/templates/pyha/requestform/tabs/reasons.html:81
+#: pyha/templates/pyha/requestform/tabs/reasons.html:84
 msgid "other_party"
 msgstr "Muu taho (nimi ja yhteystiedot):"
 
@@ -1193,10 +1210,6 @@ msgid "are_you_sure_you_want_to_download_only_those_given"
 msgstr ""
 "Hyväksymättömät aineistot jäävät latauksen ulkopuolelle ja pyynnön käsittely "
 "keskeytetään niiden osalta. Haluatko varmasti jatkaa?"
-
-#: pyha/templates/pyha/requestview/requestview.html:274
-msgid "Yes"
-msgstr "Kyllä"
 
 #: pyha/templates/pyha/requestview/requestview.html:287
 msgid "loading"
@@ -1730,7 +1743,7 @@ msgstr "Aineisto on ladattu osittain"
 msgid "data_is_downloaded"
 msgstr "Aineisto on ladattu"
 
-#: pyha/views/requestform.py:90
+#: pyha/views/requestform.py:88
 msgid "toast_thanks_request_has_been_registered"
 msgstr "Kiitos, pyyntösi on kirjattu."
 

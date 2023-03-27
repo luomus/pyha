@@ -120,6 +120,7 @@
 				{% if request.session.current_user_role == 'handler' or request.session.current_user_role == 'admin' %}
 		        <li><a href="{% url 'pyha:handler_manual' %}" target="_blank">{% trans "manual" %} <span class="glyphicon glyphicon-question-sign"></span></a></li>
 				{% endif %}
+				<li><a href="https://laji.fi/about/{% if language.code == 'en' %}848{% else %}713{% endif %}" target="_blank">{% trans "privacy_policy" %}</a></li>
 		        </ul>
 		      {% endif %}
 		    </div>
