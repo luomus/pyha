@@ -191,6 +191,8 @@ def _get_request_list(http_request, user_id, only_uncompleted=False):
 
 def _get_municipality(r):
     reasons = get_reasons(r)
+    if reasons is None:
+        return None
     for field in reasons.fields:
         if field[0] == 'argument_municipality':
             return field[1]
