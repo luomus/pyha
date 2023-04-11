@@ -1,5 +1,4 @@
 # coding=utf-8
-from django.test import TestCase, Client
 from django.conf import settings
 from pyha.models import Collection, Request
 from pyha.warehouse import store
@@ -8,15 +7,14 @@ from django.core.cache import cache
 from pyha.test.mocks import JSON_MOCK4, JSON_MOCK6
 from pyha.email import send_mail_after_receiving_request, send_mail_after_request_status_change_to_requester
 from pyha.database import update_request_status
-import mock
+from pyha.test.base_test import BaseTestCase
 import base64
-import ast
 
 
-class EmailTesting (TestCase):
+class EmailTesting (BaseTestCase):
 
     def setUp(self):
-        self.client = Client()
+        super().setUp()
         cache.set('emailMA.309', 'test123@321.asdfgh')
 
     def test_send_mail_after_receiving_request(self):

@@ -1,17 +1,9 @@
 # coding=utf-8
-from django.test import TestCase, Client
 from django.conf import settings
-from pyha.models import Collection, Request
-from pyha import warehouse
-from django.core import mail
-from pyha.test.mocks import *
-import unittest
+from pyha.test.base_test import BaseTestCase
 
 
-class NotLoggedInTests(TestCase):
-    def setUp(self):
-        self.client = Client()
-
+class NotLoggedInTests(BaseTestCase):
     def test_not_logged_in_gets_redirected(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 302)

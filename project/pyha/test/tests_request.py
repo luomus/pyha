@@ -1,9 +1,9 @@
 # coding=utf-8
-from django.test import TestCase, Client
 from pyha.models import Collection, Request, RequestLogEntry, StatusEnum, Col_StatusEnum
 from pyha import warehouse
 from django.urls import reverse
 from pyha.roles import *
+from pyha.test.base_test import BaseTestCase
 from pyha.test.mocks import *
 import mock
 
@@ -57,10 +57,10 @@ def set_current_user_to_handler(session):
     session.save()
 
 
-class RequestTesting(TestCase):
+class RequestTesting(BaseTestCase):
 
     def setUp(self):
-        self.client = Client()
+        super().setUp()
         session = self.client.session
         session['user_name'] = 'paisti'
         session['user_id'] = 'MA.309'

@@ -1,16 +1,10 @@
 # coding=utf-8
-from django.test import TestCase, Client
-from django.conf import settings
-from pyha.models import Collection, Request
-from pyha import warehouse
-from django.core import mail
-from pyha.test.mocks import *
-import unittest
+from pyha.test.base_test import BaseTestCase
 
 
-class LoggedInTests(TestCase):
+class LoggedInTests(BaseTestCase):
     def setUp(self):
-        self.client = Client()
+        super().setUp()
         session = self.client.session
         session['user_name'] = 'paisti'
         session['user_id'] = 10

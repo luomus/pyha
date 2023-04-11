@@ -1,22 +1,15 @@
 # coding=utf-8
-from django.test import TestCase, Client
 from pyha.models import Collection, Request, StatusEnum
 from pyha.warehouse import store
 from pyha.database import update_request_status
 from pyha.roles import USER
+from pyha.test.base_test import BaseTestCase
 from pyha.test.mocks import *
-import unittest
-import mock
-from argparse import Namespace
 
 
-def dummy(*args, **kwargs):
-    return Namespace(ok=True)
-
-
-class RequestTesting(TestCase):
+class RequestTesting(BaseTestCase):
     def setUp(self):
-        self.client = Client()
+        super().setUp()
         session = self.client.session
         session['user_name'] = 'paisti'
         session['user_id'] = 'MA.309'
@@ -26,7 +19,6 @@ class RequestTesting(TestCase):
         session.save()
         store(JSON_MOCK)
 
-    @mock.patch('pyha.warehouse.requests.post', dummy)
     def test_requests_waiting(self):
         req = store(JSON_MOCK6)
         req.status = StatusEnum.WAITING
@@ -44,7 +36,6 @@ class RequestTesting(TestCase):
         update_request_status(req, "fi")
         self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING)
 
-    @mock.patch('pyha.warehouse.requests.post', dummy)
     def test_requests_skip_offi_approved(self):
         req = store(JSON_MOCK6)
         req.status = StatusEnum.WAITING
@@ -57,7 +48,6 @@ class RequestTesting(TestCase):
         update_request_status(req, "fi")
         self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
 
-    @mock.patch('pyha.warehouse.requests.post', dummy)
     def test_requests_skip_offi_approved_with_discard(self):
         req = store(JSON_MOCK6)
         req.status = StatusEnum.WAITING
@@ -75,7 +65,6 @@ class RequestTesting(TestCase):
         update_request_status(req, "fi")
         self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
 
-    @mock.patch('pyha.warehouse.requests.post', dummy)
     def test_requests_skip_offi_partially_approved(self):
         req = store(JSON_MOCK6)
         req.status = StatusEnum.WAITING
@@ -93,7 +82,6 @@ class RequestTesting(TestCase):
         update_request_status(req, "fi")
         self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.WAITING_FOR_DOWNLOAD)
 
-    @mock.patch('pyha.warehouse.requests.post', dummy)
     def test_requests_skip_offi_rejected(self):
         req = store(JSON_MOCK6)
         req.status = StatusEnum.WAITING
@@ -111,7 +99,6 @@ class RequestTesting(TestCase):
         update_request_status(req, "fi")
         self.assertTrue(Request.objects.get(id=req.id).status == StatusEnum.REJECTED)
 
-    @mock.patch('pyha.warehouse.requests.post', dummy)
     def test_requests_skip_offi_rejected_with_discard(self):
         req = store(JSON_MOCK6)
         req.status = StatusEnum.WAITING
