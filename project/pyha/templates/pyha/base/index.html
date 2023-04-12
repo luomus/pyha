@@ -85,7 +85,16 @@ function checkSelected() {
 {% endif %}
 <script>
 const allColumns = [
-    { "data": "date", "render": $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSS', 'DD.MM.YYYY    HH:mm') },
+    {
+        "data": "date",
+        "render": function(data, type, row) {
+            let value = $.fn.dataTable.render.moment("YYYY-MM-DDTHH:mm:ss.SSS", "DD.MM.YYYY    HH:mm")(data, type, row);
+            if (type === "display") {
+                value = "<a href=\"{% url 'pyha:root' %}request/" + row.id + "\">" + value + "</a>";
+            }
+            return value;
+        }
+    },
     {
         "data": "approximateMatches",
         "render": $.fn.dataTable.render.number(" ", ","),
@@ -191,7 +200,7 @@ $(document).ready(function() {
                 $(row).addClass(className);
 
                 $(row).click(function(e) {
-                    if (e.target && e.target.type === "checkbox") {
+                    if (e.target && (e.target.type === "checkbox" || event.target.tagName.toLowerCase() === "a")) {
                         return;
                     }
                     if (e.target && e.target.classList.contains("checkbox-column")) {
