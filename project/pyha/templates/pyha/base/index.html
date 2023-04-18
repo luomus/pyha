@@ -178,25 +178,29 @@ $(document).ready(function() {
             },
             "createdRow": function(row, data, dataIndex) {
                 let className = "clickable-row indextr";
+                let statusClass = "";
                 if (data.status == 1) {
+                    statusClass = "info";
                     {% if role == "handler" %}
-                    if (data.waitingForUser) {
-                        className += " info";
-                    } else {
-                        className += " success";
+                    if (!data.waitingForUser) {
+                       statusClass = "success";
                     }
-                    {% else %}
-                    className += " info";
                     {% endif %}
                 } else if (data.status == 3 || data.status == -2) {
-                    className += " danger";
+                    statusClass = "danger";
                 } else if (data.status == 2) {
-                    className += " warning";
+                    statusClass = "warning";
                 } else if (data.status == 0 || data.status == 6) {
-                    className += " active";
+                    statusClass = "active";
                 } else if (data.status == 4 || data.status == 7 || data.status == 8) {
-                    className += " success";
+                    statusClass = "success";
                 }
+                {% if role == "handler" or role == "admin" %}
+                if (data.frozen) {
+                    statusClass = "info";
+                }
+                {% endif %}
+                className += " " + statusClass;
                 $(row).addClass(className);
 
                 $(row).click(function(e) {

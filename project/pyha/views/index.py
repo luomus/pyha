@@ -33,7 +33,7 @@ def index(http_request):
         return _process_auth_response(http_request, '')
     userId = http_request.session["user_id"]
     toast = None
-    if(http_request.session.get("toast", None) is not None):
+    if (http_request.session.get("toast", None) is not None):
         toast = http_request.session["toast"]
         http_request.session["toast"] = None
         http_request.session.save()
@@ -68,7 +68,8 @@ def get_request_list_ajax(http_request):
             data_entry = {
                 'id': r.id,
                 'status': r.status,
-                'date': r.date
+                'date': r.date,
+                'frozen': r.frozen
             }
             if ADMIN in current_roles or HANDLER_ANY in current_roles:
                 data_entry['email'] = r.email
@@ -116,7 +117,8 @@ def group_delete_request(http_request):
                 if request.status > 0:
                     withdraw_request(request, http_request)
                     RequestLogEntry.requestLog.create(
-                        request=request, user=http_request.session["user_id"], role=USER, action=RequestLogEntry.WITHDRAW)
+                        request=request, user=http_request.session["user_id"], role=USER,
+                        action=RequestLogEntry.WITHDRAW)
             else:
                 remove_request(request, http_request)
 
@@ -211,7 +213,9 @@ def _get_decision_status_text(r):
     if r.status == StatusEnum.WITHDRAWN:
         return gettext('withdrawn')
     else:
-        if r.waiting_count == 0:
+        if r.frozen:
+            return gettext('frozen')
+        elif r.waiting_count == 0 or r.status == StatusEnum.WAITING_FOR_DOWNLOAD or r.status == StatusEnum.DOWNLOADABLE:
             return gettext('decisions_done')
         elif r.handled_count > 0:
             return gettext('decisions_partly_done')
@@ -223,7 +227,9 @@ def _get_decision_status_text_for_handler(r):
     if r.status == StatusEnum.WITHDRAWN:
         return gettext('withdrawn')
     else:
-        if r.waiting_count == 0:
+        if r.frozen:
+            return gettext('frozen')
+        elif r.waiting_count == 0 or r.status == StatusEnum.WAITING_FOR_DOWNLOAD or r.status == StatusEnum.DOWNLOADABLE:
             return gettext('decisions_done')
         elif r.waiting_for_user_count == 0:
             return gettext('handler_waiting_for_others')

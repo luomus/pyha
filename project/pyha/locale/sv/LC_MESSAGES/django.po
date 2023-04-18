@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-18 14:32+0300\n"
+"POT-Creation-Date: 2023-04-18 15:11+0300\n"
 "PO-Revision-Date: 2022-08-31 11:07\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
@@ -1689,12 +1689,12 @@ msgid "collection_counts"
 msgstr "Antalet av observationer efter kategori"
 
 #: pyha/templatetags/pyha_tags.py:50 pyha/templatetags/pyha_tags.py:72
-#: pyha/views/index.py:231
+#: pyha/views/index.py:236
 msgid "handler_waiting_for_you"
 msgstr "Väntar på ditt beslut"
 
 #: pyha/templatetags/pyha_tags.py:52 pyha/templatetags/pyha_tags.py:74
-#: pyha/views/index.py:229
+#: pyha/views/index.py:234
 msgid "handler_waiting_for_others"
 msgstr "Väntar på beslut av andra"
 
@@ -1722,7 +1722,7 @@ msgstr "Väntar på beslut"
 msgid "partially_accepted"
 msgstr "Delvis accepterad"
 
-#: pyha/templatetags/pyha_tags.py:84 pyha/views/index.py:205
+#: pyha/templatetags/pyha_tags.py:84 pyha/views/index.py:206
 msgid "waiting_for_additional_information"
 msgstr "Väntar på tillägsuppgifter"
 
@@ -1734,36 +1734,40 @@ msgstr "Väntar på att nedladdningsfil ska bli färdig"
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
 
-#: pyha/templatetags/pyha_tags.py:93 pyha/views/index.py:212
-#: pyha/views/index.py:224
+#: pyha/templatetags/pyha_tags.py:93 pyha/views/index.py:213
+#: pyha/views/index.py:227
 msgid "withdrawn"
 msgstr "Inställt"
 
-#: pyha/views/index.py:207
+#: pyha/views/index.py:208
 msgid "user_has_given_additional_information"
 msgstr "Requester has given additional information"
 
-#: pyha/views/index.py:215 pyha/views/index.py:227
+#: pyha/views/index.py:216 pyha/views/index.py:230
+msgid "frozen"
+msgstr ""
+
+#: pyha/views/index.py:218 pyha/views/index.py:232
 msgid "decisions_done"
 msgstr "All decisions made"
 
-#: pyha/views/index.py:217
+#: pyha/views/index.py:220
 msgid "decisions_partly_done"
 msgstr "Some decisions made"
 
-#: pyha/views/index.py:219
+#: pyha/views/index.py:222
 msgid "no_decisions"
 msgstr "No decisions made"
 
-#: pyha/views/index.py:239
+#: pyha/views/index.py:244
 msgid "data_is_not_downloaded"
 msgstr "Data not downloaded"
 
-#: pyha/views/index.py:241
+#: pyha/views/index.py:246
 msgid "data_is_partly_downloaded"
 msgstr "Partly downloaded"
 
-#: pyha/views/index.py:243
+#: pyha/views/index.py:248
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
