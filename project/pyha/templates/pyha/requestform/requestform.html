@@ -159,7 +159,7 @@
 														<div class="modal-footer">
 															<div class="checkbox" style="margin-bottom: 10px">
 																<label>
-																	<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens(); checkForApproval();">
+																	<input type="checkbox" id ="checkbsens" name="checkbsens" value="sens" onchange="checksens()">
 																	{% trans "i_accept_terms" %}
 																</label>
 															</div>
@@ -223,10 +223,10 @@
 												<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
 												<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
 												<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
-												<tr name="argument_customer_check" style=color:black><th>{% trans "argument_customer_check" %}</th></tr>
-												<tr name="argument_customer_check"><td><p name="argument_customer_check_fill"></p></td></tr>
-												<tr name="argument_other_party" style=color:black><th>{% trans "argument_other_party" %}</th></tr>
-												<tr name="argument_other_party"><td><p name="argument_other_party_fill"></p></td></tr>
+												<tr name="argument_other_parties" style=color:black><th>{% trans "argument_other_parties" %}</th></tr>
+												<tr name="argument_other_parties"><td><p name="argument_other_parties_fill"></p></td></tr>
+												<tr name="argument_other_party_details" style=color:black><th>{% trans "argument_other_party_details" %}</th></tr>
+												<tr name="argument_other_party_details"><td><p name="argument_other_party_details_fill"></p></td></tr>
 											</table>
 										</div>
 										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: 'font-size:80%', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
@@ -291,10 +291,10 @@
 			<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
 			<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
 			<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
-			<tr name="argument_customer_check" style=color:black><th>{% trans "argument_customer_check" %}</th></tr>
-			<tr name="argument_customer_check"><td><p name="argument_customer_check_fill"></p></td></tr>
-			<tr name="argument_other_party" style=color:black><th>{% trans "argument_other_party" %}</th></tr>
-			<tr name="argument_other_party"><td><p name="argument_other_party_fill"></p></td></tr>
+			<tr name="argument_other_parties" style=color:black><th>{% trans "argument_other_parties" %}</th></tr>
+			<tr name="argument_other_parties"><td><p name="argument_other_parties_fill"></p></td></tr>
+			<tr name="argument_other_party_details" style=color:black><th>{% trans "argument_other_party_details" %}</th></tr>
+			<tr name="argument_other_party_details"><td><p name="argument_other_party_details_fill"></p></td></tr>
 		</table>
 	</div>
 		<!--- hidden confirm modal --->
@@ -339,404 +339,38 @@
 {% endblock %}
 
 {% block start_script %}
+<script type="text/javascript" src="{{ static }}pyha/js/requestform.js?v={{version}}"></script>
 <script>
-	var accepted = {};
-	var acceptedsens = 0;
-	function checksens() {
-		approvetext = "{% trans 'you_accepted_terms' %}";
-		nonapprovetext = "{% trans 'you_have_not_accepted_terms' %}";
-		if(document.getElementById('checkbsens').checked){
-			document.getElementById('statustextsens').textContent=approvetext;
-			document.getElementById('checkbsens').disabled = true;
-			document.getElementById('to_step_summary').disabled = false;
-			acceptedsens = 1;
-		}else{
-			document.getElementById('statustextsens').textContent=nonapprovetext;
-			document.getElementById('to_step_summary').disabled = true;
-			acceptedsens = 0;
-		}
-	}
-	function remove(counter) {
-		delete accepted[counter];
-		removeAjax(counter, refresh_skip_official);
-	}
+	const _translations = {
+		"you_accepted_terms": "{% trans 'you_accepted_terms' %}",
+		"you_have_not_accepted_terms": "{% trans 'you_have_not_accepted_terms' %}",
+		"new_contact": "{% trans 'new_contact' %}",
+		"argument_reason": "{% trans 'argument_reason' %}",
+		"argument_reason_more_detail": "{% trans 'argument_reason_more_detail' %}",
+		"argument_only_requester_check": "{% trans 'argument_only_requester_check' %}",
+		"argument_customer_check": "{% trans 'argument_customer_check' %}",
+		"argument_other_party_check": "{% trans 'argument_other_party_check' %}",
+		"show": "{% trans 'show' %}",
+		"hide": "{% trans 'hide' %}",
+		"request_choose_reason": "{% trans 'request_choose_reason' %}",
+		"request_chosen_multiple_reasons": "{% trans 'request_chosen_multiple_reasons' %}",
+		"request_chosen_all_reasons": "{% trans 'request_chosen_all_reasons' %}",
+		"usage_choose": "{% trans 'usage_choose' %}",
+		"expiration_choose": "{% trans 'expiration_choose' %}"
+	};
 
-	function addContact(current) {
-	var newli = document.createElement("li");
-	var newa = document.createElement("a");
-	var newspan = document.createElement("span");
-	var addli = document.getElementById("add_contact_tab");
-	var adda = document.getElementById("add_contact_link");
-	var remli = document.getElementById("remove_contact_tab");
-	var rema = document.getElementById("remove_contact_link");
-	var ul = document.getElementById("contact_list");
-	newa.className = "request-tab";
-	newa.setAttribute("href", "#contact"+current);
-	newa.setAttribute("data-toggle", "tab");
-	newa.setAttribute("role", "tab");
-	newa.id ="contact_tab_button_" + current;
-	newspan.textContent = "{% trans 'new_contact' %}";
-	newspan.id = "contact_tab_text_" + current;
-	newli.id = "contact_tab" + current;
-	newli.className = "vertical-li";
-	newa.appendChild(newspan);
-	newli.appendChild(newa);
-	ul.insertBefore(newli, addli);
-	create_contact(current);
-	rema.setAttribute("href", "javascript:removeContact("+current+")");
-	current += 1;
-	adda.setAttribute("href", "javascript:addContact("+current+")");
-	remli.hidden = false;
-	}
+	const _descriptionLength = {{ userRequest.description.strip|length }};
+	const _downloadTypes = {
+		"standard": "{{ download_types.standard }}",
+	 	"api_key": "{{ download_types.api_key }}"
+	};
 
-	function removeContact(current) {
-	if (current > 1){
-	var li = document.getElementById("contact_tab" + current);
-	var remli = document.getElementById("remove_contact_tab");
-	var rema = document.getElementById("remove_contact_link");
-	var adda = document.getElementById("add_contact_link");
-	var div = document.getElementById("contact" + current);
-	var modaldivs = document.getElementsByName("contact_" + current);
-	for (i = 0; i < modaldivs.length; i = 0){
-		modaldivs[i].parentNode.removeChild(modaldivs[i]);
-	}
-	var summarytr = document.getElementById("summary_contacts_" + current);
-	adda.setAttribute("href", "javascript:addContact("+current+")");
-	current -= 1;
-	rema.setAttribute("href", "javascript:removeContact("+current+")");
-	summarytr.parentNode.removeChild(summarytr);
-	div.parentNode.removeChild(div);
-	li.parentNode.removeChild(li);
-		if(current == 1){
-				remli.hidden = true;
-			}
-	}
-	contactsFilled();
-	document.getElementById("contact_tab_button_1").click();
-	}
-
-	function updateReason() {
-	var select = document.getElementById("reason_selector");
-	var result = getSelectValues(select);
-	var inputs = ["project", "planning", "municipality", "natura_areas", "research", "research_address", "goals", "customer", "customer_contact", "reason", "customer_check", "other_party"];
-
-	for (var i=0; i<inputs.length; i++) {
-		var argument = "argument_" + inputs[i];
-		document.getElementById(inputs[i]).disabled = true;
-		document.getElementById(argument).hidden = true;
-
-		var names = document.getElementsByName(argument)
-		for (var j=0; j<names.length; j++) {
-			names[j].style.display = "none";
-		}
-	}
-
-	document.getElementById("additional_information").hidden = result.length == 0;
-	for (var i=0; i<result.length; i++) {
-		var reasoninputs;
-		switch (result[i]) {
-			case "reason_zoning":
-				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
-				break;
-			case "reason_permission":
-				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
-				break;
-			case "reason_enviromental":
-				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
-				break;
-			case "reason_natura":
-				reasoninputs = ["project", "planning", "municipality", "natura_areas", "customer", "customer_contact", "reason", "customer_check", "other_party"];
-				break;
-			case "reason_scientific":
-				reasoninputs = ["research", "research_address", "goals", "reason", "other_party"];
-				break;
-			case "reason_forest":
-				reasoninputs = ["project", "planning", "municipality", "customer", "customer_contact", "reason", "customer_check", "other_party"];
-				break;
-			case "reason_other":
-				reasoninputs = ["municipality", "reason", "other_party"];
-				break;
-		}
-
-		for (var j=0; j<reasoninputs.length; j++) {
-			var argument = "argument_" + reasoninputs[j];
-			document.getElementById(reasoninputs[j]).disabled = false;
-			document.getElementById(argument).hidden = false;
-
-			if (reasoninputs[j] == "reason") {
-				var elem = document.getElementById("argument_" + reasoninputs[j] + "_label");
-				var label = "{% trans 'argument_reason' %} ";
-				if (result.indexOf("reason_other") > -1) {
-					label = "{% trans 'argument_reason_more_detail' %} * "
-				}
-				elem.firstChild.nodeValue = label;
-			}
-
-			var names = document.getElementsByName(argument)
-			for (var k=0; k<names.length; k++) {
-				names[k].style.display = "table-row";
-			}
-		}
-	}
-	argumentsFilled();
-	}
-
-	function contactsFilled() {
-	var count = 0;
-	var fills = ["request_person_name_","request_person_street_address_","request_person_postal_code_","request_person_post_office_name_","request_person_country_","request_person_email_","request_person_phone_number_"];
-	while(true){
-	count ++;
-		if (document.getElementById("request_person_name_"+count) != null){
-		}else{
-			count --;
-			break;
-		}
-	}
-	var state = false;
-	for (var i=1; i<=count; i++) {
-		for (var j=0; j<fills.length; j++){
-			if (document.getElementById(fills[j]+""+i).value == ''){
-				state = true;
-				break;
-			}
-		}
-		if(state){
-		break;
-		}
-	}
-	document.getElementById('to_step_2').disabled = state;
-	document.getElementById('send_to_be_accepted').disabled = state;
-	var secfills = ["request_person_organization_name_","request_person_corporation_id_"];
-	var seccontacts = ["li_contact_corporation/organization_","li_contact_corporation_id_"];
-	for (var i=1; i<=count; i++) {
-		for (var j=0; j<secfills.length; j++){
-				if (document.getElementById(secfills[j]+""+i).value == ''){
-					for (k = 0; k < document.getElementsByName(seccontacts[j]+""+i).length; k++){
-						document.getElementsByName(seccontacts[j]+""+i)[k].style.display = "none";
-					}
-				}else{
-					for (k = 0; k < document.getElementsByName(seccontacts[j]+""+i).length; k++){
-						document.getElementsByName(seccontacts[j]+""+i)[k].style.display = "";
-					}
-				}
-			}
-		}
-	}
-
-
-	function argumentsFilled() {
-		var select = document.getElementById('reason_selector');
-		var result = getSelectValues(select);
-		var fills = [];
-		var missingAnswers = false;
-
-		if(result.length > 0) {
-			for (var i=0; i<result.length; i++) {
-				switch (result[i]) {
-					case "reason_zoning":
-						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
-						break;
-					case "reason_permission":
-						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
-						break;
-					case "reason_enviromental":
-						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
-						break;
-					case "reason_natura":
-						fills = fills.concat(['project', 'planning', 'municipality', 'natura_areas', 'customer', 'customer_contact']);
-						break;
-					case "reason_scientific":
-						fills = fills.concat(['research', 'research_address', 'goals']);
-						break;
-					case "reason_forest":
-						fills = fills.concat(['project', 'planning', 'municipality', 'customer', 'customer_contact']);
-						break;
-					case "reason_other":
-						fills = fills.concat(['municipality', 'reason']);
-						break;
-				}
-			}
-			for (var i=0; i<fills.length; i++){
-				if (document.getElementById(fills[i]).value == ''){
-					missingAnswers = true;
-					break;
-				}
-			}
-		} else {
-			missingAnswers = true;
-		}
-
-		if (!missingAnswers) {
-			var usage = document.getElementById("usage_selector").value;
-			missingAnswers = usage === "" || (
-				usage === "{{ download_types.api_key }}" && document.getElementById("expiration_selector").value === ""
-			);
-		}
-
-		if (!missingAnswers) {
-			document.getElementById("to_step_3").disabled = false;
-		} else {
-			document.getElementById("to_step_3").disabled = true;
-			var $tabs = $('.wizard .nav-tabs li')
-			var $summary_tab = $tabs[$tabs.length - 1]
-			$summary_tab.className = 'disabled'
-		}
-	}
-
-	function getSelectValues(select) {
-	var result = [];
-	var options = select && select.options;
-	var opt;
-	for (var i=0; i<options.length; i++) {
-	opt = options[i];
-		if (opt.selected) {
-			result.push(opt.value || opt.text);
-			}
-		}
-	return result;
-	}
+	setContext(_translations, _descriptionLength, _downloadTypes);
 </script>
 {% endblock %}
 {% block end_script %}
-	<script>
-	$(document).ready(function(){
-	  $("#filterlist").on("hide.bs.collapse", function(){
-		$("#filterbutton").html('{% trans "show" %}');
-	  });
-	  $("#filterlist").on("show.bs.collapse", function(){
-		$("#filterbutton").html('{% trans "hide" %}');
-	  });
-	});
-	</script>
-
-	<script>
-	//$(document).ready(function() {
-	//	var end = document.getElementById("contacts_content_end");
-	//	var contacthtml = sessionStorage.getItem("contacts"+{{userRequest.id}})
-	//	end.insertAdjacentHTML('beforebegin', contacthtml);
-	//});
-	</script>
-
-	<script>
-	$(document).ready(function() {
-		var fields = ["request_person_name_1","request_person_street_address_1","request_person_postal_code_1","request_person_post_office_name_1","request_person_country_1","request_person_email_1","request_person_phone_number_1","request_person_organization_name_1","request_person_corporation_id_1"];
-		var fills = ["contact_name_1","contact_street_address_1","contact_postal_1","contact_post_office_1","contact_country_1","contact_email_1","contact_phone_number_1","contact_corporation/organization_1","contact_corporation_id_1"];
-		for (i = 0; i < fields.length; i++){
-			var namefield = document.getElementById(fields[i]);
-			var fillfield = document.getElementsByName(fills[i]);
-			if(i == 0){
-				namefield.onkeyup = updateTabField(namefield, fillfield, 1);
-				namefield.onchange = updateTabField(namefield, fillfield, 1);
-				updateTabField(namefield, fillfield, 1)();
-			}else{
-				namefield.onkeyup = updateField(namefield, fillfield);
-				namefield.onchange = updateField(namefield, fillfield);
-				updateField(namefield, fillfield)();
-			}
-		}
-		fields = ['project', 'planning', 'municipality', 'natura_areas', 'research', 'research_address', 'goals', 'customer', 'customer_contact', 'reason', 'customer_check', 'other_party'];
-		for (i = 0; i < fields.length; i++){
-			const checkboxTrueLabel = "{% trans 'Yes' %}";
-			const checkboxFalseLabel = "{% trans 'No' %}";
-
-			const namefield = document.getElementById(fields[i]);
-			const fillfield = document.getElementsByName('argument_' + fields[i] + '_fill');
-
-			namefield.onkeyup = updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel);
-			namefield.onchange = updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel);
-			updateArgumentField(namefield, fillfield, checkboxTrueLabel, checkboxFalseLabel)();
-		}
-	});
-	</script>
-
-	<script>
-		$(document).on('click','.deleteContainer',function(e){
-			var name ="#delete" + $(this).find('.removeCollectionButton').attr('id');
-			e.preventDefault();
-			$('#confirm-modal').off()
-			$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
-				.one('click', '#delete', function(){
-					$(name).submit();
-			});
-
-		});
-		$(document).on('click','.sensDeleteContainer',function(e){
-			var name = "#deletesens" + $(this).find('.removeSensitiveButton').attr('id');
-			e.preventDefault();
-			$('#confirm-modal').off()
-			$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
-				.one('click', '#delete', function(){
-					$(name).submit();
-			});
-
-		});
-		$(document).on('click','.customDeleteContainer',function(e){
-			var name = "#deletecustom" + $(this).find('.removeCustomButton').attr('id');
-			e.preventDefault();
-			$('#confirm-modal').off()
-			$('#confirm-modal').modal({backdrop: 'static', keyboard: false})
-				.one('click', '#delete', function(){
-					$(name).submit();
-			});
-		});
-		$("form").submit(function() {
-			$("input").removeAttr("disabled");
-		});
-	</script>
-
-	<script>
-	<!-- näytä kuvauksen muokkaus elementti jos kuvauksen pituus on 0 -->
-	var done = false;
-	function checkHasDescription(){
-		var descExists = {{ userRequest.description.strip|length }};
-		if (descExists == 0 && !done) {
-			$("#descriptionEdit").collapse('show');
-			done = true;
-		}
-	}
-	</script>
-	<script>
-	var that = this;
-	$(document).ready(function() {
-		$('#reason_selector').multiselect({
-		nonSelectedText: '{% trans "request_choose_reason" %}',
-		nSelectedText: '{% trans "request_chosen_multiple_reasons" %}',
-		allSelectedText: '{% trans "request_chosen_all_reasons" %}',
-        onChange: function(option, checked, select) {
-        	this.$button.click();
-        }
-
-		});
-
-		$('#usage_selector').val('').multiselect({
-			nonSelectedText: '{% trans "usage_choose" %}',
-			onChange: function(option, checked, select) {
-				var apiKeySelected = document.getElementById("usage_selector").value === "{{ download_types.api_key }}";
-				document.getElementById("expiration_section").style.display = apiKeySelected ? "" : "none";
-        		that.argumentsFilled();
-        	}
-		});
-
-		$('#expiration_selector').val('').multiselect({
-			nonSelectedText: '{% trans "expiration_choose" %}',
-			onChange: function(option, checked, select) {
-        		that.argumentsFilled();
-        	}
-		});
-	});
-	</script>
-	<script type="text/javascript" src="{{ static }}pyha/js/accordion.js"></script>
-	<!-- create html snippets in tabs -->
-	<script>
-	$(document).ready(function(){
-	refresh_skip_official();
-	get_request_header();
-	updateReason();
-	contactsFilled();
-	argumentsFilled();
-	});
-	</script>
-	<!-- end create html snippets in tabs -->
+<script type="text/javascript" src="{{ static }}pyha/js/accordion.js"></script>
+<script type="text/javascript" src="{{ static }}pyha/js/requestform-init.js?v={{version}}"></script>
 {% endblock %}
 {% block modal %}
 {% endblock %}

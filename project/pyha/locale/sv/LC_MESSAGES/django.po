@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-27 14:34+0300\n"
+"POT-Creation-Date: 2023-04-18 14:32+0300\n"
 "PO-Revision-Date: 2022-08-31 11:07\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
@@ -290,7 +290,7 @@ msgid "privacy_policy"
 msgstr ""
 
 #: pyha/templates/pyha/base/base.html:207
-#: pyha/templates/pyha/base/index.html:142
+#: pyha/templates/pyha/base/index.html:151
 msgid "generic_error"
 msgstr "Odottamaton virhe tapahtui. Yritä hetken kuluttua uudestaan."
 
@@ -320,7 +320,7 @@ msgstr "Datum"
 
 #: pyha/templates/pyha/base/index.html:30
 #: pyha/templates/pyha/base/index.html:50
-#: pyha/templates/pyha/base/index.html:93
+#: pyha/templates/pyha/base/index.html:102
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
@@ -464,7 +464,7 @@ msgstr "Natura-områden"
 #: pyha/templates/pyha/common/argument_table.html:47
 #: pyha/templates/pyha/requestform/requestform.html:224
 #: pyha/templates/pyha/requestform/requestform.html:292
-#: pyha/templates/pyha/requestform/requestform.html:468
+#: pyha/templates/pyha/requestform/requestform.html:348
 #: pyha/templates/pyha/requestform/tabs/reasons.html:67
 msgid "argument_reason"
 msgstr "Fritextfält"
@@ -473,7 +473,6 @@ msgstr "Fritextfält"
 #: pyha/templates/pyha/requestform/requestform.html:220
 #: pyha/templates/pyha/requestform/requestform.html:288
 #: pyha/templates/pyha/requestform/tabs/reasons.html:61
-#: pyha/templates/pyha/requestform/tabs/reasons.html:79
 msgid "argument_customer"
 msgstr "Beställare"
 
@@ -488,27 +487,16 @@ msgstr "Beställarens kontaktinformation"
 #: pyha/templates/pyha/requestform/requestform.html:226
 #: pyha/templates/pyha/requestform/requestform.html:294
 #, fuzzy
-#| msgid "argument_customer"
-msgid "argument_customer_check"
-msgstr "Beställare"
+#| msgid "request_date"
+msgid "argument_other_parties"
+msgstr "Datum"
 
-#: pyha/templates/pyha/common/argument_table.html:57
-#: pyha/templates/pyha/requestform/requestform.html:639
-#: pyha/templates/pyha/requestview/requestview.html:274
-msgid "Yes"
-msgstr "Ja"
-
-#: pyha/templates/pyha/common/argument_table.html:57
-#: pyha/templates/pyha/requestform/requestform.html:640
-msgid "No"
-msgstr ""
-
-#: pyha/templates/pyha/common/argument_table.html:59
+#: pyha/templates/pyha/common/argument_table.html:60
 #: pyha/templates/pyha/requestform/requestform.html:228
 #: pyha/templates/pyha/requestform/requestform.html:296
 #, fuzzy
 #| msgid "request_date"
-msgid "argument_other_party"
+msgid "argument_other_party_details"
 msgstr "Datum"
 
 #: pyha/templates/pyha/common/collection_table.html:6
@@ -715,7 +703,7 @@ msgid "Delete_these_sightings"
 msgstr "Jag behöver inte detta material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:44
-#: pyha/templates/pyha/requestform/requestform.html:347
+#: pyha/templates/pyha/requestform/requestform.html:346
 #: pyha/templatetags/pyha_tags.py:66
 msgid "you_have_not_accepted_terms"
 msgstr "Vänligen läs och acceptera användarvillkor"
@@ -748,7 +736,7 @@ msgid "request_filters"
 msgstr "Filter"
 
 #: pyha/templates/pyha/requestform/requestform.html:16
-#: pyha/templates/pyha/requestform/requestform.html:604
+#: pyha/templates/pyha/requestform/requestform.html:353
 msgid "show"
 msgstr "Visa"
 
@@ -918,39 +906,60 @@ msgstr "Utesluta"
 msgid "back"
 msgstr "Tillbaka"
 
-#: pyha/templates/pyha/requestform/requestform.html:346
+#: pyha/templates/pyha/requestform/requestform.html:345
 msgid "you_accepted_terms"
 msgstr "Du accepterade användarvillkoren"
 
-#: pyha/templates/pyha/requestform/requestform.html:378
+#: pyha/templates/pyha/requestform/requestform.html:347
 msgid "new_contact"
 msgstr "Ny sökande"
 
-#: pyha/templates/pyha/requestform/requestform.html:470
+#: pyha/templates/pyha/requestform/requestform.html:349
 msgid "argument_reason_more_detail"
 msgstr "Fritextfält"
 
-#: pyha/templates/pyha/requestform/requestform.html:607
+#: pyha/templates/pyha/requestform/requestform.html:350
+#: pyha/templates/pyha/requestform/tabs/reasons.html:79
+#, fuzzy
+#| msgid "argument_customer"
+msgid "argument_only_requester_check"
+msgstr "Beställare"
+
+#: pyha/templates/pyha/requestform/requestform.html:351
+#: pyha/templates/pyha/requestform/tabs/reasons.html:87
+#, fuzzy
+#| msgid "argument_customer"
+msgid "argument_customer_check"
+msgstr "Beställare"
+
+#: pyha/templates/pyha/requestform/requestform.html:352
+#: pyha/templates/pyha/requestform/tabs/reasons.html:95
+#, fuzzy
+#| msgid "request_date"
+msgid "argument_other_party_check"
+msgstr "Datum"
+
+#: pyha/templates/pyha/requestform/requestform.html:354
 msgid "hide"
 msgstr "Dold"
 
-#: pyha/templates/pyha/requestform/requestform.html:702
+#: pyha/templates/pyha/requestform/requestform.html:355
 msgid "request_choose_reason"
 msgstr "Välj användningsändamål för materialet"
 
-#: pyha/templates/pyha/requestform/requestform.html:703
+#: pyha/templates/pyha/requestform/requestform.html:356
 msgid "request_chosen_multiple_reasons"
 msgstr "Flera valda"
 
-#: pyha/templates/pyha/requestform/requestform.html:704
+#: pyha/templates/pyha/requestform/requestform.html:357
 msgid "request_chosen_all_reasons"
 msgstr "Alla valda"
 
-#: pyha/templates/pyha/requestform/requestform.html:712
+#: pyha/templates/pyha/requestform/requestform.html:358
 msgid "usage_choose"
 msgstr "Valitse käyttötapa"
 
-#: pyha/templates/pyha/requestform/requestform.html:721
+#: pyha/templates/pyha/requestform/requestform.html:359
 msgid "expiration_choose"
 msgstr "Valitse aika"
 
@@ -1060,10 +1069,10 @@ msgstr "Datum"
 msgid "request_other_parties_info"
 msgstr "Datum"
 
-#: pyha/templates/pyha/requestform/tabs/reasons.html:84
+#: pyha/templates/pyha/requestform/tabs/reasons.html:95
 #, fuzzy
 #| msgid "request_date"
-msgid "other_party"
+msgid "argument_other_party_check_details"
 msgstr "Datum"
 
 #: pyha/templates/pyha/requestview/requestview.html:50
@@ -1223,6 +1232,10 @@ msgstr ""
 "Material som inte har godkänts kommer att uteslutas från nedladdningen, och "
 "begäran kommer inte att behandlas vidare. Är du säker på att du vill gå "
 "vidare?"
+
+#: pyha/templates/pyha/requestview/requestview.html:274
+msgid "Yes"
+msgstr "Ja"
 
 #: pyha/templates/pyha/requestview/requestview.html:287
 msgid "loading"
@@ -1676,12 +1689,12 @@ msgid "collection_counts"
 msgstr "Antalet av observationer efter kategori"
 
 #: pyha/templatetags/pyha_tags.py:50 pyha/templatetags/pyha_tags.py:72
-#: pyha/views/index.py:229
+#: pyha/views/index.py:231
 msgid "handler_waiting_for_you"
 msgstr "Väntar på ditt beslut"
 
 #: pyha/templatetags/pyha_tags.py:52 pyha/templatetags/pyha_tags.py:74
-#: pyha/views/index.py:227
+#: pyha/views/index.py:229
 msgid "handler_waiting_for_others"
 msgstr "Väntar på beslut av andra"
 
@@ -1709,7 +1722,7 @@ msgstr "Väntar på beslut"
 msgid "partially_accepted"
 msgstr "Delvis accepterad"
 
-#: pyha/templatetags/pyha_tags.py:84 pyha/views/index.py:203
+#: pyha/templatetags/pyha_tags.py:84 pyha/views/index.py:205
 msgid "waiting_for_additional_information"
 msgstr "Väntar på tillägsuppgifter"
 
@@ -1721,36 +1734,36 @@ msgstr "Väntar på att nedladdningsfil ska bli färdig"
 msgid "ready_for_download"
 msgstr "Klar för nedladdning"
 
-#: pyha/templatetags/pyha_tags.py:93 pyha/views/index.py:210
-#: pyha/views/index.py:222
+#: pyha/templatetags/pyha_tags.py:93 pyha/views/index.py:212
+#: pyha/views/index.py:224
 msgid "withdrawn"
 msgstr "Inställt"
 
-#: pyha/views/index.py:205
+#: pyha/views/index.py:207
 msgid "user_has_given_additional_information"
 msgstr "Requester has given additional information"
 
-#: pyha/views/index.py:213 pyha/views/index.py:225
+#: pyha/views/index.py:215 pyha/views/index.py:227
 msgid "decisions_done"
 msgstr "All decisions made"
 
-#: pyha/views/index.py:215
+#: pyha/views/index.py:217
 msgid "decisions_partly_done"
 msgstr "Some decisions made"
 
-#: pyha/views/index.py:217
+#: pyha/views/index.py:219
 msgid "no_decisions"
 msgstr "No decisions made"
 
-#: pyha/views/index.py:237
+#: pyha/views/index.py:239
 msgid "data_is_not_downloaded"
 msgstr "Data not downloaded"
 
-#: pyha/views/index.py:239
+#: pyha/views/index.py:241
 msgid "data_is_partly_downloaded"
 msgstr "Partly downloaded"
 
-#: pyha/views/index.py:241
+#: pyha/views/index.py:243
 msgid "data_is_downloaded"
 msgstr "Requester downloaded the data"
 
@@ -1773,6 +1786,26 @@ msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
+
+#, fuzzy
+#~| msgid "argument_customer"
+#~ msgid "argument_only_requester"
+#~ msgstr "Beställare"
+
+#, fuzzy
+#~| msgid "request_date"
+#~ msgid "argument_other_party"
+#~ msgstr "Datum"
+
+#, fuzzy
+#~| msgid "argument_customer"
+#~ msgid "argument_only_user"
+#~ msgstr "Beställare"
+
+#, fuzzy
+#~| msgid "request_date"
+#~ msgid "other_party"
+#~ msgstr "Datum"
 
 #, fuzzy
 #~| msgid "request_description"

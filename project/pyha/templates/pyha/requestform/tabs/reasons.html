@@ -68,20 +68,36 @@
             </div>
         </div>
     </div>
-    <div>
+    <div id="request_other_parties" hidden=true>
         <div class="section"><span>4</span>{% trans 'request_other_parties' %}</div>
         <p>{% trans 'request_other_parties_info' %}</p>
         <div class="inner-wrap">
-            <div hidden=true id="argument_customer_check">
+             <div id="argument_only_requester_check">
                 <div class="checkbox" style="margin-top: 0">
                     <label>
-                        <input id="customer_check" type="checkbox" name="argument_customer_check" value="true">
-                        {% trans 'argument_customer' %}
+                        <input id="only_requester_check" type="checkbox" name="argument_other_parties" value="argument_only_requester_check">
+                        {% trans 'argument_only_requester_check' %}.
                     </label>
                 </div>
             </div>
-            <div hidden=true id="argument_other_party">
-                <label>{% trans 'other_party' %}<textarea id="other_party" name="argument_other_party" maxlength="500" placeholder=""></textarea></label>
+            <div hidden=true id="argument_customer_check">
+                <div class="checkbox" style="margin-top: 0">
+                    <label>
+                        <input id="customer_check" type="checkbox" name="argument_other_parties" value="argument_customer_check">
+                        {% trans 'argument_customer_check' %}.
+                    </label>
+                </div>
+            </div>
+            <div id="argument_other_party_check">
+                <div class="checkbox" style="margin-top: 0">
+                    <label>
+                        <input id="other_party_check" type="checkbox" name="argument_other_parties" value="argument_other_party_check">
+                        {% trans 'argument_other_party_check' %}. {% trans 'argument_other_party_check_details' %}.
+                    </label>
+                </div>
+            </div>
+            <div id="argument_other_party_details">
+                <label><textarea id="other_party_details" name="argument_other_party_details" maxlength="500" placeholder=""></textarea></label>
             </div>
         </div>
     </div>

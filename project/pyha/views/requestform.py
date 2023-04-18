@@ -119,17 +119,22 @@ def approve_terms_skip_official(http_request, userRequest, requestId):
 def create_argument_blob(request):
     post = request.POST
     data = {'argument_choices': post.getlist('argument_choices')}
+
+    special_fields = ['argument_choices', 'argument_other_parties', 'argument_other_party_details']
     fields = {}
     for string in post:
-        if 'argument_' in string and not 'argument_choices' in string:
+        if 'argument_' in string and string not in special_fields:
             value = post.get(string, '')
             if value == '':
                 continue
-            if '_check' in string:
-                fields[string] = value == 'true'
-            else:
-                fields[string] = value
+            fields[string] = value
     data['fields'] = fields
+
+    other_parties = post.getlist('argument_other_parties')
+    data['fields']['argument_other_parties'] = other_parties
+    if 'argument_other_party_check' in other_parties:
+        data['fields']['argument_other_party_details'] = post.get('argument_other_party_details', '')
+
     return json.dumps(data)
 
 
