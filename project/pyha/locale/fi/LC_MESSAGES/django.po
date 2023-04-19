@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-18 15:11+0300\n"
-"PO-Revision-Date: 2023-04-18 12:46\n"
+"PO-Revision-Date: 2023-04-19 09:28\n"
 "Last-Translator: \n"
 "Language-Team: Finnish\n"
 "Language: fi_FI\n"
@@ -455,7 +455,7 @@ msgstr "Toimeksiantajan yhteystiedot"
 #: pyha/templates/pyha/requestform/requestform.html:226
 #: pyha/templates/pyha/requestform/requestform.html:294
 msgid "argument_other_parties"
-msgstr "Aineisto luovutetaan seuraaville taholle"
+msgstr "Aineisto luovutetaan seuraaville tahoille"
 
 #: pyha/templates/pyha/common/argument_table.html:60
 #: pyha/templates/pyha/requestform/requestform.html:228
@@ -1008,7 +1008,7 @@ msgstr "Tahot, joille aineisto luovutetaan"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:73
 msgid "request_other_parties_info"
-msgstr "Haemme pyydetyn aineiston käyttöoikeutta pyynnön tekijän lisäksi seuraaville tahoille:"
+msgstr "Haemme pyydetyn aineiston käyttöoikeutta seuraaville tahoille:"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:95
 msgid "argument_other_party_check_details"
@@ -1217,7 +1217,7 @@ msgstr "Huom! Tämän pyynnön käsittely on keskeytetty, eikä muutosten tekemi
 
 #: pyha/templates/pyha/requestview/requestview_header.html:48
 msgid "frozen_warning"
-msgstr "Huom! Tämä pyyntö on jäädytetty, eikä käsittely ole mahdollista."
+msgstr "Huom! Tämä pyyntö on jäädytetty, eikä sen käsittely ole mahdollista."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:49
 msgid "show_comments"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-18 15:11+0300\n"
-"PO-Revision-Date: 2023-04-18 12:46\n"
+"PO-Revision-Date: 2023-04-19 09:28\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
 "Language: sv_FI\n"
@@ -82,7 +82,7 @@ msgstr "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has receiv
 #: pyha/email.py:166
 #: pyha/templates/pyha/request_summary_pdf/request_summary_pdf.html:43
 msgid "request_summary_for_handlers"
-msgstr "Yhteenveto aineistopyynnöstä"
+msgstr "Sammanfattning av databegäran"
 
 #: pyha/email.py:183
 msgid "mail_after_additional_information_received_subject"
@@ -248,7 +248,7 @@ msgstr "Logga ut"
 
 #: pyha/templates/pyha/base/base.html:104
 msgid "set_lang_fi"
-msgstr "Suomeksi"
+msgstr "På finska"
 
 #: pyha/templates/pyha/base/base.html:106
 msgid "set_lang_sv"
@@ -256,20 +256,20 @@ msgstr "På svenska"
 
 #: pyha/templates/pyha/base/base.html:108
 msgid "set_lang_en"
-msgstr "In English"
+msgstr "På engelska"
 
 #: pyha/templates/pyha/base/base.html:121
 msgid "manual"
-msgstr "Ohjeet"
+msgstr "Instruktioner"
 
 #: pyha/templates/pyha/base/base.html:123
 msgid "privacy_policy"
-msgstr "Tietosuojaseloste"
+msgstr "Dataskyddsbeskrivning"
 
 #: pyha/templates/pyha/base/base.html:207
 #: pyha/templates/pyha/base/index.html:151
 msgid "generic_error"
-msgstr "Odottamaton virhe tapahtui. Yritä hetken kuluttua uudestaan."
+msgstr "Ett oväntat fel uppstod. Försök igen om ett tag."
 
 #: pyha/templates/pyha/base/index.html:11
 msgid "welcome"
@@ -281,11 +281,11 @@ msgstr "Klicka på en begäran för att få mer information"
 
 #: pyha/templates/pyha/base/index.html:20
 msgid "show_uncompleted_requests"
-msgstr "Keskeneräiset pyynnöt"
+msgstr "Oavslutade begäran"
 
 #: pyha/templates/pyha/base/index.html:21
 msgid "show_all_requests"
-msgstr "Kaikki pyynnöt"
+msgstr "Alla begäran"
 
 #: pyha/templates/pyha/base/index.html:28
 msgid "request_date"
@@ -319,11 +319,11 @@ msgstr "Skapad av"
 
 #: pyha/templates/pyha/base/index.html:37
 msgid "request_municipality"
-msgstr "Sijaintikunta"
+msgstr "Kommun"
 
 #: pyha/templates/pyha/base/index.html:39
 msgid "request_information_status"
-msgstr "Additional information needed"
+msgstr "Begäran om ytterligare information"
 
 #: pyha/templates/pyha/base/index.html:40
 msgid "request_download_status"
@@ -455,13 +455,13 @@ msgstr "Uppdragsgivares kontaktinformation"
 #: pyha/templates/pyha/requestform/requestform.html:226
 #: pyha/templates/pyha/requestform/requestform.html:294
 msgid "argument_other_parties"
-msgstr "Aineisto luovutetaan seuraaville taholle"
+msgstr "Data överlämnas till följande enheter"
 
 #: pyha/templates/pyha/common/argument_table.html:60
 #: pyha/templates/pyha/requestform/requestform.html:228
 #: pyha/templates/pyha/requestform/requestform.html:296
 msgid "argument_other_party_details"
-msgstr "Muu taho"
+msgstr "Andra enhet"
 
 #: pyha/templates/pyha/common/collection_table.html:6
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:11
@@ -874,7 +874,7 @@ msgstr "Fritextfält"
 #: pyha/templates/pyha/requestform/requestform.html:350
 #: pyha/templates/pyha/requestform/tabs/reasons.html:79
 msgid "argument_only_requester_check"
-msgstr "Aineisto tulee vain hakijan käyttöön"
+msgstr "Data kommer endast att användas av den sökande"
 
 #: pyha/templates/pyha/requestform/requestform.html:351
 #: pyha/templates/pyha/requestform/tabs/reasons.html:87
@@ -884,7 +884,7 @@ msgstr "Data ska lämnas till uppdragsgivaren"
 #: pyha/templates/pyha/requestform/requestform.html:352
 #: pyha/templates/pyha/requestform/tabs/reasons.html:95
 msgid "argument_other_party_check"
-msgstr "Aineisto luovutetaan myös muun tahon käyttöön"
+msgstr "Data lämnas även över till andra parter"
 
 #: pyha/templates/pyha/requestform/requestform.html:354
 msgid "hide"
@@ -904,11 +904,11 @@ msgstr "Alla valda"
 
 #: pyha/templates/pyha/requestform/requestform.html:358
 msgid "usage_choose"
-msgstr "Valitse käyttötapa"
+msgstr "Välj användningsmetoden"
 
 #: pyha/templates/pyha/requestform/requestform.html:359
 msgid "expiration_choose"
-msgstr "Valitse aika"
+msgstr "Välj tid"
 
 #: pyha/templates/pyha/requestform/tabs/contact_person.html:4
 msgid "required_fields_indicated_with_sign"
@@ -968,31 +968,31 @@ msgstr "Välj den avsedda användningen av data"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:17
 msgid "request_usage"
-msgstr "Valitse tapa, jolla haluat saada aineiston käyttöösi"
+msgstr "Välj hur du vill komma åt data"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:20
 msgid "usage_download"
-msgstr "Tiedostolataus (taulukko tai paikkatietomuodot)"
+msgstr "Filuppladdning (tabell- eller GIS dataformat)"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:21
 msgid "usage_apikey"
-msgstr "API-avain koneluettavaan tiedonsiirtoon"
+msgstr "API-nyckel för maskinläsbar dataöverföring"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:24
 msgid "expiration_choose_label"
-msgstr "Aineiston hakulupa rajoittuu aikaan"
+msgstr "Datasökningstillståndet är tidsbegränsat"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:26
 msgid "expiration_three_months"
-msgstr "3 kuukautta pyynnön tekemisestä"
+msgstr "3 månader från begäran"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:27
 msgid "expiration_one_year"
-msgstr "1 vuosi pyynnön tekemisestä"
+msgstr "1 år från begäran"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:30
 msgid "expiration_three_months_note"
-msgstr "Suositeltava valinta, jos kyseessä on lyhytaikainen tarve."
+msgstr "Rekommenderat val vid kortvarigt behov."
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:36
 msgid "additional_information"
@@ -1004,15 +1004,15 @@ msgstr "Skriv beskrivningen noggrant eftersom den hjälper till vid beslutsfatta
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:72
 msgid "request_other_parties"
-msgstr "Tahot, joille aineisto luovutetaan"
+msgstr "Enheter till vilka data överlämnas"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:73
 msgid "request_other_parties_info"
-msgstr "Haemme pyydetyn aineiston käyttöoikeutta pyynnön tekijän lisäksi seuraaville tahoille:"
+msgstr "Vi ansöker om rätten att använda det efterfrågade data till följande parter:"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:95
 msgid "argument_other_party_check_details"
-msgstr "Kirjoita organisaation nimi sekä yhteyshenkilön nimi ja yhteystiedot alla olevaan kenttään"
+msgstr "Ange organisationens namn och kontaktpersonens namn och kontaktuppgifter i fältet nedan"
 
 #: pyha/templates/pyha/requestview/requestview.html:50
 msgid "download_file_type"
@@ -1096,7 +1096,7 @@ msgstr "Nedladdningen har löpt ut"
 
 #: pyha/templates/pyha/requestview/requestview.html:97
 msgid "show_api_key"
-msgstr "Lataa API-avain"
+msgstr "Ladda ner API-nyckeln"
 
 #: pyha/templates/pyha/requestview/requestview.html:104
 msgid "initialize_download"
@@ -1108,7 +1108,7 @@ msgstr "Du ska få en e-post när nedladdningen är färdig"
 
 #: pyha/templates/pyha/requestview/requestview.html:115
 msgid "you_will_be_emailed_when_api_key_ready"
-msgstr "Saat sähköpostiin ilmoituksen, kun API-avain on ladattavissa"
+msgstr "Du kommer att få ett meddelande via e-post när API-nyckeln är tillgänglig för nedladdning"
 
 #: pyha/templates/pyha/requestview/requestview.html:122
 msgid "stop_wait_initialize_download"
@@ -1116,7 +1116,7 @@ msgstr "Avbryta behandling och ladda ner godkända material"
 
 #: pyha/templates/pyha/requestview/requestview.html:124
 msgid "stop_wait_initialize_api_key"
-msgstr "Keskeytä pyyntö ja lataa API-avain hyväksytyille aineistoille"
+msgstr "Stoppa begäran och ladda ner API-nyckeln för det godkända dataseten"
 
 #: pyha/templates/pyha/requestview/requestview.html:144
 #: pyha/templates/pyha/requestview/tabs/history.html:3
@@ -1173,23 +1173,23 @@ msgstr "Laddar..."
 
 #: pyha/templates/pyha/requestview/requestview.html:312
 msgid "api_key"
-msgstr "API-avain"
+msgstr "API-nyckel"
 
 #: pyha/templates/pyha/requestview/requestview.html:318
 msgid "accept_api_key_terms_part1"
-msgstr "Olen lukenut ja hyväksyn"
+msgstr "Jag har läst och jag accepterar"
 
 #: pyha/templates/pyha/requestview/requestview.html:318
 msgid "accept_api_key_terms_part2"
-msgstr "käyttöehdot"
+msgstr "användarvillkor (på finska)"
 
 #: pyha/templates/pyha/requestview/requestview.html:333
 msgid "api_key_expires"
-msgstr "Voimassaolon päättymispäivä"
+msgstr "Utgångsdatum"
 
 #: pyha/templates/pyha/requestview/requestview.html:337
 msgid "copy_api_key"
-msgstr "Kopioi avain leikepöydälle"
+msgstr "Kopiera nyckel till urklipp"
 
 #: pyha/templates/pyha/requestview/requestview.html:351
 msgid "download_failed"
@@ -1213,7 +1213,7 @@ msgstr "Visa begäran för tilläggsuppgifter"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:44
 msgid "handling_suspended_warning"
-msgstr "Huom! Tämän pyynnön käsittely on keskeytetty, eikä muutosten tekeminen ole enää mahdollista."
+msgstr "Notera! Denna begäran har frysts och kan inte behandlas."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:48
 msgid "frozen_warning"
@@ -1221,7 +1221,7 @@ msgstr "Notera! Denna begäran har frysts och kan inte behandlas."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:49
 msgid "show_comments"
-msgstr "Näytä kommentit"
+msgstr "Visa kommenter"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:61
 msgid "admin_request_is_frozen"
@@ -1538,7 +1538,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:14
 msgid "make_decision_api_key_alert"
-msgstr "Huomaa, että aineistopyytäjä on hakenut lupaa aineistojen käyttöön Lajitietokeskuksen rajapinnan (API) kautta."
+msgstr "Observera att sökaren har ansökt om tillstånd att använda materialet via FinBIF API."
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 msgid "own_collections"
@@ -1651,7 +1651,7 @@ msgstr "Requester has given additional information"
 
 #: pyha/views/index.py:216 pyha/views/index.py:230
 msgid "frozen"
-msgstr "Jäädytetty"
+msgstr "Frusen"
 
 #: pyha/views/index.py:218 pyha/views/index.py:232
 msgid "decisions_done"
