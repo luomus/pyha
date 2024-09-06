@@ -52,6 +52,9 @@
             {% endif %}
             {% if downloadable %}
             <div style="text-align:center;">
+                <div id="shp-deprectation-warning" class="alert alert-warning" role="alert">
+                    <p>{% trans "shp_deprecation_warning" %}</p>
+                </div>
                 <div class="user-download-settings">
                     <div style="text-align: left">
                         <div>
@@ -496,6 +499,7 @@ $(document).ready(function(){
       var gisFieldsDisabled = fileType !== 'GIS';
 
       document.getElementById("gis-fields").style.display = (gisFieldsDisabled ? "none" : "");
+      document.getElementById("shp-deprectation-warning").style.display = (gisFieldsDisabled ? "none" : "");
     }
   }
 
