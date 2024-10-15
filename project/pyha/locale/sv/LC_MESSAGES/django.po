@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-05 17:22+0300\n"
-"PO-Revision-Date: 2024-10-15 06:41\n"
+"PO-Revision-Date: 2024-10-15 06:47\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
 "Language: sv_FI\n"
@@ -1020,7 +1020,7 @@ msgstr "Ladda ner API-nyckeln"
 
 #: pyha/templates/pyha/requestview/requestview.html:56
 msgid "shp_deprecation_warning"
-msgstr "Tiedostolataus ESRI Shapefile (.shp) -muodossa loppuu 31.12.2024. Käytä sen sijaan Geopackage (.gpkg) -tiedostomuotoa. <a target='_blank' href='https://laji.fi/news/8363'>Lue lisää muutoksesta</a>."
+msgstr "Downloading occurrence data in ESRI shapefile (.shp) format will be discontinued at the end of December 2024. Please select Geopackage (.gpkg) instead. <a href='https://laji.fi/news/8363'>Read more about the change</a> (in Finnish)."
 
 #: pyha/templates/pyha/requestview/requestview.html:61
 msgid "download_file_type"
