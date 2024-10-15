@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-05 17:22+0300\n"
-"PO-Revision-Date: 2023-11-07 13:24\n"
+"PO-Revision-Date: 2024-10-15 06:41\n"
 "Last-Translator: \n"
 "Language-Team: English, United Kingdom\n"
 "Language: en_GB\n"
@@ -72,9 +72,7 @@ msgstr "Aineistoista puuttuu käsittelijöitä – Collections are missing handl
 
 #: pyha/email.py:142 pyha/email.py:160
 msgid "mail_for_approval_subject"
-msgstr ""
-"Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new "
-"data request"
+msgstr "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new data request"
 
 #: pyha/email.py:166
 #: pyha/templates/pyha/request_summary_pdf/request_summary_pdf.html:43
@@ -83,15 +81,11 @@ msgstr "Summary of the data request"
 
 #: pyha/email.py:183
 msgid "mail_after_additional_information_received_subject"
-msgstr ""
-"Lisätietopyyntöösi on vastattu – Your request for more information has been "
-"answered"
+msgstr "Lisätietopyyntöösi on vastattu – Your request for more information has been answered"
 
 #: pyha/email.py:209
 msgid "mail_for_unchecked_requests_subject"
-msgstr ""
-"Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data "
-"requests in FinBIF"
+msgstr "Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data requests in FinBIF"
 
 #: pyha/email.py:226
 msgid "mail_admin_after_request_approval_subject"
@@ -99,9 +93,7 @@ msgstr "Uusi aineistopyyntö: {time} – New data request: {time}"
 
 #: pyha/email.py:243
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
-msgstr ""
-"Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing "
-"handlers: {time}"
+msgstr "Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing handlers: {time}"
 
 #: pyha/login.py:163 pyha/login.py:173
 msgid "error_request_has_been_frozen_by_admin"
@@ -174,9 +166,7 @@ msgstr "Additional setting information"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:57
 msgid "daily_handler_email_information"
-msgstr ""
-"Sends emails every Monday and Thursday to collection handlers for "
-"collections requiring their attention."
+msgstr "Sends emails every Monday and Thursday to collection handlers for collections requiring their attention."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
 msgid "admin_enable_daily_requester_email"
@@ -184,8 +174,7 @@ msgstr "Activate scheduled status update messages"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:70
 msgid "daily_requester_email_information"
-msgstr ""
-"Sends a message every day to all users whose request status has changed."
+msgstr "Sends a message every day to all users whose request status has changed."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:76
 msgid "admin_enable_weekly_missing_handlers_email"
@@ -193,10 +182,7 @@ msgstr "Enable periodical missing handlers email"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:83
 msgid "weekly_missing_handlers_email_information"
-msgstr ""
-"Does weekly checks on requests being handled for collections with missing "
-"handlers.&#10; Sends a notification email about those missing to ICT email."
-"&#10; Doesn't send anything if handlers are found for all collections."
+msgstr "Does weekly checks on requests being handled for collections with missing handlers.&#10; Sends a notification email about those missing to ICT email.&#10; Doesn't send anything if handlers are found for all collections."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:89
 msgid "admin_enable_auto_decline_overdue"
@@ -204,9 +190,7 @@ msgstr "Enable periodical decline overdue collections"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:96
 msgid "auto_decline_overdue_information"
-msgstr ""
-"Declines overdue collections automatically after a period of 28 days.&#10; "
-"Days are counted starting from the approval of terms by the requester."
+msgstr "Declines overdue collections automatically after a period of 28 days.&#10; Days are counted starting from the approval of terms by the requester."
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:2
 msgid "request_for_user"
@@ -219,9 +203,7 @@ msgstr "Description"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:19
 msgid "request_description_tooltip"
-msgstr ""
-"You may write a small header or a description to help you identify your "
-"request."
+msgstr "You may write a small header or a description to help you identify your request."
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"
@@ -315,9 +297,7 @@ msgstr "Date"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
-msgstr ""
-"The number of observations is not exact because some data is aggregated. The "
-"number of observations in an accepted request may be different."
+msgstr "The number of observations is not exact because some data is aggregated. The number of observations in an accepted request may be different."
 
 #: pyha/templates/pyha/base/index.html:30
 #: pyha/templates/pyha/base/index.html:38
@@ -635,17 +615,11 @@ msgstr "Collections"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 msgid "restricted_collections_in_request"
-msgstr ""
-"Your request contains access-resctricted material. Read and accept theterms."
+msgstr "Your request contains access-resctricted material. Read and accept theterms."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:5
 msgid "sensitivity_info"
-msgstr ""
-"FinBIF controls sensitive species data either by hiding either exact "
-"location information or the entire observation. This applies to species "
-"whose conservation would be endangered by persecution, hunting, harassment "
-"or commercial or private collecting. The threat has to apply to the species "
-"in question."
+msgstr "FinBIF controls sensitive species data either by hiding either exact location information or the entire observation. This applies to species whose conservation would be endangered by persecution, hunting, harassment or commercial or private collecting. The threat has to apply to the species in question."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:436
@@ -1026,9 +1000,7 @@ msgstr "Reason your request"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:37
 msgid "additional_information_info"
-msgstr ""
-"Write the description carefully as it helps in the decision making and "
-"speeds up the processing of the request."
+msgstr "Write the description carefully as it helps in the decision making and speeds up the processing of the request."
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:72
 msgid "request_other_parties"
@@ -1036,14 +1008,11 @@ msgstr "Parties to whom the data is handed over"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:73
 msgid "request_other_parties_info"
-msgstr ""
-"We apply for the right to use the requested data to the following parties:"
+msgstr "We apply for the right to use the requested data to the following parties:"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:95
 msgid "argument_other_party_check_details"
-msgstr ""
-"Enter the name of the organization and the name and contact information of "
-"the contact person in the field below"
+msgstr "Enter the name of the organization and the name and contact information of the contact person in the field below"
 
 #: pyha/templates/pyha/requestview/requestview.html:48
 msgid "show_api_key"
@@ -1051,7 +1020,7 @@ msgstr "Download the API key"
 
 #: pyha/templates/pyha/requestview/requestview.html:56
 msgid "shp_deprecation_warning"
-msgstr ""
+msgstr "Tiedostolataus ESRI Shapefile (.shp) -muodossa loppuu 31.12.2024. Käytä sen sijaan Geopackage (.gpkg) -tiedostomuotoa. <a target='_blank' href='https://laji.fi/news/8363'>Lue lisää muutoksesta</a>."
 
 #: pyha/templates/pyha/requestview/requestview.html:61
 msgid "download_file_type"
@@ -1067,20 +1036,14 @@ msgstr "GIS"
 
 #: pyha/templates/pyha/requestview/requestview.html:68
 msgid "download_help"
-msgstr ""
-"Downloading as GIS allows you to choose the file format, geometry type and "
-"coordinate reference system.\n"
-"\n"
+msgstr "Downloading as GIS allows you to choose the file format, geometry type and coordinate reference system.\n\n"
 "Format:\n"
 ".shp = ESRI Shapefile\n"
-".gpkg = GeoPackage\n"
-"\n"
+".gpkg = GeoPackage\n\n"
 "Geometry:\n"
 "point = observation centre points\n"
-"footprint = original geometries of the observations: different geometry "
-"types (points, lines and polygons)\n"
-"bbx = bounding boxes that enclose the observation footprints\n"
-"\n"
+"footprint = original geometries of the observations: different geometry types (points, lines and polygons)\n"
+"bbx = bounding boxes that enclose the observation footprints\n\n"
 "CRS (Coordinate Reference System):\n"
 "euref (ETRS89-TM35FIN, epsg 3067)\n"
 "wgs84 (epsg 4326)"
@@ -1127,8 +1090,7 @@ msgstr "wgs84"
 
 #: pyha/templates/pyha/requestview/requestview.html:90
 msgid "download_gis_disabled"
-msgstr ""
-"The maximum limit for download in GIS file format is 300 000 observations."
+msgstr "The maximum limit for download in GIS file format is 500 000 observations."
 
 #: pyha/templates/pyha/requestview/requestview.html:98
 #: pyha/templates/pyha/requestview/requestview.html:326
@@ -1150,9 +1112,7 @@ msgstr "You will be emailed when your download is ready"
 
 #: pyha/templates/pyha/requestview/requestview.html:119
 msgid "you_will_be_emailed_when_api_key_ready"
-msgstr ""
-"You will receive a notification by email when the API key is available for "
-"download"
+msgstr "You will receive a notification by email when the API key is available for download"
 
 #: pyha/templates/pyha/requestview/requestview.html:126
 msgid "stop_wait_initialize_download"
@@ -1241,10 +1201,7 @@ msgstr "Download failed!"
 
 #: pyha/templates/pyha/requestview/requestview.html:356
 msgid "download_failed_too_complex"
-msgstr ""
-"The geometries of some observations are too complex for the .shp file format "
-"(GeometryCollection). Use the .gpkg format instead, or choose another "
-"geometry type."
+msgstr "The geometries of some observations are too complex for the .shp file format (GeometryCollection). Use the .gpkg format instead, or choose another geometry type."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
@@ -1260,14 +1217,11 @@ msgstr "Show request for additional information"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:44
 msgid "handling_suspended_warning"
-msgstr ""
-"Note! The processing of this request has been suspended and it is not "
-"possible to make changes any more."
+msgstr "Note! The processing of this request has been suspended and it is not possible to make changes any more."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:48
 msgid "frozen_warning"
-msgstr ""
-"Note! This request has been frozen, and it is not possible to make changes."
+msgstr "Note! This request has been frozen, and it is not possible to make changes."
 
 #: pyha/templates/pyha/requestview/requestview_header.html:49
 msgid "show_comments"
@@ -1282,8 +1236,7 @@ msgid "admin_unfreeze_request"
 msgstr "Unfreeze request"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:63
-msgid ""
-"admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
+msgid "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
 msgstr "Unfreeze request to re-enable actions by users not admin"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:65
@@ -1537,9 +1490,7 @@ msgstr "Collection was accepted because the decision was overdue"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:58
 msgid "admin_log_collection_accepted_because_no_observations"
-msgstr ""
-"Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
-"nopeasti."
+msgstr "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi nopeasti."
 
 #: pyha/templates/pyha/requestview/tabs/history.html:60
 msgid "log_collection_accepted"
@@ -1591,9 +1542,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:14
 msgid "make_decision_api_key_alert"
-msgstr ""
-"Please note that the data requester has applied for permission to use the "
-"data through the FinBIF API."
+msgstr "Please note that the data requester has applied for permission to use the data through the FinBIF API."
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 msgid "own_collections"
@@ -1639,20 +1588,11 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_handler"
-msgstr ""
-"Below is a list of datasets that are included in the search. The applicant "
-"will be shown an estimate of the number of observations in each dataset and "
-"the list may also include datasets that are not actually included in the "
-"data request. As a handler, you will see the exact numbers of usage-"
-"restricted observations."
+msgstr "Below is a list of datasets that are included in the search. The applicant will be shown an estimate of the number of observations in each dataset and the list may also include datasets that are not actually included in the data request. As a handler, you will see the exact numbers of usage-restricted observations."
 
 #: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_user"
-msgstr ""
-"Below is a list of datasets that are included in your request. To protect "
-"sensitive species data, the list may also contain datasets that are not "
-"actually included in your data request. An estimate of how many observations "
-"are in each dataset is provided for each dataset. The figures are indicative."
+msgstr "Below is a list of datasets that are included in your request. To protect sensitive species data, the list may also contain datasets that are not actually included in your data request. An estimate of how many observations are in each dataset is provided for each dataset. The figures are indicative."
 
 #: pyha/templates/pyha/requestview/tabs/request.html:15
 msgid "collection_counts"
@@ -1760,3 +1700,4 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
