@@ -247,7 +247,6 @@ def create_request_view_context(requestId, http_request, userRequest):
         "toast": toast,
         "email": http_request.session["user_email"],
         "userRequest": userRequest,
-        "gisDownloadDisabled": userRequest.approximateMatches > settings.GIS_DOWNLOAD_LIMIT,
         "filters": show_filters(userRequest, http_request.LANGUAGE_CODE),
         "collections": collectionList,
         "static": settings.STA_URL,
