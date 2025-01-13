@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 15:03+0200\n"
+"POT-Creation-Date: 2025-01-13 15:16+0200\n"
 "PO-Revision-Date: 2024-10-15 06:47\n"
 "Last-Translator: \n"
 "Language-Team: English, United Kingdom\n"
@@ -1226,13 +1226,6 @@ msgstr "Copy API key to clipboard"
 msgid "download_failed"
 msgstr "Download failed!"
 
-#: pyha/templates/pyha/requestview/requestview.html:347
-msgid "download_failed_too_complex"
-msgstr ""
-"The geometries of some observations are too complex for the .shp file format "
-"(GeometryCollection). Use the .gpkg format instead, or choose another "
-"geometry type."
-
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
 msgstr "Request from user"
@@ -1747,6 +1740,12 @@ msgstr "User settings updated succesfully"
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha settings updated succesfully"
+
+#~ msgid "download_failed_too_complex"
+#~ msgstr ""
+#~ "The geometries of some observations are too complex for the .shp file "
+#~ "format (GeometryCollection). Use the .gpkg format instead, or choose "
+#~ "another geometry type."
 
 #~ msgid "shp_deprecation_warning"
 #~ msgstr ""

@@ -239,7 +239,7 @@
 				        pollDownloadStatus(jsonResponse["statusUrl"]);
 				    }
 				} else {
-				    downloadError(this.responseText);
+				    downloadError();
 				}
             }
         };
@@ -289,7 +289,7 @@
 				    var expiresDate = moment(jsonResponse["apiKeyExpires"], "YYYY-MM-DD").format("D.M.YYYY")
 				    document.getElementById("api-key-expires").innerText = expiresDate;
 				} else {
-				    downloadError(this.responseText);
+				    downloadError();
 				    $("#api-key-modal").modal("hide");
 				}
             }
@@ -326,7 +326,7 @@
                         }, 5000);
 				    }
 				} else {
-				    downloadError(this.responseText);
+				    downloadError();
 				}
 			}
 		};
@@ -345,16 +345,8 @@
         window.location = jsonResponse["downloadUrl"];
 	}
 
-	function downloadError(responseText) {
+	function downloadError() {
 	    var errorTextInputId = "getDownloadFailedText";
-	    try {
-	        var jsonResponse = JSON.parse(responseText);
-	        var errName = jsonResponse["errName"];
-	        if (errName === "too_complex") {
-	            errorTextInputId = "getDownloadFailedTooComplexText";
-	        }
-	    } catch (e) {}
-
 	    $("#loading-modal").modal("hide");
 	    alert(document.getElementById(errorTextInputId).value);
 	}

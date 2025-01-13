@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 15:03+0200\n"
+"POT-Creation-Date: 2025-01-13 15:16+0200\n"
 "PO-Revision-Date: 2024-10-15 06:47\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
@@ -1240,13 +1240,6 @@ msgstr "Kopiera nyckel till urklipp"
 msgid "download_failed"
 msgstr "Nedladdning misslyckad!"
 
-#: pyha/templates/pyha/requestview/requestview.html:347
-msgid "download_failed_too_complex"
-msgstr ""
-"Observationernas geometri är för komplex för .shp-filformatet "
-"(GeometryCollection). Använd istället .gpkg-formatet eller välj en annan "
-"geometrityp."
-
 #: pyha/templates/pyha/requestview/requestview_header.html:5
 msgid "handler_request_from_user"
 msgstr "Begäran från användaren"
@@ -1761,6 +1754,12 @@ msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
+
+#~ msgid "download_failed_too_complex"
+#~ msgstr ""
+#~ "Observationernas geometri är för komplex för .shp-filformatet "
+#~ "(GeometryCollection). Använd istället .gpkg-formatet eller välj en annan "
+#~ "geometrityp."
 
 #~ msgid "shp_deprecation_warning"
 #~ msgstr ""
