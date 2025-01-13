@@ -19,7 +19,8 @@ You can take the existing translations as a model.
 The translations process goes like this:
 1. Translation strings are collected into translation files with
    ```
-   python project/manage.py makemessages -a
+   cd project
+   python manage.py makemessages -a
    ```        
 2. Finnish is used as a source language for the translations so you should add those translations manually to the file:
    ```
@@ -34,7 +35,8 @@ The translations process goes like this:
 4. Make translations in the Crowdin service, then call the Crowdin update script again to fetch the translations.
 5. Compile translations with
    ```
-   python project/manage.py compilemessages
+   cd project
+   python manage.py compilemessages
    ```
 
 Start the test server and check the translations which should now appear. You can also use the command `bash updateserver.sh` in the first and last step as it includes the collection and compilation of the translations.
