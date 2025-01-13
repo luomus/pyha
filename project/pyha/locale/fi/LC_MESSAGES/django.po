@@ -1683,10 +1683,3 @@ msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
-
-#~ msgid "download_failed_too_complex"
-#~ msgstr ""
-#~ "Joidenkin havaintojen geometriat ovat liian monimutkaisia .shp-"
-#~ "tiedostomuodolle (GeometryCollection). Käytä sen sijaan .gpkg-muotoa tai "
-#~ "valitse toinen geometriatyyppi."
-
