@@ -249,54 +249,56 @@
 			</div>
 		</form>
 	</div>
-	<div id="summary-content" hidden>
-		<h2>{% trans "request_summary" %}</h2>
-		<div name="summarytable">
-		<!--  requestformsummary.html snippet appears here -->
-		</div>
-		<h4>{% trans "contacts" %}</h4>
-		<ul>
-			<li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
-			<ul>
-			<li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
-			<li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
-			<li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
-			<li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
-			<li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
-			<li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
-			<li name="li_contact_corporation/organization_1" id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
-			<li name="li_contact_corporation_id_1" id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
-			</ul>
-		</ul>
-		<div id="pdf_contacts_end"></div>
-		<h4>{% trans "request_arguments" %}</h4>
-		<table class="table" style="width:100%">
-			<tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
-			<tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
-			<tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
-			<tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
-			<tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
-			<tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
-			<tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
-			<tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
-			<tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
-			<tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
-			<tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
-			<tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
-			<tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
-			<tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
-			<tr name="argument_customer" style=color:black><th>{% trans "argument_customer" %}</th></tr>
-			<tr name="argument_customer"><td><p name="argument_customer_fill"></p></td></tr>
-			<tr name="argument_customer_contact" style=color:black><th>{% trans "argument_customer_contact" %}</th></tr>
-			<tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
-			<tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
-			<tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
-			<tr name="argument_other_parties" style=color:black><th>{% trans "argument_other_parties" %}</th></tr>
-			<tr name="argument_other_parties"><td><p name="argument_other_parties_fill"></p></td></tr>
-			<tr name="argument_other_party_details" style=color:black><th>{% trans "argument_other_party_details" %}</th></tr>
-			<tr name="argument_other_party_details"><td><p name="argument_other_party_details_fill"></p></td></tr>
-		</table>
-	</div>
+    <div hidden>
+        <div id="summary-content">
+            <h2>{% trans "request_summary" %}</h2>
+            <div name="summarytable">
+            <!--  requestformsummary.html snippet appears here -->
+            </div>
+            <h4>{% trans "contacts" %}</h4>
+            <ul>
+                <li id="li_contact_name_1"><p>{% trans 'contact_name' %} <span name="contact_name_1"></span></p></li>
+                <ul>
+                <li id="li_contact_street_address_1"><p>{% trans 'contact_street_address' %} <span name="contact_street_address_1"></span></p></li>
+                <li id="li_contact_postal_1"><p>{% trans 'contact_postal' %} <span name="contact_postal_1"></span></p></li>
+                <li id="li_contact_post_office_1"><p>{% trans 'contact_post_office' %} <span name="contact_post_office_1"></span></p></li>
+                <li id="li_contact_country_1"><p>{% trans 'contact_country' %} <span name="contact_country_1"></span></p></li>
+                <li id="li_contact_email_1"><p>{% trans 'contact_email' %} <span name="contact_email_1"></span></p></li>
+                <li id="li_contact_phone_number_1"><p>{% trans 'contact_phone_number' %} <span name="contact_phone_number_1"></span></p></li>
+                <li name="li_contact_corporation/organization_1" id="li_contact_corporation/organization_1"><p>{% trans 'contact_corporation' %} <span name="contact_corporation/organization_1"></span></p></li>
+                <li name="li_contact_corporation_id_1" id="li_contact_corporation_id_1"><p>{% trans 'contact_corporation_id' %} <span name="contact_corporation_id_1"></span></p></li>
+                </ul>
+            </ul>
+            <div id="pdf_contacts_end"></div>
+            <h4>{% trans "request_arguments" %}</h4>
+            <table class="table" style="width:100%; text-align: left">
+                <tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
+                <tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
+                <tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>
+                <tr name="argument_planning"><td><p name="argument_planning_fill"></p></td></tr>
+                <tr name="argument_municipality" style=color:black><th>{% trans "argument_municipality" %}</th></tr>
+                <tr name="argument_municipality"><td><p name="argument_municipality_fill"></p></td></tr>
+                <tr name="argument_natura_areas" style=color:black><th>{% trans "argument_natura_areas" %}</th></tr>
+                <tr name="argument_natura_areas"><td><p name="argument_natura_areas_fill"></p></td></tr>
+                <tr name="argument_research" style=color:black><th>{% trans "argument_research" %}</th></tr>
+                <tr name="argument_research"><td><p name="argument_research_fill"></p></td></tr>
+                <tr name="argument_research_address" style=color:black><th>{% trans "argument_research_address" %}</th></tr>
+                <tr name="argument_research_address"><td><p name="argument_research_address_fill"></p></td></tr>
+                <tr name="argument_goals" style=color:black><th>{% trans "argument_goals" %}</th></tr>
+                <tr name="argument_goals"><td><p name="argument_goals_fill"></p></td></tr>
+                <tr name="argument_customer" style=color:black><th>{% trans "argument_customer" %}</th></tr>
+                <tr name="argument_customer"><td><p name="argument_customer_fill"></p></td></tr>
+                <tr name="argument_customer_contact" style=color:black><th>{% trans "argument_customer_contact" %}</th></tr>
+                <tr name="argument_customer_contact"><td><p name="argument_customer_contact_fill"></p></td></tr>
+                <tr name="argument_reason" style=color:black><th>{% trans "argument_reason" %}</th></tr>
+                <tr name="argument_reason"><td><p name="argument_reason_fill"></p></td></tr>
+                <tr name="argument_other_parties" style=color:black><th>{% trans "argument_other_parties" %}</th></tr>
+                <tr name="argument_other_parties"><td><p name="argument_other_parties_fill"></p></td></tr>
+                <tr name="argument_other_party_details" style=color:black><th>{% trans "argument_other_party_details" %}</th></tr>
+                <tr name="argument_other_party_details"><td><p name="argument_other_party_details_fill"></p></td></tr>
+            </table>
+        </div>
+    </div>
 		<!--- hidden confirm modal --->
 	<div id="confirm-modal" class="modal fade modal-sm modal-confirm" >
 		<div class="modal-content" >
