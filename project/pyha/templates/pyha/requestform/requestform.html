@@ -229,7 +229,7 @@
 												<tr name="argument_other_party_details"><td><p name="argument_other_party_details_fill"></p></td></tr>
 											</table>
 										</div>
-										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: 'font-size:80%', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: '#summary-content, table { font-size:80%; text-align: left }', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 										<ul class="list-inline pull-right">
 											<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
 											{% if not collections %}
@@ -271,7 +271,7 @@
             </ul>
             <div id="pdf_contacts_end"></div>
             <h4>{% trans "request_arguments" %}</h4>
-            <table class="table" style="width:100%; text-align: left">
+            <table class="table" style="width:100%">
                 <tr name="argument_project" style=color:black><th>{% trans "argument_project" %}</th></tr>
                 <tr name="argument_project"><td><p name="argument_project_fill"></p></td></tr>
                 <tr name="argument_planning" style=color:black><th>{% trans "argument_planning" %}</th></tr>

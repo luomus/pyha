@@ -175,8 +175,18 @@ def fetch_role(personId):
 
 
 def fetch_pdf(data, style):
-    if(style):
-        data = "<div style='" + style + "'>" + data + "</div>"
+    if style:
+        data = (
+        "<!DOCTYPE html>"
+        "<html>"
+        "<head>"
+            "<meta charset='UTF-8'>"
+            "<style>" + style + "</style>"
+        "</head>"
+        "<body>" + data + "</body>"
+        "</html>"
+        )
+
     response = requests.post(
         settings.LAJIAPI_URL+"html-to-pdf",
         data=data.encode("utf-8"),
@@ -184,7 +194,8 @@ def fetch_pdf(data, style):
         timeout=settings.SECRET_TIMEOUT_PERIOD,
         headers={"Content-Type": "text/plain; charset=utf-8"}
     )
-    if(response.status_code == 200):
+
+    if response.status_code == 200:
         return response
 
 
