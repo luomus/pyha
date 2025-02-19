@@ -229,7 +229,7 @@
 												<tr name="argument_other_party_details"><td><p name="argument_other_party_details_fill"></p></td></tr>
 											</table>
 										</div>
-										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: '#summary-content { font-size:80%; text-align: left }', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
+										<button type="button" onclick="post('{% url 'pyha:newpdf' %}',{style: '#summary-content { font-size:80% } table { font-size:inherit; text-align: left }', source: document.getElementById('summary-content').outerHTML, csrfmiddlewaretoken: '{{ csrf_token }}'});" class="btn btn-default btn-sm">{% trans "as_pdf" %}</button>
 										<ul class="list-inline pull-right">
 											<li><button type="button" class="btn btn-default prev-step">{% trans 'previous'%}</button></li>
 											{% if not collections %}
