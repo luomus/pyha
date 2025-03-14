@@ -10,8 +10,9 @@ env/
 cronlogs/
 .project
 .pydevproject
+.idea
 .settings
-env_variables.sh
+env_variables*.sh
 project/static
 *pyha.log
 .crowdin-env

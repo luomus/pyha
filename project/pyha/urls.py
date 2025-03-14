@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.conf import settings
 from django.views.generic import RedirectView
 from config.timers import *
-from pyha.views import api, index, requestform, requestview, logout, ajax, usersettings
+from pyha.views import api, api_statistics, index, requestform, requestview, logout, ajax, usersettings
 
 app_name = 'pyha'
 urlpatterns = [
@@ -41,6 +41,11 @@ urlpatterns = [
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
     url(r'^api/newcount/?$', api.new_count, name='new_count'),
     url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
+    url(r'^api/statistics/countByYear/?$', api_statistics.request_count_by_year, name='count_by_year'),
+    url(r'^api/statistics/collectionCounts/?$', api_statistics.collection_counts, name='collection_counts'),
+    url(r'^api/statistics/reasonCounts/?$', api_statistics.request_reason_counts, name='reason_counts'),
+    url(r'^api/statistics/reasonPhraseCounts/?$', api_statistics.request_reason_phrase_counts, name='reason_phrase_counts'),
+    url(r'^api/statistics/partyInvolvementCounts/?$', api_statistics.request_party_involvement_counts, name='party_involvement_counts'),
     url(r'^role/?$', logout.change_role, name='change_role'),
     url(r'^freezeRequest/?$', requestview.freeze, name='freeze'),
     url(r'^refreshCollectionsCache/?$', requestview.refresh_collections_cache, name='refresh_collections_cache'),
