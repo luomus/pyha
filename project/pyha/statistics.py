@@ -18,7 +18,7 @@ def get_request_count_by_year():
             .order_by('year')
     )
 
-    return requests
+    return list(requests)
 
 
 def get_collection_request_counts(year=None):
@@ -26,7 +26,7 @@ def get_collection_request_counts(year=None):
     if year:
         collections_query = collections_query.filter(request__date__year=year)
 
-    return (
+    return list(
         collections_query
             .values('address')
             .annotate(
@@ -37,7 +37,7 @@ def get_collection_request_counts(year=None):
                 waiting_for_information_count=_get_count_annotation(Q(status=Col_StatusEnum.WAITING) & Q(request__status=StatusEnum.WAITING_FOR_INFORMATION))
             )
             .values('total_count', 'approved_count', 'waiting_count', 'rejected_count', 'waiting_for_information_count', id=F('address'))
-            .order_by('total_count')
+            .order_by('-total_count')
     )
 
 
@@ -89,7 +89,7 @@ def get_request_reason_phrase_counts(year=None):
             .aggregate(**aggregations)
     )
 
-    return [{'value': key, 'count': value} for key, value in requests.items()]
+    return _count_dict_to_sorted_list(requests)
 
 
 def get_request_party_involvement_counts(year=None):
@@ -116,7 +116,7 @@ def _get_reason_statistics(search_keys, year=None):
             .aggregate(**aggregations)
     )
 
-    return [{'value': key, 'count': count} for (key, count) in results.items()]
+    return _count_dict_to_sorted_list(results)
 
 
 def _get_base_request_query(year=None):
@@ -131,3 +131,9 @@ def _get_count_annotation(q=None, **kwargs):
     When(q, then=1, **kwargs),
         output_field=IntegerField()
     ))
+
+
+def _count_dict_to_sorted_list(result_dict):
+    result_list = [{'value': key, 'count': count} for (key, count) in result_dict.items()]
+    result_list.sort(key=lambda x: x['count'], reverse=True)
+    return result_list
