@@ -7,6 +7,7 @@ from pyha.management.commands.timed_email_to_requesters import Command as TimedE
 from pyha.management.commands.missing_handlers_email import Command as MissingHandlersCommand
 from pyha.management.commands.decline_overdue_collections import Command as DeclineOverDueCollectionsCommand
 from pyha.management.commands.check_failed_requests import Command as CheckFailedRequestsCommand
+from pyha.management.commands.update_statistics_cache import Command as UpdateStatisticsCacheCommand
 from pyha.models import AdminPyhaSettings
 
 
@@ -52,33 +53,28 @@ def check_failed_download_requests():
     connection.close()
 
 
+def update_statistics():
+    c = UpdateStatisticsCacheCommand()
+    c.handle()
+    connection.close()
+
+
 def run_threaded(job_func):
     job_thread = Thread(target=job_func)
     job_thread.start()
 
 
 def scheduler():
-
-    # set the events here
     schedule.every().monday.at("11:22").do(run_threaded, timed_email)
-    #schedule.every().tuesday.at("11:22").do(run_threaded, timed_email)
-    #schedule.every().wednesday.at("11:22").do(run_threaded, timed_email)
     schedule.every().thursday.at("11:22").do(run_threaded, timed_email)
-    #schedule.every().friday.at("11:22").do(run_threaded, timed_email)
 
-    schedule.every().monday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().tuesday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().wednesday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().thursday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().friday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().saturday.at("11:22").do(run_threaded, timed_email_to_requesters)
-    schedule.every().sunday.at("11:22").do(run_threaded, timed_email_to_requesters)
+    schedule.every().day.at("11:22").do(run_threaded, timed_email_to_requesters)
 
     schedule.every().tuesday.at("11:22").do(run_threaded, missing_handlers_email)
 
+    schedule.every().day.at("01:44").do(run_threaded, update_statistics)
+
     schedule.every(30).minutes.do(run_threaded, check_failed_download_requests)
-    # For schedule function usage:
-    # ---- https://schedule.readthedocs.io/en/stable/index.html ----
 
     while True:
         schedule.run_pending()

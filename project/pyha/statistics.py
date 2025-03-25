@@ -4,9 +4,12 @@ from django.db.models import Count, Sum, Case, When, IntegerField, Q, F
 from django.db.models.functions import TruncYear
 
 from pyha.database_utils import get_encoded_term_for_json_field_regex_search
+from pyha.decorator import cached
 from pyha.models import Request, Collection, Col_StatusEnum, StatusEnum
 
+cache_timeout = 25 * 60 * 60
 
+@cached(cache_timeout)
 def get_request_count_by_year():
     requests = (
         _get_base_request_query()
@@ -20,6 +23,7 @@ def get_request_count_by_year():
     return list(requests)
 
 
+@cached(cache_timeout)
 def get_collection_request_counts(year=None):
     collections_query = Collection.objects.filter(status__gte=0, request__status__gt=0)
     if year:
@@ -40,6 +44,7 @@ def get_collection_request_counts(year=None):
     )
 
 
+@cached(cache_timeout)
 def get_request_reason_counts(year=None):
     reasons = [
         ('reason_zoning', 'landUsePlanning'),
@@ -54,6 +59,7 @@ def get_request_reason_counts(year=None):
     return _get_reason_statistics(reasons, year)
 
 
+@cached(cache_timeout)
 def get_request_reason_phrase_counts(year=None):
     phrases = [
         'Tuulivoima',
@@ -90,6 +96,7 @@ def get_request_reason_phrase_counts(year=None):
     return _count_dict_to_sorted_list(requests)
 
 
+@cached(cache_timeout)
 def get_request_party_involvement_counts(year=None):
     arguments = [
         ('argument_only_requester_check', 'onlyRequester'),

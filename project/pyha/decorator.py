@@ -2,7 +2,25 @@ from functools import wraps
 from pyha.login import is_admin
 from django.http import HttpResponse
 from django.utils import translation
+from django.core.cache import cache
 
+
+def cached(timeout=300):
+  def inner(fn):
+    @wraps(fn)
+    def wrapped(*args, refresh_cache=False, **kwargs):
+        cache_key = str(fn.__name__) + str(args) + str(kwargs)
+        cache_not_found = 'not found in cache'
+
+        cached_result = cache.get(cache_key, cache_not_found) if not refresh_cache else cache_not_found
+        if cached_result != cache_not_found:
+            return cached_result
+
+        result = fn(*args, **kwargs)
+        cache.set(cache_key, result, timeout=timeout)
+        return result
+    return wrapped
+  return inner
 
 def admin_required_and_force_english(function):
     @wraps(function)
