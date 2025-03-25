@@ -1,10 +1,9 @@
 import json
-import re
 
 from django.db.models import Count, Sum, Case, When, IntegerField, Q, F
 from django.db.models.functions import TruncYear
 
-from pyha.database_utils import get_escaped_terms_for_case_insensitive_json_field_search
+from pyha.database_utils import get_encoded_term_for_json_field_regex_search
 from pyha.models import Request, Collection, Col_StatusEnum, StatusEnum
 
 
@@ -70,8 +69,7 @@ def get_request_reason_phrase_counts(year=None):
     search_terms = {}
 
     for phrase in phrases:
-        results = get_escaped_terms_for_case_insensitive_json_field_search(phrase)
-        search_terms[phrase] = r'|'.join([re.escape(res) for res in results])
+        search_terms[phrase] = get_encoded_term_for_json_field_regex_search(phrase)
 
     annotations = {}
     aggregations = {}
