@@ -103,28 +103,14 @@ def makeblob(x):
 
 
 def get_values_for_collections(requestId, lang, collections):
-    missing_collections = []
-    for c in collections:
-        if 'has expired' in cache.get(str(c.address) + 'collection_values' + lang, 'has expired'):
-            missing_collections.append(c.address)
-
-    data_by_id = {}
-    if len(missing_collections) > 0:
-        try:
-            result = _fetch_collections_by_id_and_lang(missing_collections, lang)
-
-            for value in result['results']:
-                data_by_id[value['id']] = value
-        except:
-            pass
+    col_ids = [c.address for c in collections]
+    data_by_id = get_collections_by_id_and_lang(col_ids, lang)
 
     for c in collections:
         if c.address in data_by_id:
-            data = data_by_id[c.address]
-            c.result = data
-            cache.set(str(c.address) + 'collection_values' + lang, data)
+            c.result = data_by_id[c.address]
         else:
-            c.result = cache.get(str(c.address) + 'collection_values' + lang, {})
+            c.result = {}
 
         c.result["collectionName"] = c.result.get("collectionName", c.address)
         c.result["description"] = c.result.get("description", "-")
@@ -133,17 +119,12 @@ def get_values_for_collections(requestId, lang, collections):
 
 
 def get_result_for_target(http_request, l):
-    if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
-        try:
-            l.result = _fetch_collection_by_id_and_lang(l.target, http_request.LANGUAGE_CODE)
-        except:
-            l.result["collectionName"] = l.target
-            return
-        cache.set(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, l.result)
+    data = get_collections_by_id_and_lang([l.target, http_request.LANGUAGE_CODE])
+    if l.target in data:
+        l.result = data[l.target]
         l.result["collectionName"] = l.result.get("collectionName", l.target)
     else:
-        l.result = cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE)
-        l.result["collectionName"] = l.result.get("collectionName", l.target)
+        l.result = {"collectionName": l.target}
 
 
 def fetch_user_name(user_id):
@@ -314,6 +295,30 @@ def get_collections():
     caches['database'].set('collection_update', 'updated', 7200)
 
     return result
+
+
+def get_collections_by_id_and_lang(col_ids, lang):
+    data_by_id = {}
+
+    missing_collections = []
+    for col_id in col_ids:
+        value = cache.get(col_id + 'collection_values' + lang, 'has expired')
+        if value == 'has expired':
+            missing_collections.append(col_id)
+        else:
+            data_by_id[col_id] = value
+
+    if len(missing_collections) > 0:
+        try:
+            result = _fetch_collections_by_id_and_lang(missing_collections, lang)
+
+            for value in result['results']:
+                data_by_id[value['id']] = value
+                cache.set(value['id'] + 'collection_values' + lang, value, 7200)
+        except:
+            pass
+
+    return data_by_id
 
 
 def get_download_handlers_where_collection(collectionId):
@@ -549,18 +554,6 @@ def _fetch_collections():
             not_finished = False
 
     return result
-
-
-def _fetch_collection_by_id_and_lang(col_id, lang):
-    response = requests.get(
-        settings.LAJIAPI_URL + "collections/" + str(col_id) + "?lang=" + lang +
-        "&access_token=" + settings.LAJIAPI_TOKEN,
-        timeout=settings.SECRET_TIMEOUT_PERIOD
-    )
-
-    response.raise_for_status()
-
-    return response.json()
 
 
 def _fetch_collections_by_id_and_lang(ids, lang):
