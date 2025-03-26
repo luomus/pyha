@@ -105,18 +105,13 @@ def makeblob(x):
 def get_values_for_collections(requestId, lang, collections):
     missing_collections = []
     for c in collections:
-        if 'has expired' in cache.get(str(c.address)+'collection_values'+lang, 'has expired'):
+        if 'has expired' in cache.get(str(c.address) + 'collection_values' + lang, 'has expired'):
             missing_collections.append(c.address)
 
     data_by_id = {}
     if len(missing_collections) > 0:
         try:
-            result = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
-                'idIn': ','.join(missing_collections),
-                'lang': lang,
-                'access_token': settings.LAJIAPI_TOKEN,
-                'pageSize': len(missing_collections)
-            }, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+            result = _fetch_collections_by_id_and_lang(missing_collections, lang)
 
             for value in result['results']:
                 data_by_id[value['id']] = value
@@ -125,8 +120,12 @@ def get_values_for_collections(requestId, lang, collections):
 
     for c in collections:
         if c.address in data_by_id:
-            cache.set(str(c.address) + 'collection_values' + lang, data_by_id[c.address])
-        c.result = cache.get(str(c.address)+'collection_values'+lang, {})
+            data = data_by_id[c.address]
+            c.result = data
+            cache.set(str(c.address) + 'collection_values' + lang, data)
+        else:
+            c.result = cache.get(str(c.address) + 'collection_values' + lang, {})
+
         c.result["collectionName"] = c.result.get("collectionName", c.address)
         c.result["description"] = c.result.get("description", "-")
         c.result["qualityDescription"] = c.result.get("dataQualityDescription", "-")
@@ -136,11 +135,9 @@ def get_values_for_collections(requestId, lang, collections):
 def get_result_for_target(http_request, l):
     if 'has expired' in cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, 'has expired'):
         try:
-            l.result = requests.get(settings.LAJIAPI_URL+"collections/"+str(l.target)+"?lang=" + http_request.LANGUAGE_CODE +
-                                    "&access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json()
+            l.result = _fetch_collection_by_id_and_lang(l.target, http_request.LANGUAGE_CODE)
         except:
-            l.result = cache.get(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE)
-            l.result["collectionName"] = l.result.get("collectionName", l.target)
+            l.result["collectionName"] = l.target
             return
         cache.set(str(l.target)+'collection_values'+http_request.LANGUAGE_CODE, l.result)
         l.result["collectionName"] = l.result.get("collectionName", l.target)
@@ -293,41 +290,35 @@ def send_download_request(requestId):
                              data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
     return response.ok
 
+def delete_collections_cache():
+    caches['database'].delete('collection_update')
+    caches['database'].delete('collections')
 
-def update_collections():
-    payload = {}
-    payload['access_token'] = settings.LAJIAPI_TOKEN
-    payload['pageSize'] = 1000
-    payload['page'] = 1
-    notFinished = True
-    result = []
-    while notFinished:
-        try:
-            response = requests.get(settings.LAJIAPI_URL+"collections", params=payload,
-                                    timeout=settings.SECRET_TIMEOUT_PERIOD)
-        except:
-            response = Container()
-            response.status_code = 500
-        if(response.status_code == 200):
-            data = response.json()
+
+def get_collections():
+    if caches['database'].get('collection_update') == 'updated':
+        collections = caches['database'].get('collections')
+        if collections:
+            return collections
+
+    try:
+        result = _fetch_collections()
+    except:
+        collections = caches['database'].get('collections')
+        if collections:
+            return collections
         else:
-            caches['collections'].set('collection_update', 'updated', 7200)
-            return False
-        for co in data['results']:
-            if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):
-                result.append(co)
-        if payload['page'] < data['lastPage']:
-            payload['page'] += 1
-        else:
-            notFinished = False
-    caches['collections'].set('collections', result)
-    caches['collections'].set('collection_update', 'updated', 7200)
-    return True
+            raise
+
+    caches['database'].set('collections', result)
+    caches['database'].set('collection_update', 'updated', 7200)
+
+    return result
 
 
 def get_download_handlers_where_collection(collectionId):
     result = {}
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     for co in collections:
         if co['id'] == collectionId:
             result = co.get('downloadRequestHandler', {})
@@ -337,7 +328,7 @@ def get_download_handlers_where_collection(collectionId):
 
 def get_contact_email_for_collection(collectionId):
     result = None
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     for co in collections:
         if co['id'] == collectionId:
             result = co.get('contactEmail', None)
@@ -347,7 +338,7 @@ def get_contact_email_for_collection(collectionId):
 
 def get_collections_where_download_handler(userId):
     resultlist = []
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     for co in collections:
         if userId in co.get('downloadRequestHandler', {}):
             resultlist.append(co['id'])
@@ -356,7 +347,7 @@ def get_collections_where_download_handler(userId):
 
 def get_download_handlers_with_collections_listed_for_collections(requestId, collectionsList):
     resultlist = []
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
     repeatedhandlers = [co.get('downloadRequestHandler', ['None']) for co in collections]
     handlers = set(chain(*repeatedhandlers))
@@ -404,14 +395,14 @@ def get_download_handlers_with_collections_listed_for_collections(requestId, col
 
 def get_download_handlers_for_collections(collectionsList):
     resultlist = []
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
     handlers = [co.get('downloadRequestHandler', []) for co in collections]
     return list(set(chain(*handlers)))
 
 
 def is_collections_missing_download_handler(collectionsList):
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     collections = [co for co in collections if co['id'] in [coli.address for coli in collectionsList]]
     missing = False
     for co in collections:
@@ -426,7 +417,7 @@ def is_download_handler(userId):
 
 
 def is_download_handler_in_collection(userId, collectionId):
-    collections = caches['collections'].get('collections')
+    collections = get_collections()
     for co in collections:
         if co['id'] == collectionId:
             if userId in co.get('downloadRequestHandler', {}):
@@ -528,3 +519,58 @@ def update_collection_in_filter_link(link, user_request):
         link = urlunparse(parsed_link)
 
     return link
+
+
+def _fetch_collections():
+    payload = {'access_token': settings.LAJIAPI_TOKEN, 'pageSize': 1000, 'page': 1}
+    not_finished = True
+    result = []
+
+    while not_finished:
+        try:
+            response = requests.get(
+                settings.LAJIAPI_URL+"collections",
+                params=payload,
+                timeout=settings.SECRET_TIMEOUT_PERIOD
+            )
+        except:
+            raise
+
+        response.raise_for_status()
+        data = response.json()
+
+        for co in data['results']:
+            if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):
+                result.append(co)
+
+        if payload['page'] < data['lastPage']:
+            payload['page'] += 1
+        else:
+            not_finished = False
+
+    return result
+
+
+def _fetch_collection_by_id_and_lang(col_id, lang):
+    response = requests.get(
+        settings.LAJIAPI_URL + "collections/" + str(col_id) + "?lang=" + lang +
+        "&access_token=" + settings.LAJIAPI_TOKEN,
+        timeout=settings.SECRET_TIMEOUT_PERIOD
+    )
+
+    response.raise_for_status()
+
+    return response.json()
+
+
+def _fetch_collections_by_id_and_lang(ids, lang):
+    response = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
+        'idIn': ','.join(ids),
+        'lang': lang,
+        'access_token': settings.LAJIAPI_TOKEN,
+        'pageSize': len(ids)
+    }, timeout=settings.SECRET_TIMEOUT_PERIOD)
+
+    response.raise_for_status()
+
+    return response.json()

@@ -188,12 +188,12 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'TIMEOUT': 86400,
         'OPTIONS': {
-            'MAX_ENTRIES': 3000
+            'MAX_ENTRIES': 8000
         }
     },
-    'collections': {
+    'database': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'pyha_collections_cache_table',
+        'LOCATION': 'pyha_cache_table',
         'TIMEOUT': 86400
     },
     'error_mail': {

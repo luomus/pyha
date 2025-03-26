@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from pyha.warehouse import update_collections
+from pyha.warehouse import get_collections, delete_collections_cache
 
 
 class Command(BaseCommand):
@@ -8,5 +8,6 @@ class Command(BaseCommand):
     # def add_arguments(self, parser):
 
     def handle(self, *args, **options):
-        success = update_collections()
-        print('Success: {}'.format(success))
+        delete_collections_cache()
+        get_collections()
+        print('Collections cache updated')

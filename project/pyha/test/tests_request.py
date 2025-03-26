@@ -69,7 +69,6 @@ class RequestTesting(BaseTestCase):
         session['token'] = 'asd213'
         session.save()
         warehouse.store(JSON_MOCK)
-        warehouse.update_collections()
 
     def test_request_has_its_own_page(self):
         response = self.client.get('/request/1')

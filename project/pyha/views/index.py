@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import gettext
-from pyha.database import handlers_cannot_be_updated, is_downloadable, remove_request, \
+from pyha.database import is_downloadable, remove_request, \
     add_last_chat_entry_status_to_request_list, add_collection_counts_to_request_list, withdraw_request, get_reasons
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
@@ -25,8 +25,6 @@ def pyha(http_request):
 
 @csrf_exempt
 def index(http_request):
-    if handlers_cannot_be_updated():
-        return HttpResponse(status=503)
     if check_language(http_request):
         return HttpResponseRedirect(http_request.get_full_path())
     if not logged_in(http_request):

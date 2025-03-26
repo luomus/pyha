@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from pyha.email import send_mail_for_missing_handlers
-from pyha.database import update_collection_handlers
-from django.core.cache import caches
+from pyha.warehouse import get_collections
 
 
 class Command(BaseCommand):
@@ -10,8 +9,7 @@ class Command(BaseCommand):
     # def add_arguments(self, parser):
 
     def handle(self, *args, **options):
-        update_collection_handlers()
-        collections = caches['collections'].get('collections')
+        collections = get_collections()
         collections_missing_handler = []
         for co in collections:
             if(co.get('downloadRequestHandler', {}) == {}):

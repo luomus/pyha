@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand
 from pyha.email import send_mail_for_unchecked_requests
-from pyha.database import update_collection_handlers, update_collection_handlers_autom_email_sent_time, \
+from pyha.database import update_collection_handlers_autom_email_sent_time, \
     get_unhandled_requests_data
-from django.core.cache import caches
+from pyha.warehouse import get_collections
 
 
 class Command(BaseCommand):
@@ -11,8 +11,7 @@ class Command(BaseCommand):
     # def add_arguments(self, parser):
 
     def handle(self, *args, **options):
-        update_collection_handlers()
-        collections = caches['collections'].get('collections')
+        collections = get_collections()
         download_request_handlers = set()
         for co in collections:
             for handler in co.get('downloadRequestHandler', {}):

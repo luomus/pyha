@@ -11,7 +11,7 @@ from pyha.login import logged_in, _process_auth_response, is_request_owner
 from pyha.models import RequestLogEntry, RequestHandlerChatEntry, RequestInformationChatEntry, ContactPreset, RequestContact, Collection, Request, StatusEnum,\
     Col_StatusEnum, RequestSentStatusEmail, FailedDownloadRequest
 from pyha.roles import HANDLER_ANY, CAT_HANDLER_COLL, USER, ADMIN, CAT_ADMIN
-from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, update_collections, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link, fetch_user_info
+from pyha.warehouse import get_values_for_collections, send_download_request, fetch_user_name, fetch_email_address, show_filters, get_result_for_target, get_collections_where_download_handler, get_download_handlers_with_collections_listed_for_collections, is_download_handler_in_collection, get_collection_counts, get_collection_count_sum, get_filter_link, fetch_user_info
 from pyha.log_utils import changed_by_session_user, changed_by
 
 
@@ -114,19 +114,6 @@ def target_valid(target, requestId):
     elif Collection.objects.filter(request=requestId, address=target).exists():
         return True
     return False
-
-
-def handlers_cannot_be_updated():
-    return not update_collection_handlers()
-
-
-def update_collection_handlers():
-    if 'has expired' in caches['collections'].get('collection_update', 'has expired'):
-        if update_collections():
-            return True
-        else:
-            return False
-    return True
 
 
 def count_unhandled_requests(user_id):
@@ -272,7 +259,7 @@ def create_request_view_context(requestId, http_request, userRequest):
     if role == ADMIN:
         sent_time = get_collection_handlers_autom_email_sent_time()
         accepted_time = get_log_terms_accepted_date_time(request_log)
-        if accepted_time != None and sent_time > accepted_time:
+        if accepted_time is not None and sent_time is not None and sent_time > accepted_time:
             context["com_last_automated_send_email"] = sent_time
         context["com_email_template"] = get_template_of_mail_for_approval(userRequest.id, 'fi')
         context["own_collection_count"] = len(collectionList)
@@ -527,12 +514,12 @@ def get_log_terms_accepted_date_time(request_log):
 
 
 def update_collection_handlers_autom_email_sent_time():
-    caches['collections'].set('last_timed_email', datetime.now())
+    caches['database'].set('last_timed_email', datetime.now(), None)
     return True
 
 
 def get_collection_handlers_autom_email_sent_time():
-    return caches['collections'].get('last_timed_email', datetime(1999, 1, 1))
+    return caches['database'].get('last_timed_email')
 
 
 """

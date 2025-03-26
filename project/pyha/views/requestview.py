@@ -7,16 +7,17 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, handlers_cannot_be_updated, update_collection_status, try_to_send_download_request
+from pyha.database import create_request_view_context, make_logEntry_view, update_request_status, target_valid, contains_approved_collection, update_collection_status, try_to_send_download_request
 from pyha.email import send_mail_after_additional_information_requested, send_mail_after_additional_information_received, send_raw_mail
 from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_allowed_to_view, is_request_owner, is_admin_frozen, is_allowed_to_ask_information_as_target, is_admin, is_allowed_to_handle
 from pyha.models import HandlerInRequest, RequestHandlerChatEntry, RequestInformationChatEntry, Request, Collection, StatusEnum, File
 from pyha.roles import ADMIN, USER
-from pyha.warehouse import update_collections
 from pyha.log_utils import changed_by_session_user
 from pyha import toast
 import PyPDF2
+
+from pyha.warehouse import delete_collections_cache
 
 
 @csrf_exempt
@@ -25,8 +26,6 @@ def show_request(http_request):
         return HttpResponseRedirect(http_request.get_full_path())
     # Has Access
     requestId = os.path.basename(os.path.normpath(http_request.path))
-    if handlers_cannot_be_updated():
-        return HttpResponse(status=503)
     if not logged_in(http_request):
         return _process_auth_response(http_request, "request/"+requestId)
     if not is_allowed_to_view(http_request, requestId):
@@ -135,7 +134,7 @@ def refresh_collections_cache(http_request):
             return _process_auth_response(http_request, "pyha")
         if not is_admin(http_request):
             return HttpResponse(status=404)
-        update_collections()
+        delete_collections_cache()
         return HttpResponseRedirect(nexturl)
     return HttpResponse(status=404)
 
