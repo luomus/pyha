@@ -47,13 +47,13 @@ def get_collection_request_counts(year=None):
 @cached(cache_timeout)
 def get_request_reason_counts(year=None):
     reasons = [
-        ('reason_zoning', 'landUsePlanning'),
-        ('reason_permission', 'permitApplication'),
-        ('reason_enviromental', 'environmentalImpactAssessment'),
-        ('reason_natura', 'naturaAssessment'),
-        ('reason_scientific', 'scientificStudy'),
-        ('reason_forest', 'forestPlanning'),
-        ('reason_other', 'other')
+        'reason_zoning',
+        'reason_permission',
+        'reason_enviromental',
+        'reason_natura',
+        'reason_scientific',
+        'reason_forest',
+        'reason_other'
     ]
 
     return _get_reason_statistics(reasons, year)
@@ -99,9 +99,9 @@ def get_request_reason_phrase_counts(year=None):
 @cached(cache_timeout)
 def get_request_party_involvement_counts(year=None):
     arguments = [
-        ('argument_only_requester_check', 'onlyRequester'),
-        ('argument_customer_check', 'customer'),
-        ('argument_other_party_check', 'otherParty')
+        'argument_only_requester_check',
+        'argument_customer_check',
+        'argument_other_party_check'
     ]
 
     return _get_reason_statistics(arguments, year)
@@ -111,9 +111,9 @@ def _get_reason_statistics(search_keys, year=None):
     annotations = {}
     aggregations = {}
 
-    for (key, label) in search_keys:
+    for key in search_keys:
         annotations['{}_count'.format(key)] = _get_count_annotation(reason__contains=json.dumps(key))
-        aggregations[label] = Sum('{}_count'.format(key))
+        aggregations[key] = Sum('{}_count'.format(key))
 
     results = (
         _get_base_request_query(year)
