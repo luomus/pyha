@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
+from pyha.collection_metadata import get_sub_collections
 from pyha.statistics import get_request_count_by_year, get_collection_request_counts, get_request_reason_counts, \
     get_request_reason_phrase_counts, get_request_party_involvement_counts
 from pyha.view_utils import get_int_query_param, convert_to_camel_case
@@ -17,19 +18,31 @@ def request_count_by_year(http_request):
 
 @csrf_exempt
 def collection_counts(http_request):
+    root_collection = http_request.GET.get('collection')
     year = get_int_query_param(http_request, 'year')
     lang = http_request.GET.get('lang', 'fi')
 
     results = get_collection_request_counts(year)
 
-    collection_ids = [res['id'] for res in results]
+    collection_whitelist = None
+
+    if root_collection is not None:
+        collection_whitelist = get_sub_collections(root_collection, True)
+
+    filtered_results = []
+    collection_ids = []
+    for res in results:
+        if collection_whitelist is None or res['id'] in collection_whitelist:
+            filtered_results.append(res)
+            collection_ids.append(res['id'])
+
     data_by_id = get_collections_by_id_and_lang(collection_ids, lang)
 
-    for result in results:
+    for result in filtered_results:
         col_id = result['id']
         result['collectionName'] = data_by_id[col_id]['collectionName'] if col_id in data_by_id else col_id
 
-    return JsonResponse({'results': convert_to_camel_case(results)})
+    return JsonResponse({'results': convert_to_camel_case(filtered_results)})
 
 
 @csrf_exempt

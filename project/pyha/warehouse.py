@@ -7,6 +7,8 @@ from django.core.cache import cache, caches
 from django.utils.translation import ugettext
 from itertools import chain
 from requests.auth import HTTPBasicAuth
+
+from pyha.collection_metadata import get_collections, get_collections_by_id_and_lang
 from pyha.models import Request, Collection, Col_StatusEnum, HandlerInRequest
 from pyha.log_utils import changed_by
 from pyha.utilities import Container
@@ -276,51 +278,6 @@ def delete_collections_cache():
     caches['database'].delete('collections')
 
 
-def get_collections():
-    if caches['database'].get('collection_update') == 'updated':
-        collections = caches['database'].get('collections')
-        if collections:
-            return collections
-
-    try:
-        result = _fetch_collections()
-    except:
-        collections = caches['database'].get('collections')
-        if collections:
-            return collections
-        else:
-            raise
-
-    caches['database'].set('collections', result)
-    caches['database'].set('collection_update', 'updated', 7200)
-
-    return result
-
-
-def get_collections_by_id_and_lang(col_ids, lang):
-    data_by_id = {}
-
-    missing_collections = []
-    for col_id in col_ids:
-        value = cache.get(col_id + 'collection_values' + lang, 'has expired')
-        if value == 'has expired':
-            missing_collections.append(col_id)
-        else:
-            data_by_id[col_id] = value
-
-    if len(missing_collections) > 0:
-        try:
-            result = _fetch_collections_by_id_and_lang(missing_collections, lang)
-
-            for value in result['results']:
-                data_by_id[value['id']] = value
-                cache.set(value['id'] + 'collection_values' + lang, value, 7200)
-        except:
-            pass
-
-    return data_by_id
-
-
 def get_download_handlers_where_collection(collectionId):
     result = {}
     collections = get_collections()
@@ -524,46 +481,3 @@ def update_collection_in_filter_link(link, user_request):
         link = urlunparse(parsed_link)
 
     return link
-
-
-def _fetch_collections():
-    payload = {'access_token': settings.LAJIAPI_TOKEN, 'pageSize': 1000, 'page': 1}
-    not_finished = True
-    result = []
-
-    while not_finished:
-        try:
-            response = requests.get(
-                settings.LAJIAPI_URL+"collections",
-                params=payload,
-                timeout=settings.SECRET_TIMEOUT_PERIOD
-            )
-        except:
-            raise
-
-        response.raise_for_status()
-        data = response.json()
-
-        for co in data['results']:
-            if not "MY.metadataStatusHidden" in co.get('MY.metadataStatus', {}):
-                result.append(co)
-
-        if payload['page'] < data['lastPage']:
-            payload['page'] += 1
-        else:
-            not_finished = False
-
-    return result
-
-
-def _fetch_collections_by_id_and_lang(ids, lang):
-    response = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
-        'idIn': ','.join(ids),
-        'lang': lang,
-        'access_token': settings.LAJIAPI_TOKEN,
-        'pageSize': len(ids)
-    }, timeout=settings.SECRET_TIMEOUT_PERIOD)
-
-    response.raise_for_status()
-
-    return response.json()
