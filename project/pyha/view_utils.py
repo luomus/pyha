@@ -1,7 +1,18 @@
-def get_int_query_param(http_request, param):
+from django.conf import settings
+
+
+def get_query_param(http_request, param, default_value, value_whitelist=None):
+    value = http_request.GET.get(param, default_value)
+    if value_whitelist and value not in value_whitelist:
+        return default_value
+    return value
+
+
+def get_non_negative_int_query_param(http_request, param):
     string_value = http_request.GET.get(param)
     if string_value is not None and string_value.isnumeric():
         return int(string_value)
+
 
 def convert_to_camel_case(obj):
     if isinstance(obj, list) and len(obj) > 0 and isinstance(obj[0], dict):
@@ -10,6 +21,16 @@ def convert_to_camel_case(obj):
         return _convert_dict_key_names_to_camel_case(obj)
     else:
         return obj
+
+def get_all_languages():
+    return [x[0] for x in settings.LANGUAGES]
+
+
+def paginate(items, page_number, page_size):
+    start_index = (page_number - 1) * page_size
+    end_index = start_index + page_size
+    return items[start_index:end_index]
+
 
 def _convert_dict_array_key_names_to_camel_case(obj_list):
     result = []

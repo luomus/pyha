@@ -6,7 +6,8 @@ from django.utils.translation import gettext as _
 from pyha.collection_metadata import get_sub_collections
 from pyha.statistics import get_request_count_by_year, get_collection_request_counts, get_request_reason_counts, \
     get_request_reason_phrase_counts, get_request_party_involvement_counts
-from pyha.view_utils import get_int_query_param, convert_to_camel_case
+from pyha.view_utils import get_non_negative_int_query_param, convert_to_camel_case, paginate, get_query_param, \
+    get_all_languages
 from pyha.warehouse import get_collections_by_id_and_lang
 
 
@@ -19,8 +20,10 @@ def request_count_by_year(http_request):
 @csrf_exempt
 def collection_counts(http_request):
     root_collection = http_request.GET.get('collection')
-    year = get_int_query_param(http_request, 'year')
-    lang = http_request.GET.get('lang', 'fi')
+    year = get_non_negative_int_query_param(http_request, 'year')
+    lang = get_query_param(http_request, 'lang', 'fi', get_all_languages())
+    page = get_non_negative_int_query_param(http_request, 'page')
+    page_size = get_non_negative_int_query_param(http_request, 'pageSize')
 
     results = get_collection_request_counts(year)
 
@@ -42,13 +45,23 @@ def collection_counts(http_request):
         col_id = result['id']
         result['collectionName'] = data_by_id[col_id]['collectionName'] if col_id in data_by_id else col_id
 
-    return JsonResponse({'results': convert_to_camel_case(filtered_results)})
+    response = {}
+
+    if page is not None and page_size is not None:
+        response['currentPage'] = page
+        response['pageSize'] = page_size
+        response['total'] = len(filtered_results)
+        filtered_results = paginate(filtered_results, page, page_size)
+
+    response['results'] = convert_to_camel_case(filtered_results)
+
+    return JsonResponse(response)
 
 
 @csrf_exempt
 def request_reason_counts(http_request):
-    year = get_int_query_param(http_request, 'year')
-    lang = http_request.GET.get('lang', 'fi')
+    year = get_non_negative_int_query_param(http_request, 'year')
+    lang = get_query_param(http_request, 'lang', 'fi', get_all_languages())
 
     with translation.override(lang):
         results = get_request_reason_counts(year)
@@ -62,15 +75,15 @@ def request_reason_counts(http_request):
 
 @csrf_exempt
 def request_reason_phrase_counts(http_request):
-    year = get_int_query_param(http_request, 'year')
+    year = get_non_negative_int_query_param(http_request, 'year')
     results = get_request_reason_phrase_counts(year)
     return JsonResponse({'results': convert_to_camel_case(results)})
 
 
 @csrf_exempt
 def request_party_involvement_counts(http_request):
-    year = get_int_query_param(http_request, 'year')
-    lang = http_request.GET.get('lang', 'fi')
+    year = get_non_negative_int_query_param(http_request, 'year')
+    lang = get_query_param(http_request, 'lang', 'fi', get_all_languages())
 
     with translation.override(lang):
         results = get_request_party_involvement_counts(year)
