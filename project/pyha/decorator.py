@@ -2,14 +2,17 @@ from functools import wraps
 from pyha.login import is_admin
 from django.http import HttpResponse
 from django.utils import translation
-from django.core.cache import cache
+from django.core.cache import caches
+import inspect
+import copy
 
 
-def cached(timeout=300):
+def cached(timeout=300, cache_type='default'):
   def inner(fn):
     @wraps(fn)
     def wrapped(*args, refresh_cache=False, **kwargs):
-        cache_key = str(fn.__name__) + str(args) + str(kwargs)
+        cache = caches[cache_type]
+        cache_key = _generate_cache_key(fn, *args, **kwargs)
         cache_not_found = 'not found in cache'
 
         cached_result = cache.get(cache_key, cache_not_found) if not refresh_cache else cache_not_found
@@ -22,10 +25,11 @@ def cached(timeout=300):
     return wrapped
   return inner
 
+
 def admin_required_and_force_english(function):
     @wraps(function)
     def check_admin_with_english(request, *args, **kwargs):
-        if(is_admin(request)):
+        if is_admin(request):
             translation.activate("en")
             return function(request, *args, **kwargs)
         else:
@@ -61,6 +65,39 @@ def required(wrapping_functions, patterns_rslt):
         _wrap_instance__resolve(wrapping_functions, instance)
         for instance in patterns_rslt
     ]
+
+def _generate_cache_key(fn, *args, **kwargs):
+    cache_key = fn.__name__
+
+    named_args = {}
+    arg_list = list(args) if args is not None else []
+    fn_named_args = inspect.getfullargspec(fn).args
+    remaining_kwargs = copy.copy(kwargs)
+
+    for i, arg in enumerate(fn_named_args):
+        arg_value = None
+        if i < len(arg_list):
+            arg_value = arg_list[i]
+        elif arg in remaining_kwargs:
+            arg_value = remaining_kwargs[arg]
+            del remaining_kwargs[arg]
+
+        named_args[arg] = arg_value
+
+    extra_args = args[len(fn_named_args):]
+
+    cache_key += _tuple_to_string(tuple(named_args.items()))
+    cache_key += _tuple_to_string(tuple(extra_args))
+    cache_key += _tuple_to_string(tuple(sorted(remaining_kwargs.items())))
+
+    return cache_key.replace(' ', '_')
+
+
+def _tuple_to_string(obj):
+    if not isinstance(obj, tuple):
+        return str(obj)
+
+    return '({})'.format(','.join([_tuple_to_string(x) for x in obj]))
 
 
 def _wrap_instance__resolve(wrapping_functions, instance):
