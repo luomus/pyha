@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 from pyha.collection_metadata import get_sub_collections
+from pyha.decorator import allowed_methods
 from pyha.statistics import get_request_count_by_year, get_collection_request_counts, get_request_reason_counts, \
     get_request_reason_phrase_counts, get_request_party_involvement_counts
 from pyha.view_utils import get_non_negative_int_query_param, convert_to_camel_case, paginate, get_query_param, \
@@ -11,12 +12,14 @@ from pyha.view_utils import get_non_negative_int_query_param, convert_to_camel_c
 from pyha.warehouse import get_collections_by_id_and_lang
 
 
+@allowed_methods(['GET'])
 @csrf_exempt
 def request_count_by_year(http_request):
     results = get_request_count_by_year()
     return JsonResponse({'results': convert_to_camel_case(results)})
 
 
+@allowed_methods(['GET'])
 @csrf_exempt
 def collection_counts(http_request):
     root_collection = http_request.GET.get('collection')
@@ -40,6 +43,7 @@ def collection_counts(http_request):
     return JsonResponse(response)
 
 
+@allowed_methods(['GET'])
 @csrf_exempt
 def request_reason_counts(http_request):
     year = get_non_negative_int_query_param(http_request, 'year')
@@ -55,6 +59,7 @@ def request_reason_counts(http_request):
     return JsonResponse({'results': convert_to_camel_case(results_with_label)})
 
 
+@allowed_methods(['GET'])
 @csrf_exempt
 def request_reason_phrase_counts(http_request):
     year = get_non_negative_int_query_param(http_request, 'year')
@@ -62,6 +67,7 @@ def request_reason_phrase_counts(http_request):
     return JsonResponse({'results': convert_to_camel_case(results)})
 
 
+@allowed_methods(['GET'])
 @csrf_exempt
 def request_party_involvement_counts(http_request):
     year = get_non_negative_int_query_param(http_request, 'year')

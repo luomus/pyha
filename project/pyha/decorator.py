@@ -1,10 +1,22 @@
 from functools import wraps
 from pyha.login import is_admin
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.utils import translation
 from django.core.cache import caches
 import inspect
 import copy
+
+
+def allowed_methods(allowed):
+  def inner(fn):
+    @wraps(fn)
+    def wrapped(http_request, *args, **kwargs):
+        if http_request.method not in allowed:
+            return HttpResponseNotAllowed(allowed)
+
+        return fn(http_request, *args, **kwargs)
+    return wrapped
+  return inner
 
 
 def cached(timeout=300, cache_type='default'):
