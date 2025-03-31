@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ static }}pyha/swagger-5.20.2/css/swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="{{ static }}pyha/swagger-5.20.2/css/index.css" />
+    <link rel="icon" href="https://cdn.laji.fi/images/icons/favicon.ico">
+  </head>
+
+  <body>
+    <div id="swagger-ui" openapi-url="{% url 'pyha:api_spec' %}"></div>
+    <script src="{{ static }}pyha/swagger-5.20.2/js/swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script src="{{ static }}pyha/swagger-5.20.2/js/swagger-ui-standalone-preset.js" charset="UTF-8"></script>
+    <script src="{{ static }}pyha/swagger-5.20.2/js/swagger-initializer.js?v={{version}}" charset="UTF-8"></script>
+  </body>
+</html>

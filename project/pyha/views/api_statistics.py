@@ -15,6 +15,29 @@ from pyha.warehouse import get_collections_by_id_and_lang
 @allowed_methods(['GET'])
 @csrf_exempt
 def request_count_by_year(http_request):
+    """
+      ---
+      get:
+        description: Get request count by year
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    results:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          year:
+                            type: integer
+                          totalCount:
+                            type: integer
+        tags:
+          - Statistics
+    """
     results = get_request_count_by_year()
     return JsonResponse({'results': convert_to_camel_case(results)})
 
@@ -22,6 +45,65 @@ def request_count_by_year(http_request):
 @allowed_methods(['GET'])
 @csrf_exempt
 def collection_counts(http_request):
+    """
+      ---
+      get:
+        description: Get collection request counts
+        parameters:
+          - in: query
+            name: collection
+            description: filter by root collection id
+            schema:
+              type: string
+          - in: query
+            name: year
+            description: filter by year
+            schema:
+              type: integer
+          - in: query
+            name: lang
+            description: language
+            schema:
+              type: string
+          - in: query
+            name: page
+            description: page number
+            schema:
+              type: string
+          - in: query
+            name: pageSize
+            description: page size
+            schema:
+              type: integer
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    results:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          totalCount:
+                            type: integer
+                          approvedCount:
+                            type: integer
+                          waitingCount:
+                            type: integer
+                          rejectedCount:
+                            type: integer
+                          waitingForInformationCount:
+                            type: integer
+                          id:
+                            type: string
+                          collectionName:
+                            type: string
+        tags:
+          - Statistics
+    """
     root_collection = http_request.GET.get('collection')
     year = get_non_negative_int_query_param(http_request, 'year')
     lang = get_query_param(http_request, 'lang', 'fi', get_all_languages())
@@ -46,6 +128,40 @@ def collection_counts(http_request):
 @allowed_methods(['GET'])
 @csrf_exempt
 def request_reason_counts(http_request):
+    """
+      ---
+      get:
+        description: Get request reason counts
+        parameters:
+          - in: query
+            name: year
+            description: filter by year
+            schema:
+              type: integer
+          - in: query
+            name: lang
+            description: language
+            schema:
+              type: string
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    results:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          label:
+                            type: string
+                          count:
+                            type: integer
+        tags:
+          - Statistics
+    """
     year = get_non_negative_int_query_param(http_request, 'year')
     lang = get_query_param(http_request, 'lang', 'fi', get_all_languages())
 
@@ -62,6 +178,35 @@ def request_reason_counts(http_request):
 @allowed_methods(['GET'])
 @csrf_exempt
 def request_reason_phrase_counts(http_request):
+    """
+      ---
+      get:
+        description: Get request reason phrase counts
+        parameters:
+          - in: query
+            name: year
+            description: filter by year
+            schema:
+              type: integer
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    results:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                          count:
+                            type: integer
+        tags:
+          - Statistics
+    """
     year = get_non_negative_int_query_param(http_request, 'year')
     results = get_request_reason_phrase_counts(year)
     return JsonResponse({'results': convert_to_camel_case(results)})
@@ -70,6 +215,40 @@ def request_reason_phrase_counts(http_request):
 @allowed_methods(['GET'])
 @csrf_exempt
 def request_party_involvement_counts(http_request):
+    """
+      ---
+      get:
+        description: Get party involvement counts
+        parameters:
+          - in: query
+            name: year
+            description: filter by year
+            schema:
+              type: integer
+          - in: query
+            name: lang
+            description: language
+            schema:
+              type: string
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    results:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          label:
+                            type: string
+                          count:
+                            type: integer
+        tags:
+          - Statistics
+    """
     year = get_non_negative_int_query_param(http_request, 'year')
     lang = get_query_param(http_request, 'lang', 'fi', get_all_languages())
 

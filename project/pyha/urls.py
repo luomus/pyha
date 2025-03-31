@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.conf import settings
 from django.views.generic import RedirectView
 from config.timers import *
-from pyha.views import api, api_statistics, index, requestform, requestview, logout, ajax, usersettings
+from pyha.views import api, api_statistics, api_docs, index, requestform, requestview, logout, ajax, usersettings
 
 app_name = 'pyha'
 urlpatterns = [
@@ -41,6 +41,8 @@ urlpatterns = [
     url(r'^api/download/(?P<link>[^/]+)/?$', api.download, name='download'),
     url(r'^api/newcount/?$', api.new_count, name='new_count'),
     url(r'^{0}/?$'.format(settings.SECRET_STATUS_SUB_DIR), api.status, name='status'),
+    url(r'^api/swagger.json$', api_docs.api_spec, name='api_spec'),
+    url(r'^api/docs/?$', api_docs.api_docs, name='swagger-ui'),
     url(r'^api/statistics/countByYear/?$', api_statistics.request_count_by_year, name='count_by_year'),
     url(r'^api/statistics/collectionCounts/?$', api_statistics.collection_counts, name='collection_counts'),
     url(r'^api/statistics/reasonCounts/?$', api_statistics.request_reason_counts, name='reason_counts'),
