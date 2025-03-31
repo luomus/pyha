@@ -24,7 +24,10 @@
       <th></th>
       <th>{% trans "state_of_processing" %}</th>
       <th>{% trans "decision_arguments" %}</th>
-      <th>{% trans "select" %}</th>
+      <th style="text-align: center;">
+        {% trans "select" %}
+        <p><input id="select_all_collections_checkbox" {% if userRequest.frozen or collection.status != 1 and role != 'admin' or userRequest.status == 7 or userRequest.status == 8  %} disabled {% endif %} onChange="toggleSelectAllCollections()" type="checkbox" name="select_all_collections" style="vertical-align: middle;"></p>
+      </th>
     </tr>
     {% with collection_slice=":"|add:own_collection_count_string %}
     {% for collection in collections|slice:collection_slice %}

@@ -429,6 +429,19 @@
 
 {% if role == 'handler' or role == 'admin' %}
 <script>
+function toggleSelectAllCollections() {
+  const checked = document.getElementById('select_all_collections_checkbox').checked;
+  
+  const checkboxes = document.getElementsByClassName('select_collection_checkbox');
+  for (const checkbox of checkboxes) {
+    if (!checkbox.disabled) {
+      checkbox.checked = checked;
+    }
+  }
+  
+  checkSelected();
+}
+
 function checkSelected() {
   var disabled = true;
 
