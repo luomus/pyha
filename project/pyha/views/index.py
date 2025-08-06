@@ -156,7 +156,7 @@ def _get_request_list(http_request, user_id, only_uncompleted=False):
     current_roles = http_request.session.get('current_user_role', [None])
     roles = http_request.session.get('user_roles', [None])
 
-    query = Request.objects
+    query = Request.objects.defer('filter_list', 'filter_description_list', 'public_link', 'private_link', 'reason')
 
     excluded_status = [
         StatusEnum.WITHDRAWN,
