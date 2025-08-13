@@ -121,7 +121,7 @@ def get_values_for_collections(requestId, lang, collections):
 
 
 def get_result_for_target(http_request, l):
-    data = get_collections_by_id_and_lang([l.target, http_request.LANGUAGE_CODE])
+    data = get_collections_by_id_and_lang([l.target], http_request.LANGUAGE_CODE)
     if l.target in data:
         l.result = data[l.target]
         l.result["collectionName"] = l.result.get("collectionName", l.target)
