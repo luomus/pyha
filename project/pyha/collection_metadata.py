@@ -172,7 +172,7 @@ def _fetch_collections_by_id_and_lang(ids, lang):
             'idIn': ','.join(ids_part),
             'lang': lang,
             'access_token': settings.LAJIAPI_TOKEN,
-            'pageSize': len(ids)
+            'pageSize': len(ids_part)
         }, timeout=settings.SECRET_TIMEOUT_PERIOD)
 
         response.raise_for_status()
