@@ -21,9 +21,9 @@ def get_collections_by_id_and_lang(col_ids, lang):
 
     if len(missing_collections) > 0:
         try:
-            result = _fetch_collections_by_id_and_lang(missing_collections, lang)
+            collections = _fetch_collections_by_id_and_lang(missing_collections, lang)
 
-            for value in result['results']:
+            for value in collections:
                 data_by_id[value['id']] = value
                 cache.set(value['id'] + 'collection_values' + lang, value, 7200)
         except:
@@ -160,13 +160,25 @@ def _fetch_collections():
 
 
 def _fetch_collections_by_id_and_lang(ids, lang):
-    response = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
-        'idIn': ','.join(ids),
-        'lang': lang,
-        'access_token': settings.LAJIAPI_TOKEN,
-        'pageSize': len(ids)
-    }, timeout=settings.SECRET_TIMEOUT_PERIOD)
+    results = []
 
-    response.raise_for_status()
+    start_index = 0
+    page_size = 100
 
-    return response.json()
+    while start_index < len(ids):
+        ids_part = ids[start_index:start_index + page_size]
+
+        response = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
+            'idIn': ','.join(ids_part),
+            'lang': lang,
+            'access_token': settings.LAJIAPI_TOKEN,
+            'pageSize': len(ids)
+        }, timeout=settings.SECRET_TIMEOUT_PERIOD)
+
+        response.raise_for_status()
+
+        results += response.json()['results']
+
+        start_index += page_size
+
+    return results
