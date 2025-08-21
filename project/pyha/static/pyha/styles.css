@@ -983,3 +983,7 @@ h3{
 .close {
     margin-top: 2px;
 }
+
+div.dataTables_wrapper div.dataTables_processing {
+    top: 100px;
+}

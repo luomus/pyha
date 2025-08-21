@@ -17,8 +17,18 @@
 
       {% if role == "handler" or role == "admin" %}
       <div style="margin-bottom: 10px">
-          <button id="showOnlyUncompletedRequestsTrueBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(true)">{% trans "show_uncompleted_requests" %}</button>
-          <button id="showOnlyUncompletedRequestsFalseBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(false)">{% trans "show_all_requests" %}</button>
+          <div style="display: inline-block; margin-right: 4px; margin-bottom: 4px">
+            <button id="showOnlyUncompletedRequestsTrueBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(true)">{% trans "show_uncompleted_requests" %}</button>
+            <button id="showOnlyUncompletedRequestsFalseBtn" class="btn btn-default" onclick="showOnlyUncompletedRequestsChange(false)">{% trans "show_all_requests" %}</button>
+          </div>
+          <label id="yearSelectLabel" style="font-weight: normal">
+              {% trans "year" %}:
+              <select class="form-control input-sm" id="yearSelect" name="year" style="width: 75px; display: inline-block" onchange="yearChange()">
+                  {% for year in request_years %}
+                    <option value="{{year}}">{{year}}</option>
+                  {% endfor %}
+              </select>
+          </label>
       </div>
       {% endif %}
       <form action="{% url 'pyha:group_delete_request' %}" id="delete_requests" method="post" style="margin-bottom: 30px">
@@ -143,6 +153,7 @@ $(document).ready(function() {
               {% if role == "handler" or role == "admin" %}
               "data": function (d) {
                 d.onlyUncompleted = $("#showOnlyUncompletedRequestsTrueBtn").prop("disabled");
+                d.year = !d.onlyUncompleted && parseInt($("#yearSelect").val(), 10);
               },
               {% endif %}
               "type": "GET",
@@ -217,20 +228,30 @@ $(document).ready(function() {
         } );
     } );
 
+    function yearChange() {
+        if (table) {
+            table.ajax.reload();
+        }
+    }
+
     function showOnlyUncompletedRequestsChange(value) {
         const trueBtn = $("#showOnlyUncompletedRequestsTrueBtn");
         const falseBtn = $("#showOnlyUncompletedRequestsFalseBtn");
+        const yearSelectLabel = $("#yearSelectLabel");
         if (value) {
             trueBtn.prop("disabled", true);
             falseBtn.prop("disabled", false);
+            yearSelectLabel.hide();
         } else {
             trueBtn.prop("disabled", false);
             falseBtn.prop("disabled", true);
+            yearSelectLabel.show();
         }
         if (table) {
             table.ajax.reload();
         }
     }
+    
     showOnlyUncompletedRequestsChange(true);
 </script>
 {% endblock %}

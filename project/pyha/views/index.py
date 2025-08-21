@@ -1,4 +1,5 @@
 ﻿from django.conf import settings
+from django.db.models.functions import ExtractYear
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -10,6 +11,7 @@ from pyha.localization import check_language
 from pyha.login import logged_in, _process_auth_response, is_admin
 from pyha.models import Request, Collection, RequestLogEntry, StatusEnum, Col_StatusEnum
 from pyha.roles import ADMIN, USER, HANDLER_ANY, CAT_HANDLER_COLL
+from pyha.view_utils import get_non_negative_int_query_param
 from pyha.warehouse import get_collections_where_download_handler, fetch_user_info
 from pyha.templatetags.pyha_tags import translateRequestStatus
 
@@ -37,11 +39,14 @@ def index(http_request):
         http_request.session.save()
 
     request_list = _get_request_list(http_request, userId)
+    years = request_list.annotate(year=ExtractYear('date')).values_list('year', flat=True).distinct().order_by('-year')
+
     context = {
         "role": http_request.session.get("current_user_role", USER),
         "toast": toast,
         "username": http_request.session["user_name"],
         "has_requests": len(request_list) > 0,
+        "request_years": years,
         "static": settings.STA_URL,
         "version": settings.VERSION
     }
@@ -54,11 +59,12 @@ def get_request_list_ajax(http_request):
             return HttpResponse(reverse('pyha:root'), status=310)
 
         only_uncompleted = http_request.GET.get('onlyUncompleted', 'false') == 'true'
+        year = get_non_negative_int_query_param(http_request, 'year')
 
         user_id = http_request.session['user_id']
         current_roles = http_request.session.get('current_user_role', [None])
 
-        request_list = _get_request_list(http_request, user_id, only_uncompleted)
+        request_list = _get_request_list(http_request, user_id, only_uncompleted, year)
         request_list = _add_additional_info_to_requests(http_request, request_list)
 
         data = []
@@ -152,7 +158,7 @@ def _add_additional_info_to_requests(http_request, request_list):
     return request_list
 
 
-def _get_request_list(http_request, user_id, only_uncompleted=False):
+def _get_request_list(http_request, user_id, only_uncompleted=False, year=None):
     current_roles = http_request.session.get('current_user_role', [None])
     roles = http_request.session.get('user_roles', [None])
 
@@ -177,6 +183,9 @@ def _get_request_list(http_request, user_id, only_uncompleted=False):
 
     if only_uncompleted:
         query = query.exclude(frozen=True)
+
+    if year is not None:
+        query = query.filter(date__year=year)
 
     if HANDLER_ANY in current_roles and CAT_HANDLER_COLL in roles:
         collections = Collection.objects.filter(address__in=get_collections_where_download_handler(user_id))
