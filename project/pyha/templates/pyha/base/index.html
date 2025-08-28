@@ -153,7 +153,9 @@ $(document).ready(function() {
               {% if role == "handler" or role == "admin" %}
               "data": function (d) {
                 d.onlyUncompleted = $("#showOnlyUncompletedRequestsTrueBtn").prop("disabled");
-                d.year = !d.onlyUncompleted && parseInt($("#yearSelect").val(), 10);
+                if (!d.onlyUncompleted) {
+                  d.year = parseInt($("#yearSelect").val(), 10);
+                }
               },
               {% endif %}
               "type": "GET",
