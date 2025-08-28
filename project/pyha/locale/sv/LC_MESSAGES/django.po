@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-21 14:44+0300\n"
-"PO-Revision-Date: 2025-08-28 07:32\n"
+"PO-Revision-Date: 2025-08-28 07:47\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
 "Language: sv_FI\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: config/settings.py:218
 msgid "Suomi"
-msgstr "Suomi"
+msgstr "Finska"
 
 #: config/settings.py:219
 msgid "Ruotsi"
-msgstr "Ruotsi"
+msgstr "Svenska"
 
 #: config/settings.py:220
 msgid "Englanti"
-msgstr "Englanti"
+msgstr "Engelska"
 
 #: pyha/admin.py:93
 msgid "Pyha administration"
@@ -289,7 +289,7 @@ msgstr "Alla begäran"
 
 #: pyha/templates/pyha/base/index.html:23
 msgid "year"
-msgstr "Vuosi"
+msgstr "År"
 
 #: pyha/templates/pyha/base/index.html:36
 msgid "request_date"
