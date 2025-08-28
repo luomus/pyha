@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-21 14:44+0300\n"
-"PO-Revision-Date: 2025-01-13 13:23\n"
+"PO-Revision-Date: 2025-08-28 07:32\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
 "Language: sv_FI\n"
@@ -60,9 +60,7 @@ msgstr "Din databegäran har behandlats"
 
 #: pyha/email.py:98
 msgid "mail_after_additional_information_requested_subject"
-msgstr ""
-"Lisätietopyyntöösi on vastattu – Your request for more information has been "
-"answered"
+msgstr "Lisätietopyyntöösi on vastattu – Your request for more information has been answered"
 
 #: pyha/email.py:108
 msgid "status_mail_to_requester_subject"
@@ -74,9 +72,7 @@ msgstr "Aineistoista puuttuu käsittelijöitä – Collections are missing handl
 
 #: pyha/email.py:142 pyha/email.py:160
 msgid "mail_for_approval_subject"
-msgstr ""
-"Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new "
-"data request"
+msgstr "Lajitietokeskukseen on tullut uusi aineistopyyntö – FinBIF has received new data request"
 
 #: pyha/email.py:166
 #: pyha/templates/pyha/request_summary_pdf/request_summary_pdf.html:43
@@ -85,15 +81,11 @@ msgstr "Sammanfattning av databegäran"
 
 #: pyha/email.py:183
 msgid "mail_after_additional_information_received_subject"
-msgstr ""
-"Lisätietopyyntöösi on vastattu – Your request for more information has been "
-"answered"
+msgstr "Lisätietopyyntöösi on vastattu – Your request for more information has been answered"
 
 #: pyha/email.py:209
 msgid "mail_for_unchecked_requests_subject"
-msgstr ""
-"Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data "
-"requests in FinBIF"
+msgstr "Käsittelemättömiä aineistopyyntöjä Lajitietokeskuksessa – Unprocessed data requests in FinBIF"
 
 #: pyha/email.py:226
 msgid "mail_admin_after_request_approval_subject"
@@ -101,9 +93,7 @@ msgstr "Uusi aineistopyyntö: {time} – New data request: {time}"
 
 #: pyha/email.py:243
 msgid "mail_admin_after_request_approval_missing_handlers_subject"
-msgstr ""
-"Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing "
-"handlers: {time}"
+msgstr "Aineistopyynnöstä puuttuu käsittelijöitä: {time} – Data request is missing handlers: {time}"
 
 #: pyha/login.py:163 pyha/login.py:173
 msgid "error_request_has_been_frozen_by_admin"
@@ -161,9 +151,7 @@ msgstr "Automatisering av tidsinställda händelser"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:46
 msgid "admin_periodical_event_automation_settings_work_only_on_in_built_threaded_scheduling_not_cron"
-msgstr ""
-"Följande inställningar påverkar endast programmets interna tidinställda "
-"utförande"
+msgstr "Följande inställningar påverkar endast programmets interna tidinställda utförande"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:50
 msgid "admin_enable_daily_handler_email"
@@ -178,9 +166,7 @@ msgstr "Mer information"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:57
 msgid "daily_handler_email_information"
-msgstr ""
-"Skickar ett meddelande om väntande begäran till alla behandlare som har "
-"väntande begäran varje måndag och torsdag."
+msgstr "Skickar ett meddelande om väntande begäran till alla behandlare som har väntande begäran varje måndag och torsdag."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
 msgid "admin_enable_daily_requester_email"
@@ -188,9 +174,7 @@ msgstr "Aktivoi ajastetut tilannepäivitysviestit"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:70
 msgid "daily_requester_email_information"
-msgstr ""
-"Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on "
-"muuttunut."
+msgstr "Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on muuttunut."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:76
 msgid "admin_enable_weekly_missing_handlers_email"
@@ -198,10 +182,7 @@ msgstr "Aktivera den tidinställda granskning av saknade behandlare"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:83
 msgid "weekly_missing_handlers_email_information"
-msgstr ""
-"Granskar veckovis begäran på väntan som gjorts till Pyha och skickar ett "
-"meddelande till ICT-e-postadressen om samlingar som inte har en behandlare. "
-"Meddelandet skickas inte om alla samlingar har en behandlare."
+msgstr "Granskar veckovis begäran på väntan som gjorts till Pyha och skickar ett meddelande till ICT-e-postadressen om samlingar som inte har en behandlare. Meddelandet skickas inte om alla samlingar har en behandlare."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:89
 msgid "admin_enable_auto_decline_overdue"
@@ -209,9 +190,7 @@ msgstr "Aktivera avslag på planerad begäran"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:96
 msgid "auto_decline_overdue_information"
-msgstr ""
-"Avvisa automatiskt begäran om de inte har lösts inom 28 dagar. Tidpunkten "
-"börjar när användarvillkoren har godkänts av den sökande."
+msgstr "Avvisa automatiskt begäran om de inte har lösts inom 28 dagar. Tidpunkten börjar när användarvillkoren har godkänts av den sökande."
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:2
 msgid "request_for_user"
@@ -224,9 +203,7 @@ msgstr "Beskrivning"
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:19
 msgid "request_description_tooltip"
-msgstr ""
-"Du kan skriva en liten rubrik eller en beskrivning som hjälper dig att "
-"identifiera din begäran."
+msgstr "Du kan skriva en liten rubrik eller en beskrivning som hjälper dig att identifiera din begäran."
 
 #: pyha/templates/pyha/base/ajax/requestheader.html:26
 msgid "no_description"
@@ -312,7 +289,7 @@ msgstr "Alla begäran"
 
 #: pyha/templates/pyha/base/index.html:23
 msgid "year"
-msgstr ""
+msgstr "Vuosi"
 
 #: pyha/templates/pyha/base/index.html:36
 msgid "request_date"
@@ -324,10 +301,7 @@ msgstr "Datum"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:4
 #: pyha/templates/pyha/requestform/ajax/requestformsummary.html:7
 msgid "given_values_are_not_absolute"
-msgstr ""
-"Eftersom vissa data är inte offentliga är antalet av observationer "
-"vägledande. Antalet av observationer i en godkänd begäran kan avvika från "
-"sökningen."
+msgstr "Eftersom vissa data är inte offentliga är antalet av observationer vägledande. Antalet av observationer i en godkänd begäran kan avvika från sökningen."
 
 #: pyha/templates/pyha/base/index.html:38
 #: pyha/templates/pyha/base/index.html:46
@@ -645,17 +619,11 @@ msgstr "Material"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:3
 msgid "restricted_collections_in_request"
-msgstr ""
-"Din begäran innehåller begränsade material. Vänligen läs och acceptera "
-"användarvillkor"
+msgstr "Din begäran innehåller begränsade material. Vänligen läs och acceptera användarvillkor"
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:5
 msgid "sensitivity_info"
-msgstr ""
-"FinBIF kontrollerar sensitiva artdata genom att gömma antingen den exakta "
-"platsinformationen eller hela observationen. Detta gäller arter vars "
-"bevarande skulle äventyras av förföljelse, jakt, trakasserier eller "
-"kommersiell eller privat insamling. Hotet ska gälla för de aktuella arterna."
+msgstr "FinBIF kontrollerar sensitiva artdata genom att gömma antingen den exakta platsinformationen eller hela observationen. Detta gäller arter vars bevarande skulle äventyras av förföljelse, jakt, trakasserier eller kommersiell eller privat insamling. Hotet ska gälla för de aktuella arterna."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestview/tabs/request.html:19 pyha/warehouse.py:400
@@ -665,9 +633,7 @@ msgstr "Forskningsmaterial med begrändsad användning"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:16
 #: pyha/templates/pyha/requestview/tabs/request.html:19
 msgid "secured_by_quarantine_explanation"
-msgstr ""
-"Vetenskaplig forskningsdata vars användning har begränsats före en viss "
-"tidpunkt. Information om plats och tid grov."
+msgstr "Vetenskaplig forskningsdata vars användning har begränsats före en viss tidpunkt. Information om plats och tid grov."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestview/tabs/request.html:20 pyha/warehouse.py:405
@@ -677,10 +643,7 @@ msgstr "Sensitiva data"
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:17
 #: pyha/templates/pyha/requestview/tabs/request.html:20
 msgid "secured_by_sensitivity_explanation"
-msgstr ""
-"Material klassificerat som sensitiva enligt antingen allmän lagstiftning "
-"eller beslut om miljö- och resurshantering, sensitiv artinformation. "
-"Information om plats och tid grov."
+msgstr "Material klassificerat som sensitiva enligt antingen allmän lagstiftning eller beslut om miljö- och resurshantering, sensitiv artinformation. Information om plats och tid grov."
 
 #: pyha/templates/pyha/requestform/ajax/requestformcollection.html:18
 #: pyha/templates/pyha/requestview/tabs/request.html:21 pyha/warehouse.py:410
@@ -1041,9 +1004,7 @@ msgstr "Anled din begäran"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:37
 msgid "additional_information_info"
-msgstr ""
-"Skriv beskrivningen noggrant eftersom den hjälper till vid beslutsfattandet "
-"och påskyndar behandlingen av begäran."
+msgstr "Skriv beskrivningen noggrant eftersom den hjälper till vid beslutsfattandet och påskyndar behandlingen av begäran."
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:72
 msgid "request_other_parties"
@@ -1051,14 +1012,11 @@ msgstr "Enheter till vilka data överlämnas"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:73
 msgid "request_other_parties_info"
-msgstr ""
-"Vi ansöker om rätten att använda det efterfrågade data till följande parter:"
+msgstr "Vi ansöker om rätten att använda det efterfrågade data till följande parter:"
 
 #: pyha/templates/pyha/requestform/tabs/reasons.html:95
 msgid "argument_other_party_check_details"
-msgstr ""
-"Ange organisationens namn och kontaktpersonens namn och kontaktuppgifter i "
-"fältet nedan"
+msgstr "Ange organisationens namn och kontaktpersonens namn och kontaktuppgifter i fältet nedan"
 
 #: pyha/templates/pyha/requestview/requestview.html:48
 msgid "show_api_key"
@@ -1078,19 +1036,13 @@ msgstr "GIS"
 
 #: pyha/templates/pyha/requestview/requestview.html:65
 msgid "download_help"
-msgstr ""
-"Vid uppladdning av GIS data kan du ange filformat, geometrityp och "
-"koordinatsystem för data.\n"
-"\n"
+msgstr "Vid uppladdning av GIS data kan du ange filformat, geometrityp och koordinatsystem för data.\n\n"
 "Filformat:\n"
-".gpkg = GeoPackage\n"
-"\n"
+".gpkg = GeoPackage\n\n"
 "Geometri:\n"
 "point = centrum för observationsplatserna\n"
-"footprint = observationsgeometrier i sina ursprungliga form: kan innehålla "
-"punkt-, linje- och areageometrier\n"
-"bbox = observationers \"Bounding Box\" -områdesgränser\n"
-"\n"
+"footprint = observationsgeometrier i sina ursprungliga form: kan innehålla punkt-, linje- och areageometrier\n"
+"bbox = observationers \"Bounding Box\" -områdesgränser\n\n"
 "CRS (koordinatsystem):\n"
 "euref (ETRS89 -TM35ENG, epsg 3067)\n"
 "wgs84 (epsg 4326)"
@@ -1151,9 +1103,7 @@ msgstr "Du ska få en e-post när nedladdningen är färdig"
 
 #: pyha/templates/pyha/requestview/requestview.html:110
 msgid "you_will_be_emailed_when_api_key_ready"
-msgstr ""
-"Du kommer att få ett meddelande via e-post när API-nyckeln är tillgänglig "
-"för nedladdning"
+msgstr "Du kommer att få ett meddelande via e-post när API-nyckeln är tillgänglig för nedladdning"
 
 #: pyha/templates/pyha/requestview/requestview.html:117
 msgid "stop_wait_initialize_download"
@@ -1206,10 +1156,7 @@ msgstr "Kommunikation"
 
 #: pyha/templates/pyha/requestview/requestview.html:266
 msgid "are_you_sure_you_want_to_download_only_those_given"
-msgstr ""
-"Material som inte har godkänts kommer att uteslutas från nedladdningen, och "
-"begäran kommer inte att behandlas vidare. Är du säker på att du vill gå "
-"vidare?"
+msgstr "Material som inte har godkänts kommer att uteslutas från nedladdningen, och begäran kommer inte att behandlas vidare. Är du säker på att du vill gå vidare?"
 
 #: pyha/templates/pyha/requestview/requestview.html:269
 msgid "Yes"
@@ -1276,11 +1223,8 @@ msgid "admin_unfreeze_request"
 msgstr "Frigöra begäran"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:63
-msgid ""
-"admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
-msgstr ""
-"Frigöra begäran om att aktivera åtkomst och åtgärder av användare som inte "
-"är administratörer"
+msgid "admin_unfreeze_request_to_re-enable_access_and_actions_by_users_not_admin"
+msgstr "Frigöra begäran om att aktivera åtkomst och åtgärder av användare som inte är administratörer"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:65
 msgid "admin_request_is_not_frozen"
@@ -1292,9 +1236,7 @@ msgstr "Frys begäran"
 
 #: pyha/templates/pyha/requestview/requestview_header.html:67
 msgid "admin_freeze_request_to_disable_access_and_actions_by_users_not_admin"
-msgstr ""
-"Frys begäran så att andra användare inte kan redigera begäran. Ange i fältet "
-"\"Datahanterarens kommentarer\" varför frysningen har gjorts."
+msgstr "Frys begäran så att andra användare inte kan redigera begäran. Ange i fältet \"Datahanterarens kommentarer\" varför frysningen har gjorts."
 
 #: pyha/templates/pyha/requestview/shared/chat_entry_file_download.html:5
 msgid "download_attachment"
@@ -1535,9 +1477,7 @@ msgstr "Material godkänt eftersom beslutet var försenad"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:58
 msgid "admin_log_collection_accepted_because_no_observations"
-msgstr ""
-"Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi "
-"nopeasti."
+msgstr "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi nopeasti."
 
 #: pyha/templates/pyha/requestview/tabs/history.html:60
 msgid "log_collection_accepted"
@@ -1589,9 +1529,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:14
 msgid "make_decision_api_key_alert"
-msgstr ""
-"Observera att sökaren har ansökt om tillstånd att använda materialet via "
-"FinBIF API."
+msgstr "Observera att sökaren har ansökt om tillstånd att använda materialet via FinBIF API."
 
 #: pyha/templates/pyha/requestview/tabs/make_decision.html:18
 msgid "own_collections"
@@ -1637,19 +1575,11 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_handler"
-msgstr ""
-"Nedan är en lista över dataset som ingår i begäran. Sökanden kommer att få "
-"en uppskattning av antalet resultat i varje dataset och listan kan också "
-"innehålla dataset som inte faktiskt ingår i begäran. Som behandlare kommer "
-"du att se det exakta antalet av observationer."
+msgstr "Nedan är en lista över dataset som ingår i begäran. Sökanden kommer att få en uppskattning av antalet resultat i varje dataset och listan kan också innehålla dataset som inte faktiskt ingår i begäran. Som behandlare kommer du att se det exakta antalet av observationer."
 
 #: pyha/templates/pyha/requestview/tabs/request.html:6
 msgid "given_values_are_not_absolute_user"
-msgstr ""
-"Nedan finns en lista över dataset som ingår i din begäran. För att skydda "
-"känslig artinformation kan listan också innehålla material som inte ingår i "
-"din begäran. En uppskattning av hur många observationer det finns i varje "
-"dataset tillhandahålls för varje dataset. Siffrorna är vägledande."
+msgstr "Nedan finns en lista över dataset som ingår i din begäran. För att skydda känslig artinformation kan listan också innehålla material som inte ingår i din begäran. En uppskattning av hur många observationer det finns i varje dataset tillhandahålls för varje dataset. Siffrorna är vägledande."
 
 #: pyha/templates/pyha/requestview/tabs/request.html:15
 msgid "collection_counts"
@@ -1758,8 +1688,3 @@ msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
 msgid "toast_pyha_settings_saved_succesfully"
 msgstr "Pyha:n asetukset tallennettu onnistuneesti."
 
-#~ msgid "download_failed_too_complex"
-#~ msgstr ""
-#~ "Joidenkin havaintojen geometriat ovat liian monimutkaisia .shp-"
-#~ "tiedostomuodolle (GeometryCollection). Käytä sen sijaan .gpkg-muotoa tai "
-#~ "valitse toinen geometriatyyppi."
