@@ -160,7 +160,10 @@ $(document).ready(function() {
               {% endif %}
               "type": "GET",
               "headers": {"X-CSRFToken": "{{ csrf_token }}"},
-              "error": function() {
+              "error": function(e) {
+                if (e.readyState === XMLHttpRequest.UNSENT && e.status === 0) {
+                  return;
+                }
                 alert("{% trans "generic_error" %}");
                 $("#requests-table_processing").hide();
               }
