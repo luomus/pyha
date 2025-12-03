@@ -8,6 +8,7 @@ dev_settings.py
 services/
 env/
 cronlogs/
+statistics/
 .project
 .pydevproject
 .idea
