@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from pyha.database import create_request_view_context, check_all_collections_removed, is_downloadable
@@ -9,6 +9,8 @@ from pyha.models import Request, Collection, StatusEnum
 from pyha.log_utils import changed_by_session_user
 import requests
 from http import HTTPStatus
+
+from pyha.view_utils import get_default_laji_api_headers
 
 
 def download_link(http_request):
@@ -29,17 +31,19 @@ def download_link(http_request):
         userRequest.save()
 
         file_type = http_request.POST.get('fileType', '?')
-        format = http_request.POST.get('format', '?')
         geometry = http_request.POST.get('geometry', '?')
         CRS = http_request.POST.get('CRS', '?')
         laji_id = userRequest.lajiId
         person_token = http_request.session['token']
 
         if file_type == 'GIS':
-            url = '{}{}/{}/{}/{}?personToken={}'.format(
-                settings.GEO_CONVERT_URL, laji_id.split('.')[-1], format, geometry, CRS, person_token
-            )
-            download_id = requests.get(url, allow_redirects=False).json()
+            params = {
+                'geometryType': geometry,
+                'crs': CRS
+            }
+            headers = get_default_laji_api_headers(http_request)
+            url = '{}geo-convert/{}'.format(settings.LAJIAPI_URL, laji_id)
+            download_id = requests.get(url, params=params, headers=headers).json()
             return HttpResponseRedirect(reverse('pyha:gis_download_status', args=(download_id,)))
         else:
             link = '{}{}?personToken={}'.format(settings.LAJIDOW_URL, laji_id, person_token)
@@ -50,8 +54,9 @@ def download_link(http_request):
 
 def gis_download_status(http_request, download_id):
     if http_request.method == 'GET':
-        url = '{}status/{}?timeout={}'.format(settings.GEO_CONVERT_URL, download_id, 1)
-        r = requests.get(url, allow_redirects=False)
+        headers = get_default_laji_api_headers(http_request)
+        url = '{}geo-convert/status/{}'.format(settings.LAJIAPI_URL, download_id)
+        r = requests.get(url, headers=headers)
 
         if not r.ok:
             status_code = HTTPStatus.BAD_GATEWAY
@@ -75,12 +80,26 @@ def gis_download_status(http_request, download_id):
             'status': status,
             'progressPercent': status_obj['progress_percent'],
             'statusUrl': reverse('pyha:gis_download_status', args=(download_id,)),
-            'downloadUrl': '{}{}'.format(settings.GEO_CONVERT_URL, r.headers['Location'].lstrip('/')) if (
-                status == 'complete'
-            ) else None
+            'downloadUrl': reverse('pyha:gis_download_output', args=(download_id,)) if status == 'complete' else None
         }
 
         return JsonResponse(response)
+
+    return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
+
+
+def gis_download_output(http_request, download_id):
+    if http_request.method == 'GET':
+        headers = get_default_laji_api_headers(http_request)
+        url = '{}geo-convert/output/{}'.format(settings.LAJIAPI_URL, download_id)
+        response = requests.get(url, headers=headers, stream=True)
+
+        return StreamingHttpResponse(
+            response.raw,
+            content_type=response.headers.get('content-type'),
+            status=response.status_code,
+            reason=response.reason
+        )
 
     return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
 

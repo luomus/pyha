@@ -217,7 +217,7 @@
 	}
 
 	function download() {
-		var fields = ["requestid", "format", "geometry", "CRS"];
+		var fields = ["requestid", "geometry", "CRS"];
 		var data = "";
 		for (var i = 0; i < fields.length; i++) {
 		    data += fields[i] + "=" + document.getElementById(fields[i]).value + "&";

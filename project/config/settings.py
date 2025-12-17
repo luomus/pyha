@@ -17,7 +17,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Version of static files
-VERSION = 16
+VERSION = 17
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -47,7 +47,6 @@ FILTERS_LINK = os.environ["OBSERVATION_LINK_PREFIX"]  # 'https://beta.laji.fi/ob
 OFFICIAL_FILTERS_LINK = os.environ["OFFICIAL_OBSERVATION_LINK_PREFIX"]
 AFTER_LOGOUT_URL = os.environ["AFTER_LOGOUT_URL"]
 SEND_AUTOMATIC_HANDLER_MAILS = os.environ.get("SEND_AUTOMATIC_HANDLER_MAILS", "False") == "True"
-GEO_CONVERT_URL = os.environ["GEO_CONVERT_URL"]
 ICT_EMAIL = os.environ.get("ICT_EMAIL", "noreply.pyha-staging@laji.fi")
 PYHA_EMAIL = os.environ.get("PYHA_EMAIL", "noreply.pyha-staging@laji.fi")
 DOWNLOAD_PERIOD_DAYS = 365
