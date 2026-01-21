@@ -71,10 +71,32 @@ def gis_download_status(http_request, download_id):
             'status': status,
             'progressPercent': status_obj['progress_percent'],
             'statusUrl': reverse('pyha:gis_download_status', args=(download_id,)),
-            'downloadUrl': '{}geo-convert/output/{}?personToken={}'.format(settings.LAJIAPI_URL, download_id, http_request.session['token']) if status == 'complete' else None
+            'downloadUrl': reverse('pyha:gis_download_output', args=(download_id,)) if status == 'complete' else None
         }
 
         return JsonResponse(response)
+
+    return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
+
+
+def gis_download_output(http_request, download_id):
+    if http_request.method == 'GET':
+        headers = get_default_laji_api_headers(http_request)
+        url = '{}geo-convert/output/{}'.format(settings.LAJIAPI_URL, download_id)
+        r = requests.get(url, headers=headers, stream=True)
+
+        response = StreamingHttpResponse(
+            r.raw,
+            content_type=r.headers.get('content-type'),
+            status=r.status_code,
+            reason=r.reason
+        )
+
+        content_disposition = r.headers.get('content-disposition')
+        if content_disposition:
+            response['Content-Disposition'] = content_disposition
+
+        return response
 
     return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
 
