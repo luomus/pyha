@@ -43,8 +43,12 @@ def download_link(http_request):
             }
             headers = get_default_laji_api_headers(http_request)
             url = '{}geo-convert/{}'.format(settings.LAJIAPI_URL, laji_id)
-            download_id = requests.get(url, params=params, headers=headers).json()
-            return HttpResponseRedirect(reverse('pyha:gis_download_status', args=(download_id,)))
+            r = requests.get(url, params=params, headers=headers)
+
+            if not r.ok:
+                return _get_geoconvert_error_response(r)
+
+            return HttpResponseRedirect(reverse('pyha:gis_download_status', args=(r.json(),)))
         else:
             link = '{}{}?personToken={}'.format(settings.LAJIDOW_URL, laji_id, person_token)
             return JsonResponse({'status': 'complete', 'downloadUrl': link})
@@ -59,20 +63,7 @@ def gis_download_status(http_request, download_id):
         r = requests.get(url, headers=headers)
 
         if not r.ok:
-            status_code = HTTPStatus.BAD_GATEWAY
-            err_name = None
-            err_msg = None
-
-            if r.status_code == HTTPStatus.BAD_REQUEST or r.status_code == HTTPStatus.NOT_FOUND:
-                status_code = r.status_code
-
-            error = r.json()
-            if 'err_name' in error:
-                err_name = error['err_name']
-            if 'err_msg' in error:
-                err_msg = error['err_msg']
-
-            return JsonResponse({'errName': err_name, 'errMsg': err_msg}, status=status_code)
+            return _get_geoconvert_error_response(r)
 
         status_obj = r.json()
         status = status_obj['status']
@@ -80,26 +71,10 @@ def gis_download_status(http_request, download_id):
             'status': status,
             'progressPercent': status_obj['progress_percent'],
             'statusUrl': reverse('pyha:gis_download_status', args=(download_id,)),
-            'downloadUrl': reverse('pyha:gis_download_output', args=(download_id,)) if status == 'complete' else None
+            'downloadUrl': '{}geo-convert/output/{}?personToken={}'.format(settings.LAJIAPI_URL, download_id, http_request.session['token']) if status == 'complete' else None
         }
 
         return JsonResponse(response)
-
-    return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
-
-
-def gis_download_output(http_request, download_id):
-    if http_request.method == 'GET':
-        headers = get_default_laji_api_headers(http_request)
-        url = '{}geo-convert/output/{}'.format(settings.LAJIAPI_URL, download_id)
-        response = requests.get(url, headers=headers, stream=True)
-
-        return StreamingHttpResponse(
-            response.raw,
-            content_type=response.headers.get('content-type'),
-            status=response.status_code,
-            reason=response.reason
-        )
 
     return HttpResponse(status=HTTPStatus.METHOD_NOT_ALLOWED)
 
@@ -252,3 +227,20 @@ def remove_collection_ajax(http_request):
                 return HttpResponse(reverse('pyha:root'), status=310)
             return HttpResponse(status=200)
     return HttpResponse(reverse('pyha:root'), status=310)
+
+
+def _get_geoconvert_error_response(r):
+    status_code = HTTPStatus.BAD_GATEWAY
+    err_name = None
+    err_msg = None
+
+    if r.status_code == HTTPStatus.BAD_REQUEST or r.status_code == HTTPStatus.NOT_FOUND:
+        status_code = r.status_code
+
+    error = r.json()
+    if 'err_name' in error:
+        err_name = error['err_name']
+    if 'err_msg' in error:
+        err_msg = error['err_msg']
+
+    return JsonResponse({'errName': err_name, 'errMsg': err_msg}, status=status_code)
