@@ -90,7 +90,7 @@ class Collection(models.Model):
 
 class File(models.Model):
     content = models.BinaryField()
-    fileName = models.CharField(max_length=100)
+    fileName = models.CharField(max_length=500)
     contentType = models.CharField(max_length=50)
 
     def __str__(self):
