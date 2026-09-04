@@ -18,6 +18,8 @@ from json import JSONDecodeError
 import os
 import requests
 
+from pyha.view_utils import get_default_laji_api_headers
+
 
 def store(jsond):
     if not checkJson(jsond):
@@ -62,8 +64,11 @@ def makeCollection(req, i):
     co.address = i.id
     co.status = 0
     co.request = req
-    co.downloadRequestHandler = getattr(i, 'downloadRequestHandler', requests.get(settings.LAJIAPI_URL+"collections/"+str(
-        co.address)+"?access_token="+settings.LAJIAPI_TOKEN, timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler', ['none']))
+    co.downloadRequestHandler = getattr(
+        i,
+        'downloadRequestHandler',
+        requests.get(settings.LAJIAPI_URL+"collections/"+str(co.address), headers=get_default_laji_api_headers(), timeout=settings.SECRET_TIMEOUT_PERIOD).json().get('downloadRequestHandler', ['none'])
+    )
 
     # old counts, may be removed in the future
     co.count = getattr(i, 'count', 0)
@@ -170,9 +175,8 @@ def fetch_pdf(data, style):
     response = requests.post(
         settings.LAJIAPI_URL+"html-to-pdf",
         data=data.encode("utf-8"),
-        params={"access_token": settings.LAJIAPI_TOKEN},
         timeout=settings.SECRET_TIMEOUT_PERIOD,
-        headers={"Content-Type": "text/plain; charset=utf-8"}
+        headers={**get_default_laji_api_headers(), "Content-Type": "text/plain; charset=utf-8"}
     )
 
     if response.status_code == 200:
@@ -261,7 +265,6 @@ def send_download_request(requestId):
     payload["sensitiveApproved"] = "true"
     payload["downloadFormat"] = userRequest.downloadFormat
     payload["downloadIncludes"] = userRequest.downloadIncludes
-    payload["access_token"] = settings.LAJIAPI_TOKEN
     filters = json.loads(userRequest.filter_list, object_hook=lambda d: Namespace(**d))
     for f in filters.__dict__:
         payload[f] = getattr(filters, f)
@@ -269,8 +272,12 @@ def send_download_request(requestId):
         payload["apiKeyExpires"] = userRequest.apiKeyExpires if userRequest.apiKeyExpires is not None \
             else Request.THREE_MONTHS
 
-    response = requests.post(settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved",
-                             data=payload, timeout=settings.SECRET_TIMEOUT_PERIOD)
+    response = requests.post(
+        settings.LAJIAPI_URL+"warehouse/private-query/downloadApproved",
+        data=payload,
+        headers=get_default_laji_api_headers(),
+        timeout=settings.SECRET_TIMEOUT_PERIOD
+    )
     return response.ok
 
 def delete_collections_cache():

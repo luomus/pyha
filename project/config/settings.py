@@ -34,7 +34,6 @@ LAJIPERSONAPI_USER = os.environ["TRIPLESTORE_USER"]
 LAJIPERSONAPI_PW = os.environ["TRIPLESTORE_PASSWORD"]
 LAJIAPI_URL = os.environ["APILAJIFI_URL"]  # 'https://apitest.laji.fi/v0/'
 LAJIAPI_TOKEN = os.environ["APILAJIFI_TOKEN"]
-LAJIFILTERS_URL = LAJIAPI_URL + 'warehouse/filters'
 TUN_URL = 'https://tun.fi/'
 SECRET_TIMEOUT_PERIOD = 10
 TARGET = os.environ["LAJI_AUTH_TARGET"]  # 'KE.541'

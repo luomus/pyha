@@ -41,7 +41,7 @@ def download_link(http_request):
                 'geometryType': geometry,
                 'crs': CRS
             }
-            headers = get_default_laji_api_headers(http_request)
+            headers = get_default_laji_api_headers(http_request.session['token'])
             url = '{}geo-convert/{}'.format(settings.LAJIAPI_URL, laji_id)
             r = requests.get(url, params=params, headers=headers)
 
@@ -58,7 +58,7 @@ def download_link(http_request):
 
 def gis_download_status(http_request, download_id):
     if http_request.method == 'GET':
-        headers = get_default_laji_api_headers(http_request)
+        headers = get_default_laji_api_headers(http_request.session['token'])
         url = '{}geo-convert/status/{}'.format(settings.LAJIAPI_URL, download_id)
         r = requests.get(url, headers=headers)
 
@@ -81,7 +81,7 @@ def gis_download_status(http_request, download_id):
 
 def gis_download_output(http_request, download_id):
     if http_request.method == 'GET':
-        headers = get_default_laji_api_headers(http_request)
+        headers = get_default_laji_api_headers(http_request.session['token'])
         url = '{}geo-convert/output/{}'.format(settings.LAJIAPI_URL, download_id)
         r = requests.get(url, headers=headers, stream=True)
 
@@ -121,10 +121,12 @@ def get_api_key(http_request):
         laji_id = userRequest.lajiId
         person_token = http_request.session['token']
 
-        response = requests.get('{}warehouse/api-keys/{}'.format(settings.LAJIAPI_URL, laji_id),
-                                params={'personToken': person_token, 'access_token': settings.LAJIAPI_TOKEN},
-                                timeout=settings.SECRET_TIMEOUT_PERIOD
-                                )
+        response = requests.get(
+            '{}warehouse/api-keys/{}'.format(settings.LAJIAPI_URL, laji_id),
+            headers=get_default_laji_api_headers(person_token),
+            timeout=settings.SECRET_TIMEOUT_PERIOD
+        )
+
         if not response.ok:
             return HttpResponse(status=HTTPStatus.BAD_GATEWAY)
 

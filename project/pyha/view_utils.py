@@ -1,12 +1,16 @@
 from django.conf import settings
 
 
-def get_default_laji_api_headers(http_request):
-    return {
+def get_default_laji_api_headers(person_token=None):
+    headers =  {
         'Authorization': settings.LAJIAPI_TOKEN,
-        'Person-Token': http_request.session['token'],
         'Api-Version': '1'
     }
+
+    if person_token is not None:
+        headers['Person-Token'] = person_token
+
+    return headers
 
 
 def get_query_param(http_request, param, default_value, value_whitelist=None):

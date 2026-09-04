@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from pyha.models import Request, StatusEnum, Collection, Col_StatusEnum
+from pyha.view_utils import get_default_laji_api_headers
 from pyha.warehouse import fetch_user_name, get_collection_counts
 from pyha.database import get_reasons
 from argparse import Namespace
@@ -113,7 +114,9 @@ class Command(BaseCommand):
     def get_collection_name(self, address):
         if address not in collection_names:
             collection_names[address] = requests.get(
-                settings.LAJIAPI_URL+"collections/"+str(address)+"?access_token="+settings.LAJIAPI_TOKEN+"&lang="+lang, timeout=settings.SECRET_TIMEOUT_PERIOD
+                settings.LAJIAPI_URL+"collections/"+str(address)+"&lang="+lang,
+                headers=get_default_laji_api_headers(),
+                timeout=settings.SECRET_TIMEOUT_PERIOD
             ).json().get('collectionName')
 
         return collection_names[address]

@@ -15,7 +15,7 @@ KEYS=(ENABLE_DEBUG "Enable only during development. Insert: True/False" \
 		TRIPLESTORE_URL "ex. https://fmnh-ws-test.it.helsinki.fi/triplestore/" \
 		TRIPLESTORE_USER 0 \
 		TRIPLESTORE_PASSWORD 0 \
-		APILAJIFI_URL "ex. https://apitest.laji.fi/v0/" \
+		APILAJIFI_URL "ex. https://apitest.laji.fi/" \
 		APILAJIFI_TOKEN 0 \
 		LAJI_AUTH_TARGET "ex. KE.521 for staging / KE.541 for local" \
 		ZABBIX_STATUS_SUB_DIR "Path to subdirectory used by zabbix ex. api/status" \

@@ -2,6 +2,7 @@ import requests
 from django.core.cache import caches, cache
 
 from config import settings
+from pyha.view_utils import get_default_laji_api_headers
 
 
 def get_collections():
@@ -130,7 +131,7 @@ def _recursive_items(dictionary):
 
 
 def _fetch_collections():
-    payload = {'access_token': settings.LAJIAPI_TOKEN, 'pageSize': 1000, 'page': 1}
+    payload = {'pageSize': 1000, 'page': 1}
     not_finished = True
     result = []
 
@@ -139,6 +140,7 @@ def _fetch_collections():
             response = requests.get(
                 settings.LAJIAPI_URL+"collections",
                 params=payload,
+                headers=get_default_laji_api_headers(),
                 timeout=settings.SECRET_TIMEOUT_PERIOD
             )
         except:
@@ -171,9 +173,8 @@ def _fetch_collections_by_id_and_lang(ids, lang):
         response = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
             'idIn': ','.join(ids_part),
             'lang': lang,
-            'access_token': settings.LAJIAPI_TOKEN,
             'pageSize': len(ids_part)
-        }, timeout=settings.SECRET_TIMEOUT_PERIOD)
+        }, headers=get_default_laji_api_headers(), timeout=settings.SECRET_TIMEOUT_PERIOD)
 
         response.raise_for_status()
 
