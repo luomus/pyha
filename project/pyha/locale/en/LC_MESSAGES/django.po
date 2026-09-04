@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 12:14+0300\n"
-"PO-Revision-Date: 2026-09-04 09:38\n"
+"PO-Revision-Date: 2026-09-04 09:48\n"
 "Last-Translator: \n"
 "Language-Team: English, United Kingdom\n"
 "Language: en_GB\n"
@@ -1469,7 +1469,7 @@ msgstr "Collection was accepted because the decision was overdue"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:58
 msgid "admin_log_collection_accepted_because_no_observations"
-msgstr "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi nopeasti."
+msgstr "Collection was accepted because the decision was overdue."
 
 #: pyha/templates/pyha/requestview/tabs/history.html:60
 msgid "log_collection_accepted"
@@ -1670,15 +1670,15 @@ msgstr "Mails sent succesfully"
 
 #: pyha/views/requestview.py:333
 msgid "file_size_too_large"
-msgstr "Tiedoston koko on liian suuri. Maksimikoko on {} Mt."
+msgstr "The file size is too large. The maximum size is {} MB."
 
 #: pyha/views/requestview.py:335
 msgid "file_format_invalid"
-msgstr "Tiedoston muoto on väärä. Sallittuja tiedostomuotoja ovat: {}."
+msgstr "The file format is invalid. Allowed file formats are: {}."
 
 #: pyha/views/requestview.py:337
 msgid "file_name_too_long"
-msgstr "Tiedoston nimi on liian pitkä. Maksimipituus on {} merkkiä."
+msgstr "The file name is too long. The maximum length is {} characters."
 
 #: pyha/views/requestview.py:342
 msgid "file_upload_failed"

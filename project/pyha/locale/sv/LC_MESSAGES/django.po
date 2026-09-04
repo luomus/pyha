@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: finbif\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-04 12:14+0300\n"
-"PO-Revision-Date: 2026-09-04 09:38\n"
+"PO-Revision-Date: 2026-09-04 09:48\n"
 "Last-Translator: \n"
 "Language-Team: Swedish, Finland\n"
 "Language: sv_FI\n"
@@ -170,11 +170,11 @@ msgstr "Skickar ett meddelande om väntande begäran till alla behandlare som ha
 
 #: pyha/templates/pyha/base/admin/usersettings.html:63
 msgid "admin_enable_daily_requester_email"
-msgstr "Aktivoi ajastetut tilannepäivitysviestit"
+msgstr "Aktivera schemalagda meddelanden om statusuppdateringar"
 
 #: pyha/templates/pyha/base/admin/usersettings.html:70
 msgid "daily_requester_email_information"
-msgstr "Lähettää viestin joka päivä kaikille käyttäjille, joiden pyynnön tila on muuttunut."
+msgstr "Skickar ett meddelande varje dag till alla användare vars begärandestatus har ändrats."
 
 #: pyha/templates/pyha/base/admin/usersettings.html:76
 msgid "admin_enable_weekly_missing_handlers_email"
@@ -1245,7 +1245,7 @@ msgstr " "
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:15
 msgid "admin_automated_emails_sent_last_time"
-msgstr "Pyyntöä koskevat sähköpostit on jaettu käsittelijöille viimeksi"
+msgstr "E-postmeddelanden rörande begäran skickades senast ut till handläggarna"
 
 #: pyha/templates/pyha/requestview/tabs/admin_communications.html:21
 msgid "admin_communications_collections"
@@ -1469,7 +1469,7 @@ msgstr "Material godkänt eftersom beslutet var försenad"
 
 #: pyha/templates/pyha/requestview/tabs/history.html:58
 msgid "admin_log_collection_accepted_because_no_observations"
-msgstr "Aineisto hyväksytty automaattisesti koska pyyntöön ei ole reagoitu tarpeeksi nopeasti."
+msgstr "Materialet godkändes automatiskt eftersom begäran inte besvarades tillräckligt snabbt."
 
 #: pyha/templates/pyha/requestview/tabs/history.html:60
 msgid "log_collection_accepted"
@@ -1666,19 +1666,19 @@ msgstr "Tack, din förfrågan har skrivits in."
 
 #: pyha/views/requestview.py:177
 msgid "toast_mails_sent_succesfully"
-msgstr "Viestit lähetetty onnistuneesti."
+msgstr "Meddelandena har skickats."
 
 #: pyha/views/requestview.py:333
 msgid "file_size_too_large"
-msgstr "Tiedoston koko on liian suuri. Maksimikoko on {} Mt."
+msgstr "Filstorleken är för stor. Maxstorleken är {} MB."
 
 #: pyha/views/requestview.py:335
 msgid "file_format_invalid"
-msgstr "Tiedoston muoto on väärä. Sallittuja tiedostomuotoja ovat: {}."
+msgstr "Filformatet är ogiltigt. Tillåtna filformat är: {}."
 
 #: pyha/views/requestview.py:337
 msgid "file_name_too_long"
-msgstr "Tiedoston nimi on liian pitkä. Maksimipituus on {} merkkiä."
+msgstr "Filnamnet är för långt. Maxlängden är {} tecken."
 
 #: pyha/views/requestview.py:342
 msgid "file_upload_failed"
@@ -1686,9 +1686,9 @@ msgstr "Filöverföring misslyckades"
 
 #: pyha/views/usersettings.py:72
 msgid "toast_user_settings_saved_succesfully"
-msgstr "Käyttäjäasetukset tallennettu onnistuneesti."
+msgstr "Användarinställningarna har sparats."
 
 #: pyha/views/usersettings.py:96
 msgid "toast_pyha_settings_saved_succesfully"
-msgstr "Pyha:n asetukset tallennettu onnistuneesti."
+msgstr "Pyhas inställningar har sparats."
 
