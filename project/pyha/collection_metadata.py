@@ -170,11 +170,12 @@ def _fetch_collections_by_id_and_lang(ids, lang):
     while start_index < len(ids):
         ids_part = ids[start_index:start_index + page_size]
 
-        response = requests.get('{}collections'.format(settings.LAJIAPI_URL), {
-            'idIn': ','.join(ids_part),
-            'lang': lang,
-            'pageSize': len(ids_part)
-        }, headers=get_default_laji_api_headers(), timeout=settings.SECRET_TIMEOUT_PERIOD)
+        response = requests.get(
+            '{}collections'.format(settings.LAJIAPI_URL),
+            { 'idIn': ','.join(ids_part), 'pageSize': len(ids_part) },
+            headers=get_default_laji_api_headers(lang=lang),
+            timeout=settings.SECRET_TIMEOUT_PERIOD
+        )
 
         response.raise_for_status()
 

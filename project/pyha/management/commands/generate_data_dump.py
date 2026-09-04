@@ -114,8 +114,8 @@ class Command(BaseCommand):
     def get_collection_name(self, address):
         if address not in collection_names:
             collection_names[address] = requests.get(
-                settings.LAJIAPI_URL+"collections/"+str(address)+"&lang="+lang,
-                headers=get_default_laji_api_headers(),
+                settings.LAJIAPI_URL+"collections/"+str(address),
+                headers=get_default_laji_api_headers(lang=lang),
                 timeout=settings.SECRET_TIMEOUT_PERIOD
             ).json().get('collectionName')
 

@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-def get_default_laji_api_headers(person_token=None):
+def get_default_laji_api_headers(person_token=None, lang=None):
     headers =  {
         'Authorization': settings.LAJIAPI_TOKEN,
         'Api-Version': '1'
@@ -9,6 +9,8 @@ def get_default_laji_api_headers(person_token=None):
 
     if person_token is not None:
         headers['Person-Token'] = person_token
+    if lang is not None:
+        headers['Accept-Language'] = lang
 
     return headers
 
