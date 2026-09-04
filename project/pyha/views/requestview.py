@@ -327,22 +327,19 @@ def chat_entry_file_download(http_request):
 def _add_file_to_chat_entry(http_request, new_chat_entry, nexturl):
     if 'reasonFile' in http_request.FILES:
         attached_file = http_request.FILES['reasonFile']
-        if attached_file.size > settings.MAX_UPLOAD_FILE_SIZE or not attached_file.name.endswith('.pdf'):
-            http_request.session["toast"] = {
-                "status": toast.ERROR,
-                "message": ugettext('file_upload_failed')
-            }
-            http_request.session.save()
-            return HttpResponseRedirect(nexturl)
+        max_file_name_length = File._meta.get_field('fileName').max_length
+
+        if not attached_file.name.endswith('.pdf'):
+            return _redirect_with_error(http_request, nexturl, ugettext('file_format_invalid').format('.pdf'))
+        elif attached_file.size > settings.MAX_UPLOAD_FILE_SIZE:
+            return _redirect_with_error(http_request, nexturl, ugettext('file_size_too_large').format(round(settings.MAX_UPLOAD_FILE_SIZE / 1000000)))
+        elif len(attached_file.name) > max_file_name_length:
+            return _redirect_with_error(http_request, nexturl, ugettext('file_name_too_long').format(max_file_name_length))
+
         try:
             PyPDF2.PdfFileReader(attached_file)
         except PyPDF2.utils.PdfReadError:
-            http_request.session["toast"] = {
-                "status": toast.ERROR,
-                "message": ugettext('file_upload_failed')
-            }
-            http_request.session.save()
-            return HttpResponseRedirect(nexturl)
+            return _redirect_with_error(http_request, nexturl, ugettext('file_upload_failed'))
 
         attached_file.seek(0)
         file = File(
@@ -352,3 +349,12 @@ def _add_file_to_chat_entry(http_request, new_chat_entry, nexturl):
         )
         file.save()
         new_chat_entry.file = file
+
+
+def _redirect_with_error(http_request, nexturl, message):
+    http_request.session["toast"] = {
+        "status": toast.ERROR,
+        "message": message
+    }
+    http_request.session.save()
+    return HttpResponseRedirect(nexturl)
